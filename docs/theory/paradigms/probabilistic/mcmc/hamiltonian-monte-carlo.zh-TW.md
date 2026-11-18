@@ -1,78 +1,99 @@
 ---
-translation_reviewed: 2026-10-29
+translation_reviewed: 2026-11-12
 ---
 
 # 哈密頓蒙地卡羅
 
-哈密頓蒙地卡羅（HMC）透過模擬一個在目標分布中運動的粒子之物理動力學，來提出遠距離的狀態，再以 Metropolis 步驟修正結果。利用梯度使它在高維下遠比隨機漫步提議有效率。本頁是[馬可夫鏈蒙地卡羅](index.md)的一部分。
+哈密頓蒙地卡羅（HMC）利用連續目標密度的梯度，沿模擬軌跡提出新的位置。Metropolis 步驟修正數值積分的誤差，使目標分布成為平穩分布。[^neal][^stan]
 
 ## 概述
 
-隨機漫步提議在高維中移動緩慢，因為多數提議的移動落在低機率區域而被拒絕。HMC 引入輔助的動量變數 \(p\)，並遵循哈密頓動力學，使總能量近似守恆。軌跡沿著平滑的長路徑探索分布，最後狀態再被接受或拒絕，以修正數值誤差。
+HMC 加入輔助動量，將局部梯度轉化為一連串有方向的移動。軌跡可以比隨機漫步提議走得更遠，同時使總能量維持在起始值附近。當密度平滑且積分準確時，這有助於探索目標分布。[馬可夫鏈蒙地卡羅](index.zh-TW.md)。[^neal][^geometry]
 
 ## 關鍵概念
 
-- **位能**：\(U(\theta) = -\log\pi(\theta)\)，因此低能量區域即高機率區域。
-- **動能**：\(K(p) = \tfrac12 p^\top M^{-1} p\)，質量矩陣 \(M\) 通常為對角矩陣。
-- **蛙跳積分器**：一種辛數值方法，以步長 \(\varepsilon\) 的小步模擬動力學，並近似守恆能量。
-- **步長與路徑長度**：步長決定精確度，步數決定軌跡走多遠。
-- **No-U-Turn 抽樣器（NUTS）**：自動選擇步數的延伸方法，當軌跡開始折返時停止（Hoffman & Gelman, 2014）。
+設 $\pi(\theta)$ 為目標密度。計算時只需知道其相對大小，常數因子可以省略。選定固定的正定質量矩陣 $M$，並令動量 $p$ 服從與 $\theta$ 獨立的高斯分布。聯合密度取負對數後，與哈密頓量 $H$ 相差一個加法常數。[^stan]
+
+$$
+U(\theta)=-\log\pi(\theta),\qquad
+K(p)=\tfrac12 p^\top M^{-1}p,\qquad
+H(\theta,p)=U(\theta)+K(p).
+$$
+
+其中 $U$ 是位能，$K$ 是動能。聯合密度與 $e^{-H(\theta,p)}$ 成比例。對 $p$ 積分後，就得到 $\theta$ 的目標密度。[^stan]
 
 ## 運作方式
 
-每次 HMC 迭代做三件事：
+### 一次蛙跳更新
 
-1. 抽取新的動量 \(p \sim \mathcal{N}(0, M)\)。
-2. 從 \((\theta, p)\) 出發，以蛙跳法模擬哈密頓動力學 \(L\) 步，得到 \((\theta^\*, p^\*)\)。
-3. 以機率 \(\min\!\big(1, \exp(H(\theta,p)-H(\theta^\*,p^\*))\big)\) 接受 \((\theta^\*, p^\*)\)，其中 \(H = U + K\)。
+蛙跳法以半步動量更新、一步位置更新、再半步動量更新來近似哈密頓動力學。步長為 $\varepsilon$ 時，從第 $j$ 步到第 $j+1$ 步的更新如下。[^neal][^stan]
 
-由於蛙跳積分器近似守恆 \(H\)，即使軌跡很長，接受機率仍然很高。Neal（2011）綜述此方法，並說明為何動力學能給出既遠距離又可能被接受的提議。最初的想法由 Duane 等人（1987）以混合蒙地卡羅的名稱，在格點物理中提出。
+$$
+\begin{aligned}
+p_{j+1/2} &= p_j-\tfrac{\varepsilon}{2}\nabla U(\theta_j),\\
+\theta_{j+1} &= \theta_j+\varepsilon M^{-1}p_{j+1/2},\\
+p_{j+1} &= p_{j+1/2}-\tfrac{\varepsilon}{2}\nabla U(\theta_{j+1}).
+\end{aligned}
+$$
 
-Hoffman 與 Gelman（2014）顯示 NUTS 無需手動設定路徑長度即表現良好，使 HMC 在機率程式設計系統中變得實用。
+中間的更新使用半步動量，最後的更新則使用新位置的梯度。
+
+### 一次 HMC 轉移
+
+1. 從當前位置 $\theta_0$ 出發，抽取 $p_0\sim\mathcal{N}(0,M)$。
+2. 執行 $L$ 個蛙跳步驟。候選位置為 $\theta_L$。
+3. 計算 $\Delta H=H(\theta_L,p_L)-H(\theta_0,p_0)$ 與 $\alpha=\min(1,e^{-\Delta H})$。從 $[0,1]$ 均勻抽取 $u$。若 $u<\alpha$，保留 $\theta_L$，否則保留 $\theta_0$。將保留的位置記錄為下一筆樣本，即使它和上一筆相同。[^neal]
+
+蛙跳法保持位置與動量聯合空間的體積。完成軌跡後翻轉動量，所得的提議映射執行兩次便會回到起點。這些性質讓 Metropolis 修正能使用聯合密度比 $e^{-\Delta H}$。翻轉動量不改變 $K$。若只記錄位置，並在下一次迭代重新抽取全部動量，實作時可省略翻轉。[^neal]
 
 ## 動態流程示意
 
-![HMC 四階段動畫：重新抽取動量、半步動量更新、蛙跳積分與 Metropolis 修正](../../../../assets/concept-animations/hmc-leapfrog-trajectory-motion.svg)
+![HMC 四階段動畫，依序重新抽取動量、更新半步動量、蛙跳積分與 Metropolis 修正](../../../../assets/concept-animations/hmc-leapfrog-trajectory-motion.svg)
 
-[GitHub 與減少動態效果使用者適用的靜態最終狀態圖](../../../../assets/concept-animations/hmc-leapfrog-trajectory-still.svg)。MkDocs 網站可透過「播放動畫／暫停動畫」按鈕操作，鍵盤可使用 Tab／Enter。動畫上的軌跡點代表**同一次數值積分中的位置**，不是彼此獨立的後驗樣本。
+移動的標記代表同一條軌跡上的位置。可用 Tab 和 Enter 操作 MkDocs 的播放／暫停按鈕。[靜態最終狀態圖](../../../../assets/concept-animations/hmc-leapfrog-trajectory-still.svg)。
 
-設定二維標準高斯教學案例：\(U(\theta)=\|\theta\|^2/2\)、\(M=I\)、初始 \(\theta=(-1.6,0.4)\)、重新抽取的動量 \(p=(0.6,1.1)\)、步長 \(\varepsilon=0.35\)，共執行 \(L=5\) 個蛙跳步驟。每步依序執行半步動量更新、位置更新及另一個半步動量更新，得到 \(\theta^*\approx(0.898,1.023)\)。直接計算 \(H=U+K\) 可得 \(H_{\mathrm{start}}=2.145\)、\(H_{\mathrm{end}}\approx2.132\)，因此 \(\Delta H\approx-0.013\)、\(\alpha=\min(1,e^{-\Delta H})=1\)；示意亂數 \(u=0.50\) 使候選狀態被接受。**動量在每條軌跡開始時重新抽取一次**，並非每個蛙跳步驟都重抽。上述均為計算所得的**教學示意數值，非 HMC 效能實測**；積分器與接受修正可參考下方 Neal（2011）。
+動畫採用二維標準高斯分布，位能可寫成 $U(\theta)=\|\theta\|^2/2$，省略加法常數。以 $M=I$、$\theta_0=(-1.6,0.4)$、$p_0=(0.6,1.1)$、$\varepsilon=0.35$ 執行五步，得到 $\theta_L\approx(0.898,1.023)$。能量從 $2.145$ 變為約 $2.132$，因此 $\Delta H\approx-0.013$，接受機率為 $1$。
 
-*原創教學動畫與靜態回退圖：CC BY-SA 4.0。*
+另一個一維算例示範拒絕提議。令 $U(\theta)=\theta^2/2$、$M=1$、$\theta_0=0$、$p_0=1$、$\varepsilon=1$，一步後得到 $(\theta_1,p_1)=(1,0.5)$。此時 $\Delta H=0.125$，$\alpha\approx0.882$。若 $u=0.90$，記錄的位置仍為 $0$。兩個算例皆採用教學示意值。
+
+*原創教學動畫與靜態圖，CC BY-SA 4.0。*
 
 ## 主要方法
 
-- [Metropolis–Hastings](metropolis-hastings.md)：HMC 所改進的隨機漫步方法，HMC 仍然使用其接受修正。
-- No-U-Turn 抽樣器（NUTS）：參考文獻中描述的適應性變體，無需手動設定路徑長度。
+- [Metropolis–Hastings](metropolis-hastings.zh-TW.md)提供接受與拒絕的機制。HMC 透過積分軌跡形成提議。[^neal]
+- **No-U-Turn 抽樣器（NUTS）**向兩個方向建立軌跡，偵測到折返或達到停止上限時停止擴展，再依抽樣規則從軌跡中選擇候選狀態。Stan 在暖身期間調整步長與質量矩陣，正式抽樣時 NUTS 仍會逐次選擇軌跡長度。[^nuts][^stan]
 
 ## 與其他頁面的連結
 
-- [馬可夫鏈蒙地卡羅](index.md)描述 HMC 所屬的一般框架。
-- [微積分與最佳化](../../../math/calculus/index.md)提供驅動動力學的梯度，[最佳化](../../../optimization/index.md)則涵蓋同類函數上的梯度方法。
-- 不帶動量的朗之萬動力學與 HMC 相關，而其梯度抽樣也與[基於得分的擴散模型](../../unsupervised/density-and-generative-models/diffusion/index.md)所用的抽樣相關。
+梯度引導 HMC 提議，所得的馬可夫鏈以位置的分布為目標。梯度式最佳化方法則使用梯度搜尋極值。[微積分](../../../math/calculus/index.zh-TW.md)、[最佳化](../../../optimization/index.zh-TW.md)。[^geometry]
 
 ## 應用
 
-- **機率程式設計**：Stan 等系統的預設抽樣器，使用者撰寫模型，抽樣器執行推論（Hoffman & Gelman, 2014）。
-- **階層模型**：隨機漫步抽樣器難以處理的後驗幾何，由 HMC 處理得較好（Neal, 2011）。
-- **格點場論**：最初的應用，該方法最初即為模擬量子場論而提出（Duane et al., 1987）。
+Duane 等人最早將此方法用於格點場論模擬。Stan 預設使用 NUTS 對連續後驗參數抽樣。[^duane][^stan]
 
-## 開放問題
+## 限制
 
-- 梯度成本：每一步都需要對數密度的梯度，對大型模型而言很昂貴。
-- 在 NUTS 之外，質量矩陣與步長的調校仍部分依賴手動，而適應性方案的保證有限。
-- 多模態後驗可能使軌跡困在單一模態內，因此 HMC 仍需其他方法互補。
+- 每個蛙跳步驟都需要梯度。步長很小時，走同樣距離需要更多步驟。步長過大則可能使軌跡失準。質量矩陣可依參數的尺度差異與相關性調整運動。[^stan]
+- 發散表示軌跡的積分誤差過大，可能反映抽樣器難以探索某些區域。即使局部提議的接受率很高，彼此相距甚遠的眾數也可能難以跨越。[^stan][^neal]
+
+[^neal]: Neal，[*MCMC Using Hamiltonian Dynamics*](https://arxiv.org/html/1206.1901)，第 2.3、3.2 與 5.7 節。
+[^stan]: Stan 開發團隊，[*MCMC Sampling*](https://mc-stan.org/docs/reference-manual/mcmc.html)，蛙跳法、自動調校、NUTS 與發散章節。
+[^geometry]: Betancourt，[*A Conceptual Introduction to Hamiltonian Monte Carlo*](https://arxiv.org/abs/1701.02434)，第 2 至 4 節。
+[^nuts]: Hoffman 與 Gelman，[*The No-U-Turn Sampler*](https://jmlr.org/papers/v15/hoffman14a.html)，第 3 至 4 節。
+[^duane]: Duane 等人，[*Hybrid Monte Carlo*](https://www.sciencedirect.com/science/article/abs/pii/037026938791197X)，摘要。
 
 ## 參考文獻
 
 ### 奠基性論文
 
-- Duane, S., Kennedy, A. D., Pendleton, B. J. & Roweth, D. (1987). Hybrid Monte Carlo. *Physics Letters B* 195(2), 216–222. https://ui.adsabs.harvard.edu/abs/1987PhLB..195..216D/abstract — 提出結合分子動力學與 Metropolis 修正的混合方法。
-- Hoffman, M. D. & Gelman, A. (2014). The No-U-Turn sampler: adaptively setting path lengths in Hamiltonian Monte Carlo. *Journal of Machine Learning Research* 15. https://jmlr.org/papers/v15/hoffman14a.html — 提出 NUTS，自動選擇路徑長度。
+- Duane、Kennedy、Pendleton 與 Roweth（1987）。*Hybrid Monte Carlo*。Physics Letters B 195(2)，216–222。https://www.sciencedirect.com/science/article/abs/pii/037026938791197X — 提出用於格點場論模擬的混合演算法。
+- Hoffman 與 Gelman（2014）。*The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Monte Carlo*。JMLR 15，1593–1623。https://jmlr.org/papers/v15/hoffman14a.html — 推導 HMC 的動態軌跡建構與步長調適。
 
 ### 綜述與教科書
 
-- Neal, R. M. (2011). MCMC using Hamiltonian dynamics. In *Handbook of Markov Chain Monte Carlo*. arXiv:1206.1901. https://arxiv.org/abs/1206.1901 — HMC 綜述，包括蛙跳積分器、能量守恆與調校。
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — 把 HMC 置於一般 MCMC 演算法之中的導論。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋 HMC 及其對梯度的需求。
-- Gelman, A. et al. (2013). *Bayesian Data Analysis*, 3rd ed. CRC Press. https://sites.stat.columbia.edu/gelman/book — 討論在應用模型中以 HMC 與 NUTS 進行後驗模擬。
+- Neal（2011）。*MCMC Using Hamiltonian Dynamics*。收錄於 Handbook of Markov Chain Monte Carlo。https://arxiv.org/abs/1206.1901 — 推導蛙跳轉移，說明其細緻平衡與調校。
+- Betancourt（2017）。*A Conceptual Introduction to Hamiltonian Monte Carlo*。https://arxiv.org/abs/1701.02434 — 說明 HMC 的幾何觀點與實際的軌跡建構。
+
+### 文章與文件
+
+- Stan 開發團隊。*MCMC Sampling*。Stan Reference Manual。https://mc-stan.org/docs/reference-manual/mcmc.html — 記載抽樣器的實作、暖身設定與發散轉移。

@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-16
 related:
   - theory/models/cnn
   - brain-mind/neuroai
@@ -31,25 +31,133 @@ Replace all 2D operations of U-Net with 3D ones, train end to end from scratch, 
 
 ## Algorithm
 
-The network follows the U-Net encoder–decoder with skip connections. Convolutions, pooling and up-sampling operate over three spatial dimensions. Training uses on-the-fly elastic deformation of the input volumes as augmentation, and no pre-trained network is used. The paper evaluates two setups:
+The network follows the U-Net encoder–decoder with skip connections. The encoder uses $3\times3\times3$ convolutions and $2\times2\times2$ max pooling. The decoder upsamples in all three spatial dimensions and combines features from matching encoder levels. A final $1\times1\times1$ convolution produces per-voxel class scores. In the original architecture, a $132\times132\times116$ input tile yields a $44\times44\times28$ prediction tile. This allows the network to use surrounding voxels as context for a smaller output region.[^original]
 
-1. **Semi-automated**: the user annotates some slices of the volume to be segmented, and the network completes the segmentation.
-2. **Fully automated**: a representative, sparsely annotated training set is assumed to exist, and the trained network segments new volumes without user input.
+### How a 3D kernel uses neighboring slices
+
+A $3\times3\times3$ kernel at one output location reads a $3\times3$ spatial window at **each of three adjacent depth positions**. The figure follows one input channel: each plane supplies nine values, giving 27 spatial samples in total. Multiple input channels would each contribute their own 27 samples; the final convolution sums their weighted contributions to produce each output channel. Unlike an independent 2D slice convolution, this receptive field can directly combine information across depth.[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net teaching animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-depth-kernel-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg" alt="Three adjacent five-by-five slice grids each highlight a three-by-three receptive window. Pulses travel from the three planes to one output, and a schematic input count progresses from 9 to 18 to 27." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+
+*Original CC BY-SA 4.0 teaching animation.* Each moving pulse represents one **plane contribution**, not an individual arithmetic multiply-accumulate. The numbers 9, 18 and 27 are exact kernel geometry for a **single input channel** in this toy view, **not measured feature magnitudes or GPU timings**. The MkDocs site offers Play/Pause and a reduced-motion still; [GitHub-readable static preview](../../../../assets/concept-animations/3d-unet-depth-kernel-still.svg).[^original]
+
+
+### How the encoder skip rejoins the decoder
+
+A skip connection carries high-resolution encoder features to the decoder without routing them through every lower-resolution bottleneck. A decoder upconvolution raises the spatial resolution; the encoder feature must be **spatially aligned** with the decoder feature before the two are **concatenated along the channel axis**, not added elementwise. Because the original 3D U-Net uses valid convolutions, the encoder feature is cropped where necessary to match the decoder shape.[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net skip-connection animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-skip-concat-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-skip-concat-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-skip-concat-still.svg" alt="An orange high-resolution four-by-four encoder grid travels along an upper skip path while a coarse two-by-two grid is upsampled into a blue four-by-four decoder grid. Moving markers follow both paths into two aligned channel groups, rather than adding the grids together." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* The **synthetic 2D slices** stand for 3D feature volumes; the displayed $4\times4$ and $2\times2$ grids illustrate relative spatial resolution, **not layer dimensions reported in the paper**. The final side-by-side grids represent two channel groups at the same spatial resolution. Real skip cropping is described above but omitted from this simplified route diagram. Neither colours nor moving markers are measured activations or GPU execution traces. On MkDocs the figure can be played/paused, including by keyboard, and reduced-motion visitors see the [GitHub-readable still](../../../../assets/concept-animations/3d-unet-skip-concat-still.svg).[^original]
+
+### Why the input patch exceeds the prediction patch
+
+In the published architecture, the input tile is $132\times132\times116$ voxels and the output tile is $44\times44\times28$ voxels. Valid convolutions reduce the spatial extent while the surrounding input supplies context for each predicted voxel. The following **toy 2D cross-section** makes the consequence visible: each $4\times4$ input window yields only a central $2\times2$ predicted core. Moving overlapping input windows across a $6\times6$ region accumulates four non-overlapping prediction cores into an interior $4\times4$ region.[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net input-context and predicted-core animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-context-tiling-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-context-tiling-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-context-tiling-still.svg" alt="A translucent four-by-four input context window moves to four positions on a six-by-six synthetic grid. Only its central two-by-two core contributes a predicted tile. Four output tiles appear in sequence on the right while the surrounding boundary remains unfilled." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* The **$4\times4$ to $2\times2$ patch sizes, four passes and 2D layout are illustrative**, not the paper's network dimensions, an actual inference schedule or performance measurements. The unfilled outer margin is deliberate: this toy does not demonstrate full-volume border handling, which would require an explicit boundary strategy. On MkDocs use Play/Pause and the reduced-motion still; [GitHub-readable fallback](../../../../assets/concept-animations/3d-unet-context-tiling-still.svg).[^original]
+
+
+### How orthogonal labeled slices constrain a volume
+
+Sparse annotation need not consist of consecutive slices from only one view. In the original study's minimal-supervision experiment, annotated cross-sections could be selected along the three **orthogonal spatial planes**. The animation highlights axial, coronal and sagittal planes inside a synthetic volume. Each colored plane supplies supervised voxels where it intersects the volume; **all other, unlabeled voxels remain unlabeled, not background**.[^original]
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable orthogonal sparse-slice supervision animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-orthogonal-slices-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-orthogonal-slices-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-orthogonal-slices-still.svg" alt="An isometric volume successively highlights axial, coronal and sagittal annotated cross-sections, alongside three corresponding five-slice stacks with one colored slice per orientation." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching animation.* The toy cube, slice positions and **one-of-five slices per axis** are schematic, not reconstructed clinical annotations or the original dataset's dimensions. On the MkDocs site, use Play/Pause, including keyboard activation; reduced-motion visitors receive the [GitHub-readable still](../../../../assets/concept-animations/3d-unet-orthogonal-slices-still.svg).[^original]
+
+### Learning from sparse labels
+
+The loss is a weighted softmax cross-entropy. Let $\mathcal{A}$ be the set of annotated voxels in the output tile, $y_v$ the known label, $w_{y_v}$ its class weight and $p_v(y_v)$ the predicted probability of that label. The following sum shows which voxels contribute.[^original]
+
+$$
+\mathcal{L}=-\sum_{v\in\mathcal{A}}w_{y_v}\log p_v(y_v).
+$$
+
+The paper assigns zero loss weight to unlabelled voxels and uses class weights to balance the annotated classes. In particular, an unlabelled voxel and a voxel annotated as background have different roles. Only the annotated background voxel contributes a background error. The network still takes the full input tile as context and produces scores throughout the output tile. During training, the same elastic deformation is applied to the image and its labels to keep them aligned.[^original]
+
+#### Why image and label must share the same spatial warp
+
+The original 3D U-Net training procedure applies on-the-fly elastic deformation to the image and its corresponding labels.[^original] Both must use the **same displacement field**: otherwise the deformed tissue location and its supervision target disagree. Image intensities and categorical labels may require different interpolation rules (for example, class-preserving nearest-neighbor resampling for discrete labels), even though their spatial coordinates are transformed consistently.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net teaching animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-paired-warp-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-paired-warp-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-paired-warp-still.svg" alt="Two aligned original image and label panels appear on the left. On the right, a common nonrigid displacement bends both coordinate grids and their matching region outlines together without separating the label from the image." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+
+*Original CC BY-SA 4.0 teaching animation.* The grid and boundary are **synthetic 2D cross-sections** used to explain a deformation that can be applied to 3D training data. The identical spatial warp is the teaching point; neither a real clinical image nor an experimental augmentation trace is shown. On MkDocs use Play/Pause; reduced-motion mode uses the static [GitHub preview](../../../../assets/concept-animations/3d-unet-paired-warp-still.svg).[^original]
+
+#### How the sparse-loss mask changes the gradient
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net sparse-loss animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-sparse-loss-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-sparse-loss-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-sparse-loss-still.svg" alt="A six-by-five prediction tile has three annotated foreground voxels, three annotated background voxels, and 24 unlabeled voxels. The moving outline visits only the six labels and highlights their weighted-loss contributions." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching animation.* The **synthetic** 30-voxel tile has six annotated voxels: three simplified foreground and three labelled background voxels. As the marker visits each label, the corresponding contribution on the right is highlighted; the other 24 voxels have zero loss weight. **Unlabelled does not mean background.** The bars are arbitrary toy weighted-loss contributions, not predictions, measured training loss, or a reproduction of the paper's three-class annotation scheme. On the MkDocs site use Play/Pause (including keyboard activation); reduced-motion visitors receive the still. [GitHub-readable still](../../../../assets/concept-animations/3d-unet-sparse-loss-still.svg).[^original]
+
+
+#### Why unlabeled input context can still receive gradients
+
+Masking the training loss for an **unlabeled output voxel** does not mean that its neighboring **input voxels** are removed from the convolution or gradient computation. Consider the following **illustrative, one-dimensional valid convolution**, with seven input values, a three-tap kernel and five outputs:
+
+$
+y_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\qquad
+\mathcal{L}=\ell(y_1)+\ell(y_3).
+$
+
+With $\delta_j=\partial\ell(y_j)/\partial y_j$, the shared input $x_3$ receives contributions along both supervised paths:
+
+$
+\frac{\partial\mathcal{L}}{\partial x_3}=w_2\delta_1+w_0\delta_3.
+$
+
+No loss is attached to $y_0,y_2,y_4$, yet the input neighborhood remains relevant to the two supervised predictions. The moving dots trace these **chain-rule dependencies**, not measured activation values or a GPU execution schedule.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable sparse-loss and shared-input-gradient animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-sparse-context-gradient-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-sparse-context-gradient-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-sparse-context-gradient-still.svg" alt="Five convolution outputs depend on overlapping windows of seven inputs. Only outputs y1 and y3 incur loss; colored backward paths converge on shared input x3, while y0, y2 and y4 have no supervised loss." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching animation.* The **1D three-tap example is a mathematical analogy**, not an actual 3D U-Net layer, training trajectory, or benchmark. Masked outputs do not supply direct supervised error; shared inputs can nevertheless influence labeled outputs. On MkDocs the figure has Play/Pause and keyboard access; [GitHub-readable static fallback](../../../../assets/concept-animations/3d-unet-sparse-context-gradient-still.svg) is shown when motion is reduced.[^original]
+
+### Evaluation protocols
+
+1. **Semi-automated**. The model learns from annotations in the volumes it will segment. In the three-fold evaluation, the authors split 77 annotated slices across the three volumes into three subsets. Each fold treats one subset as unlabelled during training and uses it for evaluation.[^original]
+2. **Fully automated**. Each fold trains on two sparsely annotated volumes and predicts on the third. IoU is measured on the annotated slices of the held-out volume. This tests transfer to a different volume within the same dataset.[^original]
+
+### Which evaluation unit is held out?
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Scrollable 3D U-Net evaluation-splits animation">
+<img data-source-asset-urls src="../../../../assets/concept-animations/3d-unet-evaluation-holdout-still.svg" data-motion-src="../../../../assets/concept-animations/3d-unet-evaluation-holdout-motion.svg" data-still-src="../../../../assets/concept-animations/3d-unet-evaluation-holdout-still.svg" alt="Side-by-side toy folds show test slices within each of three partially annotated training volumes versus one entirely held-out volume, with the selected fold changing over time." style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original CC BY-SA 4.0 teaching animation.* In this **illustrative** three-volume, five-slice-per-volume model, rose cells denote evaluation data and teal cells training data. On the left, a different annotated **slice** is held out within each volume while other slices from those same volumes remain available for training. On the right, an entire **volume** is held out, so its slices never appear during training in that fold. The rotating selections are **schematic, not the original paper's slice counts or fold assignments**. This difference matters: within-volume completion and unseen-volume transfer answer different generalisation questions. [GitHub-readable still](../../../../assets/concept-animations/3d-unet-evaluation-holdout-still.svg); the MkDocs player supports Play/Pause and reduced motion.[^original]
 
 ## Key results
 
-The paper evaluates on Xenopus kidney volumes and reports intersection over union (IoU). The numbers below come from its Tables 1 and 3.
+The study reports IoU on three Xenopus kidney volumes. Slice holdout and volume holdout give different comparisons.[^original]
 
-- **Semi-automated** (3-fold cross-validation): average IoU is 0.863 with batch normalisation and 0.842 without it. The 2D variant reaches 0.796.
-- **Fully automated**: average IoU is 0.704 with batch normalisation and 0.723 without it. The text says batch normalisation helps, but these averages point the other way. It helps on two volumes and hurts on the third (0.554 with it, 0.779 without it, as the paper reports it).
+| Evaluation | 3D without BN | 3D with BN | 2D with BN |
+| --- | --- | --- | --- |
+| Held-out slices (Table 1) | 0.842 | 0.863 | 0.796 |
+| Held-out volumes (Table 3) | 0.723 | 0.704 | 0.547 |
 
-The paper reports IoU only. It gives no Dice score or accuracy figure for these experiments.
+In the volume holdout, batch normalisation (BN) improved IoU on two volumes. On the third, IoU fell from 0.779 to 0.554, leaving the three-volume average lower with BN. The paper also varied the amount of supervision in a separate semi-automated experiment. Using one annotated slice per orthogonal plane, IoU ranged from 0.331 to 0.483 across the three volumes. Using the reported 5, 5 and 3 slices, it ranged from 0.849 to 0.872 (Table 2).[^original]
 
 ## Limitations
 
 - Results are reported on one kind of volume, the Xenopus kidney, so the generality of the method is not shown.
 - 3D convolutions cost more memory and compute than their 2D counterparts, which limits the volume size that can be processed.
-- The fully-automated batch-normalisation result contradicts the paper's own text, so the averages should be read from the table rather than the summary.
+- The two evaluations hold out different units. Slice holdout measures completion within partly annotated volumes. Volume holdout measures transfer within the three-volume dataset.[^original]
 
 ## Connections
 
@@ -68,12 +176,14 @@ The paper reports IoU only. It gives no Dice score or accuracy figure for these 
 - How many annotated slices are needed before the semi-automated setting is reliable, and which slices should be chosen?
 - Does the method transfer to other organs and imaging modalities without retraining from scratch?
 
+[^original]: Çiçek et al., [*3D U-Net*](https://arxiv.org/html/1606.06650), §§2–4 and Tables 1–3.
+
 ## References
 
 ### Seminal papers
 
-- Çiçek, Ö., Abdulkadir, A., Lienkamp, S. S., Brox, T. & Ronneberger, O. (2016). *3D U-Net: Learning Dense Volumetric Segmentation from Sparse Annotation*. arXiv. https://arxiv.org/abs/1606.06650 — Introduces 3D U-Net and reports IoU on Xenopus kidney volumes in semi-automated and fully-automated settings. Checked: arXiv metadata and the paper's Tables 1 and 3.
-- Ronneberger, O., Fischer, P. & Brox, T. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation*. arXiv. https://arxiv.org/abs/1505.04597 — The 2D encoder–decoder with skip connections that 3D U-Net extends. Checked: arXiv metadata.
-- Milletari, F., Navab, N. & Ahmadi, S.-A. (2016). *V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation*. arXiv. https://arxiv.org/abs/1606.04797 — A contemporaneous fully convolutional network for 3D medical segmentation. Checked: arXiv metadata.
-- Long, J., Shelhamer, E. & Darrell, T. (2014). *Fully Convolutional Networks for Semantic Segmentation*. arXiv. https://arxiv.org/abs/1411.4038 — The fully convolutional design for dense prediction. Checked: arXiv metadata.
-- Sudre, C. H., et al. (2017). *Generalised Dice overlap as a deep learning loss function for highly unbalanced segmentations*. arXiv. https://arxiv.org/abs/1707.03237 — Overlap-based loss for highly unbalanced segmentation, relevant to sparse volumetric labels. Checked: arXiv metadata.
+- Çiçek, Ö., Abdulkadir, A., Lienkamp, S. S., Brox, T. & Ronneberger, O. (2016). *3D U-Net: Learning Dense Volumetric Segmentation from Sparse Annotation*. arXiv. https://arxiv.org/abs/1606.06650 — Introduces 3D U-Net and reports IoU on Xenopus kidney volumes in semi-automated and fully-automated settings.
+- Ronneberger, O., Fischer, P. & Brox, T. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation*. arXiv. https://arxiv.org/abs/1505.04597 — The 2D encoder–decoder with skip connections that 3D U-Net extends.
+- Milletari, F., Navab, N. & Ahmadi, S.-A. (2016). *V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation*. arXiv. https://arxiv.org/abs/1606.04797 — A contemporaneous fully convolutional network for 3D medical segmentation.
+- Long, J., Shelhamer, E. & Darrell, T. (2014). *Fully Convolutional Networks for Semantic Segmentation*. arXiv. https://arxiv.org/abs/1411.4038 — The fully convolutional design for dense prediction.
+- Sudre, C. H., et al. (2017). *Generalised Dice overlap as a deep learning loss function for highly unbalanced segmentations*. arXiv. https://arxiv.org/abs/1707.03237 — Overlap-based loss for highly unbalanced segmentation, relevant to sparse volumetric labels.
