@@ -32,7 +32,13 @@ For multiclass problems, it is the share of samples whose predicted class equals
 
 The illustration uses **hypothetical population rates, not sampled or measured classifier results**. If positive prevalence is $p$, with fixed sensitivity (TPR) $0.80$ and specificity (TNR) $0.90$:
 
-$\operatorname{Accuracy}(p)=p(0.80)+(1-p)(0.90)=0.90-0.10p.$
+$$
+\begin{gathered}
+\operatorname{Accuracy}(p) \\
+= p(0.80)+(1-p)(0.90) \\
+= 0.90-0.10p.
+\end{gathered}
+$$
 
 Balanced accuracy is the **unweighted mean of class recalls**, $(0.80+0.90)/2=0.85$. Varying $p$ from $0.10$ to $0.90$ thus moves ordinary accuracy from **0.89 to 0.81**, while balanced accuracy stays **0.85**.[^balanced-demo] This holds only if both conditional class-wise rates remain fixed; real distribution shifts can change them too.
 

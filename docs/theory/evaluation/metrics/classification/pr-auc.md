@@ -59,7 +59,16 @@ Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (nega
 </div>
 </div>
 
-*Original animated teaching visual (CC BY-SA 4.0).* For the same four **synthetic** cases `+ − + −`, **non-interpolated average precision** sums two recall-weighted rectangles: $AP=(1/2)(1)+(1/2)(2/3)=5/6\approx0.833$. Connecting the *threshold-derived* PR points with straight lines, including vertical changes at fixed recall, instead produces **trapezoidal area** $(1/2)(1)+(1/2)(1/2+2/3)/2=19/24\approx0.792$. The difference is $1/24$ for this ranking. **Neither integration convention is always greater**; the ranking and interpolation rule matter. The animation reveals AP rectangles before the linearly interpolated region. These are analytic, not empirical classifier measurements; do not call the trapezoidal value `average_precision_score`. MkDocs supplies keyboard-operable Play/Pause and a reduced-motion still. [GitHub static comparison](../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg). The scikit-learn AP reference below defines the step-wise formula.
+*Original animated teaching visual (CC BY-SA 4.0).* For the same four **synthetic** cases `+ − + −`, **non-interpolated average precision** sums two recall-weighted rectangles: $AP=(1/2)(1)+(1/2)(2/3)=5/6\approx0.833$. Connecting the *threshold-derived* PR points with straight lines, including vertical changes at fixed recall, instead produces **trapezoidal area**:
+
+$$
+\begin{gathered}
+(1/2)(1)+(1/2)(1/2+2/3)/2 \\
+=19/24\approx0.792.
+\end{gathered}
+$$
+
+The difference is $1/24$ for this ranking. **Neither integration convention is always greater**; the ranking and interpolation rule matter. The animation reveals AP rectangles before the linearly interpolated region. These are analytic, not empirical classifier measurements; do not call the trapezoidal value `average_precision_score`. MkDocs supplies keyboard-operable Play/Pause and a reduced-motion still. [GitHub static comparison](../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg). The scikit-learn AP reference below defines the step-wise formula.
 
 ## Animated comparison: equal ROC-AUC, different average precision
 
@@ -98,7 +107,16 @@ Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (nega
 
 *Original teaching animation, CC BY-SA 4.0; GitHub shows the static fallback.* [GitHub static preview](../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-ap-tied-threshold-motion.svg).
 
-A score-threshold precision–recall curve admits **every item at a tied score together**, rather than breaking ties arbitrarily. With artificial scores $0.90(+),0.70(+),0.70(-),0.20(-)$, distinct thresholds yield $(R,P)=(1/2,1)$, $(1,2/3)$, $(1,1/2)$. Non-interpolated $AP=(1/2)(1)+(1/2)(2/3)=5/6\approx0.8333$. The last negative lowers precision but does not increase recall or AP. A forced ordering of individual tied records can give a different positive-rank average; the illustration follows scikit-learn `average_precision_score` with grouped thresholds. The values are **synthetic, not measured**. MkDocs Play/Pause and keyboard horizontal scrolling are available.
+A score-threshold precision–recall curve admits **every item at a tied score together**, rather than breaking ties arbitrarily. With artificial scores $0.90(+),0.70(+),0.70(-),0.20(-)$, distinct thresholds yield $(R,P)=(1/2,1)$, $(1,2/3)$, $(1,1/2)$. Non-interpolated average precision is:
+
+$$
+\begin{gathered}
+AP=(1/2)(1)+(1/2)(2/3)
+\\ =5/6\approx0.8333.
+\end{gathered}
+$$
+
+ The last negative lowers precision but does not increase recall or AP. A forced ordering of individual tied records can give a different positive-rank average; the illustration follows scikit-learn `average_precision_score` with grouped thresholds. The values are **synthetic, not measured**. MkDocs Play/Pause and keyboard horizontal scrolling are available.
 
 ## References
 
