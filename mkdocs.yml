@@ -1107,6 +1107,7 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/symbolic-proof-labs.js
+  - javascripts/semi-supervised-process-labs.js
   - javascripts/concept-motion-detailed.js
   - javascripts/self-supervised-labs.js
   - javascripts/ssl-causal-comparisons.js
@@ -1115,9 +1116,13 @@ extra_javascript:
   - javascripts/ssl-temporal-provenance.js
   - javascripts/policy-credit-math.js
   - javascripts/policy-credit-labs.js
+  - javascripts/contrastive-alignment-labs.js
   - javascripts/concept-motion.js
   - javascripts/planning-labs.js
   - javascripts/evolution-labs.js
+  - javascripts/vq-splat-labs.js
+  - javascripts/t5-deit-labs.js
+  - javascripts/predictive-coding-labs.js
   - javascripts/adaptive-optimiser-labs.js
   - javascripts/regression-metric-labs.js
   - javascripts/sharpness-geometry-labs.js
@@ -1132,6 +1137,7 @@ extra_javascript:
 
 extra_css:
   - stylesheets/symbolic-proof-labs.css
+  - stylesheets/semi-supervised-process-labs.css
   - stylesheets/concept-motion-detailed.css
   - stylesheets/self-supervised-labs.css
   - stylesheets/ssl-causal-comparisons.css
@@ -1139,9 +1145,13 @@ extra_css:
   - stylesheets/ssl-ema-trajectory.css
   - stylesheets/ssl-temporal-provenance.css
   - stylesheets/policy-credit-labs.css
+  - stylesheets/contrastive-alignment-labs.css
   - stylesheets/concept-motion.css
   - stylesheets/planning-labs.css
   - stylesheets/evolution-labs.css
+  - stylesheets/vq-splat-labs.css
+  - stylesheets/t5-deit-labs.css
+  - stylesheets/predictive-coding-labs.css
   - stylesheets/adaptive-optimiser-labs.css
   - stylesheets/regression-metric-labs.css
   - stylesheets/sharpness-geometry-labs.css

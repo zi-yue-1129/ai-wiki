@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-18
 tags:
 - motor control
 - optimal control
@@ -37,11 +37,23 @@ Todorov 與 Jordan（2002）把運動協調視為隨機最優回饋控制。控�
 
 一般問題是，在狀態 \(x_t\) 帶有雜訊地演化的條件下，選出控制量 \(u_t\)，使期望成本最小：
 
-\(\min_{u} \ \mathbb{E}\left[\sum_{t=0}^{T} c(x_t, u_t)\right] \quad \text{subject to} \quad x_{t+1} = f(x_t, u_t) + \xi_t\)
+$$
+\min_{u} \ \mathbb{E}\left[\sum_{t=0}^{T} c(x_t, u_t)\right] \quad \text{subject to} \quad x_{t+1} = f(x_t, u_t) + \xi_t
+$$
 
 這裡 \(c\) 是成本，結合任務誤差與努力；\(f\) 是身體的動力學；\(\xi_t\) 是雜訊。控制器只能觀察到狀態的雜訊版本，因此必須從觀察中估計狀態，線性情況下即如卡爾曼濾波器（Kalman filter）所做的。
 
 在線性二次高斯（linear-quadratic-Gaussian）情況下，最優控制律是線性回饋規則 \(u_t = -L_t \hat{x}_t\)，其中 \(\hat{x}_t\) 是估計的狀態，增益 \(L_t\) 由成本與動力學決定。在誤差會影響成本的方向上，增益較大；在誤差不影響成本的方向上，增益較小。這正是上述選擇性修正的機制。
+
+### 動態示例：與任務相關和無關的擾動
+
+<img data-source-asset-urls src="../../../assets/concept-animations/ofc-selective-feedback-still.svg" data-motion-src="../../../assets/concept-animations/ofc-selective-feedback-motion.svg" data-still-src="../../../assets/concept-animations/ofc-selective-feedback-still.svg" alt="最優回饋控制對照：橘色點遭到垂直擾動後返回目標線，藍色點的水平方向偏移則被容許">
+
+*原創教學示意（CC BY-SA 4.0）。* GitHub 顯示可獨立閱讀的最終比較；MkDocs 網站則提供 **12 秒連續動畫**，逐步呈現擾動與後續反應，可播放／暫停、以鍵盤操作，並支援減少動態效果。橘色點偏離綠色**目標流形** \(y=0\) 後被推回；藍色點只在 \(x\) 方向偏移，因此沒有額外矯正。[直接開啟動畫 SVG](../../../assets/concept-animations/ofc-selective-feedback-motion.svg)。
+
+若採用**人工示例**的任務成本 \(c(x,y,u)=q y^2+r\lVert u\rVert^2\)，且不懲罰 \(x\) 位置本身，回饋可以修正 \(y\) 誤差，同時容許只有 \(x\) 的偏移。路徑僅為了展示因果順序，**不是特定 LQG 控制器的數值積分結果，也不是人類實測軌跡**。實際增益取決於身體動力學、成本與不確定性；此圖呈現下方 Todorov 與 Jordan（2002）的最小介入原則。
+
+以 Tab 聚焦圖表區，再按左右方向鍵捲動；播放控制保持可見。結果保留到整段示範重新開始，不將返回起點畫成另一個回饋修正。
 
 ## 結果
 

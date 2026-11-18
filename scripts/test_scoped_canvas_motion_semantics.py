@@ -15,7 +15,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 256 and len(EXPECTED_EXTRAS) == 5 and len(EXPECTED_PREFIXES) == 4
+assert len(EXPECTED_CANVASES) == 274 and len(EXPECTED_EXTRAS) == 5 and len(EXPECTED_PREFIXES) == 4
 
 # These are candidates, NOT an allowance: only a stem's literal registry value passes.
 CANDIDATES = {'0 0 640 360', '0 0 720 400', '0 0 720 460', '0 0 760 410', '0 0 800 420', '0 0 641 361', '0 0 1 1'} | set(EXPECTED_CANVASES.values()) | set(EXPECTED_EXTRAS.values())

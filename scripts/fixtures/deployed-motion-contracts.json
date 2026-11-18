@@ -90,6 +90,36 @@
       "page": "docs/engineering/data/data-programming.md",
       "pr": 1071
     },
+    "forward-prediction-correction": {
+      "page": "docs/brain-mind/motor-control/internal-forward-models/index.md",
+      "pr": 1123,
+      "original_head": "0f700ddbec5ed4f47dd88fa7ff82838833014e12"
+    },
+    "ofc-selective-feedback": {
+      "page": "docs/brain-mind/motor-control/optimal-feedback-control/index.md",
+      "pr": 1123,
+      "original_head": "0f700ddbec5ed4f47dd88fa7ff82838833014e12"
+    },
+    "ia3-channel-gates": {
+      "page": "docs/theory/paradigms/transfer/fine-tuning-and-adaptation/ia3.md",
+      "pr": 1122,
+      "original_head": "0727eeb16284911371fc1608bf97bf4d47cbe1ad"
+    },
+    "prefix-kv-attention": {
+      "page": "docs/theory/paradigms/transfer/fine-tuning-and-adaptation/prefix-tuning.md",
+      "pr": 1122,
+      "original_head": "0727eeb16284911371fc1608bf97bf4d47cbe1ad"
+    },
+    "prompt-injection-boundary": {
+      "page": "docs/engineering/llm-security/indirect-prompt-injection.md",
+      "pr": 1121,
+      "original_head": "44842ea12a6554a251759caa225f04f6fec505ea"
+    },
+    "watermark-greenlist-score": {
+      "page": "docs/engineering/llm-security/watermarking.md",
+      "pr": 1121,
+      "original_head": "44842ea12a6554a251759caa225f04f6fec505ea"
+    },
     "reinforce-reward-to-go": {
       "page": "docs/theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index.md",
       "pr": 1047,
@@ -3594,6 +3624,32 @@
         }
       ]
     },
+    "bahdanau-alignment-context": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/bahdanau-alignment-context-motion.svg",
+          "origin_commit": "6438fbec5f4fedb2e9e500ed3a6aad7e5504c29a",
+          "origin_blob": "0bbc10fa00d39d22de498f41813cd1a6bf8b5702"
+        },
+        {
+          "path": "docs/assets/concept-animations/bahdanau-alignment-context-still.svg",
+          "origin_commit": "6438fbec5f4fedb2e9e500ed3a6aad7e5504c29a",
+          "origin_blob": "7136ea37624c100cb2a2b49cb9ab0c5828b6b37f"
+        }
+      ],
+      "reviewed_commit": "50c62584b37b5577ad75aca0ec6669443ee2a351",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/bahdanau-alignment-context-motion.svg",
+          "blob": "6b223be266a622e3ff97c3d7f5c8cc1e006ef512"
+        },
+        {
+          "path": "docs/assets/concept-animations/bahdanau-alignment-context-still.svg",
+          "blob": "2c6841e9916a55eba5583becd9f2678f06544baf"
+        }
+      ]
+    },
     "causal-lamp-intervention": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -3698,6 +3754,32 @@
         }
       ]
     },
+    "deit-dual-head-distillation": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/deit-dual-head-distillation-motion.svg",
+          "origin_commit": "26ef38b04201c0c2b623982f1f31e92ad7e15d2b",
+          "origin_blob": "a7549932c189f69f28e45c66e4299816d5bd845c"
+        },
+        {
+          "path": "docs/assets/concept-animations/deit-dual-head-distillation-still.svg",
+          "origin_commit": "26ef38b04201c0c2b623982f1f31e92ad7e15d2b",
+          "origin_blob": "21ab36aa407853e35afbb532b58af4dfcee62773"
+        }
+      ],
+      "reviewed_commit": "db029dd5c4744888cee697cb54aa684b8780063e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/deit-dual-head-distillation-motion.svg",
+          "blob": "1d2491b414a9b3c060f31fb9f2b1ff080e0b3769"
+        },
+        {
+          "path": "docs/assets/concept-animations/deit-dual-head-distillation-still.svg",
+          "blob": "967b7905c4b8b291b4dd65e8153e5f7ea165c085"
+        }
+      ]
+    },
     "fgsm-sign-step": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -3721,6 +3803,84 @@
         {
           "path": "docs/assets/concept-animations/fgsm-sign-step-still.svg",
           "blob": "412fb6eb190a4773eb24bbf4a1b2256841cd7829"
+        }
+      ]
+    },
+    "fixmatch-confidence-gate": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/fixmatch-confidence-gate-motion.svg",
+          "origin_commit": "f1e778b2bd8fed1a3d8ba22dfaf5b47c3437363b",
+          "origin_blob": "ce730f8aef1505b2f31ff2d2987ee81184dc415d"
+        },
+        {
+          "path": "docs/assets/concept-animations/fixmatch-confidence-gate-still.svg",
+          "origin_commit": "f1e778b2bd8fed1a3d8ba22dfaf5b47c3437363b",
+          "origin_blob": "64e0de2d6889e4d2029a365b308560277382f587"
+        }
+      ],
+      "reviewed_commit": "886f82abe73a4eed86ed69d705cc2fddc714a526",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/fixmatch-confidence-gate-motion.svg",
+          "blob": "39df4f19fe8692e8d72339710d98a89927cb8598"
+        },
+        {
+          "path": "docs/assets/concept-animations/fixmatch-confidence-gate-still.svg",
+          "blob": "ba44ed5c83ab792b5cfd9c76f346824994bf899f"
+        }
+      ]
+    },
+    "forward-prediction-correction": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/forward-prediction-correction-motion.svg",
+          "origin_commit": "0f700ddbec5ed4f47dd88fa7ff82838833014e12",
+          "origin_blob": "cf4dfd7f223197c9dd9af071e2e8330694297028"
+        },
+        {
+          "path": "docs/assets/concept-animations/forward-prediction-correction-still.svg",
+          "origin_commit": "0f700ddbec5ed4f47dd88fa7ff82838833014e12",
+          "origin_blob": "1356f273aed8b62175f5901628a2d0be5ef43102"
+        }
+      ],
+      "reviewed_commit": "a5ce5f568f6c17131d7f5469ac759aea3af27814",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/forward-prediction-correction-motion.svg",
+          "blob": "37bd088d0d07ddceadf0c71464be20a1e7a78394"
+        },
+        {
+          "path": "docs/assets/concept-animations/forward-prediction-correction-still.svg",
+          "blob": "f20d1db241bd437554b82fe1371a24c42d5d406e"
+        }
+      ]
+    },
+    "gaussian-splat-alpha-composite": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gaussian-splat-alpha-composite-motion.svg",
+          "origin_commit": "d0b9e58f3351c9b36a866c8945f194fb5f70203b",
+          "origin_blob": "836eb206edaa11916cec89e505aa64391faed277"
+        },
+        {
+          "path": "docs/assets/concept-animations/gaussian-splat-alpha-composite-still.svg",
+          "origin_commit": "d0b9e58f3351c9b36a866c8945f194fb5f70203b",
+          "origin_blob": "fab944b7ac952c328569950bc34c890ee2da76d5"
+        }
+      ],
+      "reviewed_commit": "34bfed441215ad4fe475494f71fd836c02f75f3f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gaussian-splat-alpha-composite-motion.svg",
+          "blob": "c32d71868b40ac7773469c136985edca66e615ab"
+        },
+        {
+          "path": "docs/assets/concept-animations/gaussian-splat-alpha-composite-still.svg",
+          "blob": "fab944b7ac952c328569950bc34c890ee2da76d5"
         }
       ]
     },
@@ -3828,6 +3988,32 @@
         }
       ]
     },
+    "ia3-channel-gates": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/ia3-channel-gates-motion.svg",
+          "origin_commit": "0727eeb16284911371fc1608bf97bf4d47cbe1ad",
+          "origin_blob": "d93e4b9bc169628435619359b019b909b45ba35b"
+        },
+        {
+          "path": "docs/assets/concept-animations/ia3-channel-gates-still.svg",
+          "origin_commit": "0727eeb16284911371fc1608bf97bf4d47cbe1ad",
+          "origin_blob": "84727cf8ffd8373cb508773b459e8a80fb59b5d1"
+        }
+      ],
+      "reviewed_commit": "4bd1d8e61debb3295dc5a14d1b5f10097fb0d833",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/ia3-channel-gates-motion.svg",
+          "blob": "33c354f25a8735dcaa9a267d72b5f7d4375dcea5"
+        },
+        {
+          "path": "docs/assets/concept-animations/ia3-channel-gates-still.svg",
+          "blob": "57a072238b12b8edc2d614e6a2d993e3e8c895bb"
+        }
+      ]
+    },
     "integrated-gradients-path": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -3932,6 +4118,58 @@
         }
       ]
     },
+    "mean-teacher-ema-tracking": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/mean-teacher-ema-tracking-motion.svg",
+          "origin_commit": "f1e778b2bd8fed1a3d8ba22dfaf5b47c3437363b",
+          "origin_blob": "4d53ff671951ce4eb40cdd1ee86fe25a4a45e5d1"
+        },
+        {
+          "path": "docs/assets/concept-animations/mean-teacher-ema-tracking-still.svg",
+          "origin_commit": "f1e778b2bd8fed1a3d8ba22dfaf5b47c3437363b",
+          "origin_blob": "4bff471dfb793ae5788ce1f0cf651486dca1190f"
+        }
+      ],
+      "reviewed_commit": "886f82abe73a4eed86ed69d705cc2fddc714a526",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/mean-teacher-ema-tracking-motion.svg",
+          "blob": "5cf7de5f191baec7f3eeb6d606f6b3f8acce1afd"
+        },
+        {
+          "path": "docs/assets/concept-animations/mean-teacher-ema-tracking-still.svg",
+          "blob": "e474d2e5ee0025acefe73d3e41c70c6965f05a58"
+        }
+      ]
+    },
+    "ofc-selective-feedback": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/ofc-selective-feedback-motion.svg",
+          "origin_commit": "0f700ddbec5ed4f47dd88fa7ff82838833014e12",
+          "origin_blob": "7c1a394ec986f610d505a178c3d4720d0c7c92ff"
+        },
+        {
+          "path": "docs/assets/concept-animations/ofc-selective-feedback-still.svg",
+          "origin_commit": "0f700ddbec5ed4f47dd88fa7ff82838833014e12",
+          "origin_blob": "ad2cff4a043a7511e0349ce9ed813abf4007f75b"
+        }
+      ],
+      "reviewed_commit": "a5ce5f568f6c17131d7f5469ac759aea3af27814",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/ofc-selective-feedback-motion.svg",
+          "blob": "74a59b985799f71dbbbbd2c7f86fc28e98382f34"
+        },
+        {
+          "path": "docs/assets/concept-animations/ofc-selective-feedback-still.svg",
+          "blob": "180b4d6603a0dcea7d30bfb32c890458387f6516"
+        }
+      ]
+    },
     "pgd-projection-path": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -4007,6 +4245,110 @@
         {
           "path": "docs/assets/concept-animations/power-iteration-projection-contraction-still.svg",
           "blob": "e881ef9622a9e18ccda7f89302b8887480a172b4"
+        }
+      ]
+    },
+    "predictive-local-settling": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/predictive-local-settling-motion.svg",
+          "origin_commit": "9c09412b80b713424975df9a1c813a53fa201f5f",
+          "origin_blob": "162ace9d950a4fe37d8547cd9000a603e2151d82"
+        },
+        {
+          "path": "docs/assets/concept-animations/predictive-local-settling-still.svg",
+          "origin_commit": "9c09412b80b713424975df9a1c813a53fa201f5f",
+          "origin_blob": "a5c3f13f76753fd6c8dc9a7a8c318be4422350fe"
+        }
+      ],
+      "reviewed_commit": "c293e42d87ac091c7aca2ebd6509f42c7287d1ac",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/predictive-local-settling-motion.svg",
+          "blob": "065c34725754501f0da325a7189b332cb2d4ad37"
+        },
+        {
+          "path": "docs/assets/concept-animations/predictive-local-settling-still.svg",
+          "blob": "c62d509956fe09998bf58275526be16d79db31ad"
+        }
+      ]
+    },
+    "prefix-kv-attention": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/prefix-kv-attention-motion.svg",
+          "origin_commit": "0727eeb16284911371fc1608bf97bf4d47cbe1ad",
+          "origin_blob": "c72602fc7e11b73fbb487445787a495ed7e02877"
+        },
+        {
+          "path": "docs/assets/concept-animations/prefix-kv-attention-still.svg",
+          "origin_commit": "0727eeb16284911371fc1608bf97bf4d47cbe1ad",
+          "origin_blob": "9936ed179b8945803a61bd8f63ece65039a504c8"
+        }
+      ],
+      "reviewed_commit": "4bd1d8e61debb3295dc5a14d1b5f10097fb0d833",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/prefix-kv-attention-motion.svg",
+          "blob": "3ace4ff5f1d9f974b53cf87b174017976952409a"
+        },
+        {
+          "path": "docs/assets/concept-animations/prefix-kv-attention-still.svg",
+          "blob": "4c36108f19edfeb17471837793b022db96499620"
+        }
+      ]
+    },
+    "prompt-injection-boundary": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/prompt-injection-boundary-motion.svg",
+          "origin_commit": "44842ea12a6554a251759caa225f04f6fec505ea",
+          "origin_blob": "64f12ebfc69557acd2c55ad2d762bec1a77c3e85"
+        },
+        {
+          "path": "docs/assets/concept-animations/prompt-injection-boundary-still.svg",
+          "origin_commit": "44842ea12a6554a251759caa225f04f6fec505ea",
+          "origin_blob": "bef1c03108a50b601714d1c2970b45f8d4edca0f"
+        }
+      ],
+      "reviewed_commit": "127631bcf2d029e36961029d54e5720fb10066f3",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/prompt-injection-boundary-motion.svg",
+          "blob": "0009977893bccf352682e7346832c3d0ee18fbf2"
+        },
+        {
+          "path": "docs/assets/concept-animations/prompt-injection-boundary-still.svg",
+          "blob": "43273389d7afa118af813f3eccafa2f392330a39"
+        }
+      ]
+    },
+    "rao-ballard-residual": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/rao-ballard-residual-motion.svg",
+          "origin_commit": "9c09412b80b713424975df9a1c813a53fa201f5f",
+          "origin_blob": "c945f0629c70edb3ec3b387ae2f385947e7d5b7a"
+        },
+        {
+          "path": "docs/assets/concept-animations/rao-ballard-residual-still.svg",
+          "origin_commit": "9c09412b80b713424975df9a1c813a53fa201f5f",
+          "origin_blob": "157c988bbcc285efc590c99c18426dc461e499bf"
+        }
+      ],
+      "reviewed_commit": "c293e42d87ac091c7aca2ebd6509f42c7287d1ac",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/rao-ballard-residual-motion.svg",
+          "blob": "39674210eb833adf69c56ebc59812d83557eee0f"
+        },
+        {
+          "path": "docs/assets/concept-animations/rao-ballard-residual-still.svg",
+          "blob": "a1d5cfe7ba24182e2b67ca5ea436d79e850b0137"
         }
       ]
     },
@@ -4140,6 +4482,58 @@
         }
       ]
     },
+    "simclr-temperature-competition": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/simclr-temperature-competition-motion.svg",
+          "origin_commit": "6438fbec5f4fedb2e9e500ed3a6aad7e5504c29a",
+          "origin_blob": "18cc8fcbc5290987e8cd7674aa29359a481e11cb"
+        },
+        {
+          "path": "docs/assets/concept-animations/simclr-temperature-competition-still.svg",
+          "origin_commit": "6438fbec5f4fedb2e9e500ed3a6aad7e5504c29a",
+          "origin_blob": "fa96cd6cb86e5226bf9d04682b365308451d4f1e"
+        }
+      ],
+      "reviewed_commit": "50c62584b37b5577ad75aca0ec6669443ee2a351",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/simclr-temperature-competition-motion.svg",
+          "blob": "d7f57a1fdd6b410b14158292fcd2ed9b6347dee8"
+        },
+        {
+          "path": "docs/assets/concept-animations/simclr-temperature-competition-still.svg",
+          "blob": "536a1d228120518f0a22738d049125792cd235e6"
+        }
+      ]
+    },
+    "soap-eigenbasis-adam": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/soap-eigenbasis-adam-motion.svg",
+          "origin_commit": "c9764ebd2327d96687a7a72b64fb2c396c4da61a",
+          "origin_blob": "09bdae93c137d065ec44c72459deeb9941b64a3b"
+        },
+        {
+          "path": "docs/assets/concept-animations/soap-eigenbasis-adam-still.svg",
+          "origin_commit": "c9764ebd2327d96687a7a72b64fb2c396c4da61a",
+          "origin_blob": "d51841934eb43313cd3833eaf66ce82c98b5c589"
+        }
+      ],
+      "reviewed_commit": "78da2d1e774f357cb06947c48b4cb25a21eb57b8",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/soap-eigenbasis-adam-motion.svg",
+          "blob": "fd3b3c7a159e51bcc44838eda3608ac732c08008"
+        },
+        {
+          "path": "docs/assets/concept-animations/soap-eigenbasis-adam-still.svg",
+          "blob": "d51841934eb43313cd3833eaf66ce82c98b5c589"
+        }
+      ]
+    },
     "strips-state-effects": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -4192,6 +4586,58 @@
         }
       ]
     },
+    "svi-minibatch-global": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/svi-minibatch-global-motion.svg",
+          "origin_commit": "c9764ebd2327d96687a7a72b64fb2c396c4da61a",
+          "origin_blob": "f5bfbc681ccf4887cca8cf169534604baad71a24"
+        },
+        {
+          "path": "docs/assets/concept-animations/svi-minibatch-global-still.svg",
+          "origin_commit": "c9764ebd2327d96687a7a72b64fb2c396c4da61a",
+          "origin_blob": "966fc7225f4e3cca0ceebfbc10724a30e9e925e0"
+        }
+      ],
+      "reviewed_commit": "78da2d1e774f357cb06947c48b4cb25a21eb57b8",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/svi-minibatch-global-motion.svg",
+          "blob": "4b56f3db47fa8e7de0a7ec03a1c5cdfcab6823ce"
+        },
+        {
+          "path": "docs/assets/concept-animations/svi-minibatch-global-still.svg",
+          "blob": "29eb90f3eced483c9a7fb351d1426f47d889678b"
+        }
+      ]
+    },
+    "t5-span-corruption": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/t5-span-corruption-motion.svg",
+          "origin_commit": "26ef38b04201c0c2b623982f1f31e92ad7e15d2b",
+          "origin_blob": "4d4e0544bc1196e8f40bdc147fea0cdcc3eb951a"
+        },
+        {
+          "path": "docs/assets/concept-animations/t5-span-corruption-still.svg",
+          "origin_commit": "26ef38b04201c0c2b623982f1f31e92ad7e15d2b",
+          "origin_blob": "22d7d0229844548de01ad900fd6a5023ac4c6d5e"
+        }
+      ],
+      "reviewed_commit": "db029dd5c4744888cee697cb54aa684b8780063e",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/t5-span-corruption-motion.svg",
+          "blob": "15c13397e3be2e6cb9f6db9503af508a58aebbf1"
+        },
+        {
+          "path": "docs/assets/concept-animations/t5-span-corruption-still.svg",
+          "blob": "22d7d0229844548de01ad900fd6a5023ac4c6d5e"
+        }
+      ]
+    },
     "theta-gamma-phase-amplitude": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -4215,6 +4661,58 @@
         {
           "path": "docs/assets/concept-animations/theta-gamma-phase-amplitude-still.svg",
           "blob": "e3b2957b149ab2f444d3828cce2def09cdd68536"
+        }
+      ]
+    },
+    "vqvae-codebook-snap": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/vqvae-codebook-snap-motion.svg",
+          "origin_commit": "d0b9e58f3351c9b36a866c8945f194fb5f70203b",
+          "origin_blob": "d5e2a45f5fb5fa5566f9a469081c1d0822d0816a"
+        },
+        {
+          "path": "docs/assets/concept-animations/vqvae-codebook-snap-still.svg",
+          "origin_commit": "d0b9e58f3351c9b36a866c8945f194fb5f70203b",
+          "origin_blob": "2e556580c29a4bd9998375ab7dd92a832937fb03"
+        }
+      ],
+      "reviewed_commit": "34bfed441215ad4fe475494f71fd836c02f75f3f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/vqvae-codebook-snap-motion.svg",
+          "blob": "06ea9fe326c18e1ceb9520e35322faa9dcf314c4"
+        },
+        {
+          "path": "docs/assets/concept-animations/vqvae-codebook-snap-still.svg",
+          "blob": "d8c9a33ff3a665946f18bdbf5564a9c75fb7b73b"
+        }
+      ]
+    },
+    "watermark-greenlist-score": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/watermark-greenlist-score-motion.svg",
+          "origin_commit": "44842ea12a6554a251759caa225f04f6fec505ea",
+          "origin_blob": "6e575ef4c1e1262df231f2223594c63af50a2d63"
+        },
+        {
+          "path": "docs/assets/concept-animations/watermark-greenlist-score-still.svg",
+          "origin_commit": "44842ea12a6554a251759caa225f04f6fec505ea",
+          "origin_blob": "6095dc651046f84bcecbe565b5b75e14922d7c12"
+        }
+      ],
+      "reviewed_commit": "127631bcf2d029e36961029d54e5720fb10066f3",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/watermark-greenlist-score-motion.svg",
+          "blob": "a46ede9f365cd23353b6a7b71cff09459abecc84"
+        },
+        {
+          "path": "docs/assets/concept-animations/watermark-greenlist-score-still.svg",
+          "blob": "1d92c0e261025346f97785e2dc0209fc8862ea2d"
         }
       ]
     }
@@ -4324,6 +4822,66 @@
       "original_head": "d21c2895a2181fbf0285b50b5c69f6f52ce11683",
       "page": "docs/engineering/data/data-programming.md",
       "pr": 1071
+    },
+    "rao-ballard-residual": {
+      "page": "docs/brain-mind/predictive-coding/rao-ballard-1999/index.md",
+      "pr": 1130,
+      "original_head": "9c09412b80b713424975df9a1c813a53fa201f5f"
+    },
+    "predictive-local-settling": {
+      "page": "docs/brain-mind/predictive-coding/whittington-bogacz-2017/index.md",
+      "pr": 1130,
+      "original_head": "9c09412b80b713424975df9a1c813a53fa201f5f"
+    },
+    "t5-span-corruption": {
+      "page": "docs/theory/models/transformer/architecture-families/t5/index.md",
+      "pr": 1129,
+      "original_head": "26ef38b04201c0c2b623982f1f31e92ad7e15d2b"
+    },
+    "deit-dual-head-distillation": {
+      "page": "docs/theory/models/transformer/vision-transformer/deit/index.md",
+      "pr": 1129,
+      "original_head": "26ef38b04201c0c2b623982f1f31e92ad7e15d2b"
+    },
+    "fixmatch-confidence-gate": {
+      "page": "docs/theory/paradigms/semi-supervised/consistency-regularisation/fixmatch.md",
+      "pr": 1126,
+      "original_head": "f1e778b2bd8fed1a3d8ba22dfaf5b47c3437363b"
+    },
+    "mean-teacher-ema-tracking": {
+      "page": "docs/theory/paradigms/semi-supervised/consistency-regularisation/mean-teacher.md",
+      "pr": 1126,
+      "original_head": "f1e778b2bd8fed1a3d8ba22dfaf5b47c3437363b"
+    },
+    "vqvae-codebook-snap": {
+      "page": "docs/theory/paradigms/unsupervised/density-and-generative-models/vae/vq-vae.md",
+      "pr": 1125,
+      "original_head": "d0b9e58f3351c9b36a866c8945f194fb5f70203b"
+    },
+    "gaussian-splat-alpha-composite": {
+      "page": "docs/theory/models/computer-vision/3d-and-neural-rendering/gaussian-splatting.md",
+      "pr": 1125,
+      "original_head": "d0b9e58f3351c9b36a866c8945f194fb5f70203b"
+    },
+    "ia3-channel-gates": {
+      "page": "docs/theory/paradigms/transfer/fine-tuning-and-adaptation/ia3.md",
+      "pr": 1122,
+      "original_head": "0727eeb16284911371fc1608bf97bf4d47cbe1ad"
+    },
+    "prefix-kv-attention": {
+      "page": "docs/theory/paradigms/transfer/fine-tuning-and-adaptation/prefix-tuning.md",
+      "pr": 1122,
+      "original_head": "0727eeb16284911371fc1608bf97bf4d47cbe1ad"
+    },
+    "prompt-injection-boundary": {
+      "page": "docs/engineering/llm-security/indirect-prompt-injection.md",
+      "pr": 1121,
+      "original_head": "44842ea12a6554a251759caa225f04f6fec505ea"
+    },
+    "watermark-greenlist-score": {
+      "page": "docs/engineering/llm-security/watermarking.md",
+      "pr": 1121,
+      "original_head": "44842ea12a6554a251759caa225f04f6fec505ea"
     },
     "place-cell-firing": {
       "page": "docs/brain-mind/navigation-cognitive-maps/place-cells/index.md",

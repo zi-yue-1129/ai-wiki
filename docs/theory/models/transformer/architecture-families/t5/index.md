@@ -35,6 +35,23 @@ The paper is also a survey of choices. It compares pre-training objectives, arch
 
 ## How it works
 
+### Span-corruption teaching animation
+
+<div role="region" tabindex="0" aria-label="Teaching animation; use left and right arrow keys to scroll" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain"><div style="width:640px;min-width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" data-motion-src="../../../../../assets/concept-animations/t5-span-corruption-motion.svg" data-still-src="../../../../../assets/concept-animations/t5-span-corruption-still.svg" alt="Original sequence A–J, with B–C and H–I replaced by unique sentinel tokens in the encoder input; the decoder generates S0, B, C, S1, H, I, S2 in order." />
+</div></div>
+
+*Original CC BY-SA 4.0 teaching animation. The sequence uses **four masked tokens out of ten (40%)** to make two spans visible; this is a schematic example, not the T5 paper's usual **15% corruption rate** and not an observed model output. S0 and S1 stand for distinct sentinel tokens, while S2 marks the final target sentinel in the common T5 format. On MkDocs, use **Play/Pause** (or keyboard Enter/Space); on narrow screens, scroll the diagram horizontally. [GitHub-readable overview](../../../../../assets/concept-animations/t5-span-corruption-still.svg) · [Full animation](../../../../../assets/concept-animations/t5-span-corruption-motion.svg). The animation shows token removal, sentinel substitution, and ordered target generation, not gradient descent (Raffel et al., 2020; see References).*
+
+
+### Interactive span corruption: move both masked spans
+
+<div id="td-t5-en" class="t5-deit-lab" data-lab="t5" data-lang="en"></div>
+
+The new **stage-aware length bars** count each sequence independently. For an original length $N=10$, two distinct nonempty masked spans totalling $M$ tokens yield $N-M+2$ encoder tokens (one sentinel per removed span) and $M+3$ target tokens (the two span sentinels plus a final sentinel). The default $M=4$ therefore gives **10 input, 8 encoder and 7 target tokens**. A visible token is always left between the two removed spans; a slider choice that would make them adjacent automatically moves the second span to the next valid start. The bars and accessible status reveal the encoder and target only at their respective construction stages; they are exact counts for this toy sequence, **not** measured memory, throughput, or a model-generated output.
+
+The controls change the **start and length of two non-overlapping spans** in the fixed ten-token sequence. At each step, inspect the unmodified input, the removed tokens, the **one-sentinel-per-span encoder input**, and the decoder target containing the removed spans in original order followed by the final sentinel. For the default spans B–C and H–I, the encoder receives `A S0 D E F G S1 J` and the target is `S0 B C S1 H I S2`. The resulting 40% masked fraction is deliberately schematic; the T5 pre-training procedure typically corrupts around 15% of tokens. These strings are constructed, not actual decoder predictions (Raffel et al., 2020; see References).
+
 The encoder reads the corrupted input with bidirectional self-attention. The decoder generates the target sequence token by token, with causal self-attention and cross-attention to the encoder output. The loss is the usual cross-entropy on the target tokens.
 
 In span corruption, the paper drops 15% of input tokens and replaces each consecutive span of dropped tokens with one sentinel token. The target is the sequence of dropped spans, each preceded by its sentinel. This differs from the BERT-style masked language model. The target is the dropped spans rather than the masked tokens in place, and a decoder generates them.
@@ -44,6 +61,8 @@ In span corruption, the paper drops 15% of input tokens and replaces each consec
 \]
 
 where \(\tilde{x}\) is the corrupted input with sentinels and \(y\) is the target sequence of dropped spans.
+
+Counts include only the illustrated tokens and sentinels, excluding any additional EOS, padding or decoder-start token. Moving markers illustrate construction order, not measured latency.
 
 ## Key methods
 
