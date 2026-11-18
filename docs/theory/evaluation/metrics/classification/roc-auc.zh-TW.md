@@ -251,6 +251,14 @@ $$
 
 在**這兩個門檻所構成的混合策略族**之內，取 **λ = 1/2** 能在上限內取得最高 TPR，並將線性預期成本降到 **11/30 ≈ 0.367**，低於可行的固定門檻 **k = 1** 之 **8/15 ≈ 0.533**。固定使用 **k = 4** 雖然只有 **1/5 = 0.200** 的預期成本，卻**違反限制**。這裡的 FPR 上限限制的是**母體條件錯誤率**，並非保證有限樣本一定只會出現特定數量的誤報。所有數值均為人工示意，不能解讀為模型量測，也不主張優於所有可能的決策規則。
 
+**有限樣本與母體上限的差異。** 動畫中的 FPR 上限約束的是假設的*母體條件錯誤率*，不保證每個評估批次都符合。假設未來獨立取得三筆真實負例，每筆在此隨機規則下的誤報機率均為 $1/6$，則只要出現至少一筆誤報，觀察到的 FPR 至少為 $1/3$，超過 $1/6$ 的母體上限。精確機率為：
+
+$
+P(\widehat{\mathrm{FPR}}>1/6\mid n_{-}=3)=1-(5/6)^3=91/216\approx0.421.
+$
+
+因此，即使預期 FPR 恰好位於預算邊界，在上述人工且各筆獨立的假設下，三筆負例的小批次仍有約 **42.1%** 的機率觀察到超額 FPR。這不是統計信賴上界，也不能當成模型實際部署時達到假設 FPR 的證據。
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="受 FPR 上限約束的隨機 ROC 決策規則">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="人工 ROC 的兩個門檻連線與下降中的預期成本曲線共用隨機混合標記。FPR 上限為六分之一，因此混合機率最多二分之一；可行邊界的成本為三十分之十一。" width="640" height="360">
