@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 420" width="800" height="420" role="img" aria-labelledby="t d"><title id="t">Clipping the gradient does not cap a full optimizer step with decoupled decay</title><desc id="d">The capped gradient produces displacement norm 0.4, but adding decoupled weight decay for the toy weight vector yields a total step of norm approximately 0.806.</desc><style>text{font-family:Inter,Arial,sans-serif;fill:#dbeafe} .meta{fill:#a8b6cc;font-size:15px}.lab{font-size:17px;font-weight:600}.head{font-size:24px;font-weight:750;letter-spacing:.7px}.num{font-size:19px;font-weight:700} @media(prefers-reduced-motion:reduce){animate,animateTransform{display:none!important}rect[fill="#e0a45d"]{width:426px!important}rect[fill="#6ed3ca"][y="158"]{width:71px!important}rect[fill="#8da9f9"]{width:284px!important}path[stroke="#bf9afb"]{stroke-dashoffset:0!important}rect[fill="#f1b66e"]{opacity:1!important}}</style><rect width="800" height="420" rx="22" fill="#111c2f"/><rect x="24" y="74" width="752" height="320" rx="15" fill="#17263d" stroke="#34465f"/><text x="35" y="48" class="head">CLIPPED GRADIENT ≠ TOTAL STEP</text>
+<text x="49" y="109" class="lab">SGD + decoupled decay</text>
+<g stroke="#4b6384" stroke-width="1" opacity=".65"><line x1="70" y1="213" x2="426" y2="213"/><line x1="304" y1="133" x2="304" y2="337"/></g>
+<circle cx="304" cy="213" r="7" fill="#f2f5fa"/>
+<path d="M304 213 L192 213" stroke="#6ed3ca" stroke-width="7" fill="none" stroke-linecap="round"/>
+<path d="M192 213 L108 325" stroke="#bf9afb" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="150" stroke-dashoffset="0"><animate attributeName="stroke-dashoffset" dur="12s" values="150;150;0;0;150" keyTimes="0;.25;.65;.85;1" repeatCount="indefinite"/></path>
+<path d="M304 213 L108 325" stroke="#f1b66e" stroke-width="2.5" fill="none" stroke-dasharray="8 7"/>
+<circle cx="108" cy="325" r="7" fill="#f1b66e"/>
+<text x="220" y="197" class="lab" fill="#6ed3ca">grad</text><text x="98" y="252" class="lab">decay</text><text x="240" y="308" class="lab">total</text>
+<line x1="447" y1="97" x2="447" y2="366" stroke="#34465f"/>
+<text x="478" y="109" class="lab">Displacement norm</text>
+<text x="476" y="160" class="meta">gradient-only</text><rect x="476" y="173" width="126" height="32" rx="8" fill="#6ed3ca"/><text x="613" y="196" class="num">0.400</text>
+<text x="476" y="251" class="meta">with decay</text><rect x="476" y="264" width="254" height="32" rx="8" fill="#f1b66e"><animate attributeName="opacity" dur="12s" values="0;0;1;1;0" keyTimes="0;.25;.65;.85;1" repeatCount="indefinite"/></rect>
+<text x="612" y="319" class="num">end 0.806</text>
+<text x="49" y="380" class="meta">Toy: w=(3,4), g=(4,0), τ=2, η=0.2, decay=0.5</text></svg>

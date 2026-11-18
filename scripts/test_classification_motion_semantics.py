@@ -552,3 +552,38 @@ for filename, marker in (
     for suffix in ("-motion.svg", "-still.svg"):
         assert "roc-randomized-operating-mix" + suffix in content
 print("ROC randomized-policy interpolation: 303 cost/rate states OK")
+
+
+# An FPR budget can make a randomized policy preferable to feasible deterministic
+# cutoffs, even though it cannot beat the unconstrained minimum-loss endpoint.
+cap, deployment_p = 1 / 6, .40
+feasible_deterministic = []
+for k in range(7):
+    tp = sum(decision_labels[:k])
+    fp = k - tp
+    fpr, tpr = fp / 3, tp / 3
+    if fpr <= cap + 1e-12:
+        feasible_deterministic.append((k, 2 * deployment_p * (1-tpr) + (1-deployment_p)*fpr))
+assert [k for k, _ in feasible_deterministic] == [0, 1]
+assert min(feasible_deterministic, key=lambda item: item[1])[0] == 1
+for step in range(501):
+    lam = step / 1000
+    tpr, fpr = (1+2*lam)/3, lam/3
+    loss = 2*deployment_p*(1-tpr)+(1-deployment_p)*fpr
+    assert fpr <= cap + 1e-12
+    assert loss >= 11/30 - 1e-12
+    assert math.isclose(loss, (1-lam)*8/15+lam/5, abs_tol=1e-12)
+assert math.isclose((1+2*.5)/3, 2/3)
+assert math.isclose(2*deployment_p*(1-2/3)+(1-deployment_p)/6, 11/30)
+assert 11/30 < 8/15
+for name, marker in (
+    ("roc-auc.md", "When an FPR budget makes a mixture useful"),
+    ("roc-auc.zh-TW.md", "有誤報率上限時，混合策略如何變得有用"),
+):
+    page = (shared_dir / name).read_text(encoding="utf-8")
+    assert marker in page
+    assert "11/30" in page and "8/15" in page
+    assert r"\mathrm{FPR}_{\lambda}=\frac{\lambda}{3}" in page
+    assert "\n$\n" not in page
+    assert "\n$$\nL_{\\lambda}(p)=" in page
+print("Constrained ROC mixture: 501 budget-feasible states, 7 deterministic cutoffs and bilingual display maths OK")

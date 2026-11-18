@@ -148,6 +148,12 @@
 .md-typeset .gqa-source-scroll:focus-visible{outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:2px}
 /* Explicit source-owned scroll regions, focusable before and after enhancement. */
 .md-typeset .reviewed-motion-scroll:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
+/* Gradient-clipping source diagrams retain their authored 800px coordinates. */
+.md-typeset .gradient-source-frame .concept-motion-player { width:800px;min-width:800px;max-width:none; }
+.md-typeset .gradient-source-scroll:focus-visible { outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:2px; }
+/* Diffusion-source figures alone retain legible intrinsic widths. */
+.md-typeset .diffusion-source-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+.md-typeset .diffusion-source-scroll:focus-visible{outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:2px}
 
 /* Only SAC/DPO native 760px figures: no generic 640px centered-host overhang. */
 .sac-dpo-motion-scroll > .sac-dpo-motion-frame { width:760px; min-width:760px; max-width:none; margin:0 auto; }

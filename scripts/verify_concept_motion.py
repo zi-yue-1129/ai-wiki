@@ -18,6 +18,19 @@ TOPICS = {
     "roc-pr-shift": "theory/evaluation/metrics/classification/roc-auc",
     "roc-prior-policy": "theory/evaluation/metrics/classification/roc-auc",
     "roc-youden-cost": "theory/evaluation/metrics/classification/roc-auc",
+    'alibi-content-recency': 'theory/models/transformer/positional-encodings/index',
+    'alibi-distance-softmax': 'theory/models/transformer/positional-encodings/index',
+    'alibi-head-prefix': 'theory/models/transformer/positional-encodings/index',
+    'rope-axial-2d': 'theory/models/transformer/positional-encodings/index',
+    'rope-cache-reindex': 'theory/models/transformer/positional-encodings/index',
+    'rope-frequency-bands': 'theory/models/transformer/positional-encodings/index',
+    'rope-interpolation-angle': 'theory/models/transformer/positional-encodings/index',
+    'shaw-relative-clipping': 'theory/models/transformer/positional-encodings/index',
+    'shaw-relative-value': 'theory/models/transformer/positional-encodings/index',
+    'sinusoidal-multiscale': 'theory/models/transformer/positional-encodings/index',
+    'yarn-attention-temperature': 'theory/models/transformer/positional-encodings/index',
+    'yarn-frequency-ramp': 'theory/models/transformer/positional-encodings/index',
+
     'ucb1-optimism-switch': 'theory/paradigms/online/stochastic-bandits/index',
     'ucb1-bonus-sensitivity': 'theory/paradigms/online/stochastic-bandits/index',
     'thompson-beta-posterior-draws': 'theory/paradigms/online/stochastic-bandits/index',
@@ -139,6 +152,23 @@ TOPICS = {
     "collider-selection": "theory/causal-inference/index",
     "gqa-head-sharing": "engineering/inference-optimization/grouped-query-attention",
     "gqa-uptraining-pooling": "engineering/inference-optimization/grouped-query-attention",
+    'gradient-clipping-comparison': 'theory/optimization/gradient-clipping-and-normalisation',
+    'gradient-accumulation-clipping-order': 'theory/optimization/gradient-clipping-and-normalisation',
+    'gradient-global-layer-budget': 'theory/optimization/gradient-clipping-and-normalisation',
+    'gradient-amp-unscale-order': 'theory/optimization/gradient-clipping-and-normalisation',
+    'gradient-agc-relative-cap': 'theory/optimization/gradient-clipping-and-normalisation',
+    'gradient-decoupled-decay': 'theory/optimization/gradient-clipping-and-normalisation',
+    'kivi-quantization-axis': 'engineering/inference-optimization/kivi',
+    'h2o-heavy-hitter-selection': 'engineering/inference-optimization/h2o',
+
+    "conformal-subgroup-coverage": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-shift-coverage": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-cqr-expansion": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-weighted-quantile": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-aps-cumulative": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-alpha-staircase": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-mondrian-groups": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
+    "conformal-raps-penalty": "theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction",
     "ece-binned-calibration": "theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error",
     "deep-ensemble-spread": "theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles",
     "tsne-kl-embedding": "theory/paradigms/unsupervised/dimensionality-reduction/t-sne",
@@ -329,10 +359,17 @@ TOPICS = {
     "predictive-local-settling": "brain-mind/predictive-coding/whittington-bogacz-2017/index",
     "iou-overlap-sweep": "theory/evaluation/metrics/segmentation/iou",
     "dice-overlap-response": "theory/evaluation/metrics/segmentation/dice",
+    "ddpm-progressive-noising": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm",
+    "ddim-strided-sampling": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
+    "ddim-eta-coefficients": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
+CANONICAL_VIEWBOXES = {
+ 'roc-pr-shift': '0 0 640 360',
+ 'roc-prior-policy': '0 0 640 360',
+ 'roc-youden-cost': '0 0 640 360',
+'3d-unet-context-tiling': '0 0 800 420',
  '3d-unet-depth-kernel': '0 0 800 420',
  '3d-unet-evaluation-holdout': '0 0 800 420',
  '3d-unet-orthogonal-slices': '0 0 640 360',
@@ -351,6 +388,9 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'adamw-decoupled-paths': '0 0 640 360',
  'adamw-epoch-timescale': '0 0 640 360',
  'aging-evolution-queue': '0 0 640 360',
+ 'alibi-content-recency': '0 0 640 360',
+ 'alibi-distance-softmax': '0 0 640 360',
+ 'alibi-head-prefix': '0 0 640 360',
  'alpha-beta-cutoff': '0 0 640 360',
  'ant-colony-pheromone': '0 0 640 360',
  'ar-context-drift': '0 0 800 420',
@@ -380,11 +420,22 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'coherence-phase-gating': '0 0 640 360',
  'colbert-maxsim-switch': '0 0 640 360',
  'collider-selection': '0 0 800 430',
+ 'conformal-alpha-staircase': '0 0 640 360',
+ 'conformal-aps-cumulative': '0 0 640 360',
+ 'conformal-cqr-expansion': '0 0 640 360',
+ 'conformal-mondrian-groups': '0 0 640 360',
+ 'conformal-raps-penalty': '0 0 640 360',
+ 'conformal-shift-coverage': '0 0 640 360',
+ 'conformal-subgroup-coverage': '0 0 640 360',
+ 'conformal-weighted-quantile': '0 0 640 360',
  'consistency-trajectory-map': '0 0 800 420',
  'copycat-action-lag': '0 0 640 360',
  'cv-fold-rotation': '0 0 640 360',
  'darts-soft-operations': '0 0 640 360',
+ 'ddim-eta-coefficients': '0 0 800 420',
+ 'ddim-strided-sampling': '0 0 640 360',
  'ddm-first-passage': '0 0 640 360',
+ 'ddpm-progressive-noising': '0 0 640 360',
  'deep-ensemble-spread': '0 0 720 400',
  'deformable-sampling': '0 0 640 360',
  'deit-dual-head-distillation': '0 0 640 360',
@@ -440,6 +491,12 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'gptq-error-compensation': '0 0 640 360',
  'gqa-head-sharing': '0 0 640 360',
  'gqa-uptraining-pooling': '0 0 640 360',
+ 'gradient-accumulation-clipping-order': '0 0 800 420',
+ 'gradient-agc-relative-cap': '0 0 800 420',
+ 'gradient-amp-unscale-order': '0 0 800 420',
+ 'gradient-clipping-comparison': '0 0 800 420',
+ 'gradient-decoupled-decay': '0 0 800 420',
+ 'gradient-global-layer-budget': '0 0 800 420',
  'gradient-norm-clipping': '0 0 640 360',
  'graphplan-layer-extraction': '0 0 640 360',
  'graphsage-sample-aggregate': '0 0 640 360',
@@ -447,6 +504,7 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'group-norm-statistics': '0 0 640 360',
  'grpo-group-advantages': '0 0 760 400',
  'gru-gate-flow': '0 0 640 360',
+ 'h2o-heavy-hitter-selection': '0 0 640 360',
  'he-fan-mode-tradeoff': '0 0 640 360',
  'he-relu-mean-shift': '0 0 640 360',
  'he-relu-second-moment': '0 0 640 360',
@@ -468,6 +526,7 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'jumprelu-threshold-jump': '0 0 640 360',
  'kalman-gain-fusion': '0 0 640 360',
  'kfac-factor-preconditioning': '0 0 640 360',
+ 'kivi-quantization-axis': '0 0 640 360',
  'kmeans-elbow-inertia': '0 0 800 420',
  'kmeans-feature-scale': '0 0 800 420',
  'kmeans-lloyd': '0 0 640 360',
@@ -582,15 +641,16 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'roc-cost-operating-point': '0 0 640 360',
  'roc-pairwise-auc': '0 0 640 360',
  'roc-partial-area': '0 0 640 360',
- 'roc-pr-shift': '0 0 640 360',
- 'roc-prior-policy': '0 0 640 360',
  'roc-randomized-operating-mix': '0 0 640 360',
  'roc-rank-transform': '0 0 640 360',
  'roc-threshold-sweep': '0 0 640 360',
  'roc-tie-half-credit': '0 0 640 360',
- 'roc-youden-cost': '0 0 640 360',
  'roi-align-sampling': '0 0 800 460',
  'roofline-ridge-sweep': '0 0 640 360',
+ 'rope-axial-2d': '0 0 640 360',
+ 'rope-cache-reindex': '0 0 640 360',
+ 'rope-frequency-bands': '0 0 640 360',
+ 'rope-interpolation-angle': '0 0 640 360',
  'rotational-norm-balance': '0 0 640 360',
  's4d-diagonal-modes': '0 0 860 440',
  'sac-entropy-temperature': '0 0 760 420',
@@ -605,8 +665,11 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'shap-coalition-marginals': '0 0 640 360',
  'sharpness-radius-loss': '0 0 640 360',
  'sharpness-reparam-curvature': '0 0 640 360',
+ 'shaw-relative-clipping': '0 0 640 360',
+ 'shaw-relative-value': '0 0 640 360',
  'sigma-reparam-spectral-gain': '0 0 640 360',
  'simclr-temperature-competition': '0 0 640 360',
+ 'sinusoidal-multiscale': '0 0 640 360',
  'soap-eigenbasis-adam': '0 0 640 360',
  'speculative-decoding': '0 0 640 360',
  'spsa-two-evaluations': '0 0 640 360',
@@ -644,7 +707,9 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'watermark-greenlist-score': '0 0 640 360',
  'weak-supervision-vote-fusion': '0 0 640 360',
  'wgan-gp-interpolation': '0 0 640 360',
- 'wgan-weight-clip': '0 0 640 360'}
+ 'wgan-weight-clip': '0 0 640 360',
+ 'yarn-attention-temperature': '0 0 640 360',
+ 'yarn-frequency-ramp': '0 0 640 360'}
 # Explicit non-TOPICS assets validated by main(), not generic name allowances.
 EXTRA_CANONICAL_FILENAMES = {'brier-expected-risk-motion.svg': '0 0 640 360',
  'brier-expected-risk-still.svg': '0 0 640 360',
@@ -695,6 +760,9 @@ def expected_viewbox(path: Path) -> str | None:
 
 # Independently restored original page contracts; never inferred from image URLs.
 SOURCE_ALT_CONTRACT_STEMS = {'cfm-conditional-bridge',
+ 'ddim-eta-coefficients',
+ 'ddim-strided-sampling',
+ 'ddpm-progressive-noising',
  'dora-independent',
  'expert-cache-miss',
  'flashattention-backward-remat',
@@ -709,9 +777,11 @@ SOURCE_ALT_CONTRACT_STEMS = {'cfm-conditional-bridge',
  'gqa-uptraining-pooling',
  'graphsage-sample-aggregate',
  'grpo-group-advantages',
+ 'h2o-heavy-hitter-selection',
  'hnsw-layer-descent',
  'ia3-channel-gates',
  'ivfpq-probe-pq-lookup',
+ 'kivi-quantization-axis',
  'minhash-lsh-band-collision',
  'ofc-selective-feedback',
  'paged-block-mapping',
@@ -732,6 +802,14 @@ STATIC_PREVIEW_LINK_STEMS = {'awq-salient-scaling',
  'cfm-conditional-bridge',
  'clr-triangular2-sweep',
  'coherence-phase-gating',
+ 'conformal-alpha-staircase',
+ 'conformal-aps-cumulative',
+ 'conformal-cqr-expansion',
+ 'conformal-mondrian-groups',
+ 'conformal-raps-penalty',
+ 'conformal-shift-coverage',
+ 'conformal-subgroup-coverage',
+ 'conformal-weighted-quantile',
  'deep-ensemble-spread',
  'deit-dual-head-distillation',
  'ece-binned-calibration',
@@ -742,14 +820,22 @@ STATIC_PREVIEW_LINK_STEMS = {'awq-salient-scaling',
  'gptq-error-compensation',
  'gqa-head-sharing',
  'gqa-uptraining-pooling',
+ 'gradient-accumulation-clipping-order',
+ 'gradient-agc-relative-cap',
+ 'gradient-amp-unscale-order',
+ 'gradient-clipping-comparison',
+ 'gradient-decoupled-decay',
+ 'gradient-global-layer-budget',
  'graphplan-layer-extraction',
  'graphsage-sample-aggregate',
  'grpo-group-advantages',
+ 'h2o-heavy-hitter-selection',
  'hnsw-layer-descent',
  'ia3-channel-gates',
  'integrated-gradients-path',
  'ivfpq-probe-pq-lookup',
  'kalman-gain-fusion',
+ 'kivi-quantization-axis',
  'mean-teacher-ema-tracking',
  'minhash-lsh-band-collision',
  'particle-weight-resampling',
@@ -889,7 +975,7 @@ def main() -> int:
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in NAS_STEMS | {"gqa-head-sharing", "gqa-uptraining-pooling"}:
+            if stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
@@ -902,6 +988,8 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
+            elif stem in {'alibi-content-recency', 'alibi-distance-softmax', 'alibi-head-prefix', 'rope-axial-2d', 'rope-cache-reindex', 'rope-frequency-bands', 'rope-interpolation-angle', 'shaw-relative-clipping', 'shaw-relative-value', 'sinusoidal-multiscale', 'yarn-attention-temperature', 'yarn-frequency-ramp'}:
+                errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
@@ -909,6 +997,13 @@ def main() -> int:
                     errors.append(f"{page}: missing GitHub static preview link for {stem}")
             elif stem in {"activity-silent-trace", "cfm-conditional-bridge", "consistency-trajectory-map", "deep-ensemble-spread", "ece-binned-calibration", "gated-sae-gate-magnitude", "glorot-alternating-width", "glorot-equal-variance-densities", "glorot-fan-tradeoff", "glorot-tanh-saturation", "he-fan-mode-tradeoff", "he-relu-mean-shift", "he-relu-second-moment", "hmm-baum-welch-transition", "hmm-filter-smooth", "hmm-forward-sum-product", "hmm-pairwise-posterior", "hnsw-layer-descent", "ivfpq-probe-pq-lookup", "jumprelu-threshold-jump", "latent-space-denoise", "lion-sign-momentum", "muon-spectral-balancing", "mup-adam-sgd", "mup-readout-aggregation", "mup-readout-noise", "mup-transfer-protocol", "mup-transfer-validation", "mup-update-budget", "mup-width-multipliers", "pbwm-gate", "prelu-slope-gain", "prompt-injection-boundary", "qk-norm-scale-sweep", "react-evidence-loop", "rectified-reflow-coupling", "reflexion-memory-feedback", "roi-align-sampling", "sam-prompt-ambiguity", "score-sde-flow", "sigma-reparam-spectral-gain", "tsne-kl-embedding", "umap-fuzzy-union", "unigram-sampling-alpha", "unigram-viterbi-lattice", "video-joint-denoising", "watermark-greenlist-score"}:
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage", "conformal-cqr-expansion", "conformal-weighted-quantile", "conformal-aps-cumulative", "conformal-alpha-staircase", "conformal-mondrian-groups", "conformal-raps-penalty"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {
+                    (page.parent / link).resolve() for link in static_links
+                }:
+                    errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
             elif stem in {"reinforce-reward-to-go", "reinforce-return-credit", "grpo-group-advantages", "itemcf-weighted-neighbors", "neumf-dual-path"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
@@ -916,6 +1011,8 @@ def main() -> int:
                     (page.parent / link).resolve() for link in static_links
                 }:
                     errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
+            elif stem in {"gradient-clipping-comparison", "gradient-accumulation-clipping-order", "gradient-global-layer-budget", "gradient-amp-unscale-order", "gradient-agc-relative-cap", "gradient-decoupled-decay"}:
+                errors.extend(verify_source_pair(page, text, stem))
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
                 # legacy four-stage SVG. GitHub shows the static overview and
@@ -950,7 +1047,7 @@ def main() -> int:
                 linked = {(page.parent / link).resolve() for link in static_links}
                 if static_path.resolve() not in linked:
                     errors.append(f"{page}: missing GitHub-readable static SVG link")
-            elif stem in {'ucb1-optimism-switch', 'ucb1-bonus-sensitivity', 'thompson-beta-posterior-draws', 'thompson-evidence-concentration', "s4d-diagonal-modes", "mamba2-ssd-causal-map", "adafactor-factored-moments", "adagrad-coordinate-gain", "adam-bias-correction", "adam-epsilon-threshold", "adam-scale-invariance", "adam-sign-reversal", "adamw-epoch-timescale", "ant-colony-pheromone", "asam-neighborhood", "auc-ap-ranking-contrast", "awq-salient-scaling", "bahdanau-alignment-context", "bo-expected-improvement", "bo-gp-conditioning", "boosting-residual-steps", "bpr-gradient-saturation", "bpr-pairwise-ranking", "causal-lamp-intervention", "checkpoint-recompute", "clr-triangular2-sweep", "coherence-phase-gating", "colbert-maxsim-switch", "copycat-action-lag", "cv-fold-rotation", "dora-independent", "dpo-preference-margin", "dpr-dot-product-sweep", "dropblock-spatial-masking", "dropout-inverted-sampling", "dropout-variance-tradeoff", "effective-number-growth", "eigen-jordan-shear", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "elo-online-update", "ewc-fisher-springs", "fixmatch-confidence-gate", "forest-bootstrap-vote", "forward-prediction-correction", "fp16-loss-scaling", "fp8-scale-range", "gaussian-splat-alpha-composite", "genetic-crossover-mutation", "gin-multiset-counts", "gptq-error-compensation", "graphplan-layer-extraction", "graphsage-sample-aggregate", "grid-search-x-coverage", "group-norm-statistics", "heavy-ball-overshoot", "i3d-filter-inflation", "ia3-channel-gates", "ida-bound-reexpansion", "integrated-gradients-path", "kalman-gain-fusion", "lagrange-dual-gap", "lagrange-kkt-active-set", "lagrange-tangency", "lamb-adam-layer-trust", "large-batch-warmup-ramp", "lars-layer-trust-scaling", "logit-prior-decision", "lsq-step-size-sweep", "mahalanobis-ellipse-threshold", "map-beta-posterior", "map-elites-archive", "map-precision-at-hits", "mc-dropout-repeated-passes", "mean-teacher-ema-tracking", "mf-als-alternating", "mf-coupled-sgd", "minhash-lsh-band-collision", "mixup-beta-strength", "mixup-cutmix-area", "mixup-loss-decomposition", "mixup-paired-interpolation", "mle-bernoulli-likelihood", "ndcg-position-discount", "neat-add-node-innovation", "newton-armijo-backtracking", "newton-curvature-steps", "newton-indefinite-curvature", "odin-gradient-perturbation", "ofc-selective-feedback", "outlier-mae-rmse", "paired-bootstrap-resampling", "particle-swarm-best", "particle-weight-resampling", "place-cell-firing", "power-iteration-projection-contraction", "pr-threshold-sweep", "predictive-local-settling", "prefix-kv-attention", "prompt-injection-boundary", "qat-fake-quant-ste", "qlora-frozen-flow", "r2-mean-baseline", "random-search-x-coverage", "rao-ballard-residual", "recursive-tail-loss", "resnet-depth-gradient-factors", "resnet-identity-gradient", "resnet-postrelu-gate", "resnet-projection-shortcut", "resolution-refutation-chain", "rf-bootstrap-oob", "rf-feature-subset", "rmsnorm-shift-response", "roc-rank-transform", "roc-threshold-sweep", "roofline-ridge-sweep", "rotational-norm-balance", "sac-entropy-temperature", "saliency-local-gradient", "self-instruct-filter-loop", "sgd-noise-batch", "shampoo-eigenmode", "sharpness-radius-loss", "sharpness-reparam-curvature", "simclr-temperature-competition", "soap-eigenbasis-adam", "stochastic-depth-scaling-conventions", "stochastic-depth-survival-samples", "strips-state-effects", "successor-occupancy", "svi-minibatch-global", "svm-margin-hinge", "theta-gamma-phase-amplitude", "vivit-factorised-attention", "vqvae-codebook-snap", "watermark-greenlist-score", "weak-supervision-vote-fusion", "wgan-gp-interpolation", "wgan-weight-clip",
+            elif stem in {'ucb1-optimism-switch', 'ucb1-bonus-sensitivity', 'thompson-beta-posterior-draws', 'thompson-evidence-concentration', "kivi-quantization-axis", "h2o-heavy-hitter-selection", "s4d-diagonal-modes", "mamba2-ssd-causal-map", "adafactor-factored-moments", "adagrad-coordinate-gain", "adam-bias-correction", "adam-epsilon-threshold", "adam-scale-invariance", "adam-sign-reversal", "adamw-epoch-timescale", "ant-colony-pheromone", "asam-neighborhood", "auc-ap-ranking-contrast", "awq-salient-scaling", "bahdanau-alignment-context", "bo-expected-improvement", "bo-gp-conditioning", "boosting-residual-steps", "bpr-gradient-saturation", "bpr-pairwise-ranking", "causal-lamp-intervention", "checkpoint-recompute", "clr-triangular2-sweep", "coherence-phase-gating", "colbert-maxsim-switch", "copycat-action-lag", "cv-fold-rotation", "dora-independent", "dpo-preference-margin", "dpr-dot-product-sweep", "dropblock-spatial-masking", "dropout-inverted-sampling", "dropout-variance-tradeoff", "effective-number-growth", "eigen-jordan-shear", "eigen-linear-map", "eigen-rotation-no-real", "eigen-zero-eigenvalue", "elo-online-update", "ewc-fisher-springs", "fixmatch-confidence-gate", "forest-bootstrap-vote", "forward-prediction-correction", "fp16-loss-scaling", "fp8-scale-range", "gaussian-splat-alpha-composite", "genetic-crossover-mutation", "gin-multiset-counts", "gptq-error-compensation", "graphplan-layer-extraction", "graphsage-sample-aggregate", "grid-search-x-coverage", "group-norm-statistics", "heavy-ball-overshoot", "i3d-filter-inflation", "ia3-channel-gates", "ida-bound-reexpansion", "integrated-gradients-path", "kalman-gain-fusion", "lagrange-dual-gap", "lagrange-kkt-active-set", "lagrange-tangency", "lamb-adam-layer-trust", "large-batch-warmup-ramp", "lars-layer-trust-scaling", "logit-prior-decision", "lsq-step-size-sweep", "mahalanobis-ellipse-threshold", "map-beta-posterior", "map-elites-archive", "map-precision-at-hits", "mc-dropout-repeated-passes", "mean-teacher-ema-tracking", "mf-als-alternating", "mf-coupled-sgd", "minhash-lsh-band-collision", "mixup-beta-strength", "mixup-cutmix-area", "mixup-loss-decomposition", "mixup-paired-interpolation", "mle-bernoulli-likelihood", "ndcg-position-discount", "neat-add-node-innovation", "newton-armijo-backtracking", "newton-curvature-steps", "newton-indefinite-curvature", "odin-gradient-perturbation", "ofc-selective-feedback", "outlier-mae-rmse", "paired-bootstrap-resampling", "particle-swarm-best", "particle-weight-resampling", "place-cell-firing", "power-iteration-projection-contraction", "pr-threshold-sweep", "predictive-local-settling", "prefix-kv-attention", "prompt-injection-boundary", "qat-fake-quant-ste", "qlora-frozen-flow", "r2-mean-baseline", "random-search-x-coverage", "rao-ballard-residual", "recursive-tail-loss", "resnet-depth-gradient-factors", "resnet-identity-gradient", "resnet-postrelu-gate", "resnet-projection-shortcut", "resolution-refutation-chain", "rf-bootstrap-oob", "rf-feature-subset", "rmsnorm-shift-response", "roc-rank-transform", "roc-threshold-sweep", "roofline-ridge-sweep", "rotational-norm-balance", "sac-entropy-temperature", "saliency-local-gradient", "self-instruct-filter-loop", "sgd-noise-batch", "shampoo-eigenmode", "sharpness-radius-loss", "sharpness-reparam-curvature", "simclr-temperature-competition", "soap-eigenbasis-adam", "stochastic-depth-scaling-conventions", "stochastic-depth-survival-samples", "strips-state-effects", "successor-occupancy", "svi-minibatch-global", "svm-margin-hinge", "theta-gamma-phase-amplitude", "vivit-factorised-attention", "vqvae-codebook-snap", "watermark-greenlist-score", "weak-supervision-vote-fusion", "wgan-gp-interpolation", "wgan-weight-clip",
                           "svd-unit-circle", "svd-rank-accumulation", "svd-noise-amplification", "svd-ls-orthogonal-residual", "svd-degenerate-bases", "power-iteration-convergence",
                           "kmeans-plusplus-d2", "kmeans-outlier-leverage", "kmeans-feature-scale", "kmeans-elbow-inertia",
                           "ar-score-vs-sample", "ar-likelihood-accumulation", "ar-context-drift", "ar-eos-survival",

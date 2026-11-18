@@ -26,7 +26,7 @@ Sampling from a DDPM takes one network evaluation per training step, so a typica
 
 ## Core idea
 
-The paper defines a family of inference processes \(q_\sigma(x_{1:T} \mid x_0)\) indexed by a stochasticity parameter \(\sigma\). Each member has the same marginals as DDPM, so the same trained network is valid for every \(\sigma\). The generative process is then run over an increasing subsequence of \(S\) training steps, which can be much shorter than \(T\). Setting \(\sigma = 0\) gives a deterministic sampler, in which the same starting noise always produces the same image. Choosing the DDPM value of \(\sigma\) recovers ancestral sampling, so DDPM is a special case.
+The paper defines a family of inference processes \(q_\sigma(x_{1:T} \mid x_0)\) indexed by a stochasticity parameter \(\sigma\). Each member has the same marginals as DDPM, so the same trained network is valid for every \(\sigma\). The sampler selects an increasing subsequence of \(S\) training indices and traverses it in reverse (from noisy to clean), which can be much shorter than \(T\). Setting \(\sigma = 0\) gives a deterministic sampler, in which the same starting noise always produces the same image. Choosing the DDPM value of \(\sigma\) recovers ancestral sampling, so DDPM is a special case.
 
 ## Algorithm
 
@@ -43,6 +43,14 @@ x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\b
 \]
 
 Here \(t_{\text{prev}}\) is the previous step in the subsequence. In the paper's notation \(\alpha_t\) denotes the cumulative product, so \(\alpha_t\) here is the \(\bar\alpha_t\) used above. With \(\sigma = 0\) the update is deterministic. The paper notes that this update resembles an Euler integration step of an ordinary differential equation, which is the basis of its connection to neural ODEs.
+
+## Animated walkthrough: deterministic strided sampling
+
+<div class="diffusion-source-scroll" tabindex="0" role="region" aria-label="Diffusion diagram, horizontally scrollable">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ddim-strided-sampling-still.svg" data-motion-src="../../../../../assets/concept-animations/ddim-strided-sampling-motion.svg" data-still-src="../../../../../assets/concept-animations/ddim-strided-sampling-still.svg" alt="A highlighted ring advances through every DDPM time step above and through every second step of a shorter DDIM subsequence below." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original looping instructional SVG, CC BY-SA 4.0.* The top row illustrates eight successive DDPM denoiser evaluations (the final update uses no fresh noise). The bottom row reuses **the same trained noise-prediction network** but skips intermediate training indices, showing four deterministic DDIM updates with $\eta=0$. ([Song et al. (2021)](https://arxiv.org/abs/2010.02502)) In this setting the DDIM transition does not add a fresh independent Gaussian noise draw; this differs from a stochastic ancestral DDPM sampler. The **8-vs-4 evaluations are an invented teaching schedule**, not a speed-up or quality measurement, and fewer evaluations do not guarantee equal sample fidelity. The MkDocs page supplies keyboard-accessible **Play/Pause** controls and a reduced-motion still. [Static preview for GitHub](../../../../../assets/concept-animations/ddim-strided-sampling-still.svg).
 
 ### Stochasticity is schedule-dependent
 
@@ -61,6 +69,12 @@ Here the \(\sigma\) in the update above means \(\sigma_{t\to s}(\eta)\). This is
 \]
 
 This yields the corresponding DDPM ancestral transition. With skipped indices it is a stochastic generalized transition, not the original full-step chain; this statement does not identify every DDPM variance convention with this sampler.
+
+<div class="diffusion-source-scroll" tabindex="0" role="region" aria-label="Diffusion diagram, horizontally scrollable">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ddim-eta-coefficients-still.svg" data-motion-src="../../../../../assets/concept-animations/ddim-eta-coefficients-motion.svg" data-still-src="../../../../../assets/concept-animations/ddim-eta-coefficients-still.svg" alt="The animated eta slider reallocates squared update coefficients between predicted noise and newly sampled Gaussian noise, while the clean-image coefficient remains fixed." width="800" height="420" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*Original 10-second looping instructional SVG (CC BY-SA 4.0).* For invented cumulative coefficients \(\bar\alpha_t=0.36\) and \(\bar\alpha_s=0.64\), \(\sigma_{t\to s}^2=0.24609375\eta^2\). Colored widths represent **squared scalar coefficients** \((\bar\alpha_s,\ 1-\bar\alpha_s-\sigma^2,\ \sigma^2)\), which sum to one. They do **not** measure the variance or energy of model outputs, because the predicted clean image and noise can be correlated. The two reference rows show endpoint choices; the animated row steps through \(\eta=0,0.2,\ldots,1\) and back, keeping every displayed squared coefficient exact. All values are mathematical examples, not fitted model parameters, Gaussian draws, or sample-quality measurements. The MkDocs player supplies keyboard-accessible Play/Pause and a reduced-motion still; [GitHub static preview](../../../../../assets/concept-animations/ddim-eta-coefficients-still.svg). Original method: [Song et al. (2021)](https://arxiv.org/abs/2010.02502).
 
 ## Results
 

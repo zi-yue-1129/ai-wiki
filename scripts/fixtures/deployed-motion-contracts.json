@@ -150,6 +150,21 @@
       "pr": 1121,
       "original_head": "44842ea12a6554a251759caa225f04f6fec505ea"
     },
+    "ddpm-progressive-noising": {
+      "page": "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm.md",
+      "pr": 1062,
+      "original_head": "624c64c7dedd177f6ca01d4af957db90d34800ca"
+    },
+    "ddim-strided-sampling": {
+      "page": "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md",
+      "pr": 1062,
+      "original_head": "624c64c7dedd177f6ca01d4af957db90d34800ca"
+    },
+    "ddim-eta-coefficients": {
+      "page": "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim.md",
+      "pr": 1062,
+      "original_head": "624c64c7dedd177f6ca01d4af957db90d34800ca"
+    },
     "gqa-head-sharing": {
       "page": "docs/engineering/inference-optimization/grouped-query-attention.md",
       "pr": 1061,
@@ -159,6 +174,16 @@
       "page": "docs/engineering/inference-optimization/grouped-query-attention.md",
       "pr": 1061,
       "original_head": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf"
+    },
+    "kivi-quantization-axis": {
+      "page": "docs/engineering/inference-optimization/kivi.md",
+      "pr": 1060,
+      "original_head": "48023423bf974e4b1ff8f8c2327af5b44448df5e"
+    },
+    "h2o-heavy-hitter-selection": {
+      "page": "docs/engineering/inference-optimization/h2o.md",
+      "pr": 1060,
+      "original_head": "48023423bf974e4b1ff8f8c2327af5b44448df5e"
     },
     "reinforce-reward-to-go": {
       "page": "docs/theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index.md",
@@ -3664,6 +3689,84 @@
         }
       ]
     },
+    "alibi-content-recency": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/alibi-content-recency-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "83132035d46bc283931c76d05f4dd201ba57a142"
+        },
+        {
+          "path": "docs/assets/concept-animations/alibi-content-recency-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "ca4c199aa7a2766142ec0c4a0f93940ddc3987ce"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/alibi-content-recency-motion.svg",
+          "blob": "8b0a7a79536b3458756b481f53cef43a07729568"
+        },
+        {
+          "path": "docs/assets/concept-animations/alibi-content-recency-still.svg",
+          "blob": "ca4c199aa7a2766142ec0c4a0f93940ddc3987ce"
+        }
+      ]
+    },
+    "alibi-distance-softmax": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/alibi-distance-softmax-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "386fb7b22841479c92df3163c067c58ef44ba470"
+        },
+        {
+          "path": "docs/assets/concept-animations/alibi-distance-softmax-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "69315cebf92c081e17da9fa44a0bad1ac64f6ac9"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/alibi-distance-softmax-motion.svg",
+          "blob": "93fa6623ef9031803a6e4ca3e552c8e79dd17385"
+        },
+        {
+          "path": "docs/assets/concept-animations/alibi-distance-softmax-still.svg",
+          "blob": "b5bfd4c3d8338807aea96fa9a37c8c3a678031d9"
+        }
+      ]
+    },
+    "alibi-head-prefix": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/alibi-head-prefix-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "823f89a0f6bcd2f52de62c8124aafe0129de3f34"
+        },
+        {
+          "path": "docs/assets/concept-animations/alibi-head-prefix-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "dbdbe502170dbfeeafe0e5293faa4606767ea05e"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/alibi-head-prefix-motion.svg",
+          "blob": "0153cd1317228c7aa80bb04420be5af49e62d7e5"
+        },
+        {
+          "path": "docs/assets/concept-animations/alibi-head-prefix-still.svg",
+          "blob": "dbdbe502170dbfeeafe0e5293faa4606767ea05e"
+        }
+      ]
+    },
     "awq-salient-scaling": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -3820,6 +3923,214 @@
         }
       ]
     },
+    "conformal-alpha-staircase": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/conformal-alpha-staircase-motion.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "75eb01f507802df79b59528a749ad5b02b93ae9d"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-alpha-staircase-still.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "c8fd19ac2e70945d8bb5c065af8784c97a046516"
+        }
+      ],
+      "reviewed_commit": "14929e8027dd338dc7d582250b54f46ab3cd5a6c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/conformal-alpha-staircase-motion.svg",
+          "blob": "5400c3e2a88d48850e13f3a06847f7241988530d"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-alpha-staircase-still.svg",
+          "blob": "b776bbcbea701f0de6a0cca9da32afac9543794e"
+        }
+      ]
+    },
+    "conformal-aps-cumulative": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/conformal-aps-cumulative-motion.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "e3dc294d7864fe8c4e45415d63809ba595f1502b"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-aps-cumulative-still.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "9bb18a08855493b13db5fdb9fd683351ce6bed47"
+        }
+      ],
+      "reviewed_commit": "14929e8027dd338dc7d582250b54f46ab3cd5a6c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/conformal-aps-cumulative-motion.svg",
+          "blob": "3698d0e3e4d9a6a1f5c0999b3395261cb6d330d7"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-aps-cumulative-still.svg",
+          "blob": "3867115fae758d0c4e33a02ad131f974ca09e37e"
+        }
+      ]
+    },
+    "conformal-cqr-expansion": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/conformal-cqr-expansion-motion.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "a0864ba41761f17f823e234149424747995ba0f1"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-cqr-expansion-still.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "261983ada2468fb8058ca82578bf1fae6c6c2d4c"
+        }
+      ],
+      "reviewed_commit": "14929e8027dd338dc7d582250b54f46ab3cd5a6c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/conformal-cqr-expansion-motion.svg",
+          "blob": "dd34e3d55045f1081ebc5d322c940bcb948652e4"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-cqr-expansion-still.svg",
+          "blob": "fdedd508bf96462f4430b0af6851900b50928e99"
+        }
+      ]
+    },
+    "conformal-mondrian-groups": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/conformal-mondrian-groups-motion.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "0812eceae4e2d9051e5f1acae9b373af6a3007c4"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-mondrian-groups-still.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "3c1fdfb5afc59f3119da8d8c541db6b6c15c60e6"
+        }
+      ],
+      "reviewed_commit": "14929e8027dd338dc7d582250b54f46ab3cd5a6c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/conformal-mondrian-groups-motion.svg",
+          "blob": "5b71b1315c715970f226c4975c251f80594107cf"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-mondrian-groups-still.svg",
+          "blob": "7d23f1fd0a2bfdf717f57bcac9025a8d9cbb6458"
+        }
+      ]
+    },
+    "conformal-raps-penalty": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/conformal-raps-penalty-motion.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "03cb769030488e0415dd0557b297f6d3199766a1"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-raps-penalty-still.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "a2a315aec3cf790b40102e8643bec1ebe49793ce"
+        }
+      ],
+      "reviewed_commit": "14929e8027dd338dc7d582250b54f46ab3cd5a6c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/conformal-raps-penalty-motion.svg",
+          "blob": "27da7b7235b7e44577a8a1478c0e6ce22444b4e2"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-raps-penalty-still.svg",
+          "blob": "e0352e1c2fd76b2cafda195e0027fafa3bdee545"
+        }
+      ]
+    },
+    "conformal-shift-coverage": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/conformal-shift-coverage-motion.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "f731f09a212754900dbd987ab2888ab86f052294"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-shift-coverage-still.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "447207effca3052e803fa96d0a91aabdfd568a5d"
+        }
+      ],
+      "reviewed_commit": "14929e8027dd338dc7d582250b54f46ab3cd5a6c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/conformal-shift-coverage-motion.svg",
+          "blob": "d87062ec7bf31abdb605d5ae58d992f3fb32833c"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-shift-coverage-still.svg",
+          "blob": "6ad6dea080dec9a2c096062b0048aec47a982f11"
+        }
+      ]
+    },
+    "conformal-subgroup-coverage": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/conformal-subgroup-coverage-motion.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "92847428edc5637d1616e84d5bab71105bfe45cf"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-subgroup-coverage-still.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "9e7a7bad19386168a3b7cf19c0b46e5ac1f0976b"
+        }
+      ],
+      "reviewed_commit": "14929e8027dd338dc7d582250b54f46ab3cd5a6c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/conformal-subgroup-coverage-motion.svg",
+          "blob": "92847428edc5637d1616e84d5bab71105bfe45cf"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-subgroup-coverage-still.svg",
+          "blob": "47da7f5eea99a786618a77402d76aa9383b7a3a1"
+        }
+      ]
+    },
+    "conformal-weighted-quantile": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/conformal-weighted-quantile-motion.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "8e2accb1309e7d7e192dda42b1e7cd330f061e3c"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-weighted-quantile-still.svg",
+          "origin_commit": "fac015945c1bc4e38ec227755e61722281d8473a",
+          "origin_blob": "1416c208a737debc1f35e8ddff27d3fa18a3434c"
+        }
+      ],
+      "reviewed_commit": "14929e8027dd338dc7d582250b54f46ab3cd5a6c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/conformal-weighted-quantile-motion.svg",
+          "blob": "ff71428d3a45c0c9c1724a0a37c06c8035cfc1fd"
+        },
+        {
+          "path": "docs/assets/concept-animations/conformal-weighted-quantile-still.svg",
+          "blob": "c26fd8c94d69bdff12c690fcae9ecc4c4c461209"
+        }
+      ]
+    },
     "consistency-trajectory-map": {
       "viewBox": "0 0 800 420",
       "origins": [
@@ -3872,6 +4183,58 @@
         }
       ]
     },
+    "ddim-eta-coefficients": {
+      "viewBox": "0 0 800 420",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/ddim-eta-coefficients-motion.svg",
+          "origin_commit": "624c64c7dedd177f6ca01d4af957db90d34800ca",
+          "origin_blob": "f4ac22c9becfe9bfb4b46b8022b2a95bb4376cf6"
+        },
+        {
+          "path": "docs/assets/concept-animations/ddim-eta-coefficients-still.svg",
+          "origin_commit": "624c64c7dedd177f6ca01d4af957db90d34800ca",
+          "origin_blob": "908f0137ba9f22aefe1ea9a33a6f6ba2e7dc40de"
+        }
+      ],
+      "reviewed_commit": "da891506fa25a14a33aaca1bbd0c1594ae2eae0c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/ddim-eta-coefficients-motion.svg",
+          "blob": "ba59f3223f5dcaf7746237ae2a0419d830350467"
+        },
+        {
+          "path": "docs/assets/concept-animations/ddim-eta-coefficients-still.svg",
+          "blob": "56d6f77729a5456d5cc29e0ce8ea885ba688cd55"
+        }
+      ]
+    },
+    "ddim-strided-sampling": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/ddim-strided-sampling-motion.svg",
+          "origin_commit": "624c64c7dedd177f6ca01d4af957db90d34800ca",
+          "origin_blob": "d4ef48d2cf62285ca8e38a6e445d247b0077ba14"
+        },
+        {
+          "path": "docs/assets/concept-animations/ddim-strided-sampling-still.svg",
+          "origin_commit": "624c64c7dedd177f6ca01d4af957db90d34800ca",
+          "origin_blob": "0be57e51871782e42b1925b7def12731229bc16f"
+        }
+      ],
+      "reviewed_commit": "da891506fa25a14a33aaca1bbd0c1594ae2eae0c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/ddim-strided-sampling-motion.svg",
+          "blob": "3aed1862d0befb6dd3445202caf13521e09a3898"
+        },
+        {
+          "path": "docs/assets/concept-animations/ddim-strided-sampling-still.svg",
+          "blob": "e9f0ea2a800c22411a436de15e556a0504252697"
+        }
+      ]
+    },
     "ddm-first-passage": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -3895,6 +4258,32 @@
         {
           "path": "docs/assets/concept-animations/ddm-first-passage-still.svg",
           "blob": "4b8d419b6918052e4f93b3d1ce4f580caf85a0f5"
+        }
+      ]
+    },
+    "ddpm-progressive-noising": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/ddpm-progressive-noising-motion.svg",
+          "origin_commit": "624c64c7dedd177f6ca01d4af957db90d34800ca",
+          "origin_blob": "d9660552bc95f9c8ad5c4f83da7b9fd2ede69d86"
+        },
+        {
+          "path": "docs/assets/concept-animations/ddpm-progressive-noising-still.svg",
+          "origin_commit": "624c64c7dedd177f6ca01d4af957db90d34800ca",
+          "origin_blob": "51d1824d61cf2609d76d30c8306a245c38ea1b94"
+        }
+      ],
+      "reviewed_commit": "da891506fa25a14a33aaca1bbd0c1594ae2eae0c",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/ddpm-progressive-noising-motion.svg",
+          "blob": "d9660552bc95f9c8ad5c4f83da7b9fd2ede69d86"
+        },
+        {
+          "path": "docs/assets/concept-animations/ddpm-progressive-noising-still.svg",
+          "blob": "51d1824d61cf2609d76d30c8306a245c38ea1b94"
         }
       ]
     },
@@ -4340,6 +4729,162 @@
         }
       ]
     },
+    "gradient-accumulation-clipping-order": {
+      "viewBox": "0 0 800 420",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gradient-accumulation-clipping-order-motion.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "45c8c174d537165ae8210c33018b25f4378ff9d2"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-accumulation-clipping-order-still.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "57f0e81d61c33016f4ce3ae031865bbc192ae70c"
+        }
+      ],
+      "reviewed_commit": "f047cbc394b40457717259278cdae759149f058f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gradient-accumulation-clipping-order-motion.svg",
+          "blob": "45c8c174d537165ae8210c33018b25f4378ff9d2"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-accumulation-clipping-order-still.svg",
+          "blob": "57f0e81d61c33016f4ce3ae031865bbc192ae70c"
+        }
+      ]
+    },
+    "gradient-agc-relative-cap": {
+      "viewBox": "0 0 800 420",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gradient-agc-relative-cap-motion.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "6944c5697454e24b8e7cf0340a0bab862f07415d"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-agc-relative-cap-still.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "573314edc0fb72aed41db39a5d9791a2d18853b4"
+        }
+      ],
+      "reviewed_commit": "f047cbc394b40457717259278cdae759149f058f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gradient-agc-relative-cap-motion.svg",
+          "blob": "757d04201575f73a7485efa48c2ce768f2dc0aba"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-agc-relative-cap-still.svg",
+          "blob": "573314edc0fb72aed41db39a5d9791a2d18853b4"
+        }
+      ]
+    },
+    "gradient-amp-unscale-order": {
+      "viewBox": "0 0 800 420",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gradient-amp-unscale-order-motion.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "0412908dae8f17e9b1870f88ebaf12a2f819ef96"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-amp-unscale-order-still.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "72c6c80d7161df3be96a180908046b4da3c83dee"
+        }
+      ],
+      "reviewed_commit": "f047cbc394b40457717259278cdae759149f058f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gradient-amp-unscale-order-motion.svg",
+          "blob": "0412908dae8f17e9b1870f88ebaf12a2f819ef96"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-amp-unscale-order-still.svg",
+          "blob": "72c6c80d7161df3be96a180908046b4da3c83dee"
+        }
+      ]
+    },
+    "gradient-clipping-comparison": {
+      "viewBox": "0 0 800 420",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gradient-clipping-comparison-motion.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "8ccf880afb736a6923725562b896669943a59289"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-clipping-comparison-still.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "1399267d556fa239224308bc9691ed9c69ed780e"
+        }
+      ],
+      "reviewed_commit": "f047cbc394b40457717259278cdae759149f058f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gradient-clipping-comparison-motion.svg",
+          "blob": "8ccf880afb736a6923725562b896669943a59289"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-clipping-comparison-still.svg",
+          "blob": "1399267d556fa239224308bc9691ed9c69ed780e"
+        }
+      ]
+    },
+    "gradient-decoupled-decay": {
+      "viewBox": "0 0 800 420",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gradient-decoupled-decay-motion.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "425a9a716b75bdc3a100320313d077054d0b97ff"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-decoupled-decay-still.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "15e89b7e2d3575b7c2ddb7d5ce4b0986ec9b5cb3"
+        }
+      ],
+      "reviewed_commit": "f047cbc394b40457717259278cdae759149f058f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gradient-decoupled-decay-motion.svg",
+          "blob": "425a9a716b75bdc3a100320313d077054d0b97ff"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-decoupled-decay-still.svg",
+          "blob": "15e89b7e2d3575b7c2ddb7d5ce4b0986ec9b5cb3"
+        }
+      ]
+    },
+    "gradient-global-layer-budget": {
+      "viewBox": "0 0 800 420",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/gradient-global-layer-budget-motion.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "341a016fecaba264ddeb19f1cad59a67fc544b25"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-global-layer-budget-still.svg",
+          "origin_commit": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2",
+          "origin_blob": "0b9e9f356e03d2fabca29cf90693e14fc7ad33b9"
+        }
+      ],
+      "reviewed_commit": "f047cbc394b40457717259278cdae759149f058f",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/gradient-global-layer-budget-motion.svg",
+          "blob": "341a016fecaba264ddeb19f1cad59a67fc544b25"
+        },
+        {
+          "path": "docs/assets/concept-animations/gradient-global-layer-budget-still.svg",
+          "blob": "0b9e9f356e03d2fabca29cf90693e14fc7ad33b9"
+        }
+      ]
+    },
     "graphplan-layer-extraction": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -4389,6 +4934,32 @@
         {
           "path": "docs/assets/concept-animations/grpo-group-advantages-still.svg",
           "blob": "5eb2d03aeff3f240aa448f2dd3e97776531652e1"
+        }
+      ]
+    },
+    "h2o-heavy-hitter-selection": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/h2o-heavy-hitter-selection-motion.svg",
+          "origin_commit": "48023423bf974e4b1ff8f8c2327af5b44448df5e",
+          "origin_blob": "fc4308d27c259aef89e46ec9f82a8789d2d3a39b"
+        },
+        {
+          "path": "docs/assets/concept-animations/h2o-heavy-hitter-selection-still.svg",
+          "origin_commit": "48023423bf974e4b1ff8f8c2327af5b44448df5e",
+          "origin_blob": "74a4ce7ffb700801e6266a63a09011cfa6220f1a"
+        }
+      ],
+      "reviewed_commit": "9d755978ce4337996a12b0d7a0c4860ab320a9b6",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/h2o-heavy-hitter-selection-motion.svg",
+          "blob": "cc5f80f17caef06cb2b5c5a68e433b919ea9d338"
+        },
+        {
+          "path": "docs/assets/concept-animations/h2o-heavy-hitter-selection-still.svg",
+          "blob": "30a25fab253a0e531d3a9fd7ab36881df3497d12"
         }
       ]
     },
@@ -4493,6 +5064,32 @@
         {
           "path": "docs/assets/concept-animations/kalman-gain-fusion-still.svg",
           "blob": "1043cafdf0dbc27c9550c6cb99626cf9313dddb3"
+        }
+      ]
+    },
+    "kivi-quantization-axis": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/kivi-quantization-axis-motion.svg",
+          "origin_commit": "48023423bf974e4b1ff8f8c2327af5b44448df5e",
+          "origin_blob": "507cd5d635f7d0761e10a41345057b35e02c3567"
+        },
+        {
+          "path": "docs/assets/concept-animations/kivi-quantization-axis-still.svg",
+          "origin_commit": "48023423bf974e4b1ff8f8c2327af5b44448df5e",
+          "origin_blob": "0ccd9bf34ea9aa7f206c65a793053686b3c739ae"
+        }
+      ],
+      "reviewed_commit": "9d755978ce4337996a12b0d7a0c4860ab320a9b6",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/kivi-quantization-axis-motion.svg",
+          "blob": "96346ccb75b957c26e7851e7f846910852b640ad"
+        },
+        {
+          "path": "docs/assets/concept-animations/kivi-quantization-axis-still.svg",
+          "blob": "f6b28122121df226510b951ebbbb7aa77c7ac4a8"
         }
       ]
     },
@@ -5094,6 +5691,110 @@
         }
       ]
     },
+    "rope-axial-2d": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/rope-axial-2d-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "8615bc785a47c66f74c76092912973dd920fb56b"
+        },
+        {
+          "path": "docs/assets/concept-animations/rope-axial-2d-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "fd67fcf5c5892026d29e2a353fb051e7d0d879c1"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/rope-axial-2d-motion.svg",
+          "blob": "1f153bf62369f3454671b27386a1a4979af6bf26"
+        },
+        {
+          "path": "docs/assets/concept-animations/rope-axial-2d-still.svg",
+          "blob": "fd67fcf5c5892026d29e2a353fb051e7d0d879c1"
+        }
+      ]
+    },
+    "rope-cache-reindex": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/rope-cache-reindex-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "bdf095399f06198967e3e0dfbe1e7004460ccc64"
+        },
+        {
+          "path": "docs/assets/concept-animations/rope-cache-reindex-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "7707ae339409765ca65fbfbeca208fb2a73de533"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/rope-cache-reindex-motion.svg",
+          "blob": "af0f89818258952d5334d074897dfa958daf230c"
+        },
+        {
+          "path": "docs/assets/concept-animations/rope-cache-reindex-still.svg",
+          "blob": "b6b1f6201e2d87f12be10890494b0f76f9973df3"
+        }
+      ]
+    },
+    "rope-frequency-bands": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/rope-frequency-bands-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "5cd688cabe4a3196187bfe843b20506e8656650e"
+        },
+        {
+          "path": "docs/assets/concept-animations/rope-frequency-bands-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "98b7e735b27713db3821aff44bbd2c9a2128a2f0"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/rope-frequency-bands-motion.svg",
+          "blob": "28c8af2e0178e578f4f452e000ef17df8bf1d095"
+        },
+        {
+          "path": "docs/assets/concept-animations/rope-frequency-bands-still.svg",
+          "blob": "98b7e735b27713db3821aff44bbd2c9a2128a2f0"
+        }
+      ]
+    },
+    "rope-interpolation-angle": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/rope-interpolation-angle-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "65c3c58514a711459a19c4b0095a46777dcd746b"
+        },
+        {
+          "path": "docs/assets/concept-animations/rope-interpolation-angle-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "a7c8d56407b884dc45d09fdbbd1fb1ae41b1128d"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/rope-interpolation-angle-motion.svg",
+          "blob": "7a5757e0a410a776eb370a0966e77c89875abf8b"
+        },
+        {
+          "path": "docs/assets/concept-animations/rope-interpolation-angle-still.svg",
+          "blob": "a7c8d56407b884dc45d09fdbbd1fb1ae41b1128d"
+        }
+      ]
+    },
     "s4d-diagonal-modes": {
       "viewBox": "0 0 860 440",
       "origins": [
@@ -5302,6 +6003,58 @@
         }
       ]
     },
+    "shaw-relative-clipping": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/shaw-relative-clipping-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "0972be2f71f56dd03684ebc5c2e477d6ff64aa05"
+        },
+        {
+          "path": "docs/assets/concept-animations/shaw-relative-clipping-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "cc2eff6c122a0916892b88a5ed97e73c41fa9b0e"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/shaw-relative-clipping-motion.svg",
+          "blob": "946a0ad923dc1024c69b0393d2147db7e03486e4"
+        },
+        {
+          "path": "docs/assets/concept-animations/shaw-relative-clipping-still.svg",
+          "blob": "cc2eff6c122a0916892b88a5ed97e73c41fa9b0e"
+        }
+      ]
+    },
+    "shaw-relative-value": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/shaw-relative-value-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "03e3f8bcd47cfe68be4b3c3857ba23efee22d715"
+        },
+        {
+          "path": "docs/assets/concept-animations/shaw-relative-value-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "93752e6d5a172326c99f3177b4b19d443a03f1b3"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/shaw-relative-value-motion.svg",
+          "blob": "b4869d285e4cd1bf5f3a3387d416e6fdfc3da158"
+        },
+        {
+          "path": "docs/assets/concept-animations/shaw-relative-value-still.svg",
+          "blob": "93752e6d5a172326c99f3177b4b19d443a03f1b3"
+        }
+      ]
+    },
     "simclr-temperature-competition": {
       "viewBox": "0 0 640 360",
       "origins": [
@@ -5325,6 +6078,32 @@
         {
           "path": "docs/assets/concept-animations/simclr-temperature-competition-still.svg",
           "blob": "536a1d228120518f0a22738d049125792cd235e6"
+        }
+      ]
+    },
+    "sinusoidal-multiscale": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/sinusoidal-multiscale-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "2675ab60d02ca98a8cbba5ea5a0f6c7c4a57a7d6"
+        },
+        {
+          "path": "docs/assets/concept-animations/sinusoidal-multiscale-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "40793fb284172caeb1109a266d5612527fded305"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/sinusoidal-multiscale-motion.svg",
+          "blob": "e5a41d92225f08d036a30314e079c53ac5935d4f"
+        },
+        {
+          "path": "docs/assets/concept-animations/sinusoidal-multiscale-still.svg",
+          "blob": "40793fb284172caeb1109a266d5612527fded305"
         }
       ]
     },
@@ -5692,6 +6471,58 @@
         }
       ]
     },
+    "yarn-attention-temperature": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/yarn-attention-temperature-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "4b00bf8f96ca8b85bc0c0c85760f9704b98ec82d"
+        },
+        {
+          "path": "docs/assets/concept-animations/yarn-attention-temperature-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "9bc2220af76256db2185e99aef40bcefc8da5caa"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/yarn-attention-temperature-motion.svg",
+          "blob": "074808f83a61be6b3bd1de3dae3a81eda7c05b1c"
+        },
+        {
+          "path": "docs/assets/concept-animations/yarn-attention-temperature-still.svg",
+          "blob": "9bc2220af76256db2185e99aef40bcefc8da5caa"
+        }
+      ]
+    },
+    "yarn-frequency-ramp": {
+      "viewBox": "0 0 640 360",
+      "origins": [
+        {
+          "path": "docs/assets/concept-animations/yarn-frequency-ramp-motion.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "9b1672ff8ac30e9e209d3d2b9a08319ea1c70ddf"
+        },
+        {
+          "path": "docs/assets/concept-animations/yarn-frequency-ramp-still.svg",
+          "origin_commit": "373b9783ab1fadd9ede351bd9aa08e51c90d8c74",
+          "origin_blob": "4928cb237538163fbf43b346c0b975cb5e0aa17d"
+        }
+      ],
+      "reviewed_commit": "e8c4756c9dd913e69628895a70a9cf7ce4ff2874",
+      "reviewed_assets": [
+        {
+          "path": "docs/assets/concept-animations/yarn-frequency-ramp-motion.svg",
+          "blob": "fbdbe9f508b7fbdc1b94c15bedd9553d15934d59"
+        },
+        {
+          "path": "docs/assets/concept-animations/yarn-frequency-ramp-still.svg",
+          "blob": "4928cb237538163fbf43b346c0b975cb5e0aa17d"
+        }
+      ]
+    },
     "roc-pr-shift": {
       "origins": [
         {
@@ -5791,7 +6622,7 @@
       "pr": 1134,
       "original_head": "27e0d827fee24851a6daf24d7636384fcfa06076",
       "sample_stem": "sac-entropy-temperature",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "dpo-preference-margin-": {
@@ -5799,7 +6630,7 @@
       "pr": 1134,
       "original_head": "27e0d827fee24851a6daf24d7636384fcfa06076",
       "sample_stem": "dpo-preference-margin",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "vivit-factorised-attention-": {
@@ -5807,7 +6638,7 @@
       "pr": 1138,
       "original_head": "57b47f01967004ba759659ba65158ba923023dff",
       "sample_stem": "vivit-factorised-attention",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "i3d-filter-inflation-": {
@@ -5815,7 +6646,7 @@
       "pr": 1138,
       "original_head": "57b47f01967004ba759659ba65158ba923023dff",
       "sample_stem": "i3d-filter-inflation",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "s4d-diagonal-modes-": {
@@ -5823,7 +6654,7 @@
       "pr": 1139,
       "original_head": "12b0c5432151c731148cc6c68b9ce1eb6225449a",
       "sample_stem": "s4d-diagonal-modes",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "mamba2-ssd-causal-map-": {
@@ -5831,7 +6662,7 @@
       "pr": 1139,
       "original_head": "12b0c5432151c731148cc6c68b9ce1eb6225449a",
       "sample_stem": "mamba2-ssd-causal-map",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "ucb1-optimism-switch-": {
@@ -5839,7 +6670,7 @@
       "pr": 1141,
       "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
       "sample_stem": "ucb1-optimism-switch",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "ucb1-bonus-sensitivity-": {
@@ -5847,7 +6678,7 @@
       "pr": 1141,
       "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
       "sample_stem": "ucb1-bonus-sensitivity",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "thompson-beta-posterior-draws-": {
@@ -5855,7 +6686,7 @@
       "pr": 1141,
       "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
       "sample_stem": "thompson-beta-posterior-draws",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "thompson-evidence-concentration-": {
@@ -5863,7 +6694,7 @@
       "pr": 1141,
       "original_head": "65fa881845ecd16a1fd1b5a32f9a4e159247d932",
       "sample_stem": "thompson-evidence-concentration",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "flashattention-online-rescale-": {
@@ -5871,7 +6702,7 @@
       "pr": 1145,
       "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b",
       "sample_stem": "flashattention-online-rescale",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "flashattention-exact-merge-": {
@@ -5879,7 +6710,7 @@
       "pr": 1145,
       "original_head": "f611e65631456b32066bd3c6a2321a4f494ec65b",
       "sample_stem": "flashattention-exact-merge",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "backdoor-standardisation-": {
@@ -5887,7 +6718,7 @@
       "pr": 1146,
       "original_head": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
       "sample_stem": "backdoor-standardisation",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     },
     "collider-selection-": {
@@ -5895,7 +6726,7 @@
       "pr": 1146,
       "original_head": "e3c28a8b0e4073e9ed32e8a129e9f8af9b2da364",
       "sample_stem": "collider-selection",
-      "reviewed_guard_commit": "0d95ef74cf604a8e5300b968e0a5cff87a66bf57",
+      "reviewed_guard_commit": "88f6c0828b584d4ecd45f1dc8bd0280bc642729a",
       "excluded_prefixes": []
     }
   },
@@ -5955,6 +6786,76 @@
       "original_head": "d21c2895a2181fbf0285b50b5c69f6f52ce11683",
       "page": "docs/engineering/data/data-programming.md",
       "pr": 1071
+    },
+    "gradient-clipping-comparison": {
+      "page": "docs/theory/optimization/gradient-clipping-and-normalisation.md",
+      "pr": 1182,
+      "original_head": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2"
+    },
+    "gradient-accumulation-clipping-order": {
+      "page": "docs/theory/optimization/gradient-clipping-and-normalisation.md",
+      "pr": 1182,
+      "original_head": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2"
+    },
+    "gradient-global-layer-budget": {
+      "page": "docs/theory/optimization/gradient-clipping-and-normalisation.md",
+      "pr": 1182,
+      "original_head": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2"
+    },
+    "gradient-amp-unscale-order": {
+      "page": "docs/theory/optimization/gradient-clipping-and-normalisation.md",
+      "pr": 1182,
+      "original_head": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2"
+    },
+    "gradient-agc-relative-cap": {
+      "page": "docs/theory/optimization/gradient-clipping-and-normalisation.md",
+      "pr": 1182,
+      "original_head": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2"
+    },
+    "gradient-decoupled-decay": {
+      "page": "docs/theory/optimization/gradient-clipping-and-normalisation.md",
+      "pr": 1182,
+      "original_head": "c51b398747cc9508fb92ec3b73c20071e5a7b5d2"
+    },
+    "conformal-subgroup-coverage": {
+      "page": "docs/theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md",
+      "pr": 1181,
+      "original_head": "fac015945c1bc4e38ec227755e61722281d8473a"
+    },
+    "conformal-shift-coverage": {
+      "page": "docs/theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md",
+      "pr": 1181,
+      "original_head": "fac015945c1bc4e38ec227755e61722281d8473a"
+    },
+    "conformal-cqr-expansion": {
+      "page": "docs/theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md",
+      "pr": 1181,
+      "original_head": "fac015945c1bc4e38ec227755e61722281d8473a"
+    },
+    "conformal-weighted-quantile": {
+      "page": "docs/theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md",
+      "pr": 1181,
+      "original_head": "fac015945c1bc4e38ec227755e61722281d8473a"
+    },
+    "conformal-aps-cumulative": {
+      "page": "docs/theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md",
+      "pr": 1181,
+      "original_head": "fac015945c1bc4e38ec227755e61722281d8473a"
+    },
+    "conformal-alpha-staircase": {
+      "page": "docs/theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md",
+      "pr": 1181,
+      "original_head": "fac015945c1bc4e38ec227755e61722281d8473a"
+    },
+    "conformal-mondrian-groups": {
+      "page": "docs/theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md",
+      "pr": 1181,
+      "original_head": "fac015945c1bc4e38ec227755e61722281d8473a"
+    },
+    "conformal-raps-penalty": {
+      "page": "docs/theory/paradigms/probabilistic/uncertainty-calibration/conformal-prediction.md",
+      "pr": 1181,
+      "original_head": "fac015945c1bc4e38ec227755e61722281d8473a"
     },
     "kalman-gain-fusion": {
       "page": "docs/theory/paradigms/probabilistic/graphical-models/kalman-filter.md",
@@ -6095,6 +6996,16 @@
       "page": "docs/engineering/inference-optimization/grouped-query-attention.md",
       "pr": 1061,
       "original_head": "26d7b2719ca0f9d63cff780ba5e62fe0685197bf"
+    },
+    "kivi-quantization-axis": {
+      "page": "docs/engineering/inference-optimization/kivi.md",
+      "pr": 1060,
+      "original_head": "48023423bf974e4b1ff8f8c2327af5b44448df5e"
+    },
+    "h2o-heavy-hitter-selection": {
+      "page": "docs/engineering/inference-optimization/h2o.md",
+      "pr": 1060,
+      "original_head": "48023423bf974e4b1ff8f8c2327af5b44448df5e"
     },
     "reinforce-reward-to-go": {
       "page": "docs/theory/paradigms/reinforcement-learning/policy-gradient-and-actor-critic/reinforce/index.md",
