@@ -19,11 +19,21 @@ related:
 - **條件路徑** \(p_t(x\mid x_1)\)：給定資料點 \(x_1\) 時，時間 \(t\) 的 \(x\) 之分布。在 \(t=0\) 時為雜訊，在 \(t=1\) 時集中於 \(x_1\)。
 - **條件向量場** \(u_t(x\mid x_1)\)：產生條件路徑的速度。
 - **邊際路徑與場**：條件路徑與場在 \(x_1\) 上的混合。邊際場在 \(t=1\) 時產生資料分布。
-- **高斯條件路徑**：\(p_t(x\mid x_1) = \mathcal N\big(x \mid \mu_t(x_1), \sigma_t(x_1)^2 I\big)\)，均值與尺度函數由設計者選擇。
+- **高斯條件路徑**：選擇易於計算的平均與尺度函數，形成
+
+    $$
+    p_t(x\mid x_1) = \mathcal N\big(x \mid \mu_t(x_1), \sigma_t(x_1)^2 I\big)
+    $$
 
 ## 運作方式
 
-流匹配損失 \(\mathcal L_{\text{FM}}(\theta) = \mathbb E_{t, x\sim p_t}\lVert v_\theta(t,x) - u_t(x)\rVert^2\) 使用邊際場 \(u_t(x)\)，而它是對所有資料點的積分，無法直接計算。Lipman 等人以條件損失取代
+流匹配損失為
+
+$$
+\mathcal L_{\text{FM}}(\theta) = \mathbb E_{t, x\sim p_t}\lVert v_\theta(t,x) - u_t(x)\rVert^2
+$$
+
+它使用邊際速度場 \(u_t(x)\)，這是對所有資料點積分、通常難以直接計算的量。Lipman 等人以條件損失取代它：
 
 \[
 \mathcal L_{\text{CFM}}(\theta) = \mathbb E_{t\sim\mathcal U[0,1],\; x_1\sim q(x_1),\; x\sim p_t(x\mid x_1)}\big\lVert v_\theta(t, x) - u_t(x\mid x_1)\big\rVert^2
@@ -53,7 +63,18 @@ related:
 
 - **問題：** 連續正規化流能給出精確似然，但每個訓練步驟都需要解 ODE。擴散模型訓練便宜，但受限於固定的隨機過程。
 - **核心想法：** 把速度場回歸到所選機率路徑的條件速度上。逐樣本的目標對邊際場是無偏的，而且訓練時不需要模擬 ODE。
-- **公式或演算法：** 論文的最優傳輸路徑（\(\sigma_{\min}\) 為小常數）其均值為 \(\mu_t(x_1)=t\,x_1\)、尺度為 \(\sigma_t = 1-(1-\sigma_{\min})t\)、流為 \(\psi_t(x)=(1-(1-\sigma_{\min})t)\,x + t\,x_1\)，條件場為 \(u_t(x\mid x_1) = \dfrac{x_1 - (1-\sigma_{\min})x}{1-(1-\sigma_{\min})t}\)。當 \(\sigma_{\min}\to 0\) 時，路徑是從雜訊到資料的等速直線。每一步訓練抽取 \(t\)、資料點 \(x_1\) 與雜訊點 \(x_0\sim\mathcal N(0,I)\)，形成 \(x_t=\psi_t(x_0)\)，並把 \(v_\theta(t, x_t)\) 回歸到 \(u_t(x_t\mid x_1)\)。當 \(\sigma_{\min}=0\) 時，目標即為 \(x_1 - x_0\)。
+- **方程式或演算法：** 最佳傳輸路徑使用小常數 \(\sigma_{\min}\)：
+
+    $$
+    \begin{aligned}
+    \mu_t(x_1)&=t\,x_1,\\
+    \sigma_t&=1-(1-\sigma_{\min})t,\\
+    \psi_t(x)&=(1-(1-\sigma_{\min})t)\,x+t\,x_1,\\
+    u_t(x\mid x_1)&=\frac{x_1-(1-\sigma_{\min})x}{1-(1-\sigma_{\min})t}.
+    \end{aligned}
+    $$
+
+    當 \(\sigma_{\min}\to 0\) 時，路徑是從雜訊到資料的等速直線。每一步訓練抽取 \(t\)、資料點 \(x_1\) 與雜訊點 \(x_0\sim\mathcal N(0,I)\)，形成 \(x_t=\psi_t(x_0)\)，並把 \(v_\theta(t, x_t)\) 回歸到 \(u_t(x_t\mid x_1)\)。當 \(\sigma_{\min}=0\) 時，目標即為 \(x_1 - x_0\)。
 - **結果：** 論文表 1 報告無條件 ImageNet 的結果。在 32×32，最優傳輸路徑為 3.53 bits/dim、FID 5.02、122 次函數評估；擴散路徑為 3.54、FID 6.37、193 次。在 64×64，最優傳輸路徑為 3.31 bits/dim、FID 14.45；擴散路徑為 3.33、FID 16.88。在 128×128，論文只報告最優傳輸模型，為 2.90 bits/dim、FID 20.9。論文也指出，在 ImageNet 32×32 上，最優傳輸取樣器達到相同誤差門檻所需的函數評估約為擴散路徑的 60%。
 - **限制：** 生成需要多次 ODE 評估（表 1 中為 122 到 193 次），因此取樣比單次網路前向傳遞慢。精確似然還需要再積分一次 ODE。論文以實證比較路徑，並未證明最優傳輸路徑在一般情況下最好。
 

@@ -1,6 +1,6 @@
 """Independent interpolation/Bezier checks; toy paths are not learned ODE samples."""
 from pathlib import Path
-import unittest,xml.etree.ElementTree as E
+import unittest,re,xml.etree.ElementTree as E
 N='{http://www.w3.org/2000/svg}';A=Path(__file__).resolve().parents[1]/'docs/assets/concept-animations'
 def root(stem,kind='motion'):return E.parse(A/f'{stem}-{kind}.svg').getroot()
 def point(poly,t):
@@ -48,4 +48,14 @@ class Flow(unittest.TestCase):
   for topic in ['conditional-flow-matching','rectified-flow']:
    for suffix in ['', '.zh-TW']:
     s=(d/f'{topic}{suffix}.md').read_text();self.assertIn('<img data-source-asset-urls',s);self.assertIn('data-still-src=',s);self.assertIn('tabindex="0"',s);self.assertIn('$t=0.5',s)
+ def test_long_equations_use_bilingual_display_blocks(self):
+  d=A.parents[1]/'theory/paradigms/unsupervised/density-and-generative-models/flow/flow-matching'
+  for topic in ['conditional-flow-matching','rectified-flow']:
+   texts=[(d/f'{topic}{suffix}.md').read_text() for suffix in ['', '.zh-TW']]
+   for s in texts:
+    inline=re.findall(r'\\\((.*?)\\\)',s)
+    self.assertFalse(any(len(x)>55 for x in inline))
+    self.assertFalse(any('RectFlow' in x or '\\mathbb E' in x for x in inline))
+   normalize=lambda s: re.sub(r'\s+','',s)
+   self.assertEqual([normalize(x) for x in re.findall(r'\$\$(.*?)\$\$',texts[0],re.S)], [normalize(x) for x in re.findall(r'\$\$(.*?)\$\$',texts[1],re.S)])
 if __name__=='__main__':unittest.main()

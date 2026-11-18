@@ -37,7 +37,13 @@ Draw \(X_0\sim\pi_0\) and \(X_1\sim\pi_1\) independently, form \(X_t\) as above,
 \min_v \int_0^1 \mathbb E\big[\lVert (X_1 - X_0) - v(X_t, t)\rVert^2\big]\,\mathrm{d}t
 \]
 
-Reflow then takes a trained flow with \(k\) rounds, simulates it from \(\pi_0\) to obtain endpoint pairs \((Z^k_0, Z^k_1)\), and trains a new rectified flow on those pairs, giving \(Z^{k+1} = \mathrm{RectFlow}\big((Z^k_0, Z^k_1)\big)\). In the idealised analysis, repeated rectification promotes straightness; finite learned models need not improve on every round. The paper cautions that too many rounds accumulate estimation error.
+Reflow then takes a trained flow with \(k\) rounds, simulates it from \(\pi_0\) to obtain endpoint pairs \((Z^k_0, Z^k_1)\), and trains a new rectified flow on those pairs, giving
+
+$$
+Z^{k+1} = \mathrm{RectFlow}\big((Z^k_0, Z^k_1)\big)
+$$
+
+In the idealised analysis, repeated rectification promotes straightness; finite learned models need not improve on every round. The paper cautions that too many rounds accumulate estimation error.
 
 
 ## Visual walkthrough: endpoint coupling for reflow
