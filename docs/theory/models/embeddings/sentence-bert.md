@@ -71,4 +71,4 @@ In these NLI-plus-STSb comparisons, the cross-encoder scores higher; this is not
 
 ### Articles and documentation
 
-- Mikolov, T., Chen, K., Corrado, G. & Dean, J. (2013). *Efficient Estimation of Word Representations in Vector Space*. arXiv. https://arxiv.org/abs/1301.3781 — The word-level embeddings that averaging BERT tokens was meant to compete with, and the origin of the vector-comparison idea.
+- Mikolov, T., Chen, K., Corrado, G. & Dean, J. (2013). *Efficient Estimation of Word Representations in Vector Space*. arXiv. https://arxiv.org/abs/1301.3781 — An efficient word-level embedding method, providing background for distributional vectors and sentence averaging.
