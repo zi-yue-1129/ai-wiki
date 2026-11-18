@@ -75,8 +75,8 @@
         names.forEach((name,j)=>{const avail=shown&&factLayers[i].has(name);out+=pill(x,54+j*53,'At('+name+')',avail);});
         if(shown&&factLayers[i].has('A')&&factLayers[i].has('B'))out+=line(x+132,86,x+132,135,'#d44860',true);
       }
-      if(step>=1){out+=line(218,116,296,116,'#2c8b7a');out+=label(257,103,'Move AB',12);}
-      if(step>=2){out+=line(458,169,536,169,'#2c8b7a');out+=label(497,155,'Move BC',12);}
+      if(step>=1){out+=line(218,75,296,128,'#2c8b7a');out+=label(257,80,'Move AB',12);}
+      if(step>=2){out+=line(458,128,536,181,'#2c8b7a');out+=label(497,130,'Move BC',12);}
       if(step>=3){const rejected=goal==='AB';out+=rect(255,207,210,28,rejected?'#ffe1e6':'#d7f5e6',rejected?'#c54966':'#0d906b',6);out+=label(360,226,rejected?'mutex: A × B':'goal: At(C)',14,rejected?'#9f2949':'#147154');}
       svg.innerHTML=out;
       const current=goal==='AB'?['A','B']:['C'];
@@ -86,7 +86,7 @@
     }
     function render(){seek.value=String(step);if(kind==='strips')renderStrips();else renderGraphplan();}
     function goto(n){step=Math.max(0,Math.min(max,n));render();if(step===max)stop();}
-    function start(){if(playing)return;if(step===max)step=0;if(reduce()){render();return;}playing=true;play.textContent=t.pause;play.setAttribute('aria-pressed','true');timer=setInterval(()=>goto(step+1),850/speed);render();}
+    function start(){if(playing)return;if(step===max)step=0;if(reduce()){render();return;}playing=true;play.textContent=t.pause;play.setAttribute('aria-pressed','true');timer=setInterval(()=>{if(!host.isConnected){stop();return;}goto(step+1);},850/speed);render();}
     host.querySelector('[data-a=prev]').addEventListener('click',()=>{stop();goto(step-1);});
     host.querySelector('[data-a=next]').addEventListener('click',()=>{stop();goto(step+1);});
     play.addEventListener('click',()=>playing?stop():start());

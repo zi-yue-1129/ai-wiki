@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-15
+translation_reviewed: 2026-11-18
 ---
 
 # STRIPS
@@ -30,6 +30,8 @@ STRIPS 是古典規劃的一種表示法，每個動作有前置條件列表、�
 ### 教學動畫：檢查前置條件、套用效果與保持未變事實
 
 <img data-source-asset-urls src="../../../../assets/concept-animations/strips-state-effects-still.svg" data-motion-src="../../../../assets/concept-animations/strips-state-effects-motion.svg" data-still-src="../../../../assets/concept-animations/strips-state-effects-still.svg" alt="STRIPS 狀態轉換：確認 At(A) 前置條件、移除 At(A)、加入 At(B)，而 Charged 事實維持不變。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+
+圖中 BEFORE／AFTER 是固定對照；移動標記與刪除／新增高亮僅表示教學步驟，STRIPS 動作仍為一次原子更新，重播不表示機器人倒退。
 
 [GitHub 可直接閱讀的靜態預覽](../../../../assets/concept-animations/strips-state-effects-still.svg)
 

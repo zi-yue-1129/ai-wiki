@@ -16,21 +16,7 @@
 .md-typeset .concept-motion-player:has(img.concept-motion-wide) { width: 640px; min-width: 640px; max-width: none; }
 .md-typeset img.concept-motion-wide:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
 
-/* Preserve 640px annotation legibility for the planning walkthroughs. */
-@media (max-width: 680px) {
-  .concept-motion-player.concept-motion-wide {
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scrollbar-width: thin;
-  }
-  .concept-motion-player.concept-motion-wide img {
-    width: 640px;
-    max-width: none;
-  }
-  .concept-motion-player.concept-motion-wide .concept-motion-controls {
-    position: sticky;
-    left: 0;
-    width: max-content;
-    max-width: 100%;
-  }
-}
+/* Scope native-width scrolling to the planning player at any article width. */
+.concept-motion-player.concept-motion-wide { width:640px; max-width:100%; overflow-x:auto; overscroll-behavior-x:contain; }
+.concept-motion-player.concept-motion-wide img { width:640px; min-width:640px; max-width:none; height:auto; }
+.concept-motion-player.concept-motion-wide .concept-motion-controls { position:sticky; left:0; width:max-content; max-width:100%; }

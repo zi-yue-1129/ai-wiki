@@ -44,6 +44,47 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)\, g_t^2 \\
 
 The paper's suggested defaults are \(\alpha = 0.001\) for the step size (written \(\eta\) here), \(\beta_1 = 0.9\), \(\beta_2 = 0.999\) and \(\epsilon = 10^{-8}\). Because the update is divided by the root of the second moment, each coordinate moves by roughly \(\eta\) per step, whatever the scale of its gradients. The effective step still changes as \(v_t\) moves, which is why learning-rate schedules matter in practice.
 
+### Animated bias correction for zero-initialised moments
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-bias-correction-still.svg" data-motion-src="../../../assets/concept-animations/adam-bias-correction-motion.svg" data-still-src="../../../assets/concept-animations/adam-bias-correction-still.svg" alt="Two synchronized time plots trace raw and bias-corrected first and second moments for a constant unit gradient. The raw estimates approach one from below while corrected moments remain at one." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+
+For the **illustrative constant gradient** $g_t=1$, with $m_0=v_0=0$, $\beta_1=0.8$ and $\beta_2=0.5$, the exact discrete-time values are $m_t=1-0.8^t$, $v_t=1-0.5^t$, and $\hat m_t=\hat v_t=1$ at every $t\ge1$. The synchronised cursor follows those samples; the movement *between* integer steps is only visual interpolation, not extra optimiser steps or measured model behaviour. In MkDocs, use Play/Pause (keyboard accessible) and focus the illustration to scroll on narrow screens. The [GitHub-readable static plot](../../../assets/concept-animations/adam-bias-correction-still.svg) is also the reduced-motion fallback. Original artwork, CC BY-SA 4.0. See [Kingma and Ba](https://arxiv.org/abs/1412.6980).
+
+### Animated positive gradient rescaling
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-scale-invariance-still.svg" data-motion-src="../../../assets/concept-animations/adam-scale-invariance-motion.svg" data-still-src="../../../assets/concept-animations/adam-scale-invariance-still.svg" alt="Two panels compare a constant positive gradient history at scale one and scale eight. The first moment and square root of the second moment each grow by the same factor, while the normalized Adam direction stays unchanged." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+
+If **every gradient in a positive, constant history** is multiplied by $c=8$, then (with zero initial moments) $\hat m_t$ and $\sqrt{\hat v_t}$ both multiply by $8$. Thus $\hat m_t/\sqrt{\hat v_t}=1$ in both cases when $\epsilon=0$. The blue and orange bars interpolate a *hypothetical rescaling*, not consecutive optimiser updates. The static panel shows the target $8\times$ endpoint. With a nonzero $\epsilon$, exact scale invariance need not hold, especially for small gradients; this is a controlled scalar example, **not** a general performance or convergence guarantee. MkDocs provides Play/Pause and reduced-motion fallback; [GitHub-readable endpoint comparison](../../../assets/concept-animations/adam-scale-invariance-still.svg). Original artwork, CC BY-SA 4.0. See [Kingma and Ba](https://arxiv.org/abs/1412.6980).
+
+
+### Animated sign reversal: first-moment memory
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-sign-reversal-still.svg" data-motion-src="../../../assets/concept-animations/adam-sign-reversal-motion.svg" data-still-src="../../../assets/concept-animations/adam-sign-reversal-still.svg" alt="Ten synthetic gradient steps switch from positive to negative at step five. The bias-corrected first moment remains positive for two further steps before reversing; a synchronized cursor traces the discrete values." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+For a **constructed scalar gradient sequence** $g_1=\cdots=g_4=+1$ and $g_5=\cdots=g_{10}=-1$, start at $m_0=v_0=0$ with $\beta_1=0.8$, $\beta_2=0.5$, and $\epsilon=0$. Because $g_t^2=1$ at every step, the bias-corrected second moment is exactly $\hat v_t=1$; the normalized update ratio is $\hat m_t/(\sqrt{\hat v_t}+\epsilon)=\hat m_t$. Immediately after the sign flip it remains **positive**: $\hat m_5\approx0.405$, $\hat m_6\approx0.024$, only becoming negative at $t=7$ ($\approx-0.235$). The actual *parameter displacement* is the negative of this ratio times the learning rate. The curve joins discrete computed states only for legibility; moving between steps does not represent extra optimiser operations. These are **analytic toy values, not measured training gradients or convergence evidence**. On MkDocs, use the existing Play/Pause control, focus the graphic to scroll horizontally on mobile, or view the [GitHub static fallback](../../../assets/concept-animations/adam-sign-reversal-still.svg), also used for reduced motion. Original CC BY-SA 4.0 artwork; see [Kingma and Ba](https://arxiv.org/abs/1412.6980).
+
+### Animated epsilon threshold: when gradient scale matters
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" data-motion-src="../../../assets/concept-animations/adam-epsilon-threshold-motion.svg" data-still-src="../../../assets/concept-animations/adam-epsilon-threshold-still.svg" alt="An illustrative curve compares Adam's normalized update for epsilon zero and epsilon point one as the magnitude of a constant positive scalar gradient varies. A moving marker and bar reveal attenuation near zero for nonzero epsilon." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+For a constant positive gradient history $g_t=c>0$ and zero-initialized moments, bias correction gives $\hat m_t=c$ and $\sqrt{\hat v_t}=c$ for every $t\ge1$. Therefore the dimensionless update factor is
+
+\[
+u(c;\epsilon)=\frac{c}{c+\epsilon}.
+\]
+
+With $\epsilon=0$, $u=1$ for every $c>0$ (the zero-gradient point is excluded); with the **illustrative, deliberately large** $\epsilon=0.1$, $u(0.1)=0.5$ and $u(0.5)=5/6$. The moving point sweeps different *hypothetical constant-gradient histories*, not consecutive optimisation steps. This illustrates why a nonzero epsilon breaks exact positive gradient-scale invariance, rather than claiming the textbook default $10^{-8}$ has the same effect at ordinary gradient magnitudes. The chart and bars are **calculated examples, not model measurements**. MkDocs supplies Play/Pause, keyboard scrolling and a reduced-motion static fallback; [GitHub static comparison](../../../assets/concept-animations/adam-epsilon-threshold-still.svg). Original artwork, CC BY-SA 4.0; [Adam original paper](https://arxiv.org/abs/1412.6980).
+
 ## Key methods
 
 ### Adam (Kingma & Ba, 2014/2015)

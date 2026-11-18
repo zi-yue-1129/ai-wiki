@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-15
+translation_reviewed: 2026-11-18
 ---
 
 # GraphPlan
@@ -31,6 +31,8 @@ GraphPlan 是一種古典規劃器，它建立分層的規劃圖，記錄可能�
 ### 教學動畫：事實層擴展與反向計畫抽取
 
 <img data-source-asset-urls src="../../../../assets/concept-animations/graphplan-layer-extraction-still.svg" data-motion-src="../../../../assets/concept-animations/graphplan-layer-extraction-motion.svg" data-still-src="../../../../assets/concept-animations/graphplan-layer-extraction-still.svg" alt="Graphplan 逐層擴展 F0、F1、F2，標示 F1 的互斥事實，最後向後追溯支持目標的兩個動作。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+
+動畫依序建立動作層與事實層；F₂ 完成後才從 At(C) 向前一層回溯支援，最後追蹤回 F₀。重播會清除示意層，並非撤銷已執行的計畫。
 
 [GitHub 可直接閱讀的靜態規劃圖](../../../../assets/concept-animations/graphplan-layer-extraction-still.svg)
 

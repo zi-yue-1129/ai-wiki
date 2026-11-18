@@ -42,6 +42,8 @@ A plan is a sequence of applicable actions that leads from the initial state to 
 
 <img data-source-asset-urls src="../../../../assets/concept-animations/strips-state-effects-still.svg" data-motion-src="../../../../assets/concept-animations/strips-state-effects-motion.svg" data-still-src="../../../../assets/concept-animations/strips-state-effects-still.svg" alt="STRIPS transition: checking At(A), removing that fact, adding At(B), and preserving the unchanged Charged fact. " style="width:640px;min-width:640px;max-width:none;height:auto" />
 
+BEFORE and AFTER are fixed references. The moving marker and delete/add highlights indicate explanatory steps, not physical intermediate states: a STRIPS action remains one atomic update, and replay is not reverse robot motion.
+
 [GitHub-readable static preview](../../../../assets/concept-animations/strips-state-effects-still.svg)
 
 The schematic state is \(s_0=\{\mathrm{At}(A),\mathrm{Charged}\}\). **Move(A,B)** requires \(\mathrm{At}(A)\), deletes \(\mathrm{At}(A)\), and adds \(\mathrm{At}(B)\), giving \(s_1=\{\mathrm{At}(B),\mathrm{Charged}\}\). The moving marker tracks this state update; **Charged** is unchanged because it appears in neither effect list. The diagram separates *testing the precondition* from *applying the effects*: the add/delete lists are not executed if the precondition fails. The two states and travel path are **invented teaching examples, not a robot trace or benchmark**.
