@@ -55,7 +55,7 @@ Use precision when acting on a positive prediction is expensive or harmful, for 
 
 ## Worked example
 
-Using the 100 cases above, the classifier predicts 50 positives. Precision is $40 / (40 + 10) = 0.80$: four in five flagged cases are correct. It says nothing about the 20 positives that were missed.
+For the [shared synthetic 100-case confusion matrix](index.md), the classifier predicts 50 positives. Precision is $40 / (40 + 10) = 0.80$: four in five flagged cases are correct. It says nothing about the 20 positives that were missed.
 
 ## Properties and variants
 

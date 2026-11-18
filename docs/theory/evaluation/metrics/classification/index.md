@@ -24,6 +24,18 @@ Classification metrics score a model whose output is a class label or a score fo
 
 The label-based metrics change with the threshold, so report the threshold together with the number. The ranking metrics do not depend on one threshold, but they can look optimistic when positives are rare.
 
+## Shared synthetic 100-case example
+
+The worked examples for [accuracy](accuracy.md), [precision](precision.md), [recall](recall.md), and [F1](f1.md) all use **the same** binary-classification confusion matrix. Rows are **actual** classes; columns are **predicted** classes. The entries are nonnegative integer counts, not probabilities.
+
+| Actual class | Predicted positive | Predicted negative | Total |
+|---|---:|---:|---:|
+| Positive | 40 (TP) | 20 (FN) | 60 |
+| Negative | 10 (FP) | 30 (TN) | 40 |
+| **Total** | **50** | **50** | **100** |
+
+From these *identical* 100 cases, accuracy is **70/100 = 0.700**, precision is **40/50 = 0.800**, recall is **40/60 ≈ 0.667**, and F1 is **80/110 ≈ 0.727**. This is a **constructed count example, not measured classifier performance**. The animations linked in the metric pages use their own explicitly stated synthetic score sets or population parameters and **must not be read as sequential results from these 100 cases**.
+
 ## Connections
 
 Whether the scores behave like probabilities is a separate question, covered in [Probabilistic Metrics](../probabilistic/index.md). The procedure for splitting data and validating a classifier is in [Evaluation and Validation](../../../paradigms/supervised/evaluation-and-validation/index.md).

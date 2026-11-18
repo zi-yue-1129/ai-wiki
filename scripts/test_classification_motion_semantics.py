@@ -290,3 +290,26 @@ for stem in ("pr-random-ap-expectation", "roc-cost-operating-point"):
     assert "prefers-reduced-motion" in motion and 'class="moving"' in motion
     assert "<animate " in motion and "<animate " not in still
 print("Finite-sample AP baseline and cost-aware ROC semantics OK")
+
+# Keep the four worked examples anchored to one explicitly identified, bilingual
+# synthetic confusion matrix. Earlier prose referred to "100 cases above" even
+# though no such 100-case example appeared on its own page.
+worked_root = Path("docs/theory/evaluation/metrics/classification")
+_tp, _fn, _fp, _tn = 40, 20, 10, 30
+assert _tp + _fn + _fp + _tn == 100
+assert _tp + _fn == 60 and _fp + _tn == 40
+assert _tp + _fp == 50 and _fn + _tn == 50
+assert math.isclose((_tp + _tn) / 100, .70)
+assert math.isclose(_tp / (_tp + _fp), .80)
+assert math.isclose(_tp / (_tp + _fn), 2 / 3)
+assert math.isclose(2 * _tp / (2 * _tp + _fp + _fn), 8 / 11)
+for suffix in (".md", ".zh-TW.md"):
+    overview = (worked_root / ("index" + suffix)).read_text(encoding="utf-8")
+    assert "40 (TP)" in overview and "20 (FN)" in overview
+    assert "10 (FP)" in overview and "30 (TN)" in overview
+    for metric in ("accuracy", "precision", "recall", "f1"):
+        body = (worked_root / (metric + suffix)).read_text(encoding="utf-8")
+        assert "](index.md)" in body and "100" in body
+        assert "100 cases above" not in body
+        assert "沿用上述 100 筆案例" not in body
+print("Bilingual shared 100-case confusion matrix: four metric pages agree")

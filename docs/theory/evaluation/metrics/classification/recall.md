@@ -39,7 +39,7 @@ Use recall when a missed positive is costly, for example in disease screening or
 
 ## Worked example
 
-Using the 100 cases above, there are 60 actual positives and the classifier finds 40 of them. Recall is $40 / (40 + 20) = 0.67$. It says nothing about the 10 false alarms, which precision captures.
+For the [shared synthetic 100-case confusion matrix](index.md), there are 60 actual positives and the classifier finds 40 of them. Recall is $40 / (40 + 20) = 0.67$. It says nothing about the 10 false alarms, which precision captures.
 
 ## Properties and variants
 
