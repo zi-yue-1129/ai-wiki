@@ -27,19 +27,22 @@ try:
                                               reduced_motion="reduce" if reduce else "no-preference")
                     page = ctx.new_page()
                     alt = "示意動畫" if lang == "zh" else "Schematic animation"
-                    page.set_content(f'<img alt="{alt}" src="{base}{stem}-still.svg">')
+                    page.set_content(f'<div class="concept-motion-scroll" tabindex="0" style="max-width:100%;overflow-x:auto"><div style="min-width:800px"><img style="width:800px;min-width:800px;max-width:none" alt="{alt}" src="{base}{stem}-still.svg" data-motion-src="{base}{stem}-motion.svg"></div></div>')
                     page.add_style_tag(path=str(DOCS / "stylesheets/concept-motion.css"))
                     page.add_script_tag(path=str(DOCS / "javascripts/concept-motion.js"))
                     toggle = page.locator(".concept-motion-toggle")
                     assert toggle.count() == 1, (stem, width, lang)
                     image = page.locator(".concept-motion-player img")
                     assert "-still.svg" in image.get_attribute("src") if reduce else "-motion.svg" in image.get_attribute("src")
-                    assert page.locator(".concept-motion-wide").count() == 1
-                    player = page.locator(".concept-motion-wide")
+                    assert page.locator(".concept-motion-scroll").count() == 1
+                    player = page.locator(".concept-motion-scroll")
                     metrics = player.evaluate("(e) => [e.scrollWidth, e.clientWidth, e.tabIndex]")
                     assert metrics[2] == 0
                     if width <= 360:
                         assert metrics[0] > metrics[1], (stem, width, metrics)
+                    assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+                    if width<=360:
+                        player.focus();page.keyboard.press('ArrowRight');page.wait_for_timeout(80);assert player.evaluate('e=>e.scrollLeft>0')
                     toggle.focus()
                     toggle.press(key)
                     assert "-motion.svg" in image.get_attribute("src") if reduce else "-still.svg" in image.get_attribute("src")

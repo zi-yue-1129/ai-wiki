@@ -5,8 +5,6 @@
   'use strict';
   const suffix = /-motion\.svg(?=$|[?#])/;
   const moeSuffix = /moe-top2-routing-motion\.svg(?=$|[?#])/;
-  // These chapters embed the static image in GitHub and progressively enhance it on the site.
-  const staticFirst = /(?:vivit-factorised-attention|i3d-filter-inflation)-still\.svg(?=$|[?#])/;
   // Earlier CSS-animated diagrams keep their original filenames.
   const standalonePairs = {
     'flashattention-streaming-tiles.svg': 'flashattention-streaming-tiles-still.svg',
@@ -17,12 +15,11 @@
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
-      const source = img.dataset.motionSrc || img.getAttribute('src') || '';
-      const animated = staticFirst.test(source) ? source.replace(/-still\.svg(?=$|[?#])/, '-motion.svg') : source;
+      const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
-      const still = staticFirst.test(source) ? source : img.dataset.stillSrc || (pairedStill
+      const still = img.dataset.stillSrc || (pairedStill
         ? animated.replace(fileName, pairedStill)
         : animated.replace(suffix, '-still.svg'));
       const isMoe = moeSuffix.test(animated);
@@ -31,12 +28,6 @@
       const originalAlt = img.alt;
       const host = document.createElement('span');
       host.className = 'concept-motion-player';
-      if (staticFirst.test(source)) {
-        host.classList.add('concept-motion-wide');
-        host.tabIndex = 0; // Scrollable diagrams are reachable by keyboard.
-        host.setAttribute('aria-label', chinese
-          ? '可水平捲動的教學圖與動畫控制' : 'Horizontally scrollable diagram and animation controls');
-      }
       img.before(host);
       host.append(img);
       img.dataset.conceptMotionEnhanced = 'yes';

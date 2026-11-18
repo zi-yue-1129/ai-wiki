@@ -37,7 +37,9 @@ ViViT 是由 Transformer 層構成的影片分類模型。它把一段片段轉�
 
 ### 視覺解說：空間與時間注意力分解
 
-![兩組時空詞元網格：橘色連線顯示單一影格內的空間注意力，青綠色連線顯示跨三個影格相同空間位置的時間注意力](../../../../assets/concept-animations/vivit-factorised-attention-still.svg)
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可水平捲動的影片模型示意圖">
+<div style="min-width:800px"><img data-source-asset-urls="true" src="../../../../assets/concept-animations/vivit-factorised-attention-still.svg" data-still-src="../../../../assets/concept-animations/vivit-factorised-attention-still.svg" data-motion-src="../../../../assets/concept-animations/vivit-factorised-attention-motion.svg" style="width:800px;min-width:800px;max-width:none;height:auto" alt="兩組時空詞元網格：橘色連線顯示單一影格內的空間注意力，青綠色連線顯示跨三個影格相同空間位置的時間注意力" width="800" height="440"></div>
+</div>
 
 *原創教學視覺（CC BY-SA 4.0）。* **橘色**追蹤單一影格內的空間詞元混合，**青綠色**追蹤固定空間位置跨影格的時間混合。在 **ViViT Model 3** 中，這兩種注意力會在 Transformer 區塊內依序執行。圖中僅選出一列與一行的連結關係，並未畫出所有注意力頭或學得的權重。詞元位置與移動標記均為**教學示意，不是模型實測注意力分數或推論結果**。MkDocs 會將 GitHub 的靜態預覽增強為支援播放／暫停、鍵盤操作及減少動態效果設定的播放器。[檢視 SVG 動畫](../../../../assets/concept-animations/vivit-factorised-attention-motion.svg)。原始架構請參見 [Arnab 等人（2021）](https://arxiv.org/abs/2103.15691)。
 

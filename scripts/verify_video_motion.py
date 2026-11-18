@@ -31,6 +31,6 @@ for stem, page in PAIRS.items():
         for kind in ("motion", "still"):
             ref = f"../../../../assets/concept-animations/{stem}-{kind}.svg"
             assert ref in content and (doc.parent / ref).resolve().exists(), (doc, kind)
-        assert f"]({ref.replace('motion.svg', 'still.svg')})" in content, doc
+        assert f'src="{ref}"' in content and 'data-source-asset-urls' in content, doc
         assert "CC BY-SA 4.0" in content, doc
 print("Video motion: 4 SVGs, 4 bilingual page links, static-first GitHub previews OK")
