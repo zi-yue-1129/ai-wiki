@@ -44,7 +44,7 @@ Balanced accuracy is the **unweighted mean of class recalls**, $(0.80+0.90)/2=0.
 
 ## Interpretation
 
-Accuracy needs no threshold and is easy to explain. Its weakness is that it depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
+Accuracy is easy to explain once predicted labels are fixed. When the classifier outputs scores, the decision rule (such as a binary cutoff or multiclass argmax) can change accuracy. Its weakness is that it depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
 
 ## When to use it
 
@@ -52,7 +52,7 @@ Use accuracy when the classes are roughly balanced and every kind of error has t
 
 ## Worked example
 
-Using the 100 cases above, accuracy is $(40 + 30) / 100 = 0.70$. The same classifier has precision 0.80 and recall 0.67 (see [precision](precision.md) and [recall](recall.md)), so accuracy alone does not show which kind of error dominates.
+Using the [shared synthetic 100-case confusion matrix](index.md), accuracy is $(40 + 30) / 100 = 0.70$. The same classifier has precision 0.80 and recall 0.67 (see [precision](precision.md) and [recall](recall.md)), so accuracy alone does not show which kind of error dominates.
 
 ## Properties and variants
 
