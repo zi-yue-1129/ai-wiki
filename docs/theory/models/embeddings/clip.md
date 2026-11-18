@@ -14,7 +14,7 @@ aliases:
 
 # CLIP
 
-CLIP (Contrastive Language–Image Pre-training) learns an image encoder and a text encoder whose outputs share one embedding space. Trained on 400 million web image–text pairs, it can classify images it was never trained on by comparing each image with text descriptions of the classes. The method is the modality-alignment member of the family on the parent page, [Embeddings and Representation Learning](index.md).
+CLIP (Contrastive Language–Image Pre-training) learns an image encoder and a text encoder whose outputs share one embedding space. Trained on 400 million web image–text pairs, it can perform downstream classification without task-specific labelled fine-tuning by comparing images with class descriptions. Here zero-shot describes the adaptation protocol, not a guarantee that web pre-training contained no overlapping images. The method is the modality-alignment member of the family on the parent page, [Embeddings and Representation Learning](index.md).
 
 ## Problem
 
@@ -22,24 +22,30 @@ Image classifiers trained on fixed label sets, such as ImageNet, learn only the 
 
 ## Core idea
 
-For a batch of `N` image–text pairs, CLIP must identify which of the `N × N` possible pairings actually occurred. The image and text embeddings are normalised, and the model maximises the cosine similarity of the `N` correct pairs while minimising it for the `N² − N` incorrect pairs. The objective is applied in both directions, from image to text and from text to image, which makes the loss symmetric.
+For a batch of `N` image–text pairs, CLIP must identify which of the `N × N` possible pairings actually occurred. The image and text embeddings are normalised, and the contrastive loss favours the paired captions/images over other batch entries. Other entries act as negatives, even though some may also be semantically compatible. The objective is applied in both directions, from image to text and from text to image, which makes the loss symmetric.
 
-Because the loss compares a pair against every other pair in the batch, the negatives come for free: no separate negative set is needed. The similarities are scaled by a learned temperature, which is parameterised in log form, initialised to the equivalent of 0.07, and clipped so that the logits are never scaled by more than 100.
+Because the loss compares a pair against every other pair in the batch, the negatives come for free: no separate negative set is needed. The similarities are multiplied by a learned inverse temperature. Section 2.5 reports an initial temperature of 0.07 and a cap of 100 on the multiplicative logit scale during training.
 
 ## Equation and algorithm
 
-The paper gives its pseudocode for the core step. With normalised image embeddings `I_e` and text embeddings `T_e`, the logits are `logits = I_e T_eᵀ · exp(t)`, where `t` is the learned log temperature, and the loss is the average of the two cross-entropy terms, `loss = (loss_i + loss_t) / 2`. The image-to-text term classifies each image over the texts in its batch, and the text-to-image term does the reverse.
+The paper gives its pseudocode for the core step. With row-normalised image and text embedding matrices \(I_e,T_e\in\mathbb R^{N\times d}\), the logits are
 
-Zero-shot classification proceeds in three steps. The names of the classes are passed through the text encoder to give one embedding per class. Each image embedding is compared with these class embeddings by cosine similarity, scaled by the temperature and normalised with a softmax. The class with the highest probability is the prediction. The default prompt template, "A photo of a {label}", adds about 1.3% accuracy on ImageNet in the paper. Ensembling 80 context prompts adds about 3.5% more.
+\[
+S=I_eT_e^\top\exp(t)=I_eT_e^\top/\tau,\qquad t=\log(1/\tau).
+\]
+
+Thus \(t\) is the learned **log inverse-temperature**, or logit scale. The symmetric loss is \(L=(L_{I\to T}+L_{T\to I})/2\). The image-to-text term classifies each image over the texts in its batch, and the text-to-image term does the reverse.
+
+Zero-shot classification proceeds in three steps. The names of the classes are passed through the text encoder to give one embedding per class. Each image embedding is compared with these class embeddings by cosine similarity, scaled by the inverse temperature and normalised with a softmax. The class with the highest probability is the prediction. The default prompt template, "A photo of a {label}", adds about 1.3 percentage points of accuracy on ImageNet in the paper. Ensembling 80 context prompts adds about 3.5 further percentage points (Section 3.1.4).
 
 ## Results
 
-The paper reports zero-shot top-1 accuracy on ImageNet. The strongest model in its comparison reaches 76.2%, compared with 11.5% for the earlier Visual N-Grams method. The paper states that CLIP matches the original ResNet-50 on ImageNet, but it does not give a separate figure for that comparison. The authors also report that prompt engineering and ensembling together raise ImageNet accuracy by almost five points. The training set is the paper's own 400-million-pair dataset, called WIT (WebImageText).
+The paper reports zero-shot top-1 accuracy on ImageNet. Its **ViT-L/14@336px** model reaches **76.2%**, compared with 11.5% for the earlier Visual N-Grams method ([Table 1 and Section 2.5](https://arxiv.org/abs/2103.00020)). The authors describe this as matching the original supervised ResNet-50; it is not a comparison against the best later ImageNet systems. The authors also report that prompt engineering and ensembling together raise ImageNet accuracy by almost five points. The training set is the paper's own 400-million-pair dataset, called WIT (WebImageText).
 
 ## Limitations
 
-- **Behind supervised baselines.** Zero-shot CLIP is competitive with a simple supervised baseline on many datasets but is not state of the art overall. The authors estimate that roughly a thousand-fold increase in compute would be needed to reach that level.
-- **Specialised and abstract tasks.** Performance is weak on fine-grained classification, such as cars, flowers and aircraft, on object counting and on novel tasks, where it can be close to chance.
+- **Behind supervised baselines.** Zero-shot CLIP is competitive with a simple supervised baseline on many datasets but is not state of the art overall. The authors estimate that roughly a thousand-fold increase in compute would be needed to reach the 2021 ImageNet state of the art by extrapolating their observed scaling trend; this is an estimate, not a demonstrated result.
+- **Specialised and abstract tasks.** Fine-grained performance varies: Flowers102 and FGVCAircraft trail the paper's linear classifier on ResNet-50 features, while Stanford Cars and Food101 outperform that baseline (Section 3.1.5). Abstract tasks such as counting and new tasks such as nearest-car distance estimation can be near chance; this does not mean all fine-grained classification is near chance.
 - **Out-of-distribution data.** It reaches only about 88% on handwritten MNIST digits, which a logistic regression on raw pixels outperforms.
 - **Closed set.** It chooses among the concepts it is given and cannot generate new outputs, unlike a captioning model.
 - **Social bias.** Training on unfiltered web pairs leads to learned social biases.

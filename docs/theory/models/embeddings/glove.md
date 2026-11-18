@@ -27,21 +27,27 @@ The result is a model that starts from the full co-occurrence matrix, as count-b
 
 ## Equation and algorithm
 
-The model minimises a weighted least-squares objective over all pairs in a vocabulary of size `V`:
+The model minimises a weighted least-squares objective over observed word–context pairs:
 
-`J = Σ_{i,j=1}^{V} f(X_ij) (w_iᵀ w̃_j + b_i + b̃_j − log X_ij)²`
+\[
+J=\sum_{i,j:X_{ij}>0}f(X_{ij})\left(w_i^\top\widetilde w_j+b_i+\widetilde b_j-\log X_{ij}\right)^2.
+\]
+
+Restricting the sum to positive counts avoids evaluating \(\log 0\).
 
 The weighting function is
 
-`f(x) = (x / x_max)^α` if `x < x_max`, and `f(x) = 1` otherwise,
+\[
+f(x)=\begin{cases}(x/x_{\max})^\alpha,&0<x<x_{\max},\\1,&x\ge x_{\max}.\end{cases}
+\]
 
-with `x_max = 100` and `α = 3/4`. The weight gives less influence to very frequent pairs, and the authors report that the choice of cutoff matters only weakly. They also report that `α = 3/4` gave a modest improvement over a linear weighting with `α = 1`.
+with \(x_{\max}=100\) and \(\alpha=3/4\). The weight increases with the count up to the cutoff, then stays at one. Thus rare pairs are downweighted, while very frequent pairs receive no further increase in per-pair weight, and the authors report that the choice of cutoff matters only weakly. They also report that \(\alpha=3/4\) gave a modest improvement over a linear weighting with \(\alpha=1\).
 
 Training is a single pass to build the co-occurrence matrix, followed by an iterative optimisation of `J` over the non-zero entries. Because only pairs with `X_ij > 0` contribute, the optimisation cost depends on the number of observed pairs rather than on the full vocabulary.
 
 ## Results
 
-The paper evaluates on word analogies, using the same semantic and syntactic question sets as [word2vec](word2vec.md). The accuracies in the paper's Table 2 include:
+The paper evaluates on word analogies, using the same semantic and syntactic question sets as [word2vec](word2vec.md). The accuracies in [the paper's Table 2](https://aclanthology.org/D14-1162/) include:
 
 | Model | Vector size | Corpus | Semantic | Syntactic | Overall |
 |---|---|---|---|---|---|
@@ -54,7 +60,7 @@ The 75% headline figure comes from the 42-billion-token model. The authors also 
 
 ## Limitations
 
-- **Empirical weighting.** The authors justify `α = 3/4` only empirically.
+- **Empirical weighting.** The authors justify \(\alpha=3/4\) only empirically.
 - **Hard comparison.** Many parameters affect word2vec and GloVe, so the comparison depends on defaults. The authors acknowledge that a more thorough analysis would relax this simplification.
 - **Corpus effects.** Semantic accuracy did not increase monotonically with corpus size. The authors attribute part of this to Gigaword being a fixed news source that may contain outdated facts.
 - **Cost bound.** The worst-case complexity is quadratic in the vocabulary size. A tighter estimate relies on an assumed power-law distribution of co-occurrences.

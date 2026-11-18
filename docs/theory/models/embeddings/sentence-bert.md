@@ -17,7 +17,7 @@ Sentence-BERT (SBERT) turns a pre-trained BERT or RoBERTa into a siamese network
 
 ## Problem
 
-BERT takes a pair of sentences as one input and outputs a similarity score. This cross-encoder is accurate, but it must run once for every pair. Reimers and Gurevych (2019) give the cost for finding the most similar pair among 10,000 sentences: about 50 million pairwise inferences, roughly 65 hours on a V100 GPU. Simply averaging BERT's token outputs, or using the `[CLS]` vector, gave weak sentence embeddings. The paper reports Spearman correlations of 46.35 for the average and 16.50 for the `[CLS]` vector on the STS benchmark. The question was how to obtain embeddings that compare well and can be computed once per sentence.
+When fine-tuned as a sentence-pair cross-encoder, BERT takes both sentences as one input and outputs a similarity score. This cross-encoder is accurate, but it must run once for every pair. Reimers and Gurevych (2019) give the cost for finding the most similar pair among 10,000 sentences: about 50 million pairwise inferences, roughly 65 hours on a V100 GPU. Simply averaging BERT's token outputs, or using the `[CLS]` vector, gave weak sentence embeddings. The paper reports Spearman correlations of 46.35 for the average and 16.50 for the `[CLS]` vector on the STS benchmark. The question was how to obtain embeddings that compare well and can be computed once per sentence.
 
 ## Core idea
 
@@ -29,15 +29,15 @@ Because each sentence is encoded independently, the embeddings of a whole collec
 
 The paper uses three training objectives, depending on the labelled data:
 
-- **Classification.** For sentence embeddings `u` and `v` of dimension `n` and `k` labels, the model forms `(u, v, |u − v|)`, applies a trainable matrix `W_t ∈ ℝ^{3n×k}`, and takes a softmax, `o = softmax(W_t(u, v, |u − v|))`. The loss is cross-entropy. The element-wise difference term lets the classifier respond to how far the two vectors differ.
+- **Classification.** For column embeddings \(u,v\in\mathbb R^n\), concatenate \(h=[u;v;|u-v|]\in\mathbb R^{3n}\). With \(k\) labels and \(W\in\mathbb R^{k\times3n}\), compute \(o=\operatorname{softmax}(Wh)\). This explicitly uses a column-vector convention; a row-vector convention transposes the weight matrix. The loss is cross-entropy. The element-wise difference term lets the classifier respond to how far the two vectors differ.
 - **Regression.** The cosine similarity between `u` and `v` is trained against a gold similarity score with mean-squared error.
-- **Triplet.** For an anchor `s_a`, a positive `s_p` and a negative `s_n`, the loss is `max(‖s_a − s_p‖ − ‖s_a − s_n‖ + ε, 0)`, with Euclidean distance and margin `ε = 1` in the paper's experiments.
+- **Triplet.** For an anchor `s_a`, a positive `s_p` and a negative `s_n`, the loss is \(\max(\lVert s_a-s_p\rVert_2-\lVert s_a-s_n\rVert_2+\varepsilon,0)\), with Euclidean distance and margin `ε = 1` in the paper's experiments.
 
 Training starts from natural language inference data, with the classification objective, and can be followed by fine-tuning on the STS benchmark with the regression objective.
 
 ## Results
 
-The paper reports Spearman correlation (× 100) on the STS benchmark (STSb). The rows that are not trained on STSb show the transfer from natural language inference data alone:
+[Reimers and Gurevych (2019), Tables 1–2](https://aclanthology.org/D19-1410/), report Spearman correlation (× 100) on the STS benchmark (STSb). The rows that are not trained on STSb show the transfer from natural language inference data alone:
 
 | Model | Spearman |
 |---|---|
@@ -48,13 +48,13 @@ The paper reports Spearman correlation (× 100) on the STS benchmark (STSb). The
 | SBERT-NLI-STSb-large | 86.10 ± 0.13 |
 | BERT cross-encoder, NLI and STSb, base (reference) | 88.33 ± 0.19 |
 
-The cross-encoder remains more accurate, which is the trade-off the method accepts. For the 10,000-sentence search, the paper reports about 5 seconds to compute the embeddings and about 0.01 seconds for the cosine comparisons.
+In these NLI-plus-STSb comparisons, the cross-encoder scores higher; this is not a universal accuracy ordering across models or tasks. For the 10,000-sentence search, the paper reports about 5 seconds to compute the embeddings and about 0.01 seconds for the cosine comparisons.
 
 ## Limitations
 
-- **Cross-topic transfer.** On the Argument Facet Similarity corpus, SBERT's cross-topic performance dropped by about seven points of Spearman correlation relative to BERT. The authors say that training needs more than two topics to work.
+- **Cross-topic transfer.** In the paper's Argument Facet Similarity experiment, training on two topics and evaluating on a third leaves SBERT about seven Spearman points behind BERT. This illustrates a limitation of that data/setup, not a universal minimum number of training topics.
 - **Independent encoding.** Each sentence is mapped without seeing the other, so SBERT cannot use the word-level attention between the two sentences that the cross-encoder uses.
-- **Not a general transfer model.** The authors say SBERT embeddings are not meant for transfer learning, and they suggest fine-tuning BERT for a new task instead.
+- **Scope of the original transfer tests.** Section 5 evaluates frozen embeddings with SentEval classifiers. The authors emphasise similarity search rather than treating those embeddings as a substitute for task-specific BERT fine-tuning. This does not rule out transfer learning with later sentence-embedding models.
 - **Mixed comparisons.** SBERT trails the Universal Sentence Encoder on some tasks, such as SICK-R and TREC, and the paper reports no significant gain from RoBERTa in its experiments.
 
 ## References
