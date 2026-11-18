@@ -37,7 +37,7 @@ S4D 把 S4 的計算方式與參數化，和 DSS 的初始化結合起來。它�
 \bar A = (I - \tfrac{\Delta}{2}A)^{-1}(I + \tfrac{\Delta}{2}A) .
 \]
 
-。當 \(\bar A\) 為對角矩陣時，離散核是一個 Vandermonde 乘積，\(\bar K = (\bar B^\top \circ C)\,V_L(\bar A)\)，其中 \(V_L(\bar A)_{n,\ell} = \bar A_n^{\ell}\)。逐項寫出為
+當 \(\bar A\) 為對角矩陣時，離散核是一個 Vandermonde 乘積，\(\bar K = (\bar B^\top \circ C)\,V_L(\bar A)\)，其中 \(V_L(\bar A)_{n,\ell} = \bar A_n^{\ell}\)。逐項寫出為
 
 \[
 \bar K_\ell = \sum_{n=1}^{N} C_n\,\bar B_n\,\bar A_n^{\ell}, \qquad \ell = 0, \dots, L-1 .

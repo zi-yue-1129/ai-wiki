@@ -37,7 +37,7 @@ The continuous system is \(x'(t) = Ax(t) + Bu(t)\), \(y(t) = Cx(t)\), with kerne
 \bar A = (I - \tfrac{\Delta}{2}A)^{-1}(I + \tfrac{\Delta}{2}A) .
 \]
 
-. With a diagonal \(\bar A\), the discrete kernel is a Vandermonde product, \(\bar K = (\bar B^\top \circ C)\,V_L(\bar A)\), where \(V_L(\bar A)_{n,\ell} = \bar A_n^{\ell}\). Entrywise,
+With a diagonal \(\bar A\), the discrete kernel is a Vandermonde product, \(\bar K = (\bar B^\top \circ C)\,V_L(\bar A)\), where \(V_L(\bar A)_{n,\ell} = \bar A_n^{\ell}\). Entrywise,
 
 \[
 \bar K_\ell = \sum_{n=1}^{N} C_n\,\bar B_n\,\bar A_n^{\ell}, \qquad \ell = 0, \dots, L-1 .
