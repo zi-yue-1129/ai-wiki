@@ -524,5 +524,5 @@ for name in ("roc-auc.md", "roc-auc.zh-TW.md"):
     assert r"2C_{FN}p>C_{FP}(1-p)" in page
 for name in ("roc-auc.md", "roc-auc.zh-TW.md"):
     page = (shared_dir / name).read_text(encoding="utf-8")
-    assert "\\n$\\n" + r"\begin{aligned}" + "\\nL(4;p)-L(1;p)" in page
+    assert "\n$$\n\\begin{aligned}\nL(4;p)-L(1;p)" in page
 print("ROC secant-cost comparison regression: 1485 scenarios OK")
