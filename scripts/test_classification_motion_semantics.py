@@ -811,7 +811,7 @@ for file,heading in (
     assert heading in text_page
     for exact in ("127/432", "5/54", "60/31", "Clopper"):
         assert exact in text_page, (file,exact)
-    assert r"n_{\mathrm{eff,var}}=\frac{3}{1+2\rho}" in text_page
+    assert r"n_{\mathrm{eff,var}}&=\frac{3}{1+2\rho}" in text_page
     assert ("\n$\n" + r"P_{\rho}(K=k)=") in text_page
     assert ("\n$\n" + r"\begin{aligned}" + "\n" + r"P_{\rho}(K\geq1)") in text_page
 print("Batch-mixture ROC dependence: 101 exact joint models, variance-equivalent counts and bilingual explanations OK")
