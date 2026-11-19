@@ -369,14 +369,14 @@ Both bounds concern the same **hypothetical zero-alarm observation**, but they a
 
 The dependence animation above compares the two endpoints. Its batch-level mechanism mixture also gives a **continuous, mathematically defined bridge**: choose the iid process with probability $1-\rho$, or the fully shared shock with probability $\rho$, once for all 30 records. With synthetic true $p=1/6$, the probability of recording zero alarms rises sharply with dependence, even though each record retains the same marginal FPR. More importantly, the *actual repeated-sampling coverage* of an incorrectly applied iid one-sided 95% Clopper–Pearson upper limit is
 
-$
+$$
 \begin{aligned}
 P_{\rho}(K=0)&=(1-\rho)(5/6)^{30}+\rho(5/6),\\
 q_{\mathrm{iid}}&=P_{\mathrm{Bin}(30,1/6)}(K\leq1)
 =(5/6)^{30}+30(1/6)(5/6)^{29},\\
 \mathrm{Coverage}_{\rho}&=(1-\rho)(1-q_{\mathrm{iid}})+\rho/6.
 \end{aligned}
-$
+$$
 
 For this **specific** $n=30$, $p=1/6$ example, the naive iid upper bound misses the true parameter precisely when the observed alarm count is **0 or 1**; the one-sided 95% binomial inversion puts its upper limit below $1/6$ for those two counts. Coverage consequently drops from **97.05% at $\rho=0$**, to **56.86% at $\rho=0.5$**, to **16.67% at $\rho=1$**. The nominal 95% guarantee presumes the iid sampling law and does **not** survive this correlated-data mechanism mixture.
 
