@@ -777,3 +777,41 @@ for filename, title in (
     assert r"U_{\mathrm{shared}}&=1-0.05=0.95" in page
     assert "\n$$\n\\begin{aligned}\nP_p(K=0" in page
 print("Shared-shock versus iid zero-alarm bounds: analytic coverage and bilingual motion regression OK")
+
+
+# Explicit batch-mixture interpretation of the intermediate dependence frames:
+# choose one mechanism for the whole batch, then draw iid or one shared shock.
+# The mixture weight is the intraclass correlation for THIS constructed model,
+# not an arbitrary correlation-to-distribution conversion.
+from math import comb as binom_comb
+batch_n, marginal_p = 3, Fraction(1, 6)
+iid_mass = [Fraction(binom_comb(batch_n, k) * 5 ** (batch_n-k), 216)
+            for k in range(batch_n + 1)]
+shared_mass = [Fraction(5,6), Fraction(0), Fraction(0), Fraction(1,6)]
+for rho_step in range(101):
+    rho = Fraction(rho_step, 100)
+    mass = [(1-rho)*iid_mass[k] + rho*shared_mass[k]
+            for k in range(batch_n+1)]
+    assert sum(mass) == 1
+    assert sum(Fraction(k,3)*mass[k] for k in range(4)) == marginal_p
+    mean_variance = sum((Fraction(k,3)-marginal_p)**2*mass[k]
+                        for k in range(4))
+    assert mean_variance == Fraction(5,108)*(1+2*rho)
+    assert sum(mass[1:]) == (1-rho)*Fraction(91,216)+rho*Fraction(1,6)
+    assert Fraction(3,1+2*rho) == Fraction(3)/(1+2*rho)
+assert (sum(((iid_mass[k]+shared_mass[k])/2) for k in range(1,4))
+        == Fraction(127,432))
+assert Fraction(5,108)*2 == Fraction(5,54)
+assert Fraction(30)/(1+29*Fraction(1,2)) == Fraction(60,31)
+for file,heading in (
+    ("roc-auc.md", "Between independence and one shared shock: the intermediate frames"),
+    ("roc-auc.zh-TW.md", "獨立與共同衝擊之間：明確的批次混合模型"),
+):
+    text_page = (shared_dir/file).read_text(encoding="utf-8")
+    assert heading in text_page
+    for exact in ("127/432", "5/54", "60/31", "Clopper"):
+        assert exact in text_page, (file,exact)
+    assert r"n_{\mathrm{eff,var}}=\frac{3}{1+2\rho}" in text_page
+    assert "\n$$\nP_{\rho}(K=k)=" in text_page
+    assert "\n$$\n\\begin{aligned}\nP_{\rho}(K\\geq1)" in text_page
+print("Batch-mixture ROC dependence: 101 exact joint models, variance-equivalent counts and bilingual explanations OK")
