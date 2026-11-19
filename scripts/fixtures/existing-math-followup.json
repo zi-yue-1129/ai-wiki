@@ -1,0 +1,249 @@
+{
+  "scope": "Eight pre-existing bilingual pages outside the initial 98 reviewed PRs",
+  "pages": [
+    {
+      "page": "docs/society/interpretability/feature-attribution.md",
+      "original_source_sha256": "146503ab89e7a3bcca151a2d3af76f71c4b22a970143dcec82b746ce37ae342b",
+      "original_revision": "f8298220a0b7e0846a758d397187576cadbc7382",
+      "display_count": 1,
+      "all_display_bodies": [
+        "\\phi_i=\\sum_{S\\subseteqN\\setminus\\{i\\}}\\frac{|S|!\\,(|N|-|S|-1)!}{|N|!}\\,\\bigl[v(S\\cup\\{i\\})-v(S)\\bigr],"
+      ],
+      "repaired_bodies": [
+        "\\phi_i = \\sum_{S \\subseteq N \\setminus \\{i\\}} \\frac{|S|!\\,(|N|-|S|-1)!}{|N|!}\\,\\bigl[v(S \\cup \\{i\\}) - v(S)\\bigr],"
+      ],
+      "mutations": [
+        {
+          "old": "  \\[\n  \\phi_i = \\sum_{S \\subseteq N \\setminus \\{i\\}} \\frac{|S|!\\,(|N|-|S|-1)!}{|N|!}\\,\\bigl[v(S \\cup \\{i\\}) - v(S)\\bigr],\n  \\]\n  where \\(N\\) is the set of features and \\(v(S)\\) is the model's expected output when only the features in \\(S\\) are known. Lundberg and Lee unify six existing methods under this additive form and propose estimators for it. Shapley-based attribution was used for predictions earlier by Štrumbelj and Kononenko (2014).",
+          "new": "\n    \\[\n    \\phi_i = \\sum_{S \\subseteq N \\setminus \\{i\\}} \\frac{|S|!\\,(|N|-|S|-1)!}{|N|!}\\,\\bigl[v(S \\cup \\{i\\}) - v(S)\\bigr],\n    \\]\n\n    where \\(N\\) is the set of features and \\(v(S)\\) is the model's expected output when only the features in \\(S\\) are known. Lundberg and Lee unify six existing methods under this additive form and propose estimators for it. Shapley-based attribution was used for predictions earlier by Štrumbelj and Kononenko (2014)."
+        }
+      ],
+      "list": {
+        "heading_id": "key-methods",
+        "titles": [
+          "Saliency maps (Simonyan et al., 2014).",
+          "Integrated gradients (Sundararajan et al., 2017).",
+          "LIME (Ribeiro et al., 2016).",
+          "SHAP (Lundberg & Lee, 2017)."
+        ],
+        "item": {
+          "title": "SHAP (Lundberg & Lee, 2017).",
+          "count": 4,
+          "index": 3,
+          "displays": 1,
+          "paragraphs": 2
+        }
+      }
+    },
+    {
+      "page": "docs/society/interpretability/feature-attribution.zh-TW.md",
+      "original_source_sha256": "1cb334dc9c5949156c3905a796e3932d614e196aa44ce28e3d5ce650cf951a52",
+      "original_revision": "f8298220a0b7e0846a758d397187576cadbc7382",
+      "display_count": 1,
+      "all_display_bodies": [
+        "\\phi_i=\\sum_{S\\subseteqN\\setminus\\{i\\}}\\frac{|S|!\\,(|N|-|S|-1)!}{|N|!}\\,\\bigl[v(S\\cup\\{i\\})-v(S)\\bigr],"
+      ],
+      "repaired_bodies": [
+        "\\phi_i = \\sum_{S \\subseteq N \\setminus \\{i\\}} \\frac{|S|!\\,(|N|-|S|-1)!}{|N|!}\\,\\bigl[v(S \\cup \\{i\\}) - v(S)\\bigr],"
+      ],
+      "mutations": [
+        {
+          "old": "  \\[\n  \\phi_i = \\sum_{S \\subseteq N \\setminus \\{i\\}} \\frac{|S|!\\,(|N|-|S|-1)!}{|N|!}\\,\\bigl[v(S \\cup \\{i\\}) - v(S)\\bigr],\n  \\]\n  其中 \\(N\\) 是特徵集合，\\(v(S)\\) 是只知道 \\(S\\) 中特徵時模型的期望輸出。Lundberg 與 Lee 將六種既有方法統一於這個可加形式之下，並提出其估計器。基於 Shapley 的預測歸因更早已由 Štrumbelj 與 Kononenko（2014）用於解釋預測。",
+          "new": "\n    \\[\n    \\phi_i = \\sum_{S \\subseteq N \\setminus \\{i\\}} \\frac{|S|!\\,(|N|-|S|-1)!}{|N|!}\\,\\bigl[v(S \\cup \\{i\\}) - v(S)\\bigr],\n    \\]\n\n    其中 \\(N\\) 是特徵集合，\\(v(S)\\) 是只知道 \\(S\\) 中特徵時模型的期望輸出。Lundberg 與 Lee 將六種既有方法統一於這個可加形式之下，並提出其估計器。基於 Shapley 的預測歸因更早已由 Štrumbelj 與 Kononenko（2014）用於解釋預測。"
+        }
+      ],
+      "list": {
+        "heading_id": "主要方法",
+        "titles": [
+          "顯著性圖（Simonyan 等人，2014）。",
+          "積分梯度（Sundararajan 等人，2017）。",
+          "LIME（Ribeiro 等人，2016）。",
+          "SHAP（Lundberg 與 Lee，2017）。"
+        ],
+        "item": {
+          "title": "SHAP（Lundberg 與 Lee，2017）。",
+          "count": 4,
+          "index": 3,
+          "displays": 1,
+          "paragraphs": 2
+        }
+      }
+    },
+    {
+      "page": "docs/theory/models/cnn/unet/3d-unet.md",
+      "original_source_sha256": "87ac112db64d3e681767146fd489de01093ffe635841e27a9388eb6c02afa67e",
+      "original_revision": "f8298220a0b7e0846a758d397187576cadbc7382",
+      "display_count": 3,
+      "all_display_bodies": [
+        "\\mathcal{L}=-\\sum_{v\\in\\mathcal{A}}w_{y_v}\\logp_v(y_v).",
+        "y_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\\qquad\\mathcal{L}=\\ell(y_1)+\\ell(y_3).",
+        "\\frac{\\partial\\mathcal{L}}{\\partialx_3}=w_2\\delta_1+w_0\\delta_3."
+      ],
+      "repaired_bodies": [
+        "y_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\\qquad\n\\mathcal{L}=\\ell(y_1)+\\ell(y_3).",
+        "\\frac{\\partial\\mathcal{L}}{\\partial x_3}=w_2\\delta_1+w_0\\delta_3."
+      ],
+      "mutations": [
+        {
+          "old": "$\ny_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\\qquad\n\\mathcal{L}=\\ell(y_1)+\\ell(y_3).\n$",
+          "new": "$$\ny_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\\qquad\n\\mathcal{L}=\\ell(y_1)+\\ell(y_3).\n$$"
+        },
+        {
+          "old": "$\n\\frac{\\partial\\mathcal{L}}{\\partial x_3}=w_2\\delta_1+w_0\\delta_3.\n$",
+          "new": "$$\n\\frac{\\partial\\mathcal{L}}{\\partial x_3}=w_2\\delta_1+w_0\\delta_3.\n$$"
+        }
+      ]
+    },
+    {
+      "page": "docs/theory/models/cnn/unet/3d-unet.zh-TW.md",
+      "original_source_sha256": "dc3e3be1a29f6ccf8f81a05e7c06e50a007ade58fe548ea1f6cb3f78cbedd55d",
+      "original_revision": "f8298220a0b7e0846a758d397187576cadbc7382",
+      "display_count": 3,
+      "all_display_bodies": [
+        "\\mathcal{L}=-\\sum_{v\\in\\mathcal{A}}w_{y_v}\\logp_v(y_v).",
+        "y_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\\qquad\\mathcal{L}=\\ell(y_1)+\\ell(y_3).",
+        "\\frac{\\partial\\mathcal{L}}{\\partialx_3}=w_2\\delta_1+w_0\\delta_3."
+      ],
+      "repaired_bodies": [
+        "y_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\\qquad\n\\mathcal{L}=\\ell(y_1)+\\ell(y_3).",
+        "\\frac{\\partial\\mathcal{L}}{\\partial x_3}=w_2\\delta_1+w_0\\delta_3."
+      ],
+      "mutations": [
+        {
+          "old": "$\ny_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\\qquad\n\\mathcal{L}=\\ell(y_1)+\\ell(y_3).\n$",
+          "new": "$$\ny_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\\qquad\n\\mathcal{L}=\\ell(y_1)+\\ell(y_3).\n$$"
+        },
+        {
+          "old": "$\n\\frac{\\partial\\mathcal{L}}{\\partial x_3}=w_2\\delta_1+w_0\\delta_3.\n$",
+          "new": "$$\n\\frac{\\partial\\mathcal{L}}{\\partial x_3}=w_2\\delta_1+w_0\\delta_3.\n$$"
+        }
+      ]
+    },
+    {
+      "page": "docs/theory/models/rnn/gated-cells/gru/index.md",
+      "original_source_sha256": "7a2643600636c7268c554bd56bdffc011028b57a48d3970704b195c6e148b1bc",
+      "original_revision": "f8298220a0b7e0846a758d397187576cadbc7382",
+      "display_count": 6,
+      "all_display_bodies": [
+        "r_j=\\sigma\\big([W_rx]_j+[U_rh_{t-1}]_j\\big)\\qquad\\text{(resetgate)}",
+        "z_j=\\sigma\\big([W_zx]_j+[U_zh_{t-1}]_j\\big)\\qquad\\text{(updategate)}",
+        "\\tilde{h}_j=\\varphi\\big([Wx]_j+[U(r\\odoth_{t-1})]_j\\big)\\qquad\\text{(candidatestate)}",
+        "h_j^{\\langlet\\rangle}=z_j\\,h_j^{\\langlet-1\\rangle}+(1-z_j)\\,\\tilde{h}_j^{\\langlet\\rangle}\\qquad\\text{(newstate)}",
+        "r_t=\\sigma(W_rx_t+U_rh_{t-1}),\\quadz_t=\\sigma(W_zx_t+U_zh_{t-1}),",
+        "\\tilde{h}_t=\\tanh\\big(Wx_t+U(r_t\\odoth_{t-1})\\big),\\quadh_t=z_t\\odoth_{t-1}+(1-z_t)\\odot\\tilde{h}_t."
+      ],
+      "repaired_bodies": [
+        "r_t = \\sigma(W_r x_t + U_r h_{t-1}), \\quad z_t = \\sigma(W_z x_t + U_z h_{t-1}),",
+        "\\tilde{h}_t = \\tanh\\big(W x_t + U (r_t \\odot h_{t-1})\\big), \\quad h_t = z_t \\odot h_{t-1} + (1 - z_t) \\odot \\tilde{h}_t."
+      ],
+      "mutations": [
+        {
+          "old": "\\[\nr_t = \\sigma(W_r x_t + U_r h_{t-1}), \\quad z_t = \\sigma(W_z x_t + U_z h_{t-1}),\n\\]\n\\[\n\\tilde{h}_t = \\tanh\\big(W x_t + U (r_t \\odot h_{t-1})\\big), \\quad h_t = z_t \\odot h_{t-1} + (1 - z_t) \\odot \\tilde{h}_t.\n\\]",
+          "new": "\\[\nr_t = \\sigma(W_r x_t + U_r h_{t-1}), \\quad z_t = \\sigma(W_z x_t + U_z h_{t-1}),\n\\]\n\n\\[\n\\tilde{h}_t = \\tanh\\big(W x_t + U (r_t \\odot h_{t-1})\\big), \\quad h_t = z_t \\odot h_{t-1} + (1 - z_t) \\odot \\tilde{h}_t.\n\\]"
+        }
+      ]
+    },
+    {
+      "page": "docs/theory/models/rnn/gated-cells/gru/index.zh-TW.md",
+      "original_source_sha256": "60b6b22cde4b1cd853a138793a9546253f4644afa40a16fca681f8851ce6f4e3",
+      "original_revision": "f8298220a0b7e0846a758d397187576cadbc7382",
+      "display_count": 6,
+      "all_display_bodies": [
+        "r_j=\\sigma\\big([W_rx]_j+[U_rh_{t-1}]_j\\big)\\qquad\\text{（重置閘門）}",
+        "z_j=\\sigma\\big([W_zx]_j+[U_zh_{t-1}]_j\\big)\\qquad\\text{（更新閘門）}",
+        "\\tilde{h}_j=\\varphi\\big([Wx]_j+[U(r\\odoth_{t-1})]_j\\big)\\qquad\\text{（候選狀態）}",
+        "h_j^{\\langlet\\rangle}=z_j\\,h_j^{\\langlet-1\\rangle}+(1-z_j)\\,\\tilde{h}_j^{\\langlet\\rangle}\\qquad\\text{（新狀態）}",
+        "r_t=\\sigma(W_rx_t+U_rh_{t-1}),\\quadz_t=\\sigma(W_zx_t+U_zh_{t-1}),",
+        "\\tilde{h}_t=\\tanh\\big(Wx_t+U(r_t\\odoth_{t-1})\\big),\\quadh_t=z_t\\odoth_{t-1}+(1-z_t)\\odot\\tilde{h}_t."
+      ],
+      "repaired_bodies": [
+        "r_t = \\sigma(W_r x_t + U_r h_{t-1}), \\quad z_t = \\sigma(W_z x_t + U_z h_{t-1}),",
+        "\\tilde{h}_t = \\tanh\\big(W x_t + U (r_t \\odot h_{t-1})\\big), \\quad h_t = z_t \\odot h_{t-1} + (1 - z_t) \\odot \\tilde{h}_t."
+      ],
+      "mutations": [
+        {
+          "old": "\\[\nr_t = \\sigma(W_r x_t + U_r h_{t-1}), \\quad z_t = \\sigma(W_z x_t + U_z h_{t-1}),\n\\]\n\\[\n\\tilde{h}_t = \\tanh\\big(W x_t + U (r_t \\odot h_{t-1})\\big), \\quad h_t = z_t \\odot h_{t-1} + (1 - z_t) \\odot \\tilde{h}_t.\n\\]",
+          "new": "\\[\nr_t = \\sigma(W_r x_t + U_r h_{t-1}), \\quad z_t = \\sigma(W_z x_t + U_z h_{t-1}),\n\\]\n\n\\[\n\\tilde{h}_t = \\tanh\\big(W x_t + U (r_t \\odot h_{t-1})\\big), \\quad h_t = z_t \\odot h_{t-1} + (1 - z_t) \\odot \\tilde{h}_t.\n\\]"
+        }
+      ]
+    },
+    {
+      "page": "docs/theory/paradigms/probabilistic/mcmc/gibbs-sampling.md",
+      "original_source_sha256": "27c030ba3ac19aa3d5cefe179710ce06798c1869b621423f4726cf128065e473",
+      "original_revision": "f8298220a0b7e0846a758d397187576cadbc7382",
+      "display_count": 7,
+      "all_display_bodies": [
+        "\\intp(x,y)p(x'\\midy)\\,dx=p(y)p(x'\\midy)=p(x',y).",
+        "X_{t+1}\\midY_t=y\\sim\\mathcal{N}(\\rhoy,1-\\rho^2),\\qquadY_{t+1}\\midX_{t+1}=x\\sim\\mathcal{N}(\\rhox,1-\\rho^2).",
+        "Y_{t+1}=\\rho^2Y_t+\\sqrt{1-\\rho^2}\\,(\\rho\\epsilon_t+\\eta_t).",
+        "N_{\\mathrm{eff}}=\\frac{100}{1+2\\sum_{k=1}^{99}(1-k/100)\\rho^{2k}}.",
+        "Y_n\\midY_0=1\\sim\\mathcal{N}\\bigl(\\rho^{2n},\\1-\\rho^{4n}\\bigr).",
+        "d_{\\mathrm{TV}}(\\delta_xK_p^n,\\pi)=\\tfrac12(1-p)^n.",
+        "P_n(00)=\\tfrac12+\\tfrac12(1-p)^n,\\qquadP_n(11)=\\tfrac12-\\tfrac12(1-p)^n."
+      ],
+      "repaired_bodies": [
+        "N_{\\mathrm{eff}}=\\frac{100}{1+2\\sum_{k=1}^{99}(1-k/100)\\rho^{2k}}.",
+        "Y_n\\mid Y_0=1\\sim\\mathcal{N}\\bigl(\\rho^{2n},\\ 1-\\rho^{4n}\\bigr).",
+        "d_{\\mathrm{TV}}(\\delta_xK_p^n,\\pi)=\\tfrac12(1-p)^n.",
+        "P_n(00)=\\tfrac12+\\tfrac12(1-p)^n,\\qquad\nP_n(11)=\\tfrac12-\\tfrac12(1-p)^n."
+      ],
+      "mutations": [
+        {
+          "old": "$\nN_{\\mathrm{eff}}=\\frac{100}{1+2\\sum_{k=1}^{99}(1-k/100)\\rho^{2k}}.\n$",
+          "new": "$$\nN_{\\mathrm{eff}}=\\frac{100}{1+2\\sum_{k=1}^{99}(1-k/100)\\rho^{2k}}.\n$$"
+        },
+        {
+          "old": "$\nY_n\\mid Y_0=1\\sim\\mathcal{N}\\bigl(\\rho^{2n},\\ 1-\\rho^{4n}\\bigr).\n$",
+          "new": "$$\nY_n\\mid Y_0=1\\sim\\mathcal{N}\\bigl(\\rho^{2n},\\ 1-\\rho^{4n}\\bigr).\n$$"
+        },
+        {
+          "old": "$\nd_{\\mathrm{TV}}(\\delta_xK_p^n,\\pi)=\\tfrac12(1-p)^n.\n$",
+          "new": "$$\nd_{\\mathrm{TV}}(\\delta_xK_p^n,\\pi)=\\tfrac12(1-p)^n.\n$$"
+        },
+        {
+          "old": "$\nP_n(00)=\\tfrac12+\\tfrac12(1-p)^n,\\qquad\nP_n(11)=\\tfrac12-\\tfrac12(1-p)^n.\n$",
+          "new": "$$\nP_n(00)=\\tfrac12+\\tfrac12(1-p)^n,\\qquad\nP_n(11)=\\tfrac12-\\tfrac12(1-p)^n.\n$$"
+        }
+      ]
+    },
+    {
+      "page": "docs/theory/paradigms/probabilistic/mcmc/gibbs-sampling.zh-TW.md",
+      "original_source_sha256": "db355f088bf974364ede6b1733eff776504ec0c2ee0f5ef815435d65d4e7d591",
+      "original_revision": "f8298220a0b7e0846a758d397187576cadbc7382",
+      "display_count": 7,
+      "all_display_bodies": [
+        "\\intp(x,y)p(x'\\midy)\\,dx=p(y)p(x'\\midy)=p(x',y).",
+        "X_{t+1}\\midY_t=y\\sim\\mathcal{N}(\\rhoy,1-\\rho^2),\\qquadY_{t+1}\\midX_{t+1}=x\\sim\\mathcal{N}(\\rhox,1-\\rho^2).",
+        "Y_{t+1}=\\rho^2Y_t+\\sqrt{1-\\rho^2}\\,(\\rho\\epsilon_t+\\eta_t).",
+        "N_{\\mathrm{eff}}=\\frac{100}{1+2\\sum_{k=1}^{99}(1-k/100)\\rho^{2k}}.",
+        "Y_n\\midY_0=1\\sim\\mathcal{N}\\bigl(\\rho^{2n},\\1-\\rho^{4n}\\bigr).",
+        "d_{\\mathrm{TV}}(\\delta_xK_p^n,\\pi)=\\tfrac12(1-p)^n.",
+        "P_n(00)=\\tfrac12+\\tfrac12(1-p)^n,\\qquadP_n(11)=\\tfrac12-\\tfrac12(1-p)^n."
+      ],
+      "repaired_bodies": [
+        "N_{\\mathrm{eff}}=\\frac{100}{1+2\\sum_{k=1}^{99}(1-k/100)\\rho^{2k}}.",
+        "Y_n\\mid Y_0=1\\sim\\mathcal{N}\\bigl(\\rho^{2n},\\ 1-\\rho^{4n}\\bigr).",
+        "d_{\\mathrm{TV}}(\\delta_xK_p^n,\\pi)=\\tfrac12(1-p)^n.",
+        "P_n(00)=\\tfrac12+\\tfrac12(1-p)^n,\\qquad\nP_n(11)=\\tfrac12-\\tfrac12(1-p)^n."
+      ],
+      "mutations": [
+        {
+          "old": "$\nN_{\\mathrm{eff}}=\\frac{100}{1+2\\sum_{k=1}^{99}(1-k/100)\\rho^{2k}}.\n$",
+          "new": "$$\nN_{\\mathrm{eff}}=\\frac{100}{1+2\\sum_{k=1}^{99}(1-k/100)\\rho^{2k}}.\n$$"
+        },
+        {
+          "old": "$\nY_n\\mid Y_0=1\\sim\\mathcal{N}\\bigl(\\rho^{2n},\\ 1-\\rho^{4n}\\bigr).\n$",
+          "new": "$$\nY_n\\mid Y_0=1\\sim\\mathcal{N}\\bigl(\\rho^{2n},\\ 1-\\rho^{4n}\\bigr).\n$$"
+        },
+        {
+          "old": "$\nd_{\\mathrm{TV}}(\\delta_xK_p^n,\\pi)=\\tfrac12(1-p)^n.\n$",
+          "new": "$$\nd_{\\mathrm{TV}}(\\delta_xK_p^n,\\pi)=\\tfrac12(1-p)^n.\n$$"
+        },
+        {
+          "old": "$\nP_n(00)=\\tfrac12+\\tfrac12(1-p)^n,\\qquad\nP_n(11)=\\tfrac12-\\tfrac12(1-p)^n.\n$",
+          "new": "$$\nP_n(00)=\\tfrac12+\\tfrac12(1-p)^n,\\qquad\nP_n(11)=\\tfrac12-\\tfrac12(1-p)^n.\n$$"
+        }
+      ]
+    }
+  ]
+}
