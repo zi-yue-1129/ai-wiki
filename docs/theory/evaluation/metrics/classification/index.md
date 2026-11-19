@@ -36,6 +36,23 @@ The worked examples for [accuracy](accuracy.md), [precision](precision.md), [rec
 
 From these identical 100 cases, accuracy is **70/100 = 0.700**, precision is **40/50 = 0.800**, recall is **40/60 ≈ 0.667**, and F1 is **80/110 ≈ 0.727**. This is a **constructed count example, not measured classifier performance**. The animations elsewhere in this section use *different* explicitly synthetic scores or population parameters; they are not results from this 100-case matrix.
 
+
+## Animated matrix conditioning: actual rows versus predicted columns
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Confusion-matrix denominator animation, keyboard scrollable">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/confusion-condition-direction-still.svg" data-still-src="../../../../assets/concept-animations/confusion-condition-direction-still.svg" data-motion-src="../../../../assets/concept-animations/confusion-condition-direction-motion.svg" alt="The same synthetic counts TP 40, FN 20, FP 10 and TN 30 are normalized first by actual-class row and then by predicted-class column. The GitHub still directly contrasts recall 40/60 = 0.667 with precision 40/50 = 0.800. The animation also computes specificity 30/40 = 0.750 and negative predictive value 30/50 = 0.600." width="640" height="360">
+</div>
+</div>
+
+*Original 16-second instructional SVG animation and independent GitHub-safe static fallback (CC BY-SA 4.0).* The diagram uses **exactly the synthetic 100-case matrix above**, not new observations, fitted-model measurements or an experiment. The moving outlines select one **denominator group** at a time: two actual-class rows (0–8 s) and then two predicted-class columns (8–16 s). Bars show the two exhaustive fractions within that group. The four states are **discrete conditional normalizations**, not a continuous training or threshold trajectory.
+
+**Condition on the actual label (row totals):** among the 60 actual positives, recall is $TP/(TP+FN)=40/60\approx0.667$ (the remaining $20/60$ are missed). Among 40 actual negatives, specificity is $TN/(TN+FP)=30/40=0.750$; the false-positive rate is $10/40=0.250$.
+
+**Condition on the predicted label (column totals):** among 50 predicted positives, precision is $TP/(TP+FP)=40/50=0.800$ (the other $10/50$ are false alerts). Among 50 predicted negatives, negative predictive value is $TN/(TN+FN)=30/50=0.600$. **Recall and precision therefore condition on different populations even when their numerator is the same TP.** The static GitHub preview puts both denominators side by side; the animation separately highlights all four groups.
+
+On MkDocs, use the keyboard-accessible Play/Pause control; on a narrow screen focus the graphic and scroll horizontally with arrow keys. `prefers-reduced-motion` displays an unchanged first-stage diagram. [GitHub static preview](../../../../assets/concept-animations/confusion-condition-direction-still.svg) · [Full SVG animation](../../../../assets/concept-animations/confusion-condition-direction-motion.svg). Metric definitions follow the scikit-learn evaluation documentation already cited below.
+
 ## Three linked ROC decision experiments
 
 These **three separate synthetic experiments** connect ranking performance, positive-prediction reliability and deployment decisions. They are *not* repeated measurements from the shared 100-case confusion matrix above. The [ROC-AUC chapter](roc-auc.md) contains the full animated explanations, assumptions and derivations.
