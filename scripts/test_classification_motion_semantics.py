@@ -1009,3 +1009,36 @@ for locale in ("roc-auc.md","roc-auc.zh-TW.md"):
     assert 'data-motion-src="../../../../assets/concept-animations/roc-score-quantization-motion.svg"' in chapter
     assert "0.75" in chapter and "0.50" in chapter
 print("Score quantization: strict ranks versus ties, exact pairwise AUC, bilingual fallback OK")
+
+# F1 macro / support-weighted / micro aggregation and the noncommuting
+# harmonic-mean shortcut. Synthetic single-label 90:10 confusion counts.
+for k in range(11):
+    fa = 180 / (190-k)
+    fb = 2*k / (10+k)
+    macro = (fa+fb)/2
+    weighted = .9*fa+.1*fb
+    micro = (90+k)/100
+    pa = 90/(100-k)
+    pb = float(k>0)  # zero_division=0 when no B is predicted
+    avgp=(pa+pb)/2
+    avgr=(1+k/10)/2
+    shortcut=2*avgp*avgr/(avgp+avgr)
+    assert math.isclose(macro,(fa+fb)/2)
+    assert math.isclose(weighted,(90*fa+10*fb)/100)
+    assert math.isclose(micro,(90+k)/100)
+    if k in (1,2,5,9):
+        assert not math.isclose(shortcut,macro)
+assert math.isclose(180/185, .972972972972973)
+assert math.isclose(.5*(180/185 + 10/15), .8198198198198199)
+assert math.isclose(.9*180/185 + .1*10/15, .9423423423423424)
+assert math.isclose(2*((90/95+1)/2)*.75/(((90/95+1)/2)+.75),.847328244274809)
+for variant in ('motion','still'):
+    image=(asset_root/f'f1-averaging-rules-{variant}.svg').read_text(encoding='utf-8')
+    assert 'viewBox="0 0 640 360"' in image
+    assert ('<animate ' in image)==(variant=='motion')
+    assert ('prefers-reduced-motion' in image)==(variant=='motion')
+for locale in ('f1.md','f1.zh-TW.md'):
+    page=(shared_dir/locale).read_text(encoding='utf-8')
+    assert 'src="../../../../assets/concept-animations/f1-averaging-rules-still.svg"' in page
+    assert 'data-motion-src="../../../../assets/concept-animations/f1-averaging-rules-motion.svg"' in page
+print("F1 support-weighted versus macro/micro and noncommuting aggregation verified")
