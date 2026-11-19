@@ -324,14 +324,14 @@ Both have $E[K/3]=1/6$, yet the **batch distributions differ**. In this particul
 
 *Original synthetic instructional animation and static fallback (CC BY-SA 4.0); no model estimates.* The previous figure shows different count distributions at **fixed marginal FPR**. Here the inference is reversed: after observing **zero alarms**, how much evidence do 30 negative cases supply? Under the explicit model $X_1,\ldots,X_{30}\overset{\mathrm{iid}}{\sim}\mathrm{Bernoulli}(p)$, the zero-alarm likelihood is $(1-p)^{30}$, yielding the familiar one-sided 95% Clopper–Pearson limit. Under the alternative **perfect-shock construction** $X_1=\cdots=X_{30}=Z$, $Z\sim\mathrm{Bernoulli}(p)$, there is only *one independent shock*, despite 30 recorded cases:
 
-$
+$$
 \begin{aligned}
 P_p(K=0\mid \mathrm{iid})&=(1-p)^{30},&
 U_{\mathrm{iid}}&=1-0.05^{1/30}\approx0.095;\\
 P_p(K=0\mid \mathrm{shared})&=1-p,&
 U_{\mathrm{shared}}&=1-0.05=0.95.
 \end{aligned}
-$
+$$
 
 Both bounds concern the same **hypothetical zero-alarm observation**, but they are valid only for their respective sampling assumptions. The horizontal $1/6$ budget is an illustrative requirement, **not** an empirical operating guarantee. Under the shared-shock model with true $p=1/6$, blindly applying the *iid* 30-sample bound would **fail to cover** $p$ in the no-alarm outcome, which occurs with probability $5/6$; its actual coverage is only **$1/6$ (16.7%)**, not the advertised 95%. For the all-alarm outcome, the binomial upper bound is 1 and covers $p$. This exact result holds for this deliberately extreme perfect-dependence construction, **not for arbitrary correlated negatives**; general dependence requires a justified sampling model, independent groups or another valid inferential method. The animation sweeps the number of *recorded* zero-alarm negatives, not training time. MkDocs provides keyboard-operated Play/Pause, reduced-motion users get the two complete curves, and narrow screens can scroll the figure horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-shared-bound-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-shared-bound-motion.svg). The exact binomial inversion is the Clopper–Pearson (1934) method cited in References; the shared-shock contrast is an original worked calculation.
 
