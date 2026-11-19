@@ -369,6 +369,11 @@ jobs:
           node scripts/test_diffusion_policy_player.cjs
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
+      - name: Verify selective classification animation and GitHub fallback arithmetic
+        run: |
+          python scripts/test_selective_accuracy_motion_semantics.py
+          python scripts/test_selective_scene_binding_motion_semantics.py
+          python scripts/test_selective_static_fallback_binding.py
       - name: Validate bilingual causal-imitation motion pairs
         run: python scripts/verify_causal_imitation_motion.py
       - name: Check working-memory causal timing and computed states
