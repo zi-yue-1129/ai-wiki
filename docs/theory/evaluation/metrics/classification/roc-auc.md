@@ -359,6 +359,14 @@ Both bounds concern the same **hypothetical zero-alarm observation**, but they a
 
 ### Coverage erosion between independent and shared-shock batches
 
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Dependence mixture probability and upper-bound coverage curves">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-mix-coverage-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-mix-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-mix-coverage-motion.svg" alt="For 30 artificial negative records with marginal FPR one sixth, as the probability of a perfectly shared batch shock rises from zero to one, the actual coverage of a wrongly iid-calibrated one-sided 95 percent upper bound drops from 97.1 to 16.7 percent, whereas the zero-alarm probability rises from 0.4 to 83.3 percent. The grey dotted line is nominal 95 percent; the fallback cursor is at rho equals 0.5, with coverage 56.9 percent and zero-alarm probability 41.9 percent." width="640" height="360">
+</div>
+</div>
+
+*Original analytic animation (CC BY-SA 4.0).* The teal and orange markers sweep continuously from $\rho=0$ (independent alarms) to $\rho=1$ (a single shared shock) and back. The dotted line is the **nominal** 95% target, not the actual guarantee under dependence. The static GitHub view shows $\rho=0.5$. The values are calculated from a **synthetic** probability model, not classifier measurements. Use MkDocs Play/Pause or keyboard controls to stop the sweep; reduced-motion settings display the static midpoint, and mobile readers may scroll the 640px figure. [GitHub-safe static fallback](../../../../assets/concept-animations/roc-fpr-mix-coverage-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-mix-coverage-motion.svg).
+
 The dependence animation above compares the two endpoints. Its batch-level mechanism mixture also gives a **continuous, mathematically defined bridge**: choose the iid process with probability $1-\rho$, or the fully shared shock with probability $\rho$, once for all 30 records. With synthetic true $p=1/6$, the probability of recording zero alarms rises sharply with dependence, even though each record retains the same marginal FPR. More importantly, the *actual repeated-sampling coverage* of an incorrectly applied iid one-sided 95% Clopper–Pearson upper limit is
 
 $

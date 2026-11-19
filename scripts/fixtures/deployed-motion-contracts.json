@@ -9124,6 +9124,21 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "roc-fpr-mix-coverage": {
+      "origins": [
+        {
+          "origin_blob": "56d5b962c143b3322c208437b395c659f791a744",
+          "origin_commit": "15c66fb54683982eeaa9100a3596311ad75da514",
+          "path": "docs/assets/concept-animations/roc-fpr-mix-coverage-motion.svg"
+        },
+        {
+          "origin_blob": "55fa0ee8a73e3158a4641955960f575fd26cd9e7",
+          "origin_commit": "15c66fb54683982eeaa9100a3596311ad75da514",
+          "path": "docs/assets/concept-animations/roc-fpr-mix-coverage-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "roc-fpr-shared-bound": {
       "origins": [
         {

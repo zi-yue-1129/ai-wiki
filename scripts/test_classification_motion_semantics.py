@@ -854,3 +854,20 @@ for filename, heading in (
     assert r"\mathrm{Coverage}_{\rho}" in content
     assert "\n$$\n" + r"\begin{aligned}" in content
 print("Thirty-case shared-shock mixture: 101 exact models, zero-alarm likelihood and actual CP upper coverage OK")
+
+
+# Coverage visual: explicit original geometry, GitHub fallback and bilingual reuse.
+for kind in ("motion", "still"):
+    source = (asset_root / f"roc-fpr-mix-coverage-{kind}.svg").read_text(encoding="utf-8")
+    assert 'viewBox="0 0 640 360"' in source
+    assert "Actual coverage" in source and "Zero-alarm probability" in source
+    assert "95%" in source and "one batch-level mixture switch" in source
+    assert ("<animate " in source) == (kind == "motion")
+    assert "prefers-reduced-motion" in source
+for name in ("roc-auc.md", "roc-auc.zh-TW.md"):
+    content = (shared_dir / name).read_text(encoding="utf-8")
+    assert 'src="../../../../assets/concept-animations/roc-fpr-mix-coverage-still.svg"' in content
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-mix-coverage-motion.svg"' in content
+    assert 'data-source-asset-urls' in content
+    assert "56.86" in content
+print("FPR dependent-coverage motion and bilingual source/fallback paths OK")

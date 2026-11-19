@@ -360,6 +360,14 @@ $$
 
 ### 從獨立到共同衝擊：信賴上界的實際涵蓋率
 
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="批次相依機制混合下的零誤報機率與信賴上界涵蓋率">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-mix-coverage-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-mix-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-mix-coverage-motion.svg" alt="假設三十筆負例的邊際誤報機率均為六分之一，當整批採用完全共同衝擊的機率從零增加至一時，錯用獨立二項分布計算的單側百分之九十五信賴上界，實際涵蓋率由百分之九十七點一降至百分之十六點七；零誤報機率則由百分之零點四增加至百分之八十三點三。灰色虛線是名義百分之九十五；靜態畫面在混合比例二分之一，涵蓋率百分之五十六點九、零誤報機率百分之四十一點九。" width="640" height="360">
+</div>
+</div>
+
+*原創解析式教學動畫（CC BY-SA 4.0）。* 藍綠色及橘色標記隨整批共同衝擊機率 $\rho$，從 $0$（各筆獨立）移至 $1$（完全共用一次衝擊）再返回。虛線是**名義** 95% 涵蓋率要求，並不代表相依資料下仍能達成。GitHub 靜態圖顯示 $\rho=0.5$。所有數字均由**人工機率模型**計算，並非分類器實測。MkDocs 可透過 Play／Pause 或鍵盤控制暫停；偏好減少動態效果時顯示中點靜態圖，手機可水平捲動 640px 圖框。[GitHub 靜態回退](../../../../assets/concept-animations/roc-fpr-mix-coverage-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-mix-coverage-motion.svg)。
+
 前面的動畫比較兩個端點；同一個**明確定義的批次層級混合模型**也能連續連接它們：對整批三十筆記錄，以機率 $1-\rho$ 採用獨立伯努利生成，以機率 $\rho$ 採用完全共同衝擊。當人工設定的真實 $p=1/6$，每筆記錄的邊際 FPR 雖不變，觀察到零誤報的機率卻會隨相依程度增加。若仍錯誤套用獨立樣本的 Clopper–Pearson 單側 95% 信賴上界，其**實際重複抽樣涵蓋率**為：
 
 $
