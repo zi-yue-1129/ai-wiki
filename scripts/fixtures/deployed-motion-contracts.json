@@ -1827,6 +1827,21 @@
         }
       ]
     },
+    "confusion-condition-direction": {
+      "origins": [
+        {
+          "origin_blob": "e4f201b7cb866afdb6f0313b50bb15325b6aebd3",
+          "origin_commit": "6987144e3daafa4651eb995ed0834835a557dfa4",
+          "path": "docs/assets/concept-animations/confusion-condition-direction-motion.svg"
+        },
+        {
+          "origin_blob": "3ac222f0e4bd9819ad71b5035fb00e928eac69bc",
+          "origin_commit": "599cfd3150df6944dd5298f8a399d3d748148fcb",
+          "path": "docs/assets/concept-animations/confusion-condition-direction-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "consistency-trajectory-map": {
       "viewBox": "0 0 800 420",
       "origins": [
@@ -2874,21 +2889,6 @@
       ],
       "viewBox": "0 0 640 360"
     },
-    "f1-multilabel-aggregation": {
-      "origins": [
-        {
-          "origin_blob": "6b6b511beb0a701a5de15b7e0e4fe57553968712",
-          "origin_commit": "1d5f8a0f4adaaa8cc614bc55a129789ec44eb160",
-          "path": "docs/assets/concept-animations/f1-multilabel-aggregation-motion.svg"
-        },
-        {
-          "origin_blob": "057620518fc5180131286f5155a43fede695b58d",
-          "origin_commit": "cf97a06efc757d16a5da099882579924efb31209",
-          "path": "docs/assets/concept-animations/f1-multilabel-aggregation-still.svg"
-        }
-      ],
-      "viewBox": "0 0 640 360"
-    },
     "f1-averaging-rules": {
       "origins": [
         {
@@ -2930,6 +2930,21 @@
           "origin_blob": "051d85fbe8799fc971c6f64df1c44a04508ccc34",
           "origin_commit": "15c481b6e404a995701352554969476d4bf66fc8",
           "path": "docs/assets/concept-animations/f1-macro-micro-imbalance-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "f1-multilabel-aggregation": {
+      "origins": [
+        {
+          "origin_blob": "6b6b511beb0a701a5de15b7e0e4fe57553968712",
+          "origin_commit": "1d5f8a0f4adaaa8cc614bc55a129789ec44eb160",
+          "path": "docs/assets/concept-animations/f1-multilabel-aggregation-motion.svg"
+        },
+        {
+          "origin_blob": "057620518fc5180131286f5155a43fede695b58d",
+          "origin_commit": "cf97a06efc757d16a5da099882579924efb31209",
+          "path": "docs/assets/concept-animations/f1-multilabel-aggregation-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
