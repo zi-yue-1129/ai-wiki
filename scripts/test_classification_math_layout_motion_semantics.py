@@ -24,24 +24,15 @@ class ClassificationMathLayout(unittest.TestCase):
      # Every occurrence must still be a real display-math block.
      self.assertGreaterEqual(len(matches),1,(topic,lang,expression))
      for block in matches:
-      # Reconstruct the actual source's display-math fence, not an inline $ fence.
-      markup=Markdown(extensions=['pymdownx.arithmatex'],extension_configs={'pymdownx.arithmatex':{'generic':True}}).convert('$\n'+block+'\n$')
+      # Check the real display-math fences, not inline single-dollar math.
+      markup=Markdown(extensions=['pymdownx.arithmatex'],extension_configs={'pymdownx.arithmatex':{'generic':True}}).convert('$$\n'+block+'\n$$')
       self.assertIn('<div class="arithmatex">',markup)
       self.assertNotIn('<span class="arithmatex">',markup)
     if topic=='f1':
-     # Match only an entire single-dollar delimiter line (not valid $ fences).
+     # This anchored pattern excludes valid double-dollar display fences.
      # A lone dollar on its own line is parsed as inline math, with
      # long multilabel formulas overflowing narrow mobile viewports.
-     self.assertNotRegex(source, r'(?m)^\$[ \t]*
-     for expression in (r'F_{1,\mathrm{samples}}=',
-                        r'F_{1,\mathrm{micro}}=\frac{2(4)}'):
-      self.assertTrue(any(expression in b for b in blocks), (lang, expression))
-     for b in blocks:
-      if any(e in b for e in expressions):self.assertNotIn(r'\qquad',b)
-    else:
-     self.assertTrue(any(r'\begin{gathered}' in b and r'\\' in b for b in blocks))
-if __name__=='__main__':unittest.main()
-)
+     self.assertNotRegex(source, r'(?m)^\$[ \t]*$')
      for expression in (r'F_{1,\mathrm{samples}}=',
                         r'F_{1,\mathrm{micro}}=\frac{2(4)}'):
       self.assertTrue(any(expression in b for b in blocks), (lang, expression))
