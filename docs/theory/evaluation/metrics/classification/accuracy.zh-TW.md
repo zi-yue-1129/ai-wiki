@@ -109,7 +109,7 @@ MkDocs 沿用播放／暫停與手機鍵盤水平捲動；減少動態效果模�
 
 *原創 12 秒教學 SVG，CC BY-SA 4.0。* 六筆依分數排序的**人工示意資料**依序為 (0.97, 對)、(0.91, 對)、(0.80, 錯)、(0.72, 對)、(0.60, 錯)、(0.51, 對)。若拒答機制只接受前 $k$ 筆，當 $k=2,4,6$ 時，**覆蓋率**（接受筆數／總筆數）依序為 **2/6、4/6、6/6**；**選擇性準確率**（接受樣本中正確的比例）依序為 **2/2、3/4、4/6**；選擇性風險（接受樣本中的錯誤比例）為 **0、1/4、1/3**。所有模型預測保持不變，只有評估集合改變。這些分數**不是校準後機率，也不是模型實測輸出**；示例不保證一般風險—覆蓋率曲線必然如此。[^selective-origin]
 
-MkDocs 提供播放／暫停，減少動態效果模式固定顯示中間門檻。手機可聚焦後以左右方向鍵水平捲動。[GitHub 三情境靜態比較](../../../../assets/concept-animations/accuracy-selective-coverage-still.svg)與[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-selective-coverage-motion.svg)共用同一組資料。
+MkDocs 的**互動門檻播放器**預設暫停，可使用播放／暫停、上一步／下一步、進度滑桿，以及 0.5×／1×／2× 速度切換。畫面下方的繁體中文計算說明會依門檻顯示接受筆數、正確筆數與選擇性風險。減少動態效果模式維持暫停，首次互動停在中間門檻；無 JavaScript 時仍有完整靜態比較。手機可聚焦圖表後以左右方向鍵水平捲動。[GitHub 三情境靜態比較](../../../../assets/concept-animations/accuracy-selective-coverage-still.svg)與[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-selective-coverage-motion.svg)共用同一組資料。
 
 ## 拒答後的各類別覆蓋率差異
 
@@ -122,7 +122,7 @@ MkDocs 提供播放／暫停，減少動態效果模式固定顯示中間門檻�
 
 *原創 8 秒教學 SVG，CC BY-SA 4.0。* **人工二元分類示例**中，四筆真正類別為正的樣本，其預測正確性依序為**對、錯、錯、對**；另外四筆負例全部正確。原始準確率是 **6/8 = 0.75**，覆蓋率為 8/8。假設拒答規則只保留第一筆正例及全部四筆負例，則保留樣本準確率為 **5/5 = 1.00**，整體覆蓋率卻降為 **5/8 = 0.625**。而以**真實類別**區分的覆蓋率，正例僅為 **1/4**，負例則是 **4/4**。只回報選擇性準確率會掩蓋拒答分布的不均；任何原本錯誤的預測都沒有被修正。這**不是實際模型效能或公平性評估**。 接受／拒答遮罩是為教學而依樣本索引人為設定，**不是部署時能讀取未知真實標籤的可實作決策規則**。
 
-MkDocs 提供播放／暫停，減少動態效果模式固定顯示拒答後狀態；鍵盤可水平捲動。[GitHub 雙情境靜態比較](../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg)及[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-selective-class-coverage-motion.svg)呈現同一組人工資料。
+MkDocs 的**各類別覆蓋率互動播放器**預設暫停，提供播放／暫停、上一步／下一步、進度滑桿及 0.5×／1×／2× 速度切換。繁體中文計算說明分別列出正負類別覆蓋率；拖動滑桿只改變接受／拒答遮罩，不會改動預測。減少動態效果模式維持暫停並以拒答後狀態開始，鍵盤可水平捲動。無 JavaScript 時繼續顯示[GitHub 雙情境靜態比較](../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg)及[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-selective-class-coverage-motion.svg)呈現同一組人工資料。
 
 ## 解讀
 
