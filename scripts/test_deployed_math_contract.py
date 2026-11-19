@@ -162,7 +162,7 @@ for(const mode of ['valid','missing-math','duplicate','error','zero-height','mis
             bad=copy.deepcopy(workflow)
             for step in bad['jobs']['build-docs']['steps']:
                 if any(line.strip()==browser_cmd for line in step.get('run','').splitlines()):
-                    step['run']='\\n'.join(replacement if line.strip()==browser_cmd else line for line in step['run'].splitlines())
+                    step['run']='\n'.join(replacement if line.strip()==browser_cmd else line for line in step['run'].splitlines())
             with self.assertRaises(AssertionError):verify_workflow(bad)
         bad=copy.deepcopy(workflow);bad['jobs']['build-docs']['runs-on']='ubuntu-latest'
         with self.assertRaises(AssertionError):verify_workflow(bad)
