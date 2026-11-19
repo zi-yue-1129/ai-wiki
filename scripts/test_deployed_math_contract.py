@@ -30,9 +30,8 @@ def verify_workflow(workflow):
 
 class DeployedMath(unittest.TestCase):
     def test_exact_sources_and_real_parser(self):
-        self.assertEqual(len(b.SOURCES),6);self.assertEqual(b.WIDTHS,(320,390,1280))
-        self.assertEqual([('/mappo/' in s,'/maddpg/' in s,'/score-sde' in s,'.zh-TW.' in s)for s in b.SOURCES],[(True,False,False,False),(True,False,False,True),(False,True,False,False),(False,True,False,True),(False,False,True,False),(False,False,True,True)])
-        self.assertEqual(list(b.DISPLAY_COUNTS.values()),[2,2,2,2,3,3])
+        self.assertEqual(b.SOURCES,('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md'));self.assertEqual(b.WIDTHS,(320,390,1280))
+        self.assertEqual(list(b.DISPLAY_COUNTS.values()),[2, 2, 2, 2, 3, 3, 2, 2])
         for source in b.SOURCES:
             displays=b.source_displays((ROOT/source).read_text())
             for body in b.required_bodies(source):self.assertEqual(displays.count(b.compact(body)),1)

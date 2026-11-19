@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 ---
 
 # RIAL 與 DIAL（Foerster 等人，2016）
@@ -14,20 +14,48 @@ translation_reviewed: 2026-10-28
 
 每個智能體有一個網路，同時輸出兩樣東西：一個環境動作，以及一則給其他智能體的訊息。訊息在下一個時間步傳給其他智能體。兩種方法的差別在於如何處理訊息通道。
 
-- **RIAL**（reinforced inter-agent learning）把每個訊息符號當成一個動作。每個智能體對環境動作與訊息的組合學習 Q 函數，並使用循環網路處理部分可觀測性。訊息與動作一樣，由同一個強化訊號學習。
+- **RIAL**（reinforced inter-agent learning）把每個訊息符號當成一個動作。每個智能體分別學習環境動作與訊息的 Q 值輸出，並使用循環網路處理部分可觀測性。訊息與動作一樣，由同一個強化訊號學習。
 - **DIAL**（differentiable inter-agent learning）讓通道可微分。在集中式學習期間，接收者的損失會透過訊息反向傳播給傳送者。一個離散化與正則化單元（discretise/regularise unit）在訓練時以雜訊正則化訊息，並在去中心化執行時將其離散化。由於梯度能在智能體之間傳遞，DIAL 的訊息獲得的學習訊號比 RIAL 更直接。
 
 論文採用集中式學習、去中心化執行。參數可以在智能體之間共享，作者發現這對這些任務的學習有幫助。
 
 ## 方程式或演算法
 
-對於 RIAL，每個智能體 \(a\) 對其聯合輸出 \(u = (u^{env}, m)\)（一個環境動作與一則訊息）保有一個 Q 函數，並以常見的時間差分目標學習：
+RIAL 分別使用 \(Q_u\) 與 \(Q_m\) 輸出，而不是環境動作和訊息的笛卡兒積輸出。任一輸出頭 \(k\) 的簡化 DQN 目標為
 
 \[
-Q_a(h_t, u_t) \leftarrow r_t + \gamma \max_{u'} Q_a(h_{t+1}, u') ,
+y_t^{(k)}=r_t+\gamma(1-d_t)\max_{a'}Q_k^-(h_{t+1},a').
 \]
 
-其中 \(h_t\) 是該智能體的循環隱藏狀態。對於 DIAL，訓練時訊息 \(m\) 以 \(\mathrm{DRU}(m) = \mathrm{Logistic}(\mathcal{N}(m, \sigma))\) 正則化，使梯度能從接收者穿過通道回到傳送者。
+其中 \(a'\) 分別遍歷環境動作或訊息符號；\(h\) 簡記循環網路輸入，\(Q^-\) 為目標網路，\(d_t\) 標記終止。被選中的輸出朝此目標訓練。DIAL 訓練時傳送 \(\operatorname{Logistic}(m+\varepsilon)\)，其中 \(\varepsilon\sim\mathcal N(0,\sigma^2)\)；執行時傳送 \(\mathbf1\{m>0\}\)，跨智能體反向傳播僅用於訓練。
+
+### 通訊訊息的信用分配（動畫）
+
+<div class="comm-source-scroll" tabindex="0" role="region" aria-label="比較 RIAL 的離散訊息動作與 DIAL 的前向訊息及跨智能體反向梯度" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../../assets/concept-animations/rial-dial-credit-path-still.svg" data-motion-src="../../../../../../assets/concept-animations/rial-dial-credit-path-motion.svg" data-still-src="../../../../../../assets/concept-animations/rial-dial-credit-path-still.svg" alt="比較 RIAL 的離散訊息動作與 DIAL 的前向訊息及跨智能體反向梯度" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+[GitHub 靜態回退預覽：RIAL 與 DIAL 的訊息信用路徑](../../../../../../assets/concept-animations/rial-dial-credit-path-still.svg)
+
+藍色光點代表訊息由傳送者傳至接收者。**RIAL** 將離散訊息當成動作，透過共享獎勵產生的時間差分更新學習訊息，而非對接收者進行端到端微分。**DIAL** 在**集中式訓練**期間使用加入雜訊的可微分離散化／正則化單元（DRU），讓接收者的損失梯度（粉紅色）穿過通訊通道回傳至傳送者。去中心化執行時 DRU 會將訊息離散化；粉紅色路徑**不是**執行期間的回饋通道。光點僅表示計算依賴，並非模型量測的梯度或真實訓練軌跡。[^comm-credit]
+
+MkDocs 播放器支援**播放／暫停**及鍵盤 **Enter／Space**；偏好減少動態效果的讀者預設看到靜態回退。原創圖由 AI Wiki 貢獻者製作，採 **CC BY-SA 4.0** 授權。
+
+[^comm-credit]: Foerster 等人（2016），[*Learning to Communicate with Deep Multi-Agent Reinforcement Learning*](https://arxiv.org/abs/1605.06676)，詳見參考文獻。
+
+### DIAL 的 DRU：訓練時可微分、執行時離散化（動畫）
+
+<div class="comm-source-scroll" tabindex="0" role="region" aria-label="DIAL 訓練時以含雜訊的連續訊息傳遞梯度，執行時則傳送離散位元且沒有跨智能體反向梯度" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../../assets/concept-animations/dial-dru-train-execute-still.svg" data-motion-src="../../../../../../assets/concept-animations/dial-dru-train-execute-motion.svg" data-still-src="../../../../../../assets/concept-animations/dial-dru-train-execute-still.svg" alt="DIAL 訓練時以含雜訊的連續訊息傳遞梯度，執行時則傳送離散位元且沒有跨智能體反向梯度" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+[GitHub 靜態回退預覽：DIAL 的兩種通道模式](../../../../../../assets/concept-animations/dial-dru-train-execute-still.svg)
+
+**離散化／正則化單元（DRU）**在不同階段有不同作用。集中式訓練時加入雜訊並經過平滑的 Logistic 轉換，使接收者的損失能對傳送者的訊息微分；去中心化執行時輸出離散位元，沒有跨智能體梯度路徑。本圖使用**人工構造的一維範例**：傳送端激活值 \(m=0.40\) 與一筆假設雜訊 \(\varepsilon=-0.10\)，訓練時得到 \(\sigma(0.30)\approx0.574\)；執行時正激活值以零閾值離散化為位元 \(1\)。圖中流程**不是模型實測、真實雜訊抽樣或訓練軌跡**，也不代表執行期間可以跨智能體傳遞梯度。[^comm-credit]
+
+MkDocs 播放器支援滑鼠**播放／暫停**及鍵盤 **Enter／Space**；偏好減少動態效果與 GitHub Markdown 讀者可使用靜態回退圖。AI Wiki 貢獻者原創圖，採 **CC BY-SA 4.0** 授權。
+
+圖中數值預先列出供核對；移動光點只表示計算依賴，並非量測資料。每輪的訊息先抵達，才開始後續計算或訓練梯度；靜態圖為完整流程總覽。圖框保留 640 像素，可聚焦後使用方向鍵橫向捲動。
 
 ## 結果
 

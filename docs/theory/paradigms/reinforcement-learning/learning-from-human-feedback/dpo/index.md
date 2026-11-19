@@ -16,7 +16,13 @@ Reinforcement learning from human feedback first trains a reward model on compar
 
 ## Core idea
 
-The KL-constrained objective has a known optimal policy. For a reference policy \(\pi_{\text{ref}}\), a coefficient \(\beta\) and a reward \(r\), the optimum is \(\pi_r(y \mid x) \propto \pi_{\text{ref}}(y \mid x)\exp(r(x, y)/\beta)\). Rearranging this gives the reward in terms of the policy,
+The KL-constrained objective has a known optimal policy. For a reference policy \(\pi_{\text{ref}}\), a coefficient \(\beta\) and a reward \(r\), the optimum is
+
+\[
+\pi_r(y\mid x)\propto\pi_{\text{ref}}(y\mid x)e^{r(x,y)/\beta}.
+\]
+
+Rearranging this gives the reward in terms of the policy,
 
 $$
 \begin{aligned}
@@ -31,15 +37,16 @@ Substituting this into the Bradley–Terry preference model makes the partition 
 
 The DPO loss over preference triples \((x, y_w, y_l)\) is
 
-$$
+\[
 \begin{aligned}
-\mathcal{L}_{\mathrm{DPO}}
- &= -\mathbb{E}_{(x,y_w,y_l)}[\log\sigma(\beta\Delta)], \\
-\Delta
- &= \log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)} \\
- &\quad-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)}.
+\Delta_\theta(x,y_w,y_l)
+ &=\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)}\\
+ &\quad-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)},\\
+\mathcal L_{\mathrm{DPO}}
+ &=-\mathbb E_{(x,y_w,y_l)}\\
+ &\quad[\log\sigma(\beta\Delta_\theta(x,y_w,y_l))].
 \end{aligned}
-$$
+\]
 
 where \(y_w\) is the preferred completion, \(y_l\) the dispreferred one, and \(\beta\) controls the strength of the KL constraint. The procedure:
 
@@ -84,6 +91,29 @@ $$
 When \(p=r\), the margin is zero and the loss is \(\ln 2\approx0.693\), even if the probabilities are not 0.5. If \(p<r\), the margin is negative **even when \(p>0.5\)**. The bars compare policy to reference; the curve is recomputed when \(r\) or \(\beta\) changes. Controls provide Previous/Next, Play/Pause, Seek, 0.5×/1×/2× speed and Reset, with native keyboard support, mobile horizontal scrolling, and reduced-motion manual stepping. The original static SVG remains the GitHub/no-JS fallback.
 
 These values are **constructed and analytically calculated**, not measured LLM probabilities, a DPO optimisation trajectory, or training results.
+
+### Animated example: reference-adjusted preference margin
+
+<div class="concept-motion-scroll" tabindex="0" role="region" aria-label="On narrow screens, focus the figure and use arrow keys or swipe to scroll at its natural size." style="overflow-x:auto;max-width:100%">
+<div style="width:640px;min-width:640px" markdown="1">
+
+<img data-source-asset-urls src="../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg" data-motion-src="../../../../../assets/concept-animations/rlhf-dpo-margin-motion.svg" data-still-src="../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg" alt="DPO animation showing fixed reference probabilities, changing chosen and rejected policy probabilities, and the resulting preference probability" width="640" height="360">
+
+</div>
+</div>
+
+On narrow screens, focus the figure and use arrow keys or swipe to scroll at its natural size.
+
+*Original teaching animation (CC BY-SA 4.0).* In this **illustrative two-completion example**, the frozen reference assigns probability 0.50 to each completion. The policy moves from equal 0.50 probabilities to 0.75 for the chosen completion and 0.25 for the rejected completion. With \(\beta=1\), the reference-adjusted margin moves from zero to
+
+\[
+\begin{aligned}
+\Delta&=\log(0.75/0.50)\\
+&\quad-\log(0.25/0.50)=\log3.
+\end{aligned}
+\]
+
+The implied Bradley–Terry preference likelihood \(\sigma(\log 3)\) rises from 0.50 to **0.75** while the per-pair DPO loss falls from \(\log 2\approx0.693\) to \(-\log 0.75\approx0.288\). The moving bars are **schematic interpolation, not measured optimisation dynamics** or a calibrated prediction of a specific human's preference. Use MkDocs **Play/Pause**, or view the [GitHub-readable static summary](../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg). The derivation follows [Rafailov et al. (2023)](https://arxiv.org/abs/2305.18290).
 
 ## Results
 

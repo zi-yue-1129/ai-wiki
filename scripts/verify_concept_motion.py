@@ -35,6 +35,13 @@ TOPICS = {
 
     "s4d-diagonal-modes": "theory/models/ssm/structured-state-spaces/s4d/index",
     "mamba2-ssd-causal-map": "theory/models/ssm/selective-state-spaces/mamba-2/index",
+    "rainbow-c51-projection": "theory/paradigms/reinforcement-learning/value-based-methods/rainbow/index",
+    "rainbow-dueling-head": "theory/paradigms/reinforcement-learning/value-based-methods/rainbow/index",
+    "rainbow-nstep-returns": "theory/paradigms/reinforcement-learning/value-based-methods/rainbow/index",
+    "rainbow-noisynet-samples": "theory/paradigms/reinforcement-learning/value-based-methods/rainbow/index",
+
+    "dt-return-budget": "theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index",
+    "dt-causal-prefix": "theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index",
     "hnsw-layer-descent": "engineering/vector-databases/hnsw",
     "ivfpq-probe-pq-lookup": "engineering/vector-databases/ivf-pq-faiss",
     "forest-bootstrap-vote": "theory/paradigms/supervised/trees-and-ensembles/random-forests",
@@ -192,6 +199,8 @@ TOPICS = {
     "ftw-two-level-learning": "theory/paradigms/reinforcement-learning/multi-agent-rl/population-based-training/ftw/index",
     "kd-soft-target-alignment": "theory/model-compression/knowledge-distillation/response-based/hinton-distillation/index",
     "fitnets-hint-then-output": "theory/model-compression/knowledge-distillation/feature-based/fitnets/index",
+    "offline-iql-expectile": "theory/paradigms/reinforcement-learning/offline-rl/iql/index",
+    "offline-cql-conservative": "theory/paradigms/reinforcement-learning/offline-rl/cql/index",
     "ece-binned-calibration": "theory/paradigms/probabilistic/uncertainty-calibration/expected-calibration-error",
     "deep-ensemble-spread": "theory/paradigms/probabilistic/uncertainty-calibration/deep-ensembles",
     "tsne-kl-embedding": "theory/paradigms/unsupervised/dimensionality-reduction/t-sne",
@@ -302,7 +311,13 @@ TOPICS = {
     "orca-continuous-batching": "engineering/inference-optimization/orca",
     "disaggregated-handoff": "engineering/inference-optimization/disaggregated-serving",
     "streaming-kv-eviction": "engineering/inference-optimization/kv-cache-compression",
+    "rlhf-dpo-margin": "theory/paradigms/reinforcement-learning/learning-from-human-feedback/dpo/index",
+    "rlhf-reward-sums": "theory/paradigms/reinforcement-learning/learning-from-human-feedback/reward-modelling/index",
     "mcts-search-cycle": "theory/paradigms/reinforcement-learning/mcts-and-self-play/index",
+    "alphazero-policy-target": "theory/paradigms/reinforcement-learning/alphazero/index",
+    "alphazero-selfplay-labels": "theory/paradigms/reinforcement-learning/alphazero/index",
+    "alphazero-puct-select": "theory/paradigms/reinforcement-learning/alphazero/index",
+    "alphazero-value-backup": "theory/paradigms/reinforcement-learning/alphazero/index",
     "dqn-target-sync": "theory/paradigms/reinforcement-learning/deep-q-networks/index",
     "adamw-decoupled-paths": "theory/optimization/adaptive/adamw",
     "adam-bias-correction": "theory/optimization/adaptive/adam",
@@ -335,7 +350,15 @@ TOPICS = {
     "maddpg-actor-gradient": "theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index",
     "mappo-backward-gae": "theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index",
     "mappo-shared-advantage": "theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index",
+    "rial-dial-credit-path": "theory/paradigms/reinforcement-learning/multi-agent-rl/emergent-communication/rial-dial/index",
+    "commnet-leave-one-out": "theory/paradigms/reinforcement-learning/multi-agent-rl/emergent-communication/commnet/index",
+    "dial-dru-train-execute": "theory/paradigms/reinforcement-learning/multi-agent-rl/emergent-communication/rial-dial/index",
+    "commnet-layer-iterations": "theory/paradigms/reinforcement-learning/multi-agent-rl/emergent-communication/commnet/index",
     "muzero-latent-planning": "theory/paradigms/reinforcement-learning/model-based-rl/muzero/index",
+    "pets-ensemble-particles": "theory/paradigms/reinforcement-learning/model-based-rl/pets/index",
+    "mbpo-short-branches": "theory/paradigms/reinforcement-learning/model-based-rl/mbpo/index",
+    "pets-cem-refit": "theory/paradigms/reinforcement-learning/model-based-rl/pets/index",
+    "mbpo-horizon-error": "theory/paradigms/reinforcement-learning/model-based-rl/mbpo/index",
     "gru-gate-flow": "theory/models/rnn/gated-cells/gru/index",
     "kfac-factor-preconditioning": "theory/optimization/kfac/index",
     "maml-inner-outer-loop": "theory/paradigms/meta-learning/optimisation-based/maml",
@@ -443,6 +466,10 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'alibi-distance-softmax': '0 0 640 360',
  'alibi-head-prefix': '0 0 640 360',
  'alpha-beta-cutoff': '0 0 640 360',
+ 'alphazero-policy-target': '0 0 640 360',
+ 'alphazero-puct-select': '0 0 640 360',
+ 'alphazero-selfplay-labels': '0 0 640 360',
+ 'alphazero-value-backup': '0 0 640 360',
  'ant-colony-pheromone': '0 0 640 360',
  'ar-context-drift': '0 0 800 420',
  'ar-eos-survival': '0 0 800 420',
@@ -471,6 +498,8 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'coherence-phase-gating': '0 0 640 360',
  'colbert-maxsim-switch': '0 0 640 360',
  'collider-selection': '0 0 800 430',
+ 'commnet-layer-iterations': '0 0 640 360',
+ 'commnet-leave-one-out': '0 0 640 360',
  'conformal-alpha-staircase': '0 0 640 360',
  'conformal-aps-cumulative': '0 0 640 360',
  'conformal-cqr-expansion': '0 0 640 360',
@@ -496,6 +525,7 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'deep-ensemble-spread': '0 0 720 400',
  'deformable-sampling': '0 0 640 360',
  'deit-dual-head-distillation': '0 0 640 360',
+ 'dial-dru-train-execute': '0 0 640 360',
  'dice-overlap-response': '0 0 640 360',
  'diffusion-policy-denoising': '0 0 640 360',
  'diffusion-policy-multimodal-actions': '0 0 640 360',
@@ -513,6 +543,8 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'dropblock-spatial-masking': '0 0 640 360',
  'dropout-inverted-sampling': '0 0 640 360',
  'dropout-variance-tradeoff': '0 0 640 360',
+ 'dt-causal-prefix': '0 0 640 360',
+ 'dt-return-budget': '0 0 640 360',
  'ece-binned-calibration': '0 0 720 400',
  'effective-number-growth': '0 0 640 360',
  'eigen-jordan-shear': '0 0 800 420',
@@ -638,6 +670,8 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'mappo-backward-gae': '0 0 640 360',
  'mappo-shared-advantage': '0 0 640 360',
  'mbmf-revaluation': '0 0 640 360',
+ 'mbpo-horizon-error': '0 0 640 360',
+ 'mbpo-short-branches': '0 0 640 360',
  'mc-dropout-repeated-passes': '0 0 640 360',
  'mcts-search-cycle': '0 0 640 360',
  'mean-field-coordinate-ascent': '0 0 640 360',
@@ -674,6 +708,8 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'nomad-goal-mask-routing': '0 0 640 360',
  'odin-gradient-perturbation': '0 0 640 360',
  'ofc-selective-feedback': '0 0 640 360',
+ 'offline-cql-conservative': '0 0 440 548',
+ 'offline-iql-expectile': '0 0 440 548',
  'openvla-dual-encoder-fusion': '0 0 640 360',
  'openvla-percentile-action-bins': '0 0 640 360',
  'orca-continuous-batching': '0 0 640 360',
@@ -686,6 +722,8 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'pbwm-gate': '0 0 640 360',
  'pca-rank1-reconstruction': '0 0 640 360',
  'pca-variance-axis': '0 0 640 360',
+ 'pets-cem-refit': '0 0 640 360',
+ 'pets-ensemble-particles': '0 0 640 360',
  'pgd-projection-path': '0 0 640 360',
  'place-cell-firing': '0 0 640 360',
  'power-iteration-convergence': '0 0 640 360',
@@ -708,6 +746,10 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'qlora-frozen-flow': '0 0 640 360',
  'qmix-monotonic-greedy': '0 0 640 360',
  'r2-mean-baseline': '0 0 640 360',
+ 'rainbow-c51-projection': '0 0 440 548',
+ 'rainbow-dueling-head': '0 0 440 548',
+ 'rainbow-noisynet-samples': '0 0 440 548',
+ 'rainbow-nstep-returns': '0 0 440 548',
  'random-search-x-coverage': '0 0 640 360',
  'rao-ballard-residual': '0 0 640 360',
  'react-evidence-loop': '0 0 640 360',
@@ -725,6 +767,9 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'reverse-ad-vjp': '0 0 640 360',
  'rf-bootstrap-oob': '0 0 800 420',
  'rf-feature-subset': '0 0 800 420',
+ 'rial-dial-credit-path': '0 0 640 360',
+ 'rlhf-dpo-margin': '0 0 640 360',
+ 'rlhf-reward-sums': '0 0 640 360',
  'rmsnorm-shift-response': '0 0 640 360',
  'rmsprop-adaptive-memory': '0 0 640 360',
  'roc-cost-operating-point': '0 0 640 360',
@@ -829,6 +874,7 @@ PREFIX_VIEWBOXES = {'backdoor-standardisation-': '0 0 800 430',
  'i3d-filter-inflation-': '0 0 800 440',
  'kd-soft-target-alignment-': '0 0 720 400',
  'mamba2-ssd-causal-map-': '0 0 860 440',
+ 'rainbow-': '0 0 440 548',
  'rectified-reflow-coupling': '0 0 760 410',
  's4d-diagonal-modes-': '0 0 860 440',
  'sac-entropy-temperature-': '0 0 760 420',
@@ -865,7 +911,13 @@ SOURCE_ALT_CONTRACT_STEMS = {'a3c-async-gradient',
  'a3c-nstep-return',
  'act-cvae-train-deploy',
  'act-temporal-ensemble',
+ 'alphazero-policy-target',
+ 'alphazero-puct-select',
+ 'alphazero-selfplay-labels',
+ 'alphazero-value-backup',
  'cfm-conditional-bridge',
+ 'commnet-layer-iterations',
+ 'commnet-leave-one-out',
  'dagger-dataset-aggregation',
  'dart-noisy-expert-recovery',
  'ddim-eta-coefficients',
@@ -875,6 +927,7 @@ SOURCE_ALT_CONTRACT_STEMS = {'a3c-async-gradient',
  'ddpg-polyak-target',
  'ddpg-replay-bootstrap',
  'ddpm-progressive-noising',
+ 'dial-dru-train-execute',
  'diffusion-policy-denoising',
  'diffusion-policy-multimodal-actions',
  'diffusion-policy-noise-training',
@@ -908,6 +961,8 @@ SOURCE_ALT_CONTRACT_STEMS = {'a3c-async-gradient',
  'maddpg-joint-bootstrap',
  'mappo-backward-gae',
  'mappo-shared-advantage',
+ 'mbpo-horizon-error',
+ 'mbpo-short-branches',
  'minhash-lsh-band-collision',
  'nomad-goal-mask-routing',
  'ofc-selective-feedback',
@@ -915,12 +970,17 @@ SOURCE_ALT_CONTRACT_STEMS = {'a3c-async-gradient',
  'openvla-percentile-action-bins',
  'paged-block-mapping',
  'pbt-exploit-explore',
+ 'pets-cem-refit',
+ 'pets-ensemble-particles',
  'prefix-kv-attention',
  'prompt-injection-boundary',
  'qk-norm-scale-sweep',
  'qlora-frozen-flow',
  'rectified-reflow-coupling',
  'reinforce-reward-to-go',
+ 'rial-dial-credit-path',
+ 'rlhf-dpo-margin',
+ 'rlhf-reward-sums',
  'rt2-action-token-decoding',
  'sac-soft-target',
  'sac-temperature-feedback',
@@ -942,10 +1002,16 @@ STATIC_PREVIEW_LINK_STEMS = {'a3c-async-gradient',
  'a3c-nstep-return',
  'act-cvae-train-deploy',
  'act-temporal-ensemble',
+ 'alphazero-policy-target',
+ 'alphazero-puct-select',
+ 'alphazero-selfplay-labels',
+ 'alphazero-value-backup',
  'awq-salient-scaling',
  'cfm-conditional-bridge',
  'clr-triangular2-sweep',
  'coherence-phase-gating',
+ 'commnet-layer-iterations',
+ 'commnet-leave-one-out',
  'conformal-alpha-staircase',
  'conformal-aps-cumulative',
  'conformal-cqr-expansion',
@@ -962,6 +1028,7 @@ STATIC_PREVIEW_LINK_STEMS = {'a3c-async-gradient',
  'ddpg-replay-bootstrap',
  'deep-ensemble-spread',
  'deit-dual-head-distillation',
+ 'dial-dru-train-execute',
  'diffusion-policy-denoising',
  'diffusion-policy-multimodal-actions',
  'diffusion-policy-noise-training',
@@ -1012,6 +1079,8 @@ STATIC_PREVIEW_LINK_STEMS = {'a3c-async-gradient',
  'maddpg-joint-bootstrap',
  'mappo-backward-gae',
  'mappo-shared-advantage',
+ 'mbpo-horizon-error',
+ 'mbpo-short-branches',
  'mean-teacher-ema-tracking',
  'minhash-lsh-band-collision',
  'nomad-goal-mask-routing',
@@ -1019,6 +1088,8 @@ STATIC_PREVIEW_LINK_STEMS = {'a3c-async-gradient',
  'openvla-percentile-action-bins',
  'particle-weight-resampling',
  'pbt-exploit-explore',
+ 'pets-cem-refit',
+ 'pets-ensemble-particles',
  'pgd-projection-path',
  'place-cell-firing',
  'predictive-local-settling',
@@ -1027,6 +1098,9 @@ STATIC_PREVIEW_LINK_STEMS = {'a3c-async-gradient',
  'rao-ballard-residual',
  'rectified-reflow-coupling',
  'reinforce-reward-to-go',
+ 'rial-dial-credit-path',
+ 'rlhf-dpo-margin',
+ 'rlhf-reward-sums',
  'rt2-action-token-decoding',
  'sac-soft-target',
  'sac-temperature-feedback',
@@ -1165,7 +1239,7 @@ def main() -> int:
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
-            if (stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-")):
+            if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")):
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
@@ -1178,7 +1252,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {'a3c-async-gradient', 'a3c-nstep-return', 'alibi-content-recency', 'alibi-distance-softmax', 'alibi-head-prefix', 'cfm-conditional-bridge', 'deep-ensemble-spread', 'dreamer-lambda-bootstrap', 'dreamer-posterior-prior', 'ece-binned-calibration', 'fitnets-hint-then-output', 'hmm-baum-welch-transition', 'hmm-filter-smooth', 'hmm-forward-sum-product', 'hmm-pairwise-posterior', 'kd-soft-target-alignment', 'lion-sign-momentum', 'muon-spectral-balancing', 'qk-norm-scale-sweep', 'rectified-reflow-coupling', 'rope-axial-2d', 'rope-cache-reindex', 'rope-frequency-bands', 'rope-interpolation-angle', 'shaw-relative-clipping', 'shaw-relative-value', 'sigma-reparam-spectral-gain', 'sinusoidal-multiscale', 'trpo-kl-backtracking', 'trpo-ratio-surrogate', 'tsne-kl-embedding', 'umap-fuzzy-union', 'yarn-attention-temperature', 'yarn-frequency-ramp'}:
+            elif stem in {'a3c-async-gradient', 'a3c-nstep-return', 'alibi-content-recency', 'alibi-distance-softmax', 'alibi-head-prefix', 'cfm-conditional-bridge', 'deep-ensemble-spread', 'dreamer-lambda-bootstrap', 'dreamer-posterior-prior', 'ece-binned-calibration', 'fitnets-hint-then-output', 'hmm-baum-welch-transition', 'hmm-filter-smooth', 'hmm-forward-sum-product', 'hmm-pairwise-posterior', 'kd-soft-target-alignment', 'lion-sign-momentum', 'mbpo-horizon-error', 'mbpo-short-branches', 'muon-spectral-balancing', 'pets-cem-refit', 'pets-ensemble-particles', 'qk-norm-scale-sweep', 'rectified-reflow-coupling', 'rlhf-dpo-margin', 'rlhf-reward-sums', 'rope-axial-2d', 'rope-cache-reindex', 'rope-frequency-bands', 'rope-interpolation-angle', 'shaw-relative-clipping', 'shaw-relative-value', 'sigma-reparam-spectral-gain', 'sinusoidal-multiscale', 'trpo-kl-backtracking', 'trpo-ratio-surrogate', 'tsne-kl-embedding', 'umap-fuzzy-union', 'yarn-attention-temperature', 'yarn-frequency-ramp'}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
                 errors.extend(verify_source_pair(page, text, stem))
@@ -1187,7 +1261,7 @@ def main() -> int:
                     errors.append(f"{page}: missing GitHub static preview link for {stem}")
             elif stem in {"activity-silent-trace", "cfm-conditional-bridge", "consistency-trajectory-map", "deep-ensemble-spread", "ece-binned-calibration", "gated-sae-gate-magnitude", "glorot-alternating-width", "glorot-equal-variance-densities", "glorot-fan-tradeoff", "glorot-tanh-saturation", "he-fan-mode-tradeoff", "he-relu-mean-shift", "he-relu-second-moment", "hmm-baum-welch-transition", "hmm-filter-smooth", "hmm-forward-sum-product", "hmm-pairwise-posterior", "hnsw-layer-descent", "ivfpq-probe-pq-lookup", "jumprelu-threshold-jump", "latent-space-denoise", "lion-sign-momentum", "muon-spectral-balancing", "mup-adam-sgd", "mup-readout-aggregation", "mup-readout-noise", "mup-transfer-protocol", "mup-transfer-validation", "mup-update-budget", "mup-width-multipliers", "pbwm-gate", "prelu-slope-gain", "prompt-injection-boundary", "qk-norm-scale-sweep", "react-evidence-loop", "rectified-reflow-coupling", "reflexion-memory-feedback", "roi-align-sampling", "sam-prompt-ambiguity", "score-sde-flow", "sigma-reparam-spectral-gain", "tsne-kl-embedding", "umap-fuzzy-union", "unigram-sampling-alpha", "unigram-viterbi-lattice", "video-joint-denoising", "watermark-greenlist-score"}:
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"conformal-subgroup-coverage", "conformal-shift-coverage", "conformal-cqr-expansion", "conformal-weighted-quantile", "conformal-aps-cumulative", "conformal-alpha-staircase", "conformal-mondrian-groups", "conformal-raps-penalty"}:
+            elif stem in {'alphazero-policy-target', 'alphazero-puct-select', 'alphazero-selfplay-labels', 'alphazero-value-backup', 'conformal-alpha-staircase', 'conformal-aps-cumulative', 'conformal-cqr-expansion', 'conformal-mondrian-groups', 'conformal-raps-penalty', 'conformal-shift-coverage', 'conformal-subgroup-coverage', 'conformal-weighted-quantile', 'itemcf-weighted-neighbors', 'neumf-dual-path'}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {
@@ -1201,7 +1275,7 @@ def main() -> int:
                     (page.parent / link).resolve() for link in static_links
                 }:
                     errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
-            elif stem in {'fedavg-weighted-round', 'ftw-two-level-learning', 'gradient-accumulation-clipping-order', 'gradient-agc-relative-cap', 'gradient-amp-unscale-order', 'gradient-clipping-comparison', 'gradient-decoupled-decay', 'gradient-global-layer-budget', 'maddpg-actor-gradient', 'maddpg-joint-bootstrap', 'mappo-backward-gae', 'mappo-shared-advantage', 'openvla-dual-encoder-fusion', 'openvla-percentile-action-bins', 'pbt-exploit-explore', 'rt2-action-token-decoding', 'saycan-skill-grounding', 'secagg-mask-cancellation'}:
+            elif stem in {'commnet-layer-iterations', 'commnet-leave-one-out', 'dial-dru-train-execute', 'fedavg-weighted-round', 'ftw-two-level-learning', 'gradient-accumulation-clipping-order', 'gradient-agc-relative-cap', 'gradient-amp-unscale-order', 'gradient-clipping-comparison', 'gradient-decoupled-decay', 'gradient-global-layer-budget', 'maddpg-actor-gradient', 'maddpg-joint-bootstrap', 'mappo-backward-gae', 'mappo-shared-advantage', 'offline-cql-conservative', 'offline-iql-expectile', 'openvla-dual-encoder-fusion', 'openvla-percentile-action-bins', 'pbt-exploit-explore', 'rial-dial-credit-path', 'rt2-action-token-decoding', 'saycan-skill-grounding', 'secagg-mask-cancellation'}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in GITHUB_GIF_PREVIEWS:
                 # These topics now teach via a controllable JS lab, not the
@@ -1237,7 +1311,7 @@ def main() -> int:
                 linked = {(page.parent / link).resolve() for link in static_links}
                 if static_path.resolve() not in linked:
                     errors.append(f"{page}: missing GitHub-readable static SVG link")
-            elif stem in {'3d-unet-context-tiling', '3d-unet-depth-kernel', '3d-unet-evaluation-holdout', '3d-unet-orthogonal-slices', '3d-unet-paired-warp', '3d-unet-skip-concat', '3d-unet-sparse-context-gradient', '3d-unet-sparse-loss', 'act-cvae-train-deploy', 'act-temporal-ensemble', 'adafactor-factored-moments', 'adagrad-coordinate-gain', 'adam-bias-correction', 'adam-epsilon-threshold', 'adam-scale-invariance', 'adam-sign-reversal', 'adamw-epoch-timescale', 'ant-colony-pheromone', 'ar-context-drift', 'ar-eos-survival', 'ar-likelihood-accumulation', 'ar-score-vs-sample', 'asam-neighborhood', 'auc-ap-ranking-contrast', 'awq-salient-scaling', 'backdoor-standardisation', 'bahdanau-alignment-context', 'bo-expected-improvement', 'bo-gp-conditioning', 'boosting-residual-steps', 'bpr-gradient-saturation', 'bpr-pairwise-ranking', 'causal-lamp-intervention', 'checkpoint-recompute', 'clr-triangular2-sweep', 'coherence-phase-gating', 'colbert-maxsim-switch', 'collider-selection', 'copycat-action-lag', 'cv-fold-rotation', 'dagger-dataset-aggregation', 'dart-noisy-expert-recovery', 'dora-independent', 'dpo-preference-margin', 'dpr-dot-product-sweep', 'dropblock-spatial-masking', 'dropout-inverted-sampling', 'dropout-variance-tradeoff', 'effective-number-growth', 'eigen-jordan-shear', 'eigen-linear-map', 'eigen-rotation-no-real', 'eigen-zero-eigenvalue', 'elo-online-update', 'eprop-local-credit', 'ewc-fisher-springs', 'fixmatch-confidence-gate', 'forest-bootstrap-vote', 'forward-ad-branch-kink', 'forward-ad-directional-jvp', 'forward-ad-dual-chain', 'forward-ad-finite-difference', 'forward-ad-hessian-vector', 'forward-ad-jacobian-columns', 'forward-ad-linear-solve', 'forward-ad-loop-tangent', 'forward-ad-matmul-tangent', 'forward-ad-normalization-jvp', 'forward-ad-softmax-tangent', 'forward-ad-sparse-packing', 'forward-prediction-correction', 'fp16-loss-scaling', 'fp8-scale-range', 'gaussian-splat-alpha-composite', 'genetic-crossover-mutation', 'gin-multiset-counts', 'gnm-speed-normalization', 'gptq-error-compensation', 'graphplan-layer-extraction', 'graphsage-sample-aggregate', 'grid-search-x-coverage', 'group-norm-statistics', 'h2o-heavy-hitter-selection', 'heavy-ball-overshoot', 'i3d-filter-inflation', 'ia3-channel-gates', 'ida-bound-reexpansion', 'integrated-gradients-path', 'kalman-gain-fusion', 'kivi-quantization-axis', 'kmeans-elbow-inertia', 'kmeans-feature-scale', 'kmeans-outlier-leverage', 'kmeans-plusplus-d2', 'lagrange-dual-gap', 'lagrange-kkt-active-set', 'lagrange-tangency', 'lamb-adam-layer-trust', 'large-batch-warmup-ramp', 'lars-layer-trust-scaling', 'lime-local-surrogate', 'logit-prior-decision', 'lsq-step-size-sweep', 'mahalanobis-ellipse-threshold', 'mamba2-ssd-causal-map', 'map-beta-posterior', 'map-elites-archive', 'map-precision-at-hits', 'mc-dropout-repeated-passes', 'mean-teacher-ema-tracking', 'mf-als-alternating', 'mf-coupled-sgd', 'minhash-lsh-band-collision', 'mixup-beta-strength', 'mixup-cutmix-area', 'mixup-loss-decomposition', 'mixup-paired-interpolation', 'mle-bernoulli-likelihood', 'ndcg-position-discount', 'neat-add-node-innovation', 'newton-armijo-backtracking', 'newton-curvature-steps', 'newton-indefinite-curvature', 'nomad-goal-mask-routing', 'odin-gradient-perturbation', 'ofc-selective-feedback', 'outlier-mae-rmse', 'paired-bootstrap-resampling', 'particle-swarm-best', 'particle-weight-resampling', 'place-cell-firing', 'power-iteration-convergence', 'power-iteration-projection-contraction', 'pr-threshold-sweep', 'predictive-local-settling', 'prefix-kv-attention', 'prompt-injection-boundary', 'qat-fake-quant-ste', 'qlora-frozen-flow', 'r2-mean-baseline', 'random-search-x-coverage', 'rao-ballard-residual', 'recursive-tail-loss', 'resnet-depth-gradient-factors', 'resnet-identity-gradient', 'resnet-postrelu-gate', 'resnet-projection-shortcut', 'resolution-refutation-chain', 'rf-bootstrap-oob', 'rf-feature-subset', 'rmsnorm-shift-response', 'roc-rank-transform', 'roc-threshold-sweep', 'roofline-ridge-sweep', 'rotational-norm-balance', 's4d-diagonal-modes', 'sac-entropy-temperature', 'sac-soft-target', 'sac-temperature-feedback', 'saliency-local-gradient', 'self-instruct-filter-loop', 'sgd-noise-batch', 'shampoo-eigenmode', 'shap-coalition-marginals', 'sharpness-radius-loss', 'sharpness-reparam-curvature', 'simclr-temperature-competition', 'soap-eigenbasis-adam', 'stdp-spike-timing', 'stochastic-depth-scaling-conventions', 'stochastic-depth-survival-samples', 'strips-state-effects', 'successor-occupancy', 'svd-degenerate-bases', 'svd-ls-orthogonal-residual', 'svd-noise-amplification', 'svd-rank-accumulation', 'svd-unit-circle', 'svi-minibatch-global', 'svm-margin-hinge', 'theta-gamma-phase-amplitude', 'thompson-beta-posterior-draws', 'thompson-evidence-concentration', 'ucb1-bonus-sensitivity', 'ucb1-optimism-switch', 'ving-learned-graph-routing', 'vint-goal-waypoint-flow', 'vivit-factorised-attention', 'vqvae-codebook-snap', 'watermark-greenlist-score', 'weak-supervision-vote-fusion', 'wgan-gp-interpolation', 'wgan-weight-clip'}:
+            elif stem in {'3d-unet-context-tiling', '3d-unet-depth-kernel', '3d-unet-evaluation-holdout', '3d-unet-orthogonal-slices', '3d-unet-paired-warp', '3d-unet-skip-concat', '3d-unet-sparse-context-gradient', '3d-unet-sparse-loss', 'act-cvae-train-deploy', 'act-temporal-ensemble', 'adafactor-factored-moments', 'adagrad-coordinate-gain', 'adam-bias-correction', 'adam-epsilon-threshold', 'adam-scale-invariance', 'adam-sign-reversal', 'adamw-epoch-timescale', 'ant-colony-pheromone', 'ar-context-drift', 'ar-eos-survival', 'ar-likelihood-accumulation', 'ar-score-vs-sample', 'asam-neighborhood', 'auc-ap-ranking-contrast', 'awq-salient-scaling', 'backdoor-standardisation', 'bahdanau-alignment-context', 'bo-expected-improvement', 'bo-gp-conditioning', 'boosting-residual-steps', 'bpr-gradient-saturation', 'bpr-pairwise-ranking', 'causal-lamp-intervention', 'checkpoint-recompute', 'clr-triangular2-sweep', 'coherence-phase-gating', 'colbert-maxsim-switch', 'collider-selection', 'copycat-action-lag', 'cv-fold-rotation', 'dagger-dataset-aggregation', 'dart-noisy-expert-recovery', 'dora-independent', 'dpo-preference-margin', 'dpr-dot-product-sweep', 'dropblock-spatial-masking', 'dropout-inverted-sampling', 'dropout-variance-tradeoff', 'dt-causal-prefix', 'dt-return-budget', 'effective-number-growth', 'eigen-jordan-shear', 'eigen-linear-map', 'eigen-rotation-no-real', 'eigen-zero-eigenvalue', 'elo-online-update', 'eprop-local-credit', 'ewc-fisher-springs', 'fixmatch-confidence-gate', 'forest-bootstrap-vote', 'forward-ad-branch-kink', 'forward-ad-directional-jvp', 'forward-ad-dual-chain', 'forward-ad-finite-difference', 'forward-ad-hessian-vector', 'forward-ad-jacobian-columns', 'forward-ad-linear-solve', 'forward-ad-loop-tangent', 'forward-ad-matmul-tangent', 'forward-ad-normalization-jvp', 'forward-ad-softmax-tangent', 'forward-ad-sparse-packing', 'forward-prediction-correction', 'fp16-loss-scaling', 'fp8-scale-range', 'gaussian-splat-alpha-composite', 'genetic-crossover-mutation', 'gin-multiset-counts', 'gnm-speed-normalization', 'gptq-error-compensation', 'graphplan-layer-extraction', 'graphsage-sample-aggregate', 'grid-search-x-coverage', 'group-norm-statistics', 'h2o-heavy-hitter-selection', 'heavy-ball-overshoot', 'i3d-filter-inflation', 'ia3-channel-gates', 'ida-bound-reexpansion', 'integrated-gradients-path', 'kalman-gain-fusion', 'kivi-quantization-axis', 'kmeans-elbow-inertia', 'kmeans-feature-scale', 'kmeans-outlier-leverage', 'kmeans-plusplus-d2', 'lagrange-dual-gap', 'lagrange-kkt-active-set', 'lagrange-tangency', 'lamb-adam-layer-trust', 'large-batch-warmup-ramp', 'lars-layer-trust-scaling', 'lime-local-surrogate', 'logit-prior-decision', 'lsq-step-size-sweep', 'mahalanobis-ellipse-threshold', 'mamba2-ssd-causal-map', 'map-beta-posterior', 'map-elites-archive', 'map-precision-at-hits', 'mc-dropout-repeated-passes', 'mean-teacher-ema-tracking', 'mf-als-alternating', 'mf-coupled-sgd', 'minhash-lsh-band-collision', 'mixup-beta-strength', 'mixup-cutmix-area', 'mixup-loss-decomposition', 'mixup-paired-interpolation', 'mle-bernoulli-likelihood', 'ndcg-position-discount', 'neat-add-node-innovation', 'newton-armijo-backtracking', 'newton-curvature-steps', 'newton-indefinite-curvature', 'nomad-goal-mask-routing', 'odin-gradient-perturbation', 'ofc-selective-feedback', 'outlier-mae-rmse', 'paired-bootstrap-resampling', 'particle-swarm-best', 'particle-weight-resampling', 'place-cell-firing', 'power-iteration-convergence', 'power-iteration-projection-contraction', 'pr-threshold-sweep', 'predictive-local-settling', 'prefix-kv-attention', 'prompt-injection-boundary', 'qat-fake-quant-ste', 'qlora-frozen-flow', 'r2-mean-baseline', 'random-search-x-coverage', 'rao-ballard-residual', 'recursive-tail-loss', 'resnet-depth-gradient-factors', 'resnet-identity-gradient', 'resnet-postrelu-gate', 'resnet-projection-shortcut', 'resolution-refutation-chain', 'rf-bootstrap-oob', 'rf-feature-subset', 'rmsnorm-shift-response', 'roc-rank-transform', 'roc-threshold-sweep', 'roofline-ridge-sweep', 'rotational-norm-balance', 's4d-diagonal-modes', 'sac-entropy-temperature', 'sac-soft-target', 'sac-temperature-feedback', 'saliency-local-gradient', 'self-instruct-filter-loop', 'sgd-noise-batch', 'shampoo-eigenmode', 'shap-coalition-marginals', 'sharpness-radius-loss', 'sharpness-reparam-curvature', 'simclr-temperature-competition', 'soap-eigenbasis-adam', 'stdp-spike-timing', 'stochastic-depth-scaling-conventions', 'stochastic-depth-survival-samples', 'strips-state-effects', 'successor-occupancy', 'svd-degenerate-bases', 'svd-ls-orthogonal-residual', 'svd-noise-amplification', 'svd-rank-accumulation', 'svd-unit-circle', 'svi-minibatch-global', 'svm-margin-hinge', 'theta-gamma-phase-amplitude', 'thompson-beta-posterior-draws', 'thompson-evidence-concentration', 'ucb1-bonus-sensitivity', 'ucb1-optimism-switch', 'ving-learned-graph-routing', 'vint-goal-waypoint-flow', 'vivit-factorised-attention', 'vqvae-codebook-snap', 'watermark-greenlist-score', 'weak-supervision-vote-fusion', 'wgan-gp-interpolation', 'wgan-weight-clip'}:
                 # GitHub uses the raw static image; the opt-in hook rewrites
                 # all three source-relative attributes for each built locale.
                 errors.extend(verify_source_pair(page, text, stem))
@@ -1254,7 +1328,7 @@ def main() -> int:
                 errors.extend(verify_source_pair(page, text, stem))
             elif animated_path.resolve() not in linked_images:
                 errors.append(f"{page}: missing or incorrect animated SVG link")
-            if stem in {'3d-unet-context-tiling', '3d-unet-depth-kernel', '3d-unet-evaluation-holdout', '3d-unet-orthogonal-slices', '3d-unet-paired-warp', '3d-unet-skip-concat', '3d-unet-sparse-context-gradient', '3d-unet-sparse-loss', 'a3c-async-gradient', 'a3c-nstep-return', 'adamw-decoupled-paths', 'alpha-beta-cutoff', 'astar-frontier', 'batch-norm-train-infer', 'bpe-ordered-merges', 'byol-online-target', 'cmaes-distribution-adaptation', 'dagger-dataset-aggregation', 'dart-noisy-expert-recovery', 'ddm-first-passage', 'ddpg-actor-gradient', 'ddpg-ou-noise', 'ddpg-polyak-target', 'ddpg-replay-bootstrap', 'deformable-sampling', 'diffusion-policy-denoising', 'diffusion-policy-multimodal-actions', 'diffusion-policy-noise-training', 'diffusion-policy-receding-horizon', 'dinov2-dual-objective-ema', 'disaggregated-handoff', 'dpll-backtrack', 'dqn-target-sync', 'dreamer-lambda-bootstrap', 'dreamer-posterior-prior', 'eprop-local-credit', 'expert-cache-miss', 'fedavg-weighted-round', 'fgsm-sign-step', 'forward-ad-branch-kink', 'forward-ad-directional-jvp', 'forward-ad-dual-chain', 'forward-ad-finite-difference', 'forward-ad-hessian-vector', 'forward-ad-jacobian-columns', 'forward-ad-jvp', 'forward-ad-linear-solve', 'forward-ad-loop-tangent', 'forward-ad-matmul-tangent', 'forward-ad-normalization-jvp', 'forward-ad-softmax-tangent', 'forward-ad-sparse-packing', 'ftw-two-level-learning', 'gat-aggregation', 'gcn-aggregation', 'gibbs-coordinate-sweeps', 'gnm-speed-normalization', 'gqa-head-sharing', 'gqa-uptraining-pooling', 'gru-gate-flow', 'hmc-leapfrog-trajectory', 'hyperband-budget', 'kfac-factor-preconditioning', 'kmeans-lloyd', 'lbfgs-two-loop', 'lion-sign-momentum', 'maddpg-actor-gradient', 'maddpg-joint-bootstrap', 'mae-visible-patch-reconstruction', 'maml-inner-outer-loop', 'mappo-backward-gae', 'mappo-shared-advantage', 'mbmf-revaluation', 'mcts-search-cycle', 'mean-field-coordinate-ascent', 'mh-accept-reject', 'moco-dictionary-cycle', 'moe-top2-routing', 'muon-spectral-balancing', 'muzero-latent-planning', 'nerf-volume-rendering', 'nesterov-lookahead', 'nomad-goal-mask-routing', 'openvla-dual-encoder-fusion', 'openvla-percentile-action-bins', 'orca-continuous-batching', 'paged-block-mapping', 'pbt-exploit-explore', 'pgd-projection-path', 'ppo-clipped-objective', 'prioritized-replay-cycle', 'prompt-injection-boundary', 'qk-norm-scale-sweep', 'qmix-monotonic-greedy', 'realnvp-affine-coupling', 'reverse-ad-vjp', 'rmsprop-adaptive-memory', 'rt2-action-token-decoding', 'sac-soft-target', 'sac-temperature-feedback', 'sam-two-gradient', 'saycan-skill-grounding', 'secagg-mask-cancellation', 'sigma-reparam-spectral-gain', 'speculative-decoding', 'spsa-two-evaluations', 'stdp-spike-timing', 'stochastic-depth-paths', 'streaming-kv-eviction', 'swin-shifted-windows', 'td3-delayed-twin-critics', 'tree-belief-propagation', 'trpo-kl-backtracking', 'trpo-ratio-surrogate', 'tsne-kl-embedding', 'umap-fuzzy-union', 'vae-reparameterisation', 'ving-learned-graph-routing', 'vint-goal-waypoint-flow', 'viterbi-trellis', 'watermark-greenlist-score'}:
+            if stem in {'3d-unet-context-tiling', '3d-unet-depth-kernel', '3d-unet-evaluation-holdout', '3d-unet-orthogonal-slices', '3d-unet-paired-warp', '3d-unet-skip-concat', '3d-unet-sparse-context-gradient', '3d-unet-sparse-loss', 'a3c-async-gradient', 'a3c-nstep-return', 'adamw-decoupled-paths', 'alpha-beta-cutoff', 'alphazero-policy-target', 'alphazero-puct-select', 'alphazero-selfplay-labels', 'alphazero-value-backup', 'astar-frontier', 'batch-norm-train-infer', 'bpe-ordered-merges', 'byol-online-target', 'cmaes-distribution-adaptation', 'commnet-layer-iterations', 'commnet-leave-one-out', 'dagger-dataset-aggregation', 'dart-noisy-expert-recovery', 'ddm-first-passage', 'ddpg-actor-gradient', 'ddpg-ou-noise', 'ddpg-polyak-target', 'ddpg-replay-bootstrap', 'deformable-sampling', 'dial-dru-train-execute', 'diffusion-policy-denoising', 'diffusion-policy-multimodal-actions', 'diffusion-policy-noise-training', 'diffusion-policy-receding-horizon', 'dinov2-dual-objective-ema', 'disaggregated-handoff', 'dpll-backtrack', 'dqn-target-sync', 'dreamer-lambda-bootstrap', 'dreamer-posterior-prior', 'eprop-local-credit', 'expert-cache-miss', 'fedavg-weighted-round', 'fgsm-sign-step', 'forward-ad-branch-kink', 'forward-ad-directional-jvp', 'forward-ad-dual-chain', 'forward-ad-finite-difference', 'forward-ad-hessian-vector', 'forward-ad-jacobian-columns', 'forward-ad-jvp', 'forward-ad-linear-solve', 'forward-ad-loop-tangent', 'forward-ad-matmul-tangent', 'forward-ad-normalization-jvp', 'forward-ad-softmax-tangent', 'forward-ad-sparse-packing', 'ftw-two-level-learning', 'gat-aggregation', 'gcn-aggregation', 'gibbs-coordinate-sweeps', 'gnm-speed-normalization', 'gqa-head-sharing', 'gqa-uptraining-pooling', 'gru-gate-flow', 'hmc-leapfrog-trajectory', 'hyperband-budget', 'kfac-factor-preconditioning', 'kmeans-lloyd', 'lbfgs-two-loop', 'lion-sign-momentum', 'maddpg-actor-gradient', 'maddpg-joint-bootstrap', 'mae-visible-patch-reconstruction', 'maml-inner-outer-loop', 'mappo-backward-gae', 'mappo-shared-advantage', 'mbmf-revaluation', 'mbpo-horizon-error', 'mbpo-short-branches', 'mcts-search-cycle', 'mean-field-coordinate-ascent', 'mh-accept-reject', 'moco-dictionary-cycle', 'moe-top2-routing', 'muon-spectral-balancing', 'muzero-latent-planning', 'nerf-volume-rendering', 'nesterov-lookahead', 'nomad-goal-mask-routing', 'openvla-dual-encoder-fusion', 'openvla-percentile-action-bins', 'orca-continuous-batching', 'paged-block-mapping', 'pbt-exploit-explore', 'pets-cem-refit', 'pets-ensemble-particles', 'pgd-projection-path', 'ppo-clipped-objective', 'prioritized-replay-cycle', 'prompt-injection-boundary', 'qk-norm-scale-sweep', 'qmix-monotonic-greedy', 'realnvp-affine-coupling', 'reverse-ad-vjp', 'rial-dial-credit-path', 'rlhf-dpo-margin', 'rlhf-reward-sums', 'rmsprop-adaptive-memory', 'rt2-action-token-decoding', 'sac-soft-target', 'sac-temperature-feedback', 'sam-two-gradient', 'saycan-skill-grounding', 'secagg-mask-cancellation', 'sigma-reparam-spectral-gain', 'speculative-decoding', 'spsa-two-evaluations', 'stdp-spike-timing', 'stochastic-depth-paths', 'streaming-kv-eviction', 'swin-shifted-windows', 'td3-delayed-twin-critics', 'tree-belief-propagation', 'trpo-kl-backtracking', 'trpo-ratio-surrogate', 'tsne-kl-embedding', 'umap-fuzzy-union', 'vae-reparameterisation', 'ving-learned-graph-routing', 'vint-goal-waypoint-flow', 'viterbi-trellis', 'watermark-greenlist-score'}:
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 static_links += re.findall(r'<img[^>]*\s+src="([^"]+\.svg)"', text)
                 linked = {(page.parent / link).resolve() for link in static_links}

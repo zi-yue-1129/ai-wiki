@@ -3,6 +3,7 @@
 import json
 import os
 import traceback
+import time
 from pathlib import Path
 from shutil import which
 from playwright.sync_api import sync_playwright
@@ -62,12 +63,48 @@ def check_svg(page, stem, kind, record):
             record.setdefault('line_clearance', []).append(clearance)
             clearance['gap'] = check_return_credit_clearance(geometry['text'], geometry['line'], geometry['stroke'])
 
+IMAGE_READY = """expected => {const i=document.querySelector('img');return !!i && i.getAttribute('src')===expected && i.currentSrc===expected && i.complete && i.naturalWidth===760 && i.naturalHeight===400 && i.isConnected;}"""
+IMAGE_STATE = """i => ({src:i.getAttribute('src'),currentSrc:i.currentSrc,complete:i.complete,width:i.naturalWidth,height:i.naturalHeight,connected:i.isConnected})"""
+
+IMAGE_DECODE = """(i, timeout) => {
+  let timer;
+  return Promise.race([
+    Promise.resolve().then(()=>i.decode()),
+    new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Image decode timeout')),timeout);})
+  ]).finally(()=>clearTimeout(timer));
+}"""
+
+def validate_image_state(state, expected):
+    assert state['src']==state['currentSrc']==expected, state
+    assert state['complete'] is True and state['connected'] is True, state
+    assert state['width']==760 and state['height']==400, state
+
+def ready_image(page, img, expected, record, stage):
+    """Controls are synchronous; an exact newly selected resource must also decode."""
+    sample=dict(stage=stage,expected=expected,time=time.monotonic(),before=img.evaluate(IMAGE_STATE))
+    record.setdefault('image_states',[]).append(sample)
+    try:
+        assert img.count()==1
+        page.wait_for_function(IMAGE_READY,arg=expected,timeout=5000)
+        img.evaluate(IMAGE_DECODE,5000)
+        sample['after']=img.evaluate(IMAGE_STATE)
+        validate_image_state(sample['after'],expected)
+        sample['status']='passed'
+    except Exception as error:
+        sample['status']='failed';sample['error']=repr(error)
+        sample['failure_state']=img.evaluate(IMAGE_STATE)
+        raise
+
 def check_player(browser, stem, lang, width, reduced=False, record=None):
     context=browser.new_context(viewport={"width":width,"height":550},
               reduced_motion="reduce" if reduced else "no-preference")
     page=context.new_page()
     page.on("pageerror", lambda e: record["page_errors"].append(str(e)))
-    page.on("requestfailed", lambda request: record["failed_requests"].append(request.url))
+    def failed(request):
+        record['failed_requests'].append(request.url)
+        record.setdefault('request_failures',[]).append(dict(url=request.url,reason=request.failure,time=time.monotonic()))
+    page.on("requestfailed",failed)
+    page.on('response',lambda response:record.setdefault('responses',[]).append(dict(url=response.url,status=response.status,time=time.monotonic())))
     base="https://aiwiki.test/assets/concept-animations/"
     def route_svg(route):
         name=route.request.url.split("/")[-1]
@@ -84,11 +121,14 @@ def check_player(browser, stem, lang, width, reduced=False, record=None):
            data-still-src="{base}{stem}-still.svg" alt="{alt}">
     </div></main>"""
     page.set_content(html,wait_until="domcontentloaded")
+    img=page.locator("img")
+    ready_image(page,img,base+stem+"-still.svg",record,"initial-still-before-enhancement")
     page.add_style_tag(content=CSS.read_text(encoding="utf-8"))
     page.add_script_tag(content=JS.read_text(encoding="utf-8"))
     img=page.locator("img")
     button=page.locator("button.concept-motion-toggle")
     button.wait_for(timeout=5000)
+    ready_image(page,img,base+stem+("-still.svg" if reduced else "-motion.svg"),record,"enhanced")
     assert img.evaluate("(i)=>i.complete && i.naturalWidth===760")
     assert button.count()==1
     assert img.get_attribute("src").endswith("-still.svg" if reduced else "-motion.svg")
@@ -102,18 +142,22 @@ def check_player(browser, stem, lang, width, reduced=False, record=None):
     shot(page, record, "initial")
     button.click()
     assert img.get_attribute("src").endswith("-motion.svg" if reduced else "-still.svg")
+    ready_image(page,img,base+stem+("-motion.svg" if reduced else "-still.svg"),record,"clicked")
     shot(page, record, "clicked")
     button.focus()
     page.keyboard.press("Enter")
     assert img.get_attribute("src").endswith("-still.svg" if reduced else "-motion.svg")
+    ready_image(page,img,base+stem+("-still.svg" if reduced else "-motion.svg"),record,"entered")
     shot(page, record, "entered")
     button.focus()
     page.keyboard.press("Space")
     assert img.get_attribute("src").endswith("-motion.svg" if reduced else "-still.svg")
+    ready_image(page,img,base+stem+("-motion.svg" if reduced else "-still.svg"),record,"spaced")
     shot(page, record, "spaced")
     if not img.get_attribute("src").endswith("-still.svg"):
         button.click()
     assert img.get_attribute("src").endswith("-still.svg")
+    ready_image(page,img,base+stem+"-still.svg",record,"final-still")
     assert img.evaluate("(i)=>i.complete && i.naturalWidth===760")
     shot(page, record, "final-still")
     context.close()
@@ -149,7 +193,9 @@ def main():
                     record["status"]="failed";record["error"]=traceback.format_exc()
                     for context in browser.contexts:
                         for page in context.pages:
-                            try: shot(page, record, "failure")
+                            try:
+                                shot(page, record, "failure")
+                                (OUT/record['id']/'failure.html').write_text(page.content(),encoding='utf-8')
                             except Exception as exc: record.setdefault("screenshot_errors",[]).append(str(exc))
                 finally:
                     for context in browser.contexts: context.close()

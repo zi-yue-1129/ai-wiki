@@ -13,12 +13,12 @@ from playwright.sync_api import sync_playwright
 from test_built_prose_browser import target
 from test_built_motion_browser import serve_site, check_math_rendering, assert_document_fits
 from test_forward_math_markup import (GUARDED_MATH_PAGES, MathContainers, render,
-    require_no_outside_tex, MappoRecurrenceMarkupTests, RetainedDeployedMathTests)
+    require_no_outside_tex, MappoRecurrenceMarkupTests, RetainedDeployedMathTests, CqlObjectiveMarkupTests)
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCES = ('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md')
+SOURCES = ('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md')
 WIDTHS = (320, 390, 1280)
-DISPLAY_COUNTS = dict(zip(SOURCES, (2,2,2,2,3,3)))
+DISPLAY_COUNTS = dict(zip(SOURCES, (2,2,2,2,3,3,2,2)))
 
 def compact(value):
     return re.sub(r'\s+', '', value)
@@ -30,6 +30,8 @@ def source_displays(source):
 def required_bodies(source):
     if '/mappo/' in source: return MappoRecurrenceMarkupTests.BODIES
     if '/maddpg/' in source: return [RetainedDeployedMathTests.MADDPG]
+    if '/cql/' in source: return [CqlObjectiveMarkupTests.BODY]
+    assert '/score-sde' in source
     return RetainedDeployedMathTests.SDE
 
 # This runs in the actual loaded article after MathJax startup, not a synthetic SVG.
@@ -91,7 +93,7 @@ def validate_report(report):
     assert report['status']=='passed'
     expected={(s,w) for s in SOURCES for w in WIDTHS}
     literal_sources={source:source_displays((ROOT/source).read_text())for source in SOURCES}
-    cases=report['cases'];assert len(cases)==18 and {(x['source'],x['width']) for x in cases}==expected
+    cases=report['cases'];assert len(cases)==24 and {(x['source'],x['width']) for x in cases}==expected
     for case in cases:
         assert case['status']=='passed' and not case['errors']
         assert case['expected_displays']==DISPLAY_COUNTS[case['source']]

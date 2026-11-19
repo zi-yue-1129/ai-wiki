@@ -9,8 +9,7 @@ import markdown
 from mkdocs.config import load_config
 
 ROOT = Path(__file__).resolve().parents[1]
-# Literal source routes: changing any guarded page alone must run this parser.
-GUARDED_MATH_PAGES = ['docs/theory/math/automatic-differentiation/forward-mode.md', 'docs/theory/math/automatic-differentiation/forward-mode.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md']
+GUARDED_MATH_PAGES = ['docs/theory/math/automatic-differentiation/forward-mode.md', 'docs/theory/math/automatic-differentiation/forward-mode.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md']
 class MathContainers(HTMLParser):
     def __init__(self, html):
         super().__init__(); self.depth = 0; self.parts = []; self.blocks = []; self.feed(html)
@@ -91,6 +90,52 @@ class ForwardMathMarkupTests(unittest.TestCase):
                     with self.assertRaises(AssertionError): require_formulas(render(old))
 
 
+# Independently enumerated original malformed blocks; not derived from current document.
+ADDITIONAL_PAGES = [('docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md', 2, ['G_{t+1}=G_t-r_t.']), ('docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.zh-TW.md', 2, ['G_{t+1}=G_t-r_t.'])]
+
+class AdditionalMathMarkupTests(unittest.TestCase):
+    def test_actual_pages_and_each_original_delimiter_counterfactual(self):
+        for path, expected_count, bodies in ADDITIONAL_PAGES:
+            source = (ROOT / path).read_text()
+            def check(doc):
+                blocks = ["".join(x.split()) for x in MathContainers(render(doc)).blocks]
+                self.assertEqual(len(blocks), expected_count, path)
+                for body in bodies:
+                    expected = r"\[" + "".join(body.split()) + r"\]"
+                    self.assertEqual(blocks.count(expected), 1, (path, body))
+            with self.subTest(path=path):
+                check(source)
+                for body in bodies:
+                    fixed = "$$\n" + body + "\n$$"
+                    self.assertEqual(source.count(fixed), 1)
+                    old = source.replace(fixed, "$\n" + body + "\n$", 1)
+                    self.assertNotEqual(old, source)
+                    with self.assertRaises(AssertionError): check(old)
+
+
+class CqlObjectiveMarkupTests(unittest.TestCase):
+    BODY = r"""\begin{aligned}L(Q_A,Q_B)&=\log(e^{Q_A}+e^{Q_B})-Q_A\\
+&+\tfrac12(Q_A-2)^2.\end{aligned}"""
+    def require_objective(self, source):
+        expected=r'\['+''.join(self.BODY.split())+r'\]'
+        html=render(source);require_no_outside_tex(html)
+        blocks=[''.join(x.split()) for x in MathContainers(html).blocks]
+        self.assertEqual(blocks.count(expected),1)
+    def test_bilingual_actual_objective_and_each_missing_boundary_negative(self):
+        for lang in ['', '.zh-TW']:
+            source=(ROOT/f'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index{lang}.md').read_text()
+            exact='\\[\n'+self.BODY+'\n\\]'
+            self.assertEqual(source.count(exact),1)
+            self.assertEqual(source.count('\n\n'+exact+'\n\n'),1)
+            self.require_objective(source)
+            variants=[source.replace('\n\n'+exact+'\n\n','\n'+exact+'\n',1),
+                      source.replace('\n\n'+exact,'\n'+exact,1),
+                      source.replace(exact+'\n\n',exact+'\n',1),
+                      source.replace(exact,'',1)]
+            for i,bad in enumerate(variants):
+                self.assertNotEqual(bad,source)
+                with self.subTest(language=lang,mutation=i),self.assertRaises(AssertionError):
+                    self.require_objective(bad)
 
 class OutsideMathTex(HTMLParser):
     """High-signal leaked TeX, not a claim to recognize every malformed formula."""
@@ -165,7 +210,6 @@ class MappoRecurrenceMarkupTests(unittest.TestCase):
                     bad=source.replace(old,new,1);self.assertNotEqual(bad,source)
                     with self.subTest(language=lang,body=body,mutation=label),self.assertRaises(AssertionError):
                         self.require_recurrence(bad)
-
 
 class RetainedDeployedMathTests(unittest.TestCase):
     MADDPG = r"""a'_j=\mu'_j(o'_j),\qquad
