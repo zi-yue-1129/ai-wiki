@@ -766,7 +766,7 @@ for kind in ("motion", "still"):
     if kind == "motion":
         assert "prefers-reduced-motion" in source and 'class="still"' in source
 for filename, title in (
-    ("roc-auc.md", "why thirty identical alarms are not thirty independent trials"),
+    ("roc-auc.md", "why thirty fully dependent negatives are not thirty independent trials"),
     ("roc-auc.zh-TW.md", "三十筆完全相依資料，不等於三十次獨立試驗"),
 ):
     page = (shared_dir / filename).read_text(encoding="utf-8")
