@@ -37,6 +37,23 @@ translation_reviewed: 2026-11-19
 
 對同一組 100 筆案例，準確率是 **70/100 = 0.700**、精確率是 **40/50 = 0.800**、召回率是 **40/60 ≈ 0.667**，F1 是 **80/110 ≈ 0.727**。這是**人工計數範例，並非分類器實測表現**。本章動畫使用各自獨立的人工分數資料或母體參數，不代表這 100 筆資料的連續實驗結果。
 
+
+## 分母的方向：依實際類別或預測類別正規化
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="混淆矩陣的分母選擇動畫，可使用鍵盤橫向捲動">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/confusion-condition-direction-still.svg" data-still-src="../../../../assets/concept-animations/confusion-condition-direction-still.svg" data-motion-src="../../../../assets/concept-animations/confusion-condition-direction-motion.svg" alt="同一組人工計數 TP 四十、FN 二十、FP 十、TN 三十，先以實際類別的列合計當分母，再改以預測類別的欄合計。GitHub 靜態圖直接比較召回率 40/60 等於 0.667，及精確率 40/50 等於 0.800；動畫也展示特異度 30/40 等於 0.750，以及陰性預測值 30/50 等於 0.600。" width="640" height="360">
+</div>
+</div>
+
+*原創 16 秒 SVG 教學動畫，搭配可直接在 GitHub 閱讀的靜態回退圖（CC BY-SA 4.0）。* 圖中使用的就是**上方相同的人工 100 筆混淆矩陣**，不是其他實測、模型訓練或額外樣本。外框依序標示**分母所涵蓋的群組**：前八秒選取實際正／負例的兩個列群組，接著八秒選取預測正／負例的兩個欄群組。每組色條分成兩個占比。四個狀態是**離散的條件比例計算**，不是連續的訓練或門檻軌跡。
+
+**以實際類別為條件（列合計）：** 60 筆真正正例中，召回率是 $TP/(TP+FN)=40/60\approx0.667$，其餘 $20/60$ 是漏報。40 筆真正負例中，特異度是 $TN/(TN+FP)=30/40=0.750$，誤報率則為 $10/40=0.250$。
+
+**以預測類別為條件（欄合計）：** 50 筆預測正例中，精確率是 $TP/(TP+FP)=40/50=0.800$，其餘 $10/50$ 是誤報。50 筆預測負例中，陰性預測值（NPV）是 $TN/(TN+FN)=30/50=0.600$。**召回率和精確率即使都以 TP 當分子，條件化的母群也不同。** GitHub 靜態圖同時並列兩種分母；動畫則依序示範四個群組。
+
+MkDocs 提供可用鍵盤操作的播放／暫停功能；窄螢幕可聚焦圖面後用方向鍵水平捲動。`prefers-reduced-motion` 模式維持第一個靜態狀態。[GitHub 靜態預覽](../../../../assets/concept-animations/confusion-condition-direction-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/confusion-condition-direction-motion.svg)。指標定義沿用本頁已列出的 scikit-learn 評估文件。
+
 ## 三組相互對照的 ROC 決策動畫
 
 以下是**三個彼此獨立的人工思想實驗**，用來區分排序能力、陽性預測可信度與部署決策；它們**不是**上方共用 100 筆混淆矩陣的重複實測。[ROC-AUC 專頁](roc-auc.md)提供完整動畫、數學推導與適用假設。
