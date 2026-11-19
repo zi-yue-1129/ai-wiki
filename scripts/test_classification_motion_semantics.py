@@ -1082,3 +1082,37 @@ for filename in ('f1.md','f1.zh-TW.md'):
     assert '\\frac{8}{11}' in lesson
     assert '0.500' in lesson and '0.750' in lesson and '0.250' in lesson
 print("Multilabel micro-F1 vs samples-F1 and subset accuracy: exact aggregation and bilingual fallbacks OK")
+
+
+# Conditional denominators for the SAME 100 hypothetical observations.
+# Rows are actual classes; columns are predicted classes.
+tp, fn, fp, tn = 40, 20, 10, 30
+assert tp + fn + fp + tn == 100
+for numerator, denom, expected in (
+    (tp, tp + fn, 2/3),    # Recall / TPR
+    (tn, tn + fp, 3/4),    # Specificity / TNR
+    (tp, tp + fp, 4/5),    # Precision / PPV
+    (tn, tn + fn, 3/5),    # Negative predictive value
+):
+    assert math.isclose(numerator / denom, expected, abs_tol=1e-12)
+assert math.isclose(fp / (fp + tn), .25)
+assert math.isclose(fn / (fn + tn), .40)
+
+_condition = Path('docs/assets/concept-animations')
+_motion = (_condition / 'confusion-condition-direction-motion.svg').read_text(encoding='utf-8')
+_still = (_condition / 'confusion-condition-direction-still.svg').read_text(encoding='utf-8')
+assert 'viewBox="0 0 640 360"' in _motion and 'viewBox="0 0 640 360"' in _still
+assert '<animate ' in _motion and '<animate ' not in _still
+assert 'prefers-reduced-motion' in _motion
+assert 'dur="16s"' in _motion and 'calcMode="discrete"' in _motion
+for key in ('0.667', '0.750', '0.800', '0.600'):
+    assert key in _motion
+assert 'ROW · TRUE +' in _still and 'COLUMN · PRED +' in _still
+assert '0.667' in _still and '0.800' in _still
+for _lang in ('index.md', 'index.zh-TW.md'):
+    _page = (Path('docs/theory/evaluation/metrics/classification') / _lang).read_text(encoding='utf-8')
+    assert 'data-source-asset-urls' in _page
+    assert 'src="../../../../assets/concept-animations/confusion-condition-direction-still.svg"' in _page
+    assert 'data-motion-src="../../../../assets/concept-animations/confusion-condition-direction-motion.svg"' in _page
+    assert '30/50=0.600' in _page and '40/60' in _page
+print('Confusion-matrix conditioning: four exact rates and shared bilingual fallback OK')
