@@ -2874,6 +2874,21 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "f1-multilabel-aggregation": {
+      "origins": [
+        {
+          "origin_blob": "6b6b511beb0a701a5de15b7e0e4fe57553968712",
+          "origin_commit": "1d5f8a0f4adaaa8cc614bc55a129789ec44eb160",
+          "path": "docs/assets/concept-animations/f1-multilabel-aggregation-motion.svg"
+        },
+        {
+          "origin_blob": "057620518fc5180131286f5155a43fede695b58d",
+          "origin_commit": "cf97a06efc757d16a5da099882579924efb31209",
+          "path": "docs/assets/concept-animations/f1-multilabel-aggregation-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "f1-averaging-rules": {
       "origins": [
         {
