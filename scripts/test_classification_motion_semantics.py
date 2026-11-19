@@ -977,3 +977,35 @@ for lang in ("roc-auc.md","roc-auc.zh-TW.md"):
     page=(Path("docs/theory/evaluation/metrics/classification")/lang).read_text(encoding="utf-8")
     assert "roc-tie-group-step-motion.svg" in page and "roc-tie-group-step-still.svg" in page
 print("Tied-threshold ROC endpoints, exact pairwise AUC, bilingual fallback OK")
+
+
+# AUC is invariant to strictly increasing transforms, but not to a
+# many-to-one score quantizer. Check every positive-negative comparison.
+quant_cases=((0.90,1),(0.60,1),(0.80,0),(0.30,0))
+def _pair_auc(positives,negatives):
+    return sum(1 if p>n else 0.5 if p==n else 0
+               for p in positives for n in negatives)/(len(positives)*len(negatives))
+raw_pos=[s for s,y in quant_cases if y]
+raw_neg=[s for s,y in quant_cases if not y]
+assert _pair_auc(raw_pos,raw_neg)==0.75
+# All four examples avoid rounding half-way ambiguity.
+quant_pos=[round(2*s)/2 for s in raw_pos]
+quant_neg=[round(2*s)/2 for s in raw_neg]
+assert quant_pos==[1.0,0.5] and quant_neg==[1.0,0.5]
+assert _pair_auc(quant_pos,quant_neg)==0.5
+assert sorted(quant_pos+quant_neg)==[0.5,0.5,1.0,1.0]
+assert _pair_auc([s**3 for s in raw_pos],[s**3 for s in raw_neg])==0.75
+# Conversely, coarsening a misordered pair can raise its pairwise credit.
+assert _pair_auc([0.49],[0.51])==0 and _pair_auc([0.5],[0.5])==0.5
+for variant in ("motion","still"):
+    quant_svg=(asset_root / f"roc-score-quantization-{variant}.svg").read_text(encoding="utf-8")
+    assert 'viewBox="0 0 640 360"' in quant_svg
+    assert "0.75" in quant_svg and "0.50" in quant_svg
+    assert ("<animate " in quant_svg)==(variant=="motion")
+    assert ("prefers-reduced-motion" in quant_svg)==(variant=="motion")
+for locale in ("roc-auc.md","roc-auc.zh-TW.md"):
+    chapter=(shared_dir/locale).read_text(encoding="utf-8")
+    assert 'src="../../../../assets/concept-animations/roc-score-quantization-still.svg"' in chapter
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-score-quantization-motion.svg"' in chapter
+    assert "0.75" in chapter and "0.50" in chapter
+print("Score quantization: strict ranks versus ties, exact pairwise AUC, bilingual fallback OK")

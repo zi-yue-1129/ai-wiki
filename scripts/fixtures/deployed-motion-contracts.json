@@ -3428,6 +3428,21 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "roc-score-quantization": {
+      "origins": [
+        {
+          "origin_blob": "f0600aa751884c65a0d3f888d26d662933faf5a5",
+          "origin_commit": "f0a8666f9f10dfdd04ebbfcfb03d8ec7c516e988",
+          "path": "docs/assets/concept-animations/roc-score-quantization-motion.svg"
+        },
+        {
+          "origin_blob": "829325d609fd0563c3ad328b9f3626c3ec67bd33",
+          "origin_commit": "f0a8666f9f10dfdd04ebbfcfb03d8ec7c516e988",
+          "path": "docs/assets/concept-animations/roc-score-quantization-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "roc-tie-group-step": {
       "origins": [
         {

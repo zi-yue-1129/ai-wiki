@@ -80,6 +80,18 @@ ROC-AUC 只需要分數，不需要依門檻得出的標籤，因此可以在不
 
 *原創教學動畫（CC BY-SA 4.0）。* 四筆**人工示意**分數分別為正例 **0.90、0.60**，負例 **0.80、0.30**。圓點從平方根轉換位置平滑移到三次方轉換位置，中間對應 $g_t(s)=(1-t)\sqrt{s}+t s^3$、$0\leq t\leq1$。每個轉換在 $[0,1]$ 上都**嚴格遞增**，因此所有正負配對的勝負關係不變，**ROC-AUC 始終為 $3/4=0.75$**。靜態回退圖以空心圓表示平方根位置、實心圓表示三次方位置。此性質**不代表機率已校準**，也不代表同一數值門檻下的預測標籤保持不變。這些分數並非模型實測值。MkDocs 提供鍵盤可操作的播放／暫停，減少動態效果時顯示靜態圖。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-rank-transform-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-rank-transform-motion.svg)。手機可橫向捲動；排序解讀參見 References 的 Fawcett（2006）。
 
+## 動畫示範：分數量化如何產生同分並改變 ROC-AUC
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="分數量化後的 ROC-AUC 與成對排序變化">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-score-quantization-still.svg" data-still-src="../../../../assets/concept-animations/roc-score-quantization-still.svg" data-motion-src="../../../../assets/concept-animations/roc-score-quantization-motion.svg" alt="四筆人工設定的正負例分數量化到最近的 0.5 倍數，原本兩組正確排序變成同分；成對比較由三勝一敗、ROC-AUC 0.75，變成一勝一敗兩組同分、ROC-AUC 0.50。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）；全部為人工示意分數，並非模型實測。* 正例分數為 **0.90、0.60**，負例為 **0.80、0.30**。原本四組正負配對有三組正確排序，故 $\mathrm{AUC}=3/4=0.75$。將每個分數**四捨五入到最接近的 0.5 倍數**後，正例變成 $(1.0,0.5)$，負例也變成 $(1.0,0.5)$；配對結果變為**一勝、一敗、兩組同分**，因此 $\mathrm{AUC}=(1+0+0.5+0.5)/4=0.50$。
+
+這並不違反前一節的排序不變性：**嚴格遞增**轉換不會改變正負配對的相對次序，但**多對一量化**可能將不同分數合併成同分。量化也**不保證 AUC 一定下降**：如果原本排序錯誤的配對變成同分，該配對的貢獻反而會從 0 增加到 0.5。圖中的圓點平滑移動只是**兩個有效分數狀態之間的視覺過渡**，不能將中途位置當成另一種量化規則。GitHub 靜態回退顯示量化後結果：[GitHub 可見的 SVG 預覽](../../../../assets/concept-animations/roc-score-quantization-still.svg) · [完整動態 SVG](../../../../assets/concept-animations/roc-score-quantization-motion.svg)。MkDocs 可用鍵盤播放／暫停，偏好減少動態效果時顯示靜態影格；窄螢幕可聚焦並水平捲動圖框。成對 AUC 定義參見文末 Fawcett（2006）。
+
 ## 性質與變體
 
 - **機率意義。** ROC-AUC 等於隨機一個正例的分數高於隨機一個負例的機率，分數相同時計為一半。這就是曼–惠特尼 U 統計量除以正負配對數。
