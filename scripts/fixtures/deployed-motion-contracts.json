@@ -630,6 +630,21 @@
         }
       ]
     },
+    "accuracy-multilabel-error-placement": {
+      "origins": [
+        {
+          "origin_blob": "47a03ce06ed61df52e62252ada24f6cf709281be",
+          "origin_commit": "aa43001eb40c4712466815182e45793f498f406d",
+          "path": "docs/assets/concept-animations/accuracy-multilabel-error-placement-motion.svg"
+        },
+        {
+          "origin_blob": "b4b74ffb3a0a29c60f0350b14e2a95c3a6637f2e",
+          "origin_commit": "aa43001eb40c4712466815182e45793f498f406d",
+          "path": "docs/assets/concept-animations/accuracy-multilabel-error-placement-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "accuracy-prevalence": {
       "origins": [
         {
@@ -641,6 +656,21 @@
           "origin_blob": "c1a8da9a82a5fa174018a45bfb10436fdd69cf67",
           "origin_commit": "15c481b6e404a995701352554969476d4bf66fc8",
           "path": "docs/assets/concept-animations/accuracy-prevalence-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "accuracy-sample-weight-ranking": {
+      "origins": [
+        {
+          "origin_blob": "5295301e2a992c25578f89784765ac4433401065",
+          "origin_commit": "aa43001eb40c4712466815182e45793f498f406d",
+          "path": "docs/assets/concept-animations/accuracy-sample-weight-ranking-motion.svg"
+        },
+        {
+          "origin_blob": "f0387a6f654dc8bb8b5df80eb749e36d77a5d662",
+          "origin_commit": "aa43001eb40c4712466815182e45793f498f406d",
+          "path": "docs/assets/concept-animations/accuracy-sample-weight-ranking-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
