@@ -1104,6 +1104,7 @@ _still = (_condition / 'confusion-condition-direction-still.svg').read_text(enco
 assert 'viewBox="0 0 640 360"' in _motion and 'viewBox="0 0 640 360"' in _still
 assert '<animate ' in _motion and '<animate ' not in _still
 assert 'prefers-reduced-motion' in _motion
+assert 'opacity:0!important' in _motion and 'opacity:1!important' in _motion
 assert 'dur="16s"' in _motion and 'calcMode="discrete"' in _motion
 for key in ('0.667', '0.750', '0.800', '0.600'):
     assert key in _motion
