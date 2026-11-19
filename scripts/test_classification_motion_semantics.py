@@ -1193,3 +1193,46 @@ for _stem, _duration, _num_stages in (("accuracy-topk-window", "12s", 3), ("accu
         _doc = Path("docs/theory/evaluation/metrics/classification/accuracy" + _locale).read_text(encoding="utf-8")
         assert f'{_stem}-still.svg' in _doc and f'{_stem}-motion.svg' in _doc
 print("Top-k window and tie policy arithmetic and animation states OK")
+
+
+# The same number of multilabel mistakes can produce different exact-match
+# scores depending on which examples contain them (4 samples x 3 labels).
+ml_spread={(0,0),(1,1),(2,2)}
+ml_cluster={(3,0),(3,1),(3,2)}
+def _exact_for_errors(errors):
+    return sum(all((row,col) not in errors for col in range(3))
+               for row in range(4))/4
+assert len(ml_spread)==len(ml_cluster)==3
+assert _exact_for_errors(ml_spread)==0.25
+assert _exact_for_errors(ml_cluster)==0.75
+assert 1-len(ml_spread)/(4*3)==1-len(ml_cluster)/(4*3)==0.75
+
+# Sample-weighted accuracy reverses a fixed pairwise model ranking.
+a_right=(1,1,1,1,0)
+b_right=(1,1,0,0,1)
+def _weighted_accuracy(correct,w):
+    return sum(c*weight for c,weight in zip(correct,w))/sum(w)
+assert _weighted_accuracy(a_right,(1,)*5)==0.8
+assert _weighted_accuracy(b_right,(1,)*5)==0.6
+assert math.isclose(_weighted_accuracy(a_right,(1,1,1,1,5)),4/9)
+assert math.isclose(_weighted_accuracy(b_right,(1,1,1,1,5)),7/9)
+
+from xml.etree import ElementTree as _AccuracySVG
+for _stem in ('accuracy-multilabel-error-placement','accuracy-sample-weight-ranking'):
+    _motion=(asset_root/f'{_stem}-motion.svg')
+    _still=(asset_root/f'{_stem}-still.svg')
+    _motion_root=_AccuracySVG.parse(_motion).getroot()
+    _still_root=_AccuracySVG.parse(_still).getroot()
+    assert _motion_root.get('viewBox')==_still_root.get('viewBox')=='0 0 640 360'
+    _animations=list(_motion_root.iter('{http://www.w3.org/2000/svg}animate'))
+    assert len(_animations)==2
+    assert all(a.get('dur')=='8s' and a.get('calcMode')=='discrete'
+               and a.get('keyTimes')=='0;0.5;1' for a in _animations)
+    assert not list(_still_root.iter('{http://www.w3.org/2000/svg}animate'))
+    assert 'prefers-reduced-motion' in _motion.read_text(encoding='utf-8')
+    for _locale in ('.md','.zh-TW.md'):
+        _accuracy=(shared_dir/f'accuracy{_locale}').read_text(encoding='utf-8')
+        assert f'src="../../../../assets/concept-animations/{_stem}-still.svg"' in _accuracy
+        assert f'data-motion-src="../../../../assets/concept-animations/{_stem}-motion.svg"' in _accuracy
+        assert f'](../../../../assets/concept-animations/{_stem}-still.svg)' in _accuracy
+print('Multilabel error placement and sample-weight rank reversal: exact synthetic arithmetic, bilingual assets and SVG stage contracts OK')

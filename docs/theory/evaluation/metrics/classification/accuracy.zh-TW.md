@@ -68,6 +68,36 @@ scikit-learn 的 `top_k_accuracy_score` 明確採用**較高類別索引優先**
 
 MkDocs 沿用播放／暫停和減少動態效果回退（較高索引情境）；GitHub 靜態圖則**並排保留兩種結果**。[GitHub 靜態圖](../../../../assets/concept-animations/accuracy-topk-tie-policy-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/accuracy-topk-tie-policy-motion.svg)。
 
+## 多標籤完整符合率與逐標籤正確比例
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可使用方向鍵水平捲動的多標籤錯誤分布動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-multilabel-error-placement-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-multilabel-error-placement-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-multilabel-error-placement-motion.svg" alt="四筆人工樣本各有三個二元標籤。三個錯誤若分散在三筆樣本，完整符合率為四分之一；若集中在一筆樣本，則提高到四分之三，但逐標籤正確比例始終為十二分之九。" width="640" height="360">
+</div>
+</div>
+
+*原創八秒 SVG 教學動畫（CC BY-SA 4.0）。* 這些是**人為構造的比較結果，不是模型實測指標**。綠色勾號表示該二元標籤預測正確，橘色叉號表示錯誤；計算此示例只需比較結果，不必指定每格的原始 0/1 值。兩種分布都正確預測 **12 格中的 9 格**，逐標籤正確比例為 **0.75**、Hamming loss 為 **0.25**。但多標籤的 subset accuracy 要求**同一筆樣本的三個標籤全部正確**。將三個錯誤分散至三筆樣本時為 **1/4 = 0.25**；集中到一筆樣本時則為 **3/4 = 0.75**。因此，完整符合率也取決於**不同標籤的錯誤如何共同出現在各筆樣本**，不能只由逐標籤平均正確率推算。參見 [scikit-learn Accuracy 定義](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html)及 [Hamming loss 文件](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.hamming_loss.html)。
+
+MkDocs 可以播放／暫停；手機可聚焦圖像區域後以方向鍵水平捲動。減少動態效果模式固定為錯誤集中狀態。GitHub 的[雙情境靜態圖](../../../../assets/concept-animations/accuracy-multilabel-error-placement-still.svg)會同時顯示兩種結果；另可查看[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-multilabel-error-placement-motion.svg)。
+
+## 樣本權重可以反轉準確率排名
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可使用方向鍵水平捲動的加權準確率動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-sample-weight-ranking-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-sample-weight-ranking-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-sample-weight-ranking-motion.svg" alt="兩個模型對五筆人工樣本的預測都不變。等權重時 A 與 B 的準確率分別為 0.800 和 0.600；將第五筆樣本的權重由一改為五後，加權準確率變為九分之四與九分之七，排名反轉。" width="640" height="360">
+</div>
+</div>
+
+*原創八秒 SVG 教學動畫（CC BY-SA 4.0）。* 模型 A 在第 1–4 筆預測正確，模型 B 在第 1、2、5 筆正確。兩者預測結果完全固定。五筆全部等權重時，A 為 **4/5 = 0.800**、B 為 **3/5 = 0.600**。如果只將第 5 筆的權重改成 **5**，其他仍為 1，結果就反轉為 **A = 4/9 ≈ 0.444**、**B = 7/9 ≈ 0.778**。
+
+$
+\mathrm{WeightedAccuracy}=\frac{\sum_i w_i\,\mathbf{1}(\hat y_i=y_i)}{\sum_i w_i}, \qquad w_i\ge 0,\ \sum_i w_i>0.
+$
+
+權重為**人為設定的重要性係數**，不是實際抽樣頻率、部署母體盛行率估計或推薦的類別平衡權重，也不代表 B 學習得更好。權重必須對應事先定義的評估目的（例如抽樣設計或部署損失），比較不同模型時也應使用同一套權重。scikit-learn 的 [`accuracy_score`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html) 提供 `sample_weight` 參數。
+
+MkDocs 沿用播放／暫停與手機鍵盤水平捲動；減少動態效果模式固定顯示加權結果。GitHub 使用[兩種權重設定的靜態預覽](../../../../assets/concept-animations/accuracy-sample-weight-ranking-still.svg)；另可查看[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-sample-weight-ranking-motion.svg)。
+
 ## 解讀
 
 準確率在預測標籤已固定時容易解釋；若模型輸出分數，轉換成標籤的規則（二元分類門檻或多類別 argmax 等）可能改變準確率。它的弱點是取決於類別比例。若 99% 的案例是負例，一個從不預測正例的模型，準確率就有 99%，但完全找不到任何正例。

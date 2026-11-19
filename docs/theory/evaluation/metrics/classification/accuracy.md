@@ -68,6 +68,36 @@ scikit-learn's `top_k_accuracy_score` explicitly prioritises **higher class indi
 
 MkDocs supports Play/Pause and a reduced-motion still (higher-index case); GitHub's static preview deliberately shows **both** policies. [GitHub still](../../../../assets/concept-animations/accuracy-topk-tie-policy-still.svg) · [Animated SVG](../../../../assets/concept-animations/accuracy-topk-tie-policy-motion.svg).
 
+## Multilabel exact match versus label-wise agreement
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Keyboard-scrollable multilabel error-layout animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-multilabel-error-placement-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-multilabel-error-placement-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-multilabel-error-placement-motion.svg" alt="Four synthetic samples each have three binary labels. Moving the same three incorrect label decisions from three different samples into one sample changes exact-match accuracy from one quarter to three quarters, while label-wise accuracy stays nine of twelve." width="640" height="360">
+</div>
+</div>
+
+*Original eight-second SVG teaching animation (CC BY-SA 4.0).* All values are **constructed comparisons, not measured model scores**. A green tick means one predicted binary label agrees with its true value; orange crosses mark disagreement. The raw binary values are not needed to evaluate these match indicators. In both layouts, exactly **9 of 12 label decisions are correct** (label-wise agreement 0.75, or Hamming loss 0.25). But subset accuracy requires **all three labels in a sample** to match: spreading errors across three samples gives **1/4 = 0.25**, while concentrating them in one sample gives **3/4 = 0.75**. Thus per-label agreement does not determine exact-match accuracy; the *joint distribution of label errors across samples* matters. See the [scikit-learn definitions](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html) and [Hamming loss](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.hamming_loss.html).
+
+On MkDocs use Play/Pause and focus the image to scroll with the arrow keys on mobile. Reduced-motion users see the clustered-error stage. GitHub shows both layouts simultaneously: [static comparison](../../../../assets/concept-animations/accuracy-multilabel-error-placement-still.svg) · [full SVG motion](../../../../assets/concept-animations/accuracy-multilabel-error-placement-motion.svg).
+
+## Sample weights can reverse accuracy rankings
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Keyboard-scrollable sample-weighted accuracy animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-sample-weight-ranking-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-sample-weight-ranking-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-sample-weight-ranking-motion.svg" alt="Models A and B make fixed predictions on five synthetic samples. With uniform weights, their accuracies are 0.800 and 0.600. Raising only the fifth sample's weight from one to five changes the weighted accuracies to four ninths and seven ninths, reversing their ordering." width="640" height="360">
+</div>
+</div>
+
+*Original eight-second SVG teaching animation (CC BY-SA 4.0).* The five predictions are held fixed. Model A is correct on cases 1–4 and model B on cases 1, 2 and 5. With weights all one, A scores **4/5 = 0.800**, B **3/5 = 0.600**. Giving case 5 a **weight of five** while the other four remain at one reverses the ordering: **A = 4/9 ≈ 0.444**, **B = 7/9 ≈ 0.778**.
+
+$
+\mathrm{WeightedAccuracy}=\frac{\sum_i w_i\,\mathbf{1}(\hat y_i=y_i)}{\sum_i w_i}, \qquad w_i\ge 0,\ \sum_i w_i>0.
+$
+
+These are **synthetic importance weights**, not observed frequencies, estimated deployment probabilities, class-balancing recommendations or evidence that model B improved. The interpretation depends on how weights were chosen (e.g., survey design or a prespecified deployment objective), and both models must be evaluated under the same scheme. The official [`accuracy_score` API](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html) accepts a `sample_weight` argument.
+
+MkDocs offers Play/Pause and reduced-motion (the weighted stage); the image region supports keyboard scrolling on narrow screens. GitHub compares both weight schemes in its [static preview](../../../../assets/concept-animations/accuracy-sample-weight-ranking-still.svg) · [full SVG motion](../../../../assets/concept-animations/accuracy-sample-weight-ranking-motion.svg).
+
 ## Interpretation
 
 Accuracy is easy to explain once predicted labels are fixed. When the classifier outputs scores, the decision rule (such as a binary cutoff or multiclass argmax) can change accuracy. Its weakness is that it depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
