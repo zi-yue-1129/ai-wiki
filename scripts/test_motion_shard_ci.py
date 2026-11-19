@@ -251,6 +251,20 @@ class SupportGate(unittest.TestCase):
         self.assertEqual(jobs['built-motion-browser']['if'],'always()');self.assertEqual(set(jobs['built-motion-browser']['needs']),{'full-motion','support-browser'})
         self.assertIn('mkdocs build --strict',str(jobs['built-motion-browser']))
         self.assertIn('test_*motion_semantics.py',str(jobs['support-browser']));self.assertNotIn('continue-on-error',text)
+        # Run 44540063208 exhausted the previous 50-minute support job timeout while
+        # all four independently sharded motion jobs passed. Never trade complete
+        # bilingual/browser evidence for a shorter support budget.
+        support_budget=jobs['support-browser']['timeout-minutes']
+        self.assertGreaterEqual(support_budget,90)
+        self.assertLessEqual(support_budget,120)
+        self.assertEqual(jobs['full-motion']['timeout-minutes'],50)
+        self.assertEqual(jobs['built-motion-browser']['timeout-minutes'],30)
+        self.assertIn('python scripts/run_motion_shard_support.py',str(jobs['support-browser']))
+        self.assertNotIn('continue-on-error',str(jobs['support-browser']))
+        for insufficient in (45,50,89):
+            with self.subTest(insufficient=insufficient),self.assertRaises(AssertionError):
+                self.assertGreaterEqual(insufficient,90)
+
         action=yaml.safe_load((ROOT/'.github/actions/upload-browser-parts/action.yml').read_text());self.assertEqual(len(action['runs']['steps']),24)
         for step in action['runs']['steps']:self.assertEqual(step['with']['if-no-files-found'],'error')
         from run_motion_shard_support import commands
