@@ -871,3 +871,40 @@ for name in ("roc-auc.md", "roc-auc.zh-TW.md"):
     assert 'data-source-asset-urls' in content
     assert "56.86" in content
 print("FPR dependent-coverage motion and bilingual source/fallback paths OK")
+
+
+# A prespecified 17-negative zero-alarm test: exact finite-sample operating
+# characteristics. These are probabilities under hypothetical populations.
+from fractions import Fraction as PowerFraction
+cap = PowerFraction(1, 6)
+n_cert = 17
+alpha_cert = PowerFraction(1, 20)
+assert (1-cap)**16 > alpha_cert >= (1-cap)**17
+assert (1-cap)**17 + n_cert*cap*(1-cap)**(n_cert-1) > alpha_cert
+for p_cert, target in ((.01, .842943),(.05, .418120),(.10, .166772),(1/6, .045073)):
+    assert math.isclose((1-p_cert)**n_cert, target, abs_tol=1e-6)
+single_boundary = (1-cap)**n_cert
+assert single_boundary < alpha_cert
+for tries in (1, 5, 10, 20):
+    any_pass = 1-(1-single_boundary)**tries
+    assert any_pass >= single_boundary
+assert .3694 < float(1-(1-single_boundary)**10) < .3696
+assert all((1-PowerFraction(k,1000))**n_cert <= single_boundary
+           for k in range(167,1000))
+for kind in ("motion", "still"):
+    svg = (asset_root / f"roc-fpr-certificate-power-{kind}.svg").read_text(encoding="utf-8")
+    assert 'viewBox="0 0 640 360"' in svg
+    assert 'P(pass) = (1 - p)^17' in svg
+    assert ("<animate " in svg) == (kind == "motion")
+    assert "prefers-reduced-motion" in svg
+for fname, heading in (
+    ("roc-auc.md", "Zero-alarm certification power and repeated attempts"),
+    ("roc-auc.zh-TW.md", "零誤報檢驗的通過機率與重複測試問題"),
+):
+    s = (shared_dir / fname).read_text(encoding="utf-8")
+    assert heading in s
+    assert 'src="../../../../assets/concept-animations/roc-fpr-certificate-power-still.svg"' in s
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-certificate-power-motion.svg"' in s
+    assert "36.95%" in s and "84.3%" in s
+    assert "\n$$\n" + r"P_p(\mathrm{pass})" in s
+print("Zero-alarm certification: fixed-n power, repeated independent attempts, bilingual fallback OK")

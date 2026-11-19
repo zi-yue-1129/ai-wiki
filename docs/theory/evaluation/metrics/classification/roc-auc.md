@@ -298,6 +298,31 @@ $$
 
 This has a **frequentist repeated-sampling coverage** interpretation, not a 95% posterior probability that an individual system is safe, and not a guarantee for each subsequent batch. Independent representative negatives and a prespecified sample size and stopping rule matter; data-dependent stopping requires sequential inference. The moving display contrasts hypothetical sample sizes, **not training iterations**. MkDocs offers keyboard Play/Pause and reduced-motion fallback; narrow screens scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-zero-alarms-motion.svg). See Clopper and Pearson (1934) in References.
 
+
+### Zero-alarm certification power and repeated attempts
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Chance that a prespecified zero-alarm FPR test passes">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-certificate-power-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-certificate-power-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-certificate-power-motion.svg" alt="An original analytic curve for one prespecified batch of seventeen independent negatives: the chance of zero false alarms and hence an FPR upper bound below one sixth falls as true FPR rises. The probabilities are 84.3 percent at one percent FPR, 41.8 percent at five percent, 16.7 percent at ten percent, and 4.5 percent at the one-sixth limit. A moving marker follows the curve; the still highlights five percent." width="640" height="360">
+</div>
+</div>
+
+*Original instructional SVG (CC BY-SA 4.0); analytical hypothetical rates, never model measurements.* The preceding exact bound is an **inference after observing zero alarms**. The reverse design question is how likely a precommitted test is to produce that evidence at a true population FPR $p$. With **exactly 17 independent, representative negative cases**, an unadjusted one-sided 95% Clopper–Pearson upper bound is strictly below the illustrative $1/6$ cap **only when $K=0$**: at $K=0$ the bound is $1-0.05^{1/17}\approx0.162$, whereas at $K=1$ it exceeds $1/6$. Thus, for a single prespecified batch,
+
+$$
+P_p(\mathrm{pass})=P_p(K=0)=(1-p)^{17}.
+$$
+
+For invented $p=0.01, 0.05, 0.10, 1/6$, the pass probabilities are about **84.3%, 41.8%, 16.7%, 4.5%**, respectively. A low passing probability does **not** mean the confidence procedure is wrong: the zero-alarm requirement is conservative and can have poor *power* even for a system whose real FPR is below the cap. Against the composite null $p\geq1/6$, a **single precommitted** pass has probability at most $(5/6)^{17}\approx4.51\%$.
+
+**Repeated attempts change the claim.** If $m$ *independent* fresh batches of 17 negatives are tried and only the first passing batch is reported, then
+
+$$
+P_p(\text{at least one pass})=1-\left[1-(1-p)^{17}\right]^m.
+$$
+
+At the boundary $p=1/6$, **ten** independent tries raise the chance of at least one apparent pass to about **36.95%**, not 4.51%. This is **not** a valid single-test 95% certification procedure; reporting the successful batch without accounting for the repeated testing invalidates the stated error control. Reusing data, retuning thresholds, or adaptively deciding when to stop demands a different analysis; the independent-batch formula does not describe those cases. The motion sweeps **possible true FPRs**, not observed model updates. MkDocs supports keyboard Play/Pause, reduced-motion stills, and horizontal scrolling; [GitHub static preview](../../../../assets/concept-animations/roc-fpr-certificate-power-still.svg) · [full SVG animation](../../../../assets/concept-animations/roc-fpr-certificate-power-motion.svg). The one-sided bound uses Clopper–Pearson (1934), already cited below.
+
 ## When false alarms are dependent
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Independent versus shared false alarm distribution">

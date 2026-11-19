@@ -299,6 +299,31 @@ $$
 
 這是**頻率學派重複抽樣程序的涵蓋率**，不是「此系統有 95% 的後驗機率安全」，也不保證未來每個批次都符合上限。需注意負例是否獨立且具代表性，以及樣本數與停止規則是否預先指定；依資料結果動態停止應使用適當的序列推論。動畫切換的是**人工設定的樣本數情境**，不是模型訓練歷程。MkDocs 有鍵盤可操作的播放／暫停與減少動態效果回退，手機可聚焦並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-zero-alarms-motion.svg)。原始方法見 References 中 Clopper 與 Pearson（1934）。
 
+
+### 零誤報檢驗的通過機率與重複測試問題
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="預先指定的零誤報 FPR 檢驗之通過機率">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-certificate-power-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-certificate-power-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-certificate-power-motion.svg" alt="原創解析曲線：固定測試十七筆互相獨立的真實負例，當母體誤報率增加時，觀察零誤報並使 FPR 信賴上界低於六分之一的機率降低。母體 FPR 為百分之一、五、十、六分之一時，通過機率依序約為百分之八十四點三、四十一點八、十六點七、四點五。動畫游標沿曲線移動；靜態預覽停在百分之五。" width="640" height="360">
+</div>
+</div>
+
+*原創 SVG 教學動畫（CC BY-SA 4.0）；所有數值均為人工假設的解析計算，非模型實測。* 前段的精確信賴上界，是在**已觀察到零筆誤報**之後進行推論。反過來問：在母體 FPR 為 $p$ 時，預先承諾的測試有多大機率取得這種證據？若事先固定測試 **17 筆獨立、具代表性的真實負例**，採用未經多重測試調整的 Clopper–Pearson 單側 95% 上界，只有 **$K=0$** 才能讓上界嚴格低於示意限制 $1/6$：$K=0$ 的上界是 $1-0.05^{1/17}\approx0.162$，而 $K=1$ 時的上界已高於 $1/6$。因此，單次預先指定的測試有
+
+$$
+P_p(\mathrm{pass})=P_p(K=0)=(1-p)^{17}.
+$$
+
+假設母體 $p=0.01,0.05,0.10,1/6$，通過機率分別約為 **84.3%、41.8%、16.7%、4.5%**。通過機率低**不代表**信賴區間方法錯誤；要求完全零誤報相當保守，即使真實 FPR 符合限制，檢驗的*檢定力（power）*也可能很低。對複合虛無假設 $p\geq1/6$，**單次、預先承諾**的通過機率最多為 $(5/6)^{17}\approx4.51\%$。
+
+**重複嘗試會改變錯誤率。** 假設執行 $m$ 次**彼此獨立、重新抽樣**的 17 筆負例測試，只報告第一個通過的批次，則
+
+$$
+P_p(\text{at least one pass})=1-\left[1-(1-p)^{17}\right]^m.
+$$
+
+在 $p=1/6$ 的邊界，獨立重測 **10 次**，至少一次表面上通過的機率會提高到約 **36.95%**，而非 4.51%。這**不是**有效的單次 95% 認證程序；若不計入重複檢驗，僅挑選成功批次報告，就不再有宣稱的錯誤率控制。若重複使用同一資料、依測試調整門檻，或依結果決定何時停止，應另行建立合適的推論方法；上述獨立批次公式不適用。動畫移動的是**可能的真實 FPR**，不是模型更新。MkDocs 有鍵盤播放／暫停、減少動態效果回退及手機水平捲動；[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-certificate-power-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-certificate-power-motion.svg)。單側上界沿用文末已列的 Clopper–Pearson（1934）。
+
 ## 誤報之間不獨立時會發生什麼事
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="獨立誤報與共同衝擊下的誤報數分布">

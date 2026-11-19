@@ -9153,6 +9153,21 @@
         }
       ],
       "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-certificate-power": {
+      "origins": [
+        {
+          "origin_blob": "7a1dd6b615001f784be65631b5cdf6f1ed539323",
+          "origin_commit": "358325f70f5204a3da8d44ec20c767f298c64294",
+          "path": "docs/assets/concept-animations/roc-fpr-certificate-power-motion.svg"
+        },
+        {
+          "origin_blob": "c3df196f34809b7312f0766a31ebea2471cda8c2",
+          "origin_commit": "358325f70f5204a3da8d44ec20c767f298c64294",
+          "path": "docs/assets/concept-animations/roc-fpr-certificate-power-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {
