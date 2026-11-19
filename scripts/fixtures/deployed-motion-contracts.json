@@ -1830,8 +1830,8 @@
     "confusion-condition-direction": {
       "origins": [
         {
-          "origin_blob": "e4f201b7cb866afdb6f0313b50bb15325b6aebd3",
-          "origin_commit": "6987144e3daafa4651eb995ed0834835a557dfa4",
+          "origin_blob": "f5d9d619634a81c86b3b8a429ab3be3e2bbda19a",
+          "origin_commit": "45e6b45a97a25730cde7d9f4e8d3554f29753730",
           "path": "docs/assets/concept-animations/confusion-condition-direction-motion.svg"
         },
         {
