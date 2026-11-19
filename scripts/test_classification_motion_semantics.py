@@ -732,3 +732,48 @@ for name, heading in (
     assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-dependence-motion.svg"' in page
     assert "91/216" in page and "5/108" in page and "5/36" in page
 print("Dependent false alarms: exact marginal, tail and variance identities; bilingual fallback and motion assets OK")
+
+
+# Zero observed alarms are thirty *records*, not thirty independent draws,
+# when every false-alarm indicator is a copy of one shared Bernoulli shock.
+# Only under the iid construction is the usual n=30 CP upper bound valid.
+from fractions import Fraction as ExactFraction
+shared_p = ExactFraction(1, 6)
+alpha = .05
+n_records = 30
+zero_iid = (1 - shared_p) ** n_records
+zero_shared = 1 - shared_p
+upper_iid_if_zero = 1 - alpha ** (1 / n_records)
+upper_shared_if_zero = 1 - alpha
+assert zero_iid < ExactFraction(1, 200)
+assert zero_shared == ExactFraction(5, 6)
+assert math.isclose(upper_iid_if_zero, .09503385285530419, abs_tol=1e-14)
+assert upper_iid_if_zero < shared_p < upper_shared_if_zero
+# Under the fully dependent model K is either 0 or 30. The mistaken iid
+# interval fails exactly in the K=0 state; actual coverage is 1/6, not 95%.
+naive_coverage = (1 - float(zero_shared)) * 1 + float(zero_shared) * 0
+assert math.isclose(naive_coverage, 1 / 6, abs_tol=1e-14)
+# Under the correctly specified single-shock model, both outcome-specific
+# one-sided 95% CP upper bounds (.95 for 0, 1 for 1) include p=1/6.
+assert all(shared_p <= bound for bound in (upper_shared_if_zero, 1.))
+for kind in ("motion", "still"):
+    source = (asset_root / f"roc-fpr-shared-bound-{kind}.svg").read_text(encoding="utf-8")
+    assert 'viewBox="0 0 640 360"' in source
+    assert "Zero alarms do not yield the same evidence under dependence" in source
+    assert "One shared shock" in source
+    assert "95%" in source and "9.5%" in source
+    assert ("<animate " in source) == (kind == "motion")
+    if kind == "motion":
+        assert "prefers-reduced-motion" in source and 'class="still"' in source
+for filename, title in (
+    ("roc-auc.md", "why thirty identical alarms are not thirty independent trials"),
+    ("roc-auc.zh-TW.md", "三十筆完全相依資料，不等於三十次獨立試驗"),
+):
+    page = (shared_dir / filename).read_text(encoding="utf-8")
+    assert title in page
+    assert 'src="../../../../assets/concept-animations/roc-fpr-shared-bound-still.svg"' in page
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-shared-bound-motion.svg"' in page
+    assert r"U_{\mathrm{iid}}&=1-0.05^{1/30}" in page
+    assert r"U_{\mathrm{shared}}&=1-0.05=0.95" in page
+    assert "\n$$\n\\begin{aligned}\nP_p(K=0" in page
+print("Shared-shock versus iid zero-alarm bounds: analytic coverage and bilingual motion regression OK")
