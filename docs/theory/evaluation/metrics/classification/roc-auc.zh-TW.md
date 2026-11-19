@@ -356,6 +356,25 @@ $$
 
 兩個上界都針對**人工假設的零誤報觀察**，但各自只在相應的抽樣模型成立時有效。圖中的 $1/6$ FPR 限制是示意規格，**不是實測部署保證**。在共同衝擊模型且真實 $p=1/6$ 時，若誤把三十筆視為獨立、套用二項分布信賴上界，發生零誤報的機率是 $5/6$，這時上界 **無法涵蓋**真實 $p$。此程序的實際涵蓋率因此只有 **$1/6$（16.7%）**，而不是宣稱的 95%；若全部三十筆都誤報，上界則為 1，會涵蓋 $p$。這個精確結論**僅限於完全相依的極端人工模型**，不能直接套用於任意程度的相關性；一般相依情境需要合適的抽樣模型、獨立群組或其他有效推論方法。動畫增加的是**記錄的零誤報負例數**，不是模型訓練時間。MkDocs 提供鍵盤播放／暫停；Reduced Motion 顯示完整兩條曲線；手機可以聚焦圖框並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-shared-bound-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-shared-bound-motion.svg)。二項分布反解取自文末 Clopper–Pearson（1934），共同衝擊比較為原創數學示例。
 
+
+
+### 從獨立到共同衝擊：信賴上界的實際涵蓋率
+
+前面的動畫比較兩個端點；同一個**明確定義的批次層級混合模型**也能連續連接它們：對整批三十筆記錄，以機率 $1-\rho$ 採用獨立伯努利生成，以機率 $\rho$ 採用完全共同衝擊。當人工設定的真實 $p=1/6$，每筆記錄的邊際 FPR 雖不變，觀察到零誤報的機率卻會隨相依程度增加。若仍錯誤套用獨立樣本的 Clopper–Pearson 單側 95% 信賴上界，其**實際重複抽樣涵蓋率**為：
+
+$
+\begin{aligned}
+P_{\rho}(K=0)&=(1-\rho)(5/6)^{30}+\rho(5/6),\\
+q_{\mathrm{iid}}&=P_{\mathrm{Bin}(30,1/6)}(K\leq1)
+=(5/6)^{30}+30(1/6)(5/6)^{29},\\
+\mathrm{Coverage}_{\rho}&=(1-\rho)(1-q_{\mathrm{iid}})+\rho/6.
+\end{aligned}
+$
+
+在**這個特定** $n=30$、$p=1/6$ 的例子中，若觀察誤報數為 **0 或 1**，錯用獨立二項分布反解出的單側上界都會低於真實 $1/6$，因此無法涵蓋真實參數。實際涵蓋率由 **$\rho=0$ 的 97.05%**，降至 **$\rho=0.5$ 的 56.86%**，再降至 **$\rho=1$ 的 16.67%**。名義上 95% 的涵蓋率是以獨立抽樣模型正確為前提，**不會自動延續至相關資料**。
+
+這裡每個批次只選一次生成機制，不是每筆記錄獨立混合；$\rho$ 僅在此特定人工模型中同時代表機制混合權重與成對相關係數，不能當成通用相關性修正或實際估計值。所有數字均由假設推導，**不是部署實測結果**。前一組動畫以兩端的信賴上界曲線說明相同三十筆記錄可能具有不同資訊量，這段涵蓋率計算則精確呈現使用錯誤概似模型的後果。
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="受 FPR 上限約束的隨機 ROC 決策規則">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="人工 ROC 的兩個門檻連線與下降中的預期成本曲線共用隨機混合標記。FPR 上限為六分之一，因此混合機率最多二分之一；可行邊界的成本為三十分之十一。" width="640" height="360">
