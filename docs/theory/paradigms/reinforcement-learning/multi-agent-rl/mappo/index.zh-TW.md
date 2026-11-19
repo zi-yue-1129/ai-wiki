@@ -36,6 +36,7 @@ MAPPO 即[近端策略最佳化](../../proximal-policy-optimisation/index.md)的
 ### 集中式價值函數如何向後計算 GAE
 
 以一個智能體的軌跡為例，僅訓練階段使用的集中式評論家提供 \(V(s_t)\)。標準 PPO 型的 GAE 遞迴為：
+
 \[
 \delta_t=r_t+\gamma(1-d_t)V(s_{t+1})-V(s_t).
 \]
@@ -43,6 +44,7 @@ MAPPO 即[近端策略最佳化](../../proximal-policy-optimisation/index.md)的
 \[
 \hat A_t=\delta_t+\gamma\lambda(1-d_t)\hat A_{t+1}.
 \]
+
 圖中設定 \(\gamma=0.9\)、\(\lambda=0.8\)、獎勵 \((0.2,0.4,0.6)\)、評論家估計值 \((1.0,0.8,0.5,0)\)，最後一步為終止狀態。先得到 \(\delta=(-0.08,0.05,0.10)\)，再**由後往前**得到 \(\hat A_2=0.10\)、\(\hat A_1=0.122\)、\(\hat A_0=0.00784\)。這是 MAPPO 集中式價值條件與一般 GAE 的組合示範；**不是訓練所得數據，也不代表所有智能體共享相同獎勵**。
 
 <div class="marl-source-scroll" tabindex="0" role="region" aria-label="MAPPO 使用集中式價值估計建立每個時間步的 TD 殘差，再向後遞迴 GAE" style="max-width:100%;overflow-x:auto">
