@@ -3428,6 +3428,21 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "roc-tie-group-step": {
+      "origins": [
+        {
+          "origin_blob": "4b61471fa16826dcc0c944a68859a09eae6e0f64",
+          "origin_commit": "0c29ae06e7249b4cf822f1a99a4746a2439a09a7",
+          "path": "docs/assets/concept-animations/roc-tie-group-step-motion.svg"
+        },
+        {
+          "origin_blob": "b83501ad79279b521d16fad84498da43f2405a24",
+          "origin_commit": "1c4afa97acfce2b98e4325cd2140c7e5e74c0580",
+          "path": "docs/assets/concept-animations/roc-tie-group-step-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "roc-tie-half-credit": {
       "origins": [
         {
