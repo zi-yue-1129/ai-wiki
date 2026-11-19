@@ -1,5 +1,6 @@
 """Synthetic selective-classification arithmetic and SVG stage contracts."""
 from fractions import Fraction
+import re
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -42,8 +43,24 @@ for stem, n, duration in (
         assert f'src="../../../../assets/concept-animations/{stem}-still.svg"' in page
         assert f'data-motion-src="../../../../assets/concept-animations/{stem}-motion.svg"' in page
         assert f'](../../../../assets/concept-animations/{stem}-still.svg)' in page
-for suffix in (".md",".zh-TW.md"):
-    text=(PAGES/("accuracy"+suffix)).read_text()
-    assert "\\n$\\n\\\\mathrm{WeightedAccuracy}" in text
+# Regression: a previous CI test expected a lone "$" even after the bilingual
+# chapters had been corrected to display MathJax "$$". Assert semantic fences
+# rather than hard-coding the obsolete (and mobile-overflow-prone) delimiter.
+for suffix, explanation in (
+    (".md", "not a deployable rule"),
+    (".zh-TW.md", "不是部署時能讀取未知真實標籤"),
+):
+    text = (PAGES / ("accuracy" + suffix)).read_text(encoding="utf-8")
+    display_blocks = re.findall(r"(?ms)^\\$\\$[ \\t]*\\n(.*?)\\n\\$\\$[ \\t]*$", text)
+    weighted = [block for block in display_blocks
+                if block.lstrip().startswith(r"\\mathrm{WeightedAccuracy}=")]
+    assert len(weighted) == 1, (suffix, "missing or duplicated display-math formula")
+    assert r"\\frac{\\sum_i w_i" in weighted[0]
+    assert r"\\sum_i w_i>0" in weighted[0]
+    # A standalone single-dollar line creates inline MathJax on narrow screens.
+    assert not re.search(r"(?m)^\\$[ \\t]*$", text), (suffix, "inline-math fence")
     assert "1705.08500" in text
-print("Selective coverage and class-conditional abstention examples verified")
+    # True labels may be used to audit coverage, but cannot drive a deployable
+    # rejection rule at inference time.
+    assert explanation in text, (suffix, "missing deployability caveat")
+print("Selective coverage, bilingual display math and rejection caveats verified")
