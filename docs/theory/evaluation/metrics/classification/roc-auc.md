@@ -298,6 +298,21 @@ $$
 
 This has a **frequentist repeated-sampling coverage** interpretation, not a 95% posterior probability that an individual system is safe, and not a guarantee for each subsequent batch. Independent representative negatives and a prespecified sample size and stopping rule matter; data-dependent stopping requires sequential inference. The moving display contrasts hypothetical sample sizes, **not training iterations**. MkDocs offers keyboard Play/Pause and reduced-motion fallback; narrow screens scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-zero-alarms-motion.svg). See Clopper and Pearson (1934) in References.
 
+## When false alarms are dependent
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Independent versus shared false alarm distribution">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-dependence-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-dependence-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-dependence-motion.svg" alt="Three hypothetical negative cases retain marginal false-positive probability one sixth. Switching from independent alarms to a single perfectly shared Bernoulli shock moves the batch-count distribution from binomial bars across zero to three alarms to only zero or three alarms. The probability of any alarm changes from 42.1 to 16.7 percent." width="640" height="360">
+</div>
+</div>
+
+*Original animated visual and GitHub static comparison (CC BY-SA 4.0).* The earlier binomial batch and Clopper–Pearson examples **assume independent negative observations**. To see why this matters, contrast two **hypothetical joint models for three truly negative cases**. Each case has the same *marginal* false-alarm probability $p=1/6$:
+
+- **Independent alarms:** $K\sim\mathrm{Binomial}(3,1/6)$, giving $P(K\geq1)=91/216\approx42.1\%$.
+- **One perfectly shared shock:** draw $Z\sim\mathrm{Bernoulli}(1/6)$ once, then set every case's alarm indicator equal to $Z$. Consequently $K=3Z$ and $P(K\geq1)=1/6\approx16.7\%$.
+
+Both have $E[K/3]=1/6$, yet the **batch distributions differ**. In this particular construction the probability of *any* alarm decreases under complete positive dependence, while the empirical-rate variance **increases** from $5/108$ to $5/36$; dependence does not have one universally beneficial direction. Treating the shared-shock batch as three independent Bernoulli trials would invalidate the binomial likelihood and the preceding exact confidence-bound calculation. All values are synthetic, **not measured model or deployment results**. The bars animate between alternative data-generating assumptions, **not training steps or a temporal change in a deployed model**. MkDocs supplies keyboard-accessible Play/Pause; the still compares both distributions when animation is unavailable or reduced motion is preferred. On mobile, focus and scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-dependence-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-dependence-motion.svg).
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="FPR-constrained randomized ROC policy">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="A synthetic two-threshold ROC segment and a falling expected-cost line share a moving randomized-policy marker. The FPR cap at one sixth limits the mixing probability to one half; the feasible boundary has expected cost eleven thirtieths." width="640" height="360">

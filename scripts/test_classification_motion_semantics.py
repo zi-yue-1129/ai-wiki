@@ -702,3 +702,33 @@ for filename,heading in (
     assert r"U_{0.95}(n)=1-0.05^{1/n}" in page
     assert "10.1093/biomet/26.4.404" in page
 print("Exact zero-alarm FPR upper-bound and bilingual motion assets OK")
+
+# Dependence changes the distribution of batch counts without changing any
+# marginal false-alarm probability. The exact fractions are independent of SVG.
+p = Fraction(1, 6)
+independent = [Fraction(math.comb(3, k) * 5**(3-k), 216) for k in range(4)]
+shared = [Fraction(5, 6), Fraction(0), Fraction(0), Fraction(1, 6)]
+assert independent == [Fraction(125,216), Fraction(75,216), Fraction(15,216), Fraction(1,216)]
+assert sum(independent) == sum(shared) == 1
+for masses in (independent, shared):
+    assert sum(Fraction(k, 3) * masses[k] for k in range(4)) == p
+assert sum(independent[1:]) == Fraction(91, 216)
+assert sum(shared[1:]) == Fraction(1, 6)
+assert sum((Fraction(k,3)-p)**2*independent[k] for k in range(4)) == Fraction(5,108)
+assert sum((Fraction(k,3)-p)**2*shared[k] for k in range(4)) == Fraction(5,36)
+for kind in ("motion", "still"):
+    svg = (asset_root / f"roc-fpr-dependence-{kind}.svg").read_text(encoding="utf-8")
+    assert 'viewBox="0 0 640 360"' in svg
+    assert "Different" in svg or "different batch risk" in svg
+    assert (svg.count("<animate ") > 0) == (kind == "motion")
+    assert "prefers-reduced-motion" in svg
+for name, heading in (
+    ("roc-auc.md", "When false alarms are dependent"),
+    ("roc-auc.zh-TW.md", "誤報之間不獨立時會發生什麼事"),
+):
+    page = (shared_dir / name).read_text(encoding="utf-8")
+    assert heading in page
+    assert 'src="../../../../assets/concept-animations/roc-fpr-dependence-still.svg"' in page
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-dependence-motion.svg"' in page
+    assert "91/216" in page and "5/108" in page and "5/36" in page
+print("Dependent false alarms: exact marginal, tail and variance identities; bilingual fallback and motion assets OK")

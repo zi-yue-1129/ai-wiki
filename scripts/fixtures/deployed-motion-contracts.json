@@ -9108,6 +9108,21 @@
         }
       ],
       "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-dependence": {
+      "origins": [
+        {
+          "origin_blob": "e07d21f90af111a8c836526ffebc869048de058a",
+          "origin_commit": "dda8005a65139ea43a8d1d81243d7367152cc019",
+          "path": "docs/assets/concept-animations/roc-fpr-dependence-motion.svg"
+        },
+        {
+          "origin_blob": "bd5f5848f3887127dda56c7d485aca6c70ccd4ba",
+          "origin_commit": "dda8005a65139ea43a8d1d81243d7367152cc019",
+          "path": "docs/assets/concept-animations/roc-fpr-dependence-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {

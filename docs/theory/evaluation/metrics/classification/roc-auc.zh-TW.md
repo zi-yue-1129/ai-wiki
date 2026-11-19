@@ -299,6 +299,21 @@ $$
 
 這是**頻率學派重複抽樣程序的涵蓋率**，不是「此系統有 95% 的後驗機率安全」，也不保證未來每個批次都符合上限。需注意負例是否獨立且具代表性，以及樣本數與停止規則是否預先指定；依資料結果動態停止應使用適當的序列推論。動畫切換的是**人工設定的樣本數情境**，不是模型訓練歷程。MkDocs 有鍵盤可操作的播放／暫停與減少動態效果回退，手機可聚焦並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-zero-alarms-motion.svg)。原始方法見 References 中 Clopper 與 Pearson（1934）。
 
+## 誤報之間不獨立時會發生什麼事
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="獨立誤報與共同衝擊下的誤報數分布">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-dependence-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-dependence-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-dependence-motion.svg" alt="三筆假想真實負例的個別誤報機率均為六分之一。動畫比較三筆誤報互相獨立，以及共用同一次伯努利衝擊的情形：原本誤報數零至三的二項分布轉變為只可能零筆或三筆，至少一筆誤報的機率從 42.1% 變成 16.7%。" width="640" height="360">
+</div>
+</div>
+
+*原創 SVG 教學動畫與 GitHub 靜態對照（CC BY-SA 4.0）。* 前面的有限批次二項分布與 Clopper–Pearson 信賴上界都要求**真實負例的觀察相互獨立**。比較三筆真實負例的兩種**人工設定聯合分布**，讓每一筆的*邊際*誤報機率都維持 $p=1/6$：
+
+- **各筆誤報獨立：** $K\sim\mathrm{Binomial}(3,1/6)$，因此 $P(K\geq1)=91/216\approx42.1\%$。
+- **三筆共用同一次衝擊：** 只抽取一次 $Z\sim\mathrm{Bernoulli}(1/6)$，三筆是否誤報都等於 $Z$。此時 $K=3Z$，故 $P(K\geq1)=1/6\approx16.7\%$。
+
+兩種情況的 $E[K/3]$ 都是 $1/6$，但**有限批次誤報數的聯合分布不同**。在這個特定例子裡，完全正相關使「至少一筆誤報」機率下降，卻使經驗誤報率的變異數從 $5/108$ **增加至** $5/36$；不能概括宣稱相關性一定降低風險。若將共用衝擊的批次誤當成三個獨立伯努利試驗，前面的二項分布推論與精確信賴上界便不適用。**所有數值均為人工示意，非模型或部署實測。** 動畫變換的是**兩種資料生成假設**，不是模型訓練過程或實際部署隨時間變化。MkDocs 提供鍵盤可操作的播放／暫停；無法播放或偏好減少動態效果時，靜態回退圖同時呈現兩種分布。手機上可聚焦並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-dependence-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-dependence-motion.svg)。
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="受 FPR 上限約束的隨機 ROC 決策規則">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="人工 ROC 的兩個門檻連線與下降中的預期成本曲線共用隨機混合標記。FPR 上限為六分之一，因此混合機率最多二分之一；可行邊界的成本為三十分之十一。" width="640" height="360">
