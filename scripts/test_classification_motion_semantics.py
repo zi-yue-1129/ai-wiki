@@ -945,3 +945,35 @@ for name, heading in (
     assert "36.95%" in page and "4.13%" in page
     assert "\n$$\n" + r"R_n(m)=" in page
 print("Repeated FPR certification: ten exact test counts, Bonferroni n=30, bilingual paths OK")
+
+
+# Six invented scores: one positive and two negatives share 0.70.
+# A score-only threshold cannot split this block; a diagonal in a ROC
+# plot is interpolation between whole decision rules.
+tie_cases = ((.90, 1), (.70, 1), (.70, 0), (.70, 0), (.40, 0), (.20, 0))
+tie_pos = [score for score, label in tie_cases if label]
+tie_neg = [score for score, label in tie_cases if not label]
+tie_auc = sum((1 if pos > neg else .5 if pos == neg else 0)
+              for pos in tie_pos for neg in tie_neg) / (len(tie_pos)*len(tie_neg))
+assert math.isclose(tie_auc, 7/8)
+tie_points = []
+for threshold in (1, .90, .70, .40, .20):
+    tp = sum(label and score >= threshold for score, label in tie_cases)
+    fp = sum(not label and score >= threshold for score, label in tie_cases)
+    tie_points.append((fp/4, tp/2))
+assert tie_points == [(0,0),(0,.5),(.5,1),(.75,1),(1,1)]
+# The two .70 endpoints differ in both rates: no score threshold yields (.25,.75).
+assert (.25,.75) not in tie_points
+tie_area = sum((r[0]-l[0])*(r[1]+l[1])/2
+               for l, r in zip(tie_points, tie_points[1:]))
+assert math.isclose(tie_area,tie_auc)
+tie_dir = Path("docs/assets/concept-animations")
+tie_motion=(tie_dir/"roc-tie-group-step-motion.svg").read_text(encoding="utf-8")
+tie_still=(tie_dir/"roc-tie-group-step-still.svg").read_text(encoding="utf-8")
+assert 'viewBox="0 0 640 360"' in tie_motion and 'viewBox="0 0 640 360"' in tie_still
+assert 'calcMode="discrete"' in tie_motion and 'prefers-reduced-motion' in tie_motion
+assert '<animate ' in tie_motion and '<animate ' not in tie_still
+for lang in ("roc-auc.md","roc-auc.zh-TW.md"):
+    page=(Path("docs/theory/evaluation/metrics/classification")/lang).read_text(encoding="utf-8")
+    assert "roc-tie-group-step-motion.svg" in page and "roc-tie-group-step-still.svg" in page
+print("Tied-threshold ROC endpoints, exact pairwise AUC, bilingual fallback OK")
