@@ -318,19 +318,19 @@ Both have $E[K/3]=1/6$, yet the **batch distributions differ**. In this particul
 
 The changing bars above can be interpreted as a **specific batch-level mixture model**, rather than an arbitrary change in correlation. For each batch, first draw $B\sim\mathrm{Bernoulli}(\rho)$, independently of the alarms. If $B=0$, draw three independent Bernoulli alarms with probability $p=1/6$; if $B=1$, draw **one** Bernoulli shock and copy it to all three records. The batch chooses its mechanism **once**, not independently for each record. The resulting count distribution is a convex combination of the two histograms:
 
-$
+$$
 P_{\rho}(K=k)=(1-\rho)P_{\mathrm{iid}}(K=k)+\rho P_{\mathrm{shared}}(K=k).
-$
+$$
 
 Here $0\leq\rho\leq1$ is also the *pairwise correlation* of two distinct alarm indicators **for this constructed mixture only**. Their marginal FPR remains $1/6$. The intermediate frames illustrate valid hypothetical joint distributions, but they do not estimate correlation from data. For three negatives:
 
-$
+$$
 \begin{aligned}
 P_{\rho}(K\geq1)&=(1-\rho)\frac{91}{216}+\rho\frac16,\\
 \operatorname{Var}_{\rho}(K/3)&=\frac{5}{108}(1+2\rho),\\
 n_{\mathrm{eff,var}}&=\frac{3}{1+2\rho}.
 \end{aligned}
-$
+$$
 
 At $\rho=1/2$, the chance of any false alarm is $127/432\approx29.4\%$, the variance is $5/54$, and the **variance-equivalent** independent sample count is $1.5$, even though three records were collected. The general expression for $n$ exchangeable alarm indicators in this model is $n_{\mathrm{eff,var}}=n/[1+(n-1)\rho]$; for 30 records and $\rho=1/2$, it is $60/31\approx1.94$. This effective count matches **only the sample-mean variance**. It is not an integer trial count and **must not** be substituted into a Clopper–Pearson exact binomial interval. The next animation contrasts the *actual zero-alarm likelihoods* at the two endpoints.
 
