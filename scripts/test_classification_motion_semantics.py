@@ -1042,3 +1042,43 @@ for locale in ('f1.md','f1.zh-TW.md'):
     assert 'src="../../../../assets/concept-animations/f1-averaging-rules-still.svg"' in page
     assert 'data-motion-src="../../../../assets/concept-animations/f1-averaging-rules-motion.svg"' in page
 print("F1 support-weighted versus macro/micro and noncommuting aggregation verified")
+
+
+# Multilabel aggregation counterexample: pooled counts deliberately match,
+# but row-wise F1 and exact-match accuracy rank the two scenarios differently.
+from fractions import Fraction as MultiFraction
+ml_truth=(3,1,2,3) # Bitmasks for labels A/B; no empty ground-truth sets.
+ml_a=(3,0,1,3)
+ml_b=(1,1,3,1)
+def _ml_scores(predictions):
+    tp=sum((t & p).bit_count() for t,p in zip(ml_truth,predictions))
+    fp=sum((p & ~t & 3).bit_count() for t,p in zip(ml_truth,predictions))
+    fn=sum((t & ~p & 3).bit_count() for t,p in zip(ml_truth,predictions))
+    micro=MultiFraction(2*tp, 2*tp+fp+fn)
+    per_record=[MultiFraction(2*(t & p).bit_count(),t.bit_count()+p.bit_count())
+                for t,p in zip(ml_truth,predictions)]
+    samples=sum(per_record,MultiFraction()) / len(ml_truth)
+    exact=MultiFraction(sum(t==p for t,p in zip(ml_truth,predictions)),len(ml_truth))
+    return (tp,fp,fn),micro,per_record,samples,exact
+ma=_ml_scores(ml_a)
+mb=_ml_scores(ml_b)
+assert ma[0]==mb[0]==(4,1,2)
+assert ma[1]==mb[1]==MultiFraction(8,11)
+assert ma[2]==[MultiFraction(1),MultiFraction(0),MultiFraction(0),MultiFraction(1)]
+assert mb[2]==[MultiFraction(2,3),MultiFraction(1),MultiFraction(2,3),MultiFraction(2,3)]
+assert ma[3:]==(MultiFraction(1,2),MultiFraction(1,2))
+assert mb[3:]==(MultiFraction(3,4),MultiFraction(1,4))
+for kind in ('motion','still'):
+    svg=(asset_root / f'f1-multilabel-aggregation-{kind}.svg').read_text(encoding='utf-8')
+    assert 'viewBox="0 0 640 360"' in svg
+    assert 'TP 4 · FP 1 · FN 2' in svg
+    assert '0.727' in svg and '0.750' in svg and '0.250' in svg
+    assert ('<animate ' in svg)==(kind=='motion')
+    assert ('prefers-reduced-motion' in svg)==(kind=='motion') or kind=='still'
+for filename in ('f1.md','f1.zh-TW.md'):
+    lesson=(shared_dir / filename).read_text(encoding='utf-8')
+    assert 'src="../../../../assets/concept-animations/f1-multilabel-aggregation-still.svg"' in lesson
+    assert 'data-motion-src="../../../../assets/concept-animations/f1-multilabel-aggregation-motion.svg"' in lesson
+    assert '\\frac{8}{11}' in lesson
+    assert '0.500' in lesson and '0.750' in lesson and '0.250' in lesson
+print("Multilabel micro-F1 vs samples-F1 and subset accuracy: exact aggregation and bilingual fallbacks OK")
