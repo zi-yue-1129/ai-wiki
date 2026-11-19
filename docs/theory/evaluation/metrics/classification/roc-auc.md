@@ -275,6 +275,29 @@ $$
 
 The four exact probabilities are **125/216**, **75/216**, **15/216** and **1/216**, giving observed FPR values **0**, **1/3**, **2/3** and **1**, respectively. The animated outline moves through the **four possible counts**, while three negative-case markers show one possible arrangement for each count. **Every count gets equal screen time for explanation, not in proportion to its probability**; the fixed histogram encodes those unequal probabilities. Outcomes with $K\geq1$ exceed the population cap $1/6$, with combined probability **91/216 ≈ 42.1%**. These four states are alternative samples, **not consecutive training steps or a single batch accumulating false alarms**. MkDocs provides keyboard-operated Play/Pause; reduced-motion users see the complete histogram and one over-budget example. On narrow screens, focus the graphic and scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-batch-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-batch-motion.svg).
 
+
+### Zero observed alarms and the exact upper FPR limit
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Exact upper FPR bound with zero observed alarms">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-zero-alarms-motion.svg" alt="Four hypothetical batches with 3, 12, 17 and 30 independent negative cases each observe zero false alarms. Nevertheless, the exact one-sided 95 percent upper limits on population FPR decrease from 63.2 to 22.1, 16.2 and 9.5 percent, first dropping below the one-sixth cap at 17 cases." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0); all cases synthetic, not measured.* The preceding illustration asks what a **finite batch may show given a population rate**. Here we reverse the inference: observing **zero false alarms** does not establish a zero *population* FPR. For $n$ independent, identically distributed true negatives with an unknown conditional false-alarm probability $p$ and observed $K=0$, the **one-sided 95% exact Clopper–Pearson upper confidence limit** inverts $P_p(K=0)=(1-p)^n$:
+
+$$
+U_{0.95}(n)=1-0.05^{1/n},\qquad n>0,\ K=0.
+$$
+
+For hypothetical zero-alarm batches of **3, 12, 17 and 30** negatives, empirical FPR is always **0**, but the respective upper limits are **63.2%, 22.1%, 16.2% and 9.5%** (rounded). Against the illustrative $1/6$ FPR budget, 16 negative cases without an alarm are **not enough** ($U_{0.95}(16)\approx17.1\%$); **17** cases without an alarm put the upper confidence limit **below** the budget. The required integer threshold, *conditional on all tested negatives yielding no false alarms*, is:
+
+$$
+n_{\min}=\left\lceil\frac{\log(0.05)}{\log(5/6)}\right\rceil=17.
+$$
+
+This has a **frequentist repeated-sampling coverage** interpretation, not a 95% posterior probability that an individual system is safe, and not a guarantee for each subsequent batch. Independent representative negatives and a prespecified sample size and stopping rule matter; data-dependent stopping requires sequential inference. The moving display contrasts hypothetical sample sizes, **not training iterations**. MkDocs offers keyboard Play/Pause and reduced-motion fallback; narrow screens scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-zero-alarms-motion.svg). See Clopper and Pearson (1934) in References.
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="FPR-constrained randomized ROC policy">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="A synthetic two-threshold ROC segment and a falling expected-cost line share a moving randomized-policy marker. The FPR cap at one sixth limits the mixing probability to one half; the feasible boundary has expected cost eleven thirtieths." width="640" height="360">
@@ -288,6 +311,8 @@ The earlier [randomized ROC-rule static preview](../../../../assets/concept-anim
 ## References
 
 ### Seminal papers
+
+- Clopper, C. J. & Pearson, E. S. (1934). The use of confidence or fiducial limits illustrated in the case of the binomial. *Biometrika* 26(4), 404–413. https://doi.org/10.1093/biomet/26.4.404 — Introduces the exact binomial confidence limits used in the zero-false-alarm example.
 
 - Fawcett, T. (2006). An introduction to ROC analysis. *Pattern Recognition Letters* 27(8), 861–874. https://doi.org/10.1016/j.patrec.2005.10.010 — Explains how ROC curves and the AUC are built, read and commonly misused.
 - Saito, T. & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. *PLoS ONE* 10(3). https://doi.org/10.1371/journal.pone.0118432 — Compares ROC and precision-recall curves on imbalanced data.

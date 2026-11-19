@@ -668,3 +668,37 @@ for filename, title in (
     assert "125/216" in page and "91/216" in page
     assert "\n$$\nP(K=k)=" in page
 print("Finite-batch binomial outcomes: 4 exact masses, 4 states and bilingual fallback links OK")
+
+
+# Exact one-sided Clopper-Pearson upper FPR bound after zero false alarms.
+# Invert the P(K=0) likelihood; repeated-sampling coverage, not a posterior.
+def zero_alarm_upper(n):
+    return 1 - 0.05 ** (1 / n)
+
+assert zero_alarm_upper(16) > 1/6 > zero_alarm_upper(17)
+assert math.ceil(math.log(0.05) / math.log(5/6)) == 17
+for n, expected_percent in ((3,63.2),(12,22.1),(17,16.2),(30,9.5)):
+    bound = zero_alarm_upper(n)
+    assert math.isclose(round(bound * 100, 1),expected_percent,abs_tol=1e-12)
+    assert math.isclose((1-bound)**n,0.05,rel_tol=1e-12)
+assert all(zero_alarm_upper(n+1) < zero_alarm_upper(n) for n in range(3,60))
+for kind in ("motion","still"):
+    svg = (asset_root / f"roc-fpr-zero-alarms-{kind}.svg").read_text(encoding="utf-8")
+    assert 'viewBox="0 0 640 360"' in svg
+    assert "Zero alarms do not imply zero FPR" in svg
+    assert 'class="still"' in svg if kind=="motion" else "<animate " not in svg
+    assert ('<animate ' in svg) == (kind=="motion")
+    if kind=="motion":
+        assert svg.count('calcMode="discrete"') == 4
+        assert "prefers-reduced-motion" in svg
+for filename,heading in (
+    ("roc-auc.md","Zero observed alarms and the exact upper FPR limit"),
+    ("roc-auc.zh-TW.md","零筆誤報仍無法證明母體 FPR 為零"),
+):
+    page = (shared_dir / filename).read_text(encoding="utf-8")
+    assert heading in page
+    assert 'src="../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg"' in page
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-zero-alarms-motion.svg"' in page
+    assert r"U_{0.95}(n)=1-0.05^{1/n}" in page
+    assert "10.1093/biomet/26.4.404" in page
+print("Exact zero-alarm FPR upper-bound and bilingual motion assets OK")

@@ -17,6 +17,7 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "roc-fpr-budget-mix": "theory/evaluation/metrics/classification/roc-auc",
     "roc-fpr-batch": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-fpr-zero-alarms": "theory/evaluation/metrics/classification/roc-auc",
     "roc-pr-shift": "theory/evaluation/metrics/classification/roc-auc",
     "roc-prior-policy": "theory/evaluation/metrics/classification/roc-auc",
     "roc-youden-cost": "theory/evaluation/metrics/classification/roc-auc",
@@ -424,6 +425,7 @@ TOPICS = {
 CANONICAL_VIEWBOXES = {
  'roc-fpr-budget-mix': '0 0 640 360',
  'roc-fpr-batch': '0 0 640 360',
+ 'roc-fpr-zero-alarms': '0 0 640 360',
  'roc-pr-shift': '0 0 640 360',
  'roc-prior-policy': '0 0 640 360',
  'roc-youden-cost': '0 0 640 360',

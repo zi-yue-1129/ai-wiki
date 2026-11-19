@@ -276,6 +276,29 @@ $$
 
 四種誤報數的精確機率依序為 **125/216**、**75/216**、**15/216**、**1/216**；相對應的實際觀察 FPR 分別是 **0**、**1/3**、**2/3**、**1**。動畫依序展示**四種可能的誤報數**，以三個負例標記展示各誤報數的一種排列。**每種結果的顯示時間相同只是教學安排，不代表它們有相同機率**；固定的長條圖才呈現不同結果的機率大小。只要 $K\geq1$ 就超過 $1/6$ 母體上限，合計機率為 **91/216 ≈ 42.1%**。四個畫面代表不同批次的**可能結果**，不是模型訓練的連續步驟，也不是同一批次逐步累積誤報。MkDocs 提供鍵盤可操作的播放／暫停；偏好減少動畫者會看到完整分布與一個超額示例。手機可聚焦圖形容器並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-batch-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-batch-motion.svg)。
 
+
+### 零筆誤報仍無法證明母體 FPR 為零
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="零筆觀察誤報與母體 FPR 精確信賴上界">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-zero-alarms-motion.svg" alt="四組人工假設的獨立負例測試，樣本數為 3、12、17、30，均沒有觀察到誤報，經驗 FPR 都為零；單側 95% 精確信賴上界依序從 63.2% 降至 22.1%、16.2% 及 9.5%，第 17 筆負例才開始低於六分之一的示意限制。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）；全部是人工示意，不是模型實測。* 前一組動畫回答「**已知母體 FPR 時，有限樣本可能出現什麼結果？**」；本例反過來問：「**即使沒有觀察到任何誤報，未知母體 FPR 還可能有多大？**」假設 $n$ 筆真實負例相互獨立且分布相同，條件誤報機率 $p$ 未知，觀察到 $K=0$ 時，可由 $P_p(K=0)=(1-p)^n$ 反解 **Clopper–Pearson 單側 95% 精確信賴上界**：
+
+$$
+U_{0.95}(n)=1-0.05^{1/n},\qquad n>0,\ K=0.
+$$
+
+四個**假想**零誤報測試各有 **3、12、17、30** 筆負例，觀察 FPR 全都是 **0**，但精確上界分別約為 **63.2%、22.1%、16.2%、9.5%**。若假設母體 FPR 上限為 **1/6**，只有 **16** 筆負例且零誤報時仍不足以上界支持限制（$U_{0.95}(16)\approx17.1\%$）；增加至 **17** 筆且仍為零誤報，上界才低於上限。零誤報條件下所需的最小整數樣本數為：
+
+$$
+n_{\min}=\left\lceil\frac{\log(0.05)}{\log(5/6)}\right\rceil=17.
+$$
+
+這是**頻率學派重複抽樣程序的涵蓋率**，不是「此系統有 95% 的後驗機率安全」，也不保證未來每個批次都符合上限。需注意負例是否獨立且具代表性，以及樣本數與停止規則是否預先指定；依資料結果動態停止應使用適當的序列推論。動畫切換的是**人工設定的樣本數情境**，不是模型訓練歷程。MkDocs 有鍵盤可操作的播放／暫停與減少動態效果回退，手機可聚焦並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-zero-alarms-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-zero-alarms-motion.svg)。原始方法見 References 中 Clopper 與 Pearson（1934）。
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="受 FPR 上限約束的隨機 ROC 決策規則">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="人工 ROC 的兩個門檻連線與下降中的預期成本曲線共用隨機混合標記。FPR 上限為六分之一，因此混合機率最多二分之一；可行邊界的成本為三十分之十一。" width="640" height="360">
@@ -289,6 +312,8 @@ $$
 ## 參考文獻
 
 ### 開創性論文
+
+- Clopper, C. J. & Pearson, E. S. (1934). The use of confidence or fiducial limits illustrated in the case of the binomial. *Biometrika* 26(4), 404–413. https://doi.org/10.1093/biomet/26.4.404 — 二項分布精確信賴界限的原始方法，此處用於零誤報的單側上界。
 
 - Fawcett, T. (2006). An introduction to ROC analysis. *Pattern Recognition Letters* 27(8), 861–874. https://doi.org/10.1016/j.patrec.2005.10.010 — 說明 ROC 曲線與 AUC 的建構、解讀與常見誤用。
 - Saito, T. & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. *PLoS ONE* 10(3). https://doi.org/10.1371/journal.pone.0118432 — 比較不平衡資料上的 ROC 曲線與精確率—召回率曲線。

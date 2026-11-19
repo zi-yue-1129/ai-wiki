@@ -8080,6 +8080,21 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "roc-fpr-zero-alarms": {
+      "origins": [
+        {
+          "origin_blob": "9aa805b7bad6e9e36203f6eb24c0c8907d1e2abd",
+          "origin_commit": "661c01390c2c2380d21e5b0c17a98f25701cd64a",
+          "path": "docs/assets/concept-animations/roc-fpr-zero-alarms-motion.svg"
+        },
+        {
+          "origin_blob": "e5ebb4bc9677b81efc7819daf2628f1a65e057e8",
+          "origin_commit": "661c01390c2c2380d21e5b0c17a98f25701cd64a",
+          "path": "docs/assets/concept-animations/roc-fpr-zero-alarms-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "roc-fpr-budget-mix": {
       "origins": [
         {
