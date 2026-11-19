@@ -169,6 +169,16 @@
 /* Scoped MADDPG / MAPPO original source figures. */
 .marl-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
 .marl-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* Scoped original emergent communication figures. */
+.comm-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
+.comm-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* Scoped offline IQL/CQL source figures. */
+.offline-source-scroll .concept-motion-player { width:640px;min-width:640px;max-width:none; }
+.offline-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color);outline-offset:2px; }
+
+/* Scoped tabular TD and Double DQN source figures. */
+.td-source-scroll .concept-motion-player { width:640px;min-width:640px;max-width:none; }
+.td-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color);outline-offset:2px; }
 
 /* Only SAC/DPO native 760px figures: no generic 640px centered-host overhang. */
 .sac-dpo-motion-scroll > .sac-dpo-motion-frame { width:760px; min-width:760px; max-width:none; margin:0 auto; }

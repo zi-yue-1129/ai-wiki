@@ -1,9 +1,9 @@
 """Execute SVG guard positives/mutations; never infer expected geometry from input."""
 from copy import deepcopy
+import hashlib
 from pathlib import Path
 import tempfile
 import json
-import hashlib
 import unittest
 from unittest.mock import patch
 from xml.etree import ElementTree as ET
@@ -16,9 +16,11 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 399 and len(EXPECTED_EXTRAS) == 5 and len(EXPECTED_PREFIXES) == 21
+assert len(EXPECTED_CANVASES) == 433 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
+
+
 
 assert EXPECTED_EXCLUSIONS == {'forward-ad-': ('forward-ad-jvp-',)}
 

@@ -368,6 +368,14 @@ def record_failure_diagnostics(page, output, result):
         result["overflow_diagnostics_error"] = str(error)
 
 
+def responsive_asset_url(url, viewport):
+    """Independent exact counterpart of the two production mobile variants."""
+    if viewport['width'] <= 640:
+        return re.sub(r'(?<=/)(icm-predictable-stochastic|rnd-state-novelty)-(motion|still)\.svg(?=$|[?#])',
+                      r'\1-mobile-\2.svg', url)
+    return url
+
+
 def check_image(page, image, url):
     # Native lazy images must approach the viewport before waiting for decoding.
     # Do not rely on unrelated keyboard-scroller coverage to load later images.
@@ -632,7 +640,7 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
 
             def capture(stage, state, label):
                 expect(toggle).to_have_attribute("aria-label", label)
-                record["states"][stage] = check_image(page, image, asset[state])
+                record["states"][stage] = check_image(page, image, responsive_asset_url(asset[state], viewport))
                 record["states"][stage]["document"] = assert_document_fits(page, viewport)
                 image.scroll_into_view_if_needed()
                 screenshot = output / f"image-{index}-{stage}.png"
@@ -645,7 +653,7 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
                 # Reduced motion must start still, but deliberate playback remains usable.
                 toggle.click()
                 expect(toggle).to_have_attribute("aria-label", pause)
-                check_image(page, image, asset["motion"])
+                check_image(page, image, responsive_asset_url(asset["motion"], viewport))
             toggle.click()
             capture("paused", "still", play)
             # Keyboard activation also proves that the real control is operable.

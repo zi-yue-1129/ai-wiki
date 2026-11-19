@@ -296,6 +296,19 @@ def validate_support(expected, receipt, artifact_rows, prose_sources=None, regis
             cases=report['cases'];observed=[(c['source'],c['width']) for c in cases]
             require(len(observed)==len(set(observed)) and set(observed)==wanted,'Prose coverage gap/overlap')
             require(all(c['status']=='passed' and not c.get('errors') for c in cases),'Prose case failed')
+            if suite.get('require_case_language'):
+                require(all(c.get('lang') == ('zh-TW' if c['source'].endswith('.zh-TW.md') else 'en') for c in cases), 'Incorrect prose language')
+            for c in cases:
+                if not suite.get('require_reported_screenshots'): continue
+                shots=c.get('screenshots',[])
+                require(shots and 'top.png' in shots and len(shots)==len(set(shots)), 'Missing/duplicate prose screenshots')
+                folder=c['source'].replace('/','__').removesuffix('.md')+f"-{c['width']}"
+                for png in shots:
+                    require(isinstance(png,str) and '/' not in png and '\\' not in png and png.endswith('.png') and png not in {'.','..'}, 'Unsafe prose screenshot')
+                    require(name+'/'+folder+'/'+png in files, 'Missing reported prose screenshot')
+                for formula in c.get('formulas',[]):
+                    if formula.get('overflow'):
+                        require(formula.get('rightEdgeScreenshot') in shots, 'Missing formula right-edge evidence')
             for source,width in wanted:
                 folder=source.replace('/','__').removesuffix('.md')+f'-{width}'
                 require(name+'/'+folder+'/top.png' in files,'Missing prose-case screenshot')

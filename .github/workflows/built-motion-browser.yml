@@ -44,6 +44,9 @@ on:
       - "scripts/test_policy_credit_labs_browser.py"
       - "scripts/test_built_planning_evolution_labs_browser.py"
       - "scripts/test_*motion_semantics.py"
+      - "scripts/curiosity_svg_math.py"
+      - "scripts/test_curiosity_math.cjs"
+      - "scripts/test_curiosity_player.cjs"
       - "scripts/README-built-motion-browser.md"
       - ".github/workflows/built-motion-browser.yml"
   workflow_dispatch:

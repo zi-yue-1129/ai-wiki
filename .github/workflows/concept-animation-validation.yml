@@ -3,13 +3,14 @@ name: Validate concept animations
 on:
   pull_request:
     paths:
-      - "scripts/test_forward_math_markup.py"
-      - "scripts/test_deployed_math_browser.py"
-      - "scripts/test_deployed_math_contract.py"
-      - "scripts/test_built_motion_browser.py"
-      - "scripts/test_built_prose_browser.py"
       - "scripts/motion_shard_contract.py"
-      - "requirements.txt"
+      - "scripts/test_deployed_math_contract.py"
+      - "scripts/test_deployed_math_browser.py"
+      - "scripts/test_causal_prose_runner_motion_semantics.py"
+      - "scripts/test_time_series_fixture_dependency_motion_semantics.py"
+      - "scripts/test_curiosity_player.cjs"
+      - "scripts/test_alphazero_player.cjs"
+      - "scripts/test_forward_math_markup.py"
       - "docs/theory/math/automatic-differentiation/forward-mode.md"
       - "docs/theory/math/automatic-differentiation/forward-mode.zh-TW.md"
       - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md"
@@ -18,10 +19,49 @@ on:
       - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md"
       - "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md"
       - "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/exploration/icm/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/exploration/icm/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md"
+      - "docs/theory/causal-inference/double-machine-learning.md"
+      - "docs/theory/causal-inference/double-machine-learning.zh-TW.md"
+      - "scripts/verify_icm_mathjax_structure.py"
+      - "scripts/render_mathjax_structure.cjs"
       - "scripts/test_distillation_player.cjs"
       - "scripts/test_diffusion_policy_player.cjs"
       - "scripts/test_fixture_dependency_motion_semantics.py"
       - "scripts/test_reviewed_scroll_player.cjs"
+      - "docs/theory/models/time-series/**"
+      - "scripts/test_time_series_motion_semantics.py"
+      - "scripts/test_time_series_prose_browser.py"
+      - "scripts/test_time_series_prose_contract.py"
+      - "docs/theory/causal-inference/**"
+      - "scripts/test_causal_inference_prose_browser.py"
+      - "scripts/test_causal_inference_motion_semantics.py"
+      - "scripts/test_built_prose_browser.py"
+      - "scripts/test_built_motion_browser.py"
+      - "docs/javascripts/mathjax.js"
+      - "requirements.txt"
+      - ".github/actions/install-cjk-font/**"
+      - "scripts/ci_font_archive.py"
+      - "scripts/test_td_source_semantics.py"
+      - "scripts/test_td_fixture_motion_semantics.py"
+      - "scripts/test_td_source_player.cjs"
+      - "scripts/test_td_source_browser.py"
+      - "scripts/test_offline_source_semantics.py"
+      - "scripts/test_offline_fixture_motion_semantics.py"
+      - "scripts/test_offline_source_player.cjs"
+      - "scripts/test_offline_source_browser.py"
+      - "scripts/test_comm_source_semantics.py"
+      - "scripts/test_comm_fixture_motion_semantics.py"
+      - "scripts/test_comm_source_player.cjs"
+      - "scripts/test_comm_source_browser.py"
       - "scripts/test_population_actual_motion_semantics.py"
       - "scripts/test_population_fixture_motion_semantics.py"
       - "scripts/test_population_source_player.cjs"
@@ -101,6 +141,18 @@ on:
       - "scripts/test_causal_labs_browser.py"
       - "docs/javascripts/causal-labs.js"
       - "docs/stylesheets/causal-labs.css"
+      - "scripts/test_rnd_icm_motion_browser.py"
+      - "scripts/test_rnd_dual_value_browser.py"
+      - "scripts/test_rnd_stochastic_distractor_browser.py"
+      - "scripts/test_icm_inverse_feature_browser.py"
+      - "scripts/test_icm_action_aliasing_browser.py"
+      - "scripts/test_rnd_icm_gradient_routes_browser.py"
+      - "scripts/test_rnd_icm_balance_motion_browser.py"
+      - "scripts/test_curiosity_labs_browser.py"
+      - "scripts/test_curiosity_sampling_browser.py"
+      - "docs/javascripts/concept-motion.js"
+      - "docs/javascripts/curiosity-labs.js"
+      - "docs/stylesheets/curiosity-labs.css"
       - "scripts/test_scoped_viewbox_motion_semantics.py"
       - "scripts/test_scoped_canvas_motion_semantics.py"
       - "scripts/test_alt_accessibility_motion_semantics.py"
@@ -122,7 +174,6 @@ on:
       - "scripts/test_sac_source_motion_semantics.py"
       - "scripts/test_sac_source_browser.py"
       - "scripts/test_sac_source_player.cjs"
-      - "docs/javascripts/concept-motion.js"
       - "docs/javascripts/adaptive-optimiser-labs.js"
       - "docs/stylesheets/adaptive-optimiser-labs.css"
       - "scripts/test_adaptive_optimiser_labs_browser.py"
@@ -175,6 +226,10 @@ on:
       - "scripts/test_dreamer_motion_browser.py"
       - "scripts/test_dreamer_motion_semantics.py"
       - "docs/theory/models/world-models/dreamer*.md"
+      - "scripts/test_rainbow_motion_browser.py"
+      - "scripts/test_rainbow_motion_semantics.py"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/rainbow/**"
+      - "scripts/test_dt_motion_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
       - "scripts/test_evolution_motion_browser.py"
       - "scripts/test_evolution_labs_browser.py"
@@ -199,6 +254,20 @@ on:
       - "scripts/test_diffusion_policy_motion_browser.py"
       - "scripts/test_act_source_player.cjs"
       - "scripts/test_act_source_browser.py"
+      - "scripts/test_emergent_comm_motion_browser.py"
+      - "scripts/test_alphazero_motion_browser.py"
+      - "scripts/test_model_based_motion_browser.py"
+      - "scripts/test_model_based_source_browser.py"
+      - "scripts/test_model_based_image_contract.py"
+      - "scripts/test_model_based_source_motion_semantics.py"
+      - "scripts/test_model_based_source_player.cjs"
+      - "scripts/test_q_sarsa_motion_browser.py"
+      - "scripts/test_q_sarsa_epsilon_browser.py"
+      - "scripts/test_double_dqn_selector_browser.py"
+      - "scripts/test_td_terminal_truncation_browser.py"
+      - "scripts/test_cliff_walking_browser.py"
+      - "scripts/test_eligibility_trace_cut_browser.py"
+      - "scripts/test_nstep_lambda_forward_browser.py"
       - "scripts/test_self_supervised_labs.cjs"
       - "docs/javascripts/symbolic-proof-labs.js"
       - "docs/stylesheets/symbolic-proof-labs.css"
@@ -240,6 +309,10 @@ on:
       - "docs/javascripts/sharpness-geometry-labs.js"
       - "docs/stylesheets/sharpness-geometry-labs.css"
       - "scripts/test_sharpness_geometry_labs_browser.py"
+      - "scripts/test_rlhf_motion_browser.py"
+      - "scripts/test_rlhf_preference_motion_semantics.py"
+      - "docs/theory/paradigms/reinforcement-learning/learning-from-human-feedback/**"
+      - "scripts/test_offline_rl_motion_browser.py"
       - "mkdocs.yml"
       - "scripts/test_seventh_retained_interaction_motion_semantics.py"
       - "scripts/test_eighth_retained_interaction_motion_semantics.py"
@@ -369,6 +442,14 @@ jobs:
         run: |
           python scripts/test_marl_source_semantics.py
           node scripts/test_marl_source_player.cjs
+      - name: Actual emergent communication numerical, causal and player regressions
+        run: |
+          python scripts/test_comm_source_semantics.py
+          node scripts/test_comm_source_player.cjs
+      - name: Actual offline RL geometry, numerical labels and player regressions
+        run: |
+          python scripts/test_offline_source_semantics.py
+          node scripts/test_offline_source_player.cjs
       - name: Install Chromium and Traditional Chinese fonts for visual tests
         run: |
           sudo apt-get update -qq
@@ -377,6 +458,26 @@ jobs:
           python -m pip install "playwright==1.55.0"
           python -m pip install "PyYAML==6.0.3"
           python -m playwright install chromium
+      - name: Chromium RND/ICM motion, keyboard controls and reduced-motion fallback
+        run: python scripts/test_rnd_icm_motion_browser.py
+      - name: Chromium GitHub-safe RND/ICM chapter fallback and keyboard player
+        run: python scripts/test_curiosity_chapter_fallback_browser.py
+      - name: Chromium RND separate reward-stream and value-head regression
+        run: python scripts/test_rnd_dual_value_browser.py
+      - name: Chromium RND stochastic-observation failure-mode motion
+        run: python scripts/test_rnd_stochastic_distractor_browser.py
+      - name: Chromium ICM inverse-dynamics feature-selection motion
+        run: python scripts/test_icm_inverse_feature_browser.py
+      - name: Chromium ICM action-aliasing and inverse ambiguity
+        run: python scripts/test_icm_action_aliasing_browser.py
+      - name: Chromium RND/ICM training-signal and shared-encoder routes
+        run: python scripts/test_rnd_icm_gradient_routes_browser.py
+      - name: Chromium RND intrinsic-return scaling and ICM gradient balance
+        run: python scripts/test_rnd_icm_balance_motion_browser.py
+      - name: Chromium RND/ICM timeline probes, bilingual controls and reduced motion
+        run: python scripts/test_curiosity_labs_browser.py
+      - name: Chromium ICM repeated sampling, bilingual expectations and reduced motion
+        run: python scripts/test_curiosity_sampling_browser.py
       - name: "Chromium symbolic proof labs: DFS state, resolution, keyboard and fallback"
         run: python scripts/test_symbolic_proof_labs_browser.py --screenshots artifacts/symbolic-proof-labs
       - name: Chromium OOD bilingual playback, keyboard and reduced motion
@@ -427,6 +528,10 @@ jobs:
         run: python scripts/test_semi_process_labs_browser.py
       - name: Check diffusion motion fallback and controls in Chromium
         run: python scripts/test_diffusion_motion_browser.py
+      - name: Chromium RLHF preference animations and bilingual keyboard controls
+        run: python scripts/test_rlhf_motion_browser.py
+      - name: Chromium offline IQL/CQL numerical semantics and keyboard/reduced-motion playback
+        run: python scripts/test_offline_rl_motion_browser.py
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
       - name: Chromium VQ-VAE and Gaussian splatting SVG motion
@@ -447,6 +552,28 @@ jobs:
         run: python scripts/test_ddpg_motion_semantics.py
       - name: Chromium DDPG gradient, target tracking, replay/bootstrap and OU noise
         run: python scripts/test_ddpg_motion_browser.py
+      - name: TD source semantic and actual player regression
+        run: |
+          python scripts/test_td_source_semantics.py
+          node scripts/test_td_source_player.cjs
+          python scripts/test_td_fixture_motion_semantics.py
+          python scripts/test_td_source_browser.py
+      - name: Chromium Q-learning vs SARSA backup, controls and reduced motion
+        run: python scripts/test_q_sarsa_motion_browser.py
+      - name: Chromium Q/SARSA noisy max vs sampled backup
+        run: python scripts/test_q_sarsa_noisy_backups_browser.py
+      - name: Chromium epsilon-greedy SARSA targets and accessibility
+        run: python scripts/test_q_sarsa_epsilon_browser.py
+      - name: Chromium Double DQN selection versus evaluation and fallback
+        run: python scripts/test_double_dqn_selector_browser.py
+      - name: Chromium terminated versus time-limit truncated TD targets
+        run: python scripts/test_td_terminal_truncation_browser.py
+      - name: Chromium cliff walking policy risk, geometry and accessible controls
+        run: python scripts/test_cliff_walking_browser.py
+      - name: Chromium eligibility trace decay and Watkins cutoff
+        run: python scripts/test_eligibility_trace_cut_browser.py
+      - name: Chromium forward n-step SARSA and lambda-return arithmetic
+        run: python scripts/test_nstep_lambda_forward_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
@@ -549,6 +676,8 @@ jobs:
         run: python scripts/test_dreamer_motion_semantics.py
       - name: Chromium Dreamer visual stages, playback and reduced-motion fallback
         run: python scripts/test_dreamer_motion_browser.py
+      - name: Chromium AlphaZero responsive animation and bilingual player controls
+        run: python scripts/test_alphazero_motion_browser.py
       - name: Test regression metric lab arithmetic, controls and bilingual responsive layout
         run: python scripts/test_regression_metric_labs_browser.py
       - name: Execute actual bandit numeric and lifecycle regression
@@ -604,6 +733,38 @@ jobs:
           python scripts/test_sac_source_browser.py
       - name: Chromium SAC soft-target and temperature motion / accessible controls
         run: python scripts/test_sac_motion_browser.py
+      - name: Chromium emergent communication motion and bilingual playback
+        run: python scripts/test_emergent_comm_motion_browser.py
+      - name: Test bilingual communication source scrollers and keyboard playback
+        run: |
+          python scripts/test_comm_fixture_motion_semantics.py
+          python scripts/test_comm_source_browser.py
+      - name: Test bilingual offline RL source scrollers and keyboard playback
+        run: |
+          python scripts/test_offline_fixture_motion_semantics.py
+          python scripts/test_offline_source_browser.py
+      - name: Chromium Rainbow C51, dueling, n-step and NoisyNet geometry, keyboard and reduced motion
+        run: python scripts/test_rainbow_motion_browser.py
+      - name: Chromium PETS/MBPO mobile, desktop, keyboard and reduced motion
+        run: python scripts/test_model_based_motion_browser.py
+      - name: Model based actual SVG causality and bilingual source controls
+        run: |
+          python scripts/test_model_based_source_motion_semantics.py
+          node scripts/test_model_based_source_player.cjs
+          python scripts/test_model_based_image_contract.py
+          python scripts/test_model_based_source_browser.py
+      - name: Chromium Decision Transformer causal mask and return-to-go tests
+        run: python scripts/test_dt_motion_browser.py
+      - name: Install same-job time-series prose builder imports
+        run: |
+          python -m pip install -r requirements.txt
+          python scripts/test_time_series_fixture_dependency_motion_semantics.py
+      - name: Time series numerical source regressions and real bilingual prose
+        run: |
+          python scripts/test_time_series_motion_semantics.py
+          python scripts/test_time_series_prose_contract.py
+          mkdocs build --strict
+          python scripts/test_time_series_prose_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -619,7 +780,22 @@ jobs:
             artifacts/grounded-action-source/
             artifacts/population-source/
             artifacts/marl-source/
+            artifacts/model-based-source-browser/*.png
+            artifacts/time-series-prose/**
+            artifacts/model-based-source-browser/*-failure.html
+            artifacts/model-based-source-browser/*.json
             artifacts/self-supervised-labs/*.png
+            artifacts/td-source/*.png
+            artifacts/td-source/report.json
+            artifacts/td-source/*-failure.html
+            artifacts/q-sarsa-backup/*.png
+            artifacts/q-sarsa-noisy-backups/*.png
+            artifacts/q-sarsa-epsilon/*.png
+            artifacts/double-dqn-selector/*.png
+            artifacts/td-terminal-truncation/*.png
+            artifacts/cliff-walking/*.png
+            artifacts/eligibility-trace-cut/*.png
+            artifacts/nstep-lambda-forward/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
             artifacts/navigation-motion/*.png
@@ -653,6 +829,7 @@ jobs:
             artifacts/diffusion-policy-motion/*.png
             artifacts/act-source-browser/*.png
             artifacts/dreamer-motion/**
+            artifacts/alphazero-motion/*.png
             artifacts/linear-algebra-motion/
             artifacts/planning-labs/*.png
             artifacts/t5-deit-motion/*.png
@@ -674,6 +851,36 @@ jobs:
             artifacts/ddpg-motion/*.png
             artifacts/sac-motion/*.png
             artifacts/sac-source-browser/*.png
+            artifacts/emergent-communication/*.png
+            artifacts/comm-source/*.png
+            artifacts/comm-source/report.json
+            artifacts/comm-source/*-failure.html
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Keep RLHF concept-motion screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rlhf-motion-browser-review
+          path: |
+            artifacts/rlhf-motion/*.png
+            artifacts/offline-rl-motion/*.png
+            artifacts/offline-source/*.png
+            artifacts/offline-source/report.json
+            artifacts/offline-source/*-failure.html
+            artifacts/rainbow-motion/*.png
+            artifacts/model-based-motion/*.png
+            artifacts/dt-motion/*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Keep RND/ICM motion frames for actual visual inspection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnd-icm-motion-browser-review
+          path: artifacts/rnd-icm-motion/*.png
           if-no-files-found: ignore
           retention-days: 7
 
@@ -699,6 +906,8 @@ jobs:
           cache: pip
       - name: Install wiki dependencies
         run: pip install -r requirements.txt
+      - name: Verify supported causal prose browser runner contract
+        run: python scripts/test_causal_prose_runner_motion_semantics.py
       - name: Install built article browser package
         run: pip install playwright==1.55.0 Pillow==13.0.0
       - name: Install built article Chromium dependencies
@@ -707,14 +916,43 @@ jobs:
         run: python scripts/test_deployed_math_contract.py
       - name: Check forward AD production Markdown math containers
         run: python scripts/test_forward_math_markup.py
+      - name: Verify ICM formula structure with site-version MathJax
+        run: |
+          npm install --prefix "$RUNNER_TEMP/wiki-mathjax" --no-audit --no-fund --ignore-scripts mathjax-full@3.2.2
+          NODE_PATH="$RUNNER_TEMP/wiki-mathjax/node_modules" python scripts/verify_icm_mathjax_structure.py
       - name: Check actual STDP and e-prop geometry, timing and bilingual hooks
         run: python scripts/test_snn_credit_motion_semantics.py
+      - name: Upload ICM real MathJax structure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: icm-mathjax-structure
+          path: artifacts/icm-mathjax-structure/*.json
+          if-no-files-found: ignore
       - name: Strict MkDocs build
         run: mkdocs build --strict
       - name: Check exact explanation math and timeline
         run: python scripts/test_explanation_motion_semantics.py
       - name: Check causal mechanism math and timeline
         run: python scripts/test_causal_motion_semantics.py
+      - name: Validate causal estimand arithmetic and counterexamples
+        run: python scripts/test_causal_inference_motion_semantics.py
+      - name: Install causal prose browser
+        run: |
+          python -m pip install "playwright==1.55.0"
+          python -m playwright install --with-deps chromium
+      - name: Install verified Traditional Chinese font for causal prose
+        uses: ./.github/actions/install-cjk-font
+      - name: Check all bilingual causal prose pages and formulas
+        run: python scripts/test_causal_inference_prose_browser.py --site-dir site
+      - name: Keep causal prose browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: causal-prose-browser
+          path: artifacts/causal-prose/
+          if-no-files-found: error
+          retention-days: 7
       - name: Capture every repaired article display at three widths
         run: python scripts/test_deployed_math_browser.py
       - name: Upload built article math evidence including failures

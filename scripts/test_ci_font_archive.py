@@ -174,6 +174,8 @@ def validate_support_execution_link(workflow, registry):
       'keyboard-scroll-preflight':('test_built_motion_browser.py',None),
       'policy-gradient-motion':('test_policy_gradient_motion_browser.py',None),
       'vi-prose':('test_built_prose_browser.py',None),
+      'time-series-prose':('test_time_series_prose_browser.py',None),
+      'causal-prose':('test_causal_inference_prose_browser.py',None),
       'ddim-prose':('test_built_prose_browser.py',None),
       'embedding-pages':('test_built_prose_browser.py',None),
       'sharpness-labs':('test_sharpness_geometry_labs_browser.py','SHARPNESS_SITE_DIR'),

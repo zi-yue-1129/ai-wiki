@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 275" role="img" aria-labelledby="frequency-title frequency-description">
+  <title id="frequency-title">Sample frequencies versus assumed next-state probabilities</title>
+  <desc id="frequency-description">Twenty independent schematic samples yield outcomes 1, 2 and 3 with shares ten, forty and fifty percent. Assumed probabilities are one third each. Each colored bar shows sample frequency; a dark vertical tick marks its assumed probability. These are illustrative pseudorandom draws, not measured model outcomes.</desc>
+  <rect x="1" y="1" width="418" height="273" rx="16" fill="#f7fafc" stroke="#bfcfdc"/>
+  <text x="22" y="35" font-family="Arial,sans-serif" font-weight="700" font-size="19" fill="#243f55">Sample frequencies</text>
+  <rect x="334" y="16" width="65" height="27" rx="9" fill="#e4edf7"/>
+  <text x="366" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#35516a">n = 20</text>
+  <rect x="23" y="52" width="15" height="9" rx="2" fill="#267f9f"/>
+  <text x="45" y="61" font-family="Arial,sans-serif" font-size="13" fill="#425a6e">Observed</text>
+  <path d="M147 48v18" stroke="#263d51" stroke-width="3"/>
+  <text x="158" y="61" font-family="Arial,sans-serif" font-size="13" fill="#425a6e">Assumed</text>
+  <path d="M23 77H397" stroke="#d5e2eb"/>
+  <text x="25" y="108" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#267f9f">1</text>
+  <rect x="51" y="93" width="251" height="19" rx="5" fill="#e7eef3" stroke="#d1dfe8"/>
+  <rect x="52" y="94" width="25" height="17" rx="4" fill="#267f9f"/>
+  <path d="M135.7 89V116" stroke="white" stroke-width="6"/><path d="M135.7 89V116" stroke="#263d51" stroke-width="3"/>
+  <text x="313" y="108" font-family="Arial,sans-serif" font-size="14" fill="#31485d">10 / 33%</text>
+  <text x="25" y="163" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#319d91">2</text>
+  <rect x="51" y="148" width="251" height="19" rx="5" fill="#e7eef3" stroke="#d1dfe8"/>
+  <rect x="52" y="149" width="100" height="17" rx="4" fill="#319d91"/>
+  <path d="M135.7 144V171" stroke="white" stroke-width="6"/><path d="M135.7 144V171" stroke="#263d51" stroke-width="3"/>
+  <text x="313" y="163" font-family="Arial,sans-serif" font-size="14" fill="#31485d">40 / 33%</text>
+  <text x="25" y="218" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#8672b4">3</text>
+  <rect x="51" y="203" width="251" height="19" rx="5" fill="#e7eef3" stroke="#d1dfe8"/>
+  <rect x="52" y="204" width="125" height="17" rx="4" fill="#8672b4"/>
+  <path d="M135.7 199V226" stroke="white" stroke-width="6"/><path d="M135.7 199V226" stroke="#263d51" stroke-width="3"/>
+  <text x="313" y="218" font-family="Arial,sans-serif" font-size="14" fill="#31485d">50 / 33%</text>
+  <path d="M23 239H397" stroke="#d5e2eb"/>
+  <text x="25" y="258" font-family="Arial,sans-serif" font-size="12" fill="#536b7c">Illustrative draws · not model data</text>
+</svg>

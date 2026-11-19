@@ -766,6 +766,38 @@
       "report_trailing_newline": false
     },
     {
+      "id": "time-series-prose",
+      "type": "prose",
+      "command": [
+        "scripts/test_time_series_prose_browser.py"
+      ],
+      "sources_manifest": "scripts/fixtures/time-series-prose-pages.json",
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "require_case_language": true,
+      "require_reported_screenshots": true,
+      "report_trailing_newline": false
+    },
+    {
+      "id": "causal-prose",
+      "type": "prose",
+      "command": [
+        "scripts/test_causal_inference_prose_browser.py"
+      ],
+      "sources_manifest": "scripts/fixtures/causal-prose-pages.json",
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "require_case_language": true,
+      "require_reported_screenshots": true,
+      "report_trailing_newline": false
+    },
+    {
       "id": "policy-gradient-motion",
       "type": "report-cases",
       "command": [
