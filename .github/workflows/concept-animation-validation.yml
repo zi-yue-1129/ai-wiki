@@ -161,6 +161,8 @@ on:
       - "scripts/test_curiosity_labs_browser.py"
       - "scripts/test_curiosity_sampling_browser.py"
       - "docs/javascripts/concept-motion.js"
+      - "docs/javascripts/selective-accuracy-player.js"
+      - "scripts/test_selective_player_contract.py"
       - "docs/javascripts/curiosity-labs.js"
       - "docs/stylesheets/curiosity-labs.css"
       - "scripts/test_scoped_viewbox_motion_semantics.py"
@@ -374,6 +376,8 @@ jobs:
           python scripts/test_selective_accuracy_motion_semantics.py
           python scripts/test_selective_scene_binding_motion_semantics.py
           python scripts/test_selective_static_fallback_binding.py
+          node --check docs/javascripts/selective-accuracy-player.js
+          python scripts/test_selective_player_contract.py
       - name: Validate bilingual causal-imitation motion pairs
         run: python scripts/verify_causal_imitation_motion.py
       - name: Check working-memory causal timing and computed states
