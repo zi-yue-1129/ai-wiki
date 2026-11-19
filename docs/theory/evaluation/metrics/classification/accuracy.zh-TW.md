@@ -98,6 +98,32 @@ $
 
 MkDocs 沿用播放／暫停與手機鍵盤水平捲動；減少動態效果模式固定顯示加權結果。GitHub 使用[兩種權重設定的靜態預覽](../../../../assets/concept-animations/accuracy-sample-weight-ranking-still.svg)；另可查看[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-sample-weight-ranking-motion.svg)。
 
+## 選擇性分類：覆蓋率與保留樣本準確率
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可使用鍵盤水平捲動的選擇性準確率動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-selective-coverage-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-selective-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-selective-coverage-motion.svg" alt="六筆固定的人工預測依分數由高到低排列，接受前二、前四或全部六筆時，覆蓋率分別為六分之二、六分之四與六分之六；保留樣本準確率依序為二分之二、四分之三與六分之四。" width="640" height="360">
+</div>
+</div>
+
+
+*原創 12 秒教學 SVG，CC BY-SA 4.0。* 六筆依分數排序的**人工示意資料**依序為 (0.97, 對)、(0.91, 對)、(0.80, 錯)、(0.72, 對)、(0.60, 錯)、(0.51, 對)。若拒答機制只接受前 $k$ 筆，當 $k=2,4,6$ 時，**覆蓋率**（接受筆數／總筆數）依序為 **2/6、4/6、6/6**；**選擇性準確率**（接受樣本中正確的比例）依序為 **2/2、3/4、4/6**；選擇性風險（接受樣本中的錯誤比例）為 **0、1/4、1/3**。所有模型預測保持不變，只有評估集合改變。這些分數**不是校準後機率，也不是模型實測輸出**；示例不保證一般風險—覆蓋率曲線必然如此。[^selective-origin]
+
+MkDocs 提供播放／暫停，減少動態效果模式固定顯示中間門檻。手機可聚焦後以左右方向鍵水平捲動。[GitHub 三情境靜態比較](../../../../assets/concept-animations/accuracy-selective-coverage-still.svg)與[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-selective-coverage-motion.svg)共用同一組資料。
+
+## 拒答後的各類別覆蓋率差異
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可使用鍵盤水平捲動的各類別覆蓋率動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-selective-class-coverage-motion.svg" alt="八筆固定的人工二元分類預測中有六筆正確；拒絕其中三筆正例後，保留的五筆全數正確，但正類別覆蓋率只有四分之一，負類別則為四分之四。" width="640" height="360">
+</div>
+</div>
+
+
+*原創 8 秒教學 SVG，CC BY-SA 4.0。* **人工二元分類示例**中，四筆真正類別為正的樣本，其預測正確性依序為**對、錯、錯、對**；另外四筆負例全部正確。原始準確率是 **6/8 = 0.75**，覆蓋率為 8/8。假設拒答規則只保留第一筆正例及全部四筆負例，則保留樣本準確率為 **5/5 = 1.00**，整體覆蓋率卻降為 **5/8 = 0.625**。而以**真實類別**區分的覆蓋率，正例僅為 **1/4**，負例則是 **4/4**。只回報選擇性準確率會掩蓋拒答分布的不均；任何原本錯誤的預測都沒有被修正。這**不是實際模型效能或公平性評估**。
+
+MkDocs 提供播放／暫停，減少動態效果模式固定顯示拒答後狀態；鍵盤可水平捲動。[GitHub 雙情境靜態比較](../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg)及[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-selective-class-coverage-motion.svg)呈現同一組人工資料。
+
 ## 解讀
 
 準確率在預測標籤已固定時容易解釋；若模型輸出分數，轉換成標籤的規則（二元分類門檻或多類別 argmax 等）可能改變準確率。它的弱點是取決於類別比例。若 99% 的案例是負例，一個從不預測正例的模型，準確率就有 99%，但完全找不到任何正例。
@@ -135,9 +161,13 @@ MkDocs 沿用播放／暫停與手機鍵盤水平捲動；減少動態效果模�
 
 ### 補充來源
 
+- Geifman, Y. & El-Yaniv, R. (2017). *Selective Classification for Deep Neural Networks*. https://arxiv.org/abs/1705.08500 — 提出透過拒答進行選擇性分類，並探討風險與覆蓋率。
+
 - Saito, T. & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. *PLoS ONE* 10(3). https://doi.org/10.1371/journal.pone.0118432 — 說明為什麼在稀有正例上，精確率—召回率曲線比 ROC 曲線更有資訊量。
 - Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — 提供免費線上草稿的機率機器學習教科書。
 - *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*, 2nd edition. https://hastie.su.domains/ElemStatLearn/ — 統計學習的標準教科書，涵蓋其評估方法。
+
+[^selective-origin]: Geifman & El-Yaniv (2017)，[Selective Classification for Deep Neural Networks](https://arxiv.org/abs/1705.08500) — 拒答式分類的風險與覆蓋率。
 
 [^balanced-demo]: scikit-learn contributors. *balanced_accuracy_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html — 定義本示意採用的逐類別召回率平均。
 

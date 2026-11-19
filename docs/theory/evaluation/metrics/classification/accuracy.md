@@ -98,6 +98,32 @@ These are **synthetic importance weights**, not observed frequencies, estimated 
 
 MkDocs offers Play/Pause and reduced-motion (the weighted stage); the image region supports keyboard scrolling on narrow screens. GitHub compares both weight schemes in its [static preview](../../../../assets/concept-animations/accuracy-sample-weight-ranking-still.svg) · [full SVG motion](../../../../assets/concept-animations/accuracy-sample-weight-ranking-motion.svg).
 
+## Selective accuracy versus coverage
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Keyboard-scrollable selective accuracy animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-selective-coverage-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-selective-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-selective-coverage-motion.svg" alt="Six fixed synthetic predictions are accepted in descending score order. Top two, top four and all six yield coverage two of six, four of six and six of six, while accepted-only accuracy is two of two, three of four and four of six." width="640" height="360">
+</div>
+</div>
+
+
+*Original 12-second instructional SVG, CC BY-SA 4.0.* Six **synthetic** score/correctness pairs, sorted descending, are (0.97, correct), (0.91, correct), (0.80, wrong), (0.72, correct), (0.60, wrong), and (0.51, correct). A reject option accepts only the top $k$ cases. For $k=2,4,6$, respectively, **coverage** (accepted fraction of all cases) is **2/6, 4/6, 6/6**, **selective accuracy** (correct fraction *among accepted cases*) is **2/2, 3/4, 4/6**, and selective risk (incorrect fraction among accepted cases) is **0, 1/4, 1/3**. A model's predictions stay unchanged; only the evaluation subset changes. These scores are **not calibrated probabilities or measured model outputs**. This is a constructed example, not a guaranteed risk–coverage curve.[^selective-origin]
+
+MkDocs provides Play/Pause; reduced-motion mode shows the middle cutoff. For small screens, focus the figure and use horizontal arrow keys. The [GitHub static fallback](../../../../assets/concept-animations/accuracy-selective-coverage-still.svg) compares all three cutoffs; [full SVG motion](../../../../assets/concept-animations/accuracy-selective-coverage-motion.svg) advances through them.
+
+## Class-conditional coverage under rejection
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Keyboard-scrollable class-conditional coverage animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-selective-class-coverage-motion.svg" alt="Eight fixed binary-class predictions contain six correct outcomes. A rejection rule retains five all-correct cases but covers only one of four positive-class cases and all four negatives." width="640" height="360">
+</div>
+</div>
+
+
+*Original eight-second instructional SVG, CC BY-SA 4.0.* In this **constructed binary example**, four true-positive-class instances have correctness **correct, wrong, wrong, correct**, and the four negative-class instances are all correct. Without rejection, accuracy is **6/8 = 0.75** and coverage is 8/8. Suppose a reject option keeps only the first positive-class instance and all four negative-class instances. Among accepted cases accuracy rises to **5/5 = 1.00**, while overall coverage falls to **5/8 = 0.625**. Crucially, coverage conditional on the *true class* is **1/4 for positives versus 4/4 for negatives**. Reporting only selective accuracy conceals uneven rejection; none of the underlying predictions was fixed. This example is **not an empirical fairness analysis, nor a model performance measurement**.
+
+MkDocs provides Play/Pause and a reduced-motion still of the selective stage; keyboard users can scroll the diagram. GitHub shows the side-by-side [static comparison](../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg), with a separate [SVG animation](../../../../assets/concept-animations/accuracy-selective-class-coverage-motion.svg).
+
 ## Interpretation
 
 Accuracy is easy to explain once predicted labels are fixed. When the classifier outputs scores, the decision rule (such as a binary cutoff or multiclass argmax) can change accuracy. Its weakness is that it depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
@@ -135,9 +161,13 @@ Using the [shared synthetic 100-case confusion matrix](index.md), accuracy is $(
 
 ### Additional sources
 
+- Geifman, Y. & El-Yaniv, R. (2017). *Selective Classification for Deep Neural Networks*. https://arxiv.org/abs/1705.08500 — Introduces selective classification by rejection and the risk–coverage objective.
+
 - Saito, T. & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. *PLoS ONE* 10(3). https://doi.org/10.1371/journal.pone.0118432 — Shows why precision-recall curves are more informative than ROC curves for rare positives.
 - Murphy, K. P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022. https://probml.github.io/pml-book/book1.html — Textbook with a free online draft on probabilistic machine learning.
 - *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*, 2nd edition. https://hastie.su.domains/ElemStatLearn/ — Standard textbook on statistical learning and its evaluation.
+
+[^selective-origin]: Geifman & El-Yaniv (2017), [Selective Classification for Deep Neural Networks](https://arxiv.org/abs/1705.08500) — Selective risk and coverage under rejection.
 
 [^balanced-demo]: scikit-learn contributors. *balanced_accuracy_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html — Defines the mean per-class recall used in the illustration.
 
