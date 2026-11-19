@@ -815,3 +815,42 @@ for file,heading in (
     assert ("\n$\n" + r"P_{\rho}(K=k)=") in text_page
     assert ("\n$\n" + r"\begin{aligned}" + "\n" + r"P_{\rho}(K\geq1)") in text_page
 print("Batch-mixture ROC dependence: 101 exact joint models, variance-equivalent counts and bilingual explanations OK")
+
+
+# Whole-batch mechanism mixing at n=30: the iid one-sided CP 95% rule
+# mis-covers the true p=1/6 when K=0 or K=1. At K>=2 its upper
+# endpoint covers that value. This is about one-sided upper coverage,
+# not a posterior probability or a nominal confidence promise under shift.
+from math import comb as coverage_comb
+p30 = Fraction(1, 6)
+n30 = 30
+iid_zero = (1-p30)**n30
+iid_one = n30*p30*(1-p30)**(n30-1)
+iid_bad = iid_zero + iid_one
+# For k=1 and k=2, the binomial lower-tail probability at p determines
+# whether the inverted 95% upper limit falls below or above the true p.
+assert float(iid_bad) < .05 < float(iid_bad + Fraction(coverage_comb(n30, 2))*p30**2*(1-p30)**(n30-2))
+for step in range(101):
+    rho = Fraction(step, 100)
+    # Draw ONE mechanism for the entire batch; not independent per record.
+    p_zero = (1-rho)*iid_zero + rho*(1-p30)
+    actual_coverage = (1-rho)*(1-iid_bad) + rho*p30
+    assert p_zero == (1-rho)*(Fraction(5,6)**30) + rho*Fraction(5,6)
+    assert actual_coverage == 1 - ((1-rho)*iid_bad + rho*(1-p30))
+    assert 0 <= p_zero <= 1 and 0 <= actual_coverage <= 1
+    if step==0:
+        assert .9705 < float(actual_coverage) < .9706
+    if step==50:
+        assert .5685 < float(actual_coverage) < .5687
+    if step==100:
+        assert actual_coverage == Fraction(1, 6)
+for filename, heading in (
+    ("roc-auc.md", "Coverage erosion between independent and shared-shock batches"),
+    ("roc-auc.zh-TW.md", "從獨立到共同衝擊：信賴上界的實際涵蓋率"),
+):
+    content = (shared_dir / filename).read_text(encoding="utf-8")
+    assert heading in content
+    assert r"P_{\rho}(K=0)" in content
+    assert r"\mathrm{Coverage}_{\rho}" in content
+    assert "\n$$\n" + r"\begin{aligned}" in content
+print("Thirty-case shared-shock mixture: 101 exact models, zero-alarm likelihood and actual CP upper coverage OK")
