@@ -316,7 +316,7 @@ Both have $E[K/3]=1/6$, yet the **batch distributions differ**. In this particul
 
 ### Between independence and one shared shock: the intermediate frames
 
-The changing bars above can be interpreted as a **specific batch-level mixture model**, rather than an arbitrary change in correlation. For each batch, first draw $B\sim\mathrm{Bernoulli}(\rho)$, independently of the alarms. If $B=0$, draw three independent Bernoulli alarms with probability $p=1/6$; if $B=1$, draw **one** Bernoulli shock and copy it to all three records. The batch chooses its mechanism **once**, not independently for each record. The resulting count distribution is a convex combination of the two histograms:
+The changing bars above can be interpreted as a **specific batch-level mixture model**, rather than an arbitrary change in correlation. For each batch, first draw a mechanism switch $B\sim\mathrm{Bernoulli}(\rho)$ independently of the random sources used by either mechanism. If $B=0$, draw three independent Bernoulli alarms with probability $p=1/6$; if $B=1$, draw **one** Bernoulli shock and copy it to all three records. The batch chooses its mechanism **once**, not independently for each record. The resulting count distribution is a convex combination of the two histograms:
 
 $$
 P_{\rho}(K=k)=(1-\rho)P_{\mathrm{iid}}(K=k)+\rho P_{\mathrm{shared}}(K=k).
