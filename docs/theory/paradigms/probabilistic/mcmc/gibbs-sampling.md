@@ -86,9 +86,9 @@ The blue lag bars are the **theoretical stationary** autocorrelations $\operator
 
 For the **stationary** Gaussian full-sweep $Y$ sequence and a hypothetical window of $N=100$ sweeps, the variance-equivalent effective sample size for its **sample mean** is calculated analytically, not estimated from the short demonstration path:[^roberts]
 
-$
+$$
 N_{\mathrm{eff}}=\frac{100}{1+2\sum_{k=1}^{99}(1-k/100)\rho^{2k}}.
-$
+$$
 
 At $\rho=0.8$, this gives approximately **22.44** independent-equivalent observations; at $\rho=0.95$, about **5.68**, despite all conditional updates being accepted. The slider now includes **negative and positive** correlations. Because the full-sweep autocorrelation depends on $\rho^{2k}$, the ESS curve is symmetric: $\rho=-0.8$ and $+0.8$ both give **22.44**, despite different conditional-update directions. Move the $\rho$ slider to recompute the curve and its marker. This is the theoretical stationary variance ratio for the $Y$ mean in this **constructed** Gaussian model, not a measured ESS or a statement about burn-in.
 
@@ -98,9 +98,9 @@ At $\rho=0.8$, this gives approximately **22.44** independent-equivalent observa
 
 The short teal path above uses **fixed artificial innovations**, but the new purple band follows the **exact probability law** of all possible Gibbs paths starting at \(Y_0=1\). For the systematic two-coordinate sweep, after \(n\) *complete sweeps* (not single-coordinate updates),
 
-$
+$$
 Y_n\mid Y_0=1\sim\mathcal{N}\bigl(\rho^{2n},\ 1-\rho^{4n}\bigr).
-$
+$$
 
 The teal centre line is the law's mean; the purple band is **mean ± one standard deviation**, not a fitted confidence interval. At \(\rho=0.8\) and \(n=2\), the mean is \(0.4096\) and the variance is \(0.83222784\). The band begins as a point mass at \(n=0\) and approaches the stationary \(\mathcal{N}(0,1)\) marginal. The existing step control highlights \(n=\lfloor\mathrm{step}/2\rfloor\); a half-completed sweep does not advance this law plot. It is an analytic convergence illustration, **not a model measurement or inference from the displayed example path**.[^roberts]
 
@@ -123,9 +123,9 @@ For the constructed target $p(0,0)=p(1,1)=1/2$, with zero mass on $(0,1)$ and $(
 
 Choose **Hybrid refresh** and adjust the block probability $p$ from zero to one. Each transition uses the mixture kernel $K_p=(1-p)I+p\Pi$, where $I$ is the trapped single-site transition and every row of $\Pi$ is $(1/2,1/2)$. From either supported mode, the exact cross-mode probability per transition is **$p/2$**, not $p$; the probability of remaining is $1-p/2$. Therefore the distance of the entire **probability law**, after $n$ transitions from a point start, is
 
-$
+$$
 d_{\mathrm{TV}}(\delta_xK_p^n,\pi)=\tfrac12(1-p)^n.
-$
+$$
 
 At $p=0.25$, four transitions leave TV distance $0.5(0.75)^4\approx0.1582$. At $p=0$, the chain is reducible and never converges; for every $p>0$, this two-state kernel converges geometrically; at $p=1$, it reaches $\pi$ in one transition. The coloured moving marker represents this **analytic law**, not the distance of the current displayed sample from the target. The sample path uses **two fixed illustrative uniform sequences** (whether to refresh, and what state a refresh selects), not measured transitions or independent draws.[^casella][^roberts]
 
@@ -141,10 +141,10 @@ The second plot shows the **probability law** after $k$ complete transitions fro
 
 The extra stacked-bar plot evolves the **full probability distribution**, not just one currently highlighted Markov state. If \(p\) is the selected block-refresh probability and the start is \((0,0)\), then after \(n\) transitions:
 
-$
+$$
 P_n(00)=\tfrac12+\tfrac12(1-p)^n,\qquad
 P_n(11)=\tfrac12-\tfrac12(1-p)^n.
-$
+$$
 
 Starting at \((1,1)\) swaps the two probabilities. For \(p=0.25\), the probability of state \(00\) at \(n=4\) from \(00\) is \(0.658203125\), even if the separate **fixed-uniform illustrative path** happened to visit another mode. The orange half-mass reference is the stationary target. Use the existing kernel, initial-state, refresh-probability, and step controls; this is an **exact constructed two-state law**, not empirical frequencies.[^casella][^roberts]
 

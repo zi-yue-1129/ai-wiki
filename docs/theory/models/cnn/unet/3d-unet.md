@@ -110,16 +110,16 @@ The original 3D U-Net training procedure applies on-the-fly elastic deformation 
 
 Masking the training loss for an **unlabeled output voxel** does not mean that its neighboring **input voxels** are removed from the convolution or gradient computation. Consider the following **illustrative, one-dimensional valid convolution**, with seven input values, a three-tap kernel and five outputs:
 
-$
+$$
 y_i=w_0x_i+w_1x_{i+1}+w_2x_{i+2},\qquad
 \mathcal{L}=\ell(y_1)+\ell(y_3).
-$
+$$
 
 With $\delta_j=\partial\ell(y_j)/\partial y_j$, the shared input $x_3$ receives contributions along both supervised paths:
 
-$
+$$
 \frac{\partial\mathcal{L}}{\partial x_3}=w_2\delta_1+w_0\delta_3.
-$
+$$
 
 No loss is attached to $y_0,y_2,y_4$, yet the input neighborhood remains relevant to the two supervised predictions. The moving dots trace these **chain-rule dependencies**, not measured activation values or a GPU execution schedule.
 

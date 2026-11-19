@@ -51,10 +51,12 @@ aliases:
 - **[積分梯度](integrated-gradients.md)（Sundararajan 等人，2017）。** 歸因為輸入減基準的差，乘以沿路徑的平均梯度。它滿足敏感性與實作不變性，但取決於基準的選擇。
 - **[LIME](lime.md)（Ribeiro 等人，2016）。** 對輸入取樣擾動版本，依接近程度加權，並擬合一個稀疏線性模型。解釋是局部的且與模型無關，但其穩定性取決於取樣與核函數的選擇。
 - **[SHAP](shap.md)（Lundberg 與 Lee，2017）。** 特徵 \(i\) 的 Shapley 值為
-  \[
-  \phi_i = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!\,(|N|-|S|-1)!}{|N|!}\,\bigl[v(S \cup \{i\}) - v(S)\bigr],
-  \]
-  其中 \(N\) 是特徵集合，\(v(S)\) 是只知道 \(S\) 中特徵時模型的期望輸出。Lundberg 與 Lee 將六種既有方法統一於這個可加形式之下，並提出其估計器。基於 Shapley 的預測歸因更早已由 Štrumbelj 與 Kononenko（2014）用於解釋預測。
+
+    \[
+    \phi_i = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!\,(|N|-|S|-1)!}{|N|!}\,\bigl[v(S \cup \{i\}) - v(S)\bigr],
+    \]
+
+    其中 \(N\) 是特徵集合，\(v(S)\) 是只知道 \(S\) 中特徵時模型的期望輸出。Lundberg 與 Lee 將六種既有方法統一於這個可加形式之下，並提出其估計器。基於 Shapley 的預測歸因更早已由 Štrumbelj 與 Kononenko（2014）用於解釋預測。
 
 ## 結果
 
