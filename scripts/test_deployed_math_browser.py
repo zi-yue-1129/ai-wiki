@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Real built articles: six repaired bilingual pages, every display, three widths."""
+"""Real built repaired bilingual articles: every display at three widths."""
 import argparse
 import json
 import os
@@ -16,9 +16,10 @@ from test_forward_math_markup import (GUARDED_MATH_PAGES, MathContainers, render
     require_no_outside_tex, MappoRecurrenceMarkupTests, RetainedDeployedMathTests, CqlObjectiveMarkupTests, DmlLimitationsMarkupTests)
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCES = ('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md', 'docs/theory/causal-inference/double-machine-learning.md', 'docs/theory/causal-inference/double-machine-learning.zh-TW.md')
+SOURCES = ('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md', 'docs/theory/causal-inference/double-machine-learning.md', 'docs/theory/causal-inference/double-machine-learning.zh-TW.md', 'docs/society/interpretability/feature-attribution.md', 'docs/society/interpretability/feature-attribution.zh-TW.md', 'docs/theory/models/cnn/unet/3d-unet.md', 'docs/theory/models/cnn/unet/3d-unet.zh-TW.md', 'docs/theory/models/rnn/gated-cells/gru/index.md', 'docs/theory/models/rnn/gated-cells/gru/index.zh-TW.md', 'docs/theory/paradigms/probabilistic/mcmc/gibbs-sampling.md', 'docs/theory/paradigms/probabilistic/mcmc/gibbs-sampling.zh-TW.md')
 WIDTHS = (320, 390, 1280)
-DISPLAY_COUNTS = dict(zip(SOURCES, (2,2,2,2,3,3,2,2,6,6)))
+EXISTING = {x["page"]:x for x in json.loads((ROOT/"scripts/fixtures/existing-math-followup.json").read_text())["pages"]}
+DISPLAY_COUNTS = dict(zip(SOURCES, (2,2,2,2,3,3,2,2,6,6,1,1,3,3,6,6,7,7)))
 
 def compact(value):
     return re.sub(r'\s+', '', value)
@@ -28,6 +29,7 @@ def source_displays(source):
     return [compact(x)[2:-2] for x in blocks]
 
 def required_bodies(source):
+    if source in EXISTING: return EXISTING[source]["repaired_bodies"]
     if '/mappo/' in source: return MappoRecurrenceMarkupTests.BODIES
     if '/maddpg/' in source: return [RetainedDeployedMathTests.MADDPG]
     if '/cql/' in source: return [CqlObjectiveMarkupTests.BODY]
@@ -89,6 +91,10 @@ def validate_snapshot(source, expected, snapshot):
         assert row['li']==dict(title=record[3][1],count=5,index=1,displays=1,paragraphs=2),row
         assert row['list_titles']==record[3],row
 
+    if source in EXISTING and 'list' in EXISTING[source]:
+        record=EXISTING[source]['list'];row=snapshot['displays'][actual.index(compact(required_bodies(source)[0]))]
+        assert row['li']==record['item'] and row['list_titles']==record['titles'],row
+
 
 def validate_geometry(g):
     assert all(isinstance(g[k],(float,int)) and not isinstance(g[k],bool) and __import__('math').isfinite(g[k]) for k in ('left','right','width','height','viewport'))
@@ -100,7 +106,7 @@ def validate_report(report):
     assert report['status']=='passed'
     expected={(s,w) for s in SOURCES for w in WIDTHS}
     literal_sources={source:source_displays((ROOT/source).read_text())for source in SOURCES}
-    cases=report['cases'];assert len(cases)==30 and {(x['source'],x['width']) for x in cases}==expected
+    cases=report['cases'];assert len(cases)==54 and {(x['source'],x['width']) for x in cases}==expected
     for case in cases:
         assert case['status']=='passed' and not case['errors']
         assert case['expected_displays']==DISPLAY_COUNTS[case['source']]
@@ -121,6 +127,7 @@ def validate_report(report):
         assert 'top.png' in case['screenshots']
         if '/score-sde' in case['source']:assert 'core-list.png' in case['screenshots']
         if '/double-machine-learning' in case['source']:assert 'limitations.png' in case['screenshots']
+        if 'feature-attribution' in case['source']:assert 'feature-list.png' in case['screenshots']
 
 def image_receipt(path):
     data=path.read_bytes()
@@ -178,6 +185,8 @@ def main():
                 heading=page.locator('#核心想法' if lang=='zh-TW' else '#core-idea');heading.scroll_into_view_if_needed();capture(page,folder,'core-list.png',case);case['screenshots'].append('core-list.png')
               if '/double-machine-learning' in source:
                 page.locator('#限制' if lang=='zh-TW' else '#limitations').scroll_into_view_if_needed();capture(page,folder,'limitations.png',case);case['screenshots'].append('limitations.png')
+              if source in EXISTING and 'list' in EXISTING[source]:
+                page.locator('#'+EXISTING[source]['list']['heading_id']).scroll_into_view_if_needed();capture(page,folder,'feature-list.png',case);case['screenshots'].append('feature-list.png')
               assert not case['errors'],case['errors'];case['status']='passed'
             except Exception as error:
               case['status']='failed';case['failure']=repr(error)
