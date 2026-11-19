@@ -1117,3 +1117,53 @@ for _lang in ('index.md', 'index.zh-TW.md'):
     assert 'data-motion-src="../../../../assets/concept-animations/confusion-condition-direction-motion.svg"' in _page
     assert '30/50=0.600' in _page and '40/60' in _page
 print('Confusion-matrix conditioning: four exact rates and shared bilingual fallback OK')
+
+
+# Exact scene-to-denominator binding for the four animated matrix states.
+# Merely checking that four values occur somewhere in the SVG would miss a
+# swapped row/column denominator, an invalid fraction, or a mislabeled stage.
+# Bind each visible scene to its ordered 100-case count decomposition instead.
+from xml.etree import ElementTree as ConditionalSVG
+
+_conditional_ns = "{http://www.w3.org/2000/svg}"
+_conditional_root = ConditionalSVG.fromstring(_motion)
+_conditional_scenes = [
+    node for node in _conditional_root.iter(f"{_conditional_ns}g")
+    if node.get("class") == "moving"
+]
+_conditional_expected = (
+    ("ROW", "TRUE +", "÷ 60", "TP + FN", "66.7%", "TP 40",
+     "33.3%", "FN 20", "Recall", "0.667"),
+    ("ROW", "TRUE −", "÷ 40", "FP + TN", "25%", "FP 10",
+     "75%", "TN 30", "Specificity", "0.750"),
+    ("COLUMN", "PRED +", "÷ 50", "TP + FP", "80%", "TP 40",
+     "20%", "FP 10", "Precision", "0.800"),
+    ("COLUMN", "PRED −", "÷ 50", "FN + TN", "40%", "FN 20",
+     "60%", "TN 30", "NPV", "0.600"),
+)
+assert len(_conditional_scenes) == len(_conditional_expected) == 4
+for _i, (_scene, _expected_labels) in enumerate(zip(
+    _conditional_scenes, _conditional_expected, strict=True
+)):
+    _labels = tuple((node.text or "").strip()
+                    for node in _scene.iter(f"{_conditional_ns}text"))
+    assert _labels == _expected_labels, (_i, _labels)
+    _anim = _scene.find(f"{_conditional_ns}animate")
+    assert _anim is not None and _anim.get("attributeName") == "opacity"
+    assert _anim.get("values") == ";".join(
+        "1" if j == _i else "0" for j in (0, 1, 2, 3, 0)
+    )
+    assert _anim.get("calcMode") == "discrete"
+    assert _anim.get("keyTimes") == "0;0.25;0.5;0.75;1"
+    assert _anim.get("dur") == "16s"
+    assert _anim.get("repeatCount") == "indefinite"
+
+# The GitHub fallback must retain both distinct denominator populations
+# independently of any SMIL/JavaScript support.
+_still_root = ConditionalSVG.fromstring(_still)
+_still_labels = tuple((n.text or "").strip()
+                      for n in _still_root.iter(f"{_conditional_ns}text"))
+for _required in ("ROW · TRUE +", "÷ 60", "Recall", "0.667",
+                  "COLUMN · PRED +", "÷ 50", "Precision", "0.800"):
+    assert _required in _still_labels, _required
+print("Confusion-matrix scene labels, exact denominators and SMIL stage order OK")
