@@ -314,6 +314,28 @@ $$
 
 兩種情況的 $E[K/3]$ 都是 $1/6$，但**有限批次誤報數的聯合分布不同**。在這個特定例子裡，完全正相關使「至少一筆誤報」機率下降，卻使經驗誤報率的變異數從 $5/108$ **增加至** $5/36$；不能概括宣稱相關性一定降低風險。若將共用衝擊的批次誤當成三個獨立伯努利試驗，前面的二項分布推論與精確信賴上界便不適用。**所有數值均為人工示意，非模型或部署實測。** 動畫變換的是**兩種資料生成假設**，不是模型訓練過程或實際部署隨時間變化。MkDocs 提供鍵盤可操作的播放／暫停；無法播放或偏好減少動態效果時，靜態回退圖同時呈現兩種分布。手機上可聚焦並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-dependence-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-dependence-motion.svg)。
 
+
+### 動畫：三十筆完全相依資料，不等於三十次獨立試驗
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="零誤報信賴上界：獨立負例與完全共同衝擊的比較">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-shared-bound-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-shared-bound-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-shared-bound-motion.svg" alt="當沒有觀察到誤報時，單側 95% 二項分布 FPR 信賴上界會從一次獨立觀察的 95%，隨三十筆獨立負例降低到 9.5%。若三十筆全部由同一次伯努利共同衝擊決定，正確上界仍為 95%，而不是 9.5%；虛線是人工假設的六分之一 FPR 上限。" width="640" height="360">
+</div>
+</div>
+
+*原創人工示意 SVG 動畫及靜態回退（CC BY-SA 4.0），並非模型實測。* 前圖比較**邊際 FPR 相同**時不同的誤報數聯合分布。本圖反過來研究：觀察到**零筆誤報**後，三十筆真實負例究竟提供多少資訊？若明確假設 $X_1,\ldots,X_{30}\overset{\mathrm{iid}}{\sim}\mathrm{Bernoulli}(p)$，零誤報的概似是 $(1-p)^{30}$，可以得到單側 95% Clopper–Pearson 信賴上界。若改成**完全共同衝擊**的人工模型 $X_1=\cdots=X_{30}=Z$，$Z\sim\mathrm{Bernoulli}(p)$，即使記錄三十筆資料，也只有*一次獨立衝擊*：
+
+$
+\begin{aligned}
+P_p(K=0\mid \mathrm{iid})&=(1-p)^{30},&
+U_{\mathrm{iid}}&=1-0.05^{1/30}\approx0.095;\\
+P_p(K=0\mid \mathrm{shared})&=1-p,&
+U_{\mathrm{shared}}&=1-0.05=0.95.
+\end{aligned}
+$
+
+兩個上界都針對**人工假設的零誤報觀察**，但各自只在相應的抽樣模型成立時有效。圖中的 $1/6$ FPR 限制是示意規格，**不是實測部署保證**。在共同衝擊模型且真實 $p=1/6$ 時，若誤把三十筆視為獨立、套用二項分布信賴上界，發生零誤報的機率是 $5/6$，這時上界 **無法涵蓋**真實 $p$。此程序的實際涵蓋率因此只有 **$1/6$（16.7%）**，而不是宣稱的 95%；若全部三十筆都誤報，上界則為 1，會涵蓋 $p$。這個精確結論**僅限於完全相依的極端人工模型**，不能直接套用於任意程度的相關性；一般相依情境需要合適的抽樣模型、獨立群組或其他有效推論方法。動畫增加的是**記錄的零誤報負例數**，不是模型訓練時間。MkDocs 提供鍵盤播放／暫停；Reduced Motion 顯示完整兩條曲線；手機可以聚焦圖框並水平捲動。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-shared-bound-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-shared-bound-motion.svg)。二項分布反解取自文末 Clopper–Pearson（1934），共同衝擊比較為原創數學示例。
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="受 FPR 上限約束的隨機 ROC 決策規則">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="人工 ROC 的兩個門檻連線與下降中的預期成本曲線共用隨機混合標記。FPR 上限為六分之一，因此混合機率最多二分之一；可行邊界的成本為三十分之十一。" width="640" height="360">
