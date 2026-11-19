@@ -355,6 +355,25 @@ $$
 
 Both bounds concern the same **hypothetical zero-alarm observation**, but they are valid only for their respective sampling assumptions. The horizontal $1/6$ budget is an illustrative requirement, **not** an empirical operating guarantee. Under the shared-shock model with true $p=1/6$, blindly applying the *iid* 30-sample bound would **fail to cover** $p$ in the no-alarm outcome, which occurs with probability $5/6$; its actual coverage is only **$1/6$ (16.7%)**, not the advertised 95%. For the all-alarm outcome, the binomial upper bound is 1 and covers $p$. This exact result holds for this deliberately extreme perfect-dependence construction, **not for arbitrary correlated negatives**; general dependence requires a justified sampling model, independent groups or another valid inferential method. The animation sweeps the number of *recorded* zero-alarm negatives, not training time. MkDocs provides keyboard-operated Play/Pause, reduced-motion users get the two complete curves, and narrow screens can scroll the figure horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-shared-bound-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-shared-bound-motion.svg). The exact binomial inversion is the Clopper–Pearson (1934) method cited in References; the shared-shock contrast is an original worked calculation.
 
+
+
+### Coverage erosion between independent and shared-shock batches
+
+The dependence animation above compares the two endpoints. Its batch-level mechanism mixture also gives a **continuous, mathematically defined bridge**: choose the iid process with probability $1-\rho$, or the fully shared shock with probability $\rho$, once for all 30 records. With synthetic true $p=1/6$, the probability of recording zero alarms rises sharply with dependence, even though each record retains the same marginal FPR. More importantly, the *actual repeated-sampling coverage* of an incorrectly applied iid one-sided 95% Clopper–Pearson upper limit is
+
+$
+\begin{aligned}
+P_{\rho}(K=0)&=(1-\rho)(5/6)^{30}+\rho(5/6),\\
+q_{\mathrm{iid}}&=P_{\mathrm{Bin}(30,1/6)}(K\leq1)
+=(5/6)^{30}+30(1/6)(5/6)^{29},\\
+\mathrm{Coverage}_{\rho}&=(1-\rho)(1-q_{\mathrm{iid}})+\rho/6.
+\end{aligned}
+$
+
+For this **specific** $n=30$, $p=1/6$ example, the naive iid upper bound misses the true parameter precisely when the observed alarm count is **0 or 1**; the one-sided 95% binomial inversion puts its upper limit below $1/6$ for those two counts. Coverage consequently drops from **97.05% at $\rho=0$**, to **56.86% at $\rho=0.5$**, to **16.67% at $\rho=1$**. The nominal 95% guarantee presumes the iid sampling law and does **not** survive this correlated-data mechanism mixture.
+
+The model mixes whole-batch processes, not individual-record prediction probabilities. Its $\rho$ is a synthetic mechanism-mixture weight and pairwise correlation *for this construction*, not a universal dependence correction or an estimated parameter. The derived values are analytic examples, not measured false-alarm rates. The two endpoint curves in the preceding animation illustrate why the information content of 30 records depends on the joint sampling process; the coverage calculation exposes what fails when one uses the wrong likelihood.
+
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="FPR-constrained randomized ROC policy">
 <div style="width:640px">
 <img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-budget-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-budget-mix-motion.svg" alt="A synthetic two-threshold ROC segment and a falling expected-cost line share a moving randomized-policy marker. The FPR cap at one sixth limits the mixing probability to one half; the feasible boundary has expected cost eleven thirtieths." width="640" height="360">
