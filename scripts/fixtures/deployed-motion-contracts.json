@@ -675,6 +675,36 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "accuracy-selective-class-coverage": {
+      "origins": [
+        {
+          "origin_blob": "08a6911fc2f85d9d022df8032ab4e959f566204c",
+          "origin_commit": "203021abd5d230dbf93c34efa179588c34b44577",
+          "path": "docs/assets/concept-animations/accuracy-selective-class-coverage-motion.svg"
+        },
+        {
+          "origin_blob": "580a6dfc1884f483ac6d420ca41be17a195b2110",
+          "origin_commit": "203021abd5d230dbf93c34efa179588c34b44577",
+          "path": "docs/assets/concept-animations/accuracy-selective-class-coverage-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "accuracy-selective-coverage": {
+      "origins": [
+        {
+          "origin_blob": "6fb8b7d62c60d055aea0518a5821efb736e9d732",
+          "origin_commit": "203021abd5d230dbf93c34efa179588c34b44577",
+          "path": "docs/assets/concept-animations/accuracy-selective-coverage-motion.svg"
+        },
+        {
+          "origin_blob": "03230f3fdd680695b36ff34e42346c5879601c8c",
+          "origin_commit": "203021abd5d230dbf93c34efa179588c34b44577",
+          "path": "docs/assets/concept-animations/accuracy-selective-coverage-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "accuracy-topk-tie-policy": {
       "origins": [
         {
