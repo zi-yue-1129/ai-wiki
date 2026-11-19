@@ -24,6 +24,7 @@ class ClassificationMathLayout(unittest.TestCase):
      # Every occurrence must still be a real display-math block.
      self.assertGreaterEqual(len(matches),1,(topic,lang,expression))
      for block in matches:
+      # Reconstruct the actual source's display-math fence, not an inline $ fence.
       markup=Markdown(extensions=['pymdownx.arithmatex'],extension_configs={'pymdownx.arithmatex':{'generic':True}}).convert('$\n'+block+'\n$')
       self.assertIn('<div class="arithmatex">',markup)
       self.assertNotIn('<span class="arithmatex">',markup)
