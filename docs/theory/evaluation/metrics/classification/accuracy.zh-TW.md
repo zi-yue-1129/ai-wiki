@@ -42,6 +42,32 @@ $$
 
 平衡準確率為**兩類別召回率的不加權平均**，$(0.80+0.90)/2=0.85$。當 $p$ 從 $0.10$ 變為 $0.90$，一般準確率便從 **0.89 降至 0.81**，但平衡準確率保持 **0.85**。[^balanced-demo] 此結論以兩個條件辨識率固定為前提；實際分布偏移也可能使它們改變。
 
+## Top-k 成員判斷：排名視窗如何擴大
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可使用鍵盤水平捲動的 top-k 準確率動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-topk-window-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-topk-window-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-topk-window-motion.svg" alt="三筆人工四類別預測的真實類別分別排第 1、2、4 名。top-1 命中三分之一，top-2 命中三分之二，top-4 全數命中。青綠色選取框在離散狀態中擴大，金色圓點標出不變的真實類別。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒 SVG 教學動畫，搭配獨立的 GitHub 靜態回退圖（CC BY-SA 4.0）。* 三筆固定的**人工四類別排名**中，真實類別分別位於第 $1$、$2$、$4$ 名。允許的排名視窗從 $k=1$ 擴大到 $2$、$4$，top-k 準確率便從 $1/3$、$2/3$ 變成 $3/3$。改變的只有**評分規則**，模型、分數與輸入均未更新。四類別的 top-4 必然全對，不代表模型學得更好。Top-1 等於一般 argmax 準確率；此處 top-k 是**單標籤多類別**評估，不是多標籤完整集合準確率。
+
+MkDocs 可播放／暫停；手機可聚焦圖形，再使用方向鍵水平捲動。減少動態效果模式固定顯示 top-2。[GitHub 靜態圖](../../../../assets/concept-animations/accuracy-topk-window-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/accuracy-topk-window-motion.svg)。
+
+## Top-k 邊界同分：分數相同仍可能改變命中結果
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="可使用鍵盤水平捲動的 top-k 同分動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-topk-tie-policy-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-topk-tie-policy-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-topk-tie-policy-motion.svg" alt="四個人工分數 A 0.90、B 0.70、C 0.70、D 0.20，真實類別是 C。當 k 等於 2，依較低索引優先會漏掉 C（零分之一），依較高索引優先則納入 C（一分之一）。靜態圖並列兩種同分規則。" width="640" height="360">
+</div>
+</div>
+
+*原創 8 秒 SVG 教學動畫與 GitHub 雙欄靜態回退（CC BY-SA 4.0）。* 設 $k=2$、真實類別 **C**，固定人工分數為 **A=0.90、B=0.70、C=0.70、D=0.20**。B 與 C 在第二名的邊界同分。若同分時優先**較低的類別索引**，取出 $\{A,B\}$，此筆得 **0/1**；若優先**較高的索引**，取出 $\{A,C\}$，則得 **1/1**。離散動畫只切換同分規則，不代表模型分數發生變動。單筆示意不能視為模型效能估計。
+
+scikit-learn 的 `top_k_accuracy_score` 明確採用**較高類別索引優先**的同分規則。[^topk-api] 比較不同實作時，必須說明類別索引順序及同分規則。這不同於 ROC-AUC 對正負配對同分給半分；top-k 最後仍進行離散的集合成員判斷。
+
+MkDocs 沿用播放／暫停和減少動態效果回退（較高索引情境）；GitHub 靜態圖則**並排保留兩種結果**。[GitHub 靜態圖](../../../../assets/concept-animations/accuracy-topk-tie-policy-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/accuracy-topk-tie-policy-motion.svg)。
+
 ## 解讀
 
 準確率在預測標籤已固定時容易解釋；若模型輸出分數，轉換成標籤的規則（二元分類門檻或多類別 argmax 等）可能改變準確率。它的弱點是取決於類別比例。若 99% 的案例是負例，一個從不預測正例的模型，準確率就有 99%，但完全找不到任何正例。
@@ -84,3 +110,5 @@ $$
 - *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*, 2nd edition. https://hastie.su.domains/ElemStatLearn/ — 統計學習的標準教科書，涵蓋其評估方法。
 
 [^balanced-demo]: scikit-learn contributors. *balanced_accuracy_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html — 定義本示意採用的逐類別召回率平均。
+
+[^topk-api]: scikit-learn contributors. *top_k_accuracy_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.top_k_accuracy_score.html — 定義 top-k 準確率與較高索引優先的同分政策。

@@ -1167,3 +1167,29 @@ for _required in ("ROW · TRUE +", "÷ 60", "Recall", "0.667",
                   "COLUMN · PRED +", "÷ 50", "Precision", "0.800"):
     assert _required in _still_labels, _required
 print("Confusion-matrix scene labels, exact denominators and SMIL stage order OK")
+
+
+# Two synthetic, fully reproducible top-k experiments.
+from xml.etree import ElementTree as _ET
+_truth_ranks = (1, 2, 4)
+assert [sum(rank <= k for rank in _truth_ranks) for k in (1, 2, 4)] == [1, 2, 3]
+assert [sum(rank <= k for rank in _truth_ranks) / 3 for k in (1, 2, 4)] == [1 / 3, 2 / 3, 1]
+_scores = {"A": .90, "B": .70, "C": .70, "D": .20}
+assert sorted(_scores, key=lambda label: (-_scores[label], label))[:2] == ["A", "B"]
+assert sorted(_scores, key=lambda label: (-_scores[label], -ord(label)))[:2] == ["A", "C"]
+for _stem, _duration, _num_stages in (("accuracy-topk-window", "12s", 3), ("accuracy-topk-tie-policy", "8s", 2)):
+    _root_path = Path("docs/assets/concept-animations")
+    _motion = _root_path / (_stem + "-motion.svg")
+    _still = _root_path / (_stem + "-still.svg")
+    _animated = _ET.parse(_motion).getroot()
+    _fallback = _ET.parse(_still).getroot()
+    assert _animated.attrib["viewBox"] == _fallback.attrib["viewBox"] == "0 0 640 360"
+    _nodes = list(_animated.iter("{http://www.w3.org/2000/svg}animate"))
+    assert len(_nodes) == _num_stages
+    assert all(a.get("dur") == _duration and a.get("calcMode") == "discrete" for a in _nodes)
+    assert not list(_fallback.iter("{http://www.w3.org/2000/svg}animate"))
+    assert "prefers-reduced-motion" in _motion.read_text(encoding="utf-8")
+    for _locale in (".md", ".zh-TW.md"):
+        _doc = Path("docs/theory/evaluation/metrics/classification/accuracy" + _locale).read_text(encoding="utf-8")
+        assert f'{_stem}-still.svg' in _doc and f'{_stem}-motion.svg' in _doc
+print("Top-k window and tie policy arithmetic and animation states OK")

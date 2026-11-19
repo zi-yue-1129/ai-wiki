@@ -42,6 +42,32 @@ $$
 
 Balanced accuracy is the **unweighted mean of class recalls**, $(0.80+0.90)/2=0.85$. Varying $p$ from $0.10$ to $0.90$ thus moves ordinary accuracy from **0.89 to 0.81**, while balanced accuracy stays **0.85**.[^balanced-demo] This holds only if both conditional class-wise rates remain fixed; real distribution shifts can change them too.
 
+## Top-k membership: expanding the rank window
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Keyboard-scrollable top-k accuracy motion">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-topk-window-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-topk-window-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-topk-window-motion.svg" alt="Three synthetic four-class predictions have true-label ranks 1, 2 and 4. Top-1 hits one of three, top-2 hits two, and top-4 hits all three; a teal selection border expands in discrete stages while gold dots mark the unchanged true classes." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second instructional SVG, with a separate GitHub-readable static preview (CC BY-SA 4.0).* Three fixed, **synthetic** four-class score rankings have true-label ranks $1$, $2$, and $4$. Enlarging the admitted rank window from $k=1$ to $k=2$ to $k=4$ changes top-k accuracy from $1/3$ to $2/3$ to $3/3$. Only the **evaluation rule** changes; no model, prediction, or input is updated. Top-4 is trivially perfect for four classes, not evidence of learning. Top-1 is ordinary argmax accuracy, whereas top-k is a **single-label multiclass** metric, not multilabel subset accuracy.
+
+On MkDocs use Play/Pause. On narrow screens focus the diagram and use horizontal arrow-key scrolling. Reduced-motion mode holds the top-2 stage. [GitHub still](../../../../assets/concept-animations/accuracy-topk-window-still.svg) · [Animated SVG](../../../../assets/concept-animations/accuracy-topk-window-motion.svg).
+
+## Top-k boundary ties: the same scores, different membership
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Keyboard-scrollable top-k tie-policy motion">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/accuracy-topk-tie-policy-still.svg" data-still-src="../../../../assets/concept-animations/accuracy-topk-tie-policy-still.svg" data-motion-src="../../../../assets/concept-animations/accuracy-topk-tie-policy-motion.svg" alt="With four synthetic scores A 0.90, B 0.70, C 0.70, D 0.20 and true class C, selecting two classes breaks the B/C tie. Lower-index-first selection misses C (0/1); higher-index-first finds C (1/1). The static fallback compares both policies side by side." width="640" height="360">
+</div>
+</div>
+
+*Original 8-second instructional SVG and dual-panel GitHub-safe fallback (CC BY-SA 4.0).* Set $k=2$, true class **C**, and fixed artificial scores **A=0.90, B=0.70, C=0.70, D=0.20**. Classes B and C tie at the membership boundary. If lower class indices break ties, the chosen set is $\{A,B\}$, yielding **0/1** for this sample; if higher indices win, it is $\{A,C\}$, yielding **1/1**. The discrete scene switch changes only the tie policy. A one-case outcome is not a performance estimate.
+
+scikit-learn's `top_k_accuracy_score` explicitly prioritises **higher class indices** for tied scores.[^topk-api] Always document class-index ordering and tie-breaking before comparing metrics from different implementations. Unlike ROC-AUC's half-credit for cross-class ranking ties, top-k evaluates discrete set membership.
+
+MkDocs supports Play/Pause and a reduced-motion still (higher-index case); GitHub's static preview deliberately shows **both** policies. [GitHub still](../../../../assets/concept-animations/accuracy-topk-tie-policy-still.svg) · [Animated SVG](../../../../assets/concept-animations/accuracy-topk-tie-policy-motion.svg).
+
 ## Interpretation
 
 Accuracy is easy to explain once predicted labels are fixed. When the classifier outputs scores, the decision rule (such as a binary cutoff or multiclass argmax) can change accuracy. Its weakness is that it depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
@@ -84,3 +110,5 @@ Using the [shared synthetic 100-case confusion matrix](index.md), accuracy is $(
 - *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*, 2nd edition. https://hastie.su.domains/ElemStatLearn/ — Standard textbook on statistical learning and its evaluation.
 
 [^balanced-demo]: scikit-learn contributors. *balanced_accuracy_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html — Defines the mean per-class recall used in the illustration.
+
+[^topk-api]: scikit-learn contributors. *top_k_accuracy_score*. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.top_k_accuracy_score.html — Defines the score and its higher-index tie policy.
