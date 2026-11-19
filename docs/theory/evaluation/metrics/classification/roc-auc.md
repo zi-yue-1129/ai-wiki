@@ -314,7 +314,7 @@ This has a **frequentist repeated-sampling coverage** interpretation, not a 95% 
 Both have $E[K/3]=1/6$, yet the **batch distributions differ**. In this particular construction the probability of *any* alarm decreases under complete positive dependence, while the empirical-rate variance **increases** from $5/108$ to $5/36$; dependence does not have one universally beneficial direction. Treating the shared-shock batch as three independent Bernoulli trials would invalidate the binomial likelihood and the preceding exact confidence-bound calculation. All values are synthetic, **not measured model or deployment results**. The bars animate between alternative data-generating assumptions, **not training steps or a temporal change in a deployed model**. MkDocs supplies keyboard-accessible Play/Pause; the still compares both distributions when animation is unavailable or reduced motion is preferred. On mobile, focus and scroll horizontally. [GitHub static preview](../../../../assets/concept-animations/roc-fpr-dependence-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-fpr-dependence-motion.svg).
 
 
-### Animation: why thirty identical alarms are not thirty independent trials
+### Animation: why thirty fully dependent negatives are not thirty independent trials
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Zero-alarm confidence bound under independent and fully dependent negative observations">
 <div style="width:640px">
