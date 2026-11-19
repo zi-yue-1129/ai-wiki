@@ -324,6 +324,33 @@ $$
 
 在 $p=1/6$ 的邊界，獨立重測 **10 次**，至少一次表面上通過的機率會提高到約 **36.95%**，而非 4.51%。這**不是**有效的單次 95% 認證程序；若不計入重複檢驗，僅挑選成功批次報告，就不再有宣稱的錯誤率控制。若重複使用同一資料、依測試調整門檻，或依結果決定何時停止，應另行建立合適的推論方法；上述獨立批次公式不適用。動畫移動的是**可能的真實 FPR**，不是模型更新。MkDocs 有鍵盤播放／暫停、減少動態效果回退及手機水平捲動；[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-certificate-power-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-certificate-power-motion.svg)。單側上界沿用文末已列的 Clopper–Pearson（1934）。
 
+
+### 動畫：預先指定十次檢驗時的整體錯誤通過率控制
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="多批次負例檢驗的整體錯誤通過機率">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-fpr-retries-still.svg" data-still-src="../../../../assets/concept-animations/roc-fpr-retries-still.svg" data-motion-src="../../../../assets/concept-animations/roc-fpr-retries-motion.svg" alt="原創解析曲線比較母體 FPR 恰為六分之一時，預先指定的獨立測試批次由一批增加到十批，至少一次錯誤通過的累積機率。未調整規則每批十七筆負例時達百分之三十六點九五；Bonferroni 分配且每批三十筆獨立負例時為百分之四點一三，低於虛線的百分之五整體上限。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫與 GitHub 可顯示的靜態回退（CC BY-SA 4.0）；數值皆來自人工伯努利模型的解析計算，**不是分類器實測結果**。* 移動游標呈現預先設定的獨立測試從一批增加至十批時，**至少一次錯誤通過**的機率如何變化；靜態圖停在十批。MkDocs 提供播放／暫停，鍵盤使用者可聚焦並水平捲動圖框；偏好減少動態效果時保留完整曲線而不移動標記。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-fpr-retries-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-fpr-retries-motion.svg)。
+
+前段**單次檢驗**使用十七筆互相獨立的真實負例與 Clopper–Pearson 單側 95% FPR 信賴上界。在人工假設的虛無邊界 $p_0=1/6$，零誤報事件的機率為 $(5/6)^{17}\approx0.04507$。若將這個**未調整**規則重複十次，只報告成功批次，就不再是一個有效的單次 95% 程序。對 $m$ 個彼此獨立、重新抽樣的批次，其累積錯誤通過機率為 $1-[1-(5/6)^{17}]^m$，在 $m=10$ 時達 **36.95%**。
+
+若**事先承諾最多十次檢驗**，Bonferroni 可分配每次 $\alpha_j=0.05/10=0.005$。在**每批內**均為獨立同分布的真實負例伯努利試驗時，零誤報的單側 $(1-\alpha_j)$ 精確信賴上界要嚴格低於示意 FPR 上限 $p_0$，至少需要
+
+$$
+n\geq\left\lceil\frac{\log(0.005)}{\log(5/6)}\right\rceil=30.
+$$
+
+若 $n=29$，邊界零誤報機率 $(5/6)^{29}\approx0.005055$ 高於分配的 $0.005$；增加至 $n=30$ 時，$(5/6)^{30}\approx0.004213$ 才低於該值。此時即使觀察到一筆誤報也不會通過。對**不同批次互相獨立**的情境，精確的累積錯誤通過機率為
+
+$$
+R_n(m)=1-\left[1-(5/6)^n\right]^m,\quad1\leq m\leq10.
+$$
+
+十批時每批三十筆的結果為 **4.13%**，未調整的每批十七筆則為 **36.95%**。這控制的是**家族整體第一類錯誤率（family-wise Type I error）**，不代表真正符合限制的分類器一定通過或保證部署安全。圖中的精確累積曲線需要**批次之間獨立**，但 Bonferroni 的**機率聯集上界** $\Pr(\text{至少一次錯誤通過})\leq\sum_{j=1}^{10}\alpha_j\leq0.05$ **不需要**不同批次獨立。兩種方法都要求批次內抽樣模型成立、負例具有代表性，而且檢驗家族、決策規則及最大次數事先固定。不能藉本例推論動態調整模型、重複使用保留測試資料或批次內任意相依的情況。單次信賴上界依據 References 的 Clopper 與 Pearson（1934）；整體上界由機率聯集上界直接推導。
+
 ## 誤報之間不獨立時會發生什麼事
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="獨立誤報與共同衝擊下的誤報數分布">

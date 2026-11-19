@@ -9154,6 +9154,21 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "roc-fpr-retries": {
+      "origins": [
+        {
+          "origin_blob": "f5e20393999a6a87f13f3c4683c0ad033b838e48",
+          "origin_commit": "85e9e4ab1c131f6392ce59a7d6c844b2b66a802e",
+          "path": "docs/assets/concept-animations/roc-fpr-retries-motion.svg"
+        },
+        {
+          "origin_blob": "57c77e864489480fd4a5ee514a7c7996c4f36131",
+          "origin_commit": "85e9e4ab1c131f6392ce59a7d6c844b2b66a802e",
+          "path": "docs/assets/concept-animations/roc-fpr-retries-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "roc-fpr-certificate-power": {
       "origins": [
         {

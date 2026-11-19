@@ -908,3 +908,40 @@ for fname, heading in (
     assert "36.95%" in s and "84.3%" in s
     assert "\n$$\n" + r"P_p(\mathrm{pass})" in s
 print("Zero-alarm certification: fixed-n power, repeated independent attempts, bilingual fallback OK")
+
+
+# Repeated zero-alarm FPR testing: exact boundary family-wise risk and
+# Bonferroni allocation, with ten prespecified tests and 30 negatives per test.
+from fractions import Fraction as RetryFraction
+retry_p0 = RetryFraction(1, 6)
+retry_alpha = RetryFraction(1, 20)
+retry_alloc = retry_alpha / 10
+assert (1-retry_p0)**17 < retry_alpha <= (1-retry_p0)**16
+assert (1-retry_p0)**30 < retry_alloc < (1-retry_p0)**29
+assert ((1-retry_p0)**30+30*retry_p0*(1-retry_p0)**29) > retry_alloc
+for m_retry in range(1, 11):
+    naive = 1-(1-(1-retry_p0)**17)**m_retry
+    corrected = 1-(1-(1-retry_p0)**30)**m_retry
+    assert 0 < corrected < naive < 1
+    assert corrected <= m_retry*retry_alloc <= retry_alpha
+    if m_retry == 10:
+        assert .3694 < float(naive) < .3696
+        assert .0413 < float(corrected) < .0414
+for kind in ("motion", "still"):
+    svg = (asset_root / f"roc-fpr-retries-{kind}.svg").read_text(encoding="utf-8")
+    assert 'viewBox="0 0 640 360"' in svg
+    for phrase in ("Bonferroni", "36.95%", "4.13%", "Family-wise"):
+        assert phrase in svg
+    assert ("<animate " in svg) == (kind == "motion")
+    assert "prefers-reduced-motion" in svg
+for name, heading in (
+    ("roc-auc.md", "Animation: controlling false passes across ten prespecified tests"),
+    ("roc-auc.zh-TW.md", "動畫：預先指定十次檢驗時的整體錯誤通過率控制"),
+):
+    page = (shared_dir / name).read_text(encoding="utf-8")
+    assert heading in page
+    assert 'src="../../../../assets/concept-animations/roc-fpr-retries-still.svg"' in page
+    assert 'data-motion-src="../../../../assets/concept-animations/roc-fpr-retries-motion.svg"' in page
+    assert "36.95%" in page and "4.13%" in page
+    assert "\n$$\n" + r"R_n(m)=" in page
+print("Repeated FPR certification: ten exact test counts, Bonferroni n=30, bilingual paths OK")
