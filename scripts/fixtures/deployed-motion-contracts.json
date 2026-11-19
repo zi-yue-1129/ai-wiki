@@ -9123,6 +9123,21 @@
         }
       ],
       "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-shared-bound": {
+      "origins": [
+        {
+          "origin_blob": "26e99d0a6c65c2d3ca739d6d8481309eea7c505e",
+          "origin_commit": "30d7f7a4788dc08cae26d7bbc52fac734f7b0903",
+          "path": "docs/assets/concept-animations/roc-fpr-shared-bound-motion.svg"
+        },
+        {
+          "origin_blob": "3eab66b69157b095786aab90afcaae7df634fbd8",
+          "origin_commit": "30d7f7a4788dc08cae26d7bbc52fac734f7b0903",
+          "path": "docs/assets/concept-animations/roc-fpr-shared-bound-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {
