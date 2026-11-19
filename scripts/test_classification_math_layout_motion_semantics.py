@@ -20,11 +20,20 @@ class ClassificationMathLayout(unittest.TestCase):
     blocks=re.findall(r'^\$\$\n(.*?)\n\$\$$',source,re.M|re.S)
     for expression in expressions:
      matches=[b for b in blocks if expression in b]
-     self.assertEqual(len(matches),1,(topic,lang,expression))
-     markup=Markdown(extensions=['pymdownx.arithmatex'],extension_configs={'pymdownx.arithmatex':{'generic':True}}).convert('$$\n'+matches[0]+'\n$$')
-     self.assertIn('<div class="arithmatex">',markup)
-     self.assertNotIn('<span class="arithmatex">',markup)
+     # An expression may be repeated in distinct teaching examples.
+     # Every occurrence must still be a real display-math block.
+     self.assertGreaterEqual(len(matches),1,(topic,lang,expression))
+     for block in matches:
+      markup=Markdown(extensions=['pymdownx.arithmatex'],extension_configs={'pymdownx.arithmatex':{'generic':True}}).convert('$\n'+block+'\n$')
+      self.assertIn('<div class="arithmatex">',markup)
+      self.assertNotIn('<span class="arithmatex">',markup)
     if topic=='f1':
+     # A lone dollar on its own line is parsed as inline math, with
+     # long multilabel formulas overflowing narrow mobile viewports.
+     self.assertNotRegex(source, r'(?m)^\$')
+     for expression in (r'F_{1,\mathrm{samples}}=',
+                        r'F_{1,\mathrm{micro}}=\frac{2(4)}'):
+      self.assertTrue(any(expression in b for b in blocks), (lang, expression))
      for b in blocks:
       if any(e in b for e in expressions):self.assertNotIn(r'\qquad',b)
     else:
