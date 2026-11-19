@@ -314,6 +314,10 @@ jobs:
           if-no-files-found: error
           include-hidden-files: true
           retention-days: 14
+      - name: Validate full time-series prose matrix
+        run: python scripts/test_time_series_prose_browser.py
+      - name: Validate full causal inference prose matrix
+        run: python scripts/test_causal_inference_prose_browser.py
       - name: Original policy SVG glyph and keyboard suite
         run: python scripts/test_policy_gradient_motion_browser.py
       - name: Keep lossless browser artifact group 24

@@ -30,8 +30,8 @@ def verify_workflow(workflow):
 
 class DeployedMath(unittest.TestCase):
     def test_exact_sources_and_real_parser(self):
-        self.assertEqual(b.SOURCES,('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md'));self.assertEqual(b.WIDTHS,(320,390,1280))
-        self.assertEqual(list(b.DISPLAY_COUNTS.values()),[2, 2, 2, 2, 3, 3, 2, 2])
+        self.assertEqual(b.SOURCES,('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md', 'docs/theory/causal-inference/double-machine-learning.md', 'docs/theory/causal-inference/double-machine-learning.zh-TW.md'));self.assertEqual(b.WIDTHS,(320,390,1280))
+        self.assertEqual(list(b.DISPLAY_COUNTS.values()),[2, 2, 2, 2, 3, 3, 2, 2, 6, 6])
         for source in b.SOURCES:
             displays=b.source_displays((ROOT/source).read_text())
             for body in b.required_bodies(source):self.assertEqual(displays.count(b.compact(body)),1)
@@ -42,10 +42,17 @@ class DeployedMath(unittest.TestCase):
             if '/score-sde' in source:
                 titles=['前向 SDE。','逆時 SDE。','機率流 ODE。'] if '.zh-TW.' in source else ['Forward SDE.','Reverse-time SDE.','Probability flow ODE.']
                 for i,row in enumerate(rows):row['li']={'title':titles[i],'count':3,'index':i,'displays':1,'paragraphs':2}
+            if '/double-machine-learning' in source:
+                record=b.DmlLimitationsMarkupTests.RECORDS[1 if '.zh-TW.' in source else 0]
+                rows[0]['li']=dict(title=record[3][1],count=5,index=1,displays=1,paragraphs=2);rows[0]['list_titles']=record[3]
             good={'displays':rows,'outside':'<p>Legal prose</p><code>\\sum_i</code>'};b.validate_snapshot(source,bodies,good)
             variants=[dict(good,displays=rows[:-1]),dict(good,displays=rows+rows[:1]),dict(good,outside='<p>\\sum_i x</p>')]
             if '/score-sde' in source:
                 bad=copy.deepcopy(good);bad['displays'][0]['li']['count']=2;variants.append(bad)
+            if '/double-machine-learning' in source:
+                for key,value in [('count',2),('index',0),('title','Wrong heading'),('paragraphs',1)]:
+                    bad=copy.deepcopy(good);bad['displays'][0]['li'][key]=value;variants.append(bad)
+                bad=copy.deepcopy(good);bad['displays'][0]['list_titles']=bad['displays'][0]['list_titles'][:-1];variants.append(bad)
             for bad in variants:
                 with self.assertRaises(AssertionError):b.validate_snapshot(source,bodies,bad)
     def test_geometry_true_overflow_rejected_local_scroll_accepted(self):
@@ -82,10 +89,14 @@ for(const mode of ['valid','missing-math','duplicate','error','zero-height','mis
             if '/score-sde' in source:
                 titles=['前向 SDE。','逆時 SDE。','機率流 ODE。'] if '.zh-TW.' in source else ['Forward SDE.','Reverse-time SDE.','Probability flow ODE.']
                 for i,row in enumerate(rows):row['li']=dict(title=titles[i],count=3,index=i,displays=1,paragraphs=2)
+            if '/double-machine-learning' in source:
+                record=b.DmlLimitationsMarkupTests.RECORDS[1 if '.zh-TW.' in source else 0]
+                row=rows[expected.index(b.compact(b.DmlLimitationsMarkupTests.BODY))]
+                row['li']=dict(title=record[3][1],count=5,index=1,displays=1,paragraphs=2);row['list_titles']=record[3]
             for width in b.WIDTHS:
                 cases.append(dict(source=source,width=width,status='passed',errors=[],expected_displays=len(expected),expected_tex=expected,
                     snapshot=dict(displays=rows,outside='<p>Prose</p>'),
-                    displays=[dict(image=f'display-{i:03d}.png',geometry=dict(left=10,right=200,width=190,height=30,viewport=width,scroll=None))for i in range(len(expected))],screenshots=['top.png','core-list.png']))
+                    displays=[dict(image=f'display-{i:03d}.png',geometry=dict(left=10,right=200,width=190,height=30,viewport=width,scroll=None))for i in range(len(expected))],screenshots=['top.png','core-list.png','limitations.png']))
         good=dict(status='passed',cases=cases);b.validate_report(good)
         import tempfile
         with tempfile.TemporaryDirectory() as tmp:

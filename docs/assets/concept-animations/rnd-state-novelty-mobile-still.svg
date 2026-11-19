@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 660" role="img" aria-labelledby="rnd-mobile-still-title rnd-mobile-still-desc">
+<title id="rnd-mobile-still-title">RND mobile: familiar A compared with unseen B</title>
+<desc id="rnd-mobile-still-desc">Vertical comparison of two schematic states. In familiar A, the trainable predictor is close to the fixed-weight target's feature and the bonus is small. In unseen B, input-dependent target features differ and the prediction error may be high. Feature coordinates and bonus lengths are illustrative rather than measured.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif}.head{font-weight:700;fill:#223950}.fine{fill:#5b7288}</style>
+<rect width="380" height="660" rx="16" fill="white"/>
+<text x="20" y="34" class="head" font-size="22">RND · familiar vs unseen</text>
+<text x="20" y="57" class="fine" font-size="15">Fixed target weights, changing features</text>
+<rect x="18" y="87" width="344" height="248" rx="15" fill="#f8fbfe" stroke="#d6e2ed" stroke-width="2"/>
+<rect x="18" y="349" width="344" height="248" rx="15" fill="#f8fbfe" stroke="#d6e2ed" stroke-width="2"/>
+<rect x="36" y="106" width="50" height="50" rx="10" fill="#e1eaf6"/><text x="61" y="141" class="head" font-size="29" text-anchor="middle" fill="#376aa9">A</text>
+<text x="103" y="125" class="head" font-size="21">Familiar</text><text x="103" y="151" class="fine" font-size="16">After learning</text>
+<rect x="36" y="368" width="50" height="50" rx="10" fill="#faeadd"/><text x="61" y="403" class="head" font-size="29" text-anchor="middle" fill="#c67b36">B</text>
+<text x="103" y="387" class="head" font-size="21">New observation</text><text x="103" y="413" class="fine" font-size="16">Possible high bonus</text>
+<path d="M38 266H342M38 266V179M38 528H342M38 528V441" stroke="#c7d4e0" stroke-width="2" fill="none"/>
+<path d="M38 222H342M140 179V266M241 179V266M38 484H342M140 441V528M241 441V528" stroke="#e5ecf3" stroke-width="1.5" fill="none"/>
+<path d="M278 201L293 211" stroke="#d5813c" stroke-width="3" stroke-dasharray="5 5"/><circle cx="278" cy="201" r="10" fill="#138978" stroke="white" stroke-width="3"/><circle cx="293" cy="211" r="10" fill="#d5813c" stroke="white" stroke-width="3"/>
+<path d="M284 463L106 507" stroke="#d5813c" stroke-width="3" stroke-dasharray="5 5"/><circle cx="284" cy="463" r="10" fill="#138978" stroke="white" stroke-width="3"/><circle cx="106" cy="507" r="10" fill="#d5813c" stroke="white" stroke-width="3"/>
+<rect x="38" y="287" width="304" height="15" rx="7" fill="#e8eef5"/><rect x="41" y="290" width="6" height="9" rx="4" fill="#d5813c"/>
+<rect x="38" y="549" width="304" height="15" rx="7" fill="#e8eef5"/><rect x="41" y="552" width="222" height="9" rx="4" fill="#d5813c"/>
+<circle cx="26" cy="621" r="6" fill="#138978"/><text x="38" y="627" class="fine" font-size="15">Target</text><circle cx="126" cy="621" r="6" fill="#d5813c"/><text x="138" y="627" class="fine" font-size="15">Prediction</text>
+<text x="20" y="648" class="fine" font-size="13">Schematic, not measured</text>
+</svg>

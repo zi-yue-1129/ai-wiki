@@ -9,7 +9,7 @@ import markdown
 from mkdocs.config import load_config
 
 ROOT = Path(__file__).resolve().parents[1]
-GUARDED_MATH_PAGES = ['docs/theory/math/automatic-differentiation/forward-mode.md', 'docs/theory/math/automatic-differentiation/forward-mode.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md']
+GUARDED_MATH_PAGES = ['docs/theory/math/automatic-differentiation/forward-mode.md', 'docs/theory/math/automatic-differentiation/forward-mode.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/exploration/icm/index.md', 'docs/theory/paradigms/reinforcement-learning/exploration/icm/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.md', 'docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.md', 'docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md', 'docs/theory/causal-inference/double-machine-learning.md', 'docs/theory/causal-inference/double-machine-learning.zh-TW.md']
 class MathContainers(HTMLParser):
     def __init__(self, html):
         super().__init__(); self.depth = 0; self.parts = []; self.blocks = []; self.feed(html)
@@ -39,6 +39,69 @@ def require_formulas(html):
         assert blocks.count(expected) == 1, (expected, blocks)
 
 class ForwardMathMarkupTests(unittest.TestCase):
+    def test_confirmed_mobile_inline_formulas_are_display_and_tokens_preserved(self):
+        import re
+        records = [('docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.md', "\\(Q(s, a) \\leftarrow Q(s, a) + \\alpha \\left[ r + \\gamma \\max_{b} Q(s', b) - Q(s, a) \\right]\\)", "\\begin{aligned} Q(s, a) &\\leftarrow Q(s, a) \\\\ &+ \\alpha \\left[ r + \\gamma \\max_{b} Q(s', b) - Q(s, a) \\right] \\end{aligned}", "\n\n    $$\n    \\begin{aligned} Q(s, a) &\\leftarrow Q(s, a) \\\\ &+ \\alpha \\left[ r + \\gamma \\max_{b} Q(s', b) - Q(s, a) \\right] \\end{aligned}\n    $$\n\n    "), ('docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.zh-TW.md', "\\(Q(s, a) \\leftarrow Q(s, a) + \\alpha \\left[ r + \\gamma \\max_{b} Q(s', b) - Q(s, a) \\right]\\)", "\\begin{aligned} Q(s, a) &\\leftarrow Q(s, a) \\\\ &+ \\alpha \\left[ r + \\gamma \\max_{b} Q(s', b) - Q(s, a) \\right] \\end{aligned}", "\n\n    $$\n    \\begin{aligned} Q(s, a) &\\leftarrow Q(s, a) \\\\ &+ \\alpha \\left[ r + \\gamma \\max_{b} Q(s', b) - Q(s, a) \\right] \\end{aligned}\n    $$\n\n    "), ('docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.md', '$G^\\lambda_{t:t+3}=0.20(3.700)+0.16(0.910)+0.64(4.798)=\\mathbf{3.95632}$', '\\begin{aligned} G^\\lambda_{t:t+3} &=0.20(3.700)+0.16(0.910) \\\\ &+0.64(4.798) \\\\ &=\\mathbf{3.95632} \\end{aligned}', '\n\n$$\n\\begin{aligned} G^\\lambda_{t:t+3} &=0.20(3.700)+0.16(0.910) \\\\ &+0.64(4.798) \\\\ &=\\mathbf{3.95632} \\end{aligned}\n$$\n\n'), ('docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.zh-TW.md', '$G^\\lambda_{t:t+3}=0.20(3.700)+0.16(0.910)+0.64(4.798)=\\mathbf{3.95632}$', '\\begin{aligned} G^\\lambda_{t:t+3} &=0.20(3.700)+0.16(0.910) \\\\ &+0.64(4.798) \\\\ &=\\mathbf{3.95632} \\end{aligned}', '\n\n$$\n\\begin{aligned} G^\\lambda_{t:t+3} &=0.20(3.700)+0.16(0.910) \\\\ &+0.64(4.798) \\\\ &=\\mathbf{3.95632} \\end{aligned}\n$$\n\n')]
+        def tokens(s):
+            s=s.replace(r'\begin{aligned}','').replace(r'\end{aligned}','').replace('\\\\','').replace('&','')
+            return ''.join(s.split())
+        for path,old,body,new in records:
+            new=new.strip()
+            source=(ROOT/path).read_text()
+            self.assertEqual(source.count(new),1)
+            original=old[2:-2] if old.startswith('\\(') else old[1:-1]
+            self.assertEqual(tokens(body),tokens(original))
+            def check(text):
+                blocks=[''.join(x.split()) for x in MathContainers(render(text)).blocks]
+                assert blocks.count(r'\['+''.join(body.split())+r'\]')==1
+            check(source)
+            with self.assertRaises(AssertionError):check(source.replace(new,old))
+
+
+    def test_standalone_mathjax_route_has_same_job_dependency_and_evidence(self):
+        workflow = yaml.safe_load((ROOT / '.github/workflows/concept-animation-validation.yml').read_text())
+        def check(w):
+            paths=w.get('on',w.get(True))['pull_request']['paths']
+            assert 'scripts/verify_icm_mathjax_structure.py' in paths
+            assert 'scripts/render_mathjax_structure.cjs' in paths
+            job=w['jobs']['build-docs']
+            assert 'if' not in job
+            assert job.get('continue-on-error') is None or job.get('continue-on-error') is False
+            steps=job['steps']
+            dep=next(i for i,x in enumerate(steps) if x.get('run')=='pip install -r requirements.txt')
+            entry=next((i,x) for i,x in enumerate(steps) if 'python scripts/verify_icm_mathjax_structure.py' in x.get('run',''))
+            i,step=entry;run=step['run']
+            install='npm install --prefix "$RUNNER_TEMP/wiki-mathjax" --no-audit --no-fund --ignore-scripts mathjax-full@3.2.2'
+            execute='NODE_PATH="$RUNNER_TEMP/wiki-mathjax/node_modules" python scripts/verify_icm_mathjax_structure.py'
+            # This two-command shell block must execute exactly these commands.
+            # Substring matches accept commented commands and masked failures.
+            lines=[line.strip() for line in run.splitlines() if line.strip()]
+            assert dep<i and lines == [install, execute]
+            for required in [steps[dep], step]:
+                assert 'if' not in required
+                assert required.get('continue-on-error') is None or required.get('continue-on-error') is False
+            upload=next(x for x in steps if x.get('with',{}).get('name')=='icm-mathjax-structure')
+            assert upload.get('if')=='always()' and upload['with']['path']=='artifacts/icm-mathjax-structure/*.json'
+        check(workflow)
+        for mutation in ['install','version','order','conditional','path','upload','install-comment','install-softfail','execute-comment','execute-softfail','coe-zero','coe-true','job-coe-zero','dependency-coe-zero']:
+            bad=copy.deepcopy(workflow);steps=bad['jobs']['build-docs']['steps']
+            step=next(x for x in steps if 'python scripts/verify_icm_mathjax_structure.py' in x.get('run',''))
+            if mutation=='install':step['run']='\n'.join(step['run'].splitlines()[1:])
+            elif mutation=='version':step['run']=step['run'].replace('@3.2.2','@latest')
+            elif mutation=='order':step['run']='\n'.join(reversed(step['run'].splitlines()))
+            elif mutation=='conditional':step['if']='false'
+            elif mutation=='path':bad.get('on',bad.get(True))['pull_request']['paths'].remove('scripts/verify_icm_mathjax_structure.py')
+            elif mutation=='upload':steps.remove(next(x for x in steps if x.get('with',{}).get('name')=='icm-mathjax-structure'))
+            elif mutation in ['install-comment','install-softfail','execute-comment','execute-softfail']:
+                lines=step['run'].splitlines();index=0 if mutation.startswith('install') else 1
+                lines[index]=('# '+lines[index]) if mutation.endswith('comment') else (lines[index]+' || true')
+                step['run']='\n'.join(lines)
+            elif mutation=='coe-zero':step['continue-on-error']=0
+            elif mutation=='coe-true':step['continue-on-error']=True
+            elif mutation=='job-coe-zero':bad['jobs']['build-docs']['continue-on-error']=0
+            elif mutation=='dependency-coe-zero':next(x for x in steps if x.get('run')=='pip install -r requirements.txt')['continue-on-error']=0
+            with self.assertRaises((AssertionError,StopIteration)):check(bad)
+
     def test_production_parser_ci_route_requires_wiki_dependencies(self):
         workflow = yaml.safe_load((ROOT / '.github/workflows/concept-animation-validation.yml').read_text())
         def check(w):
@@ -91,7 +154,7 @@ class ForwardMathMarkupTests(unittest.TestCase):
 
 
 # Independently enumerated original malformed blocks; not derived from current document.
-ADDITIONAL_PAGES = [('docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md', 2, ['G_{t+1}=G_t-r_t.']), ('docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.zh-TW.md', 2, ['G_{t+1}=G_t-r_t.'])]
+ADDITIONAL_PAGES = [('docs/theory/paradigms/reinforcement-learning/exploration/icm/index.md', 7, ['\\bar L_n=\\sum_{i=1}^3\\frac{N_i}{n}\\ell_i,\\qquad\nL=\\sum_{i=1}^3 p_i\\ell_i.']), ('docs/theory/paradigms/reinforcement-learning/exploration/icm/index.zh-TW.md', 7, ['\\bar L_n=\\sum_{i=1}^3\\frac{N_i}{n}\\ell_i,\\qquad\nL=\\sum_{i=1}^3 p_i\\ell_i.']), ('docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md', 2, ['G_{t+1}=G_t-r_t.']), ('docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.zh-TW.md', 2, ['G_{t+1}=G_t-r_t.']), ('docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.md', 4, ['y_{\\mathrm{Q}}=1+0.9(5)=5.5,\\qquad Q_{\\mathrm{new}}=2+0.5(5.5-2)=3.75.', '\\mathbb{E}[\\max(\\hat Q_A,\\hat Q_B)]=\\tfrac{5+5+5+3}{4}=\\mathbf{4.5},\\qquad\n\\mathbb{E}[\\hat Q_B]=\\tfrac{5+3+5+3}{4}=\\mathbf{4}.']), ('docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.zh-TW.md', 4, ['y_{\\mathrm{Q}}=1+0.9(5)=5.5,\\qquad Q_{\\mathrm{new}}=2+0.5(5.5-2)=3.75.', '\\mathbb{E}[\\max(\\hat Q_A,\\hat Q_B)]=\\tfrac{5+5+5+3}{4}=\\mathbf{4.5},\\qquad\n\\mathbb{E}[\\hat Q_B]=\\tfrac{5+3+5+3}{4}=\\mathbf{4}.']), ('docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.md', 4, ['y_{\\mathrm{SARSA}}=1+0.9(2)=2.8,\\qquad\nQ_{\\mathrm{new}}=2+0.5(2.8-2)=2.40.']), ('docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.zh-TW.md', 4, ['y_{\\mathrm{SARSA}}=1+0.9(2)=2.8,\\qquad\nQ_{\\mathrm{new}}=2+0.5(2.8-2)=2.40.'])]
 
 class AdditionalMathMarkupTests(unittest.TestCase):
     def test_actual_pages_and_each_original_delimiter_counterfactual(self):
@@ -112,6 +175,74 @@ class AdditionalMathMarkupTests(unittest.TestCase):
                     self.assertNotEqual(old, source)
                     with self.assertRaises(AssertionError): check(old)
 
+
+class DmlLimitationsMarkupTests(unittest.TestCase):
+    BODY = r"""\begin{aligned}
+a_n&=\|\hat m-m_0\|_2,\\b_n&=\|\hat\ell-\ell_0\|_2,\\
+a_n(a_n+b_n)&=o_p(n^{-1/2}).
+\end{aligned}"""
+    RECORDS = [('', 'Limitations', 'limitations',
+                ['No unmeasured confounding.', 'Nuisance accuracy.', 'Target scope.', 'Model form.', 'Compute.'],
+                'This includes a squared treatment-nuisance error, not just the product of the two errors; additional consistency and moment assumptions also apply.'),
+               ('.zh-TW', '限制', '限制',
+                ['未測量混淆。', '干擾函數精度。', '目標範圍。', '模型形式。', '計算。'],
+                '條件包含處理干擾誤差的平方，不只是兩種誤差的乘積；另需一致性與矩條件。')]
+
+    def require_structure(self, source, heading_id, titles, explanation):
+        import re
+        import xml.etree.ElementTree as ET
+        # Parse the actual full page, then inspect the confirmed section rather
+        # than counting only math blocks that the Markdown parser already found.
+        html = render(source)
+        require_no_outside_tex(html)
+        match = re.search(r'<h2 id="'+re.escape(heading_id)+r'"[^>]*>.*?(?=<h2\b|\Z)', html, re.S)
+        self.assertIsNotNone(match)
+        region = ET.fromstring('<root>'+match.group().replace('&para;', '¶')+'</root>')
+        lists = region.findall('ul'); self.assertEqual(len(lists), 1)
+        items = lists[0].findall('li'); self.assertEqual(len(items), 5)
+        for item, title in zip(items, titles):
+            labels = item.findall('.//strong')
+            self.assertEqual([''.join(x.itertext()) for x in labels], [title])
+        expected = ''.join((r'\['+self.BODY+r'\]').split())
+        math = [x for x in region.iter('div') if 'arithmatex' in x.get('class','').split()]
+        self.assertEqual(len(math), 1)
+        self.assertIn(math[0], list(items[1].iter()))
+        self.assertEqual(''.join(''.join(math[0].itertext()).split()), expected)
+        self.assertTrue(any(''.join(x.itertext()) == explanation for x in items[1].findall('p')))
+        # Any raw TeX outside the expected math node is a failure, even if an
+        # unrelated display elsewhere would keep a global container count stable.
+        for parent in region.iter():
+            for child in list(parent):
+                if 'arithmatex' in child.get('class','').split(): parent.remove(child)
+        residue = ''.join(region.itertext())
+        for raw in [r'\begin', r'\end', 'a_n', 'b_n', r'\hat']:
+            self.assertNotIn(raw, residue)
+
+    def test_bilingual_full_page_math_and_all_five_list_items(self):
+        for lang,heading,heading_id,titles,explanation in self.RECORDS:
+            source=(ROOT/f'docs/theory/causal-inference/double-machine-learning{lang}.md').read_text()
+            with self.subTest(language=lang): self.require_structure(source,heading_id,titles,explanation)
+
+    def test_each_original_root_cause_and_detached_or_missing_formula_rejected(self):
+        import re
+        for lang,heading,heading_id,titles,explanation in self.RECORDS:
+            source=(ROOT/f'docs/theory/causal-inference/double-machine-learning{lang}.md').read_text()
+            start=source.index('## '+heading+'\n');end=source.index('\n## ',start+3)
+            section=source[start:end]
+            marker='\n\n- **'+titles[2]
+            self.assertIn(marker,section)
+            formula='    \\[\n'+'\n'.join('    '+line for line in self.BODY.splitlines())+'\n    \\]'
+            self.assertEqual(section.count(formula),1)
+            variants={
+                'original-two-space':re.sub(r'(?m)^    (?=\S)','  ',section),
+                'missing-list-boundary':section.replace(marker,'\n- **'+titles[2],1),
+                'missing-formula':section.replace(formula,''),
+                'detached-formula':section.replace(formula,'')+'\n\n'+formula.replace('    ','')+'\n',
+            }
+            for label,bad in variants.items():
+                self.assertNotEqual(bad,section)
+                with self.subTest(language=lang,mutation=label), self.assertRaises(AssertionError):
+                    self.require_structure(source[:start]+bad+source[end:],heading_id,titles,explanation)
 
 class CqlObjectiveMarkupTests(unittest.TestCase):
     BODY = r"""\begin{aligned}L(Q_A,Q_B)&=\log(e^{Q_A}+e^{Q_B})-Q_A\\

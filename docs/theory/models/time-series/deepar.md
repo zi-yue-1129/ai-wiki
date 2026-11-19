@@ -25,6 +25,15 @@ DeepAR learns one global model across all series in a dataset. At each time step
 
 Because the network is shared, a series with little history borrows statistical strength from the others. Differences between series are carried by covariates, by a learned embedding of the item, and by a per-series scale.
 
+The shared autoregressive recurrence can be written as
+
+\[
+\begin{gathered}
+\mathbf h_{i,t}=h(\mathbf h_{i,t-1},z_{i,t-1},x_{i,t};\Theta),\\
+\vartheta_{i,t}=\vartheta(\mathbf h_{i,t};\Theta).
+\end{gathered}
+\]
+
 ## Model and likelihood
 
 For a Gaussian likelihood, the network produces a mean and a standard deviation from the hidden state. The mean is an affine function, and the standard deviation passes through a softplus so that it stays positive:
