@@ -933,7 +933,9 @@ jobs:
         run: |
           # Retry transient Ubuntu mirror / CDN failures; never skip dependencies.
           for attempt in 1 2 3; do
-            if python -m playwright install --with-deps chromium; then
+            if
+            python -m playwright install --with-deps chromium
+          then
               break
             fi
             if [ "$attempt" -eq 3 ]; then
@@ -974,7 +976,9 @@ jobs:
           python -m pip install "playwright==1.55.0"
           # Retry transient Ubuntu mirror / CDN failures; never skip dependencies.
           for attempt in 1 2 3; do
-            if python -m playwright install --with-deps chromium; then
+            if
+            python -m playwright install --with-deps chromium
+          then
               break
             fi
             if [ "$attempt" -eq 3 ]; then
