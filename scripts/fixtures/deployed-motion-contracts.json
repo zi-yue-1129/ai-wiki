@@ -645,6 +645,36 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "accuracy-topk-tie-policy": {
+      "origins": [
+        {
+          "origin_blob": "622dd472bd8ce720e9496f61129cde913a213b84",
+          "origin_commit": "1a7a428e54cde70583e67f5d82875623c12e72d5",
+          "path": "docs/assets/concept-animations/accuracy-topk-tie-policy-motion.svg"
+        },
+        {
+          "origin_blob": "c154f99fe50e9ee64917facda329b7b8e6d82dd1",
+          "origin_commit": "1a7a428e54cde70583e67f5d82875623c12e72d5",
+          "path": "docs/assets/concept-animations/accuracy-topk-tie-policy-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "accuracy-topk-window": {
+      "origins": [
+        {
+          "origin_blob": "9b1494373e59403edaef1c23533bf932009a0078",
+          "origin_commit": "1a7a428e54cde70583e67f5d82875623c12e72d5",
+          "path": "docs/assets/concept-animations/accuracy-topk-window-motion.svg"
+        },
+        {
+          "origin_blob": "10382110d20b84442687c7e7e7005722e8a75808",
+          "origin_commit": "1a7a428e54cde70583e67f5d82875623c12e72d5",
+          "path": "docs/assets/concept-animations/accuracy-topk-window-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "act-cvae-train-deploy": {
       "viewBox": "0 0 640 360",
       "origins": [
