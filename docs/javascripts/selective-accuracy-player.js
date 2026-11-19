@@ -183,6 +183,9 @@
         if (event.matches) { pause(); current = lesson.stops[1]; sync(); }
       });
       sync();
+      // Show the same starting acceptance state as the localised trace.
+      // No-JavaScript and failed fetch still retain the reviewed comparison image.
+      void load();
     }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => enhance());
