@@ -40,6 +40,16 @@ ROC-AUC 只需要分數，不需要依門檻得出的標籤，因此可以在不
 
 *原創教學動畫（CC BY-SA 4.0）。* 這是與前面四筆資料範例**不同**的十筆人工設定樣本，正例位於排序第 **1、3、6** 名，其餘七筆為負例，且各筆分數互不相同。門檻下降時，每納入一筆正例，ROC 操作點便**向上**增加 $1/3$ 的真正例率（TPR）；每納入一筆負例，則**向右**增加 $1/7$ 的偽正例率（FPR）。前六筆納入後，$TP=3$、$FP=3$、$TPR=1$、$FPR=3/7$。完整排序的 21 組正負配對中有 17 組排序正確，因此 **ROC-AUC = $17/21 \approx 0.810$**。淡色線顯示全部門檻，彩色線段表示已掃描的部分。所有分數與標籤都是**人工示意，不是模型實測結果**。MkDocs 網站提供可使用鍵盤操作的播放／暫停按鈕；偏好減少動態效果時顯示靜態版。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-threshold-sweep-still.svg)及[完整 SVG 動畫](../../../../assets/concept-animations/roc-threshold-sweep-motion.svg)可直接開啟，手機可橫向捲動。ROC 的排序解讀見 References 中的 Fawcett（2006）。
 
+## 動畫示範：同分樣本必須一起跨越 ROC 門檻
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC 同分門檻同時納入樣本的動畫">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-tie-group-step-still.svg" data-still-src="../../../../assets/concept-animations/roc-tie-group-step-still.svg" data-motion-src="../../../../assets/concept-animations/roc-tie-group-step-motion.svg" alt="六筆人工分數包含正例 0.90、正例 0.70、兩筆同為 0.70 的負例，以及負例 0.40 與 0.20。當門檻降至 0.70，三筆同分樣本同時被判為正，ROC 點由偽正例率 0、真正例率 0.5，跳到偽正例率 0.5、真正例率 1；中間斜線不對應其他確定性門檻。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 前面的門檻掃描假設分數**沒有同分**，此處則以六筆**人工示意**資料比較：兩個正例分數為 **0.90、0.70**，四個負例為 **0.70、0.70、0.40、0.20**。門檻略高於 0.70 時，ROC 操作點是 **(FPR 0, TPR 1/2)**；若門檻降至 0.70 並納入等於門檻的分數，三筆同為 0.70 的樣本必須**同時**被納入，操作點直接跳至 **(FPR 2/4, TPR 2/2) = (1/2, 1)**。**兩端點之間的斜線是 ROC 繪圖時的內插，並非單靠分數門檻就能實現的中間確定性操作點**；若在兩個完整的決策規則間隨機選擇，則可在*期望值*上得到線段內的座標。動畫最後把另外兩個較低分數的負例一起納入，以縮短播放時間；門檻為 0.40 時也能取得 **(3/4, 1)** 這個中間點。由正負樣本成對比較可另行核對 **ROC-AUC = (4 + 2 + 2 × 1/2) / (2 × 4) = 7/8 = 0.875**。所有分數與比例**不是模型實測值**。MkDocs 提供鍵盤可操作的播放／暫停，偏好減少動態效果時顯示靜態圖。[GitHub 靜態預覽](../../../../assets/concept-animations/roc-tie-group-step-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/roc-tie-group-step-motion.svg)。手機可水平捲動觀看；同分配對解讀參考 References 的 Fawcett（2006）。
+
 ## 動畫示範：ROC-AUC 的正負樣本成對比較
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC-AUC 正負樣本成對比較動畫">
