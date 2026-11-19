@@ -42,4 +42,8 @@ for stem, n, duration in (
         assert f'src="../../../../assets/concept-animations/{stem}-still.svg"' in page
         assert f'data-motion-src="../../../../assets/concept-animations/{stem}-motion.svg"' in page
         assert f'](../../../../assets/concept-animations/{stem}-still.svg)' in page
+for suffix in (".md",".zh-TW.md"):
+    text=(PAGES/("accuracy"+suffix)).read_text()
+    assert "\\n$\\n\\\\mathrm{WeightedAccuracy}" in text
+    assert "1705.08500" in text
 print("Selective coverage and class-conditional abstention examples verified")

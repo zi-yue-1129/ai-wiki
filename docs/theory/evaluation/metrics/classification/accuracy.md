@@ -90,9 +90,9 @@ On MkDocs use Play/Pause and focus the image to scroll with the arrow keys on mo
 
 *Original eight-second SVG teaching animation (CC BY-SA 4.0).* The five predictions are held fixed. Model A is correct on cases 1–4 and model B on cases 1, 2 and 5. With weights all one, A scores **4/5 = 0.800**, B **3/5 = 0.600**. Giving case 5 a **weight of five** while the other four remain at one reverses the ordering: **A = 4/9 ≈ 0.444**, **B = 7/9 ≈ 0.778**.
 
-$
+$$
 \mathrm{WeightedAccuracy}=\frac{\sum_i w_i\,\mathbf{1}(\hat y_i=y_i)}{\sum_i w_i}, \qquad w_i\ge 0,\ \sum_i w_i>0.
-$
+$$
 
 These are **synthetic importance weights**, not observed frequencies, estimated deployment probabilities, class-balancing recommendations or evidence that model B improved. The interpretation depends on how weights were chosen (e.g., survey design or a prespecified deployment objective), and both models must be evaluated under the same scheme. The official [`accuracy_score` API](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html) accepts a `sample_weight` argument.
 
@@ -120,7 +120,7 @@ MkDocs provides Play/Pause; reduced-motion mode shows the middle cutoff. For sma
 </div>
 
 
-*Original eight-second instructional SVG, CC BY-SA 4.0.* In this **constructed binary example**, four true-positive-class instances have correctness **correct, wrong, wrong, correct**, and the four negative-class instances are all correct. Without rejection, accuracy is **6/8 = 0.75** and coverage is 8/8. Suppose a reject option keeps only the first positive-class instance and all four negative-class instances. Among accepted cases accuracy rises to **5/5 = 1.00**, while overall coverage falls to **5/8 = 0.625**. Crucially, coverage conditional on the *true class* is **1/4 for positives versus 4/4 for negatives**. Reporting only selective accuracy conceals uneven rejection; none of the underlying predictions was fixed. This example is **not an empirical fairness analysis, nor a model performance measurement**.
+*Original eight-second instructional SVG, CC BY-SA 4.0.* In this **constructed binary example**, four true-positive-class instances have correctness **correct, wrong, wrong, correct**, and the four negative-class instances are all correct. Without rejection, accuracy is **6/8 = 0.75** and coverage is 8/8. Suppose a reject option keeps only the first positive-class instance and all four negative-class instances. Among accepted cases accuracy rises to **5/5 = 1.00**, while overall coverage falls to **5/8 = 0.625**. Crucially, coverage conditional on the *true class* is **1/4 for positives versus 4/4 for negatives**. Reporting only selective accuracy conceals uneven rejection; none of the underlying predictions was fixed. This example is **not an empirical fairness analysis, nor a model performance measurement**. The acceptance mask is deliberately constructed from case indices for explanation; it is **not** a deployable rule that can inspect true labels at inference.
 
 MkDocs provides Play/Pause and a reduced-motion still of the selective stage; keyboard users can scroll the diagram. GitHub shows the side-by-side [static comparison](../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg), with a separate [SVG animation](../../../../assets/concept-animations/accuracy-selective-class-coverage-motion.svg).
 
