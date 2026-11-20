@@ -163,6 +163,32 @@ def run():
                             assert ("接受 5/8" if zh else "Accepted 5/8") in calculation.inner_text()
                             assert plot.locator(
                                 "rect[fill='#087e85']").get_attribute("width") == "103.75"
+                            # Both class-coverage rules are directly selectable.
+                            # Verify pointer, Enter, Space, focused button
+                            # state, and the synchronized chart/trace/timeline.
+                            choices = plot.locator("g[data-acceptance-stage]")
+                            assert plot.get_attribute("role") == "group"
+                            assert choices.count() == 2
+                            assert all(choices.nth(i).get_attribute("role") == "button"
+                                       for i in range(2))
+                            assert choices.nth(1).get_attribute("aria-pressed") == "true"
+                            choices.nth(0).click()
+                            assert slider.input_value() == "0"
+                            assert choices.nth(0).get_attribute("aria-pressed") == "true"
+                            assert "8/8" in calculation.inner_text()
+                            assert plot.locator(
+                                "rect[fill='#087e85']").get_attribute("width") == "415"
+                            choices.nth(1).focus()
+                            page.keyboard.press("Enter")
+                            assert slider.input_value() == "40"
+                            assert choices.nth(1).get_attribute("aria-pressed") == "true"
+                            assert "5/8" in calculation.inner_text()
+                            choices.nth(0).focus()
+                            page.keyboard.press("Space")
+                            assert slider.input_value() == "0"
+                            choices.nth(1).click()
+                            assert slider.input_value() == "40"
+                            assert plot.get_attribute("data-active-stage") == "1"
                         page.wait_for_timeout(180)
                         assert slider.input_value() == "40", (
                             "An obsolete Play command resumed playback", stem)
