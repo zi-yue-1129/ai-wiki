@@ -46,7 +46,7 @@
       return el;
     };
     const plot = node('svg', {viewBox:'0 0 640 168',
-      role:filename === 'accuracy-selective-coverage-motion.svg' ? 'group' : 'img',
+      role:'group',
       class:'selective-linked-plot'});
     plot.style.cssText = 'display:block;width:100%;max-width:640px;height:auto;margin:10px 0';
     plot.append(node('rect', {x:1,y:1,width:638,height:166,rx:12,
@@ -112,6 +112,45 @@
       };
     } else {
       write(24,26,'CLASS COVERAGE',{'font-weight':700});
+      // Direct comparison is pedagogically different from dragging the timeline:
+      // all eight cases versus the same five accepted cases. The buttons and
+      // animation use one shared acceptance-stage state.
+      const classChoices = [];
+      for (const [index, caption, x, width] of [
+        [0, 'ALL', 391, 84], [1, 'SELECTIVE', 489, 126],
+      ]) {
+        const control = node('g', {'data-acceptance-stage':index,
+          cursor:'pointer', style:'outline:none'});
+        control.setAttribute('role', 'button');
+        control.setAttribute('tabindex', '0');
+        control.setAttribute('aria-label', zh
+          ? (index===0 ? '比較全部接受，8/8' : '比較選擇性接受，5/8')
+          : (index===0 ? 'Compare all accepted, 8/8' : 'Compare selective acceptance, 5/8'));
+        const surface = node('rect', {x,y:9,width,height:27,rx:8,
+          fill:'#ffffff',stroke:'#adc0ce','stroke-width':1.5});
+        const captionNode = node('text', {x:x+width/2,y:27,
+          'text-anchor':'middle',fill:'#24516e',
+          'font-family':'Arial, sans-serif','font-size':12,'font-weight':700}, caption);
+        control.append(surface, captionNode);
+        const paint = selected => {
+          surface.setAttribute('fill', selected ? '#e3f0ef' : '#ffffff');
+          surface.setAttribute('stroke', selected ? '#087e85' : '#adc0ce');
+          surface.setAttribute('stroke-width', selected ? '2' : '1.5');
+        };
+        control.addEventListener('click', () => chooseStage(index));
+        control.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault(); chooseStage(index);
+          }
+        });
+        control.addEventListener('focus', () => {
+          surface.setAttribute('stroke', '#193e69');
+          surface.setAttribute('stroke-width', '3');
+        });
+        control.addEventListener('blur', () => paint(control.getAttribute('aria-pressed') === 'true'));
+        classChoices.push({control,paint});
+        plot.append(control);
+      }
       const bars=[];
       for (const [i,label,y] of [[0,'POS',60],[1,'NEG',108]]) {
         write(35,y+18,label,{'font-weight':700,'font-size':14});
@@ -127,6 +166,10 @@
         bars.push({fill,value});
       }
       update = index => {
+        classChoices.forEach(({control,paint},i) => {
+          control.setAttribute('aria-pressed',String(i===index));
+          if (document.activeElement !== control) paint(i===index);
+        });
         const positive=index===0?4:1;
         bars[0].fill.setAttribute('width',String(415*positive/4));
         bars[0].value.textContent=String(positive)+'/4';
