@@ -23,12 +23,12 @@
       duration: 8,
       stops: [0, 4],
       en: [
-        ['All accepted', 'Accepted 8/8 · Correct 6/8 · positive coverage 4/4 · negative coverage 4/4 · class gap 0 pp'],
-        ['Selective', 'Accepted 5/8 · Correct 5/5 · positive coverage 1/4 · negative coverage 4/4 · class gap 75 pp'],
+        ['All accepted', 'Accepted 8/8 · Correct 6/8 · positive coverage 4/4 · negative coverage 4/4 · class gap 0 pp · rejected 0/8 (rejected-only accuracy undefined)'],
+        ['Selective', 'Accepted 5/8 · Correct 5/5 · positive coverage 1/4 · negative coverage 4/4 · class gap 75 pp · rejected 3/8 (1/3 correct, 2/3 wrong)'],
       ],
       zh: [
-        ['全部接受', '接受 8/8 · 正確 6/8 · 正類別覆蓋 4/4 · 負類別覆蓋 4/4 · 類別覆蓋差距 0 個百分點'],
-        ['選擇性接受', '接受 5/8 · 正確 5/5 · 正類別覆蓋 1/4 · 負類別覆蓋 4/4 · 類別覆蓋差距 75 個百分點'],
+        ['全部接受', '接受 8/8 · 正確 6/8 · 正類別覆蓋 4/4 · 負類別覆蓋 4/4 · 類別覆蓋差距 0 個百分點 · 拒答 0/8（拒答樣本正確率未定義）'],
+        ['選擇性接受', '接受 5/8 · 正確 5/5 · 正類別覆蓋 1/4 · 負類別覆蓋 4/4 · 類別覆蓋差距 75 個百分點 · 拒答 3/8（1/3 正確、2/3 錯誤）'],
       ],
     },
   };
@@ -46,13 +46,13 @@
       return el;
     };
     const riskPlot = filename === 'accuracy-selective-coverage-motion.svg';
-    const plot = node('svg', {viewBox:riskPlot?'0 0 640 208':'0 0 640 168',
+    const plot = node('svg', {viewBox:riskPlot?'0 0 640 208':'0 0 640 202',
       role:'group',
       class:'selective-linked-plot'});
     // Retain native-width labels on phones. The focusable parent figure owns
     // horizontal scrolling; scaling this 640px chart to 320px halves 12px text.
     plot.style.cssText = 'display:block;width:640px;min-width:640px;max-width:none;height:auto;margin:10px 0';
-    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?206:166,rx:12,
+    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?206:200,rx:12,
       fill:'#f8fafc',stroke:'#d4deec'}));
     const write = (x,y,label,attrs={}) => {
       const text = node('text',
@@ -352,6 +352,11 @@
       // percentage points. This is a descriptive disparity, not a fairness verdict.
       const gap = write(468,155,'GAP 0 pp',{'font-size':12,'font-weight':700,
         fill:'#193e69','data-class-gap':'true'});
+      // Rejection never repairs a prediction: reveal the hidden outcomes,
+      // including the undefined rejected-only rate when no case is rejected.
+      write(35,184,'REJECTED',{'font-weight':700,'font-size':12});
+      const rejected = write(116,184,'0/8 rejected · accuracy N/A',
+        {'font-size':12,'data-rejected-metrics':'true'});
       update = index => {
         classChoices.forEach(({control,paint},i) => {
           control.setAttribute('aria-pressed',String(i===index));
@@ -366,9 +371,17 @@
           '5/8 accepted · 5/5 correct';
         const gapPp = Math.abs(positive / 4 - 1) * 100;
         gap.textContent = 'GAP ' + gapPp + ' pp';
+        const rejectedCount = 8 - (positive + 4);
+        const rejectedCorrect = 6 - (index === 0 ? 6 : 5);
+        const rejectedWrong = rejectedCount - rejectedCorrect;
+        rejected.textContent = rejectedCount === 0
+          ? '0/8 rejected · accuracy N/A'
+          : rejectedCount + '/8 rejected · ' + rejectedCorrect + '/' +
+            rejectedCount + ' correct · ' + rejectedWrong + '/' +
+            rejectedCount + ' wrong';
         plot.setAttribute('aria-label',zh
-          ? '類別覆蓋率：整體接受 ' + (index===0?'8/8':'5/8') + '，正類別 ' + positive + '/4，負類別 4/4，兩類別覆蓋差距 ' + gapPp + ' 個百分點。兩條橫條代表保留比例。'
-          : 'Class coverage: ' + (index===0?'8/8':'5/8') + ' accepted, positive ' + positive + '/4, negative 4/4, absolute class coverage gap ' + gapPp + ' percentage points. Two bars show acceptance rates.');
+          ? '類別覆蓋率：整體接受 ' + (index===0?'8/8':'5/8') + '，正類別 ' + positive + '/4，負類別 4/4，兩類別覆蓋差距 ' + gapPp + ' 個百分點。' + (rejectedCount === 0 ? '沒有拒答樣本，拒答樣本正確率未定義。' : '拒答 ' + rejectedCount + '/8，當中正確 ' + rejectedCorrect + '/' + rejectedCount + '，錯誤 ' + rejectedWrong + '/' + rejectedCount + '。') + '兩條橫條代表保留比例。'
+          : 'Class coverage: ' + (index===0?'8/8':'5/8') + ' accepted, positive ' + positive + '/4, negative 4/4, absolute class coverage gap ' + gapPp + ' percentage points. ' + (rejectedCount === 0 ? 'No rejected cases; rejected-only accuracy is undefined. ' : rejectedCount + '/8 rejected, with ' + rejectedCorrect + '/' + rejectedCount + ' correct and ' + rejectedWrong + '/' + rejectedCount + ' wrong. ') + 'Two bars show acceptance rates.');
       };
     }
     return {element:plot, update:index => {
