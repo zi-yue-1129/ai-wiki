@@ -675,6 +675,26 @@ def check_selective_player(page, image, host, toggle, asset, viewport, reduced, 
     expect(toggle).to_have_attribute("aria-label", play)
     capture("paused")
 
+    if motion_name == "accuracy-selective-class-coverage-motion.svg":
+        # Exercise the actual built site's focused/selected visual state.
+        # Previously its focused button skipped paint(), retaining white fill
+        # despite aria-pressed=true and a changed acceptance mask.
+        choices = plot.locator("g[data-acceptance-stage]")
+        assert choices.count() == 2
+        choices.nth(0).focus()
+        page.keyboard.press("Space")
+        expect(slider).to_have_value("0")
+        expect(choices.nth(0)).to_have_attribute("aria-pressed", "true")
+        expect(choices.nth(0).locator("rect")).to_have_attribute("fill", "#e3f0ef")
+        expect(choices.nth(0).locator("rect")).to_have_attribute("stroke", "#193e69")
+        choices.nth(1).focus()
+        page.keyboard.press("Enter")
+        expect(slider).to_have_value("40")
+        expect(choices.nth(1)).to_have_attribute("aria-pressed", "true")
+        expect(choices.nth(1).locator("rect")).to_have_attribute("fill", "#e3f0ef")
+        expect(choices.nth(1).locator("rect")).to_have_attribute("stroke", "#193e69")
+        expect(choices.nth(0).locator("rect")).to_have_attribute("fill", "#ffffff")
+
     # Manual playback, an observable advancing timeline, pause stability,
     # and keyboard activation are all required on the actual built site.
     toggle.click()
