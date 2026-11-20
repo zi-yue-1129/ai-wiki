@@ -129,7 +129,9 @@ assert "'data-wrong-balance':'true'" in player
 assert "rightBalance.textContent = 'RIGHT 6 = ' + keptCorrect" in player
 assert "wrongBalance.textContent = 'WRONG 2 = ' + keptWrong" in player
 assert "const rejectedCount = 8 - (positive + 4)" in player
-assert "const rejectedCorrect = 6 - (index === 0 ? 6 : 5)" in player
+assert "const keptCorrect = index === 0 ? 6 : 5" in player
+assert "const rejectedCorrect = 6 - keptCorrect" in player
+assert "const keptWrong = positive + 4 - keptCorrect" in player
 assert "rejectedWrong = rejectedCount - rejectedCorrect" in player
 assert "rejectedCount === 0" in player
 assert "rejected-only accuracy is undefined" in player
