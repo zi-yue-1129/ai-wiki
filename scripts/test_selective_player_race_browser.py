@@ -192,7 +192,11 @@ def run():
                             assert ("接受 5/8" if zh else "Accepted 5/8") in calculation.inner_text()
                             overall = plot.locator("text[data-overall-metrics]")
                             assert overall.count() == 1
-                            assert overall.inner_text() == "5/8 accepted · 5/5 correct"
+                            # SVG <text> is an SVGElement, not HTMLElement: Playwright's
+                            # inner_text() evaluates HTMLElement.innerText and fails in Chromium.
+                            # text_content() reads the actual SVG text node, including
+                            # after the player updates its accepted/correct ratios.
+                            assert overall.text_content() == "5/8 accepted · 5/5 correct"
                             assert plot.locator(
                                 "rect[fill='#087e85']").get_attribute("width") == "103.75"
                             # Both class-coverage rules are directly selectable.
@@ -214,7 +218,7 @@ def run():
                             assert choices.nth(0).locator("rect").get_attribute("stroke") == "#193e69"
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#ffffff"
                             assert "8/8" in calculation.inner_text()
-                            assert overall.inner_text() == "8/8 accepted · 6/8 correct"
+                            assert overall.text_content() == "8/8 accepted · 6/8 correct"
                             assert plot.locator(
                                 "rect[fill='#087e85']").get_attribute("width") == "415"
                             choices.nth(1).focus()
