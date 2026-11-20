@@ -174,6 +174,23 @@
           });
         }
         plot.append(dot);
+        if (!milestone) {
+          // Keep the visible 8px schematic dot; a separate 32px transparent
+          // pointer target makes touch exploration practical on small screens.
+          // It is hidden from the accessibility tree: the original dot owns
+          // the name, Tab stop, keyboard activation and visible focus halo.
+          const touchHit = node('circle', {cx:allXs[i],cy:allYs[i],r:16,
+            fill:'transparent','pointer-events':'all','aria-hidden':'true',
+            'data-risk-touch-k':count});
+          touchHit.addEventListener('mouseenter', () => showInspection(count));
+          touchHit.addEventListener('mouseleave', () => {
+            if (document.activeElement !== dot) restoreInspection();
+          });
+          touchHit.addEventListener('click', () => {
+            dot.focus(); showInspection(count);
+          });
+          plot.append(touchHit);
+        }
       });
       write(24,160,'HOLLOW: k=1,3,5',{'font-size':12});
       const stageSelectors = [];
