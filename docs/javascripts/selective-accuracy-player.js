@@ -103,10 +103,16 @@
         for (let i = 1; i < lesson.stops.length; i++) if (current >= lesson.stops[i]) index = i;
         return index;
       };
+      let announcedIndex = -1;
       const sync = () => {
         const index = stopIndex();
-        note.textContent = String(index + 1) + '/' + lang.length + ' · ' + lang[index][0];
-        calculation.textContent = lang[index][1];
+        // Seek the SVG every frame, but announce only actual acceptance changes.
+        // Rewriting an aria-live node at 60 Hz floods assistive technology.
+        if (index !== announcedIndex) {
+          note.textContent = String(index + 1) + '/' + lang.length + ' · ' + lang[index][0];
+          calculation.textContent = lang[index][1];
+          announcedIndex = index;
+        }
         slider.value = String(Math.round(current * 10));
         slider.setAttribute('aria-valuetext', lang[index][0] + ', ' + current.toFixed(1) + ' / ' + lesson.duration + ' s');
         prev.disabled = index === 0 && current === 0;
