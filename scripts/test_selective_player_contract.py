@@ -81,6 +81,14 @@ assert "let intentVersion = 0" in player
 assert "intent !== intentVersion" in player
 assert player.count("const intent = ++intentVersion") == 3
 assert "++intentVersion; pause(); current = lesson.stops[1]" in player
+# Hidden tabs cancel an in-flight Play intent, stop the running animation,
+# and never fast-forward a large requestAnimationFrame gap on return.
+assert "document.addEventListener('visibilitychange', onVisibilityChange)" in player
+assert "document.removeEventListener('visibilitychange', onVisibilityChange)" in player
+assert "if (document.hidden)" in player
+assert "if (playing) pause();" in player
+assert "intent !== intentVersion || document.hidden" in player
+assert "Math.min(0.1, Math.max(0, (now - previous) / 1000))" in player
 workflow = (ROOT / ".github/workflows/concept-animation-validation.yml").read_text(encoding="utf-8")
 assert "python scripts/test_selective_player_race_browser.py" in workflow
 
