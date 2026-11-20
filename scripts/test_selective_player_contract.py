@@ -154,7 +154,7 @@ for name, (duration, stops, values) in cases.items():
 
 en = (DOCS / "accuracy.md").read_text(encoding="utf-8")
 zh = (DOCS / "accuracy.zh-TW.md").read_text(encoding="utf-8")
-assert "hover or keyboard-focus the hollow" in en
+assert "hover, tap/click, or keyboard-focus the hollow" in en
 assert "does **not** change the main SVG" in en
 assert "all six discrete cutoffs" in en
 assert "空心的 k=1、3、5 資料點" in zh
