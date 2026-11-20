@@ -106,6 +106,10 @@ assert "plot.insertBefore(hit, anchor.nextSibling)" in player
 assert "if (inspecting === null) restoreInspection()" in player
 assert "return 'k=' + count + ' · ' + errors + '/' + count +" in player
 assert "' wrong · ' + fmt(risk * 100) + '% · ' + delta" in player
+assert "const newError = errors - (count > 1 ? allIncorrect[count - 2] : 0)" in player
+assert "' · +' + (newError ? 'WRONG' : 'CORRECT')" in player
+assert "新增' + (newError ? '錯誤' : '正確')" in player
+assert "'incorrect' : 'correct'" in player
 assert "fmt(Math.abs(change) * 100) + ' pp'" in player
 assert "const overall = write(116,155" in player
 # The SVG writer must return its text node; Element.append() returns undefined.
@@ -162,6 +166,8 @@ assert "does **not** change the main SVG" in en
 assert "all six discrete cutoffs" in en
 assert "空心的 k=1、3、5 資料點" in zh
 assert "完整顯示六個整數門檻" in zh
+assert "R_k-R_{k-1}" in en and "R_k-R_{k-1}" in zh
+assert "+CORRECT" in en and "+WRONG" in zh
 assert "interactive cutoff player" in en and "interactive class-coverage player" in en
 assert "互動門檻播放器" in zh and "各類別覆蓋率互動播放器" in zh
 assert "0.5×" in en and "0.5×" in zh
