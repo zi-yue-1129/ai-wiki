@@ -175,6 +175,12 @@ def run():
                             choices.nth(0).click()
                             assert slider.input_value() == "0"
                             assert choices.nth(0).get_attribute("aria-pressed") == "true"
+                            # Pointer focus must not mask the selected fill:
+                            # the focused choice has BOTH a teal selected background
+                            # and a dark keyboard-focus outline.
+                            assert choices.nth(0).locator("rect").get_attribute("fill") == "#e3f0ef"
+                            assert choices.nth(0).locator("rect").get_attribute("stroke") == "#193e69"
+                            assert choices.nth(1).locator("rect").get_attribute("fill") == "#ffffff"
                             assert "8/8" in calculation.inner_text()
                             assert plot.locator(
                                 "rect[fill='#087e85']").get_attribute("width") == "415"
@@ -182,12 +188,19 @@ def run():
                             page.keyboard.press("Enter")
                             assert slider.input_value() == "40"
                             assert choices.nth(1).get_attribute("aria-pressed") == "true"
+                            assert choices.nth(1).locator("rect").get_attribute("fill") == "#e3f0ef"
+                            assert choices.nth(1).locator("rect").get_attribute("stroke") == "#193e69"
+                            assert choices.nth(0).locator("rect").get_attribute("fill") == "#ffffff"
                             assert "5/8" in calculation.inner_text()
                             choices.nth(0).focus()
                             page.keyboard.press("Space")
                             assert slider.input_value() == "0"
+                            assert choices.nth(0).locator("rect").get_attribute("fill") == "#e3f0ef"
+                            assert choices.nth(0).locator("rect").get_attribute("stroke") == "#193e69"
                             choices.nth(1).click()
                             assert slider.input_value() == "40"
+                            assert choices.nth(1).locator("rect").get_attribute("fill") == "#e3f0ef"
+                            assert choices.nth(1).locator("rect").get_attribute("stroke") == "#193e69"
                             assert plot.get_attribute("data-active-stage") == "1"
                         page.wait_for_timeout(180)
                         assert slider.input_value() == "40", (
