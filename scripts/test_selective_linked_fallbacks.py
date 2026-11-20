@@ -48,13 +48,17 @@ def run():
         '#f8fafc', '#087e85', '#f8fafc', '#087e85', '#f8fafc', '#087e85']
 
     coverage = check_svg('accuracy-selective-class-coverage-linked-still',
-                         ['CLASS COVERAGE', 'ALL', 'SELECTIVE', 'POS', 'NEG', '4/4', '1/4'])
+                         ['CLASS COVERAGE', 'ALL', 'SELECTIVE', 'POS', 'NEG', '4/4', '1/4',
+                          '8/8 accepted · 6/8 correct',
+                          '5/8 accepted · 5/5 correct'])
+    assert coverage.attrib.get('viewBox') == '0 0 380 410'
+    assert 'not model measurements' in coverage.find('svg:desc', NS).text
     colored = coverage.findall('.//svg:rect', NS)
     lengths = [(e.get('x'), e.get('width'), e.get('fill')) for e in colored
                if e.get('fill') in ('#087e85', '#3c719d')]
-    assert lengths == [('76', '188', '#087e85'), ('76', '188', '#3c719d'),
-                       ('392', '47', '#087e85'), ('392', '188', '#3c719d')]
-    assert 47 / 188 == 1 / 4
+    assert lengths == [('83', '215', '#087e85'), ('83', '215', '#3c719d'),
+                       ('83', '53.75', '#087e85'), ('83', '215', '#3c719d')]
+    assert 53.75 / 215 == 1 / 4
 
     for filename in ('accuracy.md', 'accuracy.zh-TW.md'):
         page = (CHAPTER / filename).read_text(encoding='utf-8')
