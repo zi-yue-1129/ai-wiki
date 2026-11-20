@@ -60,6 +60,11 @@ assert "hit.setAttribute('role', 'button')" in player
 assert "hit.setAttribute('tabindex', '0')" in player
 assert "hit.addEventListener('keydown'" in player
 assert "stageSelectors.forEach" in player
+# The class-conditional chart exposes two semantic, keyboard-selectable states.
+assert "classChoices.forEach" in player
+assert "Compare all accepted, 8/8" in player
+assert "Compare selective acceptance, 5/8" in player
+assert "control.setAttribute('aria-pressed'" in player
 assert "Accepted 5/8" in player and "接受 5/8" in player
 assert "let intentVersion = 0" in player
 assert "intent !== intentVersion" in player
