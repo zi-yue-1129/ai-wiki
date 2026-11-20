@@ -23,8 +23,8 @@
       duration: 8,
       stops: [0, 4],
       en: [
-        ['All accepted', 'Accepted 8/8 · correct 6/8 · positive coverage 4/4 · negative coverage 4/4'],
-        ['Selective', 'Accepted 5/8 · correct 5/5 · positive coverage 1/4 · negative coverage 4/4'],
+        ['All accepted', 'Accepted 8/8 · Correct 6/8 · positive coverage 4/4 · negative coverage 4/4'],
+        ['Selective', 'Accepted 5/8 · Correct 5/5 · positive coverage 1/4 · negative coverage 4/4'],
       ],
       zh: [
         ['全部接受', '接受 8/8 · 正確 6/8 · 正類別覆蓋 4/4 · 負類別覆蓋 4/4'],
