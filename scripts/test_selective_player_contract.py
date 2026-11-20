@@ -83,6 +83,20 @@ assert "const allAccepted = [1,2,3,4,5,6]" in player
 assert "const allIncorrect = [0,0,1,1,2,2]" in player
 assert "allAccepted.forEach((count,i) =>" in player
 assert "'data-risk-k':count" in player
+# Each hollow intermediate risk point is inspectable by keyboard and pointer.
+# The inspector shows the exact cumulative error ratio and finite difference
+# to the previous integer cutoff, without selecting an unsupported SVG scene.
+assert "viewBox:riskPlot?'0 0 640 208':'0 0 640 168'" in player
+assert "'data-risk-inspection':'true'" in player
+assert "const showInspection = count =>" in player
+assert "const restoreInspection = () =>" in player
+assert "dot.setAttribute('role','button')" in player
+assert "dot.setAttribute('tabindex','0')" in player
+assert "dot.addEventListener('focus'" in player
+assert "dot.addEventListener('keydown'" in player
+assert "if (inspecting === null) restoreInspection()" in player
+assert "'/' + count + ' wrong'" in player
+assert "fmt(Math.abs(change) * 100) + ' pp'" in player
 assert "const overall = write(116,155" in player
 # The SVG writer must return its text node; Element.append() returns undefined.
 # Otherwise the live OVERALL ratio throws on first update and restores the still.
@@ -133,6 +147,11 @@ for name, (duration, stops, values) in cases.items():
 
 en = (DOCS / "accuracy.md").read_text(encoding="utf-8")
 zh = (DOCS / "accuracy.zh-TW.md").read_text(encoding="utf-8")
+assert "hover or keyboard-focus the hollow" in en
+assert "does **not** change the main SVG" in en
+assert "all six discrete cutoffs" in en
+assert "空心的 k=1、3、5 資料點" in zh
+assert "完整顯示六個整數門檻" in zh
 assert "interactive cutoff player" in en and "interactive class-coverage player" in en
 assert "互動門檻播放器" in zh and "各類別覆蓋率互動播放器" in zh
 assert "0.5×" in en and "0.5×" in zh
