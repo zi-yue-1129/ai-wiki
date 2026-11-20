@@ -299,6 +299,15 @@ def run():
                             gap = plot.locator("text[data-class-gap]")
                             assert gap.count() == 1
                             assert gap.text_content() == "GAP 75 pp"
+                            rejected = plot.locator("text[data-rejected-metrics]")
+                            assert rejected.count() == 1
+                            assert plot.get_attribute("viewBox") == "0 0 640 202"
+                            assert rejected.text_content() == (
+                                "3/8 rejected · 1/3 correct · 2/3 wrong")
+                            assert ("拒答 3/8" if zh else "3/8 rejected") in (
+                                plot.get_attribute("aria-label"))
+                            assert ("2/3 錯誤" if zh else "2/3 wrong") in (
+                                calculation.inner_text())
                             assert (("75 個百分點" if zh else "75 percentage points")
                                     in plot.get_attribute("aria-label"))
                             assert (("類別覆蓋差距 75" if zh else "class gap 75 pp")
@@ -326,6 +335,12 @@ def run():
                             assert "8/8" in calculation.inner_text()
                             assert overall.text_content() == "8/8 accepted · 6/8 correct"
                             assert gap.text_content() == "GAP 0 pp"
+                            assert rejected.text_content() == "0/8 rejected · accuracy N/A"
+                            assert ("拒答樣本正確率未定義" if zh else
+                                    "rejected-only accuracy is undefined") in (
+                                        plot.get_attribute("aria-label"))
+                            assert ("未定義" if zh else "undefined") in (
+                                calculation.inner_text())
                             assert (("0 個百分點" if zh else "0 percentage points")
                                     in plot.get_attribute("aria-label"))
                             assert plot.locator(
@@ -349,6 +364,7 @@ def run():
                             assert choices.nth(1).locator("rect").get_attribute("stroke") == "#193e69"
                             assert plot.get_attribute("data-active-stage") == "1"
                             assert gap.text_content() == "GAP 75 pp"
+                            assert rejected.text_content() == "3/8 rejected · 1/3 correct · 2/3 wrong"
                             choices.nth(0).focus()
                             page.keyboard.press("ArrowRight")
                             assert slider.input_value() == "40"
