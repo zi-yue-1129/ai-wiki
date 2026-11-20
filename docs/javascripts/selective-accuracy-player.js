@@ -164,6 +164,8 @@
             dot.setAttribute('stroke','#087e85');
             restoreInspection();
           });
+          // Touch/click inspects an intermediate cutoff without seeking the main SVG.
+          dot.addEventListener('click', () => showInspection(count));
           dot.addEventListener('keydown',event => {
             if (event.key === 'Enter' || event.key === ' ') {
               event.preventDefault();
@@ -216,7 +218,11 @@
           restoreInspection();
         });
         stageSelectors.push(hit);
-        plot.append(hit);
+        // In DOM/Tab order, place this playable cutoff after its even-k
+        // marker, interleaved with the hollow k=1,3,5 inspection controls.
+        // The plot still draws the active cursor last, above every marker.
+        const anchor = plot.querySelector('circle[data-risk-k="' + accepted[i] + '"]');
+        plot.insertBefore(hit, anchor.nextSibling);
       }
       const cursor = node('circle',{cx:xs[0],cy:ys[0],r:11,
         fill:'none',stroke:'#dc743b','stroke-width':3});
