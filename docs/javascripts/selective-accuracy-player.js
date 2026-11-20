@@ -86,7 +86,7 @@
       let activeRiskIndex = 0;
       let inspecting = null;
       const fmt = value =>
-        (Math.round(value * 1000) / 10).toFixed(1).replace(/\\.0$/, '');
+        (Math.round(value * 1000) / 10).toFixed(1).replace(/\.0$/, '');
       const describe = count => {
         const errors = allIncorrect[count - 1];
         const risk = errors / count;
