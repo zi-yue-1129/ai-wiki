@@ -47,6 +47,14 @@ for required in (
 ):
     assert required in player, required
 assert "innerHTML" not in player and "eval(" not in player
+# A second click can arrive before the initial SVG fetch resolves. Only the
+# latest intent may resume a pending handler; Chromium covers the actual race.
+assert "let intentVersion = 0" in player
+assert "intent !== intentVersion" in player
+assert player.count("const intent = ++intentVersion") == 3
+assert "++intentVersion; pause(); current = lesson.stops[1]" in player
+workflow = (ROOT / ".github/workflows/concept-animation-validation.yml").read_text(encoding="utf-8")
+assert "python scripts/test_selective_player_race_browser.py" in workflow
 
 cases = {
     "accuracy-selective-coverage": ("12s", [0, 4, 8], ["2/6", "4/6", "6/6"]),
