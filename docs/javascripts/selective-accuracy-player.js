@@ -168,9 +168,13 @@
       }
       speedLabel.append(speed); controls.append(speedLabel);
       const note = document.createElement('span');
-      note.className = 'concept-motion-chapter-note'; note.setAttribute('aria-live', 'polite');
+      // Announce the arithmetic, not just a generic stage title. Only one
+      // live region changes per semantic transition; visual frames stay silent.
+      note.className = 'concept-motion-chapter-note'; note.setAttribute('aria-live', 'off');
       const calculation = document.createElement('span');
-      calculation.className = 'concept-motion-calculation'; calculation.setAttribute('aria-live', 'off');
+      calculation.className = 'concept-motion-calculation';
+      calculation.setAttribute('aria-live', 'polite');
+      calculation.setAttribute('aria-atomic', 'true');
       const status = document.createElement('span');
       status.className = 'concept-motion-status'; status.setAttribute('role', 'status');
       status.setAttribute('aria-live', 'polite');
