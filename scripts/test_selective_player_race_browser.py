@@ -258,6 +258,28 @@ def run():
                         assert page.evaluate("window.__liveStageMutations") == 0, (
                             "aria-live rewritten within a constant stage", stem, zh, width
                         )
+                        # A visibility change must stop playback at the current
+                        # semantic stage, including on narrow layouts and both
+                        # languages. Simulate a hidden tab deterministically.
+                        page.evaluate("""() => {
+                          Object.defineProperty(document, 'hidden',
+                            {configurable:true, get:() => true});
+                          document.dispatchEvent(new Event('visibilitychange'));
+                        }""")
+                        hidden_pause = slider.input_value()
+                        assert host.get_by_role("button", name=play).count() == 1
+                        page.wait_for_timeout(180)
+                        assert slider.input_value() == hidden_pause, (
+                            "hidden tab kept advancing", stem, zh, width)
+                        page.evaluate("delete document.hidden")
+                        page.wait_for_timeout(100)
+                        assert slider.input_value() == hidden_pause, (
+                            "playback resumed on return without user consent", stem)
+                        # An explicit Play is the only way to resume, and the
+                        # previous requestAnimationFrame timestamp is discarded.
+                        host.get_by_role("button", name=play).click()
+                        page.wait_for_timeout(180)
+                        assert int(slider.input_value()) > int(hidden_pause)
                         host.get_by_role(
                             "button", name="暫停" if zh else "Pause").click()
                         paused = slider.input_value()
