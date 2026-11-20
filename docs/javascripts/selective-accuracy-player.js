@@ -45,11 +45,12 @@
       if (label) el.textContent = label;
       return el;
     };
-    const plot = node('svg', {viewBox:'0 0 640 168',
+    const riskPlot = filename === 'accuracy-selective-coverage-motion.svg';
+    const plot = node('svg', {viewBox:riskPlot?'0 0 640 208':'0 0 640 168',
       role:'group',
       class:'selective-linked-plot'});
     plot.style.cssText = 'display:block;width:100%;max-width:640px;height:auto;margin:10px 0';
-    plot.append(node('rect', {x:1,y:1,width:638,height:166,rx:12,
+    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?206:166,rx:12,
       fill:'#f8fafc',stroke:'#d4deec'}));
     const write = (x,y,label,attrs={}) => {
       const text = node('text',
@@ -79,6 +80,37 @@
       const allXs = allAccepted.map(count => 80 + 480 * count / 6);
       const allYs = allAccepted.map((count,i) =>
         119 - 200 * allIncorrect[i] / count);
+      // The three playable scenes (even k) are a coarse summary. Inspecting
+      // intermediate integer cutoffs must expose their exact error arithmetic
+      // without pretending that the main SVG supports six acceptance masks.
+      let activeRiskIndex = 0;
+      let inspecting = null;
+      const fmt = value =>
+        (Math.round(value * 1000) / 10).toFixed(1).replace(/\\.0$/, '');
+      const describe = count => {
+        const errors = allIncorrect[count - 1];
+        const risk = errors / count;
+        const previousRisk = count > 1 ?
+          allIncorrect[count - 2] / (count - 1) : risk;
+        const change = risk - previousRisk;
+        const delta = count === 1 ? 'start' :
+          (change > 1e-9 ? '↑' : change < -1e-9 ? '↓' : '=') +
+          fmt(Math.abs(change) * 100) + ' pp';
+        return 'k=' + count + ' · ' + errors + '/' + count +
+          ' wrong · ' + fmt(risk * 100) + '% · ' + delta;
+      };
+      const inspection = write(24,190,'',{'font-size':13,
+        'font-weight':700,fill:'#193e69','data-risk-inspection':'true'});
+      const showInspection = count => {
+        inspecting = count;
+        inspection.textContent = describe(count);
+        plot.setAttribute('data-inspected-k',String(count));
+      };
+      const restoreInspection = () => {
+        inspecting = null;
+        showInspection(accepted[activeRiskIndex]);
+        inspecting = null;
+      };
       write(24,25,'RISK',{'font-weight':700});
       plot.append(node('path',{d:'M 84 34 V 120 H 588',fill:'none',
         stroke:'#9aacc1','stroke-width':1.5}));
@@ -91,10 +123,40 @@
       // Small hollow dots show intermediate cutoffs, not extra controls.
       allAccepted.forEach((count,i) => {
         const milestone = count % 2 === 0;
-        plot.append(node('circle',{cx:allXs[i],cy:allYs[i],
+        const dot = node('circle',{cx:allXs[i],cy:allYs[i],
           r:milestone?5:4,fill:milestone?'#087e85':'#f8fafc',
           stroke:milestone?'none':'#087e85',
-          'stroke-width':milestone?0:2,'data-risk-k':count}));
+          'stroke-width':milestone?0:2,'data-risk-k':count});
+        if (!milestone) {
+          dot.setAttribute('role','button');
+          dot.setAttribute('tabindex','0');
+          dot.setAttribute('aria-label',zh
+            ? '檢視接受 ' + count + '/6：錯誤 ' + allIncorrect[i] +
+                '/' + count + '，不變更主動畫接受集合'
+            : 'Inspect ' + count + '/6 accepted: ' + allIncorrect[i] +
+                '/' + count + ' wrong; does not change the main animation');
+          dot.addEventListener('mouseenter',() => showInspection(count));
+          dot.addEventListener('mouseleave',() => {
+            if (document.activeElement !== dot) restoreInspection();
+          });
+          dot.addEventListener('focus',() => {
+            dot.setAttribute('r','8');
+            dot.setAttribute('stroke','#193e69');
+            showInspection(count);
+          });
+          dot.addEventListener('blur',() => {
+            dot.setAttribute('r','4');
+            dot.setAttribute('stroke','#087e85');
+            restoreInspection();
+          });
+          dot.addEventListener('keydown',event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              showInspection(count);
+            }
+          });
+        }
+        plot.append(dot);
       });
       write(24,160,'HOLLOW: k=1,3,5',{'font-size':12});
       const stageSelectors = [];
@@ -126,8 +188,18 @@
             chooseStage(target);
           }
         });
-        hit.addEventListener('focus', () => hit.setAttribute('stroke', '#193e69'));
-        hit.addEventListener('blur', () => hit.setAttribute('stroke', 'none'));
+        hit.addEventListener('mouseenter', () => showInspection(accepted[i]));
+        hit.addEventListener('mouseleave', () => {
+          if (document.activeElement !== hit) restoreInspection();
+        });
+        hit.addEventListener('focus', () => {
+          hit.setAttribute('stroke', '#193e69');
+          showInspection(accepted[i]);
+        });
+        hit.addEventListener('blur', () => {
+          hit.setAttribute('stroke', 'none');
+          restoreInspection();
+        });
         stageSelectors.push(hit);
         plot.append(hit);
       }
@@ -136,6 +208,8 @@
       plot.append(cursor);
       write(476,160,'COVERAGE →',{'font-weight':700,'font-size':12});
       update = index => {
+        activeRiskIndex = index;
+        if (inspecting === null) restoreInspection();
         cursor.setAttribute('cx',xs[index]); cursor.setAttribute('cy',ys[index]);
         stageSelectors.forEach((hit,i) =>
           hit.setAttribute('aria-pressed',String(i===index)));
