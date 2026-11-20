@@ -301,9 +301,15 @@ def run():
                             assert gap.text_content() == "GAP 75 pp"
                             rejected = plot.locator("text[data-rejected-metrics]")
                             assert rejected.count() == 1
-                            assert plot.get_attribute("viewBox") == "0 0 640 202"
+                            assert plot.get_attribute("viewBox") == "0 0 640 260"
                             assert rejected.text_content() == (
                                 "3/8 rejected · 1/3 correct · 2/3 wrong")
+                            right = plot.locator("text[data-correct-balance]")
+                            wrong = plot.locator("text[data-wrong-balance]")
+                            assert right.text_content() == (
+                                "RIGHT 6 = 5 accepted + 1 rejected")
+                            assert wrong.text_content() == (
+                                "WRONG 2 = 0 accepted + 2 rejected")
                             assert ("拒答 3/8" if zh else "3/8 rejected") in (
                                 plot.get_attribute("aria-label"))
                             assert ("2/3 錯誤" if zh else "2/3 wrong") in (
@@ -336,6 +342,10 @@ def run():
                             assert overall.text_content() == "8/8 accepted · 6/8 correct"
                             assert gap.text_content() == "GAP 0 pp"
                             assert rejected.text_content() == "0/8 rejected · accuracy N/A"
+                            assert right.text_content() == (
+                                "RIGHT 6 = 6 accepted + 0 rejected")
+                            assert wrong.text_content() == (
+                                "WRONG 2 = 2 accepted + 0 rejected")
                             assert ("拒答樣本正確率未定義" if zh else
                                     "rejected-only accuracy is undefined") in (
                                         plot.get_attribute("aria-label"))
