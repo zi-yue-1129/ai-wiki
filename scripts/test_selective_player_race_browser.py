@@ -205,6 +205,12 @@ def run():
                                        for term in ("newly admitted incorrect", "新增錯誤"))
                             assert "33.3%" in inspection.text_content()
                             assert "↑33.3 pp" in inspection.text_content()
+                            next_case = plot.locator("text[data-next-case]")
+                            assert next_case.count() == 1
+                            assert "+CORRECT 1/4 (25%)" in next_case.text_content()
+                            assert "+WRONG 2/4 (50%)" in next_case.text_content()
+                            assert ("假設下一筆正確" if zh else "if correct") in (
+                                hollow3.get_attribute("aria-label"))
                             assert hollow3.get_attribute("stroke") == "#193e69"
                             page.keyboard.press("Space")
                             assert slider.input_value() == "40", (
@@ -212,6 +218,8 @@ def run():
                             assert plot.get_attribute("data-active-stage") == "1"
                             plot.locator("circle[data-acceptance-stage='1']").focus()
                             assert "↓8.3 pp" in inspection.text_content()
+                            assert "+CORRECT 1/5 (20%)" in next_case.text_content()
+                            assert "+WRONG 2/5 (40%)" in next_case.text_content()
                             assert "+CORRECT" in inspection.text_content()
                             hollow5 = plot.locator("circle[data-risk-k='5']")
                             hollow5.focus()
@@ -221,6 +229,7 @@ def run():
                             plot.locator("circle[data-acceptance-stage='2']").focus()
                             assert "k=6" in inspection.text_content()
                             assert "↓6.7 pp" in inspection.text_content()
+                            assert "END OF SIX OBSERVED CASES" in next_case.text_content()
                             # A mobile horizontal scroll may dispatch hover changes
                             # under a stationary pointer. Explicit keyboard focus
                             # must retain its exact k=6 mathematical explanation.
