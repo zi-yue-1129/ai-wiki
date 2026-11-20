@@ -73,13 +73,14 @@
       for (let i=0;i<3;i++) {
         plot.append(node('circle',{cx:xs[i],cy:ys[i],r:5,
           fill:'#087e85'}));
-        write(xs[i],ys[i]-14,labels[i],{'text-anchor':'middle',
+        write(xs[i],ys[i]-20,labels[i],{'text-anchor':'middle',
           'font-size':12,'font-weight':600});
         write(xs[i],144,coverages[i],{'text-anchor':'middle','font-size':12});
         // Invisible pointer targets also support keyboard navigation without
         // altering the original synthetic chart or its fallback image.
         const hit = node('circle', {cx:xs[i],cy:ys[i],r:16,fill:'transparent',
           stroke:'none','stroke-width':3,cursor:'pointer',
+          style:'outline:none',
           'data-acceptance-stage':i});
         hit.setAttribute('role', 'button');
         hit.setAttribute('tabindex', '0');
