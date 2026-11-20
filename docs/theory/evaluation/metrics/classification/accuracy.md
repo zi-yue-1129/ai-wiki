@@ -113,6 +113,15 @@ On MkDocs, the **interactive cutoff player** starts paused: use Play/Pause, Prev
 
 A **linked risk–coverage plot** under the interactive SVG highlights the active acceptance cutoff: 2/6 accepted with 0% risk, 4/6 with 25% risk, and 6/6 with about 33% risk (exactly 2/6). The orange ring follows Play, step and seek controls. The three **filled** plotted points select the playable masks: click one or focus it and press Enter/Space to pause and change the main SVG's accepted set. With a point focused, Left/Right arrows move to adjacent cutoffs and Home/End jump to the first/last cutoff. The line now traces **all six integer cutoffs** in the same constructed sample, with hollow markers at k=1,3,5 and the three filled, directly selectable stages at k=2,4,6. The selective risks are **0/1, 0/2, 1/3, 1/4, 2/5, 2/6**. Risk **falls from 1/3 to 1/4** when the fourth (correct) case is included, and **from 2/5 to 2/6** when the sixth (correct) case is included. Thus risk need **not rise monotonically** with coverage even for unchanged predictions and score ranking. Connecting segments join discrete integer counts only; they are not a continuous interpolation or empirical model results. On MkDocs, **hover, tap/click, or keyboard-focus the hollow k=1,3,5 markers** to inspect their exact cumulative error fraction and the percentage-point change from the preceding cutoff. Tab traverses all six cutoffs in ascending k order, with Enter/Space available for inspection; it does **not** change the main SVG's three playable acceptance masks. The inspection readout makes the declines from 1/3 to 1/4 and 2/5 to 2/6 explicit, without treating the line as a continuous empirical curve. The plot shares the figure's horizontal keyboard scrolling on narrow screens. A [GitHub-safe static risk–coverage plot](../../../../assets/concept-animations/accuracy-selective-coverage-linked-still.svg) shows all six discrete cutoffs if JavaScript cannot run.
 
+For each **newly admitted case** at cutoff $k$, let $e_k\in\{0,1\}$ indicate whether its unchanged prediction is wrong, and let $E_k=\sum_{i=1}^{k}e_i$ be the cumulative error count. The exact discrete update is
+
+$
+R_k=\frac{E_k}{k},\qquad
+R_k-R_{k-1}=\frac{e_k-R_{k-1}}{k}\quad(k\ge 2).
+$
+
+The inspector marks the added case **+CORRECT** ($e_k=0$) or **+WRONG** ($e_k=1$), alongside the cumulative error fraction and change in percentage points. At $k=3$, adding a wrong case raises risk from $0/2$ to $1/3$; at $k=4$, adding a correct case lowers it to $1/4$. This changes the **accepted subset**, not the model predictions or their ranking. The main SVG still has only the playable $k=2,4,6$ masks. All outcomes are constructed educational examples, not measurements.
+
 ## Class-conditional coverage under rejection
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Keyboard-scrollable class-conditional coverage animation">
