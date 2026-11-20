@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+"""Chromium regression for overlapping commands in two bilingual SVG timeline players.
+
+The browser runs the real player and SVGs. Fetch is deliberately held until both
+user actions have fired, so the test detects stale async continuations.
+This is a same-origin fetch simulation, not a built-MkDocs end-to-end test.
+"""
+import base64
+import os
+from pathlib import Path
+
+from playwright.sync_api import sync_playwright
+
+ROOT = Path(__file__).resolve().parents[1]
+ASSETS = ROOT / "docs/assets/concept-animations"
+PLAYER = ROOT / "docs/javascripts/selective-accuracy-player.js"
+CASES = [("accuracy-selective-coverage", "4/6"),
+         ("accuracy-selective-class-coverage", "5/5")]
+CSS = """body{margin:0;padding:8px;font-family:Arial,sans-serif}
+.concept-motion-player{display:block;max-width:640px}
+.concept-motion-player img,.concept-motion-inline{display:block;width:100%;height:auto}
+.concept-motion-inline[hidden],img[hidden]{display:none!important}
+.concept-motion-controls{display:flex;gap:6px;flex-wrap:wrap}
+.concept-motion-chapter-note,.concept-motion-calculation{display:block}
+"""
+
+
+def markup(stem, zh):
+    alt = "人工分類示意" if zh else "Synthetic classification"
+    still = "data:image/svg+xml;base64," + base64.b64encode(
+        (ASSETS / (stem + "-still.svg")).read_bytes()).decode()
+    return f"""<!doctype html><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <base href="https://example.invalid/">
+    <style>{CSS}</style><section style="max-width:100%;overflow-x:auto">
+    <img src="{still}" data-still-src="{still}"
+    data-motion-src="/assets/concept-animations/{stem}-motion.svg"
+    alt="{alt}" width="640" height="360"></section>"""
+
+
+def run():
+    source = {
+        f"/assets/concept-animations/{stem}-motion.svg":
+        (ASSETS / (stem + "-motion.svg")).read_text(encoding="utf-8")
+        for stem, _ in CASES
+    }
+    with sync_playwright() as p:
+        opts = {"headless": True}
+        if os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE"):
+            opts.update(
+                executable_path=os.environ["PLAYWRIGHT_CHROMIUM_EXECUTABLE"],
+                args=["--no-sandbox"],
+            )
+        browser = p.chromium.launch(**opts)
+        try:
+            for stem, expected in CASES:
+                for zh in (False, True):
+                    for width in (390, 1280):
+                        ctx = browser.new_context(
+                            viewport={"width": width, "height": 900},
+                            reduced_motion="no-preference",
+                        )
+                        page = ctx.new_page()
+                        errors = []
+                        page.on("pageerror", lambda error: errors.append(str(error)))
+                        page.set_content(markup(stem, zh))
+                        page.evaluate("(v) => window.__sources = v", source)
+                        # about:blank has an opaque origin. Map URL.origin to the
+                        # simulated document origin only inside this isolated test.
+                        page.evaluate("""() => {
+                          const URLNative = window.URL;
+                          window.URL = class extends URLNative {
+                            constructor(input, base) {
+                              super(input, base);
+                              Object.defineProperty(this, 'origin',
+                                {get:()=>location.origin});
+                            }
+                          };
+                          window.pendingFetch = [];
+                          window.fetch = url => new Promise(resolve => {
+                            window.pendingFetch.push(() =>
+                              resolve({ok:true, text:async() =>
+                                window.__sources[new URL(url).pathname]}));
+                          });
+                        }""")
+                        page.add_script_tag(content=PLAYER.read_text(encoding="utf-8"))
+                        host = page.locator(".selective-motion-player")
+                        assert host.count() == 1
+                        page.wait_for_function("window.pendingFetch.length === 1")
+                        play = "播放" if zh else "Play"
+                        host.get_by_role("button", name=play).click()
+                        host.get_by_role(
+                            "button", name="下一步" if zh else "Next step"
+                        ).click()
+                        page.evaluate("window.pendingFetch[0]()")
+                        host.locator("svg.concept-motion-inline").wait_for()
+                        page.wait_for_timeout(140)
+                        slider = host.get_by_role("slider")
+                        assert slider.input_value() == "40", (
+                            stem, zh, width, slider.input_value())
+                        assert expected in host.locator(
+                            ".concept-motion-calculation").inner_text()
+                        page.wait_for_timeout(180)
+                        assert slider.input_value() == "40", (
+                            "An obsolete Play command resumed playback", stem)
+                        assert host.get_by_role("button", name=play).count() == 1
+                        # A fresh explicit Play remains operable.
+                        host.get_by_role("button", name=play).click()
+                        page.wait_for_timeout(240)
+                        assert int(slider.input_value()) > 40
+                        host.get_by_role(
+                            "button", name="暫停" if zh else "Pause").click()
+                        paused = slider.input_value()
+                        page.wait_for_timeout(180)
+                        assert slider.input_value() == paused
+                        assert host.locator("img").is_hidden()
+                        assert host.locator("svg.concept-motion-inline").is_visible()
+                        assert not errors, errors
+                        print("PASS", stem, "zh" if zh else "en", width)
+                        ctx.close()
+            # GitHub / disabled-JS rendering uses the independent static asset.
+            ctx = browser.new_context(java_script_enabled=False)
+            page = ctx.new_page()
+            page.set_content(markup(CASES[0][0], False))
+            assert page.locator("img").is_visible()
+            assert page.locator("img").evaluate(
+                "(e) => e.naturalWidth") > 0
+            print("PASS no-JS GitHub fallback")
+            ctx.close()
+        finally:
+            browser.close()
+
+
+if __name__ == "__main__":
+    run()
