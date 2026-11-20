@@ -115,10 +115,10 @@ A **linked risk–coverage plot** under the interactive SVG highlights the activ
 
 For each **newly admitted case** at cutoff $k$, let $e_k\in\{0,1\}$ indicate whether its unchanged prediction is wrong, and let $E_k=\sum_{i=1}^{k}e_i$ be the cumulative error count. The exact discrete update is
 
-$
+$$
 R_k=\frac{E_k}{k},\qquad
 R_k-R_{k-1}=\frac{e_k-R_{k-1}}{k}\quad(k\ge 2).
-$
+$$
 
 The inspector marks the added case **+CORRECT** ($e_k=0$) or **+WRONG** ($e_k=1$), alongside the cumulative error fraction and change in percentage points. At $k=3$, adding a wrong case raises risk from $0/2$ to $1/3$; at $k=4$, adding a correct case lowers it to $1/4$. This changes the **accepted subset**, not the model predictions or their ranking. The main SVG still has only the playable $k=2,4,6$ masks. All outcomes are constructed educational examples, not measurements.
 
