@@ -51,9 +51,13 @@
     plot.style.cssText = 'display:block;width:100%;max-width:640px;height:auto;margin:10px 0';
     plot.append(node('rect', {x:1,y:1,width:638,height:166,rx:12,
       fill:'#f8fafc',stroke:'#d4deec'}));
-    const write = (x,y,label,attrs={}) => plot.append(node('text',
-      {x,y,fill:'#526783','font-family':'Arial, sans-serif',
-        'font-size':13,...attrs}, label));
+    const write = (x,y,label,attrs={}) => {
+      const text = node('text',
+        {x,y,fill:'#526783','font-family':'Arial, sans-serif',
+          'font-size':13,...attrs}, label);
+      plot.append(text);
+      return text; // The OVERALL row is updated when acceptance changes.
+    };
     // Arrow navigation walks discrete cases; Tab and Enter/Space remain available.
     const keyboardStage = (key, index, last) => {
       if (key === 'ArrowRight' || key === 'ArrowDown') return Math.min(last, index + 1);
@@ -242,6 +246,8 @@
       const url = new URL(source, document.baseURI);
       if (url.origin !== location.origin || !url.pathname.includes('/assets/concept-animations/')) continue;
       const still = img.dataset.stillSrc || img.getAttribute('src');
+      const fallbackDisplay = img.style.getPropertyValue('display');
+      const fallbackDisplayPriority = img.style.getPropertyPriority('display');
       const zh = /[\u3400-\u9fff]/.test(img.alt || '');
       const lang = zh ? lesson.zh : lesson.en;
       const label = zh
@@ -362,13 +368,21 @@
             svg = document.importNode(doc.documentElement, true);
             svg.classList.add('concept-motion-inline');
             svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', img.alt);
-            host.insertBefore(svg, img); img.hidden = true;
+            host.insertBefore(svg, img);
+            // Inline display:block in Markdown can override the hidden attribute.
+            // Hide the still visibly as well as semantically after SVG insertion.
+            img.hidden = true; img.style.setProperty('display', 'none', 'important');
             linkedPlot = makeLinkedPlot(filename, zh, chooseStage);
             host.insertBefore(linkedPlot.element, controls);
             sync(); status.textContent = '';
             return true;
           } catch (_) {
+            // Never leave an incomplete interactive overlay atop the fallback.
+            if (svg) { svg.remove(); svg = null; }
+            if (linkedPlot) { linkedPlot.element.remove(); linkedPlot = null; }
             img.src = still; img.hidden = false;
+            if (fallbackDisplay) img.style.setProperty('display', fallbackDisplay, fallbackDisplayPriority);
+            else img.style.removeProperty('display');
             status.textContent = label.error;
             for (const el of [toggle, prev, next, slider, speed]) el.disabled = true;
             return false;
