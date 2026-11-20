@@ -239,7 +239,7 @@ def run():
                             hollow3.dispatch_event("mouseleave")
                             assert "k=4" in inspection.text_content()
                             assert slider.input_value() == "40"
-                            assert plot.get_attribute("viewBox") == "0 0 640 208"
+                            assert plot.get_attribute("viewBox") == "0 0 640 244"
                             # The class chart keeps its independent native dimensions.
                             # Select cutoffs using both pointer and keyboard.
                             points = plot.locator("circle[data-acceptance-stage]")
