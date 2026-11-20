@@ -47,6 +47,12 @@ for required in (
 ):
     assert required in player, required
 assert "innerHTML" not in player and "eval(" not in player
+# Only the calculated acceptance metrics are a live stage announcement.
+# The title remains visible/readable, but cannot generate a second alert.
+assert "note.setAttribute('aria-live', 'off')" in player
+assert "calculation.setAttribute('aria-live', 'polite')" in player
+assert "calculation.setAttribute('aria-atomic', 'true')" in player
+assert "if (index !== announcedIndex)" in player
 # A second click can arrive before the initial SVG fetch resolves. Only the
 # latest intent may resume a pending handler; Chromium covers the actual race.
 assert "let intentVersion = 0" in player
