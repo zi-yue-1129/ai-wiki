@@ -171,6 +171,18 @@ def run():
                             hollow3.dispatch_event('click')
                             assert 'k=3' in inspection.text_content()
                             assert slider.input_value() == '40'
+                            # The larger pointer-only overlay should be operable
+                            # by touch/click, focus the named visible marker and
+                            # not add extra Tab stops or move the main SVG.
+                            touch_targets = plot.locator('circle[data-risk-touch-k]')
+                            assert touch_targets.count() == 3
+                            assert [touch_targets.nth(i).get_attribute('r')
+                                    for i in range(3)] == ['16','16','16']
+                            touch3 = plot.locator('circle[data-risk-touch-k="3"]')
+                            touch3.click()
+                            assert hollow3.evaluate('(e) => document.activeElement === e')
+                            assert 'k=3' in inspection.text_content()
+                            assert slider.input_value() == '40'
                             hollow3.focus()
                             assert "k=3" in inspection.text_content()
                             assert "1/3 wrong" in inspection.text_content()
