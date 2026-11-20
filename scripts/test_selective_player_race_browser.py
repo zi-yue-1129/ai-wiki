@@ -95,11 +95,23 @@ def run():
                         page.evaluate("window.pendingFetch[0]()")
                         host.locator("svg.concept-motion-inline").wait_for()
                         page.wait_for_timeout(140)
+                        plot = host.locator("svg.selective-linked-plot")
+                        assert plot.count() == 1, ("linked plot missing", stem, zh, width)
                         slider = host.get_by_role("slider")
                         assert slider.input_value() == "40", (
                             stem, zh, width, slider.input_value())
                         assert expected in host.locator(
                             ".concept-motion-calculation").inner_text()
+                        assert plot.get_attribute("data-active-stage") == "1"
+                        if stem == "accuracy-selective-coverage":
+                            assert "4/6" in plot.get_attribute("aria-label")
+                            assert "25%" in plot.get_attribute("aria-label")
+                            assert plot.locator(
+                                "circle[stroke='#dc743b']").get_attribute("cx") == "400"
+                        else:
+                            assert "1/4" in plot.get_attribute("aria-label")
+                            assert plot.locator(
+                                "rect[fill='#087e85']").get_attribute("width") == "103.75"
                         page.wait_for_timeout(180)
                         assert slider.input_value() == "40", (
                             "An obsolete Play command resumed playback", stem)
@@ -140,6 +152,13 @@ def run():
                         ).click()
                         page.wait_for_timeout(90)
                         assert slider.input_value() == "0"
+                        assert plot.get_attribute("data-active-stage") == "0"
+                        if stem == "accuracy-selective-coverage":
+                            assert plot.locator(
+                                "circle[stroke='#dc743b']").get_attribute("cx") == "240"
+                        else:
+                            assert plot.locator(
+                                "rect[fill='#087e85']").get_attribute("width") == "415"
                         assert page.evaluate("window.__liveStageMutations") == 2, (
                             "missing or duplicate chapter announcement", stem, zh, width
                         )
@@ -155,6 +174,7 @@ def run():
             assert page.locator("img").is_visible()
             assert page.locator("img").evaluate(
                 "(e) => e.naturalWidth") > 0
+            assert page.locator("svg.selective-linked-plot").count() == 0
             print("PASS no-JS GitHub fallback")
             ctx.close()
         finally:
