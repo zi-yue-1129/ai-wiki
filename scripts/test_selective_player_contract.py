@@ -114,6 +114,13 @@ assert "' · +' + (newError ? 'WRONG' : 'CORRECT')" in player
 assert "新增' + (newError ? '錯誤' : '正確')" in player
 assert "'incorrect' : 'correct'" in player
 assert "fmt(Math.abs(change) * 100) + ' pp'" in player
+# Keyboard focus pins the mathematical inspector during scroll-induced hover;
+# pointer-only events must not steal focus or overwrite the HUD.
+assert "const focusedRiskCount = () =>" in player
+assert "plot.contains(active)" in player
+assert "fromHover && focused !== null && focused !== count" in player
+assert "showInspection(focusedRiskCount() ?? accepted[activeRiskIndex])" in player
+assert "showInspection(accepted[i], true)" in player
 assert "const overall = write(116,155" in player
 assert "'data-class-gap':'true'" in player
 assert "const gapPp = Math.abs(positive / 4 - 1) * 100" in player
