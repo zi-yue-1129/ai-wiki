@@ -130,11 +130,26 @@
         if (!milestone) {
           dot.setAttribute('role','button');
           dot.setAttribute('tabindex','0');
+          dot.setAttribute('cursor','help');
+          const fraction = allIncorrect[i] + '/' + count;
+          const riskPercent = fmt(allIncorrect[i] * 100 / count) + '%';
+          const before = count === 1 ? 0 :
+            allIncorrect[i - 1] / (count - 1);
+          const difference = allIncorrect[i] / count - before;
+          const deltaValue = fmt(Math.abs(difference) * 100);
+          const deltaWords = count === 1 ?
+            (zh ? '初始門檻' : 'initial cutoff') :
+            (difference > 1e-9 ? (zh ? '增加 ' : 'increase ') :
+              difference < -1e-9 ? (zh ? '減少 ' : 'decrease ') :
+                (zh ? '不變 ' : 'unchanged ')) + deltaValue +
+              (zh ? ' 個百分點' : ' percentage points');
           dot.setAttribute('aria-label',zh
-            ? '檢視接受 ' + count + '/6：錯誤 ' + allIncorrect[i] +
-                '/' + count + '，不變更主動畫接受集合'
-            : 'Inspect ' + count + '/6 accepted: ' + allIncorrect[i] +
-                '/' + count + ' wrong; does not change the main animation');
+            ? '檢視 k=' + count + '，累積錯誤 ' + fraction +
+                '，選擇性風險 ' + riskPercent + '，相對前一門檻' +
+                deltaWords + '；不變更主動畫'
+            : 'Inspect k=' + count + ': ' + fraction + ' wrong, risk ' +
+                riskPercent + ', change from prior cutoff: ' +
+                deltaWords + '; main animation unchanged');
           dot.addEventListener('mouseenter',() => showInspection(count));
           dot.addEventListener('mouseleave',() => {
             if (document.activeElement !== dot) restoreInspection();
