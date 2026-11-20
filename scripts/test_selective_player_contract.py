@@ -91,7 +91,7 @@ assert "viewBox:riskPlot?'0 0 640 208':'0 0 640 168'" in player
 # to the focusable figure. width:100% made 12px labels ~6px at 320px.
 assert "width:640px;min-width:640px;max-width:none" in player
 assert "'data-risk-inspection':'true'" in player
-assert "const showInspection = count =>" in player
+assert "const showInspection = (count, fromHover = false) =>" in player
 assert "const restoreInspection = () =>" in player
 assert "dot.setAttribute('role','button')" in player
 assert "dot.setAttribute('tabindex','0')" in player
@@ -123,6 +123,13 @@ assert "showInspection(focusedRiskCount() ?? accepted[activeRiskIndex])" in play
 assert "showInspection(accepted[i], true)" in player
 assert "const overall = write(116,155" in player
 assert "'data-class-gap':'true'" in player
+assert "'data-rejected-metrics':'true'" in player
+assert "const rejectedCount = 8 - (positive + 4)" in player
+assert "const rejectedCorrect = 6 - (index === 0 ? 6 : 5)" in player
+assert "rejectedWrong = rejectedCount - rejectedCorrect" in player
+assert "rejectedCount === 0" in player
+assert "rejected-only accuracy is undefined" in player
+assert "拒答樣本正確率未定義" in player
 assert "const gapPp = Math.abs(positive / 4 - 1) * 100" in player
 assert "gap.textContent = 'GAP ' + gapPp + ' pp'" in player
 assert "absolute class coverage gap" in player and "類別覆蓋差距" in player
@@ -184,6 +191,10 @@ assert "R_k-R_{k-1}" in en and "R_k-R_{k-1}" in zh
 assert "$k=0$" in en and "$k=0$" in zh
 assert "undefined" in en and "未定義" in zh
 assert "75 percentage points" in en and "75 個百分點" in zh
+assert "**REJECTED**" in en and "**REJECTED（拒答）**" in zh
+assert "**0/8**" in en and "**0/8**" in zh
+assert "**3/8**" in en and "**3/8**" in zh
+assert "**2/3" in en and "**2/3" in zh
 assert "\\Delta_C" in en and "\\Delta_C" in zh
 assert "+CORRECT" in en and "+WRONG" in zh
 assert "interactive cutoff player" in en and "interactive class-coverage player" in en
