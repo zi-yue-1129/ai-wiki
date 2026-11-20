@@ -109,6 +109,18 @@ def run():
                         status = host.locator(".concept-motion-status")
                         assert status.get_attribute("role") == "status"
                         assert status.inner_text() == "", (stem, zh, width)
+                        # Announce the actual arithmetic once per stage rather
+                        # than only a generic title; the title stays readable.
+                        title = host.locator(".concept-motion-chapter-note")
+                        calculation = host.locator(".concept-motion-calculation")
+                        assert title.get_attribute("aria-live") == "off"
+                        assert calculation.get_attribute("aria-live") == "polite"
+                        assert calculation.get_attribute("aria-atomic") == "true"
+                        assert expected in calculation.inner_text()
+                        keyword = (("正確" if zh else "Correct")
+                                   if stem == "accuracy-selective-class-coverage"
+                                   else ("接受" if zh else "Accepted"))
+                        assert keyword in calculation.inner_text()
                         if stem == "accuracy-selective-coverage":
                             assert "4/6" in plot.get_attribute("aria-label")
                             assert "25%" in plot.get_attribute("aria-label")
