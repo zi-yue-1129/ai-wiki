@@ -35,6 +35,88 @@
   const blocked = new Set(['script', 'foreignObject', 'iframe', 'image', 'use']);
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  // Linked plots are computed from the schematic examples shown in the main SVG.
+  // They highlight the same semantic state, never measured model performance.
+  function makeLinkedPlot(filename, zh) {
+    const ns = 'http://www.w3.org/2000/svg';
+    const node = (tag, attrs = {}, label = '') => {
+      const el = document.createElementNS(ns, tag);
+      for (const [key, value] of Object.entries(attrs)) el.setAttribute(key, String(value));
+      if (label) el.textContent = label;
+      return el;
+    };
+    const plot = node('svg', {viewBox:'0 0 640 168', role:'img',
+      class:'selective-linked-plot'});
+    plot.style.cssText = 'display:block;width:100%;max-width:640px;height:auto;margin:10px 0';
+    plot.append(node('rect', {x:1,y:1,width:638,height:166,rx:12,
+      fill:'#f8fafc',stroke:'#d4deec'}));
+    const write = (x,y,label,attrs={}) => plot.append(node('text',
+      {x,y,fill:'#526783','font-family':'Arial, sans-serif',
+        'font-size':13,...attrs}, label));
+    let update;
+    if (filename === 'accuracy-selective-coverage-motion.svg') {
+      const accepted = [2,4,6], incorrect = [0,1,2];
+      const risks = accepted.map((count,i) => incorrect[i] / count);
+      const xs = accepted.map(count => 80 + 480 * count / 6);
+      const ys = risks.map(risk => 119 - 200 * risk);
+      write(24,25,'RISK',{'font-weight':700});
+      plot.append(node('path',{d:'M 84 34 V 120 H 588',fill:'none',
+        stroke:'#9aacc1','stroke-width':1.5}));
+      plot.append(node('polyline',{
+        points:xs.map((x,i)=>String(x)+','+String(ys[i])).join(' '),
+        fill:'none',stroke:'#087e85','stroke-width':3,
+        'stroke-linecap':'round','stroke-linejoin':'round'}));
+      const labels = risks.map(risk => String(Math.round(100 * risk)) + '%');
+      const coverages = accepted.map(count => String(count) + '/6');
+      for (let i=0;i<3;i++) {
+        plot.append(node('circle',{cx:xs[i],cy:ys[i],r:5,
+          fill:'#087e85'}));
+        write(xs[i],ys[i]-14,labels[i],{'text-anchor':'middle',
+          'font-size':12,'font-weight':600});
+        write(xs[i],144,coverages[i],{'text-anchor':'middle','font-size':12});
+      }
+      const cursor = node('circle',{cx:xs[0],cy:ys[0],r:11,
+        fill:'none',stroke:'#dc743b','stroke-width':3});
+      plot.append(cursor);
+      write(476,160,'COVERAGE →',{'font-weight':700,'font-size':12});
+      update = index => {
+        cursor.setAttribute('cx',xs[index]); cursor.setAttribute('cy',ys[index]);
+        plot.setAttribute('aria-label',zh
+          ? '風險覆蓋率對照：接受 ' + coverages[index] + '，風險 ' + labels[index] + '，橘色圈標示目前狀態。'
+          : 'Risk–coverage comparison: ' + coverages[index] + ' accepted, ' + labels[index] + ' risk. Orange ring marks the current state.');
+      };
+    } else {
+      write(24,26,'CLASS COVERAGE',{'font-weight':700});
+      const bars=[];
+      for (const [i,label,y] of [[0,'POS',60],[1,'NEG',108]]) {
+        write(35,y+18,label,{'font-weight':700,'font-size':14});
+        plot.append(node('rect',{x:116,y,width:415,height:24,rx:7,
+          fill:'#e5ebf2'}));
+        const fill=node('rect',{x:116,y,width:415,height:24,rx:7,
+          fill:i===0?'#087e85':'#3c719d'});
+        plot.append(fill);
+        const value=node('text',{x:545,y:y+18,fill:'#172b4d',
+          'font-family':'Arial, sans-serif','font-size':15,
+          'font-weight':700},'4/4');
+        plot.append(value);
+        bars.push({fill,value});
+      }
+      update = index => {
+        const positive=index===0?4:1;
+        bars[0].fill.setAttribute('width',String(415*positive/4));
+        bars[0].value.textContent=String(positive)+'/4';
+        bars[1].fill.setAttribute('width','415');
+        bars[1].value.textContent='4/4';
+        plot.setAttribute('aria-label',zh
+          ? '類別覆蓋率：正類別 ' + positive + '/4，負類別 4/4。兩條橫條代表保留比例。'
+          : 'Class coverage: positive ' + positive + '/4, negative 4/4. Two bars show acceptance rates.');
+      };
+    }
+    return {element:plot, update:index => {
+      update(index); plot.setAttribute('data-active-stage',String(index));
+    }};
+  }
+
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[data-motion-src]')) {
       if (img.dataset.conceptMotionEnhanced) continue;
@@ -94,6 +176,7 @@
       status.setAttribute('aria-live', 'polite');
       host.append(controls, note, calculation, status);
 
+      let linkedPlot = null, plottedIndex = -1;
       let svg = null, current = reduced.matches ? lesson.stops[1] : 0;
       let playing = false, frame = 0, previous = null, pending = null;
       // Pending loads may have several competing handlers; only the last user intent wins.
@@ -112,6 +195,9 @@
           note.textContent = String(index + 1) + '/' + lang.length + ' · ' + lang[index][0];
           calculation.textContent = lang[index][1];
           announcedIndex = index;
+        }
+        if (linkedPlot && index !== plottedIndex) {
+          linkedPlot.update(index); plottedIndex = index;
         }
         slider.value = String(Math.round(current * 10));
         slider.setAttribute('aria-valuetext', lang[index][0] + ', ' + current.toFixed(1) + ' / ' + lesson.duration + ' s');
@@ -152,6 +238,8 @@
             svg.classList.add('concept-motion-inline');
             svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', img.alt);
             host.insertBefore(svg, img); img.hidden = true;
+            linkedPlot = makeLinkedPlot(filename, zh);
+            host.insertBefore(linkedPlot.element, controls);
             sync(); status.textContent = '';
             return true;
           } catch (_) {
