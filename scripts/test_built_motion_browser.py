@@ -608,15 +608,19 @@ def check_selective_player(page, image, host, toggle, asset, viewport, reduced, 
     play, pause = ("播放", "暫停") if chinese else ("Play", "Pause")
     next_label = "下一步" if chinese else "Next step"
     inline = host.locator("svg.concept-motion-inline")
+    plot = host.locator("svg.selective-linked-plot")
     slider = host.locator('input[type="range"]')
     expect(host).to_have_class(re.compile(r"\bselective-motion-player\b"))
     expect(inline).to_be_visible(timeout=15000)
+    expect(plot).to_be_visible(timeout=15000)
     expect(image).to_be_hidden()
     expect(inline).to_have_attribute("role", "img")
     expect(inline).to_have_attribute("aria-label", asset["alt"])
     expect(toggle).to_have_attribute("aria-label", play)
     expected_initial = "40" if reduced else "0"
     expect(slider).to_have_value(expected_initial)
+    expect(plot).to_have_attribute(
+        "data-active-stage", "1" if reduced else "0")
     assert image.evaluate("(e) => e.complete && e.naturalWidth > 0"), (
         "Independent, decodable GitHub/no-JS still is required")
     assert image.get_attribute("src").split("?", 1)[0].endswith("-still.svg")
@@ -651,10 +655,20 @@ def check_selective_player(page, image, host, toggle, asset, viewport, reduced, 
     slider.focus()
     page.keyboard.press("Home")
     expect(slider).to_have_value("0")
+    expect(plot).to_have_attribute("data-active-stage", "0")
     assert trace[motion_name][0] in host.locator(
         ".concept-motion-calculation").inner_text()
     host.get_by_role("button", name=next_label, exact=True).click()
     expect(slider).to_have_value("40")
+    expect(plot).to_have_attribute("data-active-stage", "1")
+    if "selective-coverage-motion" in motion_name:
+        assert "25%" in plot.get_attribute("aria-label")
+        assert plot.locator(
+            "circle[stroke='#dc743b']").get_attribute("cx") == "400"
+    else:
+        assert "1/4" in plot.get_attribute("aria-label")
+        assert plot.locator(
+            "rect[fill='#087e85']").get_attribute("width") == "103.75"
     assert trace[motion_name][1] in host.locator(
         ".concept-motion-calculation").inner_text()
     assert abs(current_svg_time() - 4) < 0.15
