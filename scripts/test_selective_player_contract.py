@@ -84,6 +84,13 @@ assert "const allIncorrect = [0,0,1,1,2,2]" in player
 assert "allAccepted.forEach((count,i) =>" in player
 assert "'data-risk-k':count" in player
 assert "const overall = write(116,155" in player
+# The SVG writer must return its text node; Element.append() returns undefined.
+# Otherwise the live OVERALL ratio throws on first update and restores the still.
+assert "plot.append(text);" in player and "return text;" in player
+assert "img.style.setProperty('display', 'none', 'important')" in player
+assert "if (svg) { svg.remove(); svg = null; }" in player
+assert "if (linkedPlot) { linkedPlot.element.remove(); linkedPlot = null; }" in player
+assert "fallbackDisplayPriority" in player
 assert "overall.textContent=index===0?" in player
 assert "let intentVersion = 0" in player
 assert "intent !== intentVersion" in player
