@@ -65,6 +65,11 @@ assert "classChoices.forEach" in player
 assert "Compare all accepted, 8/8" in player
 assert "Compare selective acceptance, 5/8" in player
 assert "control.setAttribute('aria-pressed'" in player
+# Focus and selection are visually independent; never skip repainting the
+# active keyboard button when its semantic acceptance state changes.
+assert "const focused = document.activeElement === control" in player
+assert "if (document.activeElement !== control) paint" not in player
+assert "paint(i===index)" in player
 assert "Accepted 5/8" in player and "接受 5/8" in player
 assert "let intentVersion = 0" in player
 assert "intent !== intentVersion" in player
