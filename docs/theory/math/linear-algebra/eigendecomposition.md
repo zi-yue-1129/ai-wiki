@@ -58,11 +58,11 @@ For a fixed finite-dimensional matrix, $A^k\to0$ for every initial vector exactl
 
 For the fixed shear matrix $J=A(1)$ from the example below, direct multiplication gives
 
-$
+$$
 J=\begin{bmatrix}1&1\\0&1\end{bmatrix},
 \qquad
 J^k=\begin{bmatrix}1&k\\0&1\end{bmatrix}.
-$
+$$
 
 Thus $J^k e_2=(k,1)^\top$ grows even though both eigenvalues are one. In contrast, $I^k=I$ stays bounded. For a continuous-time system $\dot{x}=Ax$, decay of every trajectory requires all eigenvalues to have strictly negative real parts.[^dynamics]
 

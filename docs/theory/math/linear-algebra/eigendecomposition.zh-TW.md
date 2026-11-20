@@ -45,11 +45,11 @@ $$
 
 取下方範例中的固定剪切矩陣 $J=A(1)$，直接相乘可得
 
-$
+$$
 J=\begin{bmatrix}1&1\\0&1\end{bmatrix},
 \qquad
 J^k=\begin{bmatrix}1&k\\0&1\end{bmatrix}.
-$
+$$
 
 因此，即使兩個特徵值皆為一，$J^k e_2=(k,1)^\top$ 仍會增長。$I^k=I$ 則維持有界。對連續時間系統 $\dot{x}=Ax$，所有軌跡衰減的條件是全部特徵值的實部嚴格小於零。[^dynamics]
 
