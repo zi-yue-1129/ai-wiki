@@ -152,6 +152,12 @@ def run():
                             hollow3 = plot.locator("circle[data-risk-k='3']")
                             assert hollow3.get_attribute("role") == "button"
                             assert hollow3.get_attribute("tabindex") == "0"
+                            assert "33.3%" in hollow3.get_attribute("aria-label")
+                            assert (("增加 33.3 個百分點" if zh else
+                                     "increase 33.3 percentage points")
+                                    in hollow3.get_attribute("aria-label"))
+                            assert ("選擇性風險" if zh else "risk") in (
+                                hollow3.get_attribute("aria-label"))
                             hollow3.focus()
                             assert "k=3" in inspection.text_content()
                             assert "1/3 wrong" in inspection.text_content()
