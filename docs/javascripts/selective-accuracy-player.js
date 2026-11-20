@@ -267,7 +267,10 @@
         const intent = ++intentVersion;
         pause(); if (!(await load()) || intent !== intentVersion) return;
         current = lesson.stops[Math.max(0, Math.min(lesson.stops.length - 1, stopIndex() + delta))];
-        sync(); status.textContent = lang[stopIndex()][0];
+        // The localized chapter note already announces the accepted set.
+        // Keep the role=status region for load/error feedback only, avoiding
+        // duplicate (and later stale) screen-reader announcements on stepping.
+        sync();
       };
       prev.addEventListener('click', () => { void jump(-1); });
       next.addEventListener('click', () => { void jump(1); });
