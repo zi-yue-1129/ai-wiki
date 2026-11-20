@@ -279,6 +279,13 @@ def run():
                             # text_content() reads the actual SVG text node, including
                             # after the player updates its accepted/correct ratios.
                             assert overall.text_content() == "5/8 accepted · 5/5 correct"
+                            gap = plot.locator("text[data-class-gap]")
+                            assert gap.count() == 1
+                            assert gap.text_content() == "GAP 75 pp"
+                            assert (("75 個百分點" if zh else "75 percentage points")
+                                    in plot.get_attribute("aria-label"))
+                            assert (("類別覆蓋差距 75" if zh else "class gap 75 pp")
+                                    in calculation.inner_text())
                             assert plot.locator(
                                 "rect[fill='#087e85']").get_attribute("width") == "103.75"
                             # Both class-coverage rules are directly selectable.
@@ -301,6 +308,9 @@ def run():
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#ffffff"
                             assert "8/8" in calculation.inner_text()
                             assert overall.text_content() == "8/8 accepted · 6/8 correct"
+                            assert gap.text_content() == "GAP 0 pp"
+                            assert (("0 個百分點" if zh else "0 percentage points")
+                                    in plot.get_attribute("aria-label"))
                             assert plot.locator(
                                 "rect[fill='#087e85']").get_attribute("width") == "415"
                             choices.nth(1).focus()
@@ -321,6 +331,7 @@ def run():
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#e3f0ef"
                             assert choices.nth(1).locator("rect").get_attribute("stroke") == "#193e69"
                             assert plot.get_attribute("data-active-stage") == "1"
+                            assert gap.text_content() == "GAP 75 pp"
                             choices.nth(0).focus()
                             page.keyboard.press("ArrowRight")
                             assert slider.input_value() == "40"
