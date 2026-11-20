@@ -106,14 +106,27 @@
       };
       const inspection = write(24,190,'',{'font-size':13,
         'font-weight':700,fill:'#193e69','data-risk-inspection':'true'});
-      const showInspection = count => {
+      // Focus is an explicit reading choice. Horizontal scrolling can produce
+      // incidental mouseenter/mouseleave events below a stationary pointer;
+      // these must not override a keyboard reader's currently focused cutoff.
+      const focusedRiskCount = () => {
+        const active = document.activeElement;
+        if (!active || !plot.contains(active)) return null;
+        const cutoff = active.getAttribute('data-risk-k');
+        if (cutoff !== null) return Number(cutoff);
+        const stage = active.getAttribute('data-acceptance-stage');
+        return stage !== null ? accepted[Number(stage)] : null;
+      };
+      const showInspection = (count, fromHover = false) => {
+        const focused = focusedRiskCount();
+        if (fromHover && focused !== null && focused !== count) return;
         inspecting = count;
         inspection.textContent = describe(count);
         plot.setAttribute('data-inspected-k',String(count));
       };
       const restoreInspection = () => {
         inspecting = null;
-        showInspection(accepted[activeRiskIndex]);
+        showInspection(focusedRiskCount() ?? accepted[activeRiskIndex]);
         inspecting = null;
       };
       write(24,25,'RISK',{'font-weight':700});
@@ -159,7 +172,7 @@
                 fraction + ' wrong, risk ' + riskPercent +
                 ', change from prior cutoff: ' +
                 deltaWords + '; main animation unchanged');
-          dot.addEventListener('mouseenter',() => showInspection(count));
+          dot.addEventListener('mouseenter',() => showInspection(count, true));
           dot.addEventListener('mouseleave',() => {
             if (document.activeElement !== dot) restoreInspection();
           });
@@ -191,7 +204,7 @@
           const touchHit = node('circle', {cx:allXs[i],cy:allYs[i],r:16,
             fill:'transparent','pointer-events':'all','aria-hidden':'true',
             'data-risk-touch-k':count});
-          touchHit.addEventListener('mouseenter', () => showInspection(count));
+          touchHit.addEventListener('mouseenter', () => showInspection(count, true));
           touchHit.addEventListener('mouseleave', () => {
             if (document.activeElement !== dot) restoreInspection();
           });
@@ -231,7 +244,7 @@
             chooseStage(target);
           }
         });
-        hit.addEventListener('mouseenter', () => showInspection(accepted[i]));
+        hit.addEventListener('mouseenter', () => showInspection(accepted[i], true));
         hit.addEventListener('mouseleave', () => {
           if (document.activeElement !== hit) restoreInspection();
         });
