@@ -54,6 +54,14 @@
     const write = (x,y,label,attrs={}) => plot.append(node('text',
       {x,y,fill:'#526783','font-family':'Arial, sans-serif',
         'font-size':13,...attrs}, label));
+    // Arrow navigation walks discrete cases; Tab and Enter/Space remain available.
+    const keyboardStage = (key, index, last) => {
+      if (key === 'ArrowRight' || key === 'ArrowDown') return Math.min(last, index + 1);
+      if (key === 'ArrowLeft' || key === 'ArrowUp') return Math.max(0, index - 1);
+      if (key === 'Home') return 0;
+      if (key === 'End') return last;
+      return null;
+    };
     let update;
     if (filename === 'accuracy-selective-coverage-motion.svg') {
       const accepted = [2,4,6], incorrect = [0,1,2];
@@ -91,6 +99,13 @@
         hit.addEventListener('keydown', event => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault(); chooseStage(i);
+            return;
+          }
+          const target = keyboardStage(event.key, i, 2);
+          if (target !== null) {
+            event.preventDefault();
+            stageSelectors[target].focus();
+            chooseStage(target);
           }
         });
         hit.addEventListener('focus', () => hit.setAttribute('stroke', '#193e69'));
@@ -147,6 +162,13 @@
         control.addEventListener('keydown', event => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault(); chooseStage(index);
+            return;
+          }
+          const target = keyboardStage(event.key, index, 1);
+          if (target !== null) {
+            event.preventDefault();
+            classChoices[target].control.focus();
+            chooseStage(target);
           }
         });
         control.addEventListener('focus', () =>
