@@ -126,6 +126,24 @@ def run():
                             assert "25%" in plot.get_attribute("aria-label")
                             assert plot.locator(
                                 "circle[stroke='#dc743b']").get_attribute("cx") == "400"
+                            # Select cutoffs using both pointer and keyboard.
+                            points = plot.locator("circle[data-acceptance-stage]")
+                            assert points.count() == 3
+                            assert all(points.nth(i).get_attribute("role") == "button"
+                                       for i in range(3))
+                            points.nth(0).click()
+                            assert slider.input_value() == "0"
+                            assert points.nth(0).get_attribute("aria-pressed") == "true"
+                            points.nth(2).focus()
+                            page.keyboard.press("Enter")
+                            assert slider.input_value() == "80"
+                            assert points.nth(2).get_attribute("aria-pressed") == "true"
+                            points.nth(1).focus()
+                            page.keyboard.press("Space")
+                            assert slider.input_value() == "40"
+                            assert points.nth(1).get_attribute("aria-pressed") == "true"
+                            assert "4/6" in calculation.inner_text()
+                            assert status.inner_text() == ""
                             host.get_by_role(
                                 "button", name="下一步" if zh else "Next step"
                             ).click()
@@ -141,6 +159,8 @@ def run():
                             assert plot.get_attribute("data-active-stage") == "1"
                         else:
                             assert "1/4" in plot.get_attribute("aria-label")
+                            assert "5/8" in plot.get_attribute("aria-label")
+                            assert ("接受 5/8" if zh else "Accepted 5/8") in calculation.inner_text()
                             assert plot.locator(
                                 "rect[fill='#087e85']").get_attribute("width") == "103.75"
                         page.wait_for_timeout(180)
@@ -187,6 +207,8 @@ def run():
                         page.wait_for_timeout(90)
                         assert slider.input_value() == "0"
                         assert plot.get_attribute("data-active-stage") == "0"
+                        if stem == "accuracy-selective-class-coverage":
+                            assert ("接受 8/8" if zh else "Accepted 8/8") in calculation.inner_text()
                         if stem == "accuracy-selective-coverage":
                             assert plot.locator(
                                 "circle[stroke='#dc743b']").get_attribute("cx") == "240"

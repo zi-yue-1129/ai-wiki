@@ -23,12 +23,12 @@
       duration: 8,
       stops: [0, 4],
       en: [
-        ['All accepted', 'Correct 6/8 · positive coverage 4/4 · negative coverage 4/4'],
-        ['Selective', 'Correct 5/5 · positive coverage 1/4 · negative coverage 4/4'],
+        ['All accepted', 'Accepted 8/8 · correct 6/8 · positive coverage 4/4 · negative coverage 4/4'],
+        ['Selective', 'Accepted 5/8 · correct 5/5 · positive coverage 1/4 · negative coverage 4/4'],
       ],
       zh: [
-        ['全部接受', '正確 6/8 · 正類別覆蓋 4/4 · 負類別覆蓋 4/4'],
-        ['選擇性接受', '正確 5/5 · 正類別覆蓋 1/4 · 負類別覆蓋 4/4'],
+        ['全部接受', '接受 8/8 · 正確 6/8 · 正類別覆蓋 4/4 · 負類別覆蓋 4/4'],
+        ['選擇性接受', '接受 5/8 · 正確 5/5 · 正類別覆蓋 1/4 · 負類別覆蓋 4/4'],
       ],
     },
   };
@@ -37,7 +37,7 @@
 
   // Linked plots are computed from the schematic examples shown in the main SVG.
   // They highlight the same semantic state, never measured model performance.
-  function makeLinkedPlot(filename, zh) {
+  function makeLinkedPlot(filename, zh, chooseStage) {
     const ns = 'http://www.w3.org/2000/svg';
     const node = (tag, attrs = {}, label = '') => {
       const el = document.createElementNS(ns, tag);
@@ -45,7 +45,8 @@
       if (label) el.textContent = label;
       return el;
     };
-    const plot = node('svg', {viewBox:'0 0 640 168', role:'img',
+    const plot = node('svg', {viewBox:'0 0 640 168',
+      role:filename === 'accuracy-selective-coverage-motion.svg' ? 'group' : 'img',
       class:'selective-linked-plot'});
     plot.style.cssText = 'display:block;width:100%;max-width:640px;height:auto;margin:10px 0';
     plot.append(node('rect', {x:1,y:1,width:638,height:166,rx:12,
@@ -68,12 +69,33 @@
         'stroke-linecap':'round','stroke-linejoin':'round'}));
       const labels = risks.map(risk => String(Math.round(100 * risk)) + '%');
       const coverages = accepted.map(count => String(count) + '/6');
+      const stageSelectors = [];
       for (let i=0;i<3;i++) {
         plot.append(node('circle',{cx:xs[i],cy:ys[i],r:5,
           fill:'#087e85'}));
         write(xs[i],ys[i]-14,labels[i],{'text-anchor':'middle',
           'font-size':12,'font-weight':600});
         write(xs[i],144,coverages[i],{'text-anchor':'middle','font-size':12});
+        // Invisible pointer targets also support keyboard navigation without
+        // altering the original synthetic chart or its fallback image.
+        const hit = node('circle', {cx:xs[i],cy:ys[i],r:16,fill:'transparent',
+          stroke:'none','stroke-width':3,cursor:'pointer',
+          'data-acceptance-stage':i});
+        hit.setAttribute('role', 'button');
+        hit.setAttribute('tabindex', '0');
+        hit.setAttribute('aria-label', zh
+          ? '選擇接受 ' + coverages[i] + '，風險 ' + labels[i]
+          : 'Select ' + coverages[i] + ' accepted, risk ' + labels[i]);
+        hit.addEventListener('click', () => chooseStage(i));
+        hit.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault(); chooseStage(i);
+          }
+        });
+        hit.addEventListener('focus', () => hit.setAttribute('stroke', '#193e69'));
+        hit.addEventListener('blur', () => hit.setAttribute('stroke', 'none'));
+        stageSelectors.push(hit);
+        plot.append(hit);
       }
       const cursor = node('circle',{cx:xs[0],cy:ys[0],r:11,
         fill:'none',stroke:'#dc743b','stroke-width':3});
@@ -81,6 +103,8 @@
       write(476,160,'COVERAGE →',{'font-weight':700,'font-size':12});
       update = index => {
         cursor.setAttribute('cx',xs[index]); cursor.setAttribute('cy',ys[index]);
+        stageSelectors.forEach((hit,i) =>
+          hit.setAttribute('aria-pressed',String(i===index)));
         plot.setAttribute('aria-label',zh
           ? '風險覆蓋率對照：接受 ' + coverages[index] + '，風險 ' + labels[index] + '，橘色圈標示目前狀態。'
           : 'Risk–coverage comparison: ' + coverages[index] + ' accepted, ' + labels[index] + ' risk. Orange ring marks the current state.');
@@ -108,8 +132,8 @@
         bars[1].fill.setAttribute('width','415');
         bars[1].value.textContent='4/4';
         plot.setAttribute('aria-label',zh
-          ? '類別覆蓋率：正類別 ' + positive + '/4，負類別 4/4。兩條橫條代表保留比例。'
-          : 'Class coverage: positive ' + positive + '/4, negative 4/4. Two bars show acceptance rates.');
+          ? '類別覆蓋率：整體接受 ' + (index===0?'8/8':'5/8') + '，正類別 ' + positive + '/4，負類別 4/4。兩條橫條代表保留比例。'
+          : 'Class coverage: ' + (index===0?'8/8':'5/8') + ' accepted, positive ' + positive + '/4, negative 4/4. Two bars show acceptance rates.');
       };
     }
     return {element:plot, update:index => {
@@ -214,6 +238,12 @@
       const pause = () => {
         playing = false; previous = null; cancelAnimationFrame(frame); sync();
       };
+      // The selected point and the time slider are views of the same state.
+      // Invalidate older Play promises before applying the new cutoff.
+      const chooseStage = index => {
+        ++intentVersion; pause();
+        current = lesson.stops[index]; sync();
+      };
       const validate = parsed => {
         if (parsed.localName !== 'svg') throw Error('Invalid SVG document');
         for (const node of [parsed, ...parsed.querySelectorAll('*')]) {
@@ -242,7 +272,7 @@
             svg.classList.add('concept-motion-inline');
             svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', img.alt);
             host.insertBefore(svg, img); img.hidden = true;
-            linkedPlot = makeLinkedPlot(filename, zh);
+            linkedPlot = makeLinkedPlot(filename, zh, chooseStage);
             host.insertBefore(linkedPlot.element, controls);
             sync(); status.textContent = '';
             return true;

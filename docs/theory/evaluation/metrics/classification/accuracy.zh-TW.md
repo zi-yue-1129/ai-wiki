@@ -111,7 +111,7 @@ MkDocs 沿用播放／暫停與手機鍵盤水平捲動；減少動態效果模�
 
 MkDocs 的**互動門檻播放器**預設暫停，可使用播放／暫停、上一步／下一步、進度滑桿，以及 0.5×／1×／2× 速度切換。畫面下方的繁體中文計算說明會依門檻顯示接受筆數、正確筆數與選擇性風險。減少動態效果模式維持暫停，首次互動停在中間門檻；無 JavaScript 時仍有完整靜態比較。手機可聚焦圖表後以左右方向鍵水平捲動。[GitHub 三情境靜態比較](../../../../assets/concept-animations/accuracy-selective-coverage-still.svg)與[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-selective-coverage-motion.svg)共用同一組資料。
 
-互動 SVG 下方的**連動風險—覆蓋率圖**會依目前接受門檻移動橘色圈：接受 2/6 時風險為 0%，接受 4/6 時為 25%，接受 6/6 時約為 33%（精確分數是 2/6）。播放、單步與拖曳進度都會同步更新。這只是三個門檻的**人工示意比較**，不是模型實測曲線，也不代表門檻之間的風險必然依直線變化；手機可跟著原圖水平捲動。另提供[不依賴 JavaScript 的風險—覆蓋率靜態比較圖](../../../../assets/concept-animations/accuracy-selective-coverage-linked-still.svg)，完整顯示三個離散門檻。
+互動 SVG 下方的**連動風險—覆蓋率圖**會依目前接受門檻移動橘色圈：接受 2/6 時風險為 0%，接受 4/6 時為 25%，接受 6/6 時約為 33%（精確分數是 2/6）。播放、單步與拖曳進度都會同步更新。三個資料點也可直接選取：滑鼠點選，或以鍵盤聚焦後按 Enter／空白鍵，即可暫停播放並跳到該接受門檻。這只是三個門檻的**人工示意比較**，不是模型實測曲線，也不代表門檻之間的風險必然依直線變化；手機可跟著原圖水平捲動。另提供[不依賴 JavaScript 的風險—覆蓋率靜態比較圖](../../../../assets/concept-animations/accuracy-selective-coverage-linked-still.svg)，完整顯示三個離散門檻。
 
 ## 拒答後的各類別覆蓋率差異
 
@@ -126,7 +126,7 @@ MkDocs 的**互動門檻播放器**預設暫停，可使用播放／暫停、上
 
 MkDocs 的**各類別覆蓋率互動播放器**預設暫停，提供播放／暫停、上一步／下一步、進度滑桿及 0.5×／1×／2× 速度切換。繁體中文計算說明分別列出正負類別覆蓋率；拖動滑桿只改變接受／拒答遮罩，不會改動預測。減少動態效果模式維持暫停並以拒答後狀態開始，鍵盤可水平捲動。無 JavaScript 時繼續顯示[GitHub 雙情境靜態比較](../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg)及[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-selective-class-coverage-motion.svg)呈現同一組人工資料。
 
-互動 SVG 下方的**連動類別覆蓋率長條圖**會依拒答狀態更新兩條長條：正類別接受比例從 4/4 降至 1/4，負類別則維持 4/4。圖上分數與無障礙文字描述和主圖共用相同人工示例，不能解讀為真實部署結果。另可查看[不依賴 JavaScript 的雙情境類別覆蓋率比較圖](../../../../assets/concept-animations/accuracy-selective-class-coverage-linked-still.svg)。
+互動 SVG 下方的**連動類別覆蓋率長條圖**會依拒答狀態更新兩條長條：整體接受比例由 8/8 降至 5/8；正類別接受比例從 4/4 降至 1/4，負類別則維持 4/4。畫面下方的即時計算說明會同時呈現整體與各類別的覆蓋率。圖上分數與無障礙文字描述和主圖共用相同人工示例，不能解讀為真實部署結果。另可查看[不依賴 JavaScript 的雙情境類別覆蓋率比較圖](../../../../assets/concept-animations/accuracy-selective-class-coverage-linked-still.svg)。
 
 ## 解讀
 
