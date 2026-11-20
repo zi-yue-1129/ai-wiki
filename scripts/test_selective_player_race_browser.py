@@ -104,15 +104,45 @@ def run():
                         assert slider.input_value() == "40", (
                             "An obsolete Play command resumed playback", stem)
                         assert host.get_by_role("button", name=play).count() == 1
+                        # Live narration must change at stage boundaries, never
+                        # on every requestAnimationFrame. A previous implementation
+                        # issued dozens of redundant screen-reader announcements
+                        # during 240 ms of visually smooth playback.
+                        page.evaluate("""() => {
+                          window.__liveStageMutations = 0;
+                          const observer = new MutationObserver(records => {
+                            window.__liveStageMutations += records.length;
+                          });
+                          document.querySelectorAll(
+                            '.selective-motion-player .concept-motion-chapter-note, ' +
+                            '.selective-motion-player .concept-motion-calculation'
+                          ).forEach(node => observer.observe(node, {
+                            childList: true, characterData: true, subtree: true
+                          }));
+                        }""")
                         # A fresh explicit Play remains operable.
                         host.get_by_role("button", name=play).click()
                         page.wait_for_timeout(240)
                         assert int(slider.input_value()) > 40
+                        assert page.evaluate("window.__liveStageMutations") == 0, (
+                            "aria-live rewritten within a constant stage", stem, zh, width
+                        )
                         host.get_by_role(
                             "button", name="暫停" if zh else "Pause").click()
                         paused = slider.input_value()
                         page.wait_for_timeout(180)
                         assert slider.input_value() == paused
+                        # An actual step back must still announce the new stage
+                        # and its independently updated arithmetic exactly once.
+                        page.evaluate("window.__liveStageMutations = 0")
+                        host.get_by_role(
+                            "button", name="上一步" if zh else "Previous step"
+                        ).click()
+                        page.wait_for_timeout(90)
+                        assert slider.input_value() == "0"
+                        assert page.evaluate("window.__liveStageMutations") == 2, (
+                            "missing or duplicate chapter announcement", stem, zh, width
+                        )
                         assert host.locator("img").is_hidden()
                         assert host.locator("svg.concept-motion-inline").is_visible()
                         assert not errors, errors
