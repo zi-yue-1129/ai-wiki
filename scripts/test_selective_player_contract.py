@@ -92,6 +92,10 @@ assert "const showInspection = count =>" in player
 assert "const restoreInspection = () =>" in player
 assert "dot.setAttribute('role','button')" in player
 assert "dot.setAttribute('tabindex','0')" in player
+assert "dot.setAttribute('cursor','help')" in player
+assert "const deltaWords = count === 1 ?" in player
+assert "選擇性風險 " in player
+assert "percentage points" in player
 assert "dot.addEventListener('focus'" in player
 assert "dot.addEventListener('keydown'" in player
 assert "if (inspecting === null) restoreInspection()" in player
