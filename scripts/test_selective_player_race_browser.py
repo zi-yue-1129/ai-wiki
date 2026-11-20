@@ -142,6 +142,39 @@ def run():
                                         "#f8fafc", "#087e85",
                                         "#f8fafc", "#087e85",
                                         "#f8fafc", "#087e85"]
+                            # Intermediate hollow markers are inspectable without
+                            # changing the playable SVG's 2/4/6 acceptance masks.
+                            inspection = plot.locator("text[data-risk-inspection]")
+                            assert inspection.count() == 1
+                            assert "k=4" in inspection.text_content()
+                            assert "1/4 wrong" in inspection.text_content()
+                            assert "↓8.3 pp" in inspection.text_content()
+                            hollow3 = plot.locator("circle[data-risk-k='3']")
+                            assert hollow3.get_attribute("role") == "button"
+                            assert hollow3.get_attribute("tabindex") == "0"
+                            hollow3.focus()
+                            assert "k=3" in inspection.text_content()
+                            assert "1/3 wrong" in inspection.text_content()
+                            assert "33.3%" in inspection.text_content()
+                            assert "↑33.3 pp" in inspection.text_content()
+                            assert hollow3.get_attribute("stroke") == "#193e69"
+                            page.keyboard.press("Space")
+                            assert slider.input_value() == "40", (
+                                "Inspect must not seek the playable SVG")
+                            assert plot.get_attribute("data-active-stage") == "1"
+                            plot.locator("circle[data-acceptance-stage='1']").focus()
+                            assert "↓8.3 pp" in inspection.text_content()
+                            hollow5 = plot.locator("circle[data-risk-k='5']")
+                            hollow5.focus()
+                            assert "k=5" in inspection.text_content()
+                            assert "2/5 wrong" in inspection.text_content()
+                            assert "↑15 pp" in inspection.text_content()
+                            plot.locator("circle[data-acceptance-stage='2']").focus()
+                            assert "k=6" in inspection.text_content()
+                            assert "↓6.7 pp" in inspection.text_content()
+                            assert slider.input_value() == "40"
+                            assert plot.get_attribute("viewBox") == "0 0 640 208"
+                            # The class chart keeps its independent native dimensions.
                             # Select cutoffs using both pointer and keyboard.
                             points = plot.locator("circle[data-acceptance-stage]")
                             assert points.count() == 3
