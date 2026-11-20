@@ -99,6 +99,9 @@ assert "percentage points" in player
 assert "dot.addEventListener('focus'" in player
 assert "dot.addEventListener('keydown'" in player
 assert "dot.addEventListener('click', () => showInspection(count))" in player
+assert "'data-risk-touch-k':count" in player
+assert "'aria-hidden':'true'" in player
+assert "dot.focus(); showInspection(count)" in player
 assert "plot.insertBefore(hit, anchor.nextSibling)" in player
 assert "if (inspecting === null) restoreInspection()" in player
 assert "return 'k=' + count + ' · ' + errors + '/' + count +" in player
