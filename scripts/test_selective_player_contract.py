@@ -200,7 +200,7 @@ assert "75 percentage points" in en and "75 個百分點" in zh
 assert "**REJECTED**" in en and "**REJECTED（拒答）**" in zh
 assert "**0/8**" in en and "**0/8**" in zh
 assert "**3/8**" in en and "**3/8**" in zh
-assert "**2/3" in en and "**2/3" in zh
+assert "2/3 are wrong" in en and "2/3 原本錯誤" in zh
 assert "conservation of outcomes" in en and "守恆分解" in zh
 assert "\\Delta_C" in en and "\\Delta_C" in zh
 assert "+CORRECT" in en and "+WRONG" in zh
