@@ -89,6 +89,8 @@
         (Math.round(value * 10) / 10).toFixed(1).replace(/\.0$/, '');
       const describe = count => {
         const errors = allIncorrect[count - 1];
+        // Whether the newly admitted case is wrong determines the update.
+        const newError = errors - (count > 1 ? allIncorrect[count - 2] : 0);
         const risk = errors / count;
         const previousRisk = count > 1 ?
           allIncorrect[count - 2] / (count - 1) : risk;
@@ -96,7 +98,8 @@
         const delta = count === 1 ? 'start' :
           (change > 1e-9 ? '↑' : change < -1e-9 ? '↓' : '=') +
           fmt(Math.abs(change) * 100) + ' pp';
-        return 'k=' + count + ' · ' + errors + '/' + count +
+        return 'k=' + count + ' · +' + (newError ? 'WRONG' : 'CORRECT') +
+          ' · ' + errors + '/' + count +
           ' wrong · ' + fmt(risk * 100) + '% · ' + delta;
       };
       const inspection = write(24,190,'',{'font-size':13,
@@ -131,6 +134,7 @@
           dot.setAttribute('role','button');
           dot.setAttribute('tabindex','0');
           dot.setAttribute('cursor','help');
+          const newError = allIncorrect[i] - (i > 0 ? allIncorrect[i - 1] : 0);
           const fraction = allIncorrect[i] + '/' + count;
           const riskPercent = fmt(allIncorrect[i] * 100 / count) + '%';
           const before = count === 1 ? 0 :
@@ -144,11 +148,14 @@
                 (zh ? '不變 ' : 'unchanged ')) + deltaValue +
               (zh ? ' 個百分點' : ' percentage points');
           dot.setAttribute('aria-label',zh
-            ? '檢視 k=' + count + '，累積錯誤 ' + fraction +
-                '，選擇性風險 ' + riskPercent + '，相對前一門檻' +
+            ? '檢視 k=' + count + '，新增' + (newError ? '錯誤' : '正確') +
+                '案例，累積錯誤 ' + fraction + '，選擇性風險 ' +
+                riskPercent + '，相對前一門檻' +
                 deltaWords + '；不變更主動畫'
-            : 'Inspect k=' + count + ': ' + fraction + ' wrong, risk ' +
-                riskPercent + ', change from prior cutoff: ' +
+            : 'Inspect k=' + count + ': newly admitted ' +
+                (newError ? 'incorrect' : 'correct') + ' case, ' +
+                fraction + ' wrong, risk ' + riskPercent +
+                ', change from prior cutoff: ' +
                 deltaWords + '; main animation unchanged');
           dot.addEventListener('mouseenter',() => showInspection(count));
           dot.addEventListener('mouseleave',() => {
