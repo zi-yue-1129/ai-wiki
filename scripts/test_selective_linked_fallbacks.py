@@ -50,9 +50,12 @@ def run():
     coverage = check_svg('accuracy-selective-class-coverage-linked-still',
                          ['CLASS COVERAGE', 'ALL', 'SELECTIVE', 'POS', 'NEG', '4/4', '1/4',
                           '8/8 accepted · 6/8 correct',
-                          '5/8 accepted · 5/5 correct'])
-    assert coverage.attrib.get('viewBox') == '0 0 380 410'
+                          '5/8 accepted · 5/5 correct',
+                          '0/8 rejected · accuracy N/A',
+                          '3/8 rejected · 1/3 correct · 2/3 wrong'])
+    assert coverage.attrib.get('viewBox') == '0 0 380 464'
     assert 'not model measurements' in coverage.find('svg:desc', NS).text
+    assert 'Rejection changes which outcomes are counted' in coverage.find('svg:desc', NS).text
     colored = coverage.findall('.//svg:rect', NS)
     lengths = [(e.get('x'), e.get('width'), e.get('fill')) for e in colored
                if e.get('fill') in ('#087e85', '#3c719d')]
