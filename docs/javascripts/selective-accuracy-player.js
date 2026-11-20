@@ -46,13 +46,13 @@
       return el;
     };
     const riskPlot = filename === 'accuracy-selective-coverage-motion.svg';
-    const plot = node('svg', {viewBox:riskPlot?'0 0 640 208':'0 0 640 260',
+    const plot = node('svg', {viewBox:riskPlot?'0 0 640 244':'0 0 640 260',
       role:'group',
       class:'selective-linked-plot'});
     // Retain native-width labels on phones. The focusable parent figure owns
     // horizontal scrolling; scaling this 640px chart to 320px halves 12px text.
     plot.style.cssText = 'display:block;width:640px;min-width:640px;max-width:none;height:auto;margin:10px 0';
-    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?206:258,rx:12,
+    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?242:258,rx:12,
       fill:'#f8fafc',stroke:'#d4deec'}));
     const write = (x,y,label,attrs={}) => {
       const text = node('text',
@@ -106,6 +106,33 @@
       };
       const inspection = write(24,190,'',{'font-size':13,
         'font-weight':700,fill:'#193e69','data-risk-inspection':'true'});
+      // A one-case counterfactual compares outcomes without inventing observations.
+      plot.append(node('path',{d:'M 24 202 H 616',fill:'none',
+        stroke:'#d4deec','stroke-width':1}));
+      const nextCase = write(24,224,'',{'font-size':12,
+        'font-weight':700,fill:'#193e69','data-next-case':'true'});
+      const nextScenario = count => {
+        if (count === allAccepted.length) return {
+          chart:'END OF SIX OBSERVED CASES · no next-case outcome in this example',
+          aria:zh ? '六筆觀測案例已結束，無下一筆實際結果。'
+            : 'End of six observed cases; no next outcome.'
+        };
+        const errors = allIncorrect[count - 1], n = count + 1;
+        const right = errors + '/' + n;
+        const wrong = (errors + 1) + '/' + n;
+        const rightPct = fmt(100 * errors / n) + '%';
+        const wrongPct = fmt(100 * (errors + 1) / n) + '%';
+        return {
+          chart:'HYPOTHETICAL NEXT: +CORRECT ' + right + ' (' + rightPct +
+            ') · +WRONG ' + wrong + ' (' + wrongPct + ')',
+          aria:zh ? '假設下一筆正確，風險 ' + right + '（' + rightPct +
+            '）；假設下一筆錯誤，風險 ' + wrong + '（' + wrongPct +
+            '）。兩者都是假設情境，不代表模型實測。'
+            : 'Hypothetical next case: if correct, risk ' + right + ' (' +
+              rightPct + '); if wrong, risk ' + wrong + ' (' + wrongPct +
+              '). Neither outcome is a model measurement.'
+        };
+      };
       // Focus is an explicit reading choice. Horizontal scrolling can produce
       // incidental mouseenter/mouseleave events below a stationary pointer;
       // these must not override a keyboard reader's currently focused cutoff.
@@ -122,6 +149,7 @@
         if (fromHover && focused !== null && focused !== count) return;
         inspecting = count;
         inspection.textContent = describe(count);
+        nextCase.textContent = nextScenario(count).chart;
         plot.setAttribute('data-inspected-k',String(count));
       };
       const restoreInspection = () => {
@@ -166,12 +194,12 @@
             ? '檢視 k=' + count + '，新增' + (newError ? '錯誤' : '正確') +
                 '案例，累積錯誤 ' + fraction + '，選擇性風險 ' +
                 riskPercent + '，相對前一門檻' +
-                deltaWords + '；不變更主動畫'
+                deltaWords + '；不變更主動畫；' + nextScenario(count).aria
             : 'Inspect k=' + count + ': newly admitted ' +
                 (newError ? 'incorrect' : 'correct') + ' case, ' +
                 fraction + ' wrong, risk ' + riskPercent +
                 ', change from prior cutoff: ' +
-                deltaWords + '; main animation unchanged');
+                deltaWords + '; main animation unchanged; ' + nextScenario(count).aria);
           dot.addEventListener('mouseenter',() => showInspection(count, true));
           dot.addEventListener('mouseleave',() => {
             if (document.activeElement !== dot) restoreInspection();
@@ -229,8 +257,8 @@
         hit.setAttribute('role', 'button');
         hit.setAttribute('tabindex', '0');
         hit.setAttribute('aria-label', zh
-          ? '選擇接受 ' + coverages[i] + '，風險 ' + labels[i]
-          : 'Select ' + coverages[i] + ' accepted, risk ' + labels[i]);
+          ? '選擇接受 ' + coverages[i] + '，風險 ' + labels[i] + '。' + nextScenario(accepted[i]).aria
+          : 'Select ' + coverages[i] + ' accepted, risk ' + labels[i] + '. ' + nextScenario(accepted[i]).aria);
         hit.addEventListener('click', () => chooseStage(i));
         hit.addEventListener('keydown', event => {
           if (event.key === 'Enter' || event.key === ' ') {
