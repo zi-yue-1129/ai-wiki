@@ -23,12 +23,12 @@
       duration: 8,
       stops: [0, 4],
       en: [
-        ['All accepted', 'Accepted 8/8 · Correct 6/8 · positive coverage 4/4 · negative coverage 4/4'],
-        ['Selective', 'Accepted 5/8 · Correct 5/5 · positive coverage 1/4 · negative coverage 4/4'],
+        ['All accepted', 'Accepted 8/8 · Correct 6/8 · positive coverage 4/4 · negative coverage 4/4 · class gap 0 pp'],
+        ['Selective', 'Accepted 5/8 · Correct 5/5 · positive coverage 1/4 · negative coverage 4/4 · class gap 75 pp'],
       ],
       zh: [
-        ['全部接受', '接受 8/8 · 正確 6/8 · 正類別覆蓋 4/4 · 負類別覆蓋 4/4'],
-        ['選擇性接受', '接受 5/8 · 正確 5/5 · 正類別覆蓋 1/4 · 負類別覆蓋 4/4'],
+        ['全部接受', '接受 8/8 · 正確 6/8 · 正類別覆蓋 4/4 · 負類別覆蓋 4/4 · 類別覆蓋差距 0 個百分點'],
+        ['選擇性接受', '接受 5/8 · 正確 5/5 · 正類別覆蓋 1/4 · 負類別覆蓋 4/4 · 類別覆蓋差距 75 個百分點'],
       ],
     },
   };
@@ -335,6 +335,10 @@
       write(35,155,'OVERALL',{'font-weight':700,'font-size':12});
       const overall = write(116,155,'8/8 accepted · 6/8 correct',{'font-size':12,
         'data-overall-metrics':'true'});
+      // Absolute difference between true-class acceptance rates, measured in
+      // percentage points. This is a descriptive disparity, not a fairness verdict.
+      const gap = write(468,155,'GAP 0 pp',{'font-size':12,'font-weight':700,
+        fill:'#193e69','data-class-gap':'true'});
       update = index => {
         classChoices.forEach(({control,paint},i) => {
           control.setAttribute('aria-pressed',String(i===index));
@@ -347,9 +351,11 @@
         bars[1].value.textContent='4/4';
         overall.textContent=index===0?'8/8 accepted · 6/8 correct':
           '5/8 accepted · 5/5 correct';
+        const gapPp = Math.abs(positive / 4 - 1) * 100;
+        gap.textContent = 'GAP ' + gapPp + ' pp';
         plot.setAttribute('aria-label',zh
-          ? '類別覆蓋率：整體接受 ' + (index===0?'8/8':'5/8') + '，正類別 ' + positive + '/4，負類別 4/4。兩條橫條代表保留比例。'
-          : 'Class coverage: ' + (index===0?'8/8':'5/8') + ' accepted, positive ' + positive + '/4, negative 4/4. Two bars show acceptance rates.');
+          ? '類別覆蓋率：整體接受 ' + (index===0?'8/8':'5/8') + '，正類別 ' + positive + '/4，負類別 4/4，兩類別覆蓋差距 ' + gapPp + ' 個百分點。兩條橫條代表保留比例。'
+          : 'Class coverage: ' + (index===0?'8/8':'5/8') + ' accepted, positive ' + positive + '/4, negative 4/4, absolute class coverage gap ' + gapPp + ' percentage points. Two bars show acceptance rates.');
       };
     }
     return {element:plot, update:index => {
