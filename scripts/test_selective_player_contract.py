@@ -115,6 +115,10 @@ assert "新增' + (newError ? '錯誤' : '正確')" in player
 assert "'incorrect' : 'correct'" in player
 assert "fmt(Math.abs(change) * 100) + ' pp'" in player
 assert "const overall = write(116,155" in player
+assert "'data-class-gap':'true'" in player
+assert "const gapPp = Math.abs(positive / 4 - 1) * 100" in player
+assert "gap.textContent = 'GAP ' + gapPp + ' pp'" in player
+assert "absolute class coverage gap" in player and "類別覆蓋差距" in player
 # The SVG writer must return its text node; Element.append() returns undefined.
 # Otherwise the live OVERALL ratio throws on first update and restores the still.
 assert "plot.append(text);" in player and "return text;" in player
@@ -170,6 +174,10 @@ assert "all six discrete cutoffs" in en
 assert "空心的 k=1、3、5 資料點" in zh
 assert "完整顯示六個整數門檻" in zh
 assert "R_k-R_{k-1}" in en and "R_k-R_{k-1}" in zh
+assert "$k=0$" in en and "$k=0$" in zh
+assert "undefined" in en and "未定義" in zh
+assert "75 percentage points" in en and "75 個百分點" in zh
+assert "\\Delta_C" in en and "\\Delta_C" in zh
 assert "+CORRECT" in en and "+WRONG" in zh
 assert "interactive cutoff player" in en and "interactive class-coverage player" in en
 assert "互動門檻播放器" in zh and "各類別覆蓋率互動播放器" in zh
