@@ -19,7 +19,7 @@ CASES = [("accuracy-selective-coverage", "4/6"),
 CSS = """body{margin:0;padding:8px;font-family:Arial,sans-serif}
 .concept-motion-player{display:block;max-width:640px}
 .concept-motion-player img,.concept-motion-inline{display:block;width:100%;height:auto}
-.concept-motion-inline[hidden],img[hidden]{display:none!important}
+.concept-motion-inline[hidden]{display:none!important}
 .concept-motion-controls{display:flex;gap:6px;flex-wrap:wrap}
 .concept-motion-chapter-note,.concept-motion-calculation{display:block}
 """
@@ -33,7 +33,7 @@ def markup(stem, zh):
     <meta name="viewport" content="width=device-width">
     <base href="https://example.invalid/">
     <style>{CSS}</style><section style="max-width:100%;overflow-x:auto">
-    <img src="{still}" data-still-src="{still}"
+    <img style="display:block;width:640px;max-width:none" src="{still}" data-still-src="{still}"
     data-motion-src="/assets/concept-animations/{stem}-motion.svg"
     alt="{alt}" width="640" height="360"></section>"""
 
@@ -326,6 +326,10 @@ def run():
                             "missing or duplicate chapter announcement", stem, zh, width
                         )
                         assert host.locator("img").is_hidden()
+                        assert host.locator("img").evaluate(
+                            "(img) => getComputedStyle(img).display === 'none'"), (
+                            "Fallback still visible under inline display:block", stem, zh, width)
+
                         assert host.locator("svg.concept-motion-inline").is_visible()
                         assert not errors, errors
                         print("PASS", stem, "zh" if zh else "en", width)
