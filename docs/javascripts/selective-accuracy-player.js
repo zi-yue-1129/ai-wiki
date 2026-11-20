@@ -132,10 +132,16 @@
           'text-anchor':'middle',fill:'#24516e',
           'font-family':'Arial, sans-serif','font-size':12,'font-weight':700}, caption);
         control.append(surface, captionNode);
+        // Selection and keyboard focus are independent visual states. Always
+        // repaint the selected fill, even while the control retains focus:
+        // otherwise a clicked/keyboard-activated choice can look unselected.
         const paint = selected => {
+          const focused = document.activeElement === control;
           surface.setAttribute('fill', selected ? '#e3f0ef' : '#ffffff');
-          surface.setAttribute('stroke', selected ? '#087e85' : '#adc0ce');
-          surface.setAttribute('stroke-width', selected ? '2' : '1.5');
+          surface.setAttribute('stroke', focused ? '#193e69' :
+            selected ? '#087e85' : '#adc0ce');
+          surface.setAttribute('stroke-width', focused ? '3' :
+            selected ? '2' : '1.5');
         };
         control.addEventListener('click', () => chooseStage(index));
         control.addEventListener('keydown', event => {
@@ -143,10 +149,8 @@
             event.preventDefault(); chooseStage(index);
           }
         });
-        control.addEventListener('focus', () => {
-          surface.setAttribute('stroke', '#193e69');
-          surface.setAttribute('stroke-width', '3');
-        });
+        control.addEventListener('focus', () =>
+          paint(control.getAttribute('aria-pressed') === 'true'));
         control.addEventListener('blur', () => paint(control.getAttribute('aria-pressed') === 'true'));
         classChoices.push({control,paint});
         plot.append(control);
@@ -168,7 +172,7 @@
       update = index => {
         classChoices.forEach(({control,paint},i) => {
           control.setAttribute('aria-pressed',String(i===index));
-          if (document.activeElement !== control) paint(i===index);
+          paint(i===index);
         });
         const positive=index===0?4:1;
         bars[0].fill.setAttribute('width',String(415*positive/4));
