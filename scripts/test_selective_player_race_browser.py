@@ -142,6 +142,14 @@ def run():
                                         "#f8fafc", "#087e85",
                                         "#f8fafc", "#087e85",
                                         "#f8fafc", "#087e85"]
+                            # Focus traversal follows k=1..6 rather than grouping
+                            # hollow inspection points before playable milestones.
+                            focusables = plot.locator('[tabindex="0"]')
+                            assert focusables.count() == 6
+                            assert focusables.evaluate_all('''nodes => nodes.map(n =>
+                              n.getAttribute('data-risk-k') ||
+                              String(2 + 2*Number(n.getAttribute('data-acceptance-stage'))))''') == [
+                                '1','2','3','4','5','6']
                             # Intermediate hollow markers are inspectable without
                             # changing the playable SVG's 2/4/6 acceptance masks.
                             inspection = plot.locator("text[data-risk-inspection]")
@@ -158,6 +166,11 @@ def run():
                                     in hollow3.get_attribute("aria-label"))
                             assert ("選擇性風險" if zh else "risk") in (
                                 hollow3.get_attribute("aria-label"))
+                            # Synthetic click covers touch activation, independent
+                            # of mouseenter and without moving the main timeline.
+                            hollow3.dispatch_event('click')
+                            assert 'k=3' in inspection.text_content()
+                            assert slider.input_value() == '40'
                             hollow3.focus()
                             assert "k=3" in inspection.text_content()
                             assert "1/3 wrong" in inspection.text_content()
