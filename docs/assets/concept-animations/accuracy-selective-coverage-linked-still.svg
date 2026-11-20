@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 208" role="img" aria-labelledby="title desc"><title id="title">Synthetic risk and coverage at three rejection cutoffs</title><desc id="desc">Three discrete thresholds accept two, four, or six of six samples, with selective risk zero, 25 percent, or one third respectively. Connecting segments only guide the eye and do not represent intermediate measurements.</desc>
+<rect width="640" height="208" rx="12" fill="#f8fafc"/><rect x="1" y="1" width="638" height="206" rx="11" fill="none" stroke="#d4deec"/>
+<text x="24" y="27" fill="#526783" font-family="Arial,sans-serif" font-size="14" font-weight="bold">RISK</text>
+<path d="M84 45V144H588" fill="none" stroke="#9aacc1" stroke-width="1.6"/>
+<path d="M240 144L400 94L560 77.33" fill="none" stroke="#087e85" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#087e85"><circle cx="240" cy="144" r="6"/><circle cx="400" cy="94" r="6"/><circle cx="560" cy="77.33" r="6"/></g>
+<g fill="#526783" font-family="Arial,sans-serif" font-size="14" font-weight="bold" text-anchor="middle"><text x="240" y="126">0%</text><text x="400" y="76">25%</text><text x="560" y="59">33%</text></g>
+<g fill="#526783" font-family="Arial,sans-serif" font-size="13" text-anchor="middle"><text x="240" y="165">2/6</text><text x="400" y="165">4/6</text><text x="560" y="165">6/6</text></g>
+<text x="461" y="190" fill="#526783" font-family="Arial,sans-serif" font-size="13" font-weight="bold">COVERAGE →</text></svg>
