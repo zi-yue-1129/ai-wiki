@@ -77,6 +77,14 @@ assert "const focused = document.activeElement === control" in player
 assert "if (document.activeElement !== control) paint" not in player
 assert "paint(i===index)" in player
 assert "Accepted 5/8" in player and "接受 5/8" in player
+# Exact non-monotonic synthetic risk for every integer cutoff, with the
+# selectable animation scenes remaining k=2,4,6.
+assert "const allAccepted = [1,2,3,4,5,6]" in player
+assert "const allIncorrect = [0,0,1,1,2,2]" in player
+assert "allAccepted.forEach((count,i) =>" in player
+assert "'data-risk-k':count" in player
+assert "const overall = write(116,155" in player
+assert "overall.textContent=index===0?" in player
 assert "let intentVersion = 0" in player
 assert "intent !== intentVersion" in player
 assert player.count("const intent = ++intentVersion") == 3

@@ -68,19 +68,33 @@
       const risks = accepted.map((count,i) => incorrect[i] / count);
       const xs = accepted.map(count => 80 + 480 * count / 6);
       const ys = risks.map(risk => 119 - 200 * risk);
+      // All six integer cutoffs expose non-monotonic selective risk.
+      // Only the three even-k milestones map onto playable SVG scenes.
+      const allAccepted = [1,2,3,4,5,6];
+      const allIncorrect = [0,0,1,1,2,2];
+      const allXs = allAccepted.map(count => 80 + 480 * count / 6);
+      const allYs = allAccepted.map((count,i) =>
+        119 - 200 * allIncorrect[i] / count);
       write(24,25,'RISK',{'font-weight':700});
       plot.append(node('path',{d:'M 84 34 V 120 H 588',fill:'none',
         stroke:'#9aacc1','stroke-width':1.5}));
       plot.append(node('polyline',{
-        points:xs.map((x,i)=>String(x)+','+String(ys[i])).join(' '),
+        points:allXs.map((x,i)=>String(x)+','+String(allYs[i])).join(' '),
         fill:'none',stroke:'#087e85','stroke-width':3,
         'stroke-linecap':'round','stroke-linejoin':'round'}));
       const labels = risks.map(risk => String(Math.round(100 * risk)) + '%');
       const coverages = accepted.map(count => String(count) + '/6');
+      // Small hollow dots show intermediate cutoffs, not extra controls.
+      allAccepted.forEach((count,i) => {
+        const milestone = count % 2 === 0;
+        plot.append(node('circle',{cx:allXs[i],cy:allYs[i],
+          r:milestone?5:4,fill:milestone?'#087e85':'#f8fafc',
+          stroke:milestone?'none':'#087e85',
+          'stroke-width':milestone?0:2,'data-risk-k':count}));
+      });
+      write(24,160,'HOLLOW: k=1,3,5',{'font-size':12});
       const stageSelectors = [];
       for (let i=0;i<3;i++) {
-        plot.append(node('circle',{cx:xs[i],cy:ys[i],r:5,
-          fill:'#087e85'}));
         write(xs[i],ys[i]-20,labels[i],{'text-anchor':'middle',
           'font-size':12,'font-weight':600});
         write(xs[i],144,coverages[i],{'text-anchor':'middle','font-size':12});
@@ -122,8 +136,8 @@
         stageSelectors.forEach((hit,i) =>
           hit.setAttribute('aria-pressed',String(i===index)));
         plot.setAttribute('aria-label',zh
-          ? '風險覆蓋率對照：接受 ' + coverages[index] + '，風險 ' + labels[index] + '，橘色圈標示目前狀態。'
-          : 'Risk–coverage comparison: ' + coverages[index] + ' accepted, ' + labels[index] + ' risk. Orange ring marks the current state.');
+          ? '六個離散接受門檻的風險比較；空心點為 k=1、3、5。新增正確案例可能降低風險。目前接受 ' + coverages[index] + '，風險 ' + labels[index] + '，橘色圈標示目前階段。'
+          : 'Six discrete risk–coverage cutoffs; hollow dots are k=1,3,5. Adding a correct case can lower risk. Currently ' + coverages[index] + ' accepted, ' + labels[index] + ' risk; orange ring marks the stage.');
       };
     } else {
       write(24,26,'CLASS COVERAGE',{'font-weight':700});
@@ -191,6 +205,11 @@
         plot.append(value);
         bars.push({fill,value});
       }
+      // Visible accepted/total and correct/accepted ratios highlight why a
+      // perfect accepted-only accuracy need not mean equal class coverage.
+      write(35,155,'OVERALL',{'font-weight':700,'font-size':12});
+      const overall = write(116,155,'8/8 accepted · 6/8 correct',{'font-size':12,
+        'data-overall-metrics':'true'});
       update = index => {
         classChoices.forEach(({control,paint},i) => {
           control.setAttribute('aria-pressed',String(i===index));
@@ -201,6 +220,8 @@
         bars[0].value.textContent=String(positive)+'/4';
         bars[1].fill.setAttribute('width','415');
         bars[1].value.textContent='4/4';
+        overall.textContent=index===0?'8/8 accepted · 6/8 correct':
+          '5/8 accepted · 5/5 correct';
         plot.setAttribute('aria-label',zh
           ? '類別覆蓋率：整體接受 ' + (index===0?'8/8':'5/8') + '，正類別 ' + positive + '/4，負類別 4/4。兩條橫條代表保留比例。'
           : 'Class coverage: ' + (index===0?'8/8':'5/8') + ' accepted, positive ' + positive + '/4, negative 4/4. Two bars show acceptance rates.');

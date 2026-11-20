@@ -126,6 +126,22 @@ def run():
                             assert "25%" in plot.get_attribute("aria-label")
                             assert plot.locator(
                                 "circle[stroke='#dc743b']").get_attribute("cx") == "400"
+                            # All six exact integer cutoffs, including two
+                            # local risk decreases; only 2/4/6 are clickable.
+                            dots = plot.locator("circle[data-risk-k]")
+                            assert dots.count() == 6
+                            assert [dots.nth(i).get_attribute("data-risk-k")
+                                    for i in range(6)] == [
+                                        str(i) for i in range(1,7)]
+                            assert float(dots.nth(2).get_attribute("cy")) < float(
+                                dots.nth(3).get_attribute("cy"))
+                            assert float(dots.nth(4).get_attribute("cy")) < float(
+                                dots.nth(5).get_attribute("cy"))
+                            assert [dots.nth(i).get_attribute("fill")
+                                    for i in range(6)] == [
+                                        "#f8fafc", "#087e85",
+                                        "#f8fafc", "#087e85",
+                                        "#f8fafc", "#087e85"]
                             # Select cutoffs using both pointer and keyboard.
                             points = plot.locator("circle[data-acceptance-stage]")
                             assert points.count() == 3
@@ -174,6 +190,9 @@ def run():
                             assert "1/4" in plot.get_attribute("aria-label")
                             assert "5/8" in plot.get_attribute("aria-label")
                             assert ("接受 5/8" if zh else "Accepted 5/8") in calculation.inner_text()
+                            overall = plot.locator("text[data-overall-metrics]")
+                            assert overall.count() == 1
+                            assert overall.inner_text() == "5/8 accepted · 5/5 correct"
                             assert plot.locator(
                                 "rect[fill='#087e85']").get_attribute("width") == "103.75"
                             # Both class-coverage rules are directly selectable.
@@ -195,6 +214,7 @@ def run():
                             assert choices.nth(0).locator("rect").get_attribute("stroke") == "#193e69"
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#ffffff"
                             assert "8/8" in calculation.inner_text()
+                            assert overall.inner_text() == "8/8 accepted · 6/8 correct"
                             assert plot.locator(
                                 "rect[fill='#087e85']").get_attribute("width") == "415"
                             choices.nth(1).focus()

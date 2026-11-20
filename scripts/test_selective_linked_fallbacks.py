@@ -37,10 +37,15 @@ def run():
                      ['0%', '25%', '33%', '2/6', '4/6', '6/6', 'RISK'])
     circles = [(float(n.get('cx')), float(n.get('cy')))
                for n in risk.findall('.//svg:circle', NS)]
-    assert len(circles) == 3
-    assert [round(x) for x, _ in circles] == [240, 400, 560]
-    assert circles[0][1] > circles[1][1] > circles[2][1]
-    assert [round((circles[0][1] - y) / 200 * 100) for _, y in circles] == [0, 25, 33]
+    assert len(circles) == 6
+    assert [round(x) for x, _ in circles] == [160, 240, 320, 400, 480, 560]
+    assert [round((144 - y) / 200 * 100) for _, y in circles] == [0, 0, 33, 25, 40, 33]
+    assert [c.get('data-risk-k') for c in risk.findall('.//svg:circle', NS)] == [
+        '1', '2', '3', '4', '5', '6']
+    assert circles[2][1] < circles[3][1]  # 1/3 -> 1/4: risk drops
+    assert circles[4][1] < circles[5][1]  # 2/5 -> 2/6: risk drops
+    assert [c.get('fill') for c in risk.findall('.//svg:circle', NS)] == [
+        '#f8fafc', '#087e85', '#f8fafc', '#087e85', '#f8fafc', '#087e85']
 
     coverage = check_svg('accuracy-selective-class-coverage-linked-still',
                          ['CLASS COVERAGE', 'ALL', 'SELECTIVE', 'POS', 'NEG', '4/4', '1/4'])
