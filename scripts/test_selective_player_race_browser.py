@@ -103,6 +103,12 @@ def run():
                         assert expected in host.locator(
                             ".concept-motion-calculation").inner_text()
                         assert plot.get_attribute("data-active-stage") == "1"
+                        # Stage changes have one localized semantic announcement.
+                        # role=status is reserved for loading/errors, never a
+                        # second (or stale) stage label announced by assistive tech.
+                        status = host.locator(".concept-motion-status")
+                        assert status.get_attribute("role") == "status"
+                        assert status.inner_text() == "", (stem, zh, width)
                         if stem == "accuracy-selective-coverage":
                             assert "4/6" in plot.get_attribute("aria-label")
                             assert "25%" in plot.get_attribute("aria-label")
@@ -129,6 +135,9 @@ def run():
                         assert slider.input_value() == "40", (
                             "An obsolete Play command resumed playback", stem)
                         assert host.get_by_role("button", name=play).count() == 1
+                        assert status.inner_text() == "", (
+                            "Stale announcement after playback", stem, zh, width
+                        )
                         # Live narration must change at stage boundaries, never
                         # on every requestAnimationFrame. A previous implementation
                         # issued dozens of redundant screen-reader announcements
