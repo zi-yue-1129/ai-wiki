@@ -122,6 +122,8 @@ $$
 
 The inspector marks the added case **+CORRECT** ($e_k=0$) or **+WRONG** ($e_k=1$), alongside the cumulative error fraction and change in percentage points. At $k=3$, adding a wrong case raises risk from $0/2$ to $1/3$; at $k=4$, adding a correct case lowers it to $1/4$. This changes the **accepted subset**, not the model predictions or their ranking. The main SVG still has only the playable $k=2,4,6$ masks. At $k=0$ no cases are accepted, so selective risk $E_k/k$ is **undefined**, not zero; the discrete plot therefore starts at $k=1$. All outcomes are constructed educational examples, not measurements.
 
+The linked chart also compares **hypothetical next-case outcomes**, not additional model observations. Given `k` accepted cases with `E_k` errors, accepting one more **correct** prediction would yield risk `E_k/(k+1)`, while accepting one more **wrong** prediction would yield `(E_k+1)/(k+1)`. At **k=3** (one error), these alternatives are **1/4 = 25%** and **2/4 = 50%**, respectively. This holds the previous accepted set fixed and isolates the effect of one new outcome; neither hypothetical value is a forecast or an empirical result. At **k=6** the diagram explicitly ends rather than inventing a seventh observed example. The keyboard-focusable cutoff controls announce the same distinction to screen readers, without changing the main animation's three selectable states.
+
 ## Class-conditional coverage under rejection
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Keyboard-scrollable class-conditional coverage animation">
