@@ -96,6 +96,8 @@
 
       let svg = null, current = reduced.matches ? lesson.stops[1] : 0;
       let playing = false, frame = 0, previous = null, pending = null;
+      // Pending loads may have several competing handlers; only the last user intent wins.
+      let intentVersion = 0;
       const stopIndex = () => {
         let index = 0;
         for (let i = 1; i < lesson.stops.length; i++) if (current >= lesson.stops[i]) index = i;
@@ -162,12 +164,14 @@
         previous = now; sync(); frame = requestAnimationFrame(tick);
       };
       toggle.addEventListener('click', async () => {
-        if (playing) { pause(); return; }
-        if (!(await load())) return;
+        if (playing) { ++intentVersion; pause(); return; }
+        const intent = ++intentVersion;
+        if (!(await load()) || intent !== intentVersion) return;
         playing = true; previous = null; sync(); frame = requestAnimationFrame(tick);
       });
       const jump = async delta => {
-        pause(); if (!(await load())) return;
+        const intent = ++intentVersion;
+        pause(); if (!(await load()) || intent !== intentVersion) return;
         current = lesson.stops[Math.max(0, Math.min(lesson.stops.length - 1, stopIndex() + delta))];
         sync(); status.textContent = lang[stopIndex()][0];
       };
@@ -175,12 +179,13 @@
       next.addEventListener('click', () => { void jump(1); });
       slider.addEventListener('input', async () => {
         const target = Number(slider.value) / 10;
+        const intent = ++intentVersion;
         pause(); current = target;
-        if (!(await load())) return;
+        if (!(await load()) || intent !== intentVersion) return;
         sync();
       });
       reduced.addEventListener?.('change', event => {
-        if (event.matches) { pause(); current = lesson.stops[1]; sync(); }
+        if (event.matches) { ++intentVersion; pause(); current = lesson.stops[1]; sync(); }
       });
       sync();
       // Show the same starting acceptance state as the localised trace.
