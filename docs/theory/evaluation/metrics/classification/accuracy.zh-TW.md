@@ -126,7 +126,7 @@ MkDocs 的**互動門檻播放器**預設暫停，可使用播放／暫停、上
 
 MkDocs 的**各類別覆蓋率互動播放器**預設暫停，提供播放／暫停、上一步／下一步、進度滑桿及 0.5×／1×／2× 速度切換。繁體中文計算說明分別列出正負類別覆蓋率；拖動滑桿只改變接受／拒答遮罩，不會改動預測。減少動態效果模式維持暫停並以拒答後狀態開始，鍵盤可水平捲動。無 JavaScript 時繼續顯示[GitHub 雙情境靜態比較](../../../../assets/concept-animations/accuracy-selective-class-coverage-still.svg)及[完整 SVG 動畫](../../../../assets/concept-animations/accuracy-selective-class-coverage-motion.svg)呈現同一組人工資料。
 
-互動 SVG 下方的**連動類別覆蓋率長條圖**會依拒答狀態更新兩條長條：整體接受比例由 8/8 降至 5/8；正類別接受比例從 4/4 降至 1/4，負類別則維持 4/4。畫面下方的即時計算說明會同時呈現整體與各類別的覆蓋率。圖上分數與無障礙文字描述和主圖共用相同人工示例，不能解讀為真實部署結果。另可查看[不依賴 JavaScript 的雙情境類別覆蓋率比較圖](../../../../assets/concept-animations/accuracy-selective-class-coverage-linked-still.svg)。
+互動 SVG 下方的**連動類別覆蓋率長條圖**會依拒答狀態更新兩條長條：整體接受比例由 8/8 降至 5/8；正類別接受比例從 4/4 降至 1/4，負類別則維持 4/4。畫面下方的即時計算說明會同時呈現整體與各類別的覆蓋率。圖表上方另外提供 **ALL**（全部接受）與 **SELECTIVE**（選擇性接受）切換控制：可以滑鼠點選、觸控，或按 Tab 聚焦後按 Enter／空白鍵，直接暫停動畫並比較兩種接受規則。兩條長條、整體接受比例解讀、主 SVG 及時間軸都會同步更新；目前狀態也會透過 `aria-pressed` 告知輔助科技。圖上分數與無障礙文字描述和主圖共用相同人工示例，不能解讀為真實部署結果。另可查看[不依賴 JavaScript 的雙情境類別覆蓋率比較圖](../../../../assets/concept-animations/accuracy-selective-class-coverage-linked-still.svg)。
 
 ## 解讀
 
