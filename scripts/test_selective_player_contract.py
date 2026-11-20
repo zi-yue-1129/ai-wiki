@@ -86,7 +86,7 @@ assert "'data-risk-k':count" in player
 # Each hollow intermediate risk point is inspectable by keyboard and pointer.
 # The inspector shows the exact cumulative error ratio and finite difference
 # to the previous integer cutoff, without selecting an unsupported SVG scene.
-assert "viewBox:riskPlot?'0 0 640 208':'0 0 640 168'" in player
+assert "viewBox:riskPlot?'0 0 640 208':'0 0 640 260'" in player
 # Preserve 640px chart typography on phones; native horizontal scrolling belongs
 # to the focusable figure. width:100% made 12px labels ~6px at 320px.
 assert "width:640px;min-width:640px;max-width:none" in player
@@ -124,6 +124,10 @@ assert "showInspection(accepted[i], true)" in player
 assert "const overall = write(116,155" in player
 assert "'data-class-gap':'true'" in player
 assert "'data-rejected-metrics':'true'" in player
+assert "'data-correct-balance':'true'" in player
+assert "'data-wrong-balance':'true'" in player
+assert "rightBalance.textContent = 'RIGHT 6 = ' + keptCorrect" in player
+assert "wrongBalance.textContent = 'WRONG 2 = ' + keptWrong" in player
 assert "const rejectedCount = 8 - (positive + 4)" in player
 assert "const rejectedCorrect = 6 - (index === 0 ? 6 : 5)" in player
 assert "rejectedWrong = rejectedCount - rejectedCorrect" in player
@@ -195,6 +199,7 @@ assert "**REJECTED**" in en and "**REJECTED（拒答）**" in zh
 assert "**0/8**" in en and "**0/8**" in zh
 assert "**3/8**" in en and "**3/8**" in zh
 assert "**2/3" in en and "**2/3" in zh
+assert "conservation of outcomes" in en and "守恆分解" in zh
 assert "\\Delta_C" in en and "\\Delta_C" in zh
 assert "+CORRECT" in en and "+WRONG" in zh
 assert "interactive cutoff player" in en and "interactive class-coverage player" in en
