@@ -86,7 +86,7 @@ assert "'data-risk-k':count" in player
 # Each hollow intermediate risk point is inspectable by keyboard and pointer.
 # The inspector shows the exact cumulative error ratio and finite difference
 # to the previous integer cutoff, without selecting an unsupported SVG scene.
-assert "viewBox:riskPlot?'0 0 640 208':'0 0 640 260'" in player
+assert "viewBox:riskPlot?'0 0 640 244':'0 0 640 260'" in player
 # Preserve 640px chart typography on phones; native horizontal scrolling belongs
 # to the focusable figure. width:100% made 12px labels ~6px at 320px.
 assert "width:640px;min-width:640px;max-width:none" in player
