@@ -104,7 +104,7 @@ assert "'aria-hidden':'true'" in player
 assert "dot.focus(); showInspection(count)" in player
 assert "plot.insertBefore(hit, anchor.nextSibling)" in player
 assert "if (inspecting === null) restoreInspection()" in player
-assert "return 'k=' + count + ' · ' + errors + '/' + count +" in player
+assert "return 'k=' + count + ' · +' + (newError ? 'WRONG' : 'CORRECT') +" in player
 assert "' wrong · ' + fmt(risk * 100) + '% · ' + delta" in player
 assert "const newError = errors - (count > 1 ? allIncorrect[count - 2] : 0)" in player
 assert "' · +' + (newError ? 'WRONG' : 'CORRECT')" in player
