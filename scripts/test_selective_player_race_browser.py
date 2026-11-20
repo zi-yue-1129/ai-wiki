@@ -143,6 +143,19 @@ def run():
                             assert slider.input_value() == "40"
                             assert points.nth(1).get_attribute("aria-pressed") == "true"
                             assert "4/6" in calculation.inner_text()
+                            # Keyboard traversal also changes the discrete accepted set,
+                            # not just the focus ring or a continuous timeline value.
+                            page.keyboard.press("ArrowRight")
+                            assert slider.input_value() == "80"
+                            assert points.nth(2).evaluate("(e) => document.activeElement === e")
+                            page.keyboard.press("Home")
+                            assert slider.input_value() == "0"
+                            assert points.nth(0).evaluate("(e) => document.activeElement === e")
+                            page.keyboard.press("End")
+                            assert slider.input_value() == "80"
+                            page.keyboard.press("ArrowLeft")
+                            assert slider.input_value() == "40"
+                            assert "4/6" in calculation.inner_text()
                             assert status.inner_text() == ""
                             host.get_by_role(
                                 "button", name="下一步" if zh else "Next step"
@@ -202,6 +215,19 @@ def run():
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#e3f0ef"
                             assert choices.nth(1).locator("rect").get_attribute("stroke") == "#193e69"
                             assert plot.get_attribute("data-active-stage") == "1"
+                            choices.nth(0).focus()
+                            page.keyboard.press("ArrowRight")
+                            assert slider.input_value() == "40"
+                            assert choices.nth(1).evaluate("(e) => document.activeElement === e")
+                            page.keyboard.press("Home")
+                            assert slider.input_value() == "0"
+                            page.keyboard.press("End")
+                            assert slider.input_value() == "40"
+                            page.keyboard.press("ArrowLeft")
+                            assert slider.input_value() == "0"
+                            page.keyboard.press("ArrowRight")
+                            assert slider.input_value() == "40"
+                            assert choices.nth(1).get_attribute("aria-pressed") == "true"
                         page.wait_for_timeout(180)
                         assert slider.input_value() == "40", (
                             "An obsolete Play command resumed playback", stem)
