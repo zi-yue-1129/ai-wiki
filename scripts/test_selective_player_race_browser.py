@@ -221,6 +221,23 @@ def run():
                             plot.locator("circle[data-acceptance-stage='2']").focus()
                             assert "k=6" in inspection.text_content()
                             assert "↓6.7 pp" in inspection.text_content()
+                            # A mobile horizontal scroll may dispatch hover changes
+                            # under a stationary pointer. Explicit keyboard focus
+                            # must retain its exact k=6 mathematical explanation.
+                            hollow3.dispatch_event("mouseenter")
+                            assert "k=6" in inspection.text_content()
+                            touch3.dispatch_event("mouseenter")
+                            assert "k=6" in inspection.text_content()
+                            touch3.dispatch_event("mouseleave")
+                            assert "k=6" in inspection.text_content()
+                            assert "↓6.7 pp" in inspection.text_content()
+                            # Deliberately moving focus outside the plot restores
+                            # pointer inspection, then returns to the selected k=4.
+                            slider.focus()
+                            hollow3.dispatch_event("mouseenter")
+                            assert "k=3" in inspection.text_content()
+                            hollow3.dispatch_event("mouseleave")
+                            assert "k=4" in inspection.text_content()
                             assert slider.input_value() == "40"
                             assert plot.get_attribute("viewBox") == "0 0 640 208"
                             # The class chart keeps its independent native dimensions.
