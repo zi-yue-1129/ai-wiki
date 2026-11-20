@@ -355,16 +355,38 @@
         })();
         return pending;
       };
+      // A hidden tab must never resume a stale Play command or silently skip
+      // acceptance stages while requestAnimationFrame is suspended.
+      const onVisibilityChange = () => {
+        if (!host.isConnected) {
+          document.removeEventListener('visibilitychange', onVisibilityChange);
+          return;
+        }
+        if (document.hidden) {
+          ++intentVersion;
+          if (playing) pause();
+        }
+      };
+      document.addEventListener('visibilitychange', onVisibilityChange);
       const tick = now => {
         if (!playing) return;
-        if (!host.isConnected) { pause(); return; }
-        if (previous !== null) current = (current + (now - previous) / 1000 * Number(speed.value)) % lesson.duration;
+        if (!host.isConnected) {
+          pause();
+          document.removeEventListener('visibilitychange', onVisibilityChange);
+          return;
+        }
+        // Also bound elapsed time if a device stalls without firing visibilitychange.
+        // Educational frames should not leap across several accepted sets.
+        if (previous !== null) {
+          const elapsedSeconds = Math.min(0.1, Math.max(0, (now - previous) / 1000));
+          current = (current + elapsedSeconds * Number(speed.value)) % lesson.duration;
+        }
         previous = now; sync(); frame = requestAnimationFrame(tick);
       };
       toggle.addEventListener('click', async () => {
         if (playing) { ++intentVersion; pause(); return; }
         const intent = ++intentVersion;
-        if (!(await load()) || intent !== intentVersion) return;
+        if (document.hidden || !(await load()) || intent !== intentVersion || document.hidden) return;
         playing = true; previous = null; sync(); frame = requestAnimationFrame(tick);
       });
       const jump = async delta => {
