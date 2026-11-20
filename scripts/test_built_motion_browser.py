@@ -675,6 +675,20 @@ def check_selective_player(page, image, host, toggle, asset, viewport, reduced, 
     expect(toggle).to_have_attribute("aria-label", play)
     capture("paused")
 
+    if motion_name == "accuracy-selective-coverage-motion.svg":
+        # Traversal must work on the actual built page, not just the fixture.
+        points = plot.locator("circle[data-acceptance-stage]")
+        assert points.count() == 3
+        points.nth(0).focus()
+        page.keyboard.press("ArrowRight")
+        expect(slider).to_have_value("40")
+        expect(points.nth(1)).to_have_attribute("aria-pressed", "true")
+        page.keyboard.press("End")
+        expect(slider).to_have_value("80")
+        page.keyboard.press("ArrowLeft")
+        expect(slider).to_have_value("40")
+        expect(points.nth(1)).to_have_attribute("aria-pressed", "true")
+
     if motion_name == "accuracy-selective-class-coverage-motion.svg":
         # Exercise the actual built site's focused/selected visual state.
         # Previously its focused button skipped paint(), retaining white fill
@@ -694,6 +708,15 @@ def check_selective_player(page, image, host, toggle, asset, viewport, reduced, 
         expect(choices.nth(1).locator("rect")).to_have_attribute("fill", "#e3f0ef")
         expect(choices.nth(1).locator("rect")).to_have_attribute("stroke", "#193e69")
         expect(choices.nth(0).locator("rect")).to_have_attribute("fill", "#ffffff")
+        choices.nth(0).focus()
+        page.keyboard.press("ArrowRight")
+        expect(slider).to_have_value("40")
+        expect(choices.nth(1)).to_have_attribute("aria-pressed", "true")
+        page.keyboard.press("Home")
+        expect(slider).to_have_value("0")
+        page.keyboard.press("End")
+        expect(slider).to_have_value("40")
+        expect(choices.nth(1).locator("rect")).to_have_attribute("fill", "#e3f0ef")
 
     # Manual playback, an observable advancing timeline, pause stability,
     # and keyboard activation are all required on the actual built site.
