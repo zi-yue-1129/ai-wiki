@@ -108,6 +108,19 @@ def run():
                             assert "25%" in plot.get_attribute("aria-label")
                             assert plot.locator(
                                 "circle[stroke='#dc743b']").get_attribute("cx") == "400"
+                            host.get_by_role(
+                                "button", name="下一步" if zh else "Next step"
+                            ).click()
+                            assert slider.input_value() == "80"
+                            assert plot.get_attribute("data-active-stage") == "2"
+                            assert "33%" in plot.get_attribute("aria-label")
+                            assert plot.locator(
+                                "circle[stroke='#dc743b']").get_attribute("cx") == "560"
+                            host.get_by_role(
+                                "button", name="上一步" if zh else "Previous step"
+                            ).click()
+                            assert slider.input_value() == "40"
+                            assert plot.get_attribute("data-active-stage") == "1"
                         else:
                             assert "1/4" in plot.get_attribute("aria-label")
                             assert plot.locator(
