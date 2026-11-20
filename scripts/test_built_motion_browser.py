@@ -587,6 +587,100 @@ def check_dpo_reward_identity(browser, page, url, viewport, reduced, output, rec
     return record
 
 
+
+def check_selective_player(page, image, host, toggle, asset, viewport, reduced, output, index, record):
+    """End-to-end built-site contract for the deliberately paused selective players.
+
+    These controls seek a real inlined SVG. The generic <img>-src/autoplay
+    assertions are inapplicable: its reviewed <img> remains hidden as a
+    no-JavaScript/network-failure fallback, not the visible animated scene.
+    Keep exactly three viewport screenshots for the fail-closed evidence gate.
+    """
+    from playwright.sync_api import expect
+
+    motion_name = posixpath.basename(urlsplit(asset["motion"]).path)
+    trace = {
+        "accuracy-selective-coverage-motion.svg": ("2/2", "3/4"),
+        "accuracy-selective-class-coverage-motion.svg": ("6/8", "5/5"),
+    }
+    assert motion_name in trace, ("Unknown selective fixture", motion_name)
+    chinese = bool(re.search(r"[\u3400-\u9fff]", asset["alt"]))
+    play, pause = ("播放", "暫停") if chinese else ("Play", "Pause")
+    next_label = "下一步" if chinese else "Next step"
+    inline = host.locator("svg.concept-motion-inline")
+    slider = host.locator('input[type="range"]')
+    expect(host).to_have_class(re.compile(r"\bselective-motion-player\b"))
+    expect(inline).to_be_visible(timeout=15000)
+    expect(image).to_be_hidden()
+    expect(inline).to_have_attribute("role", "img")
+    expect(inline).to_have_attribute("aria-label", asset["alt"])
+    expect(toggle).to_have_attribute("aria-label", play)
+    expected_initial = "40" if reduced else "0"
+    expect(slider).to_have_value(expected_initial)
+    assert image.evaluate("(e) => e.complete && e.naturalWidth > 0"), (
+        "Independent, decodable GitHub/no-JS still is required")
+    assert image.get_attribute("src").split("?", 1)[0].endswith("-still.svg")
+
+    def current_svg_time():
+        return inline.evaluate("(e) => e.getCurrentTime()")
+
+    def capture(stage):
+        inline.scroll_into_view_if_needed()
+        screenshot = f"image-{index}-{stage}.png"
+        record["states"][stage] = {
+            "screenshot": screenshot,
+            "svgTime": current_svg_time(),
+            "timeline": slider.input_value(),
+            "calculation": host.locator(".concept-motion-calculation").inner_text(),
+            "document": assert_document_fits(page, viewport),
+        }
+        page.screenshot(path=str(output / screenshot))
+
+    assert abs(current_svg_time() - int(expected_initial) / 10) < 0.15
+    capture("initial")
+    if reduced:
+        # User-requested still stage is not an autoplay permission. Deliberate
+        # keyboard seeking must nonetheless work with prefers-reduced-motion.
+        assert trace[motion_name][1] in host.locator(
+            ".concept-motion-calculation").inner_text()
+    else:
+        assert trace[motion_name][0] in host.locator(
+            ".concept-motion-calculation").inner_text()
+
+    # Exercise real range keyboard input, then one semantic Next operation.
+    slider.focus()
+    page.keyboard.press("Home")
+    expect(slider).to_have_value("0")
+    assert trace[motion_name][0] in host.locator(
+        ".concept-motion-calculation").inner_text()
+    host.get_by_role("button", name=next_label, exact=True).click()
+    expect(slider).to_have_value("40")
+    assert trace[motion_name][1] in host.locator(
+        ".concept-motion-calculation").inner_text()
+    assert abs(current_svg_time() - 4) < 0.15
+    expect(toggle).to_have_attribute("aria-label", play)
+    capture("paused")
+
+    # Manual playback, an observable advancing timeline, pause stability,
+    # and keyboard activation are all required on the actual built site.
+    toggle.click()
+    expect(toggle).to_have_attribute("aria-label", pause)
+    page.wait_for_function("""e => Number(e.value) > 40""", arg=slider.element_handle(),
+                           timeout=5000)
+    capture("replayed")
+    toggle.click()
+    expect(toggle).to_have_attribute("aria-label", play)
+    paused = slider.input_value()
+    page.wait_for_timeout(250)
+    expect(slider).to_have_value(paused)
+    toggle.focus()
+    page.keyboard.press("Enter")
+    expect(toggle).to_have_attribute("aria-label", pause)
+    toggle.click()
+    expect(toggle).to_have_attribute("aria-label", play)
+    record["mode"] = "built-site-inline-selective-player"
+
+
 def exercise_page(browser, target, expected, base_url, viewport, reduced, output, result):
     from playwright.sync_api import expect
 
@@ -637,6 +731,11 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
             pause = "暫停概念動畫" if chinese else "Pause concept animation"
             record = {"alt": asset["alt"], "states": {}}
             result["images"].append(record)
+
+            if host.evaluate("(e) => e.classList.contains('selective-motion-player')"):
+                check_selective_player(page, image, host, toggle, asset, viewport,
+                                       reduced, output, index, record)
+                continue
 
             def capture(stage, state, label):
                 expect(toggle).to_have_attribute("aria-label", label)
