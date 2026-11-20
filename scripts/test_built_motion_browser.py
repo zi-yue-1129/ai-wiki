@@ -170,7 +170,19 @@ MOBILE_PREFLIGHT_NAMES = frozenset({'t-sne', 'umap', 'minhash-deduplication',
 
 
 def check_math_rendering(page):
-    """Reject rendered MathJax errors as well as incomplete/duplicate output."""
+    """Reject MathJax failures, missing renderer bootstrap and stale math items.
+
+    The local mathjax.js file installs an early *configuration* object before
+    the external MathJax bundle loads. At that point startup.promise can be
+    undefined; Promise.race([undefined, timeout]) would resolve immediately,
+    then accessing startup.document would fail on a seemingly random page.
+    Wait for the real renderer API before awaiting its asynchronous typeset.
+    This must fail closed if the bundle never initializes.
+    """
+    page.wait_for_function("""() =>
+        typeof window.MathJax?.startup?.document?.getMathItemsWithin === 'function'
+        && typeof window.MathJax?.startup?.promise?.then === 'function'
+    """, timeout=20000)
     page.evaluate("""async () => {
         let timer;
         try {
