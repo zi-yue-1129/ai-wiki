@@ -625,6 +625,20 @@ def check_selective_player(page, image, host, toggle, asset, viewport, reduced, 
     expect(host).to_have_class(re.compile(r"\bselective-motion-player\b"))
     expect(inline).to_be_visible(timeout=15000)
     expect(plot).to_be_visible(timeout=15000)
+    # Inspect the real MkDocs build rather than a geometry-only fixture:
+    # the linked plot must not scale its 12px axis/readout labels on phones.
+    chart_width = plot.evaluate("(svg) => svg.getBoundingClientRect().width")
+    assert abs(chart_width - 640) < 1, (
+        "Linked chart shrank below legible native width", motion_name,
+        viewport, chart_width)
+    if viewport["width"] < 640:
+        scroll_size = plot.evaluate("""svg => {
+          const region = svg.closest('.concept-motion-scroll');
+          return region ? [region.scrollWidth, region.clientWidth] : null;
+        }""")
+        assert scroll_size and scroll_size[0] > scroll_size[1], (
+            "Linked plot lacks mobile horizontal scroll", motion_name,
+            viewport, scroll_size)
     expect(image).to_be_hidden()
     expect(inline).to_have_attribute("role", "img")
     expect(inline).to_have_attribute("aria-label", asset["alt"])

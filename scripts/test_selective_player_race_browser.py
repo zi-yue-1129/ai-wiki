@@ -97,6 +97,20 @@ def run():
                         page.wait_for_timeout(140)
                         plot = host.locator("svg.selective-linked-plot")
                         assert plot.count() == 1, ("linked plot missing", stem, zh, width)
+                        # Both linked charts must retain their 640px reading
+                        # geometry under mobile widths, not shrink 12px labels.
+                        layout = plot.evaluate("""svg => {
+                          const scroller = svg.closest('section');
+                          return {chart:svg.getBoundingClientRect().width,
+                            scrollWidth:scroller.scrollWidth,
+                            clientWidth:scroller.clientWidth};
+                        }""")
+                        assert abs(layout["chart"] - 640) < 1, (
+                            "linked SVG text scaled down", stem, zh, width, layout)
+                        if width < 640:
+                            assert layout["scrollWidth"] > layout["clientWidth"], (
+                                "linked chart cannot be scrolled on mobile",
+                                stem, zh, width, layout)
                         slider = host.get_by_role("slider")
                         assert slider.input_value() == "40", (
                             stem, zh, width, slider.input_value())

@@ -49,7 +49,9 @@
     const plot = node('svg', {viewBox:riskPlot?'0 0 640 208':'0 0 640 168',
       role:'group',
       class:'selective-linked-plot'});
-    plot.style.cssText = 'display:block;width:100%;max-width:640px;height:auto;margin:10px 0';
+    // Retain native-width labels on phones. The focusable parent figure owns
+    // horizontal scrolling; scaling this 640px chart to 320px halves 12px text.
+    plot.style.cssText = 'display:block;width:640px;min-width:640px;max-width:none;height:auto;margin:10px 0';
     plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?206:166,rx:12,
       fill:'#f8fafc',stroke:'#d4deec'}));
     const write = (x,y,label,attrs={}) => {
