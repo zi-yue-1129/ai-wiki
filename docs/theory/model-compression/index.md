@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-20
 related:
 - engineering/mlops
 - engineering/training
@@ -59,6 +59,15 @@ Low-rank compression works only when the matrix is close to low rank. Many train
 
 Some models are designed to be small from the start. MobileNet replaced standard convolutions with depthwise-separable ones. Multi-query and grouped-query attention share keys and values across heads to shrink the [KV cache](../../theory/models/transformer/kv-cache/index.md). Mixture-of-experts layers keep total parameters large while activating only a few per token. These are architectural choices, so they belong with the model families under [Models](../models/index.md).
 
+## Key methods
+
+Four landmark methods, one for each family plus the pipeline that combines them, show what the field has built on. Each links to its own page.
+
+- [Learning both weights and connections (Han et al., 2015)](pruning/learning-weights-and-connections/index.md): prunes connections with small weights and retrains the network, an early example of iterative magnitude pruning.
+- [GPTQ (Frantar et al., 2022)](quantisation/post-training/gptq/index.md): post-training weight quantisation that rounds one column at a time and adjusts the remaining columns to compensate, using a small calibration set.
+- [Distilling the knowledge (Hinton et al., 2015)](knowledge-distillation/response-based/hinton-distillation/index.md): trains a small student on the soft outputs of a large teacher.
+- [Deep Compression (Han et al., 2016)](deep-compression/index.md): chains pruning, codebook quantisation and Huffman coding in one pipeline, the standard example of combined compression.
+
 ## Composed pipelines
 
 Methods are often combined in one pipeline. [Deep Compression](deep-compression/index.md) chains pruning, codebook quantisation and Huffman coding, and its page sets out the stages, the storage results and their limits.
@@ -88,6 +97,7 @@ The brain offers an analogy. Developing neural systems overproduce synapses and 
 ### Seminal papers
 
 - Han, S., Mao, H., Dally, W. J. (2016). *Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding*. ICLR. https://arxiv.org/abs/1510.00149 — Combines pruning, codebook quantisation and Huffman coding, reporting 35 to 49 times storage reduction.
+- Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — Prunes low-magnitude connections and retrains, the iterative pruning method behind the pruning section.
 - Hinton, G., Vinyals, O., Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — Introduces training a small model on the soft outputs of a large one.
 - Jacob, B., et al. (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv:1712.05877. https://arxiv.org/abs/1712.05877 — Quantisation-aware training with integer-only inference, the basis of many deployment pipelines.
 
@@ -103,5 +113,6 @@ The brain offers an analogy. Developing neural systems overproduce synapses and 
 
 ### Articles and documentation
 
+- Frantar, E., Ashkboos, S., Hoefler, T., Alistarh, D. (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv:2210.17323. https://arxiv.org/abs/2210.17323 — Layer-wise one-shot weight quantisation of large language models with second-order error compensation.
 - Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — Shows that simple magnitude pruning matches or beats more complex sparsity methods on large tasks.
 - Dettmers, T., et al. (2022). *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*. NeurIPS. https://arxiv.org/abs/2208.07339 — Mixed-precision 8-bit inference for large language models, covered in the quantisation page.
