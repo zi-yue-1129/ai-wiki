@@ -186,6 +186,9 @@ def run():
                             hollow3.focus()
                             assert "k=3" in inspection.text_content()
                             assert "1/3 wrong" in inspection.text_content()
+                            assert "+WRONG" in inspection.text_content()
+                            assert any(term in hollow3.get_attribute("aria-label")
+                                       for term in ("newly admitted incorrect", "新增錯誤"))
                             assert "33.3%" in inspection.text_content()
                             assert "↑33.3 pp" in inspection.text_content()
                             assert hollow3.get_attribute("stroke") == "#193e69"
@@ -195,6 +198,7 @@ def run():
                             assert plot.get_attribute("data-active-stage") == "1"
                             plot.locator("circle[data-acceptance-stage='1']").focus()
                             assert "↓8.3 pp" in inspection.text_content()
+                            assert "+CORRECT" in inspection.text_content()
                             hollow5 = plot.locator("circle[data-risk-k='5']")
                             hollow5.focus()
                             assert "k=5" in inspection.text_content()
