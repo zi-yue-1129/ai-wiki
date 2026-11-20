@@ -60,6 +60,12 @@ assert "hit.setAttribute('role', 'button')" in player
 assert "hit.setAttribute('tabindex', '0')" in player
 assert "hit.addEventListener('keydown'" in player
 assert "stageSelectors.forEach" in player
+# Both plots expose bounded keyboard traversal as an alternative to pointer input.
+assert "const keyboardStage = (key, index, last) =>" in player
+assert "stageSelectors[target].focus()" in player
+assert "classChoices[target].control.focus()" in player
+assert "'ArrowRight'" in player and "'ArrowLeft'" in player
+assert "'Home'" in player and "'End'" in player
 # The class-conditional chart exposes two semantic, keyboard-selectable states.
 assert "classChoices.forEach" in player
 assert "Compare all accepted, 8/8" in player
