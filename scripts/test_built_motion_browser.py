@@ -430,6 +430,18 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     get_time = lambda: frame.evaluate(
         'e => e.contentDocument.documentElement.getCurrentTime()')
     assert get_time() < 0.1
+
+    def capture(stage):
+        frame.scroll_into_view_if_needed()
+        document = assert_document_fits(page, viewport)
+        screenshot = output / f'image-{index}-{stage}.png'
+        svg_time = get_time()
+        page.screenshot(path=str(screenshot))
+        record['states'][stage] = {
+            'screenshot': screenshot.name, 'document': document, 'svg_time': svg_time,
+        }
+        return screenshot.name
+
     # The text companion must explain the *mathematical state*, not only the
     # playback timestamp. The visible paragraph updates each frame, whereas
     # the screen-reader live region speaks only after user-triggered changes.
@@ -445,6 +457,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert stem in initial_tokens, ('unexpected interactive motion asset', stem)
     initial_summary = interpretation.inner_text()
     assert all(token in initial_summary for token in initial_tokens[stem]), (stem, initial_summary)
+    capture('initial')
     buttons.nth(2).click()  # Semantic next step
     assert controls.locator('.concept-motion-status').inner_text() == interpretation.inner_text()
     step_time = get_time()
@@ -470,20 +483,27 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     paused = get_time()
     page.wait_for_timeout(120)
     assert abs(get_time() - paused) < 0.03, 'SVG timeline moved while paused'
+    capture('paused')
     buttons.nth(0).click()  # Previous semantic step
     previous = get_time()
     assert previous < paused - 0.05, ('previous step did not seek backward', paused, previous)
-    assert_document_fits(page, viewport)
+    # Resume through the real keyboard control, and prove this is a new
+    # playing state rather than another capture of the paused frame.
+    buttons.nth(1).focus()
+    page.keyboard.press('Enter')
+    page.wait_for_function(
+        '([el, start]) => el.contentDocument.documentElement.getCurrentTime() > start + 0.08',
+        arg=[frame.element_handle(), previous], timeout=5000)
+    replay_screenshot = capture('replayed')
+    buttons.nth(1).click()  # Leave the player paused before testing the next image.
     record['interactive'] = {
         'visible_svg': True, 'hidden_no_script_fallback': True,
         'unique_alt': True, 'step_time': step_time,
         'seek_time': seek_time, 'playing_time': advanced,
         'paused_time': paused, 'previous_time': previous, 'speed': 2,
-        'semantic_initial': initial_summary, 'semantic_seek': selected_summary
+        'semantic_initial': initial_summary, 'semantic_seek': selected_summary,
+        'screenshot': replay_screenshot,
     }
-    screenshot = output / f'image-{index}-interactive.png'
-    page.screenshot(path=str(screenshot))
-    record['interactive']['screenshot'] = screenshot.name
 
 
 def check_lazy_image_canary(browser, url, output):
