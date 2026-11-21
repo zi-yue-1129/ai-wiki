@@ -47,9 +47,16 @@ def run():
     assert len(bracket) == 1
     assert bracket[0].get('d') == 'M238 304V315 M238 310H328 M328 304V315'
     assert 328 - 238 == 360 / 4
-    assert 'not a confidence interval or an observed prediction' in risk.find('svg:desc', NS).text
+    assert 'Neither is model-measured performance or a confidence interval' in risk.find('svg:desc', NS).text
+    marker = [n for n in risk.findall('.//svg:circle', NS)
+              if n.get('data-next-observed') == 'true']
+    assert len(marker) == 1
+    assert (marker[0].get('cx'), marker[0].get('cy'), marker[0].get('r')) == (
+        '238', '253.5', '5')
+    assert any(n.text == 'IN SAMPLE: +CORRECT'
+               for n in risk.findall('.//svg:text', NS))
     circles = [(float(n.get('cx')), float(n.get('cy')))
-               for n in risk.findall('.//svg:circle', NS)]
+               for n in risk.findall('.//svg:circle', NS) if n.get('data-risk-k')]
     assert len(circles) == 6
     assert [round(x) for x, _ in circles] == [160, 240, 320, 400, 480, 560]
     assert [round((144 - y) / 200 * 100) for _, y in circles] == [0, 0, 33, 25, 40, 33]

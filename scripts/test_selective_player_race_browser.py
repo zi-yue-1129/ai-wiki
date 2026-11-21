@@ -215,6 +215,13 @@ def run():
                             assert float(wrong_bar.get_attribute('width')) == 180
                             assert plot.locator('text[data-next-value="correct"]').text_content() == '1/4 25%'
                             assert plot.locator('text[data-next-value="wrong"]').text_content() == '2/4 50%'
+                            observed = plot.locator('circle[data-next-observed]')
+                            observed_note = plot.locator('text[data-next-observed-label]')
+                            assert observed.count() == 1
+                            assert observed.get_attribute('cx') == '238'
+                            assert observed.get_attribute('cy') == '253.5'
+                            assert observed.get_attribute('r') == '5'
+                            assert observed_note.text_content() == 'IN SAMPLE: +CORRECT'
                             spread = plot.locator('path[data-next-spread]')
                             spread_value = plot.locator('text[data-next-spread-value]')
                             assert spread.count() == 1
@@ -236,6 +243,9 @@ def run():
                             assert float(correct_bar.get_attribute('width')) == 72
                             assert float(wrong_bar.get_attribute('width')) == 144
                             assert spread_value.text_content() == 'Δ 20 pp'
+                            assert observed.get_attribute('cx') == '292'
+                            assert observed.get_attribute('cy') == '284.5'
+                            assert observed_note.text_content() == 'IN SAMPLE: +WRONG'
                             assert spread.get_attribute('d') == 'M 220 304V315 M 220 310H292 M 292 304V315'
                             assert "+CORRECT" in inspection.text_content()
                             hollow5 = plot.locator("circle[data-risk-k='5']")
@@ -243,6 +253,9 @@ def run():
                             assert "k=5" in inspection.text_content()
                             assert "2/5 wrong" in inspection.text_content()
                             assert "↑15 pp" in inspection.text_content()
+                            assert observed.get_attribute('cx') == '268'
+                            assert observed.get_attribute('cy') == '253.5'
+                            assert observed_note.text_content() == 'IN SAMPLE: +CORRECT'
                             plot.locator("circle[data-acceptance-stage='2']").focus()
                             assert "k=6" in inspection.text_content()
                             assert "↓6.7 pp" in inspection.text_content()
@@ -251,6 +264,8 @@ def run():
                             assert float(wrong_bar.get_attribute('width')) == 0
                             assert spread.get_attribute('d') == ''
                             assert spread_value.text_content() == '—'
+                            assert observed.get_attribute('r') == '0'
+                            assert observed_note.text_content() == ''
                             assert plot.locator('text[data-next-value="correct"]').text_content() == '—'
                             assert plot.locator('text[data-next-value="wrong"]').text_content() == '—'
                             # A mobile horizontal scroll may dispatch hover changes
@@ -265,13 +280,19 @@ def run():
                             assert "↓6.7 pp" in inspection.text_content()
                             # Deliberately moving focus outside the plot restores
                             # pointer inspection, then returns to the selected k=4.
+                            # An earlier Playwright touch/click leaves the physical
+                            # pointer on the enlarged k=3 target. Move it away
+                            # before simulating fresh enter/leave events; otherwise
+                            # real overlay hover competes with synthetic events.
+                            page.mouse.move(8, 8)
                             slider.focus()
+                            assert slider.evaluate("(e) => document.activeElement === e")
                             hollow3.dispatch_event("mouseenter")
                             assert "k=3" in inspection.text_content()
                             hollow3.dispatch_event("mouseleave")
                             assert "k=4" in inspection.text_content()
                             assert slider.input_value() == "40"
-                            assert plot.get_attribute("viewBox") == "0 0 640 316"
+                            assert plot.get_attribute("viewBox") == "0 0 640 356"
                             # The class chart keeps its independent native dimensions.
                             # Select cutoffs using both pointer and keyboard.
                             points = plot.locator("circle[data-acceptance-stage]")

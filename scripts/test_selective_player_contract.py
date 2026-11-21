@@ -95,6 +95,11 @@ assert "'data-next-case':'true'" in player
 assert "'data-next-bar':wrong?'wrong':'correct'" in player
 assert "'data-next-value':wrong?'wrong':'correct'" in player
 assert "360*numerator/nextCount" in player
+assert "'data-next-observed':'true'" in player
+assert "'data-next-observed-label':'true'" in player
+assert "allIncorrect[count] > currentErrors" in player
+assert "IN SAMPLE: +" in player
+assert "observedNext.setAttribute('r','0')" in player
 assert "'data-next-spread':'true'" in player
 assert "'data-next-spread-value':'true'" in player
 assert "const high = low + 360/nextCount" in player

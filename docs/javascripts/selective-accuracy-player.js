@@ -137,6 +137,15 @@
       const nextSpreadValue = write(283,336,'',{'font-size':12,
         'font-weight':700,fill:'#193e69','text-anchor':'middle',
         'data-next-spread-value':'true'});
+      // One outlined marker identifies which hypothetical branch the fixed,
+      // synthetic ranked sequence actually follows; the other is arithmetic.
+      const observedNext = node('circle',{
+        'data-next-observed':'true',cx:148,cy:253.5,r:0,
+        fill:'#f8fafc',stroke:'#193e69','stroke-width':2.5});
+      plot.append(observedNext);
+      const observedNote = write(407,336,'',{'font-size':11,
+        'font-weight':700,fill:'#193e69',
+        'data-next-observed-label':'true'});
       const nextScenario = count => {
         if (count === allAccepted.length) return {
           chart:'END OF SIX OBSERVED CASES · no next-case outcome in this example',
@@ -144,6 +153,7 @@
             : 'End of six observed cases; no next outcome.'
         };
         const errors = allIncorrect[count - 1], n = count + 1;
+        const sampleWrong = allIncorrect[count] > errors;
         const right = errors + '/' + n;
         const wrong = (errors + 1) + '/' + n;
         const rightPct = fmt(100 * errors / n) + '%';
@@ -153,10 +163,14 @@
             ') · +WRONG ' + wrong + ' (' + wrongPct + ')',
           aria:zh ? '假設下一筆正確，風險 ' + right + '（' + rightPct +
             '）；假設下一筆錯誤，風險 ' + wrong + '（' + wrongPct +
-            '）；兩者相差 ' + fmt(100/n) + ' 個百分點，不是信賴區間或模型實測。'
+            '）；兩者相差 ' + fmt(100/n) + ' 個百分點，不是信賴區間或模型實測；本人工示例的下一筆' +
+            (sampleWrong ? '錯誤' : '正確') + '，空心圈標記對應分支。'
             : 'Hypothetical next case: if correct, risk ' + right + ' (' +
               rightPct + '); if wrong, risk ' + wrong + ' (' + wrongPct +
-              '). Their spread is ' + fmt(100/n) + ' percentage points, not a confidence interval or measured outcome.'
+              '). Their spread is ' + fmt(100/n) + ' percentage points, not a confidence interval or measured outcome. ' +
+              'The next case in the constructed sample is ' +
+              (sampleWrong ? 'wrong' : 'correct') +
+              '; an outlined circle marks its branch.'
         };
       };
       // Focus is an explicit reading choice. Horizontal scrolling can produce
@@ -184,6 +198,18 @@
           value.textContent = terminal ? '—' :
             numerator+'/'+nextCount+' '+fmt(100*numerator/nextCount)+'%';
         });
+        if (terminal) {
+          observedNext.setAttribute('r','0');
+          observedNote.textContent = '';
+        } else {
+          const sampleWrong = allIncorrect[count] > currentErrors;
+          observedNext.setAttribute('r','5');
+          observedNext.setAttribute('cx',String(148 + 360 *
+            (currentErrors + Number(sampleWrong))/nextCount));
+          observedNext.setAttribute('cy',String(253.5 + 31*Number(sampleWrong)));
+          observedNote.textContent = 'IN SAMPLE: +' +
+            (sampleWrong ? 'WRONG' : 'CORRECT');
+        }
         if (terminal) {
           nextSpread.setAttribute('d','');
           nextSpreadValue.textContent = '—';
