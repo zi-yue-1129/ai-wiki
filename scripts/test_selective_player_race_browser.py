@@ -547,6 +547,27 @@ def run():
                             page.keyboard.press("ArrowRight")
                             assert slider.input_value() == "40"
                             assert choices.nth(1).get_attribute("aria-pressed") == "true"
+                            # Focusing an outcome while playback is running must
+                            # freeze its acceptance decision and FLIP arithmetic.
+                            host.get_by_role("button", name=play).click()
+                            page.wait_for_timeout(140)
+                            assert int(slider.input_value()) > 40
+                            case_controls.nth(3).focus()
+                            focused_position = slider.input_value()
+                            assert host.get_by_role("button", name=play).count() == 1
+                            assert detail.text_content() == "P4: RIGHT · REJECTED → +1 OUT"
+                            page.wait_for_timeout(180)
+                            assert slider.input_value() == focused_position, (
+                                "focused inspection kept animating", zh, width)
+                            assert plot.get_attribute("data-active-stage") == "1"
+                            page.keyboard.press("Escape")
+                            assert detail.text_content() == "✓ right · × wrong"
+                            assert chip.get_attribute("visibility") == "hidden"
+                            assert marker.get_attribute("visibility") == "hidden"
+                            assert slider.input_value() == focused_position
+                            # Restore the exact stage stop for shared checks.
+                            choices.nth(1).click()
+                            assert slider.input_value() == "40"
                         page.wait_for_timeout(180)
                         assert slider.input_value() == "40", (
                             "An obsolete Play command resumed playback", stem)
