@@ -49,7 +49,7 @@ translation_reviewed: 2026-11-21
 ### 如何選擇檢查點間距：記憶體取捨
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的檢查點間距動畫">
-<img data-source-asset-urls src="../../../assets/concept-animations/checkpoint-spacing-still.svg" data-motion-src="../../../assets/concept-animations/checkpoint-spacing-motion.svg" data-still-src="../../../assets/concept-animations/checkpoint-spacing-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="在十六層、激活值大小相同的人工鏈中，區段長度逐級增加時，KEEP 保留數量下降而 REBUILD 暫存數量增加；兩組動態數字同步更新。區段長度為四時，五個保留加三個重算等於八個峰值槽位，為五種設定中的最低值。" />
+<img data-source-asset-urls src="../../../assets/concept-animations/checkpoint-spacing-still.svg" data-motion-src="../../../assets/concept-animations/checkpoint-spacing-motion.svg" data-still-src="../../../assets/concept-animations/checkpoint-spacing-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="在十六層、激活值大小相同的人工鏈中，區段長度逐級增加時，KEEP 保留數量下降而 REBUILD 暫存數量增加；兩組動態數字同步更新。區段長度為四時，五個保留加三個重算等於八個峰值槽位，為五種設定中的最低值；TOTAL REBUILT 顯示四個區段合計重建十二個內部激活值。" />
 </div>
 
 *原創運算型 SVG 動畫與 GitHub 靜態比較，CC BY-SA 4.0。* 考慮一條 **16 層、各層激活值大小相同的人工網路鏈**，區段長度 $s$ 為 16 的因數。邊界 $A_0,A_s,\ldots,A_{16}$ 保留至反向傳播需要時，重算某一區段時最多額外保留 $s-1$ 個內部激活值。在這個**簡化的保留策略**下，同時存活的峰值激活值槽數為
@@ -59,6 +59,14 @@ M(s)=\left(\frac{16}{s}+1\right)+(s-1)=\frac{16}{s}+s.
 $$
 
 當 $s=1,2,4,8,16$ 時，長期保留的檢查點依序為 **17、9、5、3、2** 個，區段重算的暫存為 **0、1、3、7、15** 個，峰值合計為 **17、10、8、10、17** 個。因而 $s=4$ 是這**五個選項**的最低值，呈現 Chen 等人（2016；見既有參考文獻）所討論的平方根平衡。這**不是 GPU 峰值記憶體的實測值**：圖中沒有計入梯度、參數、最佳化器狀態、不同大小的激活值、配置器成本及重算的運算時間；在非均勻計算圖上，最佳區段長度可能不同。
+
+動畫另外以 **TOTAL REBUILT** 顯示跨區段的**累積重建量**，刻意與單一區段中同時存在的 REBUILD 暫存峰值分開。假設反向傳播對每個區段各重建一次 $s-1$ 個內部激活值，16 層人工鏈的累積重建張量數就是
+
+$$
+B(s)=\frac{16}{s}(s-1)=16-\frac{16}{s}.
+$$
+
+$s=1,2,4,8,16$ 時，依序為 **0、8、12、14、15** 個；但 REBUILD 長條表示**單一區段同時存活的暫存峰值**，依序為 **0、1、3、7、15** 個。兩者均為簡化張量數量，**不是額外前向 FLOPs、實際耗時或 GPU 記憶體實測**；實務上還可能重新執行其他運算及產生框架額外開銷。
 
 動畫同步更新區段邊界、保留／重算槽數以及成本曲線上的選取點。**KEEP 與 REBUILD 右側的動態數字**顯示每個區段長度的精確分解，例如 $s=4$ 時，五個保留的邊界激活值加上三個重算暫存，合計八個峰值槽位；這些數字是激活值張量的數量，不是位元組或 GPU 實測記憶體。MkDocs 提供可用鍵盤操作的播放／暫停；偏好減少動態效果者看到 $s=4$ 的狀態，GitHub 靜態圖則一次比較**全部五種**選擇。手機可聚焦區域後水平捲動。[GitHub 靜態比較](../../../assets/concept-animations/checkpoint-spacing-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/checkpoint-spacing-motion.svg)。
 

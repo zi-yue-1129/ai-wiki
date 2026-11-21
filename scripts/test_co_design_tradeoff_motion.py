@@ -74,3 +74,31 @@ for language in ("mixed-precision.md","mixed-precision.zh-TW.md"):
     page = (pages/language).read_text(encoding="utf-8")
     assert "S=2048" in page and "S=8" in page
 print("Checkpoint live counts and exact binary16 stepwise regime changes OK")
+
+# Semantic distinction: one-segment peak scratch vs whole-sweep recreated activations.
+for s, expected in ((1,0),(2,8),(4,12),(8,14),(16,15)):
+    assert expected == (16//s)*(s-1) == 16-16//s
+counter = next(n for n in check.iter(svg+"text") if n.text == "TOTAL REBUILT")
+assert counter.get("x") == "391" and counter.get("y") == "202"
+updated = [n for n in check.iter(svg+"text") if n.get("x") == "531" and n.find(svg+"animate") is not None]
+assert tuple(int(n.text) for n in updated) == (0,8,12,14,15)
+for index,node in enumerate(updated):
+    clock = node.find(svg+"animate")
+    assert clock.get("calcMode") == "discrete"
+    assert list(map(int,clock.get("values").split(";"))) == [int(i==index) for i in (0,1,2,3,4,0)]
+assert any(n.get("class") == "reduced-only" and n.text == "12" for n in check.iter(svg+"text"))
+for language in ("gradient-checkpointing.md","gradient-checkpointing.zh-TW.md"):
+    page = (pages/language).read_text(encoding="utf-8")
+    assert r"B(s)=\\frac{16}{s}(s-1)=16-\\frac{16}{s}" in page
+    assert "TOTAL REBUILT" in page
+
+# Round-to-nearest-even: half of 2^-24 is the actual zero/nonzero cutoff.
+assert 2**-25 == (2**-24)/2
+background = [n for n in fp.iter(svg+"rect") if n.get("y") == "89" and n.get("height") == "179"]
+assert [(n.get("x"),n.get("width")) for n in background] == [("95","30"),("125","410"),("535","30")]
+assert any(n.tag == svg+"line" and n.get("x1") == n.get("x2") == "125" and n.get("y1") == "89" for n in fp.iter())
+assert any(n.text == "2^-25 tie to 0" for n in fp.iter(svg+"text"))
+for language in ("mixed-precision.md","mixed-precision.zh-TW.md"):
+    page = (pages/language).read_text(encoding="utf-8")
+    assert "2^{-25}" in page and "2^{-24}" in page
+print("Whole-chain recomputation total and binary16 rounding-cutoff contracts OK")

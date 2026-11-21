@@ -62,7 +62,7 @@ The paper also describes a recursive version, in which each segment is handled b
 ### Choosing checkpoint intervals: the memory trade-off
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable checkpoint-spacing animation">
-<img data-source-asset-urls src="../../../assets/concept-animations/checkpoint-spacing-still.svg" data-motion-src="../../../assets/concept-animations/checkpoint-spacing-motion.svg" data-still-src="../../../assets/concept-animations/checkpoint-spacing-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="For sixteen equal-size layers, the live KEEP and REBUILD counters change as segment length steps from 1 to 16: five persisted boundaries plus three rebuilt internal activations give eight peak slots at s equals four. The five totals form a U-shaped schematic curve." />
+<img data-source-asset-urls src="../../../assets/concept-animations/checkpoint-spacing-still.svg" data-motion-src="../../../assets/concept-animations/checkpoint-spacing-motion.svg" data-still-src="../../../assets/concept-animations/checkpoint-spacing-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="For sixteen equal-size layers, the live KEEP and REBUILD counters change as segment length steps from 1 to 16: five persisted boundaries plus three rebuilt internal activations give eight peak slots at s equals four; the TOTAL REBUILT readout shows twelve internal activations reconstructed across all four segments. The five totals form a U-shaped schematic curve." />
 </div>
 
 *Original computational SVG animation and GitHub-safe comparison, CC BY-SA 4.0.* For a **constructed chain of 16 equal-size layers**, let the segment length $s$ divide 16. Keep boundary activations $A_0,A_s,\ldots,A_{16}$ until backward processing needs them, and rebuild at most $s-1$ discarded internal activations for one segment. In this deliberately simplified retention model, the maximum simultaneous *activation slots* is
@@ -72,6 +72,14 @@ M(s)=\left(\frac{16}{s}+1\right)+(s-1)=\frac{16}{s}+s.
 $$
 
 At $s=1,2,4,8,16$, the persistent checkpoint counts are **17, 9, 5, 3, 2**, the temporary internal counts are **0, 1, 3, 7, 15**, and the peak totals are **17, 10, 8, 10, 17**. Thus $s=4$ minimizes this *five-choice example*, illustrating the square-root balance described by Chen et al. (2016), already listed in References. It is **not a GPU peak-memory measurement**: it excludes gradients, parameters, optimiser state, unequal activation sizes, allocator effects, and the compute-time cost of replaying segments. The optimum can change for a nonuniform graph.
+
+The animated **TOTAL REBUILT** readout makes the separate recomputation cost visible. If each segment reconstructs its $s-1$ internal activations once during the backward sweep, the cumulative number of recreated internal activation tensors across the 16-layer chain is
+
+$$
+B(s)=\frac{16}{s}(s-1)=16-\frac{16}{s}.
+$$
+
+For $s=1,2,4,8,16$, this gives **0, 8, 12, 14, 15** rebuilt tensors in total. The **REBUILD** bar instead counts the *maximum simultaneously live temporary slots in one segment* (**0, 1, 3, 7, 15**). Neither number is a measured FLOP count or runtime: real recomputation can execute additional layer operations and incur framework-specific overhead. This is an illustrative storage-versus-recreation comparison, not a benchmark.
 
 The animation changes the checkpoint boundaries, the stored/rebuilt slot counts, and the active point on the cost curve together. **The live KEEP and REBUILD counters expose the decomposition at each step**: at $s=4$, five persistent boundaries plus three temporary internal activations yield eight peak slots. These counters refer to activation tensors, not bytes or measured GPU memory. MkDocs offers keyboard-accessible Play/Pause; reduced-motion users see the $s=4$ state, and the GitHub fallback compares **all five** choices directly. On narrow screens, focus the region to scroll horizontally. [GitHub static comparison](../../../assets/concept-animations/checkpoint-spacing-still.svg) · [Animated SVG](../../../assets/concept-animations/checkpoint-spacing-motion.svg).
 
