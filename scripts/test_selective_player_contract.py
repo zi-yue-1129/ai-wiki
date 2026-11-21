@@ -172,6 +172,7 @@ assert "flipping only this case would retain" in player
 assert "若只反轉此個案的接受狀態" in player
 assert "control.addEventListener('focus', () => {" in player
 assert "pauseForCase(); inspectCase(entry)" in player
+assert "pauseForCase();\n            dot.setAttribute('r','8')" in player
 assert "if (event.key === 'Escape')" in player
 assert "event.preventDefault(); control.blur(); return;" in player
 assert "makeLinkedPlot(filename, zh, chooseStage, () => {" in player
