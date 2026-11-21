@@ -460,14 +460,27 @@
       // Show both conservation equations beside the live rejected-case tally.
       plot.append(node('path',{d:'M 35 199 H 605',
         stroke:'#d4deec','stroke-width':1}));
-      plot.append(node('circle',{cx:40,cy:216,r:5,fill:'#087e85'}));
-      plot.append(node('circle',{cx:40,cy:241,r:5,fill:'#c26646'}));
+      const rightMarker = node('circle',{cx:40,cy:216,r:5,fill:'#087e85'});
+      const wrongMarker = node('circle',{cx:40,cy:241,r:5,fill:'#c26646'});
+      plot.append(rightMarker, wrongMarker);
       const rightBalance = write(56,221,'RIGHT 6 = 6 accepted + 0 rejected',
         {'font-size':13,'font-weight':700,fill:'#193e69',
           'data-correct-balance':'true'});
       const wrongBalance = write(56,246,'WRONG 2 = 2 accepted + 0 rejected',
         {'font-size':13,'font-weight':700,fill:'#193e69',
           'data-wrong-balance':'true'});
+      // Selecting a fixed prediction reveals the exact +1 contribution to
+      // RIGHT/WRONG x accepted/rejected. Keep the two conservation equations
+      // visible and unchanged; do not confuse a partition with corrected errors.
+      const contribution = node('g',{'data-case-contribution':'true',
+        'aria-hidden':'true',visibility:'hidden'});
+      const contributionBg = node('rect',{x:513,y:205,width:89,height:23,rx:11,
+        fill:'#e3f0ef',stroke:'#087e85','stroke-width':1});
+      const contributionText = node('text',{x:557,y:221,
+        'text-anchor':'middle',fill:'#0d626a',
+        'font-family':'Arial, sans-serif','font-size':12,'font-weight':700},'+1 IN');
+      contribution.append(contributionBg,contributionText);
+      plot.append(contribution);
       // Eight fixed case outcomes expose what selective accuracy omits.
       // Correctness never changes when an acceptance rule changes.
       plot.append(node('path',{d:'M 35 260 H 605',
@@ -482,6 +495,26 @@
       let inspectedCase = null;
       const inspectCase = entry => {
         inspectedCase = entry;
+        const selectedRight = Boolean(entry && entry.correct);
+        const selectedWrong = Boolean(entry && !entry.correct);
+        rightMarker.setAttribute('r',selectedRight?'8':'5');
+        wrongMarker.setAttribute('r',selectedWrong?'8':'5');
+        rightMarker.setAttribute('stroke',selectedRight?'#193e69':'none');
+        wrongMarker.setAttribute('stroke',selectedWrong?'#193e69':'none');
+        rightMarker.setAttribute('stroke-width',selectedRight?'2':'0');
+        wrongMarker.setAttribute('stroke-width',selectedWrong?'2':'0');
+        rightBalance.setAttribute('fill',selectedRight?'#087e85':'#193e69');
+        wrongBalance.setAttribute('fill',selectedWrong?'#b45336':'#193e69');
+        contribution.setAttribute('visibility',entry?'visible':'hidden');
+        if (entry) {
+          const accepted = entry.tile.getAttribute('data-case-accepted') === 'true';
+          contributionBg.setAttribute('y',entry.correct?'205':'230');
+          contributionBg.setAttribute('fill',accepted?'#e3f0ef':'#fff0e8');
+          contributionBg.setAttribute('stroke',accepted?'#087e85':'#b45336');
+          contributionText.setAttribute('y',entry.correct?'221':'246');
+          contributionText.setAttribute('fill',accepted?'#0d626a':'#92400e');
+          contributionText.textContent = accepted ? '+1 IN' : '+1 OUT';
+        }
         caseInspection.textContent = entry
           ? entry.cls[0] + (entry.i + 1) + ': ' +
             (entry.correct ? 'RIGHT' : 'WRONG') + ' · ' +
@@ -563,10 +596,14 @@
           const id = cls[0] + (i + 1);
           control.setAttribute('aria-label',zh
             ? '個案 ' + id + '，' + (correct?'預測正確':'預測錯誤') +
-              '，' + (accepted?'接受':'拒答') + '；方向鍵檢視相鄰個案'
+              '，' + (accepted?'接受':'拒答') +
+              '；此案例計入' + (correct?'正確':'錯誤') +
+              (accepted?'且接受':'且拒答') + '的計數一筆；方向鍵檢視相鄰個案'
             : 'Case ' + id + ', ' + (correct?'correct':'wrong') +
               ', ' + (accepted?'accepted':'rejected') +
-              '; use arrow keys for adjacent cases');
+              '; contributes one to the ' + (correct?'right':'wrong') +
+              '-' + (accepted?'accepted':'rejected') +
+              ' count; use arrow keys for adjacent cases');
         });
         inspectCase(inspectedCase);
         const positive=index===0?4:1;
