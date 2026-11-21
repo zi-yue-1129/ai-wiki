@@ -86,7 +86,7 @@ assert "'data-risk-k':count" in player
 # Each hollow intermediate risk point is inspectable by keyboard and pointer.
 # The inspector shows the exact cumulative error ratio and finite difference
 # to the previous integer cutoff, without selecting an unsupported SVG scene.
-assert "viewBox:riskPlot?'0 0 640 356':'0 0 640 380'" in player
+assert "viewBox:riskPlot?'0 0 640 356':'0 0 640 420'" in player
 # Preserve 640px chart typography on phones; native horizontal scrolling belongs
 # to the focusable figure. width:100% made 12px labels ~6px at 320px.
 assert "width:640px;min-width:640px;max-width:none" in player
@@ -160,6 +160,16 @@ assert "rightMarker.setAttribute('r',selectedRight?'8':'5')" in player
 assert "wrongMarker.setAttribute('r',selectedWrong?'8':'5')" in player
 assert "'data-case-control':cls[0] + (i + 1)" in player
 assert "'data-case-inspection':'true'" in player
+# Single-case reversal is a counterfactual; it must never mutate current bars.
+assert "'data-flip-preview':'true'" in player
+assert "'data-flip-marker':'true'" in player
+assert "const flipMath = entry =>" in player
+assert "const direction = wasAccepted ? -1 : 1" in player
+assert "const correct = kept.filter(item => item.correct).length +" in player
+assert "gap:Math.abs(positive-negative)*25" in player
+assert "flipMarker.setAttribute('visibility',entry?'visible':'hidden')" in player
+assert "flipping only this case would retain" in player
+assert "若只反轉此個案的接受狀態" in player
 assert "control.addEventListener('focus', () => inspectCase(entry))" in player
 assert "control.addEventListener('keydown', event =>" in player
 assert "keyboardStage(event.key,caseTiles.indexOf(entry),7)" in player
@@ -244,6 +254,8 @@ assert "**0/8**" in en and "**0/8**" in zh
 assert "**3/8**" in en and "**3/8**" in zh
 assert "2/3 are wrong" in en and "2/3 原本錯誤" in zh
 assert "conservation of outcomes" in en and "守恆分解" in zh
+assert "one-case counterfactual" in en and "單筆決策敏感度" in zh
+assert "6/6 correct" in en and "6/6 正確" in zh
 assert "hypothetical next-case outcomes" in en and "反事實比較" in zh
 assert "**Two live bars**" in en and "**兩條動態橫條**" in zh
 assert "1/4 = 25%" in en and "2/4 = 50%" in zh
