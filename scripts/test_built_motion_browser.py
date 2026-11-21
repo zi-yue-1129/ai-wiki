@@ -389,6 +389,76 @@ def check_image(page, image, url):
     return image.evaluate("img => ({src: img.src, complete: img.complete, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight})")
 
 
+def check_co_design_timeline(page, image, host, output, index, record, viewport):
+    """Inspect the visible, controllable SVG in a real built MkDocs page.
+
+    The original image remains in the DOM as a no-script fallback but is
+    intentionally hidden while the interactive SVG object is active. Unlike
+    legacy GIF/SVG players, the visible state must be inspected via the object
+    and its controls, not by scrolling the hidden fallback image into view.
+    """
+    frame = host.locator('object.distributed-motion-frame')
+    expect(frame).to_have_count(1)
+    expect(frame).to_be_visible()
+    expect(image).to_be_hidden()
+    assert frame.get_attribute('aria-label') == image.get_attribute('alt')
+    fallback = frame.locator('img')
+    expect(fallback).to_have_count(1)
+    assert fallback.get_attribute('alt') == ''
+    assert fallback.get_attribute('aria-hidden') == 'true'
+    assert fallback.get_attribute('role') == 'presentation'
+    assert page.get_by_alt_text(image.get_attribute('alt'), exact=True).count() == 1
+    assert frame.get_attribute('data').endswith('-motion.svg')
+    page.wait_for_function(
+        '(el) => !!el.contentDocument?.documentElement?.getCurrentTime',
+        arg=frame.element_handle(), timeout=15000)
+    region = host.locator(
+        "xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' concept-motion-scroll ')][1]")
+    controls = region.locator(
+        "xpath=following-sibling::*[contains(concat(' ', normalize-space(@class), ' '), ' co-design-motion-controls ')][1]")
+    expect(controls).to_have_count(1)
+    expect(controls).to_be_visible()
+    expect(host.locator('.concept-motion-controls')).to_be_hidden()
+    buttons = controls.locator('button.concept-motion-toggle')
+    expect(buttons).to_have_count(3)
+    seek = controls.locator('input.distributed-motion-seek')
+    rate = controls.locator('select.distributed-motion-rate')
+    expect(seek).to_be_visible()
+    expect(rate).to_be_visible()
+    get_time = lambda: frame.evaluate(
+        'e => e.contentDocument.documentElement.getCurrentTime()')
+    assert get_time() < 0.1
+    buttons.nth(2).click()  # Semantic next step
+    step_time = get_time()
+    assert step_time > 0.5, ('next step did not advance SVG', step_time)
+    seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
+    seek_time = get_time()
+    assert 8.95 <= seek_time <= 9.05, ('continuous seeking did not advance SVG', seek_time)
+    rate.select_option('2')
+    assert rate.input_value() == '2'
+    buttons.nth(1).click()  # Play at 2x
+    page.wait_for_timeout(240)
+    advanced = get_time()
+    assert advanced > seek_time + 0.08, ('SVG timeline did not play', seek_time, advanced)
+    buttons.nth(1).click()  # Pause
+    paused = get_time()
+    page.wait_for_timeout(120)
+    assert abs(get_time() - paused) < 0.03, 'SVG timeline moved while paused'
+    buttons.nth(0).click()  # Previous semantic step
+    previous = get_time()
+    assert previous < paused - 0.05, ('previous step did not seek backward', paused, previous)
+    assert_document_fits(page, viewport)
+    record['interactive'] = {
+        'visible_svg': True, 'hidden_no_script_fallback': True,
+        'unique_alt': True, 'step_time': step_time,
+        'seek_time': seek_time, 'playing_time': advanced,
+        'paused_time': paused, 'previous_time': previous, 'speed': 2
+    }
+    screenshot = output / f'image-{index}-interactive.png'
+    page.screenshot(path=str(screenshot))
+    record['interactive']['screenshot'] = screenshot.name
+
+
 def check_lazy_image_canary(browser, url, output):
     """Prove native lazy loading and broken-image rejection in isolated Chromium."""
     from playwright.sync_api import TimeoutError as BrowserTimeoutError
@@ -631,6 +701,22 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
             expect(image).to_have_count(1)
             expect(image).to_have_attribute("data-concept-motion-enhanced", "yes")
             host = image.locator("xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' concept-motion-player ')][1]")
+            # Three co-design diagrams are enhanced into same-origin, seekable
+            # SVG objects. Their original <img> is deliberately hidden while
+            # playing; the legacy image/toggle contract applies to all other
+            # diagrams and to the reduced-motion still-image fallback.
+            interactive_names = {
+                'checkpoint-spacing-motion.svg',
+                'fp16-scaling-window-motion.svg',
+                'gradscaler-feedback-motion.svg',
+            }
+            if not reduced and any(asset['motion'].split('?', 1)[0].endswith(name)
+                                   for name in interactive_names):
+                record = {'alt': asset['alt'], 'states': {}}
+                result['images'].append(record)
+                check_co_design_timeline(page, image, host, output, index,
+                                         record, viewport)
+                continue
             toggle = host.locator(".concept-motion-toggle").first
             chinese = bool(re.search(r"[\u3400-\u9fff]", asset["alt"]))
             play = "播放概念動畫" if chinese else "Play concept animation"
