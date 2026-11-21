@@ -311,7 +311,7 @@ for stem in ("gradscaler-feedback-motion", "gradscaler-feedback-still"):
     clocks = list(doc.iter(svg + "animate"))
     if stem.endswith("-motion"):
         assert len(clocks) == 8
-        assert [c.get("attributeName") for c in clocks] == ["cx", "cy"]
+        assert [c.get("attributeName") for c in clocks] == ["cx", "cy"] + ["opacity"] * 6
         assert clocks[0].get("values") == "133;218;303;388;473;558;133"
         assert clocks[1].get("values") == "185;185;115;185;185;115;185"
         assert all(c.get("dur") == "12s" and c.get("repeatCount") == "indefinite" for c in clocks)
@@ -376,3 +376,26 @@ for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     page = (pages / name).read_text(encoding="utf-8")
     assert "NEXT S" in page and "2/2" in page and "2048" in page
 print("GradScaler next-scale and finite-streak bilingual timing contracts OK")
+
+# GitHub and reduced-motion readers can inspect the two-success growth threshold
+# and overflow resets without waiting for a SMIL frame or reading a paragraph.
+for stem in ("gradscaler-feedback-motion", "gradscaler-feedback-still"):
+    root_svg = ET.parse(asset / (stem + ".svg")).getroot()
+    history = [n for n in root_svg.iter(svg + "g")
+               if n.get("data-teaching-role") == "finite-streak-history"]
+    assert len(history) == 1
+    history = history[0]
+    assert [n.text for n in history.findall(svg + "text")] == ["STREAK"]
+    circles = history.findall(svg + "circle")
+    assert [int(n.get("cx")) for n in circles] == [128, 138, 213, 223, 303,
+                                                   383, 393, 468, 478, 558]
+    assert [n.get("fill") for n in circles] == [
+        "#16857f", "#fff", "#16857f", "#16857f", "#fff3e9",
+        "#16857f", "#fff", "#16857f", "#16857f", "#fff3e9"]
+    assert len(history.findall(svg + "path")) == 2
+    assert all(path.get("stroke") == "#b66c39"
+               for path in history.findall(svg + "path"))
+for lang in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    text = (pages / lang).read_text(encoding="utf-8")
+    assert "STREAK" in text and ("filled dot" in text if lang.endswith("precision.md") else "雙圓點" in text)
+print("GradScaler static readable streak and exact six-event visual states OK")
