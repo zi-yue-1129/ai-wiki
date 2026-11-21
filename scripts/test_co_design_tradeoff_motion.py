@@ -29,7 +29,11 @@ for n, held, scratch, peak in ((1,17,0,17),(2,9,1,10),(4,5,3,8),(8,3,7,10),(16,2
 assert 2**-27 < 2**-25 and 2**-17 >= 2**-24
 assert 2**15 <= 65504 and 2**17 > 65504
 for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
-    assert "$\\nM(s)=" in (pages / language).read_text(encoding="utf-8")
+    page = (pages / language).read_text(encoding="utf-8")
+    assert chr(36)*2 + "\nM(s)=" in page
+    assert r"A_0,A_s,\ldots,A_{16}" in page
 for language in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
-    assert "$8\\\\le S\\\\le1024$" in (pages / language).read_text(encoding="utf-8")
+    page = (pages / language).read_text(encoding="utf-8")
+    assert r"8\le S\le1024" in page
+    assert r"g_{\mathrm{low}}=2^{-27}" in page
 print("Co-design dual visual assets, bilingual links, math markup and arithmetic OK")
