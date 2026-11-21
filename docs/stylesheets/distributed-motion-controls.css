@@ -33,3 +33,33 @@
   min-width: 0;
 }
 .co-design-motion-controls .distributed-motion-seek { min-width: 7rem; }
+
+/* A text interpretation of the synthetic current state, outside the 640px
+ * scrollable drawing. Wrap naturally at mobile widths without side scrolling. */
+.distributed-motion-interpretation {
+  flex: 1 0 100%;
+  min-width: 0;
+  margin: .2rem 0 0;
+  padding: .35rem .5rem;
+  border-inline-start: 3px solid var(--md-accent-fg-color, #387e99);
+  color: var(--md-default-fg-color, #24394c);
+  background: var(--md-code-bg-color, #f4f6f8);
+  font-size: .7rem;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+/* Announce seek and step changes without duplicating the interpretation
+ * visually. The visually hidden live region remains screen-reader accessible. */
+.co-design-motion-controls .concept-motion-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

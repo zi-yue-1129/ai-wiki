@@ -99,6 +99,13 @@
       status.setAttribute('role', 'status');
       status.setAttribute('aria-live', 'polite');
       bar.append(status);
+      // A live *visual* state explanation accompanies the underlying SVG.
+      // It is not an aria-live region: requestAnimationFrame must not flood
+      // screen readers. Only explicit step/seek actions announce its content.
+      const interpretation = document.createElement('p');
+      interpretation.className = 'distributed-motion-interpretation';
+      interpretation.setAttribute('aria-live', 'off');
+      if (host.classList.contains('co-design-motion-timeline')) bar.append(interpretation);
       // Keep controls outside the horizontally scrolled 640px figure on
       // narrow co-design pages. This makes every control reachable without
       // panning the figure and retains the original focusable figure region.
@@ -109,11 +116,51 @@
         coDesignRegion.after(bar);
       } else host.append(bar);
 
+      function teachingState(t) {
+        // All values are derived from the same synthetic schedules used by
+        // the reviewed SVGs; none are measured GPU/optimizer observations.
+        if (match[1] === 'checkpoint-spacing') {
+          const phase = Math.min(4, Math.floor(t / 2.4));
+          const spacing = [1, 2, 4, 8, 16][phase];
+          const keep = 16 / spacing + 1, scratch = spacing - 1;
+          const within = Math.max(0, (t - phase * 2.4) / 2.4);
+          const replayed = spacing === 1 ? 0 : Math.min(scratch, Math.floor(within * spacing / 0.9));
+          return label(
+            `s=${spacing} · KEEP ${keep} + REBUILD ${scratch} = PEAK ${keep + scratch} · segment replay ${replayed}/${scratch} (example slots)`,
+            `s=${spacing} · 保留 ${keep} + 重算暫存 ${scratch} = 峰值 ${keep + scratch} · 區段已重建 ${replayed}/${scratch}（示意槽位）`
+          );
+        }
+        if (match[1] === 'fp16-scaling-window') {
+          // 27 equal discrete SMIL frames: 0..12, 12..0, final 0.
+          const frame = Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));
+          const exponent = frame <= 12 ? frame : frame <= 25 ? 25 - frame : 0;
+          const scale = 2 ** exponent;
+          const low = exponent <= 2 ? '0' : 'finite';
+          const high = exponent >= 11 ? 'Inf' : 'finite';
+          return label(
+            `S=2^${exponent} (${scale}) · LOW ${low} · HIGH ${high} · ${exponent >= 11 ? 'SKIP' : 'STEP ELIGIBLE'} (example)`,
+            `S=2^${exponent}（${scale}）· 小梯度${low === '0' ? '歸零' : '非零有限'} · 大梯度${high === 'Inf' ? '溢位' : '有限'} · ${exponent >= 11 ? '跳過更新' : '符合更新條件'}（示意）`
+          );
+        }
+        if (match[1] === 'gradscaler-feedback') {
+          const i = Math.min(5, Math.floor(t / 2));
+          const current = [1024, 1024, 2048, 1024, 1024, 2048][i];
+          const following = [1024, 2048, 1024, 1024, 2048, 1024][i];
+          const check = i === 2 || i === 5 ? 'Inf' : 'finite';
+          const streak = [1, 2, 0, 1, 2, 0][i];
+          return label(
+            `t${i + 1} · S ${current} → NEXT ${following} · ${check} · ${check === 'Inf' ? 'skip / reset' : streak === 2 ? 'grow after 2/2' : 'streak 1/2'} (example)`,
+            `t${i + 1} · 當次 ${current} → 下次 ${following} · ${check === 'Inf' ? '溢位、跳過並重設' : streak === 2 ? '連續通過 2/2，放大' : '連續通過 1/2'}（示意）`
+          );
+        }
+        return '';
+      }
       function draw() {
         if (!svg) return;
         svg.setCurrentTime(Math.min(time, config.duration - 0.001));
         seek.value = String(Math.round(time / config.duration * 1000));
         readout.textContent = time.toFixed(1) + ' / ' + config.duration + 's';
+        if (interpretation.isConnected) interpretation.textContent = teachingState(time);
         play.textContent = playing ? label('Ⅱ Pause', 'Ⅱ 暫停') : label('▶ Play', '▶ 播放');
         play.setAttribute('aria-label', playing ? label('Pause animation', '暫停動畫') : label('Play animation', '播放動畫'));
       }
@@ -148,11 +195,17 @@
           ? ordered.find(t => t > time + 0.05)
           : [...ordered].reverse().find(t => t < time - 0.05);
         setTime(candidate ?? (direction > 0 ? config.duration - 0.001 : 0));
-        status.textContent = label('Animation at ', '動畫時間 ') + time.toFixed(1) + 's';
+        status.textContent = interpretation.isConnected ? interpretation.textContent
+          : label('Animation at ', '動畫時間 ') + time.toFixed(1) + 's';
       }
       prev.addEventListener('click', () => step(-1));
       next.addEventListener('click', () => step(1));
-      seek.addEventListener('input', () => { const selected = Number(seek.value); stop(); setTime(selected / 1000 * config.duration); });
+      seek.addEventListener('input', () => {
+        const selected = Number(seek.value);
+        stop(); setTime(selected / 1000 * config.duration);
+        status.textContent = interpretation.isConnected ? interpretation.textContent
+          : label('Animation at ', '動畫時間 ') + time.toFixed(1) + 's';
+      });
       rate.addEventListener('change', () => { speed = Number(rate.value); last = 0; });
       const onReduce = event => {
         stop();

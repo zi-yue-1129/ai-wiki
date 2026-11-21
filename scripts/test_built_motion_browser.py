@@ -430,12 +430,36 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     get_time = lambda: frame.evaluate(
         'e => e.contentDocument.documentElement.getCurrentTime()')
     assert get_time() < 0.1
+    # The text companion must explain the *mathematical state*, not only the
+    # playback timestamp. The visible paragraph updates each frame, whereas
+    # the screen-reader live region speaks only after user-triggered changes.
+    interpretation = controls.locator('.distributed-motion-interpretation')
+    expect(interpretation).to_be_visible()
+    assert interpretation.get_attribute('aria-live') == 'off'
+    stem = frame.get_attribute('data').rsplit('/', 1)[-1].removesuffix('-motion.svg')
+    initial_tokens = {
+        'checkpoint-spacing': ('s=1', '17'),
+        'fp16-scaling-window': ('2^0', '1'),
+        'gradscaler-feedback': ('t1', '1024'),
+    }
+    assert stem in initial_tokens, ('unexpected interactive motion asset', stem)
+    initial_summary = interpretation.inner_text()
+    assert all(token in initial_summary for token in initial_tokens[stem]), (stem, initial_summary)
     buttons.nth(2).click()  # Semantic next step
+    assert controls.locator('.concept-motion-status').inner_text() == interpretation.inner_text()
     step_time = get_time()
     assert step_time > 0.5, ('next step did not advance SVG', step_time)
     seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
     seek_time = get_time()
     assert 8.95 <= seek_time <= 9.05, ('continuous seeking did not advance SVG', seek_time)
+    selected_summary = interpretation.inner_text()
+    selected_tokens = {
+        'checkpoint-spacing': ('s=8', '10'),
+        'fp16-scaling-window': ('2^6', '64'),
+        'gradscaler-feedback': ('t5', '1024'),
+    }
+    assert all(token in selected_summary for token in selected_tokens[stem]), (stem, selected_summary)
+    assert controls.locator('.concept-motion-status').inner_text() == selected_summary
     rate.select_option('2')
     assert rate.input_value() == '2'
     buttons.nth(1).click()  # Play at 2x
@@ -454,7 +478,8 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         'visible_svg': True, 'hidden_no_script_fallback': True,
         'unique_alt': True, 'step_time': step_time,
         'seek_time': seek_time, 'playing_time': advanced,
-        'paused_time': paused, 'previous_time': previous, 'speed': 2
+        'paused_time': paused, 'previous_time': previous, 'speed': 2,
+        'semantic_initial': initial_summary, 'semantic_seek': selected_summary
     }
     screenshot = output / f'image-{index}-interactive.png'
     page.screenshot(path=str(screenshot))

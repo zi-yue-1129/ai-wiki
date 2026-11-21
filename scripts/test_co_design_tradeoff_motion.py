@@ -444,3 +444,24 @@ assert "fallback.setAttribute('role', 'presentation')" in controls_js
 assert "frame.append(fallback)" in controls_js
 assert "frame.append(img.cloneNode(true))" not in controls_js
 print("Accessible SVG fallback does not duplicate the original alt text OK")
+
+
+# The player exposes a localized textual explanation of each synthetic state,
+# not merely a playback timestamp. Assistive announcements happen only for
+# explicit step/seek operations, rather than on every animation frame.
+assert "function teachingState(t)" in controls_js
+assert "interpretation.setAttribute('aria-live', 'off')" in controls_js
+assert "status.textContent = interpretation.isConnected ? interpretation.textContent" in controls_js
+assert "Math.floor(t / 2.4)" in controls_js  # Five checkpoint stages.
+assert "const keep = 16 / spacing + 1, scratch = spacing - 1" in controls_js
+assert "Math.floor(t / config.duration * 26 + 1e-6)" in controls_js  # 27 FP16 states.
+assert "const scale = 2 ** exponent" in controls_js
+assert "const following = [1024, 2048, 1024, 1024, 2048, 1024]" in controls_js
+assert ".distributed-motion-interpretation" in controls_css
+assert ".co-design-motion-controls .concept-motion-status" in controls_css
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+             "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    page = (pages / name).read_text(encoding="utf-8")
+    assert ("synchronized" if name.endswith(("checkpointing.md", "precision.md"))
+            else "同步文字解讀") in page
+print("Co-design synchronized numerical interpretation, bilingual copy and accessible announcements OK")
