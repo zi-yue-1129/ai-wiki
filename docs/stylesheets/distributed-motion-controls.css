@@ -13,3 +13,23 @@
 @media (prefers-reduced-motion: reduce) { .distributed-motion-controls { scroll-behavior: auto; } }
 .concept-motion-player img[hidden] { display: none !important; }
 .concept-motion-player .concept-motion-controls[hidden] { display: none !important; }
+
+/* Co-design pages already provide a focusable horizontal scroll region.
+ * Let that outer region pan the 640px figure instead of introducing an
+ * inaccessible nested horizontal scroller around the controls. */
+@media (max-width: 720px) {
+  .concept-motion-scroll > .concept-motion-player.co-design-motion-timeline {
+    width: 640px;
+    min-width: 640px;
+    max-width: none;
+    overflow-x: visible;
+  }
+}
+
+/* Co-design controls are siblings of the horizontal figure viewport. */
+.co-design-motion-controls {
+  width: 100%;
+  max-width: 640px;
+  min-width: 0;
+}
+.co-design-motion-controls .distributed-motion-seek { min-width: 7rem; }
