@@ -47,7 +47,7 @@ def run():
     assert len(bracket) == 1
     assert bracket[0].get('d') == 'M238 304V315 M238 310H328 M328 304V315'
     assert 328 - 238 == 360 / 4
-    assert 'Neither is a new observed prediction' in risk.find('svg:desc', NS).text
+    assert 'not a confidence interval or an observed prediction' in risk.find('svg:desc', NS).text
     circles = [(float(n.get('cx')), float(n.get('cy')))
                for n in risk.findall('.//svg:circle', NS)]
     assert len(circles) == 6
