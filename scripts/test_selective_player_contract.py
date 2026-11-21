@@ -86,7 +86,7 @@ assert "'data-risk-k':count" in player
 # Each hollow intermediate risk point is inspectable by keyboard and pointer.
 # The inspector shows the exact cumulative error ratio and finite difference
 # to the previous integer cutoff, without selecting an unsupported SVG scene.
-assert "viewBox:riskPlot?'0 0 640 356':'0 0 640 260'" in player
+assert "viewBox:riskPlot?'0 0 640 356':'0 0 640 380'" in player
 # Preserve 640px chart typography on phones; native horizontal scrolling belongs
 # to the focusable figure. width:100% made 12px labels ~6px at 320px.
 assert "width:640px;min-width:640px;max-width:none" in player
@@ -142,6 +142,13 @@ assert "showInspection(focusedRiskCount() ?? accepted[activeRiskIndex])" in play
 assert "showInspection(accepted[i], true)" in player
 assert "const overall = write(116,155" in player
 assert "'data-class-gap':'true'" in player
+assert "'data-case-id':cls[0]+(i+1)" in player
+assert "'data-case-correct':String(correct)" in player
+assert "'data-case-accepted':'true'" in player
+assert "['POS',[true,false,false,true],294]" in player
+assert "['NEG',[true,true,true,true],325]" in player
+assert "tile.setAttribute('data-case-accepted',String(accepted))" in player
+assert "caseTiles.forEach(({tile,cls,i}) =>" in player
 assert "'data-rejected-metrics':'true'" in player
 assert "'data-correct-balance':'true'" in player
 assert "'data-wrong-balance':'true'" in player
