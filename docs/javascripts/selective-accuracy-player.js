@@ -46,13 +46,13 @@
       return el;
     };
     const riskPlot = filename === 'accuracy-selective-coverage-motion.svg';
-    const plot = node('svg', {viewBox:riskPlot?'0 0 640 356':'0 0 640 260',
+    const plot = node('svg', {viewBox:riskPlot?'0 0 640 356':'0 0 640 380',
       role:'group',
       class:'selective-linked-plot'});
     // Retain native-width labels on phones. The focusable parent figure owns
     // horizontal scrolling; scaling this 640px chart to 320px halves 12px text.
     plot.style.cssText = 'display:block;width:640px;min-width:640px;max-width:none;height:auto;margin:10px 0';
-    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?354:258,rx:12,
+    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?354:378,rx:12,
       fill:'#f8fafc',stroke:'#d4deec'}));
     const write = (x,y,label,attrs={}) => {
       const text = node('text',
@@ -468,10 +468,50 @@
       const wrongBalance = write(56,246,'WRONG 2 = 2 accepted + 0 rejected',
         {'font-size':13,'font-weight':700,fill:'#193e69',
           'data-wrong-balance':'true'});
+      // Eight fixed case outcomes expose what selective accuracy omits.
+      // Correctness never changes when an acceptance rule changes.
+      plot.append(node('path',{d:'M 35 260 H 605',
+        stroke:'#d4deec','stroke-width':1}));
+      write(35,281,'CASE OUTCOMES',{'font-weight':700,'font-size':12});
+      const caseTiles = [];
+      for (const [cls,outcomes,y] of [
+        ['POS',[true,false,false,true],294],
+        ['NEG',[true,true,true,true],325],
+      ]) {
+        write(35,y+18,cls,{'font-weight':700,'font-size':13});
+        outcomes.forEach((correct,i) => {
+          const x = 116 + 74*i;
+          const tile = node('rect',{x,y,width:66,height:24,rx:7,
+            fill:'#e3f0ef',stroke:'#087e85','stroke-width':1.5,
+            'data-case-id':cls[0]+(i+1),
+            'data-case-correct':String(correct),
+            'data-case-accepted':'true'});
+          plot.append(tile);
+          write(x+9,y+17,cls[0]+(i+1),{'font-size':12,
+            'font-weight':700,fill:'#193e69'});
+          write(x+45,y+17,correct?'✓':'×',{'font-size':15,
+            'font-weight':700,fill:correct?'#0d626a':'#b45336'});
+          caseTiles.push({tile,cls,i});
+        });
+      }
+      write(470,310,'TEAL accepted',{'font-size':12,
+        'font-weight':700,fill:'#0d626a'});
+      write(470,340,'PALE rejected',{'font-size':12,'font-weight':700});
+      write(116,368,'✓  correct',{'font-size':12,
+        'font-weight':700,fill:'#0d626a'});
+      write(270,368,'×  wrong',{'font-size':12,
+        'font-weight':700,fill:'#b45336'});
       update = index => {
         classChoices.forEach(({control,paint},i) => {
           control.setAttribute('aria-pressed',String(i===index));
           paint(i===index);
+        });
+        caseTiles.forEach(({tile,cls,i}) => {
+          const accepted = index === 0 || cls === 'NEG' || i === 0;
+          tile.setAttribute('fill',accepted?'#e3f0ef':'#eef2f7');
+          tile.setAttribute('stroke',accepted?'#087e85':'#9aacc1');
+          tile.setAttribute('stroke-dasharray',accepted?'none':'4 3');
+          tile.setAttribute('data-case-accepted',String(accepted));
         });
         const positive=index===0?4:1;
         bars[0].fill.setAttribute('width',String(415*positive/4));
@@ -497,8 +537,8 @@
         wrongBalance.textContent = 'WRONG 2 = ' + keptWrong +
           ' accepted + ' + rejectedWrong + ' rejected';
         plot.setAttribute('aria-label',zh
-          ? '類別覆蓋率：整體接受 ' + (index===0?'8/8':'5/8') + '，正類別 ' + positive + '/4，負類別 4/4，兩類別覆蓋差距 ' + gapPp + ' 個百分點。' + (rejectedCount === 0 ? '沒有拒答樣本，拒答樣本正確率未定義。' : '拒答 ' + rejectedCount + '/8，當中正確 ' + rejectedCorrect + '/' + rejectedCount + '，錯誤 ' + rejectedWrong + '/' + rejectedCount + '。') + '正確預測總數 6、錯誤預測總數 2，在接受與拒答之間重新分配但加總不變。兩條橫條代表保留比例。'
-          : 'Class coverage: ' + (index===0?'8/8':'5/8') + ' accepted, positive ' + positive + '/4, negative 4/4, absolute class coverage gap ' + gapPp + ' percentage points. ' + (rejectedCount === 0 ? 'No rejected cases; rejected-only accuracy is undefined. ' : rejectedCount + '/8 rejected, with ' + rejectedCorrect + '/' + rejectedCount + ' correct and ' + rejectedWrong + '/' + rejectedCount + ' wrong. ') + 'The six correct and two wrong predictions are partitioned, not repaired. Two bars show acceptance rates.');
+          ? '類別覆蓋率：整體接受 ' + (index===0?'8/8':'5/8') + '，正類別 ' + positive + '/4，負類別 4/4，兩類別覆蓋差距 ' + gapPp + ' 個百分點。' + (rejectedCount === 0 ? '沒有拒答樣本，拒答樣本正確率未定義。' : '拒答 ' + rejectedCount + '/8，當中正確 ' + rejectedCorrect + '/' + rejectedCount + '，錯誤 ' + rejectedWrong + '/' + rejectedCount + '。') + '正確預測總數 6、錯誤預測總數 2，在接受與拒答之間重新分配但加總不變。兩條橫條代表保留比例；八格個案的預測對錯不變，只有接受或拒答狀態改變。'
+          : 'Class coverage: ' + (index===0?'8/8':'5/8') + ' accepted, positive ' + positive + '/4, negative 4/4, absolute class coverage gap ' + gapPp + ' percentage points. ' + (rejectedCount === 0 ? 'No rejected cases; rejected-only accuracy is undefined. ' : rejectedCount + '/8 rejected, with ' + rejectedCorrect + '/' + rejectedCount + ' correct and ' + rejectedWrong + '/' + rejectedCount + ' wrong. ') + 'The six correct and two wrong predictions are partitioned, not repaired. Two bars show acceptance rates. Eight case tiles retain their right/wrong outcomes while acceptance styling changes.');
       };
     }
     return {element:plot, update:index => {
