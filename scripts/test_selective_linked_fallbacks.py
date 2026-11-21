@@ -60,11 +60,13 @@ def run():
     assert len(circles) == 6
     assert [round(x) for x, _ in circles] == [160, 240, 320, 400, 480, 560]
     assert [round((144 - y) / 200 * 100) for _, y in circles] == [0, 0, 33, 25, 40, 33]
-    assert [c.get('data-risk-k') for c in risk.findall('.//svg:circle', NS)] == [
+    risk_dots = [c for c in risk.findall('.//svg:circle', NS)
+                 if c.get('data-risk-k')]
+    assert [c.get('data-risk-k') for c in risk_dots] == [
         '1', '2', '3', '4', '5', '6']
     assert circles[2][1] < circles[3][1]  # 1/3 -> 1/4: risk drops
     assert circles[4][1] < circles[5][1]  # 2/5 -> 2/6: risk drops
-    assert [c.get('fill') for c in risk.findall('.//svg:circle', NS)] == [
+    assert [c.get('fill') for c in risk_dots] == [
         '#f8fafc', '#087e85', '#f8fafc', '#087e85', '#f8fafc', '#087e85']
 
     coverage = check_svg('accuracy-selective-class-coverage-linked-still',
