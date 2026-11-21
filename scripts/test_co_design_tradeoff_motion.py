@@ -430,3 +430,17 @@ for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     else:
         assert "Previous/Next Step" in body and "seek" in body and "speed" in body
 print("Co-design semantic stepping, mobile controls and bilingual operation guidance OK")
+
+
+# A visually inactive <object> fallback must not duplicate the source image's
+# alt description. Playwright get_by_alt_text(..., exact=True) used to find TWO
+# matches in every enhanced co-design chapter, failing the built MkDocs CI.
+# The object carries the accessible label; its nested image is decorative.
+assert "frame.setAttribute('aria-label', img.alt || match[1])" in controls_js
+assert "const fallback = img.cloneNode(true)" in controls_js
+assert "fallback.alt = ''" in controls_js
+assert "fallback.setAttribute('aria-hidden', 'true')" in controls_js
+assert "fallback.setAttribute('role', 'presentation')" in controls_js
+assert "frame.append(fallback)" in controls_js
+assert "frame.append(img.cloneNode(true))" not in controls_js
+print("Accessible SVG fallback does not duplicate the original alt text OK")
