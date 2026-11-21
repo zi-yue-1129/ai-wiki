@@ -50,7 +50,7 @@ translation_reviewed: 2026-11-21
 ### 損失縮放的有效區間：救回微小梯度，也可能使大梯度溢位
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的 FP16 損失縮放區間動畫">
-<img data-source-asset-urls src="../../../assets/concept-animations/fp16-scaling-window-still.svg" data-motion-src="../../../assets/concept-animations/fp16-scaling-window-motion.svg" data-still-src="../../../assets/concept-animations/fp16-scaling-window-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="兩個人工梯度二的負二十七次方及二的五次方，隨共同縮放係數以二的整數次方從一倍逐級增加至 4096 倍，再依序退回。下方同步讀數顯示：一至四倍時小梯度捨入成零、八至 1024 倍時兩者均可表示、2048 倍起大梯度上溢；紫色虛線連接兩筆梯度並保留 32 個指數的固定間距；垂直虛線標示二的負二十五次方的捨入為零中點。" />
+<img data-source-asset-urls src="../../../assets/concept-animations/fp16-scaling-window-still.svg" data-motion-src="../../../assets/concept-animations/fp16-scaling-window-motion.svg" data-still-src="../../../assets/concept-animations/fp16-scaling-window-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="兩個人工梯度二的負二十七次方及二的五次方，隨共同縮放係數以二的整數次方從一倍逐級增加至 4096 倍，再依序退回。下方同步讀數顯示：一至四倍時小梯度捨入成零、八至 1024 倍時兩者均可表示、2048 倍起大梯度上溢；紫色虛線保留 32 個指數的固定間距；LOW／HIGH 旁的小標記分別顯示捨入後的 0、OK 或 INF，不會改動捨入前圓點的位置；垂直虛線標示二的負二十五次方的捨入為零中點。" />
 </div>
 
 *原創逐級 SVG 教學動畫與 GitHub 三情境回退圖，CC BY-SA 4.0。* 設兩個**人工梯度** $g_{\mathrm{low}}=2^{-27}$、$g_{\mathrm{high}}=2^5$，在以 FP16 表示**之前**，先乘上相同的二次方縮放係數 $S$。對支援次正規數、採最接近且同距取偶數捨入的 IEEE binary16，最小正次正規數是 $2^{-24}$，最大有限數是 **65504**。當 $S=1$，小梯度會捨入為零；當 $S=2^{10}=1024$，兩者為 $2^{-17}$ 與 $2^{15}$，都可表示；當 $S=2^{12}=4096$，大梯度變成 $2^{17}$，造成上溢。對這**兩個特定數值與二次方縮放設定**，兩者都保持非零且有限的範圍為 **$8\le S\le1024$**，此處的 $S$ 只取 2 的整數次方。
@@ -66,7 +66,7 @@ $
 \end{aligned}
 $
 
-共同的 $S$ 不會縮小兩種梯度間的動態範圍；因此安全的縮放係數須同時滿足 FP16 的上下數值邊界。回到色帶判讀：左側橘紅區現在以虛線標出精確的 $2^{-25}$ **捨入為零中點**，而不是錯把最小正次正規數 $2^{-24}$ 當成捨入界線；恰好位於中點仍捨入為零，略高於中點則可能捨入成非零的次正規數。圓點位置表示**捨入前**的 $|Sg|$，下方狀態則表示**經 binary16 捨入後**的結果。右側橘紅區代表本例所採用的 2 的整數次方中，第一個溢位的 $2^{16}$，不是所有實數輸入的精確溢位門檻。這些都是**可驗算的人工數值，不是模型實測**，也不是通用的安全縮放區間。實際梯度分布會變動，部分硬體會將次正規數沖零，許多運算也會在 FP32 累加。更新最佳化器前仍須將梯度除回原本的縮放係數，如前節所述。MkDocs 可播放／暫停；GitHub 的[三情境靜態比較](../../../assets/concept-animations/fp16-scaling-window-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/fp16-scaling-window-motion.svg)可分別查看結果與連續跨界過程，減少動態效果模式會呈現靜態版本。
+共同的 $S$ 不會縮小兩種梯度間的動態範圍；因此安全的縮放係數須同時滿足 FP16 的上下數值邊界。回到色帶判讀：左側橘紅區現在以虛線標出精確的 $2^{-25}$ **捨入為零中點**，而不是錯把最小正次正規數 $2^{-24}$ 當成捨入界線；恰好位於中點仍捨入為零，略高於中點則可能捨入成非零的次正規數。圓點位置表示**捨入前**的 $|Sg|$，下方狀態則表示**經 binary16 捨入後**的結果。新增的 **LOW／HIGH** 行內標記會獨立顯示每筆梯度的捨入結果：LOW 在 $S=1$–$4$ 顯示 `0`，從 $S=8$ 起顯示 `OK`；HIGH 到 $S=1024$ 仍是 `OK`，但在 $S=2048$–$4096$ 變為 `INF`。`OK` 只代表**非零且有限**，並不保證數值準確性或訓練品質。藉此把捨入前的座標和實際 binary16 的有限性結果分開理解。右側橘紅區代表本例所採用的 2 的整數次方中，第一個溢位的 $2^{16}$，不是所有實數輸入的精確溢位門檻。這些都是**可驗算的人工數值，不是模型實測**，也不是通用的安全縮放區間。實際梯度分布會變動，部分硬體會將次正規數沖零，許多運算也會在 FP32 累加。更新最佳化器前仍須將梯度除回原本的縮放係數，如前節所述。MkDocs 可播放／暫停；GitHub 的[三情境靜態比較](../../../assets/concept-animations/fp16-scaling-window-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/fp16-scaling-window-motion.svg)可分別查看結果與連續跨界過程，減少動態效果模式會呈現靜態版本。
 
 ## 結果
 
