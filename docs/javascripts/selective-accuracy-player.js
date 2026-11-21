@@ -46,13 +46,13 @@
       return el;
     };
     const riskPlot = filename === 'accuracy-selective-coverage-motion.svg';
-    const plot = node('svg', {viewBox:riskPlot?'0 0 640 356':'0 0 640 380',
+    const plot = node('svg', {viewBox:riskPlot?'0 0 640 356':'0 0 640 420',
       role:'group',
       class:'selective-linked-plot'});
     // Retain native-width labels on phones. The focusable parent figure owns
     // horizontal scrolling; scaling this 640px chart to 320px halves 12px text.
     plot.style.cssText = 'display:block;width:640px;min-width:640px;max-width:none;height:auto;margin:10px 0';
-    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?354:378,rx:12,
+    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?354:418,rx:12,
       fill:'#f8fafc',stroke:'#d4deec'}));
     const write = (x,y,label,attrs={}) => {
       const text = node('text',
@@ -442,6 +442,12 @@
         plot.append(value);
         bars.push({fill,value});
       }
+      // Dashed ghost endpoint: flipping one case changes just its class
+      // coverage numerator, not the current acceptance mask or predictions.
+      const flipMarker = node('line',{x1:116,x2:116,y1:55,y2:90,
+        stroke:'#b45336','stroke-width':2.5,'stroke-dasharray':'4 3',
+        'aria-hidden':'true',visibility:'hidden','data-flip-marker':'true'});
+      plot.append(flipMarker);
       // Visible accepted/total and correct/accepted ratios highlight why a
       // perfect accepted-only accuracy need not mean equal class coverage.
       write(35,155,'OVERALL',{'font-weight':700,'font-size':12});
@@ -492,6 +498,27 @@
       const caseInspection = write(116,368,'✓ right · × wrong',{
         'font-size':12,'font-weight':700,fill:'#193e69',
         'data-case-inspection':'true'});
+      plot.append(node('path',{d:'M 35 380 H 605',
+        stroke:'#d4deec','stroke-width':1}));
+      write(35,401,'FLIP',{'font-weight':700,'font-size':12});
+      const flipPreview = write(116,401,'FOCUS A CASE TO PREVIEW FLIP',{
+        'font-size':12,'font-weight':700,fill:'#193e69',
+        'data-flip-preview':'true'});
+      const flipMath = entry => {
+        const kept = caseTiles.filter(({tile}) =>
+          tile.getAttribute('data-case-accepted') === 'true');
+        const wasAccepted = entry.tile.getAttribute('data-case-accepted') === 'true';
+        const direction = wasAccepted ? -1 : 1;
+        const accepted = kept.length + direction;
+        const correct = kept.filter(item => item.correct).length +
+          (entry.correct ? direction : 0);
+        const positive = kept.filter(item => item.cls === 'POS').length +
+          (entry.cls === 'POS' ? direction : 0);
+        const negative = kept.filter(item => item.cls === 'NEG').length +
+          (entry.cls === 'NEG' ? direction : 0);
+        return {accepted,correct,positive,negative,
+          gap:Math.abs(positive-negative)*25};
+      };
       let inspectedCase = null;
       const inspectCase = entry => {
         inspectedCase = entry;
@@ -506,6 +533,22 @@
         rightBalance.setAttribute('fill',selectedRight?'#087e85':'#193e69');
         wrongBalance.setAttribute('fill',selectedWrong?'#b45336':'#193e69');
         contribution.setAttribute('visibility',entry?'visible':'hidden');
+        flipMarker.setAttribute('visibility',entry?'visible':'hidden');
+        if (entry) {
+          const flipped = flipMath(entry);
+          const markerX = 116 + 415 *
+            (entry.cls === 'POS' ? flipped.positive : flipped.negative) / 4;
+          flipMarker.setAttribute('x1',String(markerX));
+          flipMarker.setAttribute('x2',String(markerX));
+          flipMarker.setAttribute('y1',entry.cls === 'POS' ? '55' : '103');
+          flipMarker.setAttribute('y2',entry.cls === 'POS' ? '90' : '138');
+          flipPreview.textContent = entry.cls[0] + (entry.i + 1) +
+            ' → ' + flipped.correct + '/' + flipped.accepted +
+            ' RIGHT · POS ' + flipped.positive + '/4 · NEG ' +
+            flipped.negative + '/4 · GAP ' + flipped.gap + ' pp';
+        } else {
+          flipPreview.textContent = 'FOCUS A CASE TO PREVIEW FLIP';
+        }
         if (entry) {
           const accepted = entry.tile.getAttribute('data-case-accepted') === 'true';
           contributionBg.setAttribute('y',entry.correct?'205':'230');
@@ -606,6 +649,23 @@
               '; contributes one to the ' + (correct?'right':'wrong') +
               '-' + (accepted?'accepted':'rejected') +
               ' count; use arrow keys for adjacent cases');
+        });
+        // Localize the one-bit counterfactual on each keyboard control.
+        caseTiles.forEach(entry => {
+          const flipped = flipMath(entry);
+          const addition = zh
+            ? '；若只反轉此個案的接受狀態，接受 ' +
+              flipped.accepted + ' 筆，正確 ' + flipped.correct +
+              ' 筆；正類覆蓋 ' + flipped.positive +
+              '/4，負類覆蓋 ' + flipped.negative +
+              '/4，差距 ' + flipped.gap + ' 個百分點'
+            : '; flipping only this case would retain ' +
+              flipped.accepted + ' cases with ' + flipped.correct +
+              ' correct; positive coverage ' + flipped.positive +
+              '/4, negative coverage ' + flipped.negative +
+              '/4, gap ' + flipped.gap + ' percentage points';
+          entry.control.setAttribute('aria-label',
+            entry.control.getAttribute('aria-label') + addition);
         });
         inspectCase(inspectedCase);
         const positive=index===0?4:1;
