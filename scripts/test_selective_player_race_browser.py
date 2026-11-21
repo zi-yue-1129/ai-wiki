@@ -354,7 +354,7 @@ def run():
                             assert gap.text_content() == "GAP 75 pp"
                             rejected = plot.locator("text[data-rejected-metrics]")
                             assert rejected.count() == 1
-                            assert plot.get_attribute("viewBox") == "0 0 640 380"
+                            assert plot.get_attribute("viewBox") == "0 0 640 420"
                             cases = plot.locator("rect[data-case-id]")
                             assert cases.count() == 8
                             assert [cases.nth(i).get_attribute("data-case-correct")
@@ -385,6 +385,16 @@ def run():
                             wrong_dot = plot.locator("circle[cx='40'][cy='241']")
                             assert chip.get_attribute("visibility") == "visible"
                             assert chip.locator("text").text_content() == "+1 OUT"
+                            flip = plot.locator("text[data-flip-preview]")
+                            marker = plot.locator("line[data-flip-marker]")
+                            assert flip.text_content() == (
+                                "P4 → 6/6 RIGHT · POS 2/4 · NEG 4/4 · GAP 50 pp")
+                            assert marker.get_attribute("visibility") == "visible"
+                            assert marker.get_attribute("x1") == "323.5"
+                            assert marker.get_attribute("y1") == "55"
+                            assert (("若只反轉" if zh else "flipping only") in
+                                    case_controls.nth(3).get_attribute("aria-label"))
+                            assert cases.nth(3).get_attribute("data-case-accepted") == "false"
                             assert chip.locator("rect").get_attribute("y") == "205"
                             assert right_dot.get_attribute("r") == "8"
                             assert wrong_dot.get_attribute("r") == "5"
@@ -406,6 +416,8 @@ def run():
                             assert case_controls.nth(2).evaluate(
                                 "(e) => document.activeElement === e")
                             assert detail.text_content() == "P3: WRONG · REJECTED → +1 OUT"
+                            assert flip.text_content() == (
+                                "P3 → 5/6 RIGHT · POS 2/4 · NEG 4/4 · GAP 50 pp")
                             assert chip.locator("text").text_content() == "+1 OUT"
                             assert chip.locator("rect").get_attribute("y") == "230"
                             assert right_dot.get_attribute("r") == "5"
@@ -413,8 +425,13 @@ def run():
                             assert plot.locator("text[data-wrong-balance]").get_attribute("fill") == "#b45336"
                             page.keyboard.press("Home")
                             assert detail.text_content() == "P1: RIGHT · ACCEPTED → +1 IN"
+                            assert flip.text_content() == (
+                                "P1 → 4/4 RIGHT · POS 0/4 · NEG 4/4 · GAP 100 pp")
                             page.keyboard.press("End")
                             assert detail.text_content() == "N4: RIGHT · ACCEPTED → +1 IN"
+                            assert flip.text_content() == (
+                                "N4 → 4/4 RIGHT · POS 1/4 · NEG 3/4 · GAP 50 pp")
+                            assert marker.get_attribute("y1") == "103"
                             page.keyboard.press("Space")
                             assert slider.input_value() == "40"
                             bounds = detail.evaluate("""el => {
@@ -422,7 +439,7 @@ def run():
                               return {left:b.x,right:b.x+b.width,bottom:b.y+b.height};
                             }""")
                             assert bounds["left"] >= 0 and bounds["right"] <= 630
-                            assert bounds["bottom"] <= 380
+                            assert bounds["bottom"] <= 420
                             assert rejected.text_content() == (
                                 "3/8 rejected · 1/3 correct · 2/3 wrong")
                             right = plot.locator("text[data-correct-balance]")
@@ -461,6 +478,8 @@ def run():
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#ffffff"
                             case_controls.nth(3).focus()
                             assert detail.text_content() == "P4: RIGHT · ACCEPTED → +1 IN"
+                            assert flip.text_content() == (
+                                "P4 → 5/7 RIGHT · POS 3/4 · NEG 4/4 · GAP 25 pp")
                             assert chip.locator("text").text_content() == "+1 IN"
                             assert chip.locator("rect").get_attribute("fill") == "#e3f0ef"
                             assert chip.locator("rect").get_attribute("y") == "205"
@@ -470,6 +489,8 @@ def run():
                             choices.nth(0).focus()
                             assert detail.text_content() == "✓ right · × wrong"
                             assert chip.get_attribute("visibility") == "hidden"
+                            assert marker.get_attribute("visibility") == "hidden"
+                            assert flip.text_content() == "FOCUS A CASE TO PREVIEW FLIP"
                             assert right_dot.get_attribute("r") == "5"
                             assert wrong_dot.get_attribute("r") == "5"
                             assert "8/8" in calculation.inner_text()
