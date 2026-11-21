@@ -162,3 +162,49 @@ for suffix in (".md", ".zh-TW.md"):
     assert r"\begin{aligned}" in mixed
     assert r"\log_2\frac" in mixed
     assert r"\log_2|Sg_" not in mixed
+
+
+# A real forward-replay cursor traverses only the active checkpoint segment.
+cursor = [n for n in check.iter(svg + "circle")
+          if n.get("data-teaching-role") == "segment-replay-cursor"]
+assert len(cursor) == 1
+cursor_node = cursor[0]
+assert cursor_node.get("class") == "motion-only" and cursor_node.get("cy") == "111"
+cursor_clocks = {n.get("attributeName"): n for n in cursor_node.findall(svg + "animate")}
+assert set(cursor_clocks) == {"cx", "opacity"}
+expected_keys = "0;0.2;0.38;0.4;0.4001;0.58;0.6;0.6001;0.78;0.8;0.8001;0.98;1"
+assert cursor_clocks["cx"].get("keyTimes") == expected_keys
+assert cursor_clocks["cx"].get("values") == "543;514;572;572;456;572;572;340;572;572;108;572;572"
+assert cursor_clocks["cx"].get("calcMode") == "linear"
+assert cursor_clocks["opacity"].get("values") == "0;1;1;1;1;1;1;1;1;1;1;1;0"
+assert cursor_clocks["opacity"].get("calcMode") == "discrete"
+assert all(clock.get("dur") == "12s" for clock in cursor_clocks.values())
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
+    page = (pages / name).read_text(encoding="utf-8")
+    assert "forward recomputation" in page if name.endswith("ing.md") else "前向重算" in page
+
+# The two gradient rows distinguish raw plotted magnitude from rounded FP16 fate.
+rounded = [n for n in fp.iter(svg + "g")
+           if n.get("data-teaching-role") == "rounded-outcomes"]
+assert len(rounded) == 1
+rounded_animated = [n for n in rounded[0].iter(svg + "text")
+                    if n.find(svg + "animate") is not None]
+assert [(n.get("y"), n.text) for n in rounded_animated] == [
+    ("153", "0"), ("153", "OK"), ("218", "OK"), ("218", "INF")]
+masks = (lambda k: k < 3, lambda k: k >= 3,
+         lambda k: k <= 10, lambda k: k > 10)
+for node, cond in zip(rounded_animated, masks):
+    clock = node.find(svg + "animate")
+    assert clock.get("calcMode") == "discrete" and clock.get("dur") == "12s"
+    assert [int(v) for v in clock.get("values").split(";")] == [
+        int(cond(k)) for k in frames]
+    assert len(clock.get("keyTimes").split(";")) == len(frames)
+# The static reduced-motion state is S=1024: LOW/HIGH are both OK.
+reduced_group = next(n for n in rounded[0].findall(svg + "g")
+                     if n.get("class") == "reduced-only")
+assert [(n.get("y"), n.text) for n in reduced_group.findall(svg + "text")] == [
+    ("153", "OK"), ("218", "OK")]
+for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    page = (pages / name).read_text(encoding="utf-8")
+    assert "LOW" in page and "HIGH" in page and "INF" in page
+print("Forward replay and individually rounded FP16 outcomes OK")
