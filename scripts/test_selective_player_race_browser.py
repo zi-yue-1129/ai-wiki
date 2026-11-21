@@ -378,6 +378,19 @@ def run():
                             assert detail.text_content() == "✓ right · × wrong"
                             case_controls.nth(3).focus()
                             assert detail.text_content() == "P4: RIGHT · REJECTED"
+                            # Inspecting a correct but rejected example identifies
+                            # exactly which conservation row/subset gets its +1.
+                            chip = plot.locator("g[data-case-contribution]")
+                            right_dot = plot.locator("circle[cx='40'][cy='216']")
+                            wrong_dot = plot.locator("circle[cx='40'][cy='241']")
+                            assert chip.get_attribute("visibility") == "visible"
+                            assert chip.locator("text").text_content() == "+1 OUT"
+                            assert chip.locator("rect").get_attribute("y") == "205"
+                            assert right_dot.get_attribute("r") == "8"
+                            assert wrong_dot.get_attribute("r") == "5"
+                            assert plot.locator("text[data-correct-balance]").get_attribute("fill") == "#087e85"
+                            assert ("計數一筆" if zh else "contributes one") in (
+                                case_controls.nth(3).get_attribute("aria-label"))
                             assert cases.nth(3).get_attribute("stroke-width") == "3"
                             assert cases.nth(3).get_attribute("stroke") == "#193e69"
                             assert ("預測正確" if zh else "correct") in (
@@ -388,6 +401,11 @@ def run():
                             assert case_controls.nth(2).evaluate(
                                 "(e) => document.activeElement === e")
                             assert detail.text_content() == "P3: WRONG · REJECTED"
+                            assert chip.locator("text").text_content() == "+1 OUT"
+                            assert chip.locator("rect").get_attribute("y") == "230"
+                            assert right_dot.get_attribute("r") == "5"
+                            assert wrong_dot.get_attribute("r") == "8"
+                            assert plot.locator("text[data-wrong-balance]").get_attribute("fill") == "#b45336"
                             page.keyboard.press("Home")
                             assert detail.text_content() == "P1: RIGHT · ACCEPTED"
                             page.keyboard.press("End")
@@ -438,11 +456,17 @@ def run():
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#ffffff"
                             case_controls.nth(3).focus()
                             assert detail.text_content() == "P4: RIGHT · ACCEPTED"
+                            assert chip.locator("text").text_content() == "+1 IN"
+                            assert chip.locator("rect").get_attribute("fill") == "#e3f0ef"
+                            assert chip.locator("rect").get_attribute("y") == "205"
                             assert ("接受" if zh else "accepted") in (
                                 case_controls.nth(3).get_attribute("aria-label"))
                             assert cases.nth(3).get_attribute("data-case-correct") == "true"
                             choices.nth(0).focus()
                             assert detail.text_content() == "✓ right · × wrong"
+                            assert chip.get_attribute("visibility") == "hidden"
+                            assert right_dot.get_attribute("r") == "5"
+                            assert wrong_dot.get_attribute("r") == "5"
                             assert "8/8" in calculation.inner_text()
                             assert overall.text_content() == "8/8 accepted · 6/8 correct"
                             assert all(cases.nth(i).get_attribute(
