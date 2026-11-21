@@ -338,6 +338,21 @@ def run():
                             ).click()
                             assert slider.input_value() == "40"
                             assert plot.get_attribute("data-active-stage") == "1"
+                            # Risk inspection must also pause running playback,
+                            # without seeking to the non-playable k=3 cutoff.
+                            host.get_by_role("button", name=play).click()
+                            page.wait_for_timeout(140)
+                            assert int(slider.input_value()) > 40
+                            hollow3.focus()
+                            focused_position = slider.input_value()
+                            assert "k=3" in inspection.text_content()
+                            assert host.get_by_role("button", name=play).count() == 1
+                            page.wait_for_timeout(180)
+                            assert slider.input_value() == focused_position, (
+                                "risk inspection kept animating", zh, width)
+                            assert plot.get_attribute("data-active-stage") == "1"
+                            points.nth(1).click()
+                            assert slider.input_value() == "40"
                         else:
                             assert "1/4" in plot.get_attribute("aria-label")
                             assert "5/8" in plot.get_attribute("aria-label")
