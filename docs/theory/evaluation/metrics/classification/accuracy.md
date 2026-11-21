@@ -155,6 +155,8 @@ The **FLIP** preview below the individual cases adds a one-case counterfactual: 
 
 Keyboard focus on a **CASE OUTCOMES** tile now **pauses the active player at its current acceptance rule** before inspecting the case. This prevents an automatic ALL/SELECTIVE transition from altering the conservation ledger or FLIP arithmetic midway through inspection. Arrow keys move among the eight cases; **Escape** clears the focused case and its hypothetical marker without changing the acceptance rule. Hovering with a mouse previews a case without pausing playback. To resume, explicitly select **Play**. Predictions and synthetic observations are never changed.
 
+Keyboard focus on a **Risk–Coverage** hollow cutoff (k=1, 3 or 5) also pauses an actively playing timeline before inspecting its exact risk and next-case counterfactuals. It does **not** seek the main animation to an unsupported intermediate stage, and changing focus does not alter the accepted sample. Explicit **Play** resumes automatic stage transitions.
+
 ## Interpretation
 
 Accuracy is easy to explain once predicted labels are fixed. When the classifier outputs scores, the decision rule (such as a binary cutoff or multiclass argmax) can change accuracy. Its weakness is that it depends on the class balance. If 99% of cases are negative, a model that never predicts a positive scores 99% accuracy while finding no positives at all.
