@@ -89,7 +89,7 @@ for index,node in enumerate(updated):
 assert any(n.get("class") == "reduced-only" and n.text == "12" for n in check.iter(svg+"text"))
 for language in ("gradient-checkpointing.md","gradient-checkpointing.zh-TW.md"):
     page = (pages/language).read_text(encoding="utf-8")
-    assert r"B(s)=\\frac{16}{s}(s-1)=16-\\frac{16}{s}" in page
+    assert r"B(s)=\frac{16}{s}(s-1)=16-\frac{16}{s}" in page
     assert "TOTAL REBUILT" in page
 
 # Round-to-nearest-even: half of 2^-24 is the actual zero/nonzero cutoff.
