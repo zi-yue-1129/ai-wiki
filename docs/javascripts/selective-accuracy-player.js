@@ -37,7 +37,7 @@
 
   // Linked plots are computed from the schematic examples shown in the main SVG.
   // They highlight the same semantic state, never measured model performance.
-  function makeLinkedPlot(filename, zh, chooseStage) {
+  function makeLinkedPlot(filename, zh, chooseStage, pauseForCase) {
     const ns = 'http://www.w3.org/2000/svg';
     const node = (tag, attrs = {}, label = '') => {
       const el = document.createElementNS(ns, tag);
@@ -600,7 +600,11 @@
           plot.append(control);
           const entry = {tile,control,cls,i,correct};
           caseTiles.push(entry);
-          control.addEventListener('focus', () => inspectCase(entry));
+          // Freeze the acceptance rule before inspecting a fixed prediction:
+          // automatic playback must not change the mask mid-inspection.
+          control.addEventListener('focus', () => {
+            pauseForCase(); inspectCase(entry);
+          });
           control.addEventListener('blur', () => inspectCase(null));
           control.addEventListener('click', () => {
             control.focus(); inspectCase(entry);
@@ -617,6 +621,9 @@
           control.addEventListener('keydown', event => {
             if (event.key === 'Enter' || event.key === ' ') {
               event.preventDefault(); inspectCase(entry); return;
+            }
+            if (event.key === 'Escape') {
+              event.preventDefault(); control.blur(); return;
             }
             const next = keyboardStage(event.key,caseTiles.indexOf(entry),7);
             if (next !== null) {
@@ -837,7 +844,10 @@
             // Inline display:block in Markdown can override the hidden attribute.
             // Hide the still visibly as well as semantically after SVG insertion.
             img.hidden = true; img.style.setProperty('display', 'none', 'important');
-            linkedPlot = makeLinkedPlot(filename, zh, chooseStage);
+            linkedPlot = makeLinkedPlot(filename, zh, chooseStage, () => {
+              // Cancel an in-flight Play promise as well as the current frame.
+              ++intentVersion; pause();
+            });
             host.insertBefore(linkedPlot.element, controls);
             sync(); status.textContent = '';
             return true;
