@@ -513,14 +513,22 @@
         const wasAccepted = entry.tile.getAttribute('data-case-accepted') === 'true';
         const direction = wasAccepted ? -1 : 1;
         const accepted = kept.length + direction;
-        const correct = kept.filter(item => item.correct).length +
-          (entry.correct ? direction : 0);
+        const keptCorrect = kept.filter(item => item.correct).length;
+        const correct = keptCorrect + (entry.correct ? direction : 0);
         const positive = kept.filter(item => item.cls === 'POS').length +
           (entry.cls === 'POS' ? direction : 0);
         const negative = kept.filter(item => item.cls === 'NEG').length +
           (entry.cls === 'NEG' ? direction : 0);
+        // One acceptance bit changes both the risk numerator and denominator.
+        const currentRisk = 100 * (kept.length-keptCorrect) / kept.length;
+        const flippedRisk = 100 * (accepted-correct) / accepted;
+        const riskDelta = flippedRisk-currentRisk;
+        const fmtPp = value => String(Math.round(value*10)/10);
         return {accepted,correct,positive,negative,
-          gap:Math.abs(positive-negative)*25};
+          gap:Math.abs(positive-negative)*25,
+          risk:fmtPp(flippedRisk),
+          deltaRisk:(riskDelta > 1e-9 ? '+' : riskDelta < -1e-9 ? '-' : '') +
+            fmtPp(Math.abs(riskDelta))};
       };
       let inspectedCase = null;
       const inspectCase = entry => {
@@ -547,8 +555,8 @@
           flipMarker.setAttribute('y2',entry.cls === 'POS' ? '90' : '138');
           flipPreview.textContent = entry.cls[0] + (entry.i + 1) +
             ' → ' + flipped.correct + '/' + flipped.accepted +
-            ' RIGHT · POS ' + flipped.positive + '/4 · NEG ' +
-            flipped.negative + '/4 · GAP ' + flipped.gap + ' pp';
+            ' RIGHT · RISK ' + flipped.risk + '% · Δ ' +
+            flipped.deltaRisk + ' pp · GAP ' + flipped.gap + ' pp';
         } else {
           flipPreview.textContent = 'FOCUS A CASE TO PREVIEW FLIP';
         }
@@ -668,12 +676,16 @@
               flipped.accepted + ' 筆，正確 ' + flipped.correct +
               ' 筆；正類覆蓋 ' + flipped.positive +
               '/4，負類覆蓋 ' + flipped.negative +
-              '/4，差距 ' + flipped.gap + ' 個百分點'
+              '/4，差距 ' + flipped.gap + ' 個百分點' +
+              '；反轉後保留樣本風險 ' + flipped.risk + '%，相對目前規則改變 ' +
+              flipped.deltaRisk + ' 個百分點'
             : '; flipping only this case would retain ' +
               flipped.accepted + ' cases with ' + flipped.correct +
               ' correct; positive coverage ' + flipped.positive +
               '/4, negative coverage ' + flipped.negative +
-              '/4, gap ' + flipped.gap + ' percentage points';
+              '/4, gap ' + flipped.gap + ' percentage points' +
+              '; hypothetical retained risk ' + flipped.risk + '%, a change of ' +
+              flipped.deltaRisk + ' percentage points from the current rule';
           entry.control.setAttribute('aria-label',
             entry.control.getAttribute('aria-label') + addition);
         });

@@ -403,10 +403,13 @@ def run():
                             flip = plot.locator("text[data-flip-preview]")
                             marker = plot.locator("line[data-flip-marker]")
                             assert flip.text_content() == (
-                                "P4 → 6/6 RIGHT · POS 2/4 · NEG 4/4 · GAP 50 pp")
+                                "P4 → 6/6 RIGHT · RISK 0% · Δ 0 pp · GAP 50 pp")
                             assert marker.get_attribute("visibility") == "visible"
                             assert marker.get_attribute("x1") == "323.5"
                             assert marker.get_attribute("y1") == "55"
+                            assert ("反轉後保留樣本風險 0%" if zh else
+                                    "hypothetical retained risk 0%") in (
+                                case_controls.nth(3).get_attribute("aria-label"))
                             assert (("若只反轉" if zh else "flipping only") in
                                     case_controls.nth(3).get_attribute("aria-label"))
                             assert cases.nth(3).get_attribute("data-case-accepted") == "false"
@@ -432,8 +435,11 @@ def run():
                                 "(e) => document.activeElement === e")
                             assert detail.text_content() == "P3: WRONG · REJECTED → +1 OUT"
                             assert flip.text_content() == (
-                                "P3 → 5/6 RIGHT · POS 2/4 · NEG 4/4 · GAP 50 pp")
+                                "P3 → 5/6 RIGHT · RISK 16.7% · Δ +16.7 pp · GAP 50 pp")
                             assert chip.locator("text").text_content() == "+1 OUT"
+                            assert ("+16.7 個百分點" if zh else
+                                    "+16.7 percentage points") in (
+                                case_controls.nth(2).get_attribute("aria-label"))
                             assert chip.locator("rect").get_attribute("y") == "230"
                             assert right_dot.get_attribute("r") == "5"
                             assert wrong_dot.get_attribute("r") == "8"
@@ -441,11 +447,11 @@ def run():
                             page.keyboard.press("Home")
                             assert detail.text_content() == "P1: RIGHT · ACCEPTED → +1 IN"
                             assert flip.text_content() == (
-                                "P1 → 4/4 RIGHT · POS 0/4 · NEG 4/4 · GAP 100 pp")
+                                "P1 → 4/4 RIGHT · RISK 0% · Δ 0 pp · GAP 100 pp")
                             page.keyboard.press("End")
                             assert detail.text_content() == "N4: RIGHT · ACCEPTED → +1 IN"
                             assert flip.text_content() == (
-                                "N4 → 4/4 RIGHT · POS 1/4 · NEG 3/4 · GAP 50 pp")
+                                "N4 → 4/4 RIGHT · RISK 0% · Δ 0 pp · GAP 50 pp")
                             assert marker.get_attribute("y1") == "103"
                             page.keyboard.press("Space")
                             assert slider.input_value() == "40"
@@ -494,8 +500,11 @@ def run():
                             case_controls.nth(3).focus()
                             assert detail.text_content() == "P4: RIGHT · ACCEPTED → +1 IN"
                             assert flip.text_content() == (
-                                "P4 → 5/7 RIGHT · POS 3/4 · NEG 4/4 · GAP 25 pp")
+                                "P4 → 5/7 RIGHT · RISK 28.6% · Δ +3.6 pp · GAP 25 pp")
                             assert chip.locator("text").text_content() == "+1 IN"
+                            assert ("+3.6 個百分點" if zh else
+                                    "+3.6 percentage points") in (
+                                case_controls.nth(3).get_attribute("aria-label"))
                             assert chip.locator("rect").get_attribute("fill") == "#e3f0ef"
                             assert chip.locator("rect").get_attribute("y") == "205"
                             assert ("接受" if zh else "accepted") in (

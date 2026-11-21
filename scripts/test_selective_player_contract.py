@@ -55,7 +55,9 @@ assert "calculation.setAttribute('aria-atomic', 'true')" in player
 assert "if (index !== announcedIndex)" in player
 # A second click can arrive before the initial SVG fetch resolves. Only the
 # latest intent may resume a pending handler; Chromium covers the actual race.
-assert "makeLinkedPlot(filename, zh, chooseStage)" in player
+# Inspecting a case or hollow cutoff must stop active playback.
+assert "makeLinkedPlot(filename, zh, chooseStage, pauseForCase)" in player
+assert "makeLinkedPlot(filename, zh, chooseStage, () => {" in player
 assert "hit.setAttribute('role', 'button')" in player
 assert "hit.setAttribute('tabindex', '0')" in player
 assert "hit.addEventListener('keydown'" in player
@@ -165,11 +167,19 @@ assert "'data-flip-preview':'true'" in player
 assert "'data-flip-marker':'true'" in player
 assert "const flipMath = entry =>" in player
 assert "const direction = wasAccepted ? -1 : 1" in player
-assert "const correct = kept.filter(item => item.correct).length +" in player
+assert "const keptCorrect = kept.filter(item => item.correct).length" in player
+assert "const correct = keptCorrect + (entry.correct ? direction : 0)" in player
+assert "const currentRisk = 100 * (kept.length-keptCorrect) / kept.length" in player
+assert "const flippedRisk = 100 * (accepted-correct) / accepted" in player
+assert "const riskDelta = flippedRisk-currentRisk" in player
+assert "' RIGHT · RISK ' + flipped.risk" in player
+assert "flipped.deltaRisk + ' pp · GAP '" in player
 assert "gap:Math.abs(positive-negative)*25" in player
 assert "flipMarker.setAttribute('visibility',entry?'visible':'hidden')" in player
 assert "flipping only this case would retain" in player
 assert "若只反轉此個案的接受狀態" in player
+assert "反轉後保留樣本風險 " in player
+assert "hypothetical retained risk " in player
 assert "control.addEventListener('focus', () => {" in player
 assert "pauseForCase(); inspectCase(entry)" in player
 assert "pauseForCase();\n            dot.setAttribute('r','8')" in player
@@ -261,6 +271,9 @@ assert "**3/8**" in en and "**3/8**" in zh
 assert "2/3 are wrong" in en and "2/3 原本錯誤" in zh
 assert "conservation of outcomes" in en and "守恆分解" in zh
 assert "one-case counterfactual" in en and "單筆決策敏感度" in zh
+assert "same** POS" in en and "相同的 POS" in zh
+assert "1/6 = 16.7%" in en and "1/6 = 16.7%" in zh
+assert "1/7 ≈ 14.3%" in en and "1/7 ≈ 14.3%" in zh
 assert "6/6 correct" in en and "6/6 正確" in zh
 assert "hypothetical next-case outcomes" in en and "反事實比較" in zh
 assert "**Two live bars**" in en and "**兩條動態橫條**" in zh
