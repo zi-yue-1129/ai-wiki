@@ -45,10 +45,10 @@
       frame.data = src;
       frame.setAttribute('aria-label', img.alt || match[1]);
       // An <object> fallback duplicated the original image's alt text in the
-      // DOM, even while visually inactive. Built-page browser checks require
-      // exactly one source image per description. The object is labelled
-      // above; its nested fallback is decorative, while the source image
-      // remains the accessible no-script and unsupported-browser fallback.
+      // DOM, even while the fallback was visually inactive.  Built-page
+      // accessibility checks rightly expect exactly one source image per
+      // description. The object is labelled above; its nested fallback is
+      // decorative, while the original image remains the no-script fallback.
       const fallback = img.cloneNode(true);
       fallback.alt = '';
       fallback.setAttribute('aria-hidden', 'true');
