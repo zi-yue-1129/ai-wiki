@@ -44,7 +44,16 @@
       frame.type = 'image/svg+xml';
       frame.data = src;
       frame.setAttribute('aria-label', img.alt || match[1]);
-      frame.append(img.cloneNode(true));
+      // An <object> fallback duplicated the original image's alt text in the
+      // DOM, even while visually inactive. Built-page browser checks require
+      // exactly one source image per description. The object is labelled
+      // above; its nested fallback is decorative, while the source image
+      // remains the accessible no-script and unsupported-browser fallback.
+      const fallback = img.cloneNode(true);
+      fallback.alt = '';
+      fallback.setAttribute('aria-hidden', 'true');
+      fallback.setAttribute('role', 'presentation');
+      frame.append(fallback);
       frame.style.visibility = 'hidden';
       frame.style.position = 'absolute';
       frame.style.width = '1px';
