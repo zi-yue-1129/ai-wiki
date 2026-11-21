@@ -148,7 +148,16 @@ assert "'data-case-accepted':'true'" in player
 assert "['POS',[true,false,false,true],294]" in player
 assert "['NEG',[true,true,true,true],325]" in player
 assert "tile.setAttribute('data-case-accepted',String(accepted))" in player
-assert "caseTiles.forEach(({tile,cls,i}) =>" in player
+# Inspectable per-case buttons retain prediction correctness across rule changes,
+# while bilingual acceptance labels and the footer update with the same mask.
+assert "caseTiles.forEach(({tile,control,cls,i,correct}) =>" in player
+assert "'data-case-control':cls[0] + (i + 1)" in player
+assert "'data-case-inspection':'true'" in player
+assert "control.addEventListener('focus', () => inspectCase(entry))" in player
+assert "control.addEventListener('keydown', event =>" in player
+assert "keyboardStage(event.key,caseTiles.indexOf(entry),7)" in player
+assert "inspectCase(inspectedCase)" in player
+assert "control.setAttribute('aria-label',zh" in player
 assert "'data-rejected-metrics':'true'" in player
 assert "'data-correct-balance':'true'" in player
 assert "'data-wrong-balance':'true'" in player
