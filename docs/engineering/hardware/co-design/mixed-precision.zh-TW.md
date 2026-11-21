@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-12
+translation_reviewed: 2026-11-22
 ---
 
 # 混合精度訓練
@@ -47,6 +47,54 @@ translation_reviewed: 2026-11-12
 
 *原創連續教學動畫，CC BY-SA 4.0。* 人工設定的梯度為 $g=2^{-27}\approx7.45\times10^{-9}$，小於 IEEE binary16 的最小正次正規（subnormal）數值 $2^{-24}$，採最接近且同距取偶數捨入（round-to-nearest-even）時，因其小於最小正次正規數的一半，直接轉成 FP16 會捨入為 **0**。若先在反向傳播前把 loss 乘上 $S=2^{10}=1024$，縮放後梯度 $Sg=2^{-17}$ 就能以 FP16 表示；轉回 FP32 再除以 $S$，可得到供 FP32 主權重更新的 $g=2^{-27}$。此為**可驗算的教學示意數值，不是模型實測**。實際訓練仍須避免縮放溢位，且任意梯度不保證都能精確還原，因為仍可能發生捨入或非正規數沖零（flush-to-zero）。圖中只示範單一梯度，並不表示混合精度訓練中的所有運算皆用 FP16。MkDocs 沿用鍵盤可操作的播放／暫停與減少動態效果回退，手機可水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/fp16-loss-scaling-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/fp16-loss-scaling-still.svg)。
 
+### 損失縮放的有效區間：救回微小梯度，也可能使大梯度溢位
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的 FP16 損失縮放區間動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/fp16-scaling-window-still.svg" data-motion-src="../../../assets/concept-animations/fp16-scaling-window-motion.svg" data-still-src="../../../assets/concept-animations/fp16-scaling-window-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="兩個人工梯度二的負二十七次方及二的五次方，隨共同縮放係數以二的整數次方從一倍逐級增加至 4096 倍，再依序退回。下方同步讀數顯示：一至四倍時小梯度捨入成零、八至 1024 倍時兩者均可表示、2048 倍起大梯度上溢；紫色虛線與隨之移動的「Δ log₂ = 32」標記直接呈現固定指數差距；LOW／HIGH 旁的小標記分別顯示捨入後的 0、OK 或 INF，不會改動捨入前圓點的位置；垂直虛線標示二的負二十五次方的捨入為零中點；下方新增 STEP ELIGIBLE／SKIP (INF) 讀數，區分零梯度雖已遺失資訊但仍為有限值，以及 Inf 會觸發跳過更新的情況。" />
+</div>
+
+*原創逐級 SVG 教學動畫與 GitHub 三情境回退圖，CC BY-SA 4.0。* 設兩個**人工梯度** $g_{\mathrm{low}}=2^{-27}$、$g_{\mathrm{high}}=2^5$，在以 FP16 表示**之前**，先乘上相同的二次方縮放係數 $S$。對支援次正規數、採最接近且同距取偶數捨入的 IEEE binary16，最小正次正規數是 $2^{-24}$，最大有限數是 **65504**。當 $S=1$，小梯度會捨入為零；當 $S=2^{10}=1024$，兩者為 $2^{-17}$ 與 $2^{15}$，都可表示；當 $S=2^{12}=4096$，大梯度變成 $2^{17}$，造成上溢。對這**兩個特定數值與二次方縮放設定**，兩者都保持非零且有限的範圍為 **$8\le S\le1024$**，此處的 $S$ 只取 2 的整數次方。
+
+邊界情況也很重要：$S=4$ 時，小梯度為 $2^{-25}$，恰好位於零與最小正次正規數的中點，因此在同距取偶數捨入下仍為 **0**；當 **$S=8$** 才到達可表示的 $2^{-24}$。另一方面，當 **$S=2048$**，大梯度為 $2^{16}=65536>65504$，首次上溢。動畫只逐級切換到 **2 的整數次方縮放係數**，下方讀數同步顯示目前 $S$，以及 LOW ZERO、BOTH FINITE 或 HIGH INF 的結果。兩個移動圓點共用 $|Sg|$ 指數軸。**紫色虛線連接兩個捨入前的數值，並隨縮放等距平移，兩者始終相差 32 個二進位指數。** 圖中的「Δ log₂ = 32」標記也隨線段移動，強調共同縮放只平移兩者的位置，無法縮小其對數差距。 兩個數值同乘縮放係數後，其比值不變：
+
+$
+\begin{aligned}
+\frac{|Sg_{\mathrm{high}}|}{|Sg_{\mathrm{low}}|}
+  &= \frac{|g_{\mathrm{high}}|}{|g_{\mathrm{low}}|},\\
+\log_2\frac{|g_{\mathrm{high}}|}{|g_{\mathrm{low}}|}
+  &= 32.
+\end{aligned}
+$
+
+共同的 $S$ 不會縮小兩種梯度間的動態範圍；因此安全的縮放係數須同時滿足 FP16 的上下數值邊界。回到色帶判讀：左側橘紅區現在以虛線標出精確的 $2^{-25}$ **捨入為零中點**，而不是錯把最小正次正規數 $2^{-24}$ 當成捨入界線；恰好位於中點仍捨入為零，略高於中點則可能捨入成非零的次正規數。圓點位置表示**捨入前**的 $|Sg|$，下方狀態則表示**經 binary16 捨入後**的結果。新增的 **LOW／HIGH** 行內標記會獨立顯示每筆梯度的捨入結果：LOW 在 $S=1$–$4$ 顯示 `0`，從 $S=8$ 起顯示 `OK`；HIGH 到 $S=1024$ 仍是 `OK`，但在 $S=2048$–$4096$ 變為 `INF`。`OK` 只代表**非零且有限**，並不保證數值準確性或訓練品質。藉此把捨入前的座標和實際 binary16 的有限性結果分開理解。右側橘紅區代表本例所採用的 2 的整數次方中，第一個溢位的 $2^{16}$，不是所有實數輸入的精確溢位門檻。這些都是**可驗算的人工數值，不是模型實測**，也不是通用的安全縮放區間。實際梯度分布會變動，部分硬體會將次正規數沖零，許多運算也會在 FP32 累加。更新最佳化器前仍須將梯度除回原本的縮放係數，如前節所述。MkDocs 現可使用**上一步／下一步**檢視上升與下降掃描中的關鍵下溢、有限值及溢位邊界，以時間軸滑桿尋找中間的二次方縮放係數，並使用**播放／暫停**與 0.5×／1×／2× 速度控制；手機上的控制列不會隨圖形水平捲動。GitHub 的[三情境靜態比較](../../../assets/concept-animations/fp16-scaling-window-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/fp16-scaling-window-motion.svg)可分別查看結果與跨界過程，減少動態效果模式呈現靜態版本。
+
+**非有限值檢查與資訊遺失並不相同。** 動畫新增 **STEP ELIGIBLE**（可進行步驟）和 **SKIP (INF)**（跳過）讀數，對應一個僅檢查 Inf／NaN 的動態損失縮放器。假設最佳化器只有圖中這兩筆人工梯度：$S=1,2,4$ 時，小梯度雖已下溢成 0、失去資訊，但 **0 仍是有限值，不會單因這件事觸發跳過更新**；$S=8$ 至 $1024$ 時兩者有限，同樣符合執行條件；$S=2048$ 或 $4096$ 時，大梯度成為 Inf，縮放器便會略過該次權重更新。**ELIGIBLE 只是這兩個示意數值下的條件判斷**，不是宣稱實際更新已執行或訓練數值準確；真實模型可能還有其他非有限梯度，也可能涉及梯度累積與框架行為。[^amp-step-gate]
+
+[^amp-step-gate]: PyTorch，[*Automatic Mixed Precision examples*](https://docs.pytorch.org/docs/stable/notes/amp_examples.html)，說明 `GradScaler.step` 還原縮放後檢查 Inf／NaN，若出現非有限梯度就跳過最佳化器更新。
+
+### 動態損失縮放：跨訓練迭代的回饋控制
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的動態 GradScaler 回饋動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/gradscaler-feedback-still.svg" data-motion-src="../../../assets/concept-animations/gradscaler-feedback-motion.svg" data-still-src="../../../assets/concept-animations/gradscaler-feedback-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="移動焦點依序走過六次人工訓練迭代。縮放係數為 1024 的前兩次有限值檢查均通過，下一次提高至 2048；此時大梯度溢位，跳過最佳化器更新，並將下一次縮放係數減半回到 1024。第四至第六次再次演示相同的增加與回退循環。圖中的 STREAK 列以一點、兩點或叉號依序呈現有限值連續檢查次數與溢位重設；NEXT S 列保留每次檢查後的下一次縮放係數，動態底列同步顯示成長與回退狀態；停止動畫仍可閱讀完整六次歷程。" />
+</div>
+
+*原創 SVG 回饋教學動畫，附 GitHub 可閱讀的靜態回退圖，CC BY-SA 4.0。* 承接上節的兩筆固定人工梯度，這裡示範的是**跨六次迭代的動態控制**，而不只是測試不同縮放係數。設定 `growth_interval=2`、`growth_factor=2`、`backoff_factor=0.5`，初始縮放係數為 1024；發生溢位後，連續通過有限值檢查的計數重新歸零。假設被檢查的梯度只有前述 $2^{-27}$ 與 $2^5$：縮放為 1024 時兩者皆有限；縮放為 2048 時大梯度溢位。因此，連續兩次檢查通過會讓**下一次迭代**使用兩倍係數；偵測到 Inf 則會**跳過當次最佳化器更新**，並讓**下一次迭代**將係數減半。[^dynamic-gradscaler]
+
+| 迭代 | 當次使用 S | 有限值檢查 | 最佳化器步驟 | 下次 S |
+| --- | ---: | --- | --- | ---: |
+| 1 | 1024 | OK | 符合執行條件 | 1024 |
+| 2 | 1024 | OK | 符合執行條件 | 2048 |
+| 3 | 2048 | Inf | 跳過 | 1024 |
+| 4 | 1024 | OK | 符合執行條件 | 1024 |
+| 5 | 1024 | OK | 符合執行條件 | 2048 |
+| 6 | 2048 | Inf | 跳過 | 1024 |
+
+圖中明確區分三種狀態：曲線是**當次使用的縮放係數**，`NEXT S` 列是在有限值檢查**之後決定的下一次係數**，而動態底列則呈現**連續通過有限值檢查的次數**。在 t2，計數達 2/2，觸發下一次增加到 2048；t3 偵測到 Inf 後跳過當次更新、把計數歸零，並將下一次係數回退為 1024。最後的 `NEXT S=1024` 指的是圖中尚未畫出的第七次迭代。`2/2` 表示**觸發成長當下的進度**，隨後計數會歸零。各時間點下方的 **STREAK** 雙圓點列也提供 GitHub 可直接閱讀的歷程：t1／t4 填滿一點、t2／t5 填滿兩點（達到成長門檻）、t3／t6 顯示叉號（溢位後重設）。這只是有限值連續檢查計數，**不代表最佳化器的進度或 loss 改善**；所有數值都是教學示意而非模型實測。
+
+曲線呈現的是**當次實際使用的縮放係數**，不是檢查後才得到的新係數，因此最後一次回退會反映在圖中未畫出的第七次迭代。PyTorch 文件中的**預設** `growth_interval` 為 **2000**，不是 2；此處為了在六個時間點呈現控制迴路，刻意縮短間隔並設定重複溢位情境。這不是實際執行的訓練或 GPU 梯度量測，也不能因通過有限值檢查便推論 loss 必然下降。MkDocs 現可用**上一步／下一步**依序查看六次有限值檢查，以時間軸滑桿選擇任意中間時刻，並透過**播放／暫停**與 0.5×／1×／2× 速度控制完整的 12 秒迴圈。手機的圖形區域仍可聚焦後以方向鍵水平捲動，操作控制列獨立放在外側；減少動態效果模式與 GitHub 預覽都保留標示完整的靜態曲線。[完整 SVG 動畫](../../../assets/concept-animations/gradscaler-feedback-motion.svg) · [GitHub 靜態回退圖](../../../assets/concept-animations/gradscaler-feedback-still.svg)。
+
+[^dynamic-gradscaler]: PyTorch，[*Automatic Mixed Precision package — torch.amp*](https://docs.pytorch.org/docs/stable/amp.html)，說明縮放係數增加與回退參數及預設間隔；[*Automatic Mixed Precision examples*](https://docs.pytorch.org/docs/stable/notes/amp_examples.html) 說明偵測 Inf／NaN 時跳過最佳化器步驟。
+
 ## 結果
 
 Micikevicius 等人（2017）報告，採用此方法可把深度學習模型的記憶體用量減少近 2 倍。他們建議保留一份單精度的權重副本，在每次最佳化器步驟後累積梯度，並對損失進行縮放，以處理半精度梯度的資訊損失。他們測試的架構包括卷積網路、循環網路與生成對抗網路。
@@ -78,6 +126,8 @@ Micikevicius 等人（2022）把這個想法延伸到[8 位元浮點格式](fp8.
 - Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — 綜述 DNN 硬體的能量效率與吞吐量，並涵蓋硬體與演算法的共同設計。
 
 ### 文章與文件
+
+- PyTorch. *Automatic Mixed Precision examples*. https://docs.pytorch.org/docs/stable/notes/amp_examples.html — 說明 GradScaler 在還原縮放後的 Inf／NaN 檢查及跳過更新的行為，作為本圖人工示例的判斷規則。
 
 - Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — 推論端的對應做法：逐通道的 8 位元量化能讓許多 CNN 維持在浮點數 2% 以內的準確度。
 - Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張記憶體而非運算已成為 AI 應用（尤其是服務）的主要瓶頸，這正是此方法所紓解的壓力。

@@ -1,4 +1,4 @@
-/* Optional same-origin SMIL timeline controls for six distributed-training diagrams.
+/* Optional same-origin SMIL timeline controls for reviewed teaching diagrams.
  * Markdown and no-script readers retain the original image; no third-party SVG is fetched.
  */
 (() => {
@@ -10,6 +10,14 @@
     'fsdp-parameter-residency': { duration: 10, steps: [0, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5] },
     'zero-state-sharding': { duration: 12, steps: [0, 2, 4, 5.5, 7.5, 9.8, 11.5] },
     'megatron-column-row': { duration: 10, steps: [0, 2, 4, 6, 8, 9.5] },
+    // Co-design: one step per checkpoint-spacing choice; the timeline also
+    // lets readers inspect intermediate forward replay within each segment.
+    'checkpoint-spacing': { duration: 12, steps: [0, 2.45, 4.85, 7.25, 9.65] },
+    // FP16: semantic boundaries in both the ascending and descending sweep.
+    // Seeking continuously still exposes all 27 exact power-of-two states.
+    'fp16-scaling-window': { duration: 12, steps: [0, 0.95, 1.42, 4.66, 5.12, 5.59, 6.05, 6.52, 9.75, 10.21, 11.15] },
+    // Each two-second interval is a complete synthetic GradScaler check.
+    'gradscaler-feedback': { duration: 12, steps: [0, 2.05, 4.05, 6.05, 8.05, 10.05] },
   };
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -23,6 +31,11 @@
       const match = src.match(/(?:^|\/)([a-z0-9-]+)-motion\.svg(?:[?#]|$)/);
       if (!match || !Object.hasOwn(sequences, match[1])) continue;
       const config = sequences[match[1]];
+      // In the co-design chapter the outer Markdown region is already the
+      // keyboard-focusable scroll container. Avoid a second nested scroller.
+      if (/^(checkpoint-spacing|fp16-scaling-window|gradscaler-feedback)$/.test(match[1])) {
+        host.classList.add('co-design-motion-timeline');
+      }
       const zh = /[\u3400-\u9fff]/.test(img.alt || '');
       const label = (en, tw) => zh ? tw : en;
       const previousControls = host.querySelector('.concept-motion-controls');
@@ -31,7 +44,16 @@
       frame.type = 'image/svg+xml';
       frame.data = src;
       frame.setAttribute('aria-label', img.alt || match[1]);
-      frame.append(img.cloneNode(true));
+      // An <object> fallback duplicated the original image's alt text in the
+      // DOM, even while the fallback was visually inactive.  Built-page
+      // accessibility checks rightly expect exactly one source image per
+      // description. The object is labelled above; its nested fallback is
+      // decorative, while the original image remains the no-script fallback.
+      const fallback = img.cloneNode(true);
+      fallback.alt = '';
+      fallback.setAttribute('aria-hidden', 'true');
+      fallback.setAttribute('role', 'presentation');
+      frame.append(fallback);
       frame.style.visibility = 'hidden';
       frame.style.position = 'absolute';
       frame.style.width = '1px';
@@ -77,7 +99,15 @@
       status.setAttribute('role', 'status');
       status.setAttribute('aria-live', 'polite');
       bar.append(status);
-      host.append(bar);
+      // Keep controls outside the horizontally scrolled 640px figure on
+      // narrow co-design pages. This makes every control reachable without
+      // panning the figure and retains the original focusable figure region.
+      const coDesignRegion = host.classList.contains('co-design-motion-timeline')
+        ? host.closest('.concept-motion-scroll') : null;
+      if (coDesignRegion) {
+        bar.classList.add('co-design-motion-controls');
+        coDesignRegion.after(bar);
+      } else host.append(bar);
 
       function draw() {
         if (!svg) return;
@@ -161,6 +191,7 @@
       const observer = new MutationObserver(() => {
         if (host.isConnected) return;
         stop(); observer.disconnect(); reduced.removeEventListener('change', onReduce);
+        if (coDesignRegion) bar.remove();
       });
       observer.observe(document.body, { childList: true, subtree: true });
     }
@@ -168,4 +199,6 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enhance);
   else enhance();
   if (window.document$?.subscribe) window.document$.subscribe(enhance);
+  // A page loaded with reduced motion can opt into richer controls later.
+  reduced.addEventListener('change', () => { if (!reduced.matches) enhance(); });
 })();
