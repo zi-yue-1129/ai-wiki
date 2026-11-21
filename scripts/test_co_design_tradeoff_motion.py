@@ -208,3 +208,29 @@ for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     page = (pages / name).read_text(encoding="utf-8")
     assert "LOW" in page and "HIGH" in page and "INF" in page
 print("Forward replay and individually rounded FP16 outcomes OK")
+
+# Browser-reviewed live replay trace and constant binary-exponent gap annotation.
+progress = [n for n in check.iter(svg+"line") if n.get("data-teaching-role") == "replay-progress-trace"]
+assert len(progress) == 1
+trail = progress[0]
+assert trail.get("class") == "motion-only" and trail.get("opacity") == "0"
+track = {a.get("attributeName"): a for a in trail.findall(svg+"animate")}
+assert set(track) == {"x1", "x2", "opacity"}
+assert track["x1"].get("values") == "543;514;456;340;108;543"
+assert track["x2"].get("values") == next(n for n in check.iter(svg+"circle") if n.get("data-teaching-role") == "segment-replay-cursor").find(svg+"animate").get("values")
+assert track["opacity"].get("values").split(";")[0] == "0"
+readouts = [n for n in fp.iter(svg+"g") if n.get("data-teaching-role") == "log-gap-readout"]
+assert {n.get("class") for n in readouts} == {"motion-only", "reduced-only"}
+for readout in readouts:
+    assert any("Δ log₂ = 32" in (n.text or "") for n in readout.iter(svg+"text"))
+active_gap = next(n for n in readouts if n.get("class") == "motion-only")
+travel = active_gap.find(svg+"animateTransform")
+assert travel is not None and travel.get("calcMode") == "discrete"
+assert travel.get("type") == "translate"
+assert [int(s.split()[0]) for s in travel.get("values").split(";")] == [10*k for k in frames]
+assert len(travel.get("keyTimes").split(";")) == 27
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
+    assert ("trace" if name.endswith("ing.md") else "軌跡") in (pages/name).read_text(encoding="utf-8")
+for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    assert "Δ log₂ = 32" in (pages/name).read_text(encoding="utf-8")
+print("Checkpoint active-segment replay trace and invariant log-gap badge contracts OK")
