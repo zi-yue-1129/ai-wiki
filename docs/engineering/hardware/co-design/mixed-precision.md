@@ -85,6 +85,27 @@ A common $S$ shifts both positions equally; it cannot compress the gradient dyna
 
 [^amp-step-gate]: PyTorch, [*Automatic Mixed Precision examples*](https://docs.pytorch.org/docs/stable/notes/amp_examples.html), explains that `GradScaler.step` unscales, checks gradients for Inf/NaN and skips the optimizer step if any are detected.
 
+### Dynamic loss scaling: feedback across training iterations
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable dynamic GradScaler feedback animation">
+<img data-source-asset-urls src="../../../assets/concept-animations/gradscaler-feedback-still.svg" data-motion-src="../../../assets/concept-animations/gradscaler-feedback-motion.svg" data-still-src="../../../assets/concept-animations/gradscaler-feedback-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="A moving focus marker follows six synthetic training iterations. Scale 1024 passes the finite-gradient check on iterations one and two, so the next iteration uses 2048. At 2048 the high gradient overflows, the optimizer step is skipped, and the next scale halves to 1024. The finite-check growth and overflow-backoff cycle repeats for iterations four through six. A static trajectory and OK/INF labels remain visible without animation." />
+</div>
+
+*Original SVG feedback animation with GitHub-readable non-animated fallback, CC BY-SA 4.0.* This extends the two fixed synthetic gradients above into a **six-iteration thought experiment** about feedback, rather than just a sweep of possible scales. The illustrative settings are `growth_interval=2`, `growth_factor=2`, `backoff_factor=0.5`, and initial scale 1024. The finite-gradient counter resets after overflow. The figure assumes the only gradients examined are the earlier $2^{-27}$ and $2^5$ examples: at 1024 both scaled gradients are finite, while at 2048 the large one overflows. Thus two successful finite checks allow the **next iteration** to use twice the scale, whereas a detected Inf both **skips the current optimizer update** and halves the scale for the **next iteration**.[^dynamic-gradscaler]
+
+| Iteration | Scale used | Finite check | Optimizer step | Next scale |
+| --- | ---: | --- | --- | ---: |
+| 1 | 1024 | OK | Eligible | 1024 |
+| 2 | 1024 | OK | Eligible | 2048 |
+| 3 | 2048 | Inf | Skipped | 1024 |
+| 4 | 1024 | OK | Eligible | 1024 |
+| 5 | 1024 | OK | Eligible | 2048 |
+| 6 | 2048 | Inf | Skipped | 1024 |
+
+The timeline plots the scale **used by each iteration**, not the newly computed scale after the check. The last backoff therefore takes effect in an unshown seventh iteration. For comparison, PyTorch's documented **default** growth interval is **2000**, not 2; the shortened interval and repeating Inf pattern exist solely to expose the control loop within six frames. The chart does **not** simulate an actual optimizer, guarantee that every eligible step improves the loss, or represent measured GPU gradients. On MkDocs, pause/resume with the existing motion control, and horizontally scroll the focused graphic on small screens; reduced-motion mode and GitHub show the fully labelled static trajectory. [Full SVG animation](../../../assets/concept-animations/gradscaler-feedback-motion.svg) · [GitHub fallback preview](../../../assets/concept-animations/gradscaler-feedback-still.svg).
+
+[^dynamic-gradscaler]: PyTorch, [*Automatic Mixed Precision package — torch.amp*](https://docs.pytorch.org/docs/stable/amp.html), documents the growth/backoff factors, default growth interval and GradScaler scaling policy; [*Automatic Mixed Precision examples*](https://docs.pytorch.org/docs/stable/notes/amp_examples.html) describes the Inf/NaN step-skipping rule.
+
 ## Results
 
 Micikevicius et al. (2017) report that using this approach reduces the memory consumption of deep learning models by nearly two times. They recommend keeping a single-precision copy of the weights that accumulates the gradients after each optimiser step, and scaling the loss to handle the loss of information in half-precision gradients. They tested convolutional, recurrent and generative adversarial networks.
