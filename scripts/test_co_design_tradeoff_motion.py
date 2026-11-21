@@ -114,6 +114,9 @@ bracket_clock = active_bracket.find(svg+"animate")
 assert bracket_clock.get("attributeName") == "d" and bracket_clock.get("calcMode") == "discrete"
 assert bracket_clock.get("values").split(";") == positions
 assert reduced_bracket.get("d") == positions[2]
+assert active_bracket.get("opacity") == "0"
+assert active_bracket.findall(svg+"animate")[1].get("attributeName") == "opacity"
+assert active_bracket.findall(svg+"animate")[1].get("values") == "0;1;1;1;1;0"
 for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
     page = (pages/name).read_text(encoding="utf-8")
     assert ("amber bracket" in page) if name.endswith("ing.md") else ("橘色括號" in page)
