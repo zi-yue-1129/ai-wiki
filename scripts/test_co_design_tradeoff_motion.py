@@ -138,3 +138,27 @@ for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     page = (pages/name).read_text(encoding="utf-8")
     assert "32" in page and r"\log_2" in page
 print("Segment replay bracket and fixed common-scale exponent spread OK")
+
+# The checkpoint scene gives the arithmetic behind the peak curve in every state.
+# The reduced-motion replacement must show the s=4 optimum without SMIL.
+sums = [n for n in check.iter(svg+"text")
+        if n.get("x") == "142" and n.find(svg+"animate") is not None]
+assert [n.text for n in sums] == [
+    "17 + 0 = 17", "9 + 1 = 10", "5 + 3 = 8",
+    "3 + 7 = 10", "2 + 15 = 17",
+]
+for i, node in enumerate(sums):
+    frame = node.find(svg+"animate")
+    expected = ["1" if j == i else "0" for j in range(5)]
+    assert frame is not None
+    assert frame.get("values").split(";")[:5] == expected
+assert any(n.text == "5 + 3 = 8" and n.get("class") == "reduced-only"
+           for n in check.iter(svg+"text"))
+# Avoid a single unbreakable 32-exponent inline equation on a 390px viewport.
+for suffix in (".md", ".zh-TW.md"):
+    checkpoint = (pages / ("gradient-checkpointing" + suffix)).read_text(encoding="utf-8")
+    mixed = (pages / ("mixed-precision" + suffix)).read_text(encoding="utf-8")
+    assert "PEAK SLOTS" in checkpoint
+    assert r"\begin{aligned}" in mixed
+    assert r"\log_2\\frac" in mixed
+    assert r"\log_2|Sg_" not in mixed
