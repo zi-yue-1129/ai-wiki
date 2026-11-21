@@ -282,3 +282,19 @@ for name in ("mixed-precision.md","mixed-precision.zh-TW.md"):
     assert "STEP ELIGIBLE" in chapter and "SKIP (INF)" in chapter
     assert "https://docs.pytorch.org/docs/stable/notes/amp_examples.html" in chapter
 print("Rebuilt activation sequence and Inf/NaN optimizer gate timing contracts OK")
+
+
+# GitHub's non-animated fallback must expose the same conditional step decision
+# for the illustrative underflow / finite / overflow cases, without SMIL.
+fp16_still = ET.parse(asset / "fp16-scaling-window-still.svg").getroot()
+assert not list(fp16_still.iter(svg+"animate"))
+decision_labels = [
+    n for n in fp16_still.iter(svg+"text")
+    if (n.text or "").strip() in ("STEP ELIGIBLE", "SKIP (INF)")
+]
+assert [n.text for n in decision_labels] == ["STEP ELIGIBLE", "STEP ELIGIBLE", "SKIP (INF)"]
+assert [n.get("y") for n in decision_labels] == ["298", "298", "298"]
+for name in ("UNDERFLOW", "BOTH FINITE", "OVERFLOW"):
+    assert any(n.text == name and n.get("y") == "280"
+               for n in fp16_still.iter(svg+"text"))
+print("GitHub FP16 finite-step fallback comparison OK")
