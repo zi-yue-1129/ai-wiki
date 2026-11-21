@@ -63,7 +63,7 @@ L(\theta_k+\alpha_kp_k)
 \qquad 0<c<1/2.
 $$
 
-For a differentiable objective and a descent direction at an interior point, sufficiently small steps satisfy this condition. When the Hessian is indefinite, a curvature modification or another suitable direction is needed before applying this descent argument.[^line-search]
+For a differentiable objective and a descent direction at an interior point, sufficiently small steps satisfy this condition. When the Hessian is indefinite, check whether $g_k^\top p_k<0$. A curvature modification or another direction can provide descent when this check fails.[^line-search]
 
 ### Measure progress and state the convergence assumptions
 
