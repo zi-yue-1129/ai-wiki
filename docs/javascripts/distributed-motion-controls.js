@@ -190,4 +190,6 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enhance);
   else enhance();
   if (window.document$?.subscribe) window.document$.subscribe(enhance);
+  // A page loaded with reduced motion can opt into richer controls later.
+  reduced.addEventListener('change', () => { if (!reduced.matches) enhance(); });
 })();
