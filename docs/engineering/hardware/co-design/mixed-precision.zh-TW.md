@@ -72,6 +72,27 @@ $
 
 [^amp-step-gate]: PyTorch，[*Automatic Mixed Precision examples*](https://docs.pytorch.org/docs/stable/notes/amp_examples.html)，說明 `GradScaler.step` 還原縮放後檢查 Inf／NaN，若出現非有限梯度就跳過最佳化器更新。
 
+### 動態損失縮放：跨訓練迭代的回饋控制
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的動態 GradScaler 回饋動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/gradscaler-feedback-still.svg" data-motion-src="../../../assets/concept-animations/gradscaler-feedback-motion.svg" data-still-src="../../../assets/concept-animations/gradscaler-feedback-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="移動焦點依序走過六次人工訓練迭代。縮放係數為 1024 的前兩次有限值檢查均通過，下一次提高至 2048；此時大梯度溢位，跳過最佳化器更新，並將下一次縮放係數減半回到 1024。第四至第六次再次演示相同的增加與回退循環。未播放動畫時仍可閱讀完整曲線與 OK、INF 標記。" />
+</div>
+
+*原創 SVG 回饋教學動畫，附 GitHub 可閱讀的靜態回退圖，CC BY-SA 4.0。* 承接上節的兩筆固定人工梯度，這裡示範的是**跨六次迭代的動態控制**，而不只是測試不同縮放係數。設定 `growth_interval=2`、`growth_factor=2`、`backoff_factor=0.5`，初始縮放係數為 1024；發生溢位後，連續通過有限值檢查的計數重新歸零。假設被檢查的梯度只有前述 $2^{-27}$ 與 $2^5$：縮放為 1024 時兩者皆有限；縮放為 2048 時大梯度溢位。因此，連續兩次檢查通過會讓**下一次迭代**使用兩倍係數；偵測到 Inf 則會**跳過當次最佳化器更新**，並讓**下一次迭代**將係數減半。[^dynamic-gradscaler]
+
+| 迭代 | 當次使用 S | 有限值檢查 | 最佳化器步驟 | 下次 S |
+| --- | ---: | --- | --- | ---: |
+| 1 | 1024 | OK | 符合執行條件 | 1024 |
+| 2 | 1024 | OK | 符合執行條件 | 2048 |
+| 3 | 2048 | Inf | 跳過 | 1024 |
+| 4 | 1024 | OK | 符合執行條件 | 1024 |
+| 5 | 1024 | OK | 符合執行條件 | 2048 |
+| 6 | 2048 | Inf | 跳過 | 1024 |
+
+曲線呈現的是**當次實際使用的縮放係數**，不是檢查後才得到的新係數，因此最後一次回退會反映在圖中未畫出的第七次迭代。PyTorch 文件中的**預設** `growth_interval` 為 **2000**，不是 2；此處為了在六個時間點呈現控制迴路，刻意縮短間隔並設定重複溢位情境。這不是實際執行的訓練或 GPU 梯度量測，也不能因通過有限值檢查便推論 loss 必然下降。MkDocs 沿用播放／暫停控制，手機可用鍵盤聚焦後水平捲動；減少動態效果模式與 GitHub 預覽則呈現標示完整的靜態曲線。[完整 SVG 動畫](../../../assets/concept-animations/gradscaler-feedback-motion.svg) · [GitHub 靜態回退圖](../../../assets/concept-animations/gradscaler-feedback-still.svg)。
+
+[^dynamic-gradscaler]: PyTorch，[*Automatic Mixed Precision package — torch.amp*](https://docs.pytorch.org/docs/stable/amp.html)，說明縮放係數增加與回退參數及預設間隔；[*Automatic Mixed Precision examples*](https://docs.pytorch.org/docs/stable/notes/amp_examples.html) 說明偵測 Inf／NaN 時跳過最佳化器步驟。
+
 ## 結果
 
 Micikevicius 等人（2017）報告，採用此方法可把深度學習模型的記憶體用量減少近 2 倍。他們建議保留一份單精度的權重副本，在每次最佳化器步驟後累積梯度，並對損失進行縮放，以處理半精度梯度的資訊損失。他們測試的架構包括卷積網路、循環網路與生成對抗網路。
