@@ -298,3 +298,46 @@ for name in ("UNDERFLOW", "BOTH FINITE", "OVERFLOW"):
     assert any(n.text == name and n.get("y") == "280"
                for n in fp16_still.iter(svg+"text"))
 print("GitHub FP16 finite-step fallback comparison OK")
+
+
+# Dynamic GradScaler feedback: six consecutive optimizer-step checks.
+for stem in ("gradscaler-feedback-motion", "gradscaler-feedback-still"):
+    doc = ET.parse(asset / (stem + ".svg")).getroot()
+    assert doc.get("viewBox") == "0 0 640 360"
+    assert doc.find(svg + "title") is not None and doc.find(svg + "desc") is not None
+    for node in doc.iter():
+        assert node.tag not in {svg + "script", svg + "foreignObject", svg + "image", svg + "use"}
+        assert not any(k.lower().startswith("on") or k.lower().endswith("href") for k in node.attrib)
+    clocks = list(doc.iter(svg + "animate"))
+    if stem.endswith("-motion"):
+        assert len(clocks) == 2
+        assert [c.get("attributeName") for c in clocks] == ["cx", "cy"]
+        assert clocks[0].get("values") == "133;218;303;388;473;558;133"
+        assert clocks[1].get("values") == "185;185;115;185;185;115;185"
+        assert all(c.get("dur") == "12s" and c.get("repeatCount") == "indefinite" for c in clocks)
+    else:
+        assert not clocks
+scale, consecutive = 1024, 0
+scales, checks, upcoming = [], [], []
+for _ in range(6):
+    scales.append(scale)
+    overflow = (2**5 * scale > 65504)
+    checks.append("INF" if overflow else "OK")
+    if overflow:
+        scale, consecutive = int(scale * 0.5), 0
+    else:
+        consecutive += 1
+        if consecutive == 2:
+            scale, consecutive = scale * 2, 0
+    upcoming.append(scale)
+assert scales == [1024, 1024, 2048, 1024, 1024, 2048]
+assert checks == ["OK", "OK", "INF", "OK", "OK", "INF"]
+assert upcoming == [1024, 2048, 1024, 1024, 2048, 1024]
+for chapter in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    contents = (pages / chapter).read_text(encoding="utf-8")
+    assert "gradscaler-feedback-motion.svg" in contents
+    assert "gradscaler-feedback-still.svg" in contents
+    assert "data-motion-src" in contents
+    assert "growth_interval=2" in contents
+    assert "https://docs.pytorch.org/docs/stable/amp.html" in contents
+print("Dynamic GradScaler six-step control-loop, fallback and bilingual integration OK")
