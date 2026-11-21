@@ -151,6 +151,13 @@ assert "tile.setAttribute('data-case-accepted',String(accepted))" in player
 # Inspectable per-case buttons retain prediction correctness across rule changes,
 # while bilingual acceptance labels and the footer update with the same mask.
 assert "caseTiles.forEach(({tile,control,cls,i,correct}) =>" in player
+# A highlighted conservation term is a one-case contribution, not another
+# sampled prediction. The pill is noninteractive and hidden from screen readers.
+assert "'data-case-contribution':'true'" in player
+assert "'aria-hidden':'true',visibility:'hidden'" in player
+assert "contributionText.textContent = accepted ? '+1 IN' : '+1 OUT'" in player
+assert "rightMarker.setAttribute('r',selectedRight?'8':'5')" in player
+assert "wrongMarker.setAttribute('r',selectedWrong?'8':'5')" in player
 assert "'data-case-control':cls[0] + (i + 1)" in player
 assert "'data-case-inspection':'true'" in player
 assert "control.addEventListener('focus', () => inspectCase(entry))" in player
