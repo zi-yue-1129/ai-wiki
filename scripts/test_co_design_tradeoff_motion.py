@@ -421,6 +421,7 @@ assert "if (coDesignRegion) bar.remove();" in controls_js
 assert ".concept-motion-scroll > .concept-motion-player.co-design-motion-timeline" in controls_css
 assert ".co-design-motion-controls" in controls_css
 assert "reduced.addEventListener('change', onReduce)" in controls_js
+assert "if (!reduced.matches) enhance()" in controls_js
 for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
                  "mixed-precision.md", "mixed-precision.zh-TW.md"):
     body = (pages / language).read_text(encoding="utf-8")
