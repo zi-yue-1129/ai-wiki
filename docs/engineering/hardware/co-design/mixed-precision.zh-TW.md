@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-12
+translation_reviewed: 2026-11-21
 ---
 
 # 混合精度訓練
@@ -46,6 +46,16 @@ translation_reviewed: 2026-11-12
 </div>
 
 *原創連續教學動畫，CC BY-SA 4.0。* 人工設定的梯度為 $g=2^{-27}\approx7.45\times10^{-9}$，小於 IEEE binary16 的最小正次正規（subnormal）數值 $2^{-24}$，採最接近且同距取偶數捨入（round-to-nearest-even）時，因其小於最小正次正規數的一半，直接轉成 FP16 會捨入為 **0**。若先在反向傳播前把 loss 乘上 $S=2^{10}=1024$，縮放後梯度 $Sg=2^{-17}$ 就能以 FP16 表示；轉回 FP32 再除以 $S$，可得到供 FP32 主權重更新的 $g=2^{-27}$。此為**可驗算的教學示意數值，不是模型實測**。實際訓練仍須避免縮放溢位，且任意梯度不保證都能精確還原，因為仍可能發生捨入或非正規數沖零（flush-to-zero）。圖中只示範單一梯度，並不表示混合精度訓練中的所有運算皆用 FP16。MkDocs 沿用鍵盤可操作的播放／暫停與減少動態效果回退，手機可水平捲動。[完整 SVG 動畫](../../../assets/concept-animations/fp16-loss-scaling-motion.svg) · [GitHub 靜態預覽](../../../assets/concept-animations/fp16-loss-scaling-still.svg)。
+
+### 損失縮放的有效區間：救回微小梯度，也可能使大梯度溢位
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的 FP16 損失縮放區間動畫">
+<img data-source-asset-urls src="../../../assets/concept-animations/fp16-scaling-window-still.svg" data-motion-src="../../../assets/concept-animations/fp16-scaling-window-motion.svg" data-still-src="../../../assets/concept-animations/fp16-scaling-window-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="兩個人工梯度，二的負二十七次方與二的五次方，隨同一個損失縮放係數增大而在 binary16 可表示範圍上一起移動。縮放一倍時小梯度下溢、1024 倍時兩者均可表示，4096 倍時大梯度上溢。" />
+</div>
+
+*原創連續 SVG 教學動畫與 GitHub 三情境回退圖，CC BY-SA 4.0。* 設兩個**人工梯度** (g_{\mathrm{low}}=2^{-27})、(g_{\mathrm{high}}=2^5)，在以 FP16 表示**之前**，先乘上相同的二次方縮放係數 (S)。對支援次正規數、採最接近且同距取偶數捨入的 IEEE binary16，最小正次正規數是 (2^{-24})，最大有限數是 **65504**。當 (S=1)，小梯度會捨入為零；當 (S=2^{10}=1024)，兩者為 (2^{-17}) 與 (2^{15})，都可表示；當 (S=2^{12}=4096)，大梯度變成 (2^{17})，造成上溢。對這**兩個特定數值與二次方縮放設定**，兩者都保持非零且有限的範圍為 **(8\le S\le1024)**，此處的 (S) 只取 2 的整數次方。
+
+兩個移動圓點共用 (|Sg|) 指數軸：左側紅區代表微小梯度可能下溢，右側紅區代表大梯度可能上溢，中間為可表示區。這些都是**可驗算的人工數值，不是模型實測**，也不是通用的安全縮放區間。實際梯度分布會變動，部分硬體會將次正規數沖零，許多運算也會在 FP32 累加。更新最佳化器前仍須將梯度除回原本的縮放係數，如前節所述。MkDocs 可播放／暫停；GitHub 的[三情境靜態比較](../../../assets/concept-animations/fp16-scaling-window-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/fp16-scaling-window-motion.svg)可分別查看結果與連續跨界過程，減少動態效果模式會呈現靜態版本。
 
 ## 結果
 
