@@ -209,6 +209,12 @@ def run():
                             assert next_case.count() == 1
                             assert "+CORRECT 1/4 (25%)" in next_case.text_content()
                             assert "+WRONG 2/4 (50%)" in next_case.text_content()
+                            correct_bar = plot.locator('rect[data-next-bar="correct"]')
+                            wrong_bar = plot.locator('rect[data-next-bar="wrong"]')
+                            assert float(correct_bar.get_attribute('width')) == 90
+                            assert float(wrong_bar.get_attribute('width')) == 180
+                            assert plot.locator('text[data-next-value="correct"]').text_content() == '1/4 25%'
+                            assert plot.locator('text[data-next-value="wrong"]').text_content() == '2/4 50%'
                             assert ("假設下一筆正確" if zh else "if correct") in (
                                 hollow3.get_attribute("aria-label"))
                             assert hollow3.get_attribute("stroke") == "#193e69"
@@ -220,6 +226,8 @@ def run():
                             assert "↓8.3 pp" in inspection.text_content()
                             assert "+CORRECT 1/5 (20%)" in next_case.text_content()
                             assert "+WRONG 2/5 (40%)" in next_case.text_content()
+                            assert float(correct_bar.get_attribute('width')) == 72
+                            assert float(wrong_bar.get_attribute('width')) == 144
                             assert "+CORRECT" in inspection.text_content()
                             hollow5 = plot.locator("circle[data-risk-k='5']")
                             hollow5.focus()
@@ -230,6 +238,10 @@ def run():
                             assert "k=6" in inspection.text_content()
                             assert "↓6.7 pp" in inspection.text_content()
                             assert "END OF SIX OBSERVED CASES" in next_case.text_content()
+                            assert float(correct_bar.get_attribute('width')) == 0
+                            assert float(wrong_bar.get_attribute('width')) == 0
+                            assert plot.locator('text[data-next-value="correct"]').text_content() == '—'
+                            assert plot.locator('text[data-next-value="wrong"]').text_content() == '—'
                             # A mobile horizontal scroll may dispatch hover changes
                             # under a stationary pointer. Explicit keyboard focus
                             # must retain its exact k=6 mathematical explanation.
@@ -248,7 +260,7 @@ def run():
                             hollow3.dispatch_event("mouseleave")
                             assert "k=4" in inspection.text_content()
                             assert slider.input_value() == "40"
-                            assert plot.get_attribute("viewBox") == "0 0 640 244"
+                            assert plot.get_attribute("viewBox") == "0 0 640 316"
                             # The class chart keeps its independent native dimensions.
                             # Select cutoffs using both pointer and keyboard.
                             points = plot.locator("circle[data-acceptance-stage]")

@@ -46,13 +46,13 @@
       return el;
     };
     const riskPlot = filename === 'accuracy-selective-coverage-motion.svg';
-    const plot = node('svg', {viewBox:riskPlot?'0 0 640 244':'0 0 640 260',
+    const plot = node('svg', {viewBox:riskPlot?'0 0 640 316':'0 0 640 260',
       role:'group',
       class:'selective-linked-plot'});
     // Retain native-width labels on phones. The focusable parent figure owns
     // horizontal scrolling; scaling this 640px chart to 320px halves 12px text.
     plot.style.cssText = 'display:block;width:640px;min-width:640px;max-width:none;height:auto;margin:10px 0';
-    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?242:258,rx:12,
+    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?314:258,rx:12,
       fill:'#f8fafc',stroke:'#d4deec'}));
     const write = (x,y,label,attrs={}) => {
       const text = node('text',
@@ -111,6 +111,23 @@
         stroke:'#d4deec','stroke-width':1}));
       const nextCase = write(24,224,'',{'font-size':12,
         'font-weight':700,fill:'#193e69','data-next-case':'true'});
+      // The same 0–100% scale makes next-case conditional risks comparable.
+      // Neither bar adds observations or changes the playable acceptance mask.
+      const nextBars = [false,true].map((wrong,i) => {
+        const y = 246 + 31*i;
+        write(24,y+12,wrong?'+WRONG':'+CORRECT',{'font-size':12,
+          'font-weight':700,fill:wrong?'#924624':'#0d626a'});
+        plot.append(node('rect',{x:148,y,width:360,height:15,rx:6,
+          fill:'#e5ebf2'}));
+        const bar = node('rect',{x:148,y,width:0,height:15,rx:6,
+          fill:wrong?'#de9468':'#50aca3',
+          'data-next-bar':wrong?'wrong':'correct'});
+        plot.append(bar);
+        const value = write(522,y+12,'—',{'font-size':12,
+          'font-weight':700,fill:'#193e69',
+          'data-next-value':wrong?'wrong':'correct'});
+        return {bar,value,wrong};
+      });
       const nextScenario = count => {
         if (count === allAccepted.length) return {
           chart:'END OF SIX OBSERVED CASES · no next-case outcome in this example',
@@ -150,6 +167,14 @@
         inspecting = count;
         inspection.textContent = describe(count);
         nextCase.textContent = nextScenario(count).chart;
+        const terminal = count === allAccepted.length;
+        const currentErrors = allIncorrect[count - 1], nextCount = count + 1;
+        nextBars.forEach(({bar,value,wrong}) => {
+          const numerator = currentErrors + Number(wrong);
+          bar.setAttribute('width',String(terminal?0:360*numerator/nextCount));
+          value.textContent = terminal ? '—' :
+            numerator+'/'+nextCount+' '+fmt(100*numerator/nextCount)+'%';
+        });
         plot.setAttribute('data-inspected-k',String(count));
       };
       const restoreInspection = () => {

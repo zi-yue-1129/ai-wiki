@@ -86,12 +86,16 @@ assert "'data-risk-k':count" in player
 # Each hollow intermediate risk point is inspectable by keyboard and pointer.
 # The inspector shows the exact cumulative error ratio and finite difference
 # to the previous integer cutoff, without selecting an unsupported SVG scene.
-assert "viewBox:riskPlot?'0 0 640 244':'0 0 640 260'" in player
+assert "viewBox:riskPlot?'0 0 640 316':'0 0 640 260'" in player
 # Preserve 640px chart typography on phones; native horizontal scrolling belongs
 # to the focusable figure. width:100% made 12px labels ~6px at 320px.
 assert "width:640px;min-width:640px;max-width:none" in player
 assert "'data-risk-inspection':'true'" in player
 assert "'data-next-case':'true'" in player
+assert "'data-next-bar':wrong?'wrong':'correct'" in player
+assert "'data-next-value':wrong?'wrong':'correct'" in player
+assert "360*numerator/nextCount" in player
+assert "terminal ? '—'" in player
 assert "nextCase.textContent = nextScenario(count).chart" in player
 assert "HYPOTHETICAL NEXT: +CORRECT " in player
 assert "END OF SIX OBSERVED CASES" in player
@@ -208,6 +212,7 @@ assert "**3/8**" in en and "**3/8**" in zh
 assert "2/3 are wrong" in en and "2/3 原本錯誤" in zh
 assert "conservation of outcomes" in en and "守恆分解" in zh
 assert "hypothetical next-case outcomes" in en and "反事實比較" in zh
+assert "**Two live bars**" in en and "**兩條動態橫條**" in zh
 assert "1/4 = 25%" in en and "2/4 = 50%" in zh
 assert "\\Delta_C" in en and "\\Delta_C" in zh
 assert "+CORRECT" in en and "+WRONG" in zh
