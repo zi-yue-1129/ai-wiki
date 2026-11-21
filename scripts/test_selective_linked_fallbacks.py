@@ -75,7 +75,17 @@ def run():
                           '5/8 accepted · 5/5 correct',
                           '0/8 rejected · accuracy N/A',
                           '3/8 rejected · 1/3 correct · 2/3 wrong'])
-    assert coverage.attrib.get('viewBox') == '0 0 380 464'
+    assert coverage.attrib.get('viewBox') == '0 0 380 622'
+    case_rects = [e for e in coverage.findall('.//svg:rect', NS)
+                  if e.get('data-case-id')]
+    assert [e.get('data-case-id') for e in case_rects] == [
+        'P1', 'P2', 'P3', 'P4', 'N1', 'N2', 'N3', 'N4']
+    assert [e.get('data-case-correct') for e in case_rects] == [
+        'true', 'false', 'false', 'true',
+        'true', 'true', 'true', 'true']
+    assert [e.get('data-case-accepted') for e in case_rects] == [
+        'true', 'false', 'false', 'false',
+        'true', 'true', 'true', 'true']
     assert 'not model measurements' in coverage.find('svg:desc', NS).text
     assert 'Rejection changes which outcomes are counted' in coverage.find('svg:desc', NS).text
     colored = coverage.findall('.//svg:rect', NS)
