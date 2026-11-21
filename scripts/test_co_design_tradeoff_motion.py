@@ -160,5 +160,5 @@ for suffix in (".md", ".zh-TW.md"):
     mixed = (pages / ("mixed-precision" + suffix)).read_text(encoding="utf-8")
     assert "PEAK SLOTS" in checkpoint
     assert r"\begin{aligned}" in mixed
-    assert r"\log_2\\frac" in mixed
+    assert r"\log_2\frac" in mixed
     assert r"\log_2|Sg_" not in mixed
