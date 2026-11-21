@@ -75,7 +75,7 @@ $
 ### 動態損失縮放：跨訓練迭代的回饋控制
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的動態 GradScaler 回饋動畫">
-<img data-source-asset-urls src="../../../assets/concept-animations/gradscaler-feedback-still.svg" data-motion-src="../../../assets/concept-animations/gradscaler-feedback-motion.svg" data-still-src="../../../assets/concept-animations/gradscaler-feedback-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="移動焦點依序走過六次人工訓練迭代。縮放係數為 1024 的前兩次有限值檢查均通過，下一次提高至 2048；此時大梯度溢位，跳過最佳化器更新，並將下一次縮放係數減半回到 1024。第四至第六次再次演示相同的增加與回退循環。未播放動畫時仍可閱讀完整曲線與 OK、INF 標記。" />
+<img data-source-asset-urls src="../../../assets/concept-animations/gradscaler-feedback-still.svg" data-motion-src="../../../assets/concept-animations/gradscaler-feedback-motion.svg" data-still-src="../../../assets/concept-animations/gradscaler-feedback-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="移動焦點依序走過六次人工訓練迭代。縮放係數為 1024 的前兩次有限值檢查均通過，下一次提高至 2048；此時大梯度溢位，跳過最佳化器更新，並將下一次縮放係數減半回到 1024。第四至第六次再次演示相同的增加與回退循環。圖中的 NEXT S 列保留每次檢查後的下一次縮放係數，動態底列則同步顯示有限值連續通過次數、成長與回退狀態；停止動畫仍可閱讀完整曲線。" />
 </div>
 
 *原創 SVG 回饋教學動畫，附 GitHub 可閱讀的靜態回退圖，CC BY-SA 4.0。* 承接上節的兩筆固定人工梯度，這裡示範的是**跨六次迭代的動態控制**，而不只是測試不同縮放係數。設定 `growth_interval=2`、`growth_factor=2`、`backoff_factor=0.5`，初始縮放係數為 1024；發生溢位後，連續通過有限值檢查的計數重新歸零。假設被檢查的梯度只有前述 $2^{-27}$ 與 $2^5$：縮放為 1024 時兩者皆有限；縮放為 2048 時大梯度溢位。因此，連續兩次檢查通過會讓**下一次迭代**使用兩倍係數；偵測到 Inf 則會**跳過當次最佳化器更新**，並讓**下一次迭代**將係數減半。[^dynamic-gradscaler]
@@ -88,6 +88,8 @@ $
 | 4 | 1024 | OK | 符合執行條件 | 1024 |
 | 5 | 1024 | OK | 符合執行條件 | 2048 |
 | 6 | 2048 | Inf | 跳過 | 1024 |
+
+圖中明確區分三種狀態：曲線是**當次使用的縮放係數**，`NEXT S` 列是在有限值檢查**之後決定的下一次係數**，而動態底列則呈現**連續通過有限值檢查的次數**。在 t2，計數達 2/2，觸發下一次增加到 2048；t3 偵測到 Inf 後跳過當次更新、把計數歸零，並將下一次係數回退為 1024。最後的 `NEXT S=1024` 指的是圖中尚未畫出的第七次迭代。`2/2` 表示**觸發成長當下的進度**，隨後計數會歸零；所有數值都是教學示意而非模型實測。
 
 曲線呈現的是**當次實際使用的縮放係數**，不是檢查後才得到的新係數，因此最後一次回退會反映在圖中未畫出的第七次迭代。PyTorch 文件中的**預設** `growth_interval` 為 **2000**，不是 2；此處為了在六個時間點呈現控制迴路，刻意縮短間隔並設定重複溢位情境。這不是實際執行的訓練或 GPU 梯度量測，也不能因通過有限值檢查便推論 loss 必然下降。MkDocs 沿用播放／暫停控制，手機可用鍵盤聚焦後水平捲動；減少動態效果模式與 GitHub 預覽則呈現標示完整的靜態曲線。[完整 SVG 動畫](../../../assets/concept-animations/gradscaler-feedback-motion.svg) · [GitHub 靜態回退圖](../../../assets/concept-animations/gradscaler-feedback-still.svg)。
 

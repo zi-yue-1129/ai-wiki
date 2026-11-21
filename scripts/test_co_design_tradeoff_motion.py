@@ -310,7 +310,7 @@ for stem in ("gradscaler-feedback-motion", "gradscaler-feedback-still"):
         assert not any(k.lower().startswith("on") or k.lower().endswith("href") for k in node.attrib)
     clocks = list(doc.iter(svg + "animate"))
     if stem.endswith("-motion"):
-        assert len(clocks) == 2
+        assert len(clocks) == 8
         assert [c.get("attributeName") for c in clocks] == ["cx", "cy"]
         assert clocks[0].get("values") == "133;218;303;388;473;558;133"
         assert clocks[1].get("values") == "185;185;115;185;185;115;185"
@@ -341,3 +341,38 @@ for chapter in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     assert "growth_interval=2" in contents
     assert "https://docs.pytorch.org/docs/stable/amp.html" in contents
 print("Dynamic GradScaler six-step control-loop, fallback and bilingual integration OK")
+
+
+# The published preview must expose the following scale even without SMIL.
+# At each animated time, the finite streak is unique and agrees with the scale update.
+for stem in ("gradscaler-feedback-motion", "gradscaler-feedback-still"):
+    doc = ET.parse(asset / (stem + ".svg")).getroot()
+    row = [n for n in doc.iter(svg + "g")
+           if n.get("data-teaching-role") == "next-scale-row"]
+    assert len(row) == 1
+    assert [int(n.text) for n in row[0].findall(svg + "text")[1:]] == [
+        1024, 2048, 1024, 1024, 2048, 1024]
+    if stem.endswith("-motion"):
+        live = [n for n in doc.iter(svg + "text")
+                if n.get("data-teaching-role") == "finite-streak"]
+        assert len(live) == 6
+        assert all(n.get("class") == "live" for n in live)
+        assert [n.text.split(" · ")[0] for n in live] == [
+            "t1", "t2", "t3", "t4", "t5", "t6"]
+        for i, n in enumerate(live):
+            clock = n.find(svg + "animate")
+            assert clock.get("attributeName") == "opacity"
+            assert clock.get("calcMode") == "discrete"
+            assert clock.get("dur") == "12s"
+            assert clock.get("repeatCount") == "indefinite"
+            assert clock.get("keyTimes") == "0;0.166667;0.333333;0.5;0.666667;0.833333;1"
+            assert clock.get("values").split(";") == [
+                "1" if j == i or (j == 6 and i == 0) else "0"
+                for j in range(7)]
+    else:
+        assert not any(n.get("data-teaching-role") == "finite-streak"
+                       for n in doc.iter(svg + "text"))
+for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    page = (pages / name).read_text(encoding="utf-8")
+    assert "NEXT S" in page and "2/2" in page and "2048" in page
+print("GradScaler next-scale and finite-streak bilingual timing contracts OK")
