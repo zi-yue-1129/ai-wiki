@@ -15,32 +15,76 @@ aliases:
 
 # Newton's Method
 
-Newton's method finds a minimum by repeatedly minimising a local quadratic approximation of the loss. It uses the Hessian to scale each step, so it moves far along flat directions and carefully along steep ones. It converges quickly near a minimum, but each step needs the Hessian. Part of [Calculus and optimisation foundations](index.md).
+Newton's method uses a local quadratic model to seek a stationary point of a smooth loss. A positive-definite Hessian makes the model's stationary point its unique minimum. Step-size control and suitable local conditions support reliable minimisation and rapid convergence. Part of [Calculus and optimisation foundations](index.md).[^newton]
 
 ## Overview
 
-Gradient descent takes steps of fixed size in the direction of the negative gradient. That size is the same in every direction, so a loss that is steep in one direction and flat in another zigzags and progresses slowly. Newton's method corrects this by using the curvature. It fits a quadratic model around the current point and jumps to that quadratic's minimum.
+Basic gradient descent uses the update $\theta_{k+1}=\theta_k-\eta_k\nabla L(\theta_k)$, with a scalar learning rate $\eta_k$. Its step length also depends on the gradient magnitude. On an ill-conditioned quadratic, a single scalar scale can lead to zigzagging and slow progress. Newton's method instead uses curvature to choose a direction from a local quadratic model.[^newton]
 
 ## Key concepts
 
-- **Second-order model**: \(L(\theta+\delta)\approx L(\theta)+\nabla L^\top\delta+\tfrac12\delta^\top H\delta\), with \(H\) the Hessian.
-- **Newton step**: the \(\delta\) that minimises the model, \(\delta = -H^{-1}\nabla L\).
-- **Positive definiteness**: the step is a descent step when \(H\) is positive definite. Otherwise the method may head toward a saddle or a maximum.
-- **Quadratic convergence**: near a minimum with a positive-definite Hessian, the error roughly squares at each step.
+- **Second-order model** uses the gradient and Hessian in a Taylor approximation of the loss.
+- **Newton direction** $p_k$ solves $H_kp_k=-g_k$, where $g_k=\nabla L(\theta_k)$ and $H_k=\nabla^2 L(\theta_k)$.
+- **Positive definiteness** makes a nonzero Newton direction a descent direction. An indefinite Hessian can lead toward a saddle or maximum.
+- **Damping** scales the direction by a step size chosen using the true objective.
+- **Quadratic convergence** is a local rate that requires regularity and a sufficiently close starting point.[^convergence]
 
 ## How it works
 
-The update is
+### Build and solve the local model
 
-\[
-\theta_{k+1} = \theta_k - H_k^{-1}\nabla L(\theta_k).
-\]
+At the current iterate, the quadratic model is
 
-In practice the linear system \(H_k\delta = -\nabla L\) is solved rather than inverting \(H_k\). Each iteration therefore needs the gradient, the Hessian and a linear solve. For a model with \(n\) parameters the Hessian has \(n^2\) entries, which is impractical for large networks.
+$$
+m_k(p)=L(\theta_k)+g_k^\top p+\tfrac12p^\top H_kp.
+$$
 
-The Hessian's eigenvalues decide the behaviour. Directions with large eigenvalues are steep, and the Newton step shrinks movement there. Directions with small eigenvalues are flat, and the step grows. A pure Newton step can therefore overshoot or move toward a saddle point, which is why practical versions add damping or use a line search.
+Its stationarity equation and the damped update are
 
-Logistic regression is the classic example where the Newton method is practical, because the parameter count is small. Bishop (2006) shows the resulting iterative reweighted least squares update.
+$$
+H_kp_k=-g_k,
+\qquad
+\theta_{k+1}=\theta_k+\alpha_kp_k.
+$$
+
+The full Newton step uses $\alpha_k=1$. With $H_k$ positive definite and $g_k\ne0$, the model has a unique minimum and $g_k^\top p_k=-p_k^\top H_kp_k<0$. This guarantees descent for sufficiently small positive step sizes. The existing backtracking example below shows why a full step still needs checking.[^newton]
+
+Solve the linear system directly rather than forming an explicit inverse. A dense Hessian has $n^2$ entries for $n$ parameters. Hessian-free variants can solve approximately using Hessian-vector products, so explicit dense storage is a choice of implementation. Their cost and convergence depend on the accuracy of the solve and curvature information.[^large-scale]
+
+For logistic regression, Newton updates can be written as iteratively reweighted least squares (Bishop, 2006). Their practicality depends on the problem dimensions and linear-solve cost.
+
+### Accept a step using the true loss
+
+Armijo backtracking starts at $\alpha_k=1$ and repeatedly multiplies it by $\beta\in(0,1)$ until the trial point lies in the domain and satisfies
+
+$$
+L(\theta_k+\alpha_kp_k)
+\le L(\theta_k)+c\alpha_k g_k^\top p_k,
+\qquad 0<c<1/2.
+$$
+
+For a differentiable objective and a descent direction at an interior point, sufficiently small steps satisfy this condition. When the Hessian is indefinite, a curvature modification or another suitable direction is needed before applying this descent argument.[^line-search]
+
+### Measure progress and state the convergence assumptions
+
+For a positive-definite Hessian and an exact Newton solve, the squared **Newton decrement** is
+
+$$
+\lambda_k^2=-g_k^\top p_k=p_k^\top H_kp_k.
+$$
+
+The local quadratic predicts an improvement of $\lambda_k^2/2$. This supports stopping when the predicted improvement is below a chosen tolerance. For a nonlinear objective, relating it to the true remaining objective gap requires additional assumptions.[^newton]
+
+For example, take the quadratic $L(\theta)=\tfrac12\theta^\top H\theta$ with $H=\operatorname{diag}(2,8)$ at $\theta=(1,1)^\top$. Then $g=(2,8)^\top$, $p=(-1,-1)^\top$, and $\lambda^2=10$. The predicted decrease is $5$, and a full step reaches the minimiser with exactly that decrease.
+
+Locally, if $L$ is twice continuously differentiable, its Hessian is Lipschitz continuous near an interior local minimiser $\theta^\star$, and $H(\theta^\star)$ is positive definite, sufficiently close iterates with exact full Newton steps satisfy
+
+$$
+\|\theta_{k+1}-\theta^\star\|
+\le C\|\theta_k-\theta^\star\|^2
+$$
+
+for some finite constant $C$. Damping and approximate solves affect the rate achieved before or within this regime.[^convergence][^large-scale]
 
 ## Animated example: curvature-adjusted updates
 
@@ -107,8 +151,13 @@ The Newton direction can be a descent direction yet a **full step** may increase
 
 ## Open questions
 
-- Scalable second-order methods for deep networks remain an active research area, because forming and inverting the Hessian is too costly at scale.
-- Saddle points are common in high-dimensional loss landscapes, and Newton-type steps can be attracted to them unless they are modified.
+- Scalable second-order methods balance the cost of curvature information and linear solves against the improvement obtained per iteration.[^large-scale]
+- An indefinite Hessian can attract an unmodified Newton iteration to a saddle or maximum. Curvature safeguards and step-size selection address different parts of this problem.[^large-scale]
+
+[^newton]: Boyd & Vandenberghe (2004), §9.5, and revised lecture slides 9.19–9.24 explain the quadratic model, descent and the Newton decrement.
+[^line-search]: Boyd & Vandenberghe (2004), §9.2, and revised lecture slide 9.10 describe backtracking line search.
+[^convergence]: Boyd & Vandenberghe (2004), §9.5.3, and revised lecture slides 9.25–9.26 state the positive-definiteness and Hessian Lipschitz assumptions in the classical convergence analysis.
+[^large-scale]: Bottou et al. (2018), §6.1, discuss Hessian-free inexact Newton methods, solve accuracy and nonconvex curvature.
 
 ## References
 
@@ -122,3 +171,4 @@ The Newton direction can be a descent direction yet a **full step** may increase
 - Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer. https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf — Shows the Newton–Raphson update for logistic regression.
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; discusses Newton's method in the context of fitting generalised linear models.
 - Golub, G. H. & Van Loan, C. F. (2013). *Matrix Computations*, 4th ed. Johns Hopkins University Press. https://www.press.jhu.edu/books/title/10678/matrix-computations — Covers the linear solves that each Newton step requires.
+- Boyd, S., Vandenberghe, L. & Nobel, P. (2023 revision). *Convex Optimization: Lecture Slides*, Chapter 9. https://web.stanford.edu/~boyd/cvxbook/bv_cvxslides.pdf — Explains descent methods, backtracking, Newton decrement and the classical convergence analysis.

@@ -1,35 +1,79 @@
 ---
-translation_reviewed: 2026-11-16
+translation_reviewed: 2026-11-21
 ---
 
 # 牛頓法
 
-牛頓法透過反覆最小化損失的局部二次近似來求極小值。它以海森矩陣調整每一步，因此在平坦方向上走得遠，在陡峭方向上則走得謹慎。它在極小值附近收斂很快，但每一步都需要海森矩陣。本頁是[微積分與最佳化基礎](index.md)的一部分。
+牛頓法利用局部二次模型，尋找平滑損失函數的駐點。海森矩陣正定時，模型的駐點就是其唯一極小值。步長控制與適當的局部條件，能支援可靠的最小化與快速收斂。本頁是[微積分與最佳化基礎](index.md)的一部分。[^newton]
 
 ## 概述
 
-梯度下降沿負梯度方向走固定大小的步。這個大小在各方向上都相同，因此在一個方向陡峭、另一個方向平坦的損失上會來回擺動，前進緩慢。牛頓法透過曲率修正這點。它在當前點擬合一個二次模型，並直接跳到該二次函數的極小值。
+基本梯度下降使用更新式 $\theta_{k+1}=\theta_k-\eta_k\nabla L(\theta_k)$，其中 $\eta_k$ 為純量學習率。步長也取決於梯度大小。對條件數較差的二次函數，單一純量尺度可能造成來回擺動與緩慢前進。牛頓法則利用曲率，從局部二次模型選出方向。[^newton]
 
 ## 關鍵概念
 
-- **二階模型**：\(L(\theta+\delta)\approx L(\theta)+\nabla L^\top\delta+\tfrac12\delta^\top H\delta\)，其中 \(H\) 為海森矩陣。
-- **牛頓步**：使模型最小的 \(\delta\)，即 \(\delta = -H^{-1}\nabla L\)。
-- **正定性**：當 \(H\) 為正定矩陣時，此步是下降步；否則可能走向鞍點或極大值。
-- **二次收斂**：在海森矩陣為正定的極小值附近，誤差大致在每步平方。
+- **二階模型**在損失的泰勒近似中使用梯度與海森矩陣。
+- **牛頓方向** $p_k$ 滿足 $H_kp_k=-g_k$，其中 $g_k=\nabla L(\theta_k)$、$H_k=\nabla^2 L(\theta_k)$。
+- **正定性**使非零牛頓方向成為下降方向。不定海森矩陣可能使迭代朝向鞍點或極大值。
+- **阻尼**利用真實目標函數選擇步長，再縮放方向。
+- **二次收斂**是一種局部速率，需要正則條件及足夠接近解的起始點。[^convergence]
 
 ## 運作方式
 
-更新式為
+### 建立並求解局部模型
 
-\[
-\theta_{k+1} = \theta_k - H_k^{-1}\nabla L(\theta_k).
-\]
+在目前迭代點，二次模型為
 
-實務上不會直接求 \(H_k\) 的逆矩陣，而是解線性系統 \(H_k\delta = -\nabla L\)。因此每次迭代需要梯度、海森矩陣與一次線性求解。若模型有 \(n\) 個參數，海森矩陣有 \(n^2\) 個元素，對大型網路並不實際。
+$$
+m_k(p)=L(\theta_k)+g_k^\top p+\tfrac12p^\top H_kp.
+$$
 
-海森矩陣的特徵值決定其行為。特徵值大的方向較陡，牛頓步在該方向縮小移動；特徵值小的方向較平，步長則放大。因此純牛頓步可能衝過頭，或走向鞍點，這就是實務版本加入阻尼或線搜尋的原因。
+其駐點方程式與阻尼更新為
 
-邏輯斯回歸是牛頓法實用的典型例子，因為參數數量少。Bishop（2006）展示了由此得到的迭代加權最小平方更新。
+$$
+H_kp_k=-g_k,
+\qquad
+\theta_{k+1}=\theta_k+\alpha_kp_k.
+$$
+
+完整牛頓步使用 $\alpha_k=1$。當 $H_k$ 正定且 $g_k\ne0$ 時，模型有唯一極小值，並且 $g_k^\top p_k=-p_k^\top H_kp_k<0$。這能保證足夠小的正步長會使目標下降。下方回溯範例則說明，完整步長仍須檢查。[^newton]
+
+實作時直接解線性系統即可。對 $n$ 個參數，稠密海森矩陣有 $n^2$ 個元素。無海森矩陣的變體能利用海森矩陣與向量的乘積，近似求解，因此顯式稠密儲存是一項實作選擇。其成本與收斂性取決於求解精度及曲率資訊。[^large-scale]
+
+對邏輯斯回歸，牛頓更新可寫成迭代加權最小平方（Bishop，2006）。其實用性取決於問題維度與線性求解成本。
+
+### 利用真實損失接受步長
+
+Armijo 回溯線搜尋從 $\alpha_k=1$ 開始，反覆乘以 $\beta\in(0,1)$，直到候選點位於定義域內，且滿足
+
+$$
+L(\theta_k+\alpha_kp_k)
+\le L(\theta_k)+c\alpha_k g_k^\top p_k,
+\qquad 0<c<1/2.
+$$
+
+對可微分目標函數，在定義域內部點給定下降方向後，足夠小的步長會滿足此條件。若海森矩陣不定，需要先修正曲率或改用適當方向，才能套用這項下降論證。[^line-search]
+
+### 衡量進展並列出收斂假設
+
+對正定海森矩陣與精確的牛頓求解，**牛頓減量**的平方為
+
+$$
+\lambda_k^2=-g_k^\top p_k=p_k^\top H_kp_k.
+$$
+
+局部二次模型預測的改善量為 $\lambda_k^2/2$。因此可以在預測改善量小於所選容許值時停止。對非線性目標，要將此量連結到真實的剩餘目標差距，還需要額外假設。[^newton]
+
+例如，考慮二次函數 $L(\theta)=\tfrac12\theta^\top H\theta$，其中 $H=\operatorname{diag}(2,8)$，並取 $\theta=(1,1)^\top$。此時 $g=(2,8)^\top$、$p=(-1,-1)^\top$，且 $\lambda^2=10$。預測下降量為 $5$，完整步長會抵達極小值，實際下降量也恰為 $5$。
+
+在局部，若 $L$ 二次連續可微，海森矩陣在定義域內部的局部極小值 $\theta^\star$ 附近為 Lipschitz 連續，且 $H(\theta^\star)$ 正定，從足夠近的迭代點進行精確完整牛頓步，會滿足
+
+$$
+\|\theta_{k+1}-\theta^\star\|
+\le C\|\theta_k-\theta^\star\|^2
+$$
+
+其中 $C$ 為某個有限常數。阻尼與近似求解會影響進入此區域前，以及在其中實際達到的收斂速率。[^convergence][^large-scale]
 
 ## 教學動畫：曲率調整的牛頓更新
 
@@ -96,8 +140,13 @@ $$
 
 ## 開放問題
 
-- 深度網路可擴展的二階方法仍是活躍的研究領域，因為在大規模下形成與求逆海森矩陣的成本過高。
-- 鞍點在高維損失地形中很常見，除非經過修改，牛頓型步驟可能被吸引至其中。
+- 可擴展的二階方法需要在曲率資訊、線性求解成本與每次迭代的改善量之間取得平衡。[^large-scale]
+- 不定海森矩陣可能使未經修正的牛頓迭代朝向鞍點或極大值。曲率控制與步長選擇分別處理此問題的不同面向。[^large-scale]
+
+[^newton]: Boyd 與 Vandenberghe（2004）第 9.5 節，以及修訂版講義第 9.19 至 9.24 頁，說明二次模型、下降性與牛頓減量。
+[^line-search]: Boyd 與 Vandenberghe（2004）第 9.2 節與修訂版講義第 9.10 頁說明回溯線搜尋。
+[^convergence]: Boyd 與 Vandenberghe（2004）第 9.5.3 節與修訂版講義第 9.25 至 9.26 頁，列出古典收斂分析中的正定性與海森矩陣 Lipschitz 條件。
+[^large-scale]: Bottou 等人（2018）第 6.1 節討論無海森矩陣的近似牛頓法、求解精度與非凸曲率。
 
 ## 參考文獻
 
@@ -111,3 +160,4 @@ $$
 - Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer. https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf — 展示邏輯斯回歸的牛頓–拉弗森更新。
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；在廣義線性模型的擬合中討論牛頓法。
 - Golub, G. H. & Van Loan, C. F. (2013). *Matrix Computations*, 4th ed. Johns Hopkins University Press. https://www.press.jhu.edu/books/title/10678/matrix-computations — 涵蓋每一步牛頓法所需的線性求解。
+- Boyd, S., Vandenberghe, L. & Nobel, P. (2023 revision). *Convex Optimization: Lecture Slides*, Chapter 9. https://web.stanford.edu/~boyd/cvxbook/bv_cvxslides.pdf — 以講義說明下降方法、回溯線搜尋、牛頓減量與古典收斂分析。
