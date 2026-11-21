@@ -474,6 +474,28 @@
         stroke:'#d4deec','stroke-width':1}));
       write(35,281,'CASE OUTCOMES',{'font-weight':700,'font-size':12});
       const caseTiles = [];
+      // Inspect individual provenance without changing predictions or the
+      // acceptance mask. Use the existing legend line to preserve viewBox.
+      const caseInspection = write(116,368,'✓ right · × wrong',{
+        'font-size':12,'font-weight':700,fill:'#193e69',
+        'data-case-inspection':'true'});
+      let inspectedCase = null;
+      const inspectCase = entry => {
+        inspectedCase = entry;
+        caseInspection.textContent = entry
+          ? entry.cls[0] + (entry.i + 1) + ': ' +
+            (entry.correct ? 'RIGHT' : 'WRONG') + ' · ' +
+            (entry.tile.getAttribute('data-case-accepted') === 'true'
+              ? 'ACCEPTED' : 'REJECTED')
+          : '✓ right · × wrong';
+        caseTiles.forEach(({tile,control}) => {
+          const focused = entry && control === entry.control;
+          const accepted = tile.getAttribute('data-case-accepted') === 'true';
+          tile.setAttribute('stroke', focused ? '#193e69' :
+            accepted ? '#087e85' : '#9aacc1');
+          tile.setAttribute('stroke-width', focused ? '3' : '1.5');
+        });
+      };
       for (const [cls,outcomes,y] of [
         ['POS',[true,false,false,true],294],
         ['NEG',[true,true,true,true],325],
@@ -486,33 +508,67 @@
             'data-case-id':cls[0]+(i+1),
             'data-case-correct':String(correct),
             'data-case-accepted':'true'});
-          plot.append(tile);
-          write(x+9,y+17,cls[0]+(i+1),{'font-size':12,
-            'font-weight':700,fill:'#193e69'});
-          write(x+45,y+17,correct?'✓':'×',{'font-size':15,
-            'font-weight':700,fill:correct?'#0d626a':'#b45336'});
-          caseTiles.push({tile,cls,i});
+          const control = node('g', {
+            role:'button',tabindex:0,cursor:'pointer',style:'outline:none',
+            'data-case-control':cls[0] + (i + 1)});
+          control.append(tile,
+            node('text',{x:x+9,y:y+17,fill:'#193e69',
+              'font-family':'Arial, sans-serif','font-size':12,
+              'font-weight':700},cls[0]+(i+1)),
+            node('text',{x:x+45,y:y+17,
+              fill:correct?'#0d626a':'#b45336',
+              'font-family':'Arial, sans-serif','font-size':15,
+              'font-weight':700},correct?'✓':'×'));
+          plot.append(control);
+          const entry = {tile,control,cls,i,correct};
+          caseTiles.push(entry);
+          control.addEventListener('focus', () => inspectCase(entry));
+          control.addEventListener('blur', () => inspectCase(null));
+          control.addEventListener('click', () => {
+            control.focus(); inspectCase(entry);
+          });
+          // Horizontal scrolling may move the pointer under keyboard focus.
+          control.addEventListener('mouseenter', () => {
+            if (!caseTiles.some(({control}) => control === document.activeElement))
+              inspectCase(entry);
+          });
+          control.addEventListener('mouseleave', () => {
+            if (!caseTiles.some(({control}) => control === document.activeElement))
+              inspectCase(null);
+          });
+          control.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault(); inspectCase(entry); return;
+            }
+            const next = keyboardStage(event.key,caseTiles.indexOf(entry),7);
+            if (next !== null) {
+              event.preventDefault(); caseTiles[next].control.focus();
+            }
+          });
         });
       }
       write(470,310,'TEAL accepted',{'font-size':12,
         'font-weight':700,fill:'#0d626a'});
       write(470,340,'PALE rejected',{'font-size':12,'font-weight':700});
-      write(116,368,'✓  correct',{'font-size':12,
-        'font-weight':700,fill:'#0d626a'});
-      write(270,368,'×  wrong',{'font-size':12,
-        'font-weight':700,fill:'#b45336'});
       update = index => {
         classChoices.forEach(({control,paint},i) => {
           control.setAttribute('aria-pressed',String(i===index));
           paint(i===index);
         });
-        caseTiles.forEach(({tile,cls,i}) => {
+        caseTiles.forEach(({tile,control,cls,i,correct}) => {
           const accepted = index === 0 || cls === 'NEG' || i === 0;
           tile.setAttribute('fill',accepted?'#e3f0ef':'#eef2f7');
-          tile.setAttribute('stroke',accepted?'#087e85':'#9aacc1');
           tile.setAttribute('stroke-dasharray',accepted?'none':'4 3');
           tile.setAttribute('data-case-accepted',String(accepted));
+          const id = cls[0] + (i + 1);
+          control.setAttribute('aria-label',zh
+            ? '個案 ' + id + '，' + (correct?'預測正確':'預測錯誤') +
+              '，' + (accepted?'接受':'拒答') + '；方向鍵檢視相鄰個案'
+            : 'Case ' + id + ', ' + (correct?'correct':'wrong') +
+              ', ' + (accepted?'accepted':'rejected') +
+              '; use arrow keys for adjacent cases');
         });
+        inspectCase(inspectedCase);
         const positive=index===0?4:1;
         bars[0].fill.setAttribute('width',String(415*positive/4));
         bars[0].value.textContent=String(positive)+'/4';

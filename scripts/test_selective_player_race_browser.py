@@ -368,6 +368,38 @@ def run():
                             # P4 stays right despite selective rejection.
                             assert cases.nth(3).get_attribute("data-case-correct") == "true"
                             assert cases.nth(3).get_attribute("stroke-dasharray") == "4 3"
+                            # Case provenance: focus, navigation, exact outcomes,
+                            # translated semantic labels, and no timeline seek.
+                            case_controls = plot.locator("g[data-case-control]")
+                            assert case_controls.count() == 8
+                            assert all(case_controls.nth(i).get_attribute("role") == "button"
+                                       for i in range(8))
+                            detail = plot.locator("text[data-case-inspection]")
+                            assert detail.text_content() == "✓ right · × wrong"
+                            case_controls.nth(3).focus()
+                            assert detail.text_content() == "P4: RIGHT · REJECTED"
+                            assert cases.nth(3).get_attribute("stroke-width") == "3"
+                            assert cases.nth(3).get_attribute("stroke") == "#193e69"
+                            assert ("預測正確" if zh else "correct") in (
+                                case_controls.nth(3).get_attribute("aria-label"))
+                            assert ("拒答" if zh else "rejected") in (
+                                case_controls.nth(3).get_attribute("aria-label"))
+                            page.keyboard.press("ArrowLeft")
+                            assert case_controls.nth(2).evaluate(
+                                "(e) => document.activeElement === e")
+                            assert detail.text_content() == "P3: WRONG · REJECTED"
+                            page.keyboard.press("Home")
+                            assert detail.text_content() == "P1: RIGHT · ACCEPTED"
+                            page.keyboard.press("End")
+                            assert detail.text_content() == "N4: RIGHT · ACCEPTED"
+                            page.keyboard.press("Space")
+                            assert slider.input_value() == "40"
+                            bounds = detail.evaluate("""el => {
+                              const b=el.getBBox();
+                              return {left:b.x,right:b.x+b.width,bottom:b.y+b.height};
+                            }""")
+                            assert bounds["left"] >= 0 and bounds["right"] <= 630
+                            assert bounds["bottom"] <= 380
                             assert rejected.text_content() == (
                                 "3/8 rejected · 1/3 correct · 2/3 wrong")
                             right = plot.locator("text[data-correct-balance]")
@@ -404,6 +436,13 @@ def run():
                             assert choices.nth(0).locator("rect").get_attribute("fill") == "#e3f0ef"
                             assert choices.nth(0).locator("rect").get_attribute("stroke") == "#193e69"
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#ffffff"
+                            case_controls.nth(3).focus()
+                            assert detail.text_content() == "P4: RIGHT · ACCEPTED"
+                            assert ("接受" if zh else "accepted") in (
+                                case_controls.nth(3).get_attribute("aria-label"))
+                            assert cases.nth(3).get_attribute("data-case-correct") == "true"
+                            choices.nth(0).focus()
+                            assert detail.text_content() == "✓ right · × wrong"
                             assert "8/8" in calculation.inner_text()
                             assert overall.text_content() == "8/8 accepted · 6/8 correct"
                             assert all(cases.nth(i).get_attribute(
