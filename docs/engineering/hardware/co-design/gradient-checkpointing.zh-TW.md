@@ -49,7 +49,7 @@ translation_reviewed: 2026-11-21
 ### 如何選擇檢查點間距：記憶體取捨
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的檢查點間距動畫">
-<img data-source-asset-urls src="../../../assets/concept-animations/checkpoint-spacing-still.svg" data-motion-src="../../../assets/concept-animations/checkpoint-spacing-motion.svg" data-still-src="../../../assets/concept-animations/checkpoint-spacing-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="十六層、大小相同的激活值鏈中，區段長度由一增加到十六時，長期保留的檢查點變少，但反向重算的區段暫存變多。五種設定的峰值激活值槽數呈 U 字形，區段長度四最少。" />
+<img data-source-asset-urls src="../../../assets/concept-animations/checkpoint-spacing-still.svg" data-motion-src="../../../assets/concept-animations/checkpoint-spacing-motion.svg" data-still-src="../../../assets/concept-animations/checkpoint-spacing-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="在十六層、激活值大小相同的人工鏈中，區段長度逐級增加時，KEEP 保留數量下降而 REBUILD 暫存數量增加；兩組動態數字同步更新。區段長度為四時，五個保留加三個重算等於八個峰值槽位，為五種設定中的最低值。" />
 </div>
 
 *原創運算型 SVG 動畫與 GitHub 靜態比較，CC BY-SA 4.0。* 考慮一條 **16 層、各層激活值大小相同的人工網路鏈**，區段長度 $s$ 為 16 的因數。邊界 $A_0,A_s,\ldots,A_{16}$ 保留至反向傳播需要時，重算某一區段時最多額外保留 $s-1$ 個內部激活值。在這個**簡化的保留策略**下，同時存活的峰值激活值槽數為
