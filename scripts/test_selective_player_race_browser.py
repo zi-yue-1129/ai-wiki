@@ -354,7 +354,20 @@ def run():
                             assert gap.text_content() == "GAP 75 pp"
                             rejected = plot.locator("text[data-rejected-metrics]")
                             assert rejected.count() == 1
-                            assert plot.get_attribute("viewBox") == "0 0 640 260"
+                            assert plot.get_attribute("viewBox") == "0 0 640 380"
+                            cases = plot.locator("rect[data-case-id]")
+                            assert cases.count() == 8
+                            assert [cases.nth(i).get_attribute("data-case-correct")
+                                    for i in range(8)] == [
+                                "true", "false", "false", "true",
+                                "true", "true", "true", "true"]
+                            assert [cases.nth(i).get_attribute("data-case-accepted")
+                                    for i in range(8)] == [
+                                "true", "false", "false", "false",
+                                "true", "true", "true", "true"]
+                            # P4 stays right despite selective rejection.
+                            assert cases.nth(3).get_attribute("data-case-correct") == "true"
+                            assert cases.nth(3).get_attribute("stroke-dasharray") == "4 3"
                             assert rejected.text_content() == (
                                 "3/8 rejected · 1/3 correct · 2/3 wrong")
                             right = plot.locator("text[data-correct-balance]")
@@ -393,6 +406,10 @@ def run():
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#ffffff"
                             assert "8/8" in calculation.inner_text()
                             assert overall.text_content() == "8/8 accepted · 6/8 correct"
+                            assert all(cases.nth(i).get_attribute(
+                                "data-case-accepted") == "true" for i in range(8))
+                            assert cases.nth(1).get_attribute("data-case-correct") == "false"
+                            assert cases.nth(3).get_attribute("data-case-correct") == "true"
                             assert gap.text_content() == "GAP 0 pp"
                             assert rejected.text_content() == "0/8 rejected · accuracy N/A"
                             assert right.text_content() == (
