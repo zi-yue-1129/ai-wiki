@@ -28,4 +28,8 @@ for n, held, scratch, peak in ((1,17,0,17),(2,9,1,10),(4,5,3,8),(8,3,7,10),(16,2
     assert held == 16//n+1 and scratch == n-1 and peak == 16//n+n
 assert 2**-27 < 2**-25 and 2**-17 >= 2**-24
 assert 2**15 <= 65504 and 2**17 > 65504
-print("Co-design dual visual assets, bilingual links and arithmetic OK")
+for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
+    assert "$\\nM(s)=" in (pages / language).read_text(encoding="utf-8")
+for language in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    assert "$8\\\\le S\\\\le1024$" in (pages / language).read_text(encoding="utf-8")
+print("Co-design dual visual assets, bilingual links, math markup and arithmetic OK")

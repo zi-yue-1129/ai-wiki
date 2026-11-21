@@ -53,9 +53,9 @@ translation_reviewed: 2026-11-21
 <img data-source-asset-urls src="../../../assets/concept-animations/fp16-scaling-window-still.svg" data-motion-src="../../../assets/concept-animations/fp16-scaling-window-motion.svg" data-still-src="../../../assets/concept-animations/fp16-scaling-window-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="兩個人工梯度，二的負二十七次方與二的五次方，隨同一個損失縮放係數增大而在 binary16 可表示範圍上一起移動。縮放一倍時小梯度下溢、1024 倍時兩者均可表示，4096 倍時大梯度上溢。" />
 </div>
 
-*原創連續 SVG 教學動畫與 GitHub 三情境回退圖，CC BY-SA 4.0。* 設兩個**人工梯度** (g_{\mathrm{low}}=2^{-27})、(g_{\mathrm{high}}=2^5)，在以 FP16 表示**之前**，先乘上相同的二次方縮放係數 (S)。對支援次正規數、採最接近且同距取偶數捨入的 IEEE binary16，最小正次正規數是 (2^{-24})，最大有限數是 **65504**。當 (S=1)，小梯度會捨入為零；當 (S=2^{10}=1024)，兩者為 (2^{-17}) 與 (2^{15})，都可表示；當 (S=2^{12}=4096)，大梯度變成 (2^{17})，造成上溢。對這**兩個特定數值與二次方縮放設定**，兩者都保持非零且有限的範圍為 **(8\le S\le1024)**，此處的 (S) 只取 2 的整數次方。
+*原創連續 SVG 教學動畫與 GitHub 三情境回退圖，CC BY-SA 4.0。* 設兩個**人工梯度** $g_{\mathrm{low}}=2^{-27}$、$g_{\mathrm{high}}=2^5$，在以 FP16 表示**之前**，先乘上相同的二次方縮放係數 $S$。對支援次正規數、採最接近且同距取偶數捨入的 IEEE binary16，最小正次正規數是 $2^{-24}$，最大有限數是 **65504**。當 $S=1$，小梯度會捨入為零；當 $S=2^{10}=1024$，兩者為 $2^{-17}$ 與 $2^{15}$，都可表示；當 $S=2^{12}=4096$，大梯度變成 $2^{17}$，造成上溢。對這**兩個特定數值與二次方縮放設定**，兩者都保持非零且有限的範圍為 **$8\le S\le1024$**，此處的 $S$ 只取 2 的整數次方。
 
-兩個移動圓點共用 (|Sg|) 指數軸：左側紅區代表微小梯度可能下溢，右側紅區代表大梯度可能上溢，中間為可表示區。這些都是**可驗算的人工數值，不是模型實測**，也不是通用的安全縮放區間。實際梯度分布會變動，部分硬體會將次正規數沖零，許多運算也會在 FP32 累加。更新最佳化器前仍須將梯度除回原本的縮放係數，如前節所述。MkDocs 可播放／暫停；GitHub 的[三情境靜態比較](../../../assets/concept-animations/fp16-scaling-window-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/fp16-scaling-window-motion.svg)可分別查看結果與連續跨界過程，減少動態效果模式會呈現靜態版本。
+兩個移動圓點共用 $|Sg|$ 指數軸：左側紅區代表微小梯度可能下溢，右側紅區代表大梯度可能上溢，中間為可表示區。這些都是**可驗算的人工數值，不是模型實測**，也不是通用的安全縮放區間。實際梯度分布會變動，部分硬體會將次正規數沖零，許多運算也會在 FP32 累加。更新最佳化器前仍須將梯度除回原本的縮放係數，如前節所述。MkDocs 可播放／暫停；GitHub 的[三情境靜態比較](../../../assets/concept-animations/fp16-scaling-window-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/fp16-scaling-window-motion.svg)可分別查看結果與連續跨界過程，減少動態效果模式會呈現靜態版本。
 
 ## 結果
 

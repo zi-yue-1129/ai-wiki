@@ -52,15 +52,15 @@ translation_reviewed: 2026-11-21
 <img data-source-asset-urls src="../../../assets/concept-animations/checkpoint-spacing-still.svg" data-motion-src="../../../assets/concept-animations/checkpoint-spacing-motion.svg" data-still-src="../../../assets/concept-animations/checkpoint-spacing-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="十六層、大小相同的激活值鏈中，區段長度由一增加到十六時，長期保留的檢查點變少，但反向重算的區段暫存變多。五種設定的峰值激活值槽數呈 U 字形，區段長度四最少。" />
 </div>
 
-*原創運算型 SVG 動畫與 GitHub 靜態比較，CC BY-SA 4.0。* 考慮一條 **16 層、各層激活值大小相同的人工網路鏈**，區段長度 (s) 為 16 的因數。邊界 (A_0,A_s,ldots,A_{16}) 保留至反向傳播需要時，重算某一區段時最多額外保留 (s-1) 個內部激活值。在這個**簡化的保留策略**下，同時存活的峰值激活值槽數為
+*原創運算型 SVG 動畫與 GitHub 靜態比較，CC BY-SA 4.0。* 考慮一條 **16 層、各層激活值大小相同的人工網路鏈**，區段長度 $s$ 為 16 的因數。邊界 $A_0,A_s,\ldots,A_{16}$ 保留至反向傳播需要時，重算某一區段時最多額外保留 $s-1$ 個內部激活值。在這個**簡化的保留策略**下，同時存活的峰值激活值槽數為
 
-$
+$$
 M(s)=\left(\frac{16}{s}+1\right)+(s-1)=\frac{16}{s}+s.
-$
+$$
 
-當 (s=1,2,4,8,16) 時，長期保留的檢查點依序為 **17、9、5、3、2** 個，區段重算的暫存為 **0、1、3、7、15** 個，峰值合計為 **17、10、8、10、17** 個。因而 (s=4) 是這**五個選項**的最低值，呈現 Chen 等人（2016；見既有參考文獻）所討論的平方根平衡。這**不是 GPU 峰值記憶體的實測值**：圖中沒有計入梯度、參數、最佳化器狀態、不同大小的激活值、配置器成本及重算的運算時間；在非均勻計算圖上，最佳區段長度可能不同。
+當 $s=1,2,4,8,16$ 時，長期保留的檢查點依序為 **17、9、5、3、2** 個，區段重算的暫存為 **0、1、3、7、15** 個，峰值合計為 **17、10、8、10、17** 個。因而 $s=4$ 是這**五個選項**的最低值，呈現 Chen 等人（2016；見既有參考文獻）所討論的平方根平衡。這**不是 GPU 峰值記憶體的實測值**：圖中沒有計入梯度、參數、最佳化器狀態、不同大小的激活值、配置器成本及重算的運算時間；在非均勻計算圖上，最佳區段長度可能不同。
 
-動畫同步更新區段邊界、保留／重算槽數以及成本曲線上的選取點。MkDocs 提供可用鍵盤操作的播放／暫停；偏好減少動態效果者看到 (s=4) 的狀態，GitHub 靜態圖則一次比較**全部五種**選擇。手機可聚焦區域後水平捲動。[GitHub 靜態比較](../../../assets/concept-animations/checkpoint-spacing-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/checkpoint-spacing-motion.svg)。
+動畫同步更新區段邊界、保留／重算槽數以及成本曲線上的選取點。MkDocs 提供可用鍵盤操作的播放／暫停；偏好減少動態效果者看到 $s=4$ 的狀態，GitHub 靜態圖則一次比較**全部五種**選擇。手機可聚焦區域後水平捲動。[GitHub 靜態比較](../../../assets/concept-animations/checkpoint-spacing-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/checkpoint-spacing-motion.svg)。
 
 ## 結果
 
