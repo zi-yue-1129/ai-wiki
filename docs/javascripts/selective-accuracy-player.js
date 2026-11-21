@@ -276,6 +276,9 @@
             if (document.activeElement !== dot) restoreInspection();
           });
           dot.addEventListener('focus',() => {
+            // Keep the current accepted set stable while the reader inspects
+            // one of the intermediate k=1,3,5 risk calculations.
+            pauseForCase();
             dot.setAttribute('r','8');
             dot.setAttribute('stroke','#193e69');
             showInspection(count);
