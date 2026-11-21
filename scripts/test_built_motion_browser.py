@@ -397,6 +397,8 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     legacy GIF/SVG players, the visible state must be inspected via the object
     and its controls, not by scrolling the hidden fallback image into view.
     """
+    from playwright.sync_api import expect
+
     frame = host.locator('object.distributed-motion-frame')
     expect(frame).to_have_count(1)
     expect(frame).to_be_visible()
