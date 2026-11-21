@@ -34,14 +34,19 @@ def check_svg(stem, expected_labels):
 
 def run():
     risk = check_svg('accuracy-selective-coverage-linked-still',
-                     ['0%', '25%', '33%', '2/6', '4/6', '6/6', 'RISK',
+                     ['0%', '25%', '33%', '2/6', '4/6', '6/6', 'RISK', 'Δ 25 pp',
                       'AT k=3 · HYPOTHETICAL NEXT',
                       '+CORRECT', '1/4 25%', '+WRONG', '2/4 50%'])
-    assert risk.attrib.get('viewBox') == '0 0 640 318'
+    assert risk.attrib.get('viewBox') == '0 0 640 356'
     bars = {b.get('data-next-bar'): float(b.get('width'))
             for b in risk.findall('.//svg:rect', NS) if b.get('data-next-bar')}
     assert bars == {'correct': 90, 'wrong': 180}
     assert bars['wrong'] / bars['correct'] == 2
+    bracket = [p for p in risk.findall('.//svg:path', NS)
+               if p.get('data-next-spread') == 'true']
+    assert len(bracket) == 1
+    assert bracket[0].get('d') == 'M238 304V315 M238 310H328 M328 304V315'
+    assert 328 - 238 == 360 / 4
     assert 'Neither is a new observed prediction' in risk.find('svg:desc', NS).text
     circles = [(float(n.get('cx')), float(n.get('cy')))
                for n in risk.findall('.//svg:circle', NS)]

@@ -46,13 +46,13 @@
       return el;
     };
     const riskPlot = filename === 'accuracy-selective-coverage-motion.svg';
-    const plot = node('svg', {viewBox:riskPlot?'0 0 640 316':'0 0 640 260',
+    const plot = node('svg', {viewBox:riskPlot?'0 0 640 356':'0 0 640 260',
       role:'group',
       class:'selective-linked-plot'});
     // Retain native-width labels on phones. The focusable parent figure owns
     // horizontal scrolling; scaling this 640px chart to 320px halves 12px text.
     plot.style.cssText = 'display:block;width:640px;min-width:640px;max-width:none;height:auto;margin:10px 0';
-    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?314:258,rx:12,
+    plot.append(node('rect', {x:1,y:1,width:638,height:riskPlot?354:258,rx:12,
       fill:'#f8fafc',stroke:'#d4deec'}));
     const write = (x,y,label,attrs={}) => {
       const text = node('text',
@@ -128,6 +128,15 @@
           'data-next-value':wrong?'wrong':'correct'});
         return {bar,value,wrong};
       });
+      // Bracket the two hypothetical outcomes on the very same 0–100% axis.
+      // Their difference is exactly 1/(k+1), not a confidence interval.
+      const nextSpread = node('path', {'data-next-spread':'true',
+        fill:'none',stroke:'#516a85','stroke-width':1.7,
+        'stroke-linecap':'round'});
+      plot.append(nextSpread);
+      const nextSpreadValue = write(283,336,'',{'font-size':12,
+        'font-weight':700,fill:'#193e69','text-anchor':'middle',
+        'data-next-spread-value':'true'});
       const nextScenario = count => {
         if (count === allAccepted.length) return {
           chart:'END OF SIX OBSERVED CASES · no next-case outcome in this example',
@@ -144,10 +153,10 @@
             ') · +WRONG ' + wrong + ' (' + wrongPct + ')',
           aria:zh ? '假設下一筆正確，風險 ' + right + '（' + rightPct +
             '）；假設下一筆錯誤，風險 ' + wrong + '（' + wrongPct +
-            '）。兩者都是假設情境，不代表模型實測。'
+            '）；兩者相差 ' + fmt(100/n) + ' 個百分點，不是信賴區間或模型實測。'
             : 'Hypothetical next case: if correct, risk ' + right + ' (' +
               rightPct + '); if wrong, risk ' + wrong + ' (' + wrongPct +
-              '). Neither outcome is a model measurement.'
+              '). Their spread is ' + fmt(100/n) + ' percentage points, not a confidence interval or measured outcome.'
         };
       };
       // Focus is an explicit reading choice. Horizontal scrolling can produce
@@ -175,6 +184,17 @@
           value.textContent = terminal ? '—' :
             numerator+'/'+nextCount+' '+fmt(100*numerator/nextCount)+'%';
         });
+        if (terminal) {
+          nextSpread.setAttribute('d','');
+          nextSpreadValue.textContent = '—';
+        } else {
+          const low = 148 + 360*currentErrors/nextCount;
+          const high = low + 360/nextCount;
+          nextSpread.setAttribute('d','M '+low+' 304V315 M '+low+
+            ' 310H'+high+' M '+high+' 304V315');
+          nextSpreadValue.setAttribute('x',String((low+high)/2));
+          nextSpreadValue.textContent = 'Δ '+fmt(100/nextCount)+' pp';
+        }
         plot.setAttribute('data-inspected-k',String(count));
       };
       const restoreInspection = () => {

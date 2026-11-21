@@ -215,6 +215,13 @@ def run():
                             assert float(wrong_bar.get_attribute('width')) == 180
                             assert plot.locator('text[data-next-value="correct"]').text_content() == '1/4 25%'
                             assert plot.locator('text[data-next-value="wrong"]').text_content() == '2/4 50%'
+                            spread = plot.locator('path[data-next-spread]')
+                            spread_value = plot.locator('text[data-next-spread-value]')
+                            assert spread.count() == 1
+                            assert spread_value.text_content() == 'Δ 25 pp'
+                            assert spread.get_attribute('d') == 'M 238 304V315 M 238 310H328 M 328 304V315'
+                            assert ("25 percentage points" if not zh else
+                                    "25 個百分點") in hollow3.get_attribute("aria-label")
                             assert ("假設下一筆正確" if zh else "if correct") in (
                                 hollow3.get_attribute("aria-label"))
                             assert hollow3.get_attribute("stroke") == "#193e69"
@@ -228,6 +235,8 @@ def run():
                             assert "+WRONG 2/5 (40%)" in next_case.text_content()
                             assert float(correct_bar.get_attribute('width')) == 72
                             assert float(wrong_bar.get_attribute('width')) == 144
+                            assert spread_value.text_content() == 'Δ 20 pp'
+                            assert spread.get_attribute('d') == 'M 220 304V315 M 220 310H292 M 292 304V315'
                             assert "+CORRECT" in inspection.text_content()
                             hollow5 = plot.locator("circle[data-risk-k='5']")
                             hollow5.focus()
@@ -240,6 +249,8 @@ def run():
                             assert "END OF SIX OBSERVED CASES" in next_case.text_content()
                             assert float(correct_bar.get_attribute('width')) == 0
                             assert float(wrong_bar.get_attribute('width')) == 0
+                            assert spread.get_attribute('d') == ''
+                            assert spread_value.text_content() == '—'
                             assert plot.locator('text[data-next-value="correct"]').text_content() == '—'
                             assert plot.locator('text[data-next-value="wrong"]').text_content() == '—'
                             # A mobile horizontal scroll may dispatch hover changes

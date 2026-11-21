@@ -124,6 +124,14 @@ The inspector marks the added case **+CORRECT** ($e_k=0$) or **+WRONG** ($e_k=1$
 
 The linked chart also compares **hypothetical next-case outcomes**, not additional model observations. Given `k` accepted cases with `E_k` errors, accepting one more **correct** prediction would yield risk `E_k/(k+1)`, while accepting one more **wrong** prediction would yield `(E_k+1)/(k+1)`. At **k=3** (one error), these alternatives are **1/4 = 25%** and **2/4 = 50%**, respectively. This holds the previous accepted set fixed and isolates the effect of one new outcome; neither hypothetical value is a forecast or an empirical result. At **k=6** the diagram explicitly ends rather than inventing a seventh observed example. The keyboard-focusable cutoff controls announce the same distinction to screen readers, without changing the main animation's three selectable states. **Two live bars** compare conditional risk on a common 0–100% scale: teal for a correct next case and orange for a wrong next case. Their lengths change when the cutoff is inspected, without changing the observed risk series or accepted examples. At k=6 the bars empty and display no hypothetical result because the synthetic sequence ends. GitHub's static fallback shows the k=3 pair.
 
+The bracket beneath the bars shows the exact **one-case outcome spread**, not a statistical error bar:
+
+$$
+R_{k+1}^{\\mathrm{wrong}}-R_{k+1}^{\\mathrm{correct}}=\\frac{1}{k+1}.
+$$
+
+Because the two branches differ by precisely one additional mistake, this gap depends only on the new denominator, **not** on the previous error count $E_k$. The gap is **50 percentage points at k=1**, **25 at k=3**, and about **16.7 at k=5**. The bracket shortens as the accepted set grows; this is arithmetic sensitivity to one case, **not** a confidence interval, predicted uncertainty, or statistical guarantee. At k=6 no hypothetical seventh result is drawn.
+
 ## Class-conditional coverage under rejection
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Keyboard-scrollable class-conditional coverage animation">
