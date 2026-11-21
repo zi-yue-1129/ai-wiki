@@ -377,7 +377,7 @@ def run():
                             detail = plot.locator("text[data-case-inspection]")
                             assert detail.text_content() == "✓ right · × wrong"
                             case_controls.nth(3).focus()
-                            assert detail.text_content() == "P4: RIGHT · REJECTED"
+                            assert detail.text_content() == "P4: RIGHT · REJECTED → +1 OUT"
                             # Inspecting a correct but rejected example identifies
                             # exactly which conservation row/subset gets its +1.
                             chip = plot.locator("g[data-case-contribution]")
@@ -391,6 +391,11 @@ def run():
                             assert plot.locator("text[data-correct-balance]").get_attribute("fill") == "#087e85"
                             assert ("計數一筆" if zh else "contributes one") in (
                                 case_controls.nth(3).get_attribute("aria-label"))
+                            # The +1 footer remains legible without scrolling to
+                            # the far-right chip at native-width phone viewports.
+                            assert detail.evaluate(
+                                "el => el.getBBox().x + el.getBBox().width"
+                            ) < 390
                             assert cases.nth(3).get_attribute("stroke-width") == "3"
                             assert cases.nth(3).get_attribute("stroke") == "#193e69"
                             assert ("預測正確" if zh else "correct") in (
@@ -400,16 +405,16 @@ def run():
                             page.keyboard.press("ArrowLeft")
                             assert case_controls.nth(2).evaluate(
                                 "(e) => document.activeElement === e")
-                            assert detail.text_content() == "P3: WRONG · REJECTED"
+                            assert detail.text_content() == "P3: WRONG · REJECTED → +1 OUT"
                             assert chip.locator("text").text_content() == "+1 OUT"
                             assert chip.locator("rect").get_attribute("y") == "230"
                             assert right_dot.get_attribute("r") == "5"
                             assert wrong_dot.get_attribute("r") == "8"
                             assert plot.locator("text[data-wrong-balance]").get_attribute("fill") == "#b45336"
                             page.keyboard.press("Home")
-                            assert detail.text_content() == "P1: RIGHT · ACCEPTED"
+                            assert detail.text_content() == "P1: RIGHT · ACCEPTED → +1 IN"
                             page.keyboard.press("End")
-                            assert detail.text_content() == "N4: RIGHT · ACCEPTED"
+                            assert detail.text_content() == "N4: RIGHT · ACCEPTED → +1 IN"
                             page.keyboard.press("Space")
                             assert slider.input_value() == "40"
                             bounds = detail.evaluate("""el => {
@@ -455,7 +460,7 @@ def run():
                             assert choices.nth(0).locator("rect").get_attribute("stroke") == "#193e69"
                             assert choices.nth(1).locator("rect").get_attribute("fill") == "#ffffff"
                             case_controls.nth(3).focus()
-                            assert detail.text_content() == "P4: RIGHT · ACCEPTED"
+                            assert detail.text_content() == "P4: RIGHT · ACCEPTED → +1 IN"
                             assert chip.locator("text").text_content() == "+1 IN"
                             assert chip.locator("rect").get_attribute("fill") == "#e3f0ef"
                             assert chip.locator("rect").get_attribute("y") == "205"
