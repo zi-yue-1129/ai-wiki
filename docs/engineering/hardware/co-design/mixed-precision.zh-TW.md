@@ -50,12 +50,12 @@ translation_reviewed: 2026-11-21
 ### 損失縮放的有效區間：救回微小梯度，也可能使大梯度溢位
 
 <div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="可水平捲動的 FP16 損失縮放區間動畫">
-<img data-source-asset-urls src="../../../assets/concept-animations/fp16-scaling-window-still.svg" data-motion-src="../../../assets/concept-animations/fp16-scaling-window-motion.svg" data-still-src="../../../assets/concept-animations/fp16-scaling-window-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="兩個人工梯度二的負二十七次方及二的五次方，隨共同縮放係數以二的整數次方從一倍逐級增加至 4096 倍，再依序退回。下方同步讀數顯示：一至四倍時小梯度捨入成零、八至 1024 倍時兩者均可表示、2048 倍起大梯度上溢；紫色虛線保留 32 個指數的固定間距；LOW／HIGH 旁的小標記分別顯示捨入後的 0、OK 或 INF，不會改動捨入前圓點的位置；垂直虛線標示二的負二十五次方的捨入為零中點。" />
+<img data-source-asset-urls src="../../../assets/concept-animations/fp16-scaling-window-still.svg" data-motion-src="../../../assets/concept-animations/fp16-scaling-window-motion.svg" data-still-src="../../../assets/concept-animations/fp16-scaling-window-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="兩個人工梯度二的負二十七次方及二的五次方，隨共同縮放係數以二的整數次方從一倍逐級增加至 4096 倍，再依序退回。下方同步讀數顯示：一至四倍時小梯度捨入成零、八至 1024 倍時兩者均可表示、2048 倍起大梯度上溢；紫色虛線與隨之移動的「Δ log₂ = 32」標記直接呈現固定指數差距；LOW／HIGH 旁的小標記分別顯示捨入後的 0、OK 或 INF，不會改動捨入前圓點的位置；垂直虛線標示二的負二十五次方的捨入為零中點。" />
 </div>
 
 *原創逐級 SVG 教學動畫與 GitHub 三情境回退圖，CC BY-SA 4.0。* 設兩個**人工梯度** $g_{\mathrm{low}}=2^{-27}$、$g_{\mathrm{high}}=2^5$，在以 FP16 表示**之前**，先乘上相同的二次方縮放係數 $S$。對支援次正規數、採最接近且同距取偶數捨入的 IEEE binary16，最小正次正規數是 $2^{-24}$，最大有限數是 **65504**。當 $S=1$，小梯度會捨入為零；當 $S=2^{10}=1024$，兩者為 $2^{-17}$ 與 $2^{15}$，都可表示；當 $S=2^{12}=4096$，大梯度變成 $2^{17}$，造成上溢。對這**兩個特定數值與二次方縮放設定**，兩者都保持非零且有限的範圍為 **$8\le S\le1024$**，此處的 $S$ 只取 2 的整數次方。
 
-邊界情況也很重要：$S=4$ 時，小梯度為 $2^{-25}$，恰好位於零與最小正次正規數的中點，因此在同距取偶數捨入下仍為 **0**；當 **$S=8$** 才到達可表示的 $2^{-24}$。另一方面，當 **$S=2048$**，大梯度為 $2^{16}=65536>65504$，首次上溢。動畫只逐級切換到 **2 的整數次方縮放係數**，下方讀數同步顯示目前 $S$，以及 LOW ZERO、BOTH FINITE 或 HIGH INF 的結果。兩個移動圓點共用 $|Sg|$ 指數軸。**紫色虛線連接兩個捨入前的數值，並隨縮放等距平移，兩者始終相差 32 個二進位指數。** 兩個數值同乘縮放係數後，其比值不變：
+邊界情況也很重要：$S=4$ 時，小梯度為 $2^{-25}$，恰好位於零與最小正次正規數的中點，因此在同距取偶數捨入下仍為 **0**；當 **$S=8$** 才到達可表示的 $2^{-24}$。另一方面，當 **$S=2048$**，大梯度為 $2^{16}=65536>65504$，首次上溢。動畫只逐級切換到 **2 的整數次方縮放係數**，下方讀數同步顯示目前 $S$，以及 LOW ZERO、BOTH FINITE 或 HIGH INF 的結果。兩個移動圓點共用 $|Sg|$ 指數軸。**紫色虛線連接兩個捨入前的數值，並隨縮放等距平移，兩者始終相差 32 個二進位指數。** 圖中的「Δ log₂ = 32」標記也隨線段移動，強調共同縮放只平移兩者的位置，無法縮小其對數差距。 兩個數值同乘縮放係數後，其比值不變：
 
 $
 \begin{aligned}
