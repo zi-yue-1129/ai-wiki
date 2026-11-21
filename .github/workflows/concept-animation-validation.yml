@@ -161,6 +161,9 @@ on:
       - "scripts/test_curiosity_labs_browser.py"
       - "scripts/test_curiosity_sampling_browser.py"
       - "docs/javascripts/concept-motion.js"
+      - "docs/javascripts/selective-accuracy-player.js"
+      - "scripts/test_selective_player_contract.py"
+      - "scripts/test_selective_linked_fallbacks.py"
       - "docs/javascripts/curiosity-labs.js"
       - "docs/stylesheets/curiosity-labs.css"
       - "scripts/test_scoped_viewbox_motion_semantics.py"
@@ -369,6 +372,14 @@ jobs:
           node scripts/test_diffusion_policy_player.cjs
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
+      - name: Verify selective classification animation and GitHub fallback arithmetic
+        run: |
+          python scripts/test_selective_accuracy_motion_semantics.py
+          python scripts/test_selective_scene_binding_motion_semantics.py
+          python scripts/test_selective_static_fallback_binding.py
+          python scripts/test_selective_linked_fallbacks.py
+          node --check docs/javascripts/selective-accuracy-player.js
+          python scripts/test_selective_player_contract.py
       - name: Validate bilingual causal-imitation motion pairs
         run: python scripts/verify_causal_imitation_motion.py
       - name: Check working-memory causal timing and computed states
@@ -462,12 +473,23 @@ jobs:
           node scripts/test_offline_source_player.cjs
       - name: Install Chromium and Traditional Chinese fonts for visual tests
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+          # Retry transient Ubuntu mirror / CDN failures; never skip dependencies.
+          for attempt in 1 2 3; do
+            if sudo apt-get -o APT::Update::Error-Mode=any update -qq && sudo apt-get install -y --no-install-recommends fonts-noto-cjk; then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "Browser dependency install failed after 3 attempts" >&2
+              exit 1
+            fi
+            sleep $((15 * attempt))
+          done
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
           python -m pip install "PyYAML==6.0.3"
           python -m playwright install chromium
+      - name: Chromium selective classification async intent and bilingual fallback regression
+        run: python scripts/test_selective_player_race_browser.py
       - name: Chromium RND/ICM motion, keyboard controls and reduced-motion fallback
         run: python scripts/test_rnd_icm_motion_browser.py
       - name: Chromium GitHub-safe RND/ICM chapter fallback and keyboard player
@@ -921,7 +943,20 @@ jobs:
       - name: Install built article browser package
         run: pip install playwright==1.55.0 Pillow==13.0.0
       - name: Install built article Chromium dependencies
-        run: python -m playwright install --with-deps chromium
+        run: |
+          # Retry transient Ubuntu mirror / CDN failures; never skip dependencies.
+          for attempt in 1 2 3; do
+            if
+            python -m playwright install --with-deps chromium
+          then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "Browser dependency install failed after 3 attempts" >&2
+              exit 1
+            fi
+            sleep $((15 * attempt))
+          done
       - name: Check built article native coverage contract
         run: python scripts/test_deployed_math_contract.py
       - name: Check forward AD production Markdown math containers
@@ -952,7 +987,19 @@ jobs:
       - name: Install causal prose browser
         run: |
           python -m pip install "playwright==1.55.0"
-          python -m playwright install --with-deps chromium
+          # Retry transient Ubuntu mirror / CDN failures; never skip dependencies.
+          for attempt in 1 2 3; do
+            if
+            python -m playwright install --with-deps chromium
+          then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "Browser dependency install failed after 3 attempts" >&2
+              exit 1
+            fi
+            sleep $((15 * attempt))
+          done
       - name: Install verified Traditional Chinese font for causal prose
         uses: ./.github/actions/install-cjk-font
       - name: Check all bilingual causal prose pages and formulas
