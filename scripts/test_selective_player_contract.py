@@ -170,7 +170,12 @@ assert "gap:Math.abs(positive-negative)*25" in player
 assert "flipMarker.setAttribute('visibility',entry?'visible':'hidden')" in player
 assert "flipping only this case would retain" in player
 assert "若只反轉此個案的接受狀態" in player
-assert "control.addEventListener('focus', () => inspectCase(entry))" in player
+assert "control.addEventListener('focus', () => {" in player
+assert "pauseForCase(); inspectCase(entry)" in player
+assert "if (event.key === 'Escape')" in player
+assert "event.preventDefault(); control.blur(); return;" in player
+assert "makeLinkedPlot(filename, zh, chooseStage, () => {" in player
+assert "++intentVersion; pause();" in player
 assert "control.addEventListener('keydown', event =>" in player
 assert "keyboardStage(event.key,caseTiles.indexOf(entry),7)" in player
 assert "inspectCase(inspectedCase)" in player
