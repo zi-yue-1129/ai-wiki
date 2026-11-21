@@ -234,3 +234,51 @@ for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
 for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     assert "Δ log₂ = 32" in (pages/name).read_text(encoding="utf-8")
 print("Checkpoint active-segment replay trace and invariant log-gap badge contracts OK")
+
+
+# Browser-reviewed reconstruction dots: missing activations are recreated sequentially
+# within the *last* active segment.  No dots are added to persistent boundaries.
+checkpoint_dots = [
+    n for n in check.iter(svg+"circle")
+    if n.get("data-teaching-role") == "rebuilt-activation"
+]
+moving_dots = [n for n in checkpoint_dots if n.get("class") == "motion-only"]
+still_dots = [n for n in checkpoint_dots if n.get("class") == "reduced-only"]
+assert [int(n.get("data-boundary")) for n in moving_dots] == list(range(1,16))
+assert [int(n.get("data-boundary")) for n in still_dots] == [13,14,15]
+for j, dot in enumerate(moving_dots, start=1):
+    assert dot.get("cx") == str(108+29*j) and dot.get("cy") == "89"
+    assert dot.get("opacity") == "0"
+    clock = dot.find(svg+"animate")
+    assert clock.get("attributeName") == "opacity"
+    assert clock.get("calcMode") == "discrete" and clock.get("dur") == "12s"
+    expected = [(0,0)]
+    for stage, segment in enumerate((1,2,4,8,16)):
+        if segment > 1 and j > 16-segment:
+            expected.extend([
+                (stage/5+0.18*(j-(16-segment))/segment,1),
+                ((stage+1)/5,0),
+            ])
+    assert clock.get("keyTimes") == ";".join(f"{time:.6f}" for time,_ in expected)
+    assert clock.get("values") == ";".join(str(state) for _,state in expected)
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
+    chapter=(pages/name).read_text(encoding="utf-8")
+    assert "three temporary reconstructed boundaries" in chapter if name.endswith("ing.md") else "橘色小點" in chapter
+
+# FP16 finite-gradient gate distinguishes zero underflow from nonfinite overflow.
+gate_nodes = [n for n in fp.iter(svg+"g") if n.get("data-teaching-role") == "optimizer-step-gate"]
+assert len(gate_nodes) == 1
+gate = gate_nodes[0]
+gate_texts = [n for n in gate.iter(svg+"text") if n.find(svg+"animate") is not None]
+assert [n.text for n in gate_texts] == ["STEP ELIGIBLE", "SKIP (INF)"]
+for node, is_on in zip(gate_texts,(lambda k:k<=10,lambda k:k>=11)):
+    clock=node.find(svg+"animate")
+    assert clock.get("dur")=="12s" and clock.get("calcMode")=="discrete"
+    assert len(clock.get("keyTimes").split(";"))==27
+    assert [int(v) for v in clock.get("values").split(";")]==[int(is_on(k)) for k in frames]
+assert any(n.get("class")=="reduced-only" and n.text=="STEP ELIGIBLE" for n in gate.iter(svg+"text"))
+for name in ("mixed-precision.md","mixed-precision.zh-TW.md"):
+    chapter=(pages/name).read_text(encoding="utf-8")
+    assert "STEP ELIGIBLE" in chapter and "SKIP (INF)" in chapter
+    assert "https://docs.pytorch.org/docs/stable/notes/amp_examples.html" in chapter
+print("Rebuilt activation sequence and Inf/NaN optimizer gate timing contracts OK")
