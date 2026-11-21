@@ -102,3 +102,36 @@ for language in ("mixed-precision.md","mixed-precision.zh-TW.md"):
     page = (pages/language).read_text(encoding="utf-8")
     assert "2^{-25}" in page and "2^{-24}" in page
 print("Whole-chain recomputation total and binary16 rounding-cutoff contracts OK")
+
+
+# Active segment bracket: one replay segment, not all discarded tensors simultaneously.
+brackets = [n for n in check.iter(svg+"path") if n.get("data-teaching-role") == "replay-segment"]
+assert len(brackets) == 2
+active_bracket = next(n for n in brackets if n.get("class") == "motion-only")
+reduced_bracket = next(n for n in brackets if n.get("class") == "reduced-only")
+positions = [f"M {108+29*(16-s)} 104 V 111 H 572 V 104" for s in (1,2,4,8,16,1)]
+bracket_clock = active_bracket.find(svg+"animate")
+assert bracket_clock.get("attributeName") == "d" and bracket_clock.get("calcMode") == "discrete"
+assert bracket_clock.get("values").split(";") == positions
+assert reduced_bracket.get("d") == positions[2]
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
+    page = (pages/name).read_text(encoding="utf-8")
+    assert ("amber bracket" in page) if name.endswith("ing.md") else ("橘色括號" in page)
+
+# Common loss scale shifts both pre-rounding log2 magnitudes without narrowing their separation.
+spans = [n for n in fp.iter(svg+"line") if n.get("data-teaching-role") == "common-scale-span"]
+assert len(spans) == 2
+active_span = next(n for n in spans if n.get("class") == "motion-only")
+reduced_span = next(n for n in spans if n.get("class") == "reduced-only")
+coordinates = {a.get("attributeName"): [int(v) for v in a.get("values").split(";")] for a in active_span.findall(svg+"animate")}
+assert set(coordinates) == {"x1", "x2"}
+assert len(coordinates["x1"]) == len(coordinates["x2"]) == 27
+assert all(y - x == 320 for x,y in zip(coordinates["x1"], coordinates["x2"]))
+assert coordinates["x1"][:4] == [105,115,125,135]
+assert coordinates["x2"][11:14] == [535,545,545]
+assert reduced_span.get("x1") == "205" and reduced_span.get("x2") == "525"
+assert 5 - (-27) == 32
+for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    page = (pages/name).read_text(encoding="utf-8")
+    assert "32" in page and r"\log_2" in page
+print("Segment replay bracket and fixed common-scale exponent spread OK")
