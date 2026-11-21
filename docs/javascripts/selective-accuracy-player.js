@@ -519,7 +519,9 @@
           ? entry.cls[0] + (entry.i + 1) + ': ' +
             (entry.correct ? 'RIGHT' : 'WRONG') + ' · ' +
             (entry.tile.getAttribute('data-case-accepted') === 'true'
-              ? 'ACCEPTED' : 'REJECTED')
+              ? 'ACCEPTED' : 'REJECTED') + ' → +1 ' +
+            (entry.tile.getAttribute('data-case-accepted') === 'true'
+              ? 'IN' : 'OUT')
           : '✓ right · × wrong';
         caseTiles.forEach(({tile,control}) => {
           const focused = entry && control === entry.control;
