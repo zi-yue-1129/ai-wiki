@@ -399,3 +399,33 @@ for lang in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     text = (pages / lang).read_text(encoding="utf-8")
     assert "STREAK" in text and ("filled dot" in text if lang.endswith("precision.md") else "雙圓點" in text)
 print("GradScaler static readable streak and exact six-event visual states OK")
+
+
+# The shared step/seek player now exposes ALL three co-design processes.
+# Timing keys are chosen to land just after the SVG's discrete state changes,
+# while the slider remains continuous between teaching milestones.
+controls_js = (root / "docs/javascripts/distributed-motion-controls.js").read_text(encoding="utf-8")
+controls_css = (root / "docs/stylesheets/distributed-motion-controls.css").read_text(encoding="utf-8")
+timeline_cases = {
+    "checkpoint-spacing": "[0, 2.45, 4.85, 7.25, 9.65]",
+    "fp16-scaling-window": "[0, 0.95, 1.42, 4.66, 5.12, 5.59, 6.05, 6.52, 9.75, 10.21, 11.15]",
+    "gradscaler-feedback": "[0, 2.05, 4.05, 6.05, 8.05, 10.05]",
+}
+for stem, times in timeline_cases.items():
+    assert f"'{stem}': {{ duration: 12, steps: {times} }}" in controls_js, stem
+    assert (asset / f"{stem}-motion.svg").is_file()
+    assert (asset / f"{stem}-still.svg").is_file()
+assert "host.classList.add('co-design-motion-timeline')" in controls_js
+assert "coDesignRegion.after(bar)" in controls_js
+assert "if (coDesignRegion) bar.remove();" in controls_js
+assert ".concept-motion-scroll > .concept-motion-player.co-design-motion-timeline" in controls_css
+assert ".co-design-motion-controls" in controls_css
+assert "reduced.addEventListener('change', onReduce)" in controls_js
+for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+                 "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    body = (pages / language).read_text(encoding="utf-8")
+    if language.endswith(".zh-TW.md"):
+        assert "上一步／下一步" in body and "時間軸" in body and "速度" in body
+    else:
+        assert "Previous/Next Step" in body and "seek" in body and "speed" in body
+print("Co-design semantic stepping, mobile controls and bilingual operation guidance OK")
