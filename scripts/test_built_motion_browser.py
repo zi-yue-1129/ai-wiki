@@ -473,6 +473,38 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     }
     assert all(token in selected_summary for token in selected_tokens[stem]), (stem, selected_summary)
     assert controls.locator('.concept-motion-status').inner_text() == selected_summary
+    # Pin A at the initial synthetic state, inspect B after seeking, and
+    # exercise the true built-page A/B widget before resuming playback.
+    pin = controls.locator('button.distributed-motion-pin')
+    clear_pin = controls.locator('button.distributed-motion-clear')
+    comparison = controls.locator('.distributed-motion-comparison')
+    expect(pin).to_be_enabled()
+    expect(comparison).to_be_hidden()
+    seek.evaluate('e => {e.value = "0"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
+    pin.click()
+    expect(comparison).to_be_visible()
+    expect(clear_pin).to_be_visible()
+    seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
+    pinned_baseline = comparison.locator('.distributed-motion-compare-a').inner_text()
+    compared_live = comparison.locator('.distributed-motion-compare-b').inner_text()
+    expected_a = {'checkpoint-spacing': 's=1', 'fp16-scaling-window': 'S=1',
+                  'gradscaler-feedback': 't1'}[stem]
+    expected_b = {'checkpoint-spacing': 's=8', 'fp16-scaling-window': 'S=64',
+                  'gradscaler-feedback': 't5'}[stem]
+    assert expected_a in pinned_baseline, (stem, pinned_baseline)
+    assert expected_b in compared_live, (stem, compared_live)
+    assert comparison.locator('.distributed-motion-compare-delta').inner_text().strip(), (
+        'Missing computed difference'
+    )
+    capture('a-b-comparison')
+    pin.click()  # Replace A with the current B, no stale baseline retained.
+    assert 'Replace' in pin.inner_text() or '更新' in pin.inner_text()
+    clear_pin.click()
+    expect(comparison).to_be_hidden()
+    expect(clear_pin).to_be_hidden()
+    assert controls.locator('.concept-motion-status').inner_text() in (
+        'Pinned comparison cleared', '已清除釘選比較'
+    )
     rate.select_option('2')
     assert rate.input_value() == '2'
     buttons.nth(1).click()  # Play at 2x

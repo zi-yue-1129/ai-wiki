@@ -485,3 +485,20 @@ assert "所有區段的總重建數量" in (pages / "gradient-checkpointing.zh-T
 assert "zero as silent underflow" in (pages / "mixed-precision.md").read_text(encoding="utf-8")
 assert "靜默下溢為零" in (pages / "mixed-precision.zh-TW.md").read_text(encoding="utf-8")
 print("Co-design synchronized numerical interpretation, bilingual copy and accessible announcements OK")
+
+# A/B pinning is a teaching comparison, not another static illustration.
+# No duplicated language-specific SVG or JavaScript may be introduced.
+assert "pin.textContent = label('Pin A', '釘選 A')" in controls_js
+assert "clearPin.textContent = label('Clear A', '清除 A')" in controls_js
+assert "function compareChange(a, b)" in controls_js
+assert "Δ TOTAL REBUILT" in controls_js
+assert "Outcome: " in controls_js and "Finite check: " in controls_js
+assert "synthetic, not measured" in controls_js
+assert ".distributed-motion-comparison" in controls_css
+assert ".distributed-motion-compare-delta" in controls_css
+assert "grid-template-columns: minmax(0, 1fr)" in controls_css
+for name in ("gradient-checkpointing.md", "mixed-precision.md"):
+    assert "**Pin A**" in (pages / name).read_text(encoding="utf-8")
+for name in ("gradient-checkpointing.zh-TW.md", "mixed-precision.zh-TW.md"):
+    assert "**釘選 A**" in (pages / name).read_text(encoding="utf-8")
+print("Co-design A/B state pinning, bilingual instructions and responsive comparisons OK")

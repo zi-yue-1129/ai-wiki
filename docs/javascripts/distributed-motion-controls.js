@@ -79,6 +79,35 @@
       // stepping backwards through several semantic milestones.
       const restart = host.classList.contains('co-design-motion-timeline')
         ? makeButton('↺ Restart', '↺ 重新開始') : null;
+      // Pin a synthetic state A and compare it with the live state B. This
+      // emphasizes trade-offs and decision changes without copying SVG assets.
+      const pin = host.classList.contains('co-design-motion-timeline')
+        ? document.createElement('button') : null;
+      const clearPin = pin ? document.createElement('button') : null;
+      const comparison = pin ? document.createElement('section') : null;
+      let pinnedTime = null;
+      let pinA = null, pinB = null, comparisonDelta = null;
+      if (pin) {
+        pin.type = clearPin.type = 'button';
+        pin.className = 'distributed-motion-pin';
+        clearPin.className = 'distributed-motion-clear';
+        pin.textContent = label('Pin A', '釘選 A');
+        pin.disabled = true; // An actual SVG time must be available first.
+        clearPin.textContent = label('Clear A', '清除 A');
+        clearPin.hidden = true;
+        bar.append(pin, clearPin);
+        comparison.className = 'distributed-motion-comparison';
+        comparison.hidden = true;
+        comparison.setAttribute('role', 'group');
+        comparison.setAttribute('aria-label', label('Pinned versus current example state', '釘選與目前示意狀態比較'));
+        pinA = document.createElement('p');
+        pinB = document.createElement('p');
+        comparisonDelta = document.createElement('p');
+        pinA.className = 'distributed-motion-compare-a';
+        pinB.className = 'distributed-motion-compare-b';
+        comparisonDelta.className = 'distributed-motion-compare-delta';
+        comparison.append(pinA, pinB, comparisonDelta);
+      }
       const seek = document.createElement('input');
       seek.type = 'range'; seek.min = '0'; seek.max = '1000'; seek.step = '1'; seek.value = '0';
       seek.className = 'distributed-motion-seek';
@@ -109,7 +138,10 @@
       const interpretation = document.createElement('p');
       interpretation.className = 'distributed-motion-interpretation';
       interpretation.setAttribute('aria-live', 'off');
-      if (host.classList.contains('co-design-motion-timeline')) bar.append(interpretation);
+      if (host.classList.contains('co-design-motion-timeline')) {
+        bar.append(interpretation);
+        bar.append(comparison);
+      }
       // Keep controls outside the horizontally scrolled 640px figure on
       // narrow co-design pages. This makes every control reachable without
       // panning the figure and retains the original focusable figure region.
@@ -160,12 +192,66 @@
         }
         return '';
       }
+      function conciseState(t) {
+        if (match[1] === 'checkpoint-spacing') {
+          const spacing = [1, 2, 4, 8, 16][Math.min(4, Math.floor(t / 2.4))];
+          const peak = 16 / spacing + spacing;
+          const total = 16 - 16 / spacing;
+          return label(`s=${spacing} · PEAK ${peak} · TOTAL REBUILT ${total}`,
+                       `s=${spacing} · 峰值 ${peak} · 全區段重建 ${total}`);
+        }
+        if (match[1] === 'fp16-scaling-window') {
+          const frame = Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));
+          const k = frame <= 12 ? frame : frame <= 25 ? 25 - frame : 0;
+          return label(`S=${2 ** k} · LOW ${k <= 2 ? '0' : 'finite'} · HIGH ${k >= 11 ? 'Inf' : 'finite'} · ${k >= 11 ? 'SKIP' : 'ELIGIBLE'}`,
+                       `S=${2 ** k} · 小梯度${k <= 2 ? '歸零' : '有限'} · 大梯度${k >= 11 ? '溢位' : '有限'} · ${k >= 11 ? '跳過' : '符合更新條件'}`);
+        }
+        const i = Math.min(5, Math.floor(t / 2));
+        const s = [1024, 1024, 2048, 1024, 1024, 2048][i];
+        const next = [1024, 2048, 1024, 1024, 2048, 1024][i];
+        const skip = i === 2 || i === 5;
+        return label(`t${i + 1} · S ${s} → ${next} · ${skip ? 'SKIP' : 'ELIGIBLE'}`,
+                     `t${i + 1} · 縮放 ${s} → ${next} · ${skip ? '跳過' : '符合更新條件'}`);
+      }
+      function compareChange(a, b) {
+        if (match[1] === 'checkpoint-spacing') {
+          const get = t => {
+            const s = [1, 2, 4, 8, 16][Math.min(4, Math.floor(t / 2.4))];
+            return [16 / s + s, 16 - 16 / s];
+          };
+          const [peakA, totalA] = get(a), [peakB, totalB] = get(b);
+          const signed = n => (n > 0 ? '+' : '') + n;
+          return label(`B − A: Δ PEAK ${signed(peakB - peakA)} slots · Δ TOTAL REBUILT ${signed(totalB - totalA)}`,
+                       `B − A：峰值 ${signed(peakB - peakA)} 槽 · 全區段重建 ${signed(totalB - totalA)}`);
+        }
+        if (match[1] === 'fp16-scaling-window') {
+          const exp = t => {
+            const n = Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));
+            return n <= 12 ? n : n <= 25 ? 25 - n : 0;
+          };
+          const x = exp(a), y = exp(b);
+          const result = k => k >= 11 ? 'SKIP' : 'ELIGIBLE';
+          return label(`Outcome: ${result(x)} → ${result(y)} · scale exponent ${x} → ${y}`,
+                       `更新資格：${result(x) === 'SKIP' ? '跳過' : '符合'} → ${result(y) === 'SKIP' ? '跳過' : '符合'} · 指數 ${x} → ${y}`);
+        }
+        const skipped = t => [2, 5].includes(Math.min(5, Math.floor(t / 2)));
+        return label(`Finite check: ${skipped(a) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(b) ? 'SKIP' : 'ELIGIBLE'}`,
+                     `有限值檢查：${skipped(a) ? '跳過' : '符合更新條件'} → ${skipped(b) ? '跳過' : '符合更新條件'}`);
+      }
+      function updateComparison() {
+        if (pinnedTime === null || !comparison) return;
+        pinA.textContent = label('A · pinned: ', 'A · 已釘選：') + conciseState(pinnedTime);
+        pinB.textContent = label('B · current: ', 'B · 目前：') + conciseState(time);
+        comparisonDelta.textContent = compareChange(pinnedTime, time) +
+          label(' · synthetic, not measured', ' · 人工示意，非實測');
+      }
       function draw() {
         if (!svg) return;
         svg.setCurrentTime(Math.min(time, config.duration - 0.001));
         seek.value = String(Math.round(time / config.duration * 1000));
         readout.textContent = time.toFixed(1) + ' / ' + config.duration + 's';
         if (interpretation.isConnected) interpretation.textContent = teachingState(time);
+        updateComparison();
         play.textContent = playing ? label('Ⅱ Pause', 'Ⅱ 暫停') : label('▶ Play', '▶ 播放');
         play.setAttribute('aria-label', playing ? label('Pause animation', '暫停動畫') : label('Play animation', '播放動畫'));
       }
@@ -210,6 +296,24 @@
         status.textContent = interpretation.isConnected ? interpretation.textContent
           : label('Animation reset to start', '動畫已重設到起點');
       });
+      pin?.addEventListener('click', () => {
+        if (!svg) return;
+        stop();
+        pinnedTime = time;
+        comparison.hidden = false;
+        clearPin.hidden = false;
+        pin.textContent = label('Replace A', '更新 A');
+        updateComparison();
+        status.textContent = label('Pinned state A. Move the timeline to compare B.',
+                                   '已釘選 A，移動時間軸即可比較 B。');
+      });
+      clearPin?.addEventListener('click', () => {
+        pinnedTime = null;
+        comparison.hidden = true;
+        clearPin.hidden = true;
+        pin.textContent = label('Pin A', '釘選 A');
+        status.textContent = label('Pinned comparison cleared', '已清除釘選比較');
+      });
       seek.addEventListener('input', () => {
         const selected = Number(seek.value);
         stop(); setTime(selected / 1000 * config.duration);
@@ -246,13 +350,16 @@
       };
       document.addEventListener('visibilitychange', onVisibility);
       frame.addEventListener('load', () => {
-        if (reduced.matches) return;
         try {
           const root = frame.contentDocument?.documentElement;
           if (!root || typeof root.pauseAnimations !== 'function' || typeof root.setCurrentTime !== 'function') return;
           svg = root;
           svg.pauseAnimations();
           setTime(0);
+          if (pin) pin.disabled = false;
+          // Also capture a load that finishes while reduced motion is active:
+          // otherwise turning motion back on can leave this player stranded.
+          if (reduced.matches) return;
           img.hidden = true;
           frame.hidden = false;
           frame.style.visibility = '';

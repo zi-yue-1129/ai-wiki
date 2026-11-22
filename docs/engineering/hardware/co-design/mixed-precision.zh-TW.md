@@ -95,6 +95,8 @@ $
 
 [^dynamic-gradscaler]: PyTorch，[*Automatic Mixed Precision package — torch.amp*](https://docs.pytorch.org/docs/stable/amp.html)，說明縮放係數增加與回退參數及預設間隔；[*Automatic Mixed Precision examples*](https://docs.pytorch.org/docs/stable/notes/amp_examples.html) 說明偵測 Inf／NaN 時跳過最佳化器步驟。
 
+**比較兩種精度狀態（MkDocs）**：兩個動畫各自有獨立的 **釘選 A** 基準。先選取某個 Loss Scale 或 GradScaler 迭代並釘選，再移動時間軸觀察 **B**。FP16 比較會對照兩筆梯度**經捨入後**的狀態、最佳化器步驟是否**符合執行條件**及縮放指數的差異；例如 S=1 與 S=2048 的比較會從「小梯度資訊已歸零但仍為有限值」變成「大梯度出現非有限值」，對應**符合更新條件 → 跳過**。GradScaler 比較則列出當次／下次縮放係數與各次人工迭代的有限值檢查結果。可按 **更新 A** 更換基準或 **清除 A** 收起比較。此功能只比較**人工示意數值**，不是實際執行的最佳化器更新或訓練結果；支援滑鼠及鍵盤操作，減少動態效果模式與 GitHub 預覽仍有獨立的靜態解讀。
+
 ## 結果
 
 Micikevicius 等人（2017）報告，採用此方法可把深度學習模型的記憶體用量減少近 2 倍。他們建議保留一份單精度的權重副本，在每次最佳化器步驟後累積梯度，並對損失進行縮放，以處理半精度梯度的資訊損失。他們測試的架構包括卷積網路、循環網路與生成對抗網路。

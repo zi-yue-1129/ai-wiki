@@ -63,3 +63,54 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* A/B comparison of reviewed, synthetic animation states. Keep both panels
+ * outside the figure scroller, and preserve single-column mobile reading. */
+.co-design-motion-controls .distributed-motion-pin,
+.co-design-motion-controls .distributed-motion-clear {
+  border: 1px solid var(--md-default-fg-color--lighter, #9cafbe);
+  border-radius: .4rem;
+  padding: .28rem .5rem;
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #24394c);
+  font: inherit;
+  font-size: .72rem;
+  cursor: pointer;
+}
+.co-design-motion-controls .distributed-motion-pin:focus-visible,
+.co-design-motion-controls .distributed-motion-clear:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 2px;
+}
+.co-design-motion-controls .distributed-motion-pin:disabled { opacity: .5; cursor: wait; }
+.co-design-motion-controls .distributed-motion-clear[hidden],
+.co-design-motion-controls .distributed-motion-comparison[hidden] { display: none !important; }
+.distributed-motion-comparison {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .35rem .5rem;
+  font-variant-numeric: tabular-nums;
+  font-size: .7rem;
+  line-height: 1.5;
+}
+.distributed-motion-comparison p {
+  min-width: 0;
+  margin: 0;
+  padding: .4rem .5rem;
+  border-radius: .35rem;
+  background: var(--md-code-bg-color, #f4f6f8);
+  overflow-wrap: anywhere;
+}
+.distributed-motion-comparison .distributed-motion-compare-a { border-left: 3px solid #7196ad; }
+.distributed-motion-comparison .distributed-motion-compare-b { border-left: 3px solid #c67e3c; }
+.distributed-motion-comparison .distributed-motion-compare-delta {
+  grid-column: 1 / -1;
+  background: transparent;
+  border: 1px solid var(--md-default-fg-color--lightest, #d1d8df);
+}
+@media (max-width: 480px) {
+  .distributed-motion-comparison { grid-template-columns: minmax(0, 1fr); }
+  .distributed-motion-comparison .distributed-motion-compare-delta { grid-column: 1; }
+}
