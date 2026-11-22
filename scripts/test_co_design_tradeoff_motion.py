@@ -707,7 +707,7 @@ print("Bilingual in-page SVG recovery source contracts OK")
 # A pending <object> request does not always dispatch load/error. The bounded
 # watchdog must restore the reviewed still and permit retry, including after
 # a reduced-motion preference toggle. The browser regression exercises the
-# unresolved-request case with a virtual clock on the built site.
+# unresolved-request case with the real watchdog on the built site.
 assert "const SVG_LOAD_TIMEOUT_MS = 15000;" in controls_js
 assert "const armLoadTimer = () => {" in controls_js
 assert "loadTimer = window.setTimeout(() => {" in controls_js

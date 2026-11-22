@@ -919,35 +919,37 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         'xpath=following-sibling::*[1][self::button and '
         "contains(concat(' ', normalize-space(@class), ' '), ' distributed-motion-retry ')]")
     expect(retry_button).to_be_visible(timeout=8000)
-    # A network request that never answers must not strand the Retry button.
-    # Keep the request pending rather than returning a fast error. Chromium's
-    # page clock advances the 15 s watchdog without extending CI wall time.
-    if not page.evaluate("Boolean(window.__coDesignQaClockInstalled)"):
-        page.clock.install()
-        page.evaluate("window.__coDesignQaClockInstalled = true")
-    from playwright.sync_api import expect
+    # Keep this actual network request pending until the real 15 s watchdog
+    # fires. A page-wide virtual clock also advances unrelated script timers.
+    stalled_url = frame.evaluate("""el => {
+        const url = new URL(el.data, document.baseURI);
+        url.searchParams.delete('qa_invalid_svg');
+        url.searchParams.set('_motion_retry', '1');
+        return url.href;
+    }""")
     stalled_requests = []
     def stall_svg_request(route):
-        stalled_requests.append(route)  # deliberately no fulfill/continue/abort
-    stalled_pattern = re.compile(r"_motion_retry=1(?:&|$)")
-    page.route(stalled_pattern, stall_svg_request)
-    retry_button.click()
+        stalled_requests.append(route)  # deliberately keep the response pending
+    page.route(stalled_url, stall_svg_request)
+    with page.expect_request(stalled_url):
+        retry_button.click()
+    expect(retry_button).to_have_attribute('aria-disabled', 'true')
     expect(image).to_be_visible()
-    page.wait_for_timeout(100)
+    # Fallback and a re-enabled Retry must occur before any response is sent.
+    expect(retry_button).not_to_have_attribute('aria-disabled', 'true', timeout=19000)
     assert stalled_requests, (stem, 'stalled HTTP retry was not intercepted')
-    page.clock.fast_forward(15050)
-    expect(retry_button).to_be_visible(timeout=5000)
-    expect(retry_button).not_to_have_attribute('aria-disabled', 'true')
     expect(controls).to_be_hidden()
     expect(image).to_be_visible()
     assert image.evaluate('img => img.complete && img.naturalWidth > 0'), (
         stem, 'stalled retry lost the decoded still image')
     timeout_capture = output / f'co-design-{index}-retry-timeout-fallback.png'
     page.screenshot(path=str(timeout_capture))
-    # Stop the pending fixture; a second, explicit retry must recover.
+    # Resolve the expired fixture with an invalid document rather than
+    # injecting a network abort into the page's unexpected-failure ledger.
     for pending in stalled_requests:
-        pending.abort()
-    page.unroute(stalled_pattern, stall_svg_request)
+        pending.fulfill(status=200, content_type='text/html',
+                        body='<!doctype html><title>Expired retry fixture</title>')
+    page.unroute(stalled_url, stall_svg_request)
     expect(retry_button).to_be_visible(timeout=5000)
     retry_button.click()
     expect(frame).to_be_visible(timeout=10000)
