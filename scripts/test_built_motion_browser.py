@@ -543,7 +543,9 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert all(token in initial_summary for token in initial_tokens[stem]), (stem, initial_summary)
     capture('initial')
     buttons.nth(2).click()  # Semantic next step
-    assert controls.locator('.concept-motion-status').inner_text() == interpretation.inner_text()
+    status_region = controls.locator('.concept-motion-status')
+    step_announcement = status_region.inner_text()
+    assert step_announcement == interpretation.inner_text()
     step_time = get_time()
     assert step_time > 0.5, ('next step did not advance SVG', step_time)
     assert seek.get_attribute('aria-valuetext') != initial_slider_state
@@ -557,7 +559,10 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         'gradscaler-feedback': ('t5', '1024'),
     }
     assert all(token in selected_summary for token in selected_tokens[stem]), (stem, selected_summary)
-    assert controls.locator('.concept-motion-status').inner_text() == selected_summary
+    assert selected_summary != step_announcement
+    assert status_region.inner_text() == step_announcement
+    seek.dispatch_event('change')
+    expect(status_region).to_have_text(selected_summary)
     # Pin A at the initial synthetic state, inspect B after seeking, and
     # exercise the true built-page A/B widget before resuming playback.
     pin = controls.locator('button.distributed-motion-pin')
