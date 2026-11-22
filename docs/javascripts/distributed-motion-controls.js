@@ -712,6 +712,22 @@
         }
       };
       document.addEventListener('visibilitychange', onVisibility);
+      // Pause a timeline that is entirely outside the viewport. Co-design
+      // controls sit BELOW their horizontal SVG scroller; both must leave
+      // view before pausing, or a reader using controls on a phone would
+      // accidentally stop the diagram while its controls remain visible.
+      const viewportTargets = coDesignRegion ? [coDesignRegion, bar] : [host];
+      const viewportVisible = new Map(viewportTargets.map(target => [target, true]));
+      const viewportObserver = typeof IntersectionObserver === 'function'
+        ? new IntersectionObserver(entries => {
+            for (const entry of entries) viewportVisible.set(entry.target, entry.isIntersecting);
+            if (playing && [...viewportVisible.values()].every(visible => !visible)) {
+              stop();
+              status.textContent = label('Animation paused while out of view',
+                                         '動畫離開畫面，已暫停');
+            }
+          }, { threshold: 0 }) : null;
+      for (const target of viewportTargets) viewportObserver?.observe(target);
       frame.addEventListener('load', () => {
         try {
           const root = frame.contentDocument?.documentElement;
@@ -740,6 +756,7 @@
         if (host.isConnected) return;
         stop(); observer.disconnect(); reduced.removeEventListener('change', onReduce);
         document.removeEventListener('visibilitychange', onVisibility);
+        viewportObserver?.disconnect();
         if (coDesignRegion) bar.remove();
       });
       observer.observe(document.body, { childList: true, subtree: true });
