@@ -218,13 +218,15 @@
                      `t${i + 1} · 縮放 ${s} → ${next} · ${skip ? '跳過' : '符合更新條件'}`);
       }
       function compareChange(a, b) {
+        // Signed changes distinguish scale/exponent shifts from the absolute
+        // states. In GradScaler, next-scale depends on finite-check history.
+        const signed = n => (n > 0 ? '+' : '') + n;
         if (match[1] === 'checkpoint-spacing') {
           const get = t => {
             const s = [1, 2, 4, 8, 16][Math.min(4, Math.floor(t / 2.4))];
             return [16 / s + s, 16 - 16 / s];
           };
           const [peakA, totalA] = get(a), [peakB, totalB] = get(b);
-          const signed = n => (n > 0 ? '+' : '') + n;
           return label(`B − A: Δ PEAK ${signed(peakB - peakA)} slots · Δ TOTAL REBUILT ${signed(totalB - totalA)}`,
                        `B − A：峰值 ${signed(peakB - peakA)} 槽 · 全區段重建 ${signed(totalB - totalA)}`);
         }
@@ -235,15 +237,22 @@
           };
           const x = exp(a), y = exp(b);
           const result = k => k >= 11 ? 'SKIP' : 'ELIGIBLE';
-          return label(`Outcome: ${result(x)} → ${result(y)} · scale exponent ${x} → ${y}`,
-                       `更新資格：${result(x) === 'SKIP' ? '跳過' : '符合'} → ${result(y) === 'SKIP' ? '跳過' : '符合'} · 指數 ${x} → ${y}`);
+          const low = k => k <= 2 ? '0' : 'finite';
+          const high = k => k >= 11 ? 'Inf' : 'finite';
+          // A rounded zero is finite: it loses information but does not
+          // trigger the nonfinite step gate. Compare both rounded inputs.
+          return label(`Outcome: ${result(x)} → ${result(y)} · LOW ${low(x)} → ${low(y)} · HIGH ${high(x)} → ${high(y)} · scale exponent ${x} → ${y} (Δ ${signed(y - x)})`,
+                       `更新資格：${result(x) === 'SKIP' ? '跳過' : '符合'} → ${result(y) === 'SKIP' ? '跳過' : '符合'} · 小梯度 ${low(x)} → ${low(y)} · 大梯度 ${high(x)} → ${high(y)} · 指數 ${x} → ${y}（Δ ${signed(y - x)}）`);
         }
         const index = t => Math.min(5, Math.floor(t / 2));
         const skipped = i => i === 2 || i === 5;
+        // Decision-time counts: a 2/2 check triggers growth then resets.
+        // Inf also resets the tracker; these are not post-update counts.
+        const streak = [1, 2, 0, 1, 2, 0];
         const nextScale = [1024, 2048, 1024, 1024, 2048, 1024];
         const ia = index(a), ib = index(b);
-        return label(`Finite check: ${skipped(ia) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(ib) ? 'SKIP' : 'ELIGIBLE'} · NEXT S ${nextScale[ia]} → ${nextScale[ib]}`,
-                     `有限值檢查：${skipped(ia) ? '跳過' : '符合更新條件'} → ${skipped(ib) ? '跳過' : '符合更新條件'} · 下次縮放 ${nextScale[ia]} → ${nextScale[ib]}`);
+        return label(`Finite check: ${skipped(ia) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(ib) ? 'SKIP' : 'ELIGIBLE'} · streak ${streak[ia]}/2 → ${streak[ib]}/2 · NEXT S ${nextScale[ia]} → ${nextScale[ib]} (Δ ${signed(nextScale[ib] - nextScale[ia])})`,
+                     `有限值檢查：${skipped(ia) ? '跳過' : '符合更新條件'} → ${skipped(ib) ? '跳過' : '符合更新條件'} · 連續通過 ${streak[ia]}/2 → ${streak[ib]}/2 · 下次縮放 ${nextScale[ia]} → ${nextScale[ib]}（Δ ${signed(nextScale[ib] - nextScale[ia])}）`);
       }
       function updateComparison() {
         if (pinnedTime === null || !comparison) return;

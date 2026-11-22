@@ -502,6 +502,14 @@ for name in ("gradient-checkpointing.zh-TW.md", "mixed-precision.zh-TW.md"):
 assert "pin.textContent = label('Pin A', '釘選 A')" in controls_js
 assert "clearPin.textContent = label('Clear A', '清除 A')" in controls_js
 assert "function compareChange(a, b)" in controls_js
+assert "LOW ${low(x)} → ${low(y)}" in controls_js
+assert "HIGH ${high(x)} → ${high(y)}" in controls_js
+assert "scale exponent ${x} → ${y} (Δ ${signed(y - x)})" in controls_js
+assert "const streak = [1, 2, 0, 1, 2, 0]" in controls_js
+assert "streak ${streak[ia]}/2 → ${streak[ib]}/2" in controls_js
+assert "Δ ${signed(nextScale[ib] - nextScale[ia])}" in controls_js
+assert "**signed change in scale exponent**" in (pages / "mixed-precision.md").read_text(encoding="utf-8")
+assert "**帶正負號的縮放指數差**" in (pages / "mixed-precision.zh-TW.md").read_text(encoding="utf-8")
 assert "Δ TOTAL REBUILT" in controls_js
 assert "Outcome: " in controls_js and "Finite check: " in controls_js
 assert "synthetic, not measured" in controls_js

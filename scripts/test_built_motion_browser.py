@@ -506,12 +506,31 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     # Swapping must update the real SVG timeline and the *direction* of the
     # comparison. A second swap must restore the original pair.
     before_swap_delta = comparison.locator('.distributed-motion-compare-delta').inner_text()
+    # A/B explicitly separates finite-but-rounded-zero information loss
+    # from Inf-triggered skipping, and separates GradScaler history from
+    # the one-iteration finite-check result.
+    if stem == 'fp16-scaling-window':
+        assert '0 → finite' in before_swap_delta and 'Δ +6' in before_swap_delta, (
+            stem, before_swap_delta
+        )
+    if stem == 'gradscaler-feedback':
+        assert '1/2 → 2/2' in before_swap_delta and 'Δ +1024' in before_swap_delta, (
+            stem, before_swap_delta
+        )
     swap_pin.focus()
     page.keyboard.press('Enter')
     assert expected_b in comparison.locator('.distributed-motion-compare-a').inner_text()
     assert expected_a in comparison.locator('.distributed-motion-compare-b').inner_text()
     assert abs(get_time()) < 0.05, ('A/B swap failed to seek to previous A', stem)
     after_swap_delta = comparison.locator('.distributed-motion-compare-delta').inner_text()
+    if stem == 'fp16-scaling-window':
+        assert 'finite → 0' in after_swap_delta and 'Δ -6' in after_swap_delta, (
+            stem, after_swap_delta
+        )
+    if stem == 'gradscaler-feedback':
+        assert '2/2 → 1/2' in after_swap_delta and 'Δ -1024' in after_swap_delta, (
+            stem, after_swap_delta
+        )
     assert before_swap_delta != after_swap_delta, (stem, before_swap_delta, after_swap_delta)
     if stem == 'checkpoint-spacing':
         assert '+7' in after_swap_delta and '-14' in after_swap_delta
