@@ -308,6 +308,10 @@
       if (coDesignRegion) bar.after(retry);
       else host.append(retry);
       let retrying = false, retryCount = 0;
+      // Once a request has timed out or failed, a late load must never
+      // reactivate controls over the reviewed still. Only an explicit retry
+      // (or a fresh navigation after reduced motion) accepts new events.
+      let acceptingFrameLoad = true;
       // An <object> request can stall indefinitely without firing load/error.
       // Restore the existing reviewed still and offer a keyboard retry rather
       // than leaving the teaching diagram in a permanent loading state.
@@ -725,6 +729,7 @@
           frame.hidden = false;
           // Retry a deferred object navigation: its fallback HTML document
           // may have loaded while display:none, not the intended SVG.
+          acceptingFrameLoad = true;
           frame.removeAttribute('data');
           frame.data = src;
           armLoadTimer();
@@ -763,6 +768,7 @@
       // A failed or invalid SVG <object> must never leave a blank diagram
       // alongside controls that appear to operate a nonexistent timeline.
       const showStaticFallback = () => {
+        acceptingFrameLoad = false;
         clearLoadTimer();
         stop(false);
         retrying = false;
@@ -785,6 +791,7 @@
       retry.addEventListener('click', () => {
         if (retrying || reduced.matches) return;
         retrying = true;
+        acceptingFrameLoad = true;
         retry.textContent = label('Loading animation…', '動畫載入中…');
         retry.setAttribute('aria-disabled', 'true');
         frame.hidden = false;
@@ -805,6 +812,7 @@
         armLoadTimer();
       });
       const onFrameLoad = () => {
+        if (!acceptingFrameLoad) return;
         clearLoadTimer();
         try {
           const root = frame.contentDocument?.documentElement;
@@ -847,8 +855,12 @@
         } catch (_) { showStaticFallback(); }
       };
       const bindFrameEvents = candidate => {
-        candidate.addEventListener('load', () => { if (candidate === frame) onFrameLoad(); });
-        candidate.addEventListener('error', () => { if (candidate === frame) showStaticFallback(); });
+        candidate.addEventListener('load', () => {
+          if (candidate === frame && acceptingFrameLoad) onFrameLoad();
+        });
+        candidate.addEventListener('error', () => {
+          if (candidate === frame && acceptingFrameLoad) showStaticFallback();
+        });
       };
       bindFrameEvents(frame);
       if (!reduced.matches) armLoadTimer();
