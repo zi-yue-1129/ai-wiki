@@ -477,6 +477,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     # exercise the true built-page A/B widget before resuming playback.
     pin = controls.locator('button.distributed-motion-pin')
     clear_pin = controls.locator('button.distributed-motion-clear')
+    swap_pin = controls.locator('button.distributed-motion-swap')
     comparison = controls.locator('.distributed-motion-comparison')
     expect(pin).to_be_enabled()
     expect(comparison).to_be_hidden()
@@ -484,6 +485,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     pin.click()
     expect(comparison).to_be_visible()
     expect(clear_pin).to_be_visible()
+    expect(swap_pin).to_be_visible()
     seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
     pinned_baseline = comparison.locator('.distributed-motion-compare-a').inner_text()
     compared_live = comparison.locator('.distributed-motion-compare-b').inner_text()
@@ -501,11 +503,29 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert_document_fits(page, viewport)
     comparison_screenshot = output / f'image-{index}-a-b-comparison.png'
     page.screenshot(path=str(comparison_screenshot))
+    # Swapping must update the real SVG timeline and the *direction* of the
+    # comparison. A second swap must restore the original pair.
+    before_swap_delta = comparison.locator('.distributed-motion-compare-delta').inner_text()
+    swap_pin.focus()
+    page.keyboard.press('Enter')
+    assert expected_b in comparison.locator('.distributed-motion-compare-a').inner_text()
+    assert expected_a in comparison.locator('.distributed-motion-compare-b').inner_text()
+    assert abs(get_time()) < 0.05, ('A/B swap failed to seek to previous A', stem)
+    after_swap_delta = comparison.locator('.distributed-motion-compare-delta').inner_text()
+    assert before_swap_delta != after_swap_delta, (stem, before_swap_delta, after_swap_delta)
+    if stem == 'checkpoint-spacing':
+        assert '+7' in after_swap_delta and '-14' in after_swap_delta
+    if stem == 'gradscaler-feedback':
+        assert '2048' in after_swap_delta and '1024' in after_swap_delta
+    swap_pin.click()
+    assert expected_a in comparison.locator('.distributed-motion-compare-a').inner_text()
+    assert expected_b in comparison.locator('.distributed-motion-compare-b').inner_text()
     pin.click()  # Replace A with the current B, no stale baseline retained.
     assert 'Replace' in pin.inner_text() or '更新' in pin.inner_text()
     clear_pin.click()
     expect(comparison).to_be_hidden()
     expect(clear_pin).to_be_hidden()
+    expect(swap_pin).to_be_hidden()
     assert controls.locator('.concept-motion-status').inner_text() in (
         'Pinned comparison cleared', '已清除釘選比較'
     )
