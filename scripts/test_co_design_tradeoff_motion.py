@@ -750,5 +750,5 @@ pending_reduce_load = controls_js.split("} else if (!svg) {", 1)[1].split(
 assert "img.src = img.dataset.stillSrc || src.replace(" in pending_reduce_load
 assert "img.hidden = false;" in pending_reduce_load
 assert "img.src = src;" not in pending_reduce_load
-assert "frame.data = src;\\n          armLoadTimer();" in pending_reduce_load
+assert "frame.data = src;\n          armLoadTimer();" in pending_reduce_load
 print("Pending SVG initialization retains accessible reduced-motion still preview OK")
