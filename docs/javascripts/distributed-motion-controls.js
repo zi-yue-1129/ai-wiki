@@ -40,7 +40,7 @@
       const zh = /[\u3400-\u9fff]/.test(img.alt || '');
       const label = (en, tw) => zh ? tw : en;
       const previousControls = host.querySelector('.concept-motion-controls');
-      const frame = document.createElement('object');
+      let frame = document.createElement('object');
       frame.className = 'distributed-motion-frame';
       frame.type = 'image/svg+xml';
       frame.data = src;
@@ -795,11 +795,16 @@
         // Fetch the same reviewed asset, bypassing any cached transient error.
         const url = new URL(src, document.baseURI);
         url.searchParams.set('_motion_retry', String(++retryCount));
+        // Chromium can stop navigating an <object> after a failed request.
+        // A fresh host also isolates late events from the abandoned navigation.
+        const abandoned = frame;
+        frame = abandoned.cloneNode(true);
+        bindFrameEvents(frame);
         frame.data = url.href;
+        abandoned.replaceWith(frame);
         armLoadTimer();
       });
-      frame.addEventListener('error', showStaticFallback);
-      frame.addEventListener('load', () => {
+      const onFrameLoad = () => {
         clearLoadTimer();
         try {
           const root = frame.contentDocument?.documentElement;
@@ -833,7 +838,12 @@
           if (previousControls) previousControls.hidden = true;
           if (retryFocused) play.focus();
         } catch (_) { showStaticFallback(); }
-      });
+      };
+      const bindFrameEvents = candidate => {
+        candidate.addEventListener('load', () => { if (candidate === frame) onFrameLoad(); });
+        candidate.addEventListener('error', () => { if (candidate === frame) showStaticFallback(); });
+      };
+      bindFrameEvents(frame);
       if (!reduced.matches) armLoadTimer();
       const observer = new MutationObserver(() => {
         if (host.isConnected) return;
