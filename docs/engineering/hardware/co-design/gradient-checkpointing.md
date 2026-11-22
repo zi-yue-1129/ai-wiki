@@ -87,6 +87,8 @@ The animation changes the checkpoint boundaries, the stored/rebuilt slot counts,
 
 **Interpret the A/B verdict.** The synchronized comparison now distinguishes a memory–recomputation **trade-off** from **equal aggregate costs** and **dominance on both illustrated costs**. For example, `s=8` (PEAK 10, TOTAL REBUILT 14) is dominated by `s=4` (PEAK 8, TOTAL REBUILT 12) in this equal-activation, two-metric toy model. It does **not** establish an optimal real-world checkpoint schedule; tensor lifetimes, recomputation FLOPs and runtime overhead are excluded.
 
+**Try a guided A/B comparison (MkDocs).** The native keyboard-accessible **Try a worked comparison…** menu loads two reproducible states and pauses playback: **s=1 → s=4** demonstrates reduced activation storage at the cost of additional reconstructions, while **s=8 → s=4** demonstrates dominance within this *two-metric synthetic model*. A is pinned and B is shown on the timeline; you can still **Swap A/B**, replace the pin or seek to another B. Menu selections never run an optimizer or measure hardware.
+
 ## Results
 
 The abstract reports that, for a 1,000-layer residual network on ImageNet, memory falls from about 48 GB to 7 GB, with roughly 30% more running time. The body reports that its ResNet experiments used batch size 32, 224 × 224 inputs, MXNet on a single Titan X GPU, and counted each conv-bn-relu block as one layer. The abstract also reports a significant memory reduction when training complex recurrent networks.
