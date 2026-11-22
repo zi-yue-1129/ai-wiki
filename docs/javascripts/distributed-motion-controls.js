@@ -308,6 +308,23 @@
       if (coDesignRegion) bar.after(retry);
       else host.append(retry);
       let retrying = false, retryCount = 0;
+      // An <object> request can stall indefinitely without firing load/error.
+      // Restore the existing reviewed still and offer a keyboard retry rather
+      // than leaving the teaching diagram in a permanent loading state.
+      const SVG_LOAD_TIMEOUT_MS = 15000;
+      let loadTimer = null;
+      const clearLoadTimer = () => {
+        if (loadTimer !== null) window.clearTimeout(loadTimer);
+        loadTimer = null;
+      };
+      const armLoadTimer = () => {
+        clearLoadTimer();
+        if (reduced.matches) return;
+        loadTimer = window.setTimeout(() => {
+          loadTimer = null;
+          showStaticFallback();
+        }, SVG_LOAD_TIMEOUT_MS);
+      };
 
       function teachingState(t) {
         // All values are derived from the same synthetic schedules used by
@@ -683,6 +700,7 @@
       const onReduce = event => {
         stop();
         if (event.matches) {
+          clearLoadTimer();
           retry.hidden = true;
           frame.hidden = true; bar.hidden = true;
           img.hidden = false;
@@ -709,6 +727,7 @@
           // may have loaded while display:none, not the intended SVG.
           frame.removeAttribute('data');
           frame.data = src;
+          armLoadTimer();
           if (previousControls) previousControls.hidden = false;
         }
       };
@@ -744,6 +763,7 @@
       // A failed or invalid SVG <object> must never leave a blank diagram
       // alongside controls that appear to operate a nonexistent timeline.
       const showStaticFallback = () => {
+        clearLoadTimer();
         stop(false);
         retrying = false;
         retry.removeAttribute('aria-disabled');
@@ -776,9 +796,11 @@
         const url = new URL(src, document.baseURI);
         url.searchParams.set('_motion_retry', String(++retryCount));
         frame.data = url.href;
+        armLoadTimer();
       });
       frame.addEventListener('error', showStaticFallback);
       frame.addEventListener('load', () => {
+        clearLoadTimer();
         try {
           const root = frame.contentDocument?.documentElement;
           if (!root || typeof root.pauseAnimations !== 'function' || typeof root.setCurrentTime !== 'function') {
@@ -812,8 +834,10 @@
           if (retryFocused) play.focus();
         } catch (_) { showStaticFallback(); }
       });
+      if (!reduced.matches) armLoadTimer();
       const observer = new MutationObserver(() => {
         if (host.isConnected) return;
+        clearLoadTimer();
         stop(); observer.disconnect(); reduced.removeEventListener('change', onReduce);
         document.removeEventListener('visibilitychange', onVisibility);
         viewportObserver?.disconnect();
