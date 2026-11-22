@@ -169,7 +169,7 @@
           button.disabled = true;
           button.addEventListener('click', () => {
             if (!svg) return;
-            stop(); setTime(event.t);
+            stop(false); setTime(event.t);
             status.textContent = label('Key transition: ', '關鍵狀態：') + label(event.hintEn, event.hintTw);
           });
           landmarkRail.append(button);
@@ -486,12 +486,14 @@
         play.textContent = playing ? label('Ⅱ Pause', 'Ⅱ 暫停') : label('▶ Play', '▶ 播放');
         play.setAttribute('aria-label', playing ? label('Pause animation', '暫停動畫') : label('Play animation', '播放動畫'));
       }
-      function stop() {
+      function stop(redraw = true) {
         playing = false;
         sweepTarget = null;
         if (raf) cancelAnimationFrame(raf);
         raf = 0; last = 0;
-        draw();
+        // A seek/semantic jump draws its new state once after stopping.
+        // Pausing without a new state still redraws the pause control.
+        if (redraw) draw();
       }
       function setTime(t) {
         time = Math.max(0, Math.min(config.duration - 0.001, t));
@@ -538,7 +540,7 @@
       prev.addEventListener('click', () => step(-1));
       next.addEventListener('click', () => step(1));
       restart?.addEventListener('click', () => {
-        stop(); setTime(0);
+        stop(false); setTime(0);
         status.textContent = interpretation.isConnected ? interpretation.textContent
           : label('Animation reset to start', '動畫已重設到起點');
       });
@@ -649,7 +651,7 @@
               ? Math.min(4, Math.floor(time / 2.4)) : feedbackIndex(time);
             target = config.steps[Math.max(0, Math.min(config.steps.length - 1, index + direction))];
           }
-          stop(); setTime(target);
+          stop(false); setTime(target);
           // aria-valuetext is synchronised by draw(); do not create a new
           // aria-live utterance for every repeated keypress.
         });
@@ -659,7 +661,7 @@
         // SVG, aria-valuetext and text interpretation in sync immediately,
         // but do not flood the polite live region while the thumb is moving.
         const selected = Number(seek.value);
-        stop(); setTime(selected / 1000 * config.duration);
+        stop(false); setTime(selected / 1000 * config.duration);
       });
       seek.addEventListener('change', () => {
         // Announce the selected mathematical state once the user commits the
