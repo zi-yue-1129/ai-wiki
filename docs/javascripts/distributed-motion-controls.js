@@ -109,6 +109,19 @@
         { id: 'streak', en: 'FINITE STREAK', tw: '連續通過', max: 2, at: t => [1, 2, 0, 1, 2, 0][feedbackIndex(t)] },
         { id: 'next', en: 'NEXT S', tw: '下次縮放', max: 2048, at: t => [1024, 2048, 1024, 1024, 2048, 1024][feedbackIndex(t)] },
       ] : [];
+      // Reproducible, hand-checked contrasts.  The times fall inside the
+      // corresponding discrete SVG states, away from SMIL keyframe boundaries.
+      // These are instructional examples, never measured experiments.
+      const guidedCases = match[1] === 'checkpoint-spacing' ? [
+        { en: 's=1 → s=4 · memory/replay trade-off', tw: 's=1 → s=4 · 記憶體與重算取捨', a: 0, b: 4.85 },
+        { en: 's=8 → s=4 · dominated choice', tw: 's=8 → s=4 · 支配關係', a: 7.25, b: 4.85 },
+      ] : match[1] === 'fp16-scaling-window' ? [
+        { en: 'S=4 → 8 · recover LOW', tw: 'S=4 → 8 · 小梯度恢復', a: 0.95, b: 1.42 },
+        { en: 'S=1024 → 2048 · HIGH overflow', tw: 'S=1024 → 2048 · 大梯度溢位', a: 4.66, b: 5.12 },
+      ] : match[1] === 'gradscaler-feedback' ? [
+        { en: 't1 → t5 · finite-history effect', tw: 't1 → t5 · 歷史計數效應', a: 0, b: 8.05 },
+        { en: 't2 → t3 · overflow backoff', tw: 't2 → t3 · 溢位回退', a: 2.05, b: 4.05 },
+      ] : [];
       const gaugeFills = [];
       if (pin) {
         pin.type = clearPin.type = swapPin.type = 'button';
@@ -160,6 +173,26 @@
           visual.append(row);
         }
         comparison.append(pinA, pinB, comparisonDelta, visual);
+      }
+      // Native select makes the two most useful causal contrasts discoverable
+      // without dozens of precise slider/Pin interactions.  It retains
+      // native keyboard navigation and does not auto-play a selection.
+      const guided = pin ? document.createElement('select') : null;
+      if (guided) {
+        guided.className = 'distributed-motion-scenario';
+        guided.setAttribute('aria-label', label('Guided A/B comparisons', '引導式 A/B 比較'));
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = label('Try a worked comparison…', '選擇示範比較…');
+        guided.append(placeholder);
+        guidedCases.forEach((example, index) => {
+          const option = document.createElement('option');
+          option.value = String(index);
+          option.textContent = label(example.en, example.tw);
+          guided.append(option);
+        });
+        guided.disabled = true;
+        bar.append(guided);
       }
       const seek = document.createElement('input');
       seek.type = 'range'; seek.min = '0'; seek.max = '1000'; seek.step = '1'; seek.value = '0';
@@ -430,6 +463,22 @@
         status.textContent = label('Swapped A and B; signed differences now use the reversed order.',
                                    '已交換 A 與 B，差值方向也已反轉。');
       });
+      guided?.addEventListener('change', () => {
+        if (!svg || guided.value === '') return;
+        const example = guidedCases[Number(guided.value)];
+        if (!example) return;
+        stop();
+        pinnedTime = example.a;
+        comparison.hidden = false;
+        clearPin.hidden = false;
+        swapPin.hidden = false;
+        pin.textContent = label('Replace A', '更新 A');
+        setTime(example.b);
+        status.textContent = label('Loaded illustrative A/B comparison: ', '已選取人工 A/B 比較：') +
+          label(example.en, example.tw) + '. ' + comparisonInsight(example.a, example.b);
+        // Reset to placeholder so the same case can be selected again.
+        guided.value = '';
+      });
       clearPin?.addEventListener('click', () => {
         pinnedTime = null;
         comparison.hidden = true;
@@ -494,6 +543,7 @@
           svg.pauseAnimations();
           setTime(0);
           if (pin) pin.disabled = false;
+          if (guided) guided.disabled = false;
           // Also capture a load that finishes while reduced motion is active:
           // otherwise turning motion back on can leave this player stranded.
           if (reduced.matches) return;
