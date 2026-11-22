@@ -811,11 +811,23 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     controls.locator('button.distributed-motion-landmark').first.click()
     previous_announcement = status_region.inner_text()
     assert previous_announcement
+    # Continuous scrubbing is already drawn by setTime(). The preceding
+    # stop() must not issue a redundant SVG setCurrentTime() for each touch
+    # sample: test the real rendered SVG, not a source-string assumption.
+    frame.evaluate("""el => {
+        const root = el.contentDocument.documentElement;
+        root.__qaSeekCount = 0;
+        const original = root.setCurrentTime.bind(root);
+        root.setCurrentTime = value => { root.__qaSeekCount++; original(value); };
+    }""")
     for position in (250, 500, 750):
+        frame.evaluate('el => { el.contentDocument.documentElement.__qaSeekCount = 0; }')
         seek.evaluate("""(el, value) => {
             el.value = String(value);
             el.dispatchEvent(new Event('input', { bubbles: true }));
         }""", position)
+        assert frame.evaluate('el => el.contentDocument.documentElement.__qaSeekCount') == 1, (
+            stem, 'duplicate SVG draw during slider input', position)
         assert status_region.inner_text() == previous_announcement, (
             stem, 'live region flooded while scrubbing', position)
     assert seek.get_attribute('aria-valuetext')
