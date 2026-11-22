@@ -539,3 +539,17 @@ assert "固定且共用的刻度" in (pages / "gradient-checkpointing.zh-TW.md")
 assert "fixed domains shared by A and B" in (pages / "mixed-precision.md").read_text(encoding="utf-8")
 assert "相同固定刻度" in (pages / "mixed-precision.zh-TW.md").read_text(encoding="utf-8")
 print("Paired A/B gauge rendering contract and bilingual descriptions OK")
+
+# A/B interpretations explicitly distinguish restricted-model dominance,
+# binary16 representability regimes and GradScaler history-based decisions.
+assert "function comparisonInsight(a, b)" in controls_js
+assert "B dominates A on both schematic costs." in controls_js
+assert "A dominates B on both schematic costs." in controls_js
+assert "Memory–recomputation trade-off." in controls_js
+assert "Rounded regime: " in controls_js and "BOTH FINITE NONZERO" in controls_js
+assert "Next-scale action: " in controls_js and "backoff" in controls_js
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
+    assert "s=8" in (pages / name).read_text(encoding="utf-8")
+for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    assert "GradScaler A/B" in (pages / name).read_text(encoding="utf-8")
+print("Bilingual trade-off/dominance, FP16 regimes, and GradScaler actions OK")

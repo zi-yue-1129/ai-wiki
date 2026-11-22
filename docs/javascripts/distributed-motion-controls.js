@@ -302,11 +302,45 @@
         return label(`Finite check: ${skipped(ia) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(ib) ? 'SKIP' : 'ELIGIBLE'} · streak ${streak[ia]}/2 → ${streak[ib]}/2 · NEXT S ${nextScale[ia]} → ${nextScale[ib]} (Δ ${signed(nextScale[ib] - nextScale[ia])})`,
                      `有限值檢查：${skipped(ia) ? '跳過' : '符合更新條件'} → ${skipped(ib) ? '跳過' : '符合更新條件'} · 連續通過 ${streak[ia]}/2 → ${streak[ib]}/2 · 下次縮放 ${nextScale[ia]} → ${nextScale[ib]}（Δ ${signed(nextScale[ib] - nextScale[ia])}）`);
       }
+      function comparisonInsight(a, b) {
+        // Interpret the paired *synthetic* states, not only their numbers.
+        // A smaller checkpoint peak and smaller cumulative replay are both
+        // desirable in this deliberately limited two-metric toy model.
+        if (match[1] === 'checkpoint-spacing') {
+          const sa = checkpointSpacing(a), sb = checkpointSpacing(b);
+          const dPeak = (16 / sb + sb) - (16 / sa + sa);
+          const dReplay = (16 - 16 / sb) - (16 - 16 / sa);
+          if (!dPeak && !dReplay) return label('Same aggregate costs.', '總體成本相同。');
+          if (dPeak <= 0 && dReplay <= 0) {
+            return label('B dominates A on both schematic costs.', 'B 在兩項示意成本上皆不劣於 A。');
+          }
+          if (dPeak >= 0 && dReplay >= 0) {
+            return label('A dominates B on both schematic costs.', 'A 在兩項示意成本上皆不劣於 B。');
+          }
+          return label('Memory–recomputation trade-off.', '記憶體與重算量存在取捨。');
+        }
+        if (match[1] === 'fp16-scaling-window') {
+          const regime = k => k <= 2
+            ? label('LOW ZERO', '小梯度歸零')
+            : k >= 11 ? label('HIGH INF', '大梯度溢位')
+              : label('BOTH FINITE NONZERO', '兩筆皆為有限非零');
+          return label('Rounded regime: ', '捨入狀態：') + regime(scaleExponent(a)) + ' → ' + regime(scaleExponent(b)) +
+            label(' (illustrative binary16 only).', '（僅限本例 binary16）。');
+        }
+        const decision = t => {
+          const i = feedbackIndex(t);
+          return [label('hold', '維持'), label('grow', '放大'), label('backoff', '縮小'),
+                  label('hold', '維持'), label('grow', '放大'), label('backoff', '縮小')][i];
+        };
+        return label('Next-scale action: ', '下一次縮放動作：') + decision(a) + ' → ' + decision(b) +
+          label(' (depends on finite-check history).', '（取決於歷次有限值檢查）。');
+      }
       function updateComparison() {
         if (pinnedTime === null || !comparison) return;
         pinA.textContent = label('A · pinned: ', 'A · 已釘選：') + conciseState(pinnedTime);
         pinB.textContent = label('B · current: ', 'B · 目前：') + conciseState(time);
         comparisonDelta.textContent = compareChange(pinnedTime, time) +
+          ' · ' + comparisonInsight(pinnedTime, time) +
           label(' · synthetic, not measured', ' · 人工示意，非實測');
         for (const { metric, a, b } of gaugeFills) {
           // All domains are fixed by the six reviewed teaching schedules;

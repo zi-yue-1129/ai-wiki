@@ -526,6 +526,13 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     # Swapping must update the real SVG timeline and the *direction* of the
     # comparison. A second swap must restore the original pair.
     before_swap_delta = comparison.locator('.distributed-motion-compare-delta').inner_text()
+    qualitative_forward = {
+        'checkpoint-spacing': ('Memory–recomputation trade-off.', '記憶體與重算量存在取捨。'),
+        'fp16-scaling-window': ('Rounded regime: LOW ZERO → BOTH FINITE NONZERO',
+                                '捨入狀態：小梯度歸零 → 兩筆皆為有限非零'),
+        'gradscaler-feedback': ('Next-scale action: hold → grow', '下一次縮放動作：維持 → 放大'),
+    }[stem]
+    assert any(t in before_swap_delta for t in qualitative_forward), (stem, before_swap_delta)
     # A/B explicitly separates finite-but-rounded-zero information loss
     # from Inf-triggered skipping, and separates GradScaler history from
     # the one-iteration finite-check result.
@@ -546,6 +553,13 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert expected_a in comparison.locator('.distributed-motion-compare-b').inner_text()
     assert abs(get_time()) < 0.05, ('A/B swap failed to seek to previous A', stem)
     after_swap_delta = comparison.locator('.distributed-motion-compare-delta').inner_text()
+    qualitative_reverse = {
+        'checkpoint-spacing': ('Memory–recomputation trade-off.', '記憶體與重算量存在取捨。'),
+        'fp16-scaling-window': ('Rounded regime: BOTH FINITE NONZERO → LOW ZERO',
+                                '捨入狀態：兩筆皆為有限非零 → 小梯度歸零'),
+        'gradscaler-feedback': ('Next-scale action: grow → hold', '下一次縮放動作：放大 → 維持'),
+    }[stem]
+    assert any(t in after_swap_delta for t in qualitative_reverse), (stem, after_swap_delta)
     if stem == 'fp16-scaling-window':
         assert 'finite → 0' in after_swap_delta and 'Δ -6' in after_swap_delta, (
             stem, after_swap_delta
@@ -564,6 +578,16 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert expected_b in comparison.locator('.distributed-motion-compare-b').inner_text()
     pin.click()  # Replace A with the current B, no stale baseline retained.
     assert 'Replace' in pin.inner_text() or '更新' in pin.inner_text()
+    if stem == 'checkpoint-spacing':
+        # s=8 is strictly dominated by s=4 under the two toy-model metrics.
+        seek.evaluate('e => {e.value = "417"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
+        verdict = comparison.locator('.distributed-motion-compare-delta').inner_text()
+        assert ('B dominates A on both schematic costs.' in verdict or
+                'B 在兩項示意成本上皆不劣於 A。' in verdict), verdict
+        swap_pin.click()
+        reversed_verdict = comparison.locator('.distributed-motion-compare-delta').inner_text()
+        assert ('A dominates B on both schematic costs.' in reversed_verdict or
+                'A 在兩項示意成本上皆不劣於 B。' in reversed_verdict), reversed_verdict
     clear_pin.click()
     expect(comparison).to_be_hidden()
     expect(clear_pin).to_be_hidden()
