@@ -728,10 +728,25 @@
             }
           }, { threshold: 0 }) : null;
       for (const target of viewportTargets) viewportObserver?.observe(target);
+      // A failed or invalid SVG <object> must never leave a blank diagram
+      // alongside controls that appear to operate a nonexistent timeline.
+      const showStaticFallback = () => {
+        stop(false);
+        svg = null;
+        img.src = img.dataset.stillSrc || src.replace(/-motion\.svg(?=$|[?#])/, '-still.svg');
+        img.hidden = false;
+        frame.hidden = true;
+        bar.hidden = true;
+        if (previousControls) previousControls.hidden = false;
+      };
+      frame.addEventListener('error', showStaticFallback);
       frame.addEventListener('load', () => {
         try {
           const root = frame.contentDocument?.documentElement;
-          if (!root || typeof root.pauseAnimations !== 'function' || typeof root.setCurrentTime !== 'function') return;
+          if (!root || typeof root.pauseAnimations !== 'function' || typeof root.setCurrentTime !== 'function') {
+            showStaticFallback();
+            return;
+          }
           svg = root;
           svg.pauseAnimations();
           // SVG <object> can reload after a reduced-motion toggle or document
@@ -750,7 +765,7 @@
           frame.style.position = ''; frame.style.width = ''; frame.style.height = '';
           bar.hidden = false;
           if (previousControls) previousControls.hidden = true;
-        } catch (_) { /* Unsupported or cross-origin object: preserve original image and controls. */ }
+        } catch (_) { showStaticFallback(); }
       });
       const observer = new MutationObserver(() => {
         if (host.isConnected) return;
