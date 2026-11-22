@@ -336,6 +336,17 @@
           bar.hidden = false;
           if (previousControls) previousControls.hidden = true;
           setTime(time);
+        } else if (!svg) {
+          // Chromium may defer loading an <object> while it is display:none.
+          // Re-enable its offscreen loading placeholder; the load handler
+          // will swap the real SVG into view only after it is ready.
+          img.src = src;
+          frame.hidden = false;
+          // Retry a deferred object navigation: its fallback HTML document
+          // may have loaded while display:none, not the intended SVG.
+          frame.removeAttribute('data');
+          frame.data = src;
+          if (previousControls) previousControls.hidden = false;
         }
       };
       reduced.addEventListener('change', onReduce);
