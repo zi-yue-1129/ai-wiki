@@ -919,6 +919,36 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         'xpath=following-sibling::*[1][self::button and '
         "contains(concat(' ', normalize-space(@class), ' '), ' distributed-motion-retry ')]")
     expect(retry_button).to_be_visible(timeout=8000)
+    # A network request that never answers must not strand the Retry button.
+    # Keep the request pending rather than returning a fast error. Chromium's
+    # page clock advances the 15 s watchdog without extending CI wall time.
+    if not page.evaluate("Boolean(window.__coDesignQaClockInstalled)"):
+        page.clock.install()
+        page.evaluate("window.__coDesignQaClockInstalled = true")
+    from playwright.sync_api import expect
+    stalled_requests = []
+    def stall_svg_request(route):
+        stalled_requests.append(route)  # deliberately no fulfill/continue/abort
+    stalled_pattern = re.compile(r"_motion_retry=1(?:&|$)")
+    page.route(stalled_pattern, stall_svg_request)
+    retry_button.click()
+    expect(image).to_be_visible()
+    page.wait_for_timeout(100)
+    assert stalled_requests, (stem, 'stalled HTTP retry was not intercepted')
+    page.clock.fast_forward(15050)
+    expect(retry_button).to_be_visible(timeout=5000)
+    expect(retry_button).not_to_have_attribute('aria-disabled', 'true')
+    expect(controls).to_be_hidden()
+    expect(image).to_be_visible()
+    assert image.evaluate('img => img.complete && img.naturalWidth > 0'), (
+        stem, 'stalled retry lost the decoded still image')
+    timeout_capture = output / f'co-design-{index}-retry-timeout-fallback.png'
+    page.screenshot(path=str(timeout_capture))
+    # Stop the pending fixture; a second, explicit retry must recover.
+    for pending in stalled_requests:
+        pending.abort()
+    page.unroute(stalled_pattern, stall_svg_request)
+    expect(retry_button).to_be_visible(timeout=5000)
     retry_button.click()
     expect(frame).to_be_visible(timeout=10000)
     expect(controls).to_be_visible(timeout=10000)
@@ -934,6 +964,8 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
             stem, 'retry lost pinned comparison')
     recovered_capture = output / f'co-design-{index}-retry-recovered.png'
     page.screenshot(path=str(recovered_capture))
+    record['stalled_svg_retry_timeout'] = 'passed'
+    record['retry_timeout_screenshot'] = timeout_capture.name
     record['invalid_svg_retry_recovery'] = 'passed'
     record['retry_recovered_screenshot'] = recovered_capture.name
     record['invalid_svg_still_fallback'] = 'passed'
