@@ -425,7 +425,7 @@ assert "if (!reduced.matches) enhance()" in controls_js
 # Keyboard-accessible restart and pause on tab hide; clean up with the player.
 assert "makeButton('↺ Restart', '↺ 重新開始')" in controls_js
 assert "restart?.addEventListener('click', () => {" in controls_js
-assert "stop(); setTime(0);" in controls_js
+assert "stop(false); setTime(0);" in controls_js
 assert "document.addEventListener('visibilitychange', onVisibility)" in controls_js
 assert "document.removeEventListener('visibilitychange', onVisibility)" in controls_js
 for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
@@ -601,7 +601,7 @@ print("Directional synthetic A/B scan, bilingual guidance and cancellation contr
 assert "const landmarkRail = landmarks.length ? document.createElement('div') : null;" in controls_js
 assert "landmarkButtons.forEach(({ button }) => { button.disabled = false; });" in controls_js
 assert "button.setAttribute('aria-current', 'step')" in controls_js
-assert "stop(); setTime(event.t);" in controls_js
+assert "stop(false); setTime(event.t);" in controls_js
 assert ".distributed-motion-landmark:focus-visible" in controls_css
 assert ".distributed-motion-landmark.is-current" in controls_css
 for transition in ("t: 0, en: 's=1'", "t: 4.85, en: 's=4'",
@@ -664,13 +664,16 @@ print("Bilingual adjacent-state comparison shortcuts and temporal direction OK")
 assert "function stop(redraw = true)" in controls_js
 assert "if (redraw) draw();" in controls_js
 assert controls_js.count("stop(false); setTime(") >= 4
+step_block = controls_js.split("function step(direction) {", 1)[1].split(
+    "prev.addEventListener('click'", 1)[0]
+assert "stop(false);" in step_block and "setTime(candidate" in step_block
 print("Co-design single-redraw seek and semantic-step contract OK")
 
 # Continuous touch scrubbing updates the semantics at input frequency, but
 # must not flood the polite screen-reader status region until input commits.
 seek_block = controls_js.split("seek.addEventListener('input', () => {", 1)[1].split(
     "seek.addEventListener('change', () => {", 1)[0]
-assert "stop(); setTime(selected / 1000 * config.duration);" in seek_block
+assert "stop(false); setTime(selected / 1000 * config.duration);" in seek_block
 assert "status.textContent" not in seek_block
 commit_block = controls_js.split("seek.addEventListener('change', () => {", 1)[1].split(
     "rate.addEventListener('change'", 1)[0]

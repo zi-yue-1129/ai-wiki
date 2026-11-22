@@ -845,6 +845,14 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert abs(get_time() - selected_time) < .04, (stem, 'SVG load handler reset selection')
     assert comparison.locator('.distributed-motion-compare-a').inner_text() == pinned_label
     clear_pin.click()
+    # A semantic button jump must likewise write only its selected SVG time.
+    for button_index, direction in ((2, 1), (0, -1)):
+        before_step = get_time()
+        frame.evaluate('el => { el.contentDocument.documentElement.__qaSeekCount = 0; }')
+        buttons.nth(button_index).click()
+        assert frame.evaluate('el => el.contentDocument.documentElement.__qaSeekCount') == 1, (
+            stem, 'duplicate SVG draw on semantic step', direction)
+        assert direction * (get_time() - before_step) > 0, (stem, 'step did not move', direction)
     record['interactive'] = {
         'reset_time': reset_time, 'hidden_pause_time': hidden_pause_time,
         'visible_svg': True, 'hidden_no_script_fallback': True,

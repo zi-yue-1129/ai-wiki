@@ -528,7 +528,7 @@
         status.textContent = playing ? label('Animation playing', '動畫播放中') : label('Animation paused', '動畫已暫停');
       });
       function step(direction) {
-        stop();
+        stop(false);
         const ordered = config.steps;
         const candidate = direction > 0
           ? ordered.find(t => t > time + 0.05)
