@@ -120,6 +120,8 @@ The timeline plots the scale **used by each iteration**, not the newly computed 
 
 **Viewport-aware playback (MkDocs).** Each FP16 and GradScaler timeline automatically pauses only when **both** its scrollable figure and its separate controls are outside the visible viewport. Returning does not autoplay it; press **Play** to resume. The pinned A/B baseline is preserved. This avoids unseen animation work and is **not** a numerical or optimiser decision.
 
+**SVG load-failure fallback (MkDocs).** If either animated figure fails to load or receives a non-SVG document, its unusable timeline is hidden and the reviewed still SVG remains visible, with localized alternative text. A page reload can retry a transient asset failure; neither fallback implies measured gradients or a training trace.
+
 **Compare adjacent numerical states (MkDocs).** **Compare previous** pins the preceding sampled scale or iteration as **A**, while the selected state remains **B**; it is disabled at the start. In the FP16 window, use it at rising **S=8** to compare with **S=4** (LOW zero → nonzero), or at falling **S=1024** to compare with the preceding **S=2048** (HIGH Inf → finite). The comparison follows the **time direction**, so it does not conflate rising and falling threshold crossings. In the GradScaler example, using it at **t3** compares with **t2**, showing growth followed by overflow backoff. The pinned comparison, reversible signed differences and paired gauges are schematic rather than recorded training measurements.
 
 ## Results
