@@ -461,6 +461,7 @@ print("Accessible SVG fallback does not duplicate the original alt text OK")
 # not merely a playback timestamp. Assistive announcements happen only for
 # explicit step/seek operations, rather than on every animation frame.
 assert "function teachingState(t)" in controls_js
+assert "seek.setAttribute('aria-valuetext', conciseState(time))" in controls_js
 assert "interpretation.setAttribute('aria-live', 'off')" in controls_js
 assert "status.textContent = interpretation.isConnected ? interpretation.textContent" in controls_js
 assert "Math.floor(t / 2.4)" in controls_js  # Five checkpoint stages.

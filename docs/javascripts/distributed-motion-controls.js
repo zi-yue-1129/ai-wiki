@@ -354,6 +354,12 @@
         if (!svg) return;
         svg.setCurrentTime(Math.min(time, config.duration - 0.001));
         seek.value = String(Math.round(time / config.duration * 1000));
+        // Expose the actual schematic computation rather than an opaque
+        // 0–1000 position when a screen-reader user operates the timeline.
+        // This is not an aria-live announcement on every animation frame.
+        if (host.classList.contains('co-design-motion-timeline')) {
+          seek.setAttribute('aria-valuetext', conciseState(time));
+        }
         readout.textContent = time.toFixed(1) + ' / ' + config.duration + 's';
         if (interpretation.isConnected) interpretation.textContent = teachingState(time);
         updateComparison();

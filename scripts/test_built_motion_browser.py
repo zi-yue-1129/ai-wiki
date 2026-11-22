@@ -456,12 +456,20 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     }
     assert stem in initial_tokens, ('unexpected interactive motion asset', stem)
     initial_summary = interpretation.inner_text()
+    # A keyboard/AT user must hear the schematic state, not a raw 0–1000.
+    initial_slider_state = seek.get_attribute('aria-valuetext')
+    assert initial_slider_state and initial_slider_state.startswith({
+        'checkpoint-spacing': 's=1',
+        'fp16-scaling-window': 'S=1',
+        'gradscaler-feedback': 't1',
+    }[stem])
     assert all(token in initial_summary for token in initial_tokens[stem]), (stem, initial_summary)
     capture('initial')
     buttons.nth(2).click()  # Semantic next step
     assert controls.locator('.concept-motion-status').inner_text() == interpretation.inner_text()
     step_time = get_time()
     assert step_time > 0.5, ('next step did not advance SVG', step_time)
+    assert seek.get_attribute('aria-valuetext') != initial_slider_state
     seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
     seek_time = get_time()
     assert 8.95 <= seek_time <= 9.05, ('continuous seeking did not advance SVG', seek_time)
