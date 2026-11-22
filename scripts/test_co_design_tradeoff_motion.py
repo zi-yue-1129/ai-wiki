@@ -422,6 +422,17 @@ assert ".concept-motion-scroll > .concept-motion-player.co-design-motion-timelin
 assert ".co-design-motion-controls" in controls_css
 assert "reduced.addEventListener('change', onReduce)" in controls_js
 assert "if (!reduced.matches) enhance()" in controls_js
+# Keyboard-accessible restart and pause on tab hide; clean up with the player.
+assert "makeButton('↺ Restart', '↺ 重新開始')" in controls_js
+assert "restart?.addEventListener('click', () => {" in controls_js
+assert "stop(); setTime(0);" in controls_js
+assert "document.addEventListener('visibilitychange', onVisibility)" in controls_js
+assert "document.removeEventListener('visibilitychange', onVisibility)" in controls_js
+for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+                 "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    body = (pages / language).read_text(encoding="utf-8")
+    assert ("重新開始" if language.endswith(".zh-TW.md") else "Restart") in body
+print("Co-design reset, background-tab pause and bilingual operation guidance OK")
 for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
                  "mixed-precision.md", "mixed-precision.zh-TW.md"):
     body = (pages / language).read_text(encoding="utf-8")

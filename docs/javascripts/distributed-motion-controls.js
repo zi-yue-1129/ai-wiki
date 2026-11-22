@@ -75,6 +75,10 @@
       const prev = makeButton('← Step', '← 上一步');
       const play = makeButton('▶ Play', '▶ 播放');
       const next = makeButton('Step →', '下一步 →');
+      // Return directly to the initial model state, rather than repeatedly
+      // stepping backwards through several semantic milestones.
+      const restart = host.classList.contains('co-design-motion-timeline')
+        ? makeButton('↺ Restart', '↺ 重新開始') : null;
       const seek = document.createElement('input');
       seek.type = 'range'; seek.min = '0'; seek.max = '1000'; seek.step = '1'; seek.value = '0';
       seek.className = 'distributed-motion-seek';
@@ -201,6 +205,11 @@
       }
       prev.addEventListener('click', () => step(-1));
       next.addEventListener('click', () => step(1));
+      restart?.addEventListener('click', () => {
+        stop(); setTime(0);
+        status.textContent = interpretation.isConnected ? interpretation.textContent
+          : label('Animation reset to start', '動畫已重設到起點');
+      });
       seek.addEventListener('input', () => {
         const selected = Number(seek.value);
         stop(); setTime(selected / 1000 * config.duration);
@@ -226,6 +235,16 @@
         }
       };
       reduced.addEventListener('change', onReduce);
+      // Do not silently fast-forward when the reader returns to an inactive tab.
+      // requestAnimationFrame may be throttled while hidden; pausing prevents a
+      // large elapsed-time jump on resume and avoids unwanted background motion.
+      const onVisibility = () => {
+        if (document.hidden && playing) {
+          stop();
+          status.textContent = label('Animation paused while tab is hidden', '分頁隱藏，動畫已暫停');
+        }
+      };
+      document.addEventListener('visibilitychange', onVisibility);
       frame.addEventListener('load', () => {
         if (reduced.matches) return;
         try {
@@ -245,6 +264,7 @@
       const observer = new MutationObserver(() => {
         if (host.isConnected) return;
         stop(); observer.disconnect(); reduced.removeEventListener('change', onReduce);
+        document.removeEventListener('visibilitychange', onVisibility);
         if (coDesignRegion) bar.remove();
       });
       observer.observe(document.body, { childList: true, subtree: true });

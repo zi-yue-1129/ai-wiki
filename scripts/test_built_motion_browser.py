@@ -422,7 +422,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     expect(controls).to_be_visible()
     expect(host.locator('.concept-motion-controls')).to_be_hidden()
     buttons = controls.locator('button.concept-motion-toggle')
-    expect(buttons).to_have_count(3)
+    expect(buttons).to_have_count(4)  # Previous, Play/Pause, Next, Restart
     seek = controls.locator('input.distributed-motion-seek')
     rate = controls.locator('select.distributed-motion-rate')
     expect(seek).to_be_visible()
@@ -496,7 +496,34 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         arg=[frame.element_handle(), previous], timeout=5000)
     replay_screenshot = capture('replayed')
     buttons.nth(1).click()  # Leave the player paused before testing the next image.
+    # Restart must reset both the accessible interpretation and SVG position.
+    buttons.nth(3).focus()
+    page.keyboard.press('Enter')
+    reset_time = get_time()
+    assert reset_time < 0.08, ('restart did not rewind SVG', reset_time)
+    assert seek.input_value() == '0', ('restart did not reset seek', seek.input_value())
+    assert controls.locator('.concept-motion-status').inner_text() == interpretation.inner_text()
+    # Headless Chromium does not hide background tabs; simulate the DOM
+    # visibility transition to exercise its pause and no-auto-resume logic.
+    seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
+    buttons.nth(1).click()
+    page.wait_for_timeout(110)
+    page.evaluate("""() => {
+        Object.defineProperty(document, 'hidden', {configurable:true, get:()=>true});
+        document.dispatchEvent(new Event('visibilitychange'));
+    }""")
+    hidden_pause_time = get_time()
+    page.wait_for_timeout(150)
+    assert abs(get_time() - hidden_pause_time) < 0.03, 'hidden-tab pause did not hold SVG state'
+    assert 'Ⅱ' not in buttons.nth(1).inner_text(), 'backgrounded animation still playing'
+    page.evaluate("""() => {
+        delete document.hidden;
+        document.dispatchEvent(new Event('visibilitychange'));
+    }""")
+    page.wait_for_timeout(120)
+    assert abs(get_time() - hidden_pause_time) < 0.03, 'animation auto-resumed after tab return'
     record['interactive'] = {
+        'reset_time': reset_time, 'hidden_pause_time': hidden_pause_time,
         'visible_svg': True, 'hidden_no_script_fallback': True,
         'unique_alt': True, 'step_time': step_time,
         'seek_time': seek_time, 'playing_time': advanced,
