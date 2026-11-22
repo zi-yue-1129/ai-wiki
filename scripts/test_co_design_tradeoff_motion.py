@@ -629,3 +629,18 @@ for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     assert ("complete discrete power-of-two state" if name == "mixed-precision.md"
             else "整個離散縮放區段") in body
 print("FP16 full-frame boundary highlighting and reverse Step contracts OK")
+
+
+# Keyboard range control must expose real synthetic-state navigation.
+# Chrome's native 1/1000 range arrows alone cannot reach a new FP16 frame
+# or checkpoint choice with one keypress. Shift permits precision seeking.
+assert "seek.addEventListener('keydown'" in controls_js
+assert "event.shiftKey || event.altKey || event.ctrlKey || event.metaKey" in controls_js
+assert "(index + 0.12) * config.duration / 26" in controls_js
+assert "fp16Frame(time) + direction" in controls_js
+assert "Shift+Left/Right" in controls_js
+for file in ("gradient-checkpointing.md", "mixed-precision.md"):
+    assert "Keyboard timeline navigation (MkDocs)" in (pages / file).read_text(encoding="utf-8")
+for file in ("gradient-checkpointing.zh-TW.md", "mixed-precision.zh-TW.md"):
+    assert "時間軸鍵盤導覽（MkDocs）" in (pages / file).read_text(encoding="utf-8")
+print("Co-design semantic keyboard range and bilingual instruction contracts OK")

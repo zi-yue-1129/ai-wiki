@@ -484,6 +484,29 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert abs(get_time() - landmark_events[name][0][0]) < 0.05
     buttons.nth(3).click()  # Restart to preserve downstream initial-state tests.
     assert get_time() < 0.1
+    # Unlike a native 1/1000 range step (~12 ms), each unmodified arrow
+    # advances one meaningful synthetic state. Shift+Arrow remains fine seek.
+    slider_checks = {
+        'checkpoint-spacing': ('s=2', 's=4', 's=8'),
+        'fp16-scaling-window': ('S=2', 'S=4', 'S=8'),
+        'gradscaler-feedback': ('t2', 't3', 't4'),
+    }[name]
+    seek.focus()
+    for state in slider_checks:
+        page.keyboard.press('ArrowRight')
+        assert state in seek.get_attribute('aria-valuetext'), (name, state)
+    page.keyboard.press('ArrowLeft')
+    assert slider_checks[-2] in seek.get_attribute('aria-valuetext')
+    page.keyboard.press('Home')
+    assert get_time() < 0.1
+    before_fine = int(seek.input_value())
+    page.keyboard.press('Shift+ArrowRight')
+    assert 1 <= int(seek.input_value()) - before_fine <= 2
+    assert get_time() < 0.1
+    page.keyboard.press('End')
+    assert int(seek.input_value()) >= 999
+    page.keyboard.press('Home')
+    assert get_time() < 0.1
 
     def capture(stage):
         frame.scroll_into_view_if_needed()

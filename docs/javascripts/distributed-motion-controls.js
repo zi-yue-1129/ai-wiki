@@ -589,6 +589,33 @@
         pin.textContent = label('Pin A', '釘選 A');
         status.textContent = label('Pinned comparison cleared', '已清除釘選比較');
       });
+      // Native range sliders advance 1/1000 of the 12-second animation per
+      // Arrow press, effectively trapping keyboard readers inside one unchanged
+      // numerical state. On the co-design figures, ordinary Left/Right instead
+      // traverses the *next discrete mathematical state*. Shift+Left/Right
+      // keeps native fine seeking, while Home/End retain native endpoints.
+      if (host.classList.contains('co-design-motion-timeline')) {
+        seek.addEventListener('keydown', event => {
+          if (!svg || event.shiftKey || event.altKey || event.ctrlKey || event.metaKey ||
+              !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+          event.preventDefault();
+          const direction = event.key === 'ArrowRight' ? 1 : -1;
+          let target;
+          if (match[1] === 'fp16-scaling-window') {
+            // There are 26 nonzero-width SMIL cells for 27 boundary samples;
+            // seek just inside the cell to avoid a rounding boundary race.
+            const index = Math.max(0, Math.min(25, fp16Frame(time) + direction));
+            target = index === 0 ? 0 : (index + 0.12) * config.duration / 26;
+          } else {
+            const index = match[1] === 'checkpoint-spacing'
+              ? Math.min(4, Math.floor(time / 2.4)) : feedbackIndex(time);
+            target = config.steps[Math.max(0, Math.min(config.steps.length - 1, index + direction))];
+          }
+          stop(); setTime(target);
+          // aria-valuetext is synchronised by draw(); do not create a new
+          // aria-live utterance for every repeated keypress.
+        });
+      }
       seek.addEventListener('input', () => {
         const selected = Number(seek.value);
         stop(); setTime(selected / 1000 * config.duration);
