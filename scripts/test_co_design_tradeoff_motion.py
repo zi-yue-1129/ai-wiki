@@ -720,6 +720,18 @@ assert "if (candidate === frame) showStaticFallback();" in controls_js
 assert "frame.data = src;\n          armLoadTimer();" in controls_js
 print("Stalled SVG requests have bounded fallback and reusable retry controls OK")
 
+# A request that answers *after* the watchdog has selected its static
+# fallback cannot revive the stale object; only Retry starts a new generation.
+assert "let acceptingFrameLoad = true;" in controls_js
+assert "acceptingFrameLoad = false;\n        clearLoadTimer();" in controls_js
+assert "if (!acceptingFrameLoad) return;" in controls_js
+assert "acceptingFrameLoad = true;\n        retry.textContent" in controls_js
+assert "candidate === frame && acceptingFrameLoad" in controls_js
+assert "late_valid_svg_ignored" in (root / "scripts/test_built_motion_browser.py").read_text(encoding="utf-8")
+print("Expired SVG responses cannot silently revive interactive controls OK")
+
+
+
 # A successfully parsed but motionless SVG must not unlock the timeline controls.
 # The built HTTP fixture exercises this with a real valid SVG navigation and retry.
 assert "const hasTeachingTimeline = !coDesignRegion || !!root?.querySelector(" in controls_js
