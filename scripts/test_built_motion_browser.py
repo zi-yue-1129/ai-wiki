@@ -964,6 +964,40 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
             stem, 'retry lost pinned comparison')
     recovered_capture = output / f'co-design-{index}-retry-recovered.png'
     page.screenshot(path=str(recovered_capture))
+    # A syntactically valid SVG is not necessarily an *animated* diagram:
+    # a stale CDN or wrong asset may serve a still SVG at the motion URL.
+    # Reject it so timeline controls never claim to move a static picture.
+    static_url = frame.evaluate("""el => {
+        const url = new URL(el.data, document.baseURI);
+        url.searchParams.set('qa_static_svg', '1');
+        return url.href;
+    }""")
+    page.route(static_url, lambda route: route.fulfill(
+        status=200, content_type='image/svg+xml',
+        body='<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" '
+             'viewBox="0 0 640 360"><rect width="640" height="360" '
+             'fill="#edf2f6"/></svg>'))
+    frame.evaluate('(el, url) => { el.data = url; }', static_url)
+    expect(image).to_be_visible(timeout=8000)
+    expect(controls).to_be_hidden(timeout=8000)
+    expect(retry_button).to_be_visible(timeout=8000)
+    assert image.get_attribute('src') == image.get_attribute('data-still-src')
+    assert image.evaluate('img => img.complete && img.naturalWidth > 0'), (
+        stem, 'a valid but motionless SVG lost the decoded reviewed still')
+    static_capture = output / f'co-design-{index}-motionless-svg-fallback.png'
+    page.screenshot(path=str(static_capture))
+    page.unroute(static_url)
+    retry_button.click()
+    expect(frame).to_be_visible(timeout=10000)
+    expect(controls).to_be_visible(timeout=10000)
+    expect(image).to_be_hidden(timeout=10000)
+    assert abs(get_time() - out_of_view_time) < 0.06, (
+        stem, 'valid-SVG fallback and recovery lost seek state')
+    if retained_a is not None:
+        assert comparison.locator('.distributed-motion-compare-a').inner_text() == retained_a, (
+            stem, 'valid-SVG fallback and recovery lost pinned comparison')
+    record['motionless_svg_rejected_and_recovered'] = 'passed'
+    record['motionless_svg_fallback_screenshot'] = static_capture.name
     record['stalled_svg_retry_timeout'] = 'passed'
     record['retry_timeout_screenshot'] = timeout_capture.name
     record['invalid_svg_retry_recovery'] = 'passed'

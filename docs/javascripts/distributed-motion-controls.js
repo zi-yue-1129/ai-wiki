@@ -808,7 +808,14 @@
         clearLoadTimer();
         try {
           const root = frame.contentDocument?.documentElement;
-          if (!root || typeof root.pauseAnimations !== 'function' || typeof root.setCurrentTime !== 'function') {
+          // A valid SVG can still be the *wrong* asset (e.g. a cached still).
+          // Only co-design players require SMIL timeline elements; otherwise
+          // interactive controls would claim to scrub a motionless document.
+          const hasTeachingTimeline = !coDesignRegion || !!root?.querySelector(
+            'animate, animateTransform, animateMotion, set');
+          if (!root || root.namespaceURI !== 'http://www.w3.org/2000/svg' ||
+              typeof root.pauseAnimations !== 'function' ||
+              typeof root.setCurrentTime !== 'function' || !hasTeachingTimeline) {
             showStaticFallback();
             return;
           }
