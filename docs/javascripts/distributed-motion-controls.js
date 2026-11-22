@@ -722,10 +722,11 @@
           setTime(time);
         } else if (!svg) {
           retry.hidden = true;
-          // Chromium may defer loading an <object> while it is display:none.
-          // Re-enable its offscreen loading placeholder; the load handler
-          // will swap the real SVG into view only after it is ready.
-          img.src = src;
+          // Keep the reviewed still visible until the SVG timeline is validated.
+          // Switching out of reduced motion must not briefly expose an
+          // unpausable animated <img> while the <object> request is pending.
+          img.src = img.dataset.stillSrc || src.replace(/-motion\.svg(?=$|[?#])/, '-still.svg');
+          img.hidden = false;
           frame.hidden = false;
           // Retry a deferred object navigation: its fallback HTML document
           // may have loaded while display:none, not the intended SVG.

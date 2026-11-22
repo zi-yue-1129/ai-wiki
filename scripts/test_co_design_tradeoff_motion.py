@@ -741,3 +741,14 @@ browser_source = (root / "scripts/test_built_motion_browser.py").read_text(encod
 assert "qa_static_svg" in browser_source
 assert "motionless_svg_rejected_and_recovered" in browser_source
 print("Reject valid-but-motionless co-design SVG with a built-browser regression OK")
+
+# Switching out of reduced motion must retain the still preview while the
+# controlled SVG <object> is loading. Otherwise the visible <img> starts
+# playing the raw motion SVG with no Pause/Step affordances.
+pending_reduce_load = controls_js.split("} else if (!svg) {", 1)[1].split(
+    "reduced.addEventListener('change', onReduce);", 1)[0]
+assert "img.src = img.dataset.stillSrc || src.replace(" in pending_reduce_load
+assert "img.hidden = false;" in pending_reduce_load
+assert "img.src = src;" not in pending_reduce_load
+assert "frame.data = src;\\n          armLoadTimer();" in pending_reduce_load
+print("Pending SVG initialization retains accessible reduced-motion still preview OK")
