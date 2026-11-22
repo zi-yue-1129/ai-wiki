@@ -490,6 +490,8 @@ print("Co-design synchronized numerical interpretation, bilingual copy and acces
 # No duplicated language-specific SVG or JavaScript may be introduced.
 assert "swapPin.textContent = label('Swap A/B', '交換 A／B')" in controls_js
 assert "swapPin?.addEventListener('click', () => {" in controls_js
+assert "NEXT S ${nextScale[ia]} → ${nextScale[ib]}" in controls_js
+assert "下次縮放 ${nextScale[ia]} → ${nextScale[ib]}" in controls_js
 assert "pinnedTime = time;" in controls_js and "setTime(previousA);" in controls_js
 assert "swapPin.hidden = true" in controls_js and "swapPin.hidden = false" in controls_js
 assert ".distributed-motion-swap" in controls_css
