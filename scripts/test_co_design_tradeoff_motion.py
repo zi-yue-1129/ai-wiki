@@ -553,3 +553,9 @@ for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
 for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     assert "GradScaler A/B" in (pages / name).read_text(encoding="utf-8")
 print("Bilingual trade-off/dominance, FP16 regimes, and GradScaler actions OK")
+
+# Initially reduced-motion pages must install the timeline for preference changes.
+assert "  function enhance() {\n    if (reduced.matches) return;" not in controls_js
+assert "if (reduced.matches) onReduce({ matches: true });" in controls_js
+assert "reduced.addEventListener('change', onReduce)" in controls_js
+print("Initial reduced-motion preference restoration contract OK")

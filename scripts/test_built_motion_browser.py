@@ -943,6 +943,26 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
             toggle.focus()
             page.keyboard.press("Enter")
             capture("replayed", "motion", pause)
+            if reduced and any(asset["motion"].split("?", 1)[0].endswith(name)
+                               for name in interactive_names):
+                # A page opened with reduced motion must still install the
+                # SVG timeline, allowing later activation without a reload.
+                # Restore preference for all remaining figures in this page.
+                frame = host.locator("object.distributed-motion-frame")
+                expect(frame).to_be_hidden()
+                page.emulate_media(reduced_motion="no-preference")
+                expect(frame).to_be_visible()
+                expect(image).to_be_hidden()
+                page.emulate_media(reduced_motion="reduce")
+                expect(frame).to_be_hidden()
+                expect(image).to_be_visible()
+                expect(image).to_have_attribute("src", responsive_asset_url(asset["still"], viewport))
+                page.emulate_media(reduced_motion="no-preference")
+                expect(frame).to_be_visible()
+                page.emulate_media(reduced_motion="reduce")
+                expect(frame).to_be_hidden()
+                expect(image).to_be_visible()
+                record["states"]["system_motion_preference_roundtrip"] = "passed"
         result["status"] = "passed"
     except Exception:
         record_failure_diagnostics(page, output, result)

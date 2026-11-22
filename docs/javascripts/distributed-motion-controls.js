@@ -22,7 +22,8 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function enhance() {
-    if (reduced.matches) return;
+    // Install listeners even when motion starts disabled so a later
+    // preference change activates the same reviewed teaching timeline.
     for (const host of document.querySelectorAll('.concept-motion-player')) {
       if (host.dataset.distributedTimeline === 'yes') continue;
       const img = host.querySelector('img[src*="concept-animations/"]');
@@ -467,6 +468,8 @@
         }
       };
       reduced.addEventListener('change', onReduce);
+      // Initial reduced motion needs the same static fallback as a change.
+      if (reduced.matches) onReduce({ matches: true });
       // Do not silently fast-forward when the reader returns to an inactive tab.
       // requestAnimationFrame may be throttled while hidden; pausing prevents a
       // large elapsed-time jump on resume and avoids unwanted background motion.
