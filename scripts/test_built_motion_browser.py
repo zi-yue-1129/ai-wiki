@@ -430,6 +430,36 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     get_time = lambda: frame.evaluate(
         'e => e.contentDocument.documentElement.getCurrentTime()')
     assert get_time() < 0.1
+    # Visit each actual algorithmic transition on built EN/zh-TW pages.
+    # Native buttons must pause animation, expose ARIA current state and
+    # leave the exact SVG time/semantic readout synchronized.
+    landmark_events = {
+        'checkpoint-spacing': [(0, 's=1'), (2.45, 's=2'), (4.85, 's=4'),
+                               (7.25, 's=8'), (9.65, 's=16')],
+        'fp16-scaling-window': [(1.42, 'S=8'), (5.12, 'S=2048'),
+                                (6.98, 'S=1024'), (10.67, 'S=4')],
+        'gradscaler-feedback': [(0, 't1'), (2.05, 't2'), (4.05, 't3'),
+                               (6.05, 't4'), (8.05, 't5'), (10.05, 't6')],
+    }
+    name = frame.get_attribute('data').rsplit('/', 1)[-1].removesuffix('-motion.svg')
+    marks = controls.locator('.distributed-motion-landmarks button')
+    expect(marks).to_have_count(len(landmark_events[name]))
+    for event_idx, (event_time, text) in enumerate(landmark_events[name]):
+        button = marks.nth(event_idx)
+        expect(button).to_be_enabled()
+        assert button.get_attribute('aria-label')
+        button.click()
+        assert abs(get_time() - event_time) < 0.05, (name, event_idx, get_time())
+        assert text in seek.get_attribute('aria-valuetext'), (name, text)
+        expect(button).to_have_attribute('aria-current', 'step')
+        assert controls.locator('button.concept-motion-toggle').nth(1).get_attribute(
+            'aria-label') in ('Play animation', '播放動畫')
+        assert_document_fits(page, viewport)
+    marks.first.focus()
+    page.keyboard.press('Enter')
+    assert abs(get_time() - landmark_events[name][0][0]) < 0.05
+    buttons.nth(3).click()  # Restart to preserve downstream initial-state tests.
+    assert get_time() < 0.1
 
     def capture(stage):
         frame.scroll_into_view_if_needed()

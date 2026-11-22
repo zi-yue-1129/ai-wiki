@@ -595,3 +595,23 @@ for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     body = (pages / language).read_text(encoding="utf-8")
     assert ("掃描 A→B" if language.endswith(".zh-TW.md") else "Sweep A→B") in body
 print("Directional synthetic A/B scan, bilingual guidance and cancellation contract OK")
+
+# Key-transition navigation is tied to prescribed numeric states, without
+# duplicating or replacing any SVG teaching assets.
+assert "const landmarkRail = landmarks.length ? document.createElement('div') : null;" in controls_js
+assert "landmarkButtons.forEach(({ button }) => { button.disabled = false; });" in controls_js
+assert "button.setAttribute('aria-current', 'step')" in controls_js
+assert "stop(); setTime(event.t);" in controls_js
+assert ".distributed-motion-landmark:focus-visible" in controls_css
+assert ".distributed-motion-landmark.is-current" in controls_css
+for transition in ("t: 0, en: 's=1'", "t: 4.85, en: 's=4'",
+                   "t: 1.42, en: 'LOW +'", "t: 5.12, en: 'HIGH Inf'",
+                   "t: 6.98, en: 'HIGH finite'", "t: 10.67, en: 'LOW 0'",
+                   "t: 2.05, en: 't2 · grow'", "t: 4.05, en: 't3 · backoff'"):
+    assert transition in controls_js, transition
+for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+                 "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    text = (pages / language).read_text(encoding="utf-8")
+    assert ("關鍵狀態導覽" if language.endswith(".zh-TW.md")
+            else "Key-transition navigation") in text
+print("Bilingual semantic landmark navigation, keyboard and state contract OK")

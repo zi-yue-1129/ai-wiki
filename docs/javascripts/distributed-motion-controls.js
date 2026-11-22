@@ -125,6 +125,52 @@
         { en: 't1 → t5 · finite-history effect', tw: 't1 → t5 · 歷史計數效應', a: 0, b: 8.05 },
         { en: 't2 → t3 · overflow backoff', tw: 't2 → t3 · 溢位回退', a: 2.05, b: 4.05 },
       ] : [];
+      // Semantic transition navigator: jump directly to state boundaries,
+      // including the distinct upward/downward crossings in the FP16 sweep.
+      // Each button seeks the *existing* animated SVG; no new synthetic
+      // computation or duplicate visual asset is introduced.
+      const landmarks = match[1] === 'checkpoint-spacing' ? [
+        { t: 0, en: 's=1', tw: 's=1', hintEn: 'Checkpoint spacing 1: peak 17, rebuilt 0', hintTw: '間距 1：峰值 17、重算 0' },
+        { t: 2.45, en: 's=2', tw: 's=2', hintEn: 'Checkpoint spacing 2: peak 10, rebuilt 8', hintTw: '間距 2：峰值 10、重算 8' },
+        { t: 4.85, en: 's=4', tw: 's=4', hintEn: 'Checkpoint spacing 4: peak 8, rebuilt 12', hintTw: '間距 4：峰值 8、重算 12' },
+        { t: 7.25, en: 's=8', tw: 's=8', hintEn: 'Checkpoint spacing 8: peak 10, rebuilt 14', hintTw: '間距 8：峰值 10、重算 14' },
+        { t: 9.65, en: 's=16', tw: 's=16', hintEn: 'Checkpoint spacing 16: peak 17, rebuilt 15', hintTw: '間距 16：峰值 17、重算 15' },
+      ] : match[1] === 'fp16-scaling-window' ? [
+        { t: 1.42, en: 'LOW +', tw: '小值保留', hintEn: 'Ascending scale 8: small gradient first survives rounding', hintTw: '上升至縮放 8：小梯度首次不再歸零' },
+        { t: 5.12, en: 'HIGH Inf', tw: '大值溢位', hintEn: 'Ascending scale 2048: large gradient overflows to infinity', hintTw: '上升至縮放 2048：大梯度溢位成無限值' },
+        { t: 6.98, en: 'HIGH finite', tw: '大值恢復', hintEn: 'Descending scale 1024: large gradient becomes finite again', hintTw: '下降至縮放 1024：大梯度重新成為有限值' },
+        { t: 10.67, en: 'LOW 0', tw: '小值歸零', hintEn: 'Descending scale 4: small gradient rounds to zero again', hintTw: '下降至縮放 4：小梯度再次捨入為零' },
+      ] : match[1] === 'gradscaler-feedback' ? [
+        { t: 0, en: 't1 · hold', tw: 't1 · 維持', hintEn: 'Iteration 1: finite, hold scale', hintTw: '第 1 次：有限值，維持縮放' },
+        { t: 2.05, en: 't2 · grow', tw: 't2 · 放大', hintEn: 'Iteration 2: second finite check grows the scale', hintTw: '第 2 次：連續第兩次有限值，放大縮放' },
+        { t: 4.05, en: 't3 · backoff', tw: 't3 · 縮小', hintEn: 'Iteration 3: infinity causes backoff and step skip', hintTw: '第 3 次：出現無限值，縮小並跳過更新' },
+        { t: 6.05, en: 't4 · hold', tw: 't4 · 維持', hintEn: 'Iteration 4: finite after reset, hold scale', hintTw: '第 4 次：重設後首次有限值，維持縮放' },
+        { t: 8.05, en: 't5 · grow', tw: 't5 · 放大', hintEn: 'Iteration 5: second finite check grows scale again', hintTw: '第 5 次：連續第二次有限值，再次放大' },
+        { t: 10.05, en: 't6 · backoff', tw: 't6 · 縮小', hintEn: 'Iteration 6: infinity causes another backoff', hintTw: '第 6 次：出現無限值，再次縮小' },
+      ] : [];
+      const landmarkRail = landmarks.length ? document.createElement('div') : null;
+      const landmarkButtons = [];
+      if (landmarkRail) {
+        landmarkRail.className = 'distributed-motion-landmarks';
+        landmarkRail.setAttribute('role', 'group');
+        landmarkRail.setAttribute('aria-label', label('Jump to key transitions', '跳至關鍵轉換狀態'));
+        for (const event of landmarks) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'distributed-motion-landmark';
+          button.textContent = label(event.en, event.tw);
+          button.title = label(event.hintEn, event.hintTw);
+          button.setAttribute('aria-label', label(event.hintEn, event.hintTw));
+          button.disabled = true;
+          button.addEventListener('click', () => {
+            if (!svg) return;
+            stop(); setTime(event.t);
+            status.textContent = label('Key transition: ', '關鍵狀態：') + label(event.hintEn, event.hintTw);
+          });
+          landmarkRail.append(button);
+          landmarkButtons.push({ button, event });
+        }
+      }
       const gaugeFills = [];
       if (pin) {
         pin.type = clearPin.type = swapPin.type = sweepPin.type = 'button';
@@ -220,6 +266,7 @@
         rate.append(opt);
       }
       bar.append(rate);
+      if (landmarkRail) bar.append(landmarkRail);
       const status = document.createElement('span');
       status.className = 'concept-motion-status';
       status.setAttribute('role', 'status');
@@ -403,6 +450,18 @@
         readout.textContent = time.toFixed(1) + ' / ' + config.duration + 's';
         if (interpretation.isConnected) interpretation.textContent = teachingState(time);
         updateComparison();
+        for (const { button, event } of landmarkButtons) {
+          // Highlight an actual discrete teaching state, never an arbitrary
+          // nearest event that might be several numerical steps away.
+          const active = match[1] === 'checkpoint-spacing'
+            ? checkpointSpacing(time) === checkpointSpacing(event.t)
+            : match[1] === 'gradscaler-feedback'
+              ? feedbackIndex(time) === feedbackIndex(event.t)
+              : Math.abs(time - event.t) < 0.20;
+          button.classList.toggle('is-current', active);
+          if (active) button.setAttribute('aria-current', 'step');
+          else button.removeAttribute('aria-current');
+        }
         play.textContent = playing ? label('Ⅱ Pause', 'Ⅱ 暫停') : label('▶ Play', '▶ 播放');
         play.setAttribute('aria-label', playing ? label('Pause animation', '暫停動畫') : label('Play animation', '播放動畫'));
       }
@@ -589,6 +648,7 @@
           setTime(0);
           if (pin) pin.disabled = false;
           if (guided) guided.disabled = false;
+          landmarkButtons.forEach(({ button }) => { button.disabled = false; });
           // Also capture a load that finishes while reduced motion is active:
           // otherwise turning motion back on can leave this player stranded.
           if (reduced.matches) return;

@@ -180,3 +180,43 @@
   outline: 3px solid var(--md-accent-fg-color, #387e99);
   outline-offset: 3px;
 }
+
+/* Discrete semantic transition navigator for the three co-design figures.
+ * Native focusable buttons keep major numerical boundaries discoverable,
+ * and the current stage remains legible without colour alone. */
+.co-design-motion-controls .distributed-motion-landmarks {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  gap: .32rem;
+  min-width: 0;
+  padding: .32rem .4rem;
+  border: 1px solid var(--md-default-fg-color--lightest, #d1d8df);
+  border-radius: .45rem;
+}
+.co-design-motion-controls .distributed-motion-landmark {
+  flex: 1 1 4.25rem;
+  min-width: 0;
+  max-width: 100%;
+  padding: .3rem .25rem;
+  border: 1px solid var(--md-default-fg-color--lighter, #9cafbe);
+  border-radius: .3rem;
+  color: var(--md-default-fg-color, #24394c);
+  background: var(--md-default-bg-color, #fff);
+  font: inherit;
+  font-size: .68rem;
+  line-height: 1.3;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.co-design-motion-controls .distributed-motion-landmark.is-current {
+  border: 2px solid var(--md-accent-fg-color, #387e99);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .16rem;
+}
+.co-design-motion-controls .distributed-motion-landmark:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 2px;
+}
+.co-design-motion-controls .distributed-motion-landmark:disabled { opacity: .55; cursor: wait; }
