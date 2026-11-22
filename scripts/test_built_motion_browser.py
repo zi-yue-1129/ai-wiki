@@ -944,13 +944,26 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         stem, 'stalled retry lost the decoded still image')
     timeout_capture = output / f'co-design-{index}-retry-timeout-fallback.png'
     page.screenshot(path=str(timeout_capture))
-    # Resolve the expired fixture with an invalid document rather than
-    # injecting a network abort into the page's unexpected-failure ledger.
+    # A genuinely late HTTP 200 with a *valid animated SVG* must not undo
+    # the timeout fallback or silently restore controls. Previously only a
+    # late invalid HTML response was tested, so this regression escaped.
+    motion_fixture = ROOT / 'docs/assets/concept-animations' / f'{stem}-motion.svg'
+    assert motion_fixture.is_file(), (stem, 'missing original SVG fixture')
     for pending in stalled_requests:
-        pending.fulfill(status=200, content_type='text/html',
-                        body='<!doctype html><title>Expired retry fixture</title>')
+        pending.fulfill(status=200, content_type='image/svg+xml',
+                        body=motion_fixture.read_bytes())
     page.unroute(stalled_url, stall_svg_request)
+    # Observe the actual same-origin object response, not a synthesized event.
+    page.wait_for_function(
+        'el => el.contentDocument?.documentElement?.namespaceURI === "http://www.w3.org/2000/svg"',
+        arg=frame.element_handle(), timeout=8000)
+    expect(image).to_be_visible()
+    expect(controls).to_be_hidden()
     expect(retry_button).to_be_visible(timeout=5000)
+    assert image.evaluate('img => img.complete && img.naturalWidth > 0'), (
+        stem, 'late valid SVG changed the decoded static fallback')
+    late_capture = output / f'co-design-{index}-late-response-ignored.png'
+    page.screenshot(path=str(late_capture))
     retry_button.click()
     expect(frame).to_be_visible(timeout=10000)
     expect(controls).to_be_visible(timeout=10000)
@@ -1000,6 +1013,8 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
             stem, 'valid-SVG fallback and recovery lost pinned comparison')
     record['motionless_svg_rejected_and_recovered'] = 'passed'
     record['motionless_svg_fallback_screenshot'] = static_capture.name
+    record['late_valid_svg_ignored'] = 'passed'
+    record['late_valid_svg_screenshot'] = late_capture.name
     record['stalled_svg_retry_timeout'] = 'passed'
     record['retry_timeout_screenshot'] = timeout_capture.name
     record['invalid_svg_retry_recovery'] = 'passed'
