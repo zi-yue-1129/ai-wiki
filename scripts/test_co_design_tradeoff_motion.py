@@ -644,3 +644,17 @@ for file in ("gradient-checkpointing.md", "mixed-precision.md"):
 for file in ("gradient-checkpointing.zh-TW.md", "mixed-precision.zh-TW.md"):
     assert "時間軸鍵盤導覽（MkDocs）" in (pages / file).read_text(encoding="utf-8")
 print("Co-design semantic keyboard range and bilingual instruction contracts OK")
+
+# Adjacent-state A/B shortcuts preserve temporal direction and the original
+# interactive comparison; first states deliberately have no preceding state.
+assert "const comparePrevious = pin ? document.createElement('button') : null;" in controls_js
+assert "comparePrevious.textContent = label('Compare previous', '比較前一步');" in controls_js
+assert "function previousStateTime(t)" in controls_js
+assert "const before = i - 1;" in controls_js
+assert "pinnedTime = earlier;" in controls_js
+assert ".distributed-motion-previous:focus-visible" in controls_css
+for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+                 "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    body = (pages / language).read_text(encoding="utf-8")
+    assert ("比較前一步" if language.endswith(".zh-TW.md") else "Compare previous") in body
+print("Bilingual adjacent-state comparison shortcuts and temporal direction OK")

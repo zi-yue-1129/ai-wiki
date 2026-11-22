@@ -93,6 +93,8 @@ The animation changes the checkpoint boundaries, the stored/rebuilt slot counts,
 
 **Keyboard timeline navigation (MkDocs).** Focus the time slider and press **Left/Right** to visit the preceding/next checkpoint-spacing choice (`s=1, 2, 4, 8, 16`) rather than advancing an unreadable 1/1000 of a timeline; **Shift+Left/Right** keeps native fine-grained seeking, and **Home/End** seeks to the beginning/end. Keyboard state jumps pause animation or A→B Sweep, retain any pinned A baseline, and update the numerical and accessible slider readouts. Mouse/touch dragging remains continuous.
 
+**Compare with the immediately preceding state (MkDocs).** After selecting any noninitial spacing, press **Compare previous** to pin the prior segment size as **A** while keeping the selected size as **B**. For example, at (s=8), this directly compares (s=4\rightarrow8): schematic peak slots change **8 → 10** and total rebuilt activations change **12 → 14**. The same **Swap A/B**, signed deltas and two fixed-scale visual gauges remain available. The button is disabled at (s=1), which has no prior sampled choice. These are synthetic slot counts, not benchmarked GPU memory or runtime.
+
 ## Results
 
 The abstract reports that, for a 1,000-layer residual network on ImageNet, memory falls from about 48 GB to 7 GB, with roughly 30% more running time. The body reports that its ResNet experiments used batch size 32, 224 × 224 inputs, MXNet on a single Titan X GPU, and counted each conv-bn-relu block as one layer. The abstract also reports a significant memory reduction when training complex recurrent networks.

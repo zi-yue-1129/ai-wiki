@@ -84,6 +84,7 @@
       // emphasizes trade-offs and decision changes without copying SVG assets.
       const pin = host.classList.contains('co-design-motion-timeline')
         ? document.createElement('button') : null;
+      const comparePrevious = pin ? document.createElement('button') : null;
       const clearPin = pin ? document.createElement('button') : null;
       const swapPin = pin ? document.createElement('button') : null;
       const sweepPin = pin ? document.createElement('button') : null;
@@ -177,8 +178,11 @@
       }
       const gaugeFills = [];
       if (pin) {
-        pin.type = clearPin.type = swapPin.type = sweepPin.type = 'button';
+        pin.type = comparePrevious.type = clearPin.type = swapPin.type = sweepPin.type = 'button';
         pin.className = 'distributed-motion-pin';
+        comparePrevious.className = 'distributed-motion-previous';
+        comparePrevious.textContent = label('Compare previous', '比較前一步');
+        comparePrevious.disabled = true;
         clearPin.className = 'distributed-motion-clear';
         swapPin.className = 'distributed-motion-swap';
         sweepPin.className = 'distributed-motion-sweep';
@@ -191,7 +195,7 @@
         pin.disabled = true; // An actual SVG time must be available first.
         clearPin.textContent = label('Clear A', '清除 A');
         clearPin.hidden = true;
-        bar.append(pin, swapPin, sweepPin, clearPin);
+        bar.append(pin, comparePrevious, swapPin, sweepPin, clearPin);
         comparison.className = 'distributed-motion-comparison';
         comparison.hidden = true;
         comparison.setAttribute('role', 'group');
@@ -421,6 +425,24 @@
         return label('Next-scale action: ', '下一次縮放動作：') + decision(a) + ' → ' + decision(b) +
           label(' (depends on finite-check history).', '（取決於歷次有限值檢查）。');
       }
+      // Offer a local state-to-state comparison without requiring precise
+      // slider movement and manual Pin A. The *previous time cell*, rather
+      // than the previous distinct numerical value, is essential for FP16:
+      // its upward and downward crossings have different causal contexts.
+      function previousStateTime(t) {
+        if (match[1] === 'checkpoint-spacing') {
+          const i = Math.min(4, Math.floor(t / 2.4));
+          return i ? config.steps[i - 1] : null;
+        }
+        if (match[1] === 'fp16-scaling-window') {
+          const i = fp16Frame(t);
+          if (!i) return null;
+          const before = i - 1;
+          return before ? (before + 0.12) * config.duration / 26 : 0;
+        }
+        const i = feedbackIndex(t);
+        return i ? config.steps[i - 1] : null;
+      }
       function updateComparison() {
         if (pinnedTime === null || !comparison) return;
         pinA.textContent = label('A · pinned: ', 'A · 已釘選：') + conciseState(pinnedTime);
@@ -448,6 +470,7 @@
         readout.textContent = time.toFixed(1) + ' / ' + config.duration + 's';
         if (interpretation.isConnected) interpretation.textContent = teachingState(time);
         updateComparison();
+        if (comparePrevious) comparePrevious.disabled = previousStateTime(time) === null;
         for (const { button, event } of landmarkButtons) {
           // Highlight an actual discrete teaching state, never an arbitrary
           // nearest event that might be several numerical steps away.
@@ -531,6 +554,21 @@
         updateComparison();
         status.textContent = label('Pinned state A. Move the timeline to compare B.',
                                    '已釘選 A，移動時間軸即可比較 B。');
+      });
+      comparePrevious?.addEventListener('click', () => {
+        if (!svg) return;
+        const earlier = previousStateTime(time);
+        if (earlier === null) return;
+        stop();
+        pinnedTime = earlier;
+        comparison.hidden = false;
+        clearPin.hidden = false;
+        swapPin.hidden = false;
+        sweepPin.hidden = false;
+        pin.textContent = label('Replace A', '更新 A');
+        updateComparison();
+        status.textContent = label('Comparing the previous synthetic state A to current B.',
+                                   '已比較前一個人工示意狀態 A 與目前狀態 B。');
       });
       // Reversing the comparison must reverse the signed B − A delta as
       // well as the displayed A/B positions, not just exchange text labels.

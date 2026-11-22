@@ -67,6 +67,7 @@
 /* A/B comparison of reviewed, synthetic animation states. Keep both panels
  * outside the figure scroller, and preserve single-column mobile reading. */
 .co-design-motion-controls .distributed-motion-pin,
+.co-design-motion-controls .distributed-motion-previous,
 .co-design-motion-controls .distributed-motion-swap,
 .co-design-motion-controls .distributed-motion-sweep,
 .co-design-motion-controls .distributed-motion-clear {
@@ -80,13 +81,15 @@
   cursor: pointer;
 }
 .co-design-motion-controls .distributed-motion-pin:focus-visible,
+.co-design-motion-controls .distributed-motion-previous:focus-visible,
 .co-design-motion-controls .distributed-motion-swap:focus-visible,
 .co-design-motion-controls .distributed-motion-sweep:focus-visible,
 .co-design-motion-controls .distributed-motion-clear:focus-visible {
   outline: 3px solid var(--md-accent-fg-color, #387e99);
   outline-offset: 2px;
 }
-.co-design-motion-controls .distributed-motion-pin:disabled { opacity: .5; cursor: wait; }
+.co-design-motion-controls .distributed-motion-pin:disabled,
+.co-design-motion-controls .distributed-motion-previous:disabled { opacity: .5; cursor: not-allowed; }
 .co-design-motion-controls .distributed-motion-clear[hidden],
 .co-design-motion-controls .distributed-motion-swap[hidden],
 .co-design-motion-controls .distributed-motion-sweep[hidden],

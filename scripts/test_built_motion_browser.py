@@ -684,6 +684,28 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert controls.locator('.concept-motion-status').inner_text() in (
         'Pinned comparison cleared', '已清除釘選比較'
     )
+    # Compare the immediately preceding sampled state without changing the
+    # current SVG position. FP16 must preserve the *descending* threshold.
+    prior_cases = {
+        'checkpoint-spacing': (4.85, 's=2', 's=4'),
+        'fp16-scaling-window': (6.98, 'S=2048', 'S=1024'),
+        'gradscaler-feedback': (4.05, 't2', 't3'),
+    }
+    before_time, preceding, current = prior_cases[stem]
+    previous_control = controls.locator('button.distributed-motion-previous')
+    seek.evaluate('''(element, t) => {
+        element.value = String(Math.round(t / 12 * 1000));
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+    }''', before_time)
+    expect(previous_control).to_be_enabled()
+    baseline_svg_time = get_time()
+    previous_control.click()
+    assert abs(get_time() - baseline_svg_time) < .03, (stem, 'previous compare moved B')
+    assert preceding in comparison.locator('.distributed-motion-compare-a').inner_text()
+    assert current in comparison.locator('.distributed-motion-compare-b').inner_text()
+    assert comparison.locator('.distributed-motion-compare-delta').inner_text().strip()
+    controls.locator('button.distributed-motion-clear').click()
+
     # Guided presets must populate both real SVG/semantic states and retain
     # manual pin/swap functionality; inspect on real built bilingual pages.
     guided = controls.locator('select.distributed-motion-scenario')
