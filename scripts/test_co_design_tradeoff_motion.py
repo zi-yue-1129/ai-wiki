@@ -454,6 +454,11 @@ assert "interpretation.setAttribute('aria-live', 'off')" in controls_js
 assert "status.textContent = interpretation.isConnected ? interpretation.textContent" in controls_js
 assert "Math.floor(t / 2.4)" in controls_js  # Five checkpoint stages.
 assert "const keep = 16 / spacing + 1, scratch = spacing - 1" in controls_js
+assert "const totalRebuilt = 16 - 16 / spacing" in controls_js
+assert "TOTAL REBUILT ${totalRebuilt} (all segments)" in controls_js
+assert "全區段重建總數 ${totalRebuilt}" in controls_js
+assert "silent underflow" in controls_js and "歸零（仍為有限值）" in controls_js
+assert "STEP ELIGIBLE" in controls_js and "通過非有限值檢查、符合更新條件" in controls_js
 assert "Math.floor(t / config.duration * 26 + 1e-6)" in controls_js  # 27 FP16 states.
 assert "const scale = 2 ** exponent" in controls_js
 assert "const following = [1024, 2048, 1024, 1024, 2048, 1024]" in controls_js
@@ -464,4 +469,8 @@ for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     page = (pages / name).read_text(encoding="utf-8")
     assert ("synchronized" if name.endswith(("checkpointing.md", "precision.md"))
             else "同步文字解讀") in page
+assert "TOTAL REBUILT across all segments" in (pages / "gradient-checkpointing.md").read_text(encoding="utf-8")
+assert "所有區段的總重建數量" in (pages / "gradient-checkpointing.zh-TW.md").read_text(encoding="utf-8")
+assert "zero as silent underflow" in (pages / "mixed-precision.md").read_text(encoding="utf-8")
+assert "靜默下溢為零" in (pages / "mixed-precision.zh-TW.md").read_text(encoding="utf-8")
 print("Co-design synchronized numerical interpretation, bilingual copy and accessible announcements OK")

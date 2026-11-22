@@ -123,11 +123,12 @@
           const phase = Math.min(4, Math.floor(t / 2.4));
           const spacing = [1, 2, 4, 8, 16][phase];
           const keep = 16 / spacing + 1, scratch = spacing - 1;
+          const totalRebuilt = 16 - 16 / spacing;
           const within = Math.max(0, (t - phase * 2.4) / 2.4);
           const replayed = spacing === 1 ? 0 : Math.min(scratch, Math.floor(within * spacing / 0.9));
           return label(
-            `s=${spacing} · KEEP ${keep} + REBUILD ${scratch} = PEAK ${keep + scratch} · segment replay ${replayed}/${scratch} (example slots)`,
-            `s=${spacing} · 保留 ${keep} + 重算暫存 ${scratch} = 峰值 ${keep + scratch} · 區段已重建 ${replayed}/${scratch}（示意槽位）`
+            `s=${spacing} · KEEP ${keep} + REBUILD ${scratch} = PEAK ${keep + scratch} · TOTAL REBUILT ${totalRebuilt} (all segments) · active replay ${replayed}/${scratch} (last segment; example slots)`,
+            `s=${spacing} · 保留 ${keep} + 重算暫存 ${scratch} = 峰值 ${keep + scratch} · 全區段重建總數 ${totalRebuilt} · 末段重算進度 ${replayed}/${scratch}（示意槽位）`
           );
         }
         if (match[1] === 'fp16-scaling-window') {
@@ -138,8 +139,8 @@
           const low = exponent <= 2 ? '0' : 'finite';
           const high = exponent >= 11 ? 'Inf' : 'finite';
           return label(
-            `S=2^${exponent} (${scale}) · LOW ${low} · HIGH ${high} · ${exponent >= 11 ? 'SKIP' : 'STEP ELIGIBLE'} (example)`,
-            `S=2^${exponent}（${scale}）· 小梯度${low === '0' ? '歸零' : '非零有限'} · 大梯度${high === 'Inf' ? '溢位' : '有限'} · ${exponent >= 11 ? '跳過更新' : '符合更新條件'}（示意）`
+            `S=2^${exponent} (${scale}) · LOW ${low}${low === '0' ? ' (silent underflow)' : ''} · HIGH ${high} · ${exponent >= 11 ? 'SKIP' : 'STEP ELIGIBLE'} (example)`,
+            `S=2^${exponent}（${scale}）· 小梯度${low === '0' ? '歸零（仍為有限值）' : '非零有限'} · 大梯度${high === 'Inf' ? '溢位' : '有限'} · ${exponent >= 11 ? '跳過更新' : '符合更新條件'}（示意）`
           );
         }
         if (match[1] === 'gradscaler-feedback') {
@@ -149,8 +150,8 @@
           const check = i === 2 || i === 5 ? 'Inf' : 'finite';
           const streak = [1, 2, 0, 1, 2, 0][i];
           return label(
-            `t${i + 1} · S ${current} → NEXT ${following} · ${check} · ${check === 'Inf' ? 'skip / reset' : streak === 2 ? 'grow after 2/2' : 'streak 1/2'} (example)`,
-            `t${i + 1} · 當次 ${current} → 下次 ${following} · ${check === 'Inf' ? '溢位、跳過並重設' : streak === 2 ? '連續通過 2/2，放大' : '連續通過 1/2'}（示意）`
+            `t${i + 1} · S ${current} → NEXT ${following} · ${check} · ${check === 'Inf' ? 'SKIP / reset' : 'STEP ELIGIBLE'} · ${check === 'Inf' ? 'backoff' : streak === 2 ? 'grow after 2/2' : 'streak 1/2'} (example)`,
+            `t${i + 1} · 當次 ${current} → 下次 ${following} · ${check === 'Inf' ? '溢位、跳過並重設' : '通過非有限值檢查、符合更新條件'} · ${check === 'Inf' ? '縮小係數' : streak === 2 ? '連續通過 2/2，放大' : '連續通過 1/2'}（示意）`
           );
         }
         return '';
