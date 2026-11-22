@@ -238,9 +238,12 @@
           return label(`Outcome: ${result(x)} → ${result(y)} · scale exponent ${x} → ${y}`,
                        `更新資格：${result(x) === 'SKIP' ? '跳過' : '符合'} → ${result(y) === 'SKIP' ? '跳過' : '符合'} · 指數 ${x} → ${y}`);
         }
-        const skipped = t => [2, 5].includes(Math.min(5, Math.floor(t / 2)));
-        return label(`Finite check: ${skipped(a) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(b) ? 'SKIP' : 'ELIGIBLE'}`,
-                     `有限值檢查：${skipped(a) ? '跳過' : '符合更新條件'} → ${skipped(b) ? '跳過' : '符合更新條件'}`);
+        const index = t => Math.min(5, Math.floor(t / 2));
+        const skipped = i => i === 2 || i === 5;
+        const nextScale = [1024, 2048, 1024, 1024, 2048, 1024];
+        const ia = index(a), ib = index(b);
+        return label(`Finite check: ${skipped(ia) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(ib) ? 'SKIP' : 'ELIGIBLE'} · NEXT S ${nextScale[ia]} → ${nextScale[ib]}`,
+                     `有限值檢查：${skipped(ia) ? '跳過' : '符合更新條件'} → ${skipped(ib) ? '跳過' : '符合更新條件'} · 下次縮放 ${nextScale[ia]} → ${nextScale[ib]}`);
       }
       function updateComparison() {
         if (pinnedTime === null || !comparison) return;
