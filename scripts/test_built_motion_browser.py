@@ -890,6 +890,32 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         assert comparison.locator('.distributed-motion-compare-a').inner_text() == retained_a
     page.evaluate('document.querySelector("[data-qa-motion-spacer]")?.remove()')
     record['viewport_pause'] = 'passed'
+    # Exercise an actual same-origin <object> navigation returning HTML in
+    # place of SVG. A load event alone cannot prove that fallback works:
+    # the original timeline controls must disappear, and the reviewed
+    # GitHub-readable still image must become the visible teaching figure.
+    invalid_url = frame.evaluate("""el => {
+        const url = new URL(el.data, document.baseURI);
+        url.searchParams.set('qa_invalid_svg', '1');
+        return url.href;
+    }""")
+    page.route(invalid_url, lambda route: route.fulfill(
+        status=200, content_type='text/html',
+        body='<!doctype html><html><body>Invalid SVG test fixture</body></html>'))
+    frame.scroll_into_view_if_needed()
+    frame.evaluate('(el, url) => { el.data = url; }', invalid_url)
+    expect(image).to_be_visible(timeout=8000)
+    expect(controls).to_be_hidden(timeout=8000)
+    expect(frame).to_be_hidden(timeout=8000)
+    assert image.get_attribute('src') == image.get_attribute('data-still-src'), (
+        stem, 'failed SVG failed to restore the reviewed still image')
+    assert image.evaluate('img => img.complete && img.naturalWidth > 0'), (
+        stem, 'static fallback is not a decodable image')
+    fallback_capture = output / f'co-design-{index}-invalid-svg-fallback.png'
+    page.screenshot(path=str(fallback_capture))
+    page.unroute(invalid_url)
+    record['invalid_svg_still_fallback'] = 'passed'
+    record['invalid_svg_fallback_screenshot'] = fallback_capture.name
     record['interactive'] = {
         'reset_time': reset_time, 'hidden_pause_time': hidden_pause_time,
         'visible_svg': True, 'hidden_no_script_fallback': True,
