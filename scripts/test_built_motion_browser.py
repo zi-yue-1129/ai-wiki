@@ -956,13 +956,13 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
                 page.emulate_media(reduced_motion="reduce")
                 expect(frame).to_be_hidden()
                 expect(image).to_be_visible()
-                expect(image).to_have_attribute("src", responsive_asset_url(asset["still"], viewport))
+                check_image(page, image, responsive_asset_url(asset["still"], viewport))
                 page.emulate_media(reduced_motion="no-preference")
                 expect(frame).to_be_visible()
                 page.emulate_media(reduced_motion="reduce")
                 expect(frame).to_be_hidden()
                 expect(image).to_be_visible()
-                record["states"]["system_motion_preference_roundtrip"] = "passed"
+                record["system_motion_preference_roundtrip"] = "passed"
         result["status"] = "passed"
     except Exception:
         record_failure_diagnostics(page, output, result)
