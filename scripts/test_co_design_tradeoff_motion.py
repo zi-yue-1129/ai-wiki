@@ -428,6 +428,9 @@ assert "restart?.addEventListener('click', () => {" in controls_js
 assert "stop(false); setTime(0);" in controls_js
 assert "document.addEventListener('visibilitychange', onVisibility)" in controls_js
 assert "document.removeEventListener('visibilitychange', onVisibility)" in controls_js
+assert "const viewportTargets = coDesignRegion ? [coDesignRegion, bar] : [host];" in controls_js
+assert "every(visible => !visible)" in controls_js
+assert "viewportObserver?.disconnect();" in controls_js
 for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
                  "mixed-precision.md", "mixed-precision.zh-TW.md"):
     body = (pages / language).read_text(encoding="utf-8")
