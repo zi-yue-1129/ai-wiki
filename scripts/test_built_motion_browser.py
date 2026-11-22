@@ -498,6 +498,26 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert comparison.locator('.distributed-motion-compare-delta').inner_text().strip(), (
         'Missing computed difference'
     )
+    # The live fixed-domain gauges must represent exactly the same A/B
+    # quantities as the text, including zero values and differing domains.
+    visual = comparison.locator('.distributed-motion-compare-visual')
+    expect(visual).to_be_visible()
+    assert visual.get_attribute('aria-hidden') == 'true'  # exact text above is accessible
+    expected_gauges = {
+        'checkpoint-spacing': {'peak': (100, 100 * 10 / 17),
+                               'rebuilt': (0, 100 * 14 / 15)},
+        'fp16-scaling-window': {'exponent': (0, 50),
+                                'low': (0, 100), 'high': (100, 100)},
+        'gradscaler-feedback': {'streak': (50, 100), 'next': (50, 100)},
+    }[stem]
+    def gauge_percent(metric, side):
+        row = visual.locator(f'.distributed-motion-visual-row[data-metric="{metric}"]')
+        expect(row).to_have_count(1)
+        fill = row.locator(f'.distributed-motion-visual-{side.lower()}')
+        return float(fill.evaluate('element => parseFloat(element.style.width)'))
+    for metric, (a, b) in expected_gauges.items():
+        assert abs(gauge_percent(metric, 'A') - a) < 0.8, (stem, metric, 'A', a)
+        assert abs(gauge_percent(metric, 'B') - b) < 0.8, (stem, metric, 'B', b)
     # The A/B panel is separate evidence, not a fourth playback state.
     comparison.scroll_into_view_if_needed()
     assert_document_fits(page, viewport)
@@ -519,6 +539,9 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         )
     swap_pin.focus()
     page.keyboard.press('Enter')
+    for metric, (a, b) in expected_gauges.items():
+        assert abs(gauge_percent(metric, 'A') - b) < 0.8, (stem, metric, 'A swapped', b)
+        assert abs(gauge_percent(metric, 'B') - a) < 0.8, (stem, metric, 'B swapped', a)
     assert expected_b in comparison.locator('.distributed-motion-compare-a').inner_text()
     assert expected_a in comparison.locator('.distributed-motion-compare-b').inner_text()
     assert abs(get_time()) < 0.05, ('A/B swap failed to seek to previous A', stem)
