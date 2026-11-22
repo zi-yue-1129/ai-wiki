@@ -915,7 +915,9 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     page.screenshot(path=str(fallback_capture))
     page.unroute(invalid_url)
     # Retry is a fresh, same-origin document navigation, not a fake load event.
-    retry_button = page.locator('.distributed-motion-retry')
+    retry_button = controls.locator(
+        'xpath=following-sibling::*[1][self::button and '
+        "contains(concat(' ', normalize-space(@class), ' '), ' distributed-motion-retry ')]")
     expect(retry_button).to_be_visible(timeout=8000)
     retry_button.click()
     expect(frame).to_be_visible(timeout=10000)
