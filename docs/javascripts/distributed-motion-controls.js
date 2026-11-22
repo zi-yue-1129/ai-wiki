@@ -88,6 +88,27 @@
       const comparison = pin ? document.createElement('section') : null;
       let pinnedTime = null;
       let pinA = null, pinB = null, comparisonDelta = null;
+      // Paired gauges make the memory/recomputation, representability and
+      // GradScaler feedback trade-offs perceptible without replacing the
+      // precise, screen-reader-accessible numeric comparison above them.
+      const checkpointSpacing = t => [1, 2, 4, 8, 16][Math.min(4, Math.floor(t / 2.4))];
+      const scaleExponent = t => {
+        const frame = Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));
+        return frame <= 12 ? frame : frame <= 25 ? 25 - frame : 0;
+      };
+      const feedbackIndex = t => Math.min(5, Math.floor(t / 2));
+      const gauges = match[1] === 'checkpoint-spacing' ? [
+        { id: 'peak', en: 'PEAK', tw: '峰值槽位', max: 17, at: t => 16 / checkpointSpacing(t) + checkpointSpacing(t) },
+        { id: 'rebuilt', en: 'TOTAL REBUILT', tw: '總重算量', max: 15, at: t => 16 - 16 / checkpointSpacing(t) },
+      ] : match[1] === 'fp16-scaling-window' ? [
+        { id: 'exponent', en: 'EXPONENT', tw: '縮放指數', max: 12, at: scaleExponent },
+        { id: 'low', en: 'LOW RETAINED', tw: '小梯度保留', max: 1, at: t => Number(scaleExponent(t) > 2) },
+        { id: 'high', en: 'HIGH FINITE', tw: '大梯度有限', max: 1, at: t => Number(scaleExponent(t) < 11) },
+      ] : match[1] === 'gradscaler-feedback' ? [
+        { id: 'streak', en: 'FINITE STREAK', tw: '連續通過', max: 2, at: t => [1, 2, 0, 1, 2, 0][feedbackIndex(t)] },
+        { id: 'next', en: 'NEXT S', tw: '下次縮放', max: 2048, at: t => [1024, 2048, 1024, 1024, 2048, 1024][feedbackIndex(t)] },
+      ] : [];
+      const gaugeFills = [];
       if (pin) {
         pin.type = clearPin.type = swapPin.type = 'button';
         pin.className = 'distributed-motion-pin';
@@ -110,7 +131,34 @@
         pinA.className = 'distributed-motion-compare-a';
         pinB.className = 'distributed-motion-compare-b';
         comparisonDelta.className = 'distributed-motion-compare-delta';
-        comparison.append(pinA, pinB, comparisonDelta);
+        const visual = document.createElement('div');
+        visual.className = 'distributed-motion-compare-visual';
+        visual.setAttribute('aria-hidden', 'true'); // numerical text above is authoritative
+        for (const metric of gauges) {
+          const row = document.createElement('div');
+          row.className = 'distributed-motion-visual-row';
+          row.dataset.metric = metric.id;
+          const heading = document.createElement('strong');
+          heading.className = 'distributed-motion-visual-heading';
+          heading.textContent = label(metric.en, metric.tw);
+          row.append(heading);
+          const fills = [];
+          for (const side of ['A', 'B']) {
+            const lane = document.createElement('div');
+            lane.className = 'distributed-motion-visual-lane';
+            const sideLabel = document.createElement('span');
+            sideLabel.textContent = side;
+            const track = document.createElement('span');
+            track.className = 'distributed-motion-visual-track';
+            const fill = document.createElement('span');
+            fill.className = 'distributed-motion-visual-fill distributed-motion-visual-' + side.toLowerCase();
+            track.append(fill); lane.append(sideLabel, track); row.append(lane);
+            fills.push(fill);
+          }
+          gaugeFills.push({ metric, a: fills[0], b: fills[1] });
+          visual.append(row);
+        }
+        comparison.append(pinA, pinB, comparisonDelta, visual);
       }
       const seek = document.createElement('input');
       seek.type = 'range'; seek.min = '0'; seek.max = '1000'; seek.step = '1'; seek.value = '0';
@@ -260,6 +308,12 @@
         pinB.textContent = label('B · current: ', 'B · 目前：') + conciseState(time);
         comparisonDelta.textContent = compareChange(pinnedTime, time) +
           label(' · synthetic, not measured', ' · 人工示意，非實測');
+        for (const { metric, a, b } of gaugeFills) {
+          // All domains are fixed by the six reviewed teaching schedules;
+          // do not rescale A and B separately or imply empirical magnitudes.
+          a.style.width = (100 * metric.at(pinnedTime) / metric.max) + '%';
+          b.style.width = (100 * metric.at(time) / metric.max) + '%';
+        }
       }
       function draw() {
         if (!svg) return;

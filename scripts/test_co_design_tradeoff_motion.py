@@ -521,3 +521,21 @@ for name in ("gradient-checkpointing.md", "mixed-precision.md"):
 for name in ("gradient-checkpointing.zh-TW.md", "mixed-precision.zh-TW.md"):
     assert "**釘選 A**" in (pages / name).read_text(encoding="utf-8")
 print("Co-design A/B state pinning, bilingual instructions and responsive comparisons OK")
+
+# Paired A/B visual gauges are dynamically derived from the same fixed,
+# synthetic timelines as the accessible comparison text; never normalize
+# A and B independently or turn the illustrative bars into measurements.
+assert "const gaugeFills = []" in controls_js
+assert "comparison.append(pinA, pinB, comparisonDelta, visual)" in controls_js
+assert "a.style.width = (100 * metric.at(pinnedTime) / metric.max) + '%'" in controls_js
+assert "b.style.width = (100 * metric.at(time) / metric.max) + '%'" in controls_js
+assert "'aria-hidden', 'true'" in controls_js
+for metric in ("peak", "rebuilt", "exponent", "low", "high", "streak", "next"):
+    assert "id: '" + metric + "'" in controls_js
+assert ".distributed-motion-compare-visual" in controls_css
+assert "@media (prefers-reduced-motion: reduce)" in controls_css
+assert "fixed, shared domains" in (pages / "gradient-checkpointing.md").read_text(encoding="utf-8")
+assert "固定且共用的刻度" in (pages / "gradient-checkpointing.zh-TW.md").read_text(encoding="utf-8")
+assert "fixed domains shared by A and B" in (pages / "mixed-precision.md").read_text(encoding="utf-8")
+assert "相同固定刻度" in (pages / "mixed-precision.zh-TW.md").read_text(encoding="utf-8")
+print("Paired A/B gauge rendering contract and bilingual descriptions OK")

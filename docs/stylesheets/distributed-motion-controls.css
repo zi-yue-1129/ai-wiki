@@ -117,3 +117,44 @@
   .distributed-motion-comparison { grid-template-columns: minmax(0, 1fr); }
   .distributed-motion-comparison .distributed-motion-compare-delta { grid-column: 1; }
 }
+
+/* Live paired gauges share an absolute domain per metric; they are only a
+ * visual encoding of the synthetic values already exposed in A/B text. */
+.distributed-motion-compare-visual {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: .4rem;
+  padding: .45rem .55rem;
+  border: 1px solid var(--md-default-fg-color--lightest, #d1d8df);
+  border-radius: .4rem;
+}
+.distributed-motion-visual-row {
+  display: grid;
+  grid-template-columns: minmax(6.4rem, .8fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: .45rem;
+  align-items: center;
+  min-width: 0;
+}
+.distributed-motion-visual-heading { font-size: .66rem; font-weight: 600; overflow-wrap: anywhere; }
+.distributed-motion-visual-lane { display: flex; align-items: center; gap: .28rem; min-width: 0; }
+.distributed-motion-visual-lane > span:first-child { font-size: .63rem; flex: 0 0 auto; }
+.distributed-motion-visual-track {
+  display: block;
+  height: .55rem;
+  flex: 1;
+  min-width: 0;
+  border-radius: .15rem;
+  background: var(--md-default-fg-color--lightest, #d1d8df);
+  overflow: hidden;
+}
+.distributed-motion-visual-fill { display: block; height: 100%; transition: width 150ms ease-out; }
+.distributed-motion-visual-a { background: #7196ad; }
+.distributed-motion-visual-b { background: #c67e3c; }
+@media (max-width: 480px) {
+  .distributed-motion-compare-visual { grid-column: 1; }
+  .distributed-motion-visual-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .15rem .5rem; }
+  .distributed-motion-visual-heading { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .distributed-motion-visual-fill { transition: none; }
+}
