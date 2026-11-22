@@ -560,3 +560,24 @@ assert "  function enhance() {\n    if (reduced.matches) return;" not in control
 assert "if (reduced.matches) onReduce({ matches: true });" in controls_js
 assert "reduced.addEventListener('change', onReduce)" in controls_js
 print("Initial reduced-motion preference restoration contract OK")
+
+# Guided A/B cases are exact discrete SVG states, not arbitrary slider
+# endpoints: one checkpoint trade-off and dominance pair, both binary16
+# boundary crossings, and two finite-history/overflow GradScaler contrasts.
+assert "const guidedCases = match[1] === 'checkpoint-spacing'" in controls_js
+assert "const guided = pin ? document.createElement('select') : null;" in controls_js
+assert "guided.setAttribute('aria-label', label('Guided A/B comparisons', '引導式 A/B 比較'))" in controls_js
+assert "guided?.addEventListener('change', () => {" in controls_js
+assert "pinnedTime = example.a;" in controls_js and "setTime(example.b);" in controls_js
+assert "guided.value = ''" in controls_js
+assert "if (guided) guided.disabled = false" in controls_js
+assert ".distributed-motion-scenario:focus-visible" in controls_css
+for a, b in ((0, 4.85), (7.25, 4.85), (0.95, 1.42),
+             (4.66, 5.12), (0, 8.05), (2.05, 4.05)):
+    assert f"a: {a}, b: {b}" in controls_js
+for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+                 "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    body = (pages / language).read_text(encoding="utf-8")
+    assert ("選擇示範比較" if language.endswith(".zh-TW.md")
+            else "Try a worked comparison") in body
+print("Guided binary16, checkpoint and GradScaler bilingual scenario contracts OK")
