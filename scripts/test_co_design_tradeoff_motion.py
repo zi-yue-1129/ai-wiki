@@ -703,3 +703,16 @@ for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     assert ("Animation unavailable · Retry" if not name.endswith(".zh-TW.md")
             else "動畫無法載入 · 重試") in body
 print("Bilingual in-page SVG recovery source contracts OK")
+
+# A pending <object> request does not always dispatch load/error. The bounded
+# watchdog must restore the reviewed still and permit retry, including after
+# a reduced-motion preference toggle. The browser regression exercises the
+# unresolved-request case with a virtual clock on the built site.
+assert "const SVG_LOAD_TIMEOUT_MS = 15000;" in controls_js
+assert "const armLoadTimer = () => {" in controls_js
+assert "loadTimer = window.setTimeout(() => {" in controls_js
+assert "showStaticFallback();" in controls_js
+assert "clearLoadTimer();" in controls_js
+assert "frame.data = url.href;\n        armLoadTimer();" in controls_js
+assert "frame.data = src;\n          armLoadTimer();" in controls_js
+print("Stalled SVG requests have bounded fallback and reusable retry controls OK")
