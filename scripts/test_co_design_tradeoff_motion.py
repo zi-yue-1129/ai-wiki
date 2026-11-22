@@ -715,8 +715,8 @@ assert "showStaticFallback();" in controls_js
 assert "clearLoadTimer();" in controls_js
 assert "frame.data = url.href;\n        abandoned.replaceWith(frame);\n        armLoadTimer();" in controls_js
 assert "frame = abandoned.cloneNode(true);" in controls_js
-assert "if (candidate === frame) onFrameLoad();" in controls_js
-assert "if (candidate === frame) showStaticFallback();" in controls_js
+assert "if (candidate === frame && acceptingFrameLoad) onFrameLoad();" in controls_js
+assert "if (candidate === frame && acceptingFrameLoad) showStaticFallback();" in controls_js
 assert "frame.data = src;\n          armLoadTimer();" in controls_js
 print("Stalled SVG requests have bounded fallback and reusable retry controls OK")
 
