@@ -581,3 +581,17 @@ for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     assert ("選擇示範比較" if language.endswith(".zh-TW.md")
             else "Try a worked comparison") in body
 print("Guided binary16, checkpoint and GradScaler bilingual scenario contracts OK")
+
+# Directional A→B scans must stop at B (never wrap) and remain cancellable.
+assert "sweepPin.textContent = label('▶ Sweep A→B', '▶ 掃描 A→B')" in controls_js
+assert "sweepPin?.addEventListener('click', () => {" in controls_js
+assert "sweepTarget = target;" in controls_js and "time = pinnedTime;" in controls_js
+assert "if (sweepTarget === null && time >= config.duration)" in controls_js
+assert "stop(); // Leave B selected; unlike regular Play, never wrap." in controls_js
+assert "sweepTarget = null;" in controls_js  # seeking/pause/reduced-motion abort scans
+assert ".distributed-motion-sweep[hidden]" in controls_css
+for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+                 "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    body = (pages / language).read_text(encoding="utf-8")
+    assert ("掃描 A→B" if language.endswith(".zh-TW.md") else "Sweep A→B") in body
+print("Directional synthetic A/B scan, bilingual guidance and cancellation contract OK")

@@ -68,6 +68,7 @@
  * outside the figure scroller, and preserve single-column mobile reading. */
 .co-design-motion-controls .distributed-motion-pin,
 .co-design-motion-controls .distributed-motion-swap,
+.co-design-motion-controls .distributed-motion-sweep,
 .co-design-motion-controls .distributed-motion-clear {
   border: 1px solid var(--md-default-fg-color--lighter, #9cafbe);
   border-radius: .4rem;
@@ -80,6 +81,7 @@
 }
 .co-design-motion-controls .distributed-motion-pin:focus-visible,
 .co-design-motion-controls .distributed-motion-swap:focus-visible,
+.co-design-motion-controls .distributed-motion-sweep:focus-visible,
 .co-design-motion-controls .distributed-motion-clear:focus-visible {
   outline: 3px solid var(--md-accent-fg-color, #387e99);
   outline-offset: 2px;
@@ -87,6 +89,7 @@
 .co-design-motion-controls .distributed-motion-pin:disabled { opacity: .5; cursor: wait; }
 .co-design-motion-controls .distributed-motion-clear[hidden],
 .co-design-motion-controls .distributed-motion-swap[hidden],
+.co-design-motion-controls .distributed-motion-sweep[hidden],
 .co-design-motion-controls .distributed-motion-comparison[hidden] { display: none !important; }
 .distributed-motion-comparison {
   width: 100%;

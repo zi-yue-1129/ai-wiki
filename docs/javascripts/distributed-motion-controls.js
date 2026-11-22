@@ -86,8 +86,11 @@
         ? document.createElement('button') : null;
       const clearPin = pin ? document.createElement('button') : null;
       const swapPin = pin ? document.createElement('button') : null;
+      const sweepPin = pin ? document.createElement('button') : null;
       const comparison = pin ? document.createElement('section') : null;
       let pinnedTime = null;
+      // A→B is a directed *parameter/iteration scan*, not a simulated model run.
+      let sweepTarget = null, sweepRate = 0;
       let pinA = null, pinB = null, comparisonDelta = null;
       // Paired gauges make the memory/recomputation, representability and
       // GradScaler feedback trade-offs perceptible without replacing the
@@ -124,17 +127,21 @@
       ] : [];
       const gaugeFills = [];
       if (pin) {
-        pin.type = clearPin.type = swapPin.type = 'button';
+        pin.type = clearPin.type = swapPin.type = sweepPin.type = 'button';
         pin.className = 'distributed-motion-pin';
         clearPin.className = 'distributed-motion-clear';
         swapPin.className = 'distributed-motion-swap';
+        sweepPin.className = 'distributed-motion-sweep';
+        sweepPin.textContent = label('▶ Sweep A→B', '▶ 掃描 A→B');
+        sweepPin.hidden = true;
         swapPin.textContent = label('Swap A/B', '交換 A／B');
         swapPin.hidden = true;
+        sweepPin.hidden = true;
         pin.textContent = label('Pin A', '釘選 A');
         pin.disabled = true; // An actual SVG time must be available first.
         clearPin.textContent = label('Clear A', '清除 A');
         clearPin.hidden = true;
-        bar.append(pin, swapPin, clearPin);
+        bar.append(pin, swapPin, sweepPin, clearPin);
         comparison.className = 'distributed-motion-comparison';
         comparison.hidden = true;
         comparison.setAttribute('role', 'group');
@@ -401,6 +408,7 @@
       }
       function stop() {
         playing = false;
+        sweepTarget = null;
         if (raf) cancelAnimationFrame(raf);
         raf = 0; last = 0;
         draw();
@@ -411,9 +419,23 @@
       }
       function tick(now) {
         if (!playing || !svg) return;
-        if (last) time += (now - last) / 1000 * speed;
+        if (last) {
+          const elapsed = (now - last) / 1000 * speed;
+          if (sweepTarget !== null) {
+            const remaining = sweepTarget - time;
+            const travel = elapsed * sweepRate;
+            if (Math.abs(remaining) <= travel + 1e-6) {
+              time = sweepTarget;
+              stop(); // Leave B selected; unlike regular Play, never wrap.
+              status.textContent = label('A→B illustrative scan complete; B selected.',
+                                         'A→B 示意掃描完成，停留在 B。');
+              return;
+            }
+            time += Math.sign(remaining) * travel;
+          } else time += elapsed;
+        }
         last = now;
-        if (time >= config.duration) time %= config.duration;
+        if (sweepTarget === null && time >= config.duration) time %= config.duration;
         draw();
         raf = requestAnimationFrame(tick);
       }
@@ -447,6 +469,7 @@
         comparison.hidden = false;
         clearPin.hidden = false;
         swapPin.hidden = false;
+        sweepPin.hidden = false;
         pin.textContent = label('Replace A', '更新 A');
         updateComparison();
         status.textContent = label('Pinned state A. Move the timeline to compare B.',
@@ -463,6 +486,26 @@
         status.textContent = label('Swapped A and B; signed differences now use the reversed order.',
                                    '已交換 A 與 B，差值方向也已反轉。');
       });
+      // Show the trajectory between the pinned A and the currently selected B.
+      // This is a UI sweep over fixed examples, not actual optimisation time.
+      sweepPin?.addEventListener('click', () => {
+        if (!svg || pinnedTime === null) return;
+        const target = time;
+        stop();
+        if (Math.abs(target - pinnedTime) < 0.02) {
+          status.textContent = label('A and B are identical; choose a different B to scan.',
+                                     'A 與 B 相同，請先選擇其他 B。');
+          return;
+        }
+        sweepTarget = target;
+        sweepRate = Math.abs(target - pinnedTime) / 3; // 3s at 1×, both directions.
+        time = pinnedTime;
+        playing = true; last = 0;
+        draw();
+        status.textContent = label('Scanning illustrative states from A to B; Pause stops the scan.',
+                                   '正在從 A 掃描示意狀態至 B；按暫停可停止掃描。');
+        raf = requestAnimationFrame(tick);
+      });
       guided?.addEventListener('change', () => {
         if (!svg || guided.value === '') return;
         const example = guidedCases[Number(guided.value)];
@@ -472,6 +515,7 @@
         comparison.hidden = false;
         clearPin.hidden = false;
         swapPin.hidden = false;
+        sweepPin.hidden = false;
         pin.textContent = label('Replace A', '更新 A');
         setTime(example.b);
         status.textContent = label('Loaded illustrative A/B comparison: ', '已選取人工 A/B 比較：') +
@@ -484,6 +528,7 @@
         comparison.hidden = true;
         clearPin.hidden = true;
         swapPin.hidden = true;
+        sweepPin.hidden = true;
         pin.textContent = label('Pin A', '釘選 A');
         status.textContent = label('Pinned comparison cleared', '已清除釘選比較');
       });
