@@ -468,7 +468,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
                 }""", interior_time)
             assert expected_scale in seek.get_attribute('aria-valuetext')
             expect(marks.nth(event_idx)).to_have_attribute('aria-current', 'step')
-            assert marks.locator('[aria-current="step"]').count() == 1
+            expect(controls.locator('.distributed-motion-landmarks button[aria-current="step"]')).to_have_count(1)
             assert_document_fits(page, viewport)
         # The regular Step buttons must also visit both reverse thresholds.
         for before, target in ((6.52, 6.98), (10.21, 10.67)):

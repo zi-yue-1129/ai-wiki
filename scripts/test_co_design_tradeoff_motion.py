@@ -408,7 +408,7 @@ controls_js = (root / "docs/javascripts/distributed-motion-controls.js").read_te
 controls_css = (root / "docs/stylesheets/distributed-motion-controls.css").read_text(encoding="utf-8")
 timeline_cases = {
     "checkpoint-spacing": "[0, 2.45, 4.85, 7.25, 9.65]",
-    "fp16-scaling-window": "[0, 0.95, 1.42, 4.66, 5.12, 5.59, 6.05, 6.52, 9.75, 10.21, 11.15]",
+    "fp16-scaling-window": "[0, 0.95, 1.42, 4.66, 5.12, 5.59, 6.05, 6.52, 6.98, 9.75, 10.21, 10.67, 11.15]",
     "gradscaler-feedback": "[0, 2.05, 4.05, 6.05, 8.05, 10.05]",
 }
 for stem, times in timeline_cases.items():
@@ -626,6 +626,6 @@ assert "Math.abs(time - event.t) < 0.20" not in controls_js
 assert "6.52, 6.98, 9.75, 10.21, 10.67, 11.15" in controls_js
 for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     body = (pages / name).read_text(encoding="utf-8")
-    assert ("complete discrete power-of-two state" if name.endswith(".md")
+    assert ("complete discrete power-of-two state" if name == "mixed-precision.md"
             else "整個離散縮放區段") in body
 print("FP16 full-frame boundary highlighting and reverse Step contracts OK")
