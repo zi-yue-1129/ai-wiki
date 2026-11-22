@@ -615,3 +615,17 @@ for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     assert ("關鍵狀態導覽" if language.endswith(".zh-TW.md")
             else "Key-transition navigation") in text
 print("Bilingual semantic landmark navigation, keyboard and state contract OK")
+
+# FP16 temporal selection and all numerical readouts share one discrete frame.
+assert "const fp16Frame = t => Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));" in controls_js
+assert "const exponent = scaleExponent(t);" in controls_js
+assert "const k = scaleExponent(t);" in controls_js
+assert "const x = scaleExponent(a), y = scaleExponent(b);" in controls_js
+assert "fp16Frame(time) === fp16Frame(event.t)" in controls_js
+assert "Math.abs(time - event.t) < 0.20" not in controls_js
+assert "6.52, 6.98, 9.75, 10.21, 10.67, 11.15" in controls_js
+for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    body = (pages / name).read_text(encoding="utf-8")
+    assert ("complete discrete power-of-two state" if name.endswith(".md")
+            else "整個離散縮放區段") in body
+print("FP16 full-frame boundary highlighting and reverse Step contracts OK")

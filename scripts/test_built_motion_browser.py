@@ -455,6 +455,30 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         assert controls.locator('button.concept-motion-toggle').nth(1).get_attribute(
             'aria-label') in ('Play animation', '播放動畫')
         assert_document_fits(page, viewport)
+    if name == 'fp16-scaling-window':
+        # The highlight spans its entire sampled power-of-two frame.
+        for event_idx, (interior_time, expected_scale) in enumerate(
+            ((1.80, 'S=8'), (5.48, 'S=2048'),
+             (7.20, 'S=1024'), (10.97, 'S=4'))
+        ):
+            seek.evaluate(
+                """(el, t) => {
+                    el.value = String(Math.round(t / 12 * 1000));
+                    el.dispatchEvent(new Event('input', {bubbles: true}));
+                }""", interior_time)
+            assert expected_scale in seek.get_attribute('aria-valuetext')
+            expect(marks.nth(event_idx)).to_have_attribute('aria-current', 'step')
+            assert marks.locator('[aria-current="step"]').count() == 1
+            assert_document_fits(page, viewport)
+        # The regular Step buttons must also visit both reverse thresholds.
+        for before, target in ((6.52, 6.98), (10.21, 10.67)):
+            seek.evaluate(
+                """(el, t) => {
+                    el.value = String(Math.round(t / 12 * 1000));
+                    el.dispatchEvent(new Event('input', {bubbles: true}));
+                }""", before)
+            buttons.nth(2).click()
+            assert abs(get_time() - target) < 0.03, (before, target, get_time())
     marks.first.focus()
     page.keyboard.press('Enter')
     assert abs(get_time() - landmark_events[name][0][0]) < 0.05

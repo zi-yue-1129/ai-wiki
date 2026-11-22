@@ -15,7 +15,7 @@
     'checkpoint-spacing': { duration: 12, steps: [0, 2.45, 4.85, 7.25, 9.65] },
     // FP16: semantic boundaries in both the ascending and descending sweep.
     // Seeking continuously still exposes all 27 exact power-of-two states.
-    'fp16-scaling-window': { duration: 12, steps: [0, 0.95, 1.42, 4.66, 5.12, 5.59, 6.05, 6.52, 9.75, 10.21, 11.15] },
+    'fp16-scaling-window': { duration: 12, steps: [0, 0.95, 1.42, 4.66, 5.12, 5.59, 6.05, 6.52, 6.98, 9.75, 10.21, 10.67, 11.15] },
     // Each two-second interval is a complete synthetic GradScaler check.
     'gradscaler-feedback': { duration: 12, steps: [0, 2.05, 4.05, 6.05, 8.05, 10.05] },
   };
@@ -96,8 +96,12 @@
       // GradScaler feedback trade-offs perceptible without replacing the
       // precise, screen-reader-accessible numeric comparison above them.
       const checkpointSpacing = t => [1, 2, 4, 8, 16][Math.min(4, Math.floor(t / 2.4))];
+      // A discrete FP16 state occupies an entire 12/26-second cell. Reuse
+      // this frame index for labels, comparisons and the transition rail:
+      // a time-distance highlight would disappear halfway through a state.
+      const fp16Frame = t => Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));
       const scaleExponent = t => {
-        const frame = Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));
+        const frame = fp16Frame(t);
         return frame <= 12 ? frame : frame <= 25 ? 25 - frame : 0;
       };
       const feedbackIndex = t => Math.min(5, Math.floor(t / 2));
@@ -309,8 +313,7 @@
         }
         if (match[1] === 'fp16-scaling-window') {
           // 27 equal discrete SMIL frames: 0..12, 12..0, final 0.
-          const frame = Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));
-          const exponent = frame <= 12 ? frame : frame <= 25 ? 25 - frame : 0;
+          const exponent = scaleExponent(t);
           const scale = 2 ** exponent;
           const low = exponent <= 2 ? '0' : 'finite';
           const high = exponent >= 11 ? 'Inf' : 'finite';
@@ -341,8 +344,7 @@
                        `s=${spacing} · 峰值 ${peak} · 全區段重建 ${total}`);
         }
         if (match[1] === 'fp16-scaling-window') {
-          const frame = Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));
-          const k = frame <= 12 ? frame : frame <= 25 ? 25 - frame : 0;
+          const k = scaleExponent(t);
           return label(`S=${2 ** k} · LOW ${k <= 2 ? '0' : 'finite'} · HIGH ${k >= 11 ? 'Inf' : 'finite'} · ${k >= 11 ? 'SKIP' : 'ELIGIBLE'}`,
                        `S=${2 ** k} · 小梯度${k <= 2 ? '歸零' : '有限'} · 大梯度${k >= 11 ? '溢位' : '有限'} · ${k >= 11 ? '跳過' : '符合更新條件'}`);
         }
@@ -367,11 +369,7 @@
                        `B − A：峰值 ${signed(peakB - peakA)} 槽 · 全區段重建 ${signed(totalB - totalA)}`);
         }
         if (match[1] === 'fp16-scaling-window') {
-          const exp = t => {
-            const n = Math.min(26, Math.floor(t / config.duration * 26 + 1e-6));
-            return n <= 12 ? n : n <= 25 ? 25 - n : 0;
-          };
-          const x = exp(a), y = exp(b);
+          const x = scaleExponent(a), y = scaleExponent(b);
           const result = k => k >= 11 ? 'SKIP' : 'ELIGIBLE';
           const low = k => k <= 2 ? '0' : 'finite';
           const high = k => k >= 11 ? 'Inf' : 'finite';
@@ -457,7 +455,7 @@
             ? checkpointSpacing(time) === checkpointSpacing(event.t)
             : match[1] === 'gradscaler-feedback'
               ? feedbackIndex(time) === feedbackIndex(event.t)
-              : Math.abs(time - event.t) < 0.20;
+              : fp16Frame(time) === fp16Frame(event.t);
           button.classList.toggle('is-current', active);
           if (active) button.setAttribute('aria-current', 'step');
           else button.removeAttribute('aria-current');
