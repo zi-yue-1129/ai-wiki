@@ -84,18 +84,22 @@
       const pin = host.classList.contains('co-design-motion-timeline')
         ? document.createElement('button') : null;
       const clearPin = pin ? document.createElement('button') : null;
+      const swapPin = pin ? document.createElement('button') : null;
       const comparison = pin ? document.createElement('section') : null;
       let pinnedTime = null;
       let pinA = null, pinB = null, comparisonDelta = null;
       if (pin) {
-        pin.type = clearPin.type = 'button';
+        pin.type = clearPin.type = swapPin.type = 'button';
         pin.className = 'distributed-motion-pin';
         clearPin.className = 'distributed-motion-clear';
+        swapPin.className = 'distributed-motion-swap';
+        swapPin.textContent = label('Swap A/B', '交換 A／B');
+        swapPin.hidden = true;
         pin.textContent = label('Pin A', '釘選 A');
         pin.disabled = true; // An actual SVG time must be available first.
         clearPin.textContent = label('Clear A', '清除 A');
         clearPin.hidden = true;
-        bar.append(pin, clearPin);
+        bar.append(pin, swapPin, clearPin);
         comparison.className = 'distributed-motion-comparison';
         comparison.hidden = true;
         comparison.setAttribute('role', 'group');
@@ -302,15 +306,28 @@
         pinnedTime = time;
         comparison.hidden = false;
         clearPin.hidden = false;
+        swapPin.hidden = false;
         pin.textContent = label('Replace A', '更新 A');
         updateComparison();
         status.textContent = label('Pinned state A. Move the timeline to compare B.',
                                    '已釘選 A，移動時間軸即可比較 B。');
       });
+      // Reversing the comparison must reverse the signed B − A delta as
+      // well as the displayed A/B positions, not just exchange text labels.
+      swapPin?.addEventListener('click', () => {
+        if (!svg || pinnedTime === null) return;
+        stop();
+        const previousA = pinnedTime;
+        pinnedTime = time;
+        setTime(previousA);
+        status.textContent = label('Swapped A and B; signed differences now use the reversed order.',
+                                   '已交換 A 與 B，差值方向也已反轉。');
+      });
       clearPin?.addEventListener('click', () => {
         pinnedTime = null;
         comparison.hidden = true;
         clearPin.hidden = true;
+        swapPin.hidden = true;
         pin.textContent = label('Pin A', '釘選 A');
         status.textContent = label('Pinned comparison cleared', '已清除釘選比較');
       });
