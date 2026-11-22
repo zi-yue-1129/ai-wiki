@@ -659,6 +659,13 @@ for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     assert ("比較前一步" if language.endswith(".zh-TW.md") else "Compare previous") in body
 print("Bilingual adjacent-state comparison shortcuts and temporal direction OK")
 
+# Cancel without a stale render when an explicit seek or semantic jump
+# immediately redraws a different SVG state. Normal Pause still renders.
+assert "function stop(redraw = true)" in controls_js
+assert "if (redraw) draw();" in controls_js
+assert controls_js.count("stop(false); setTime(") >= 4
+print("Co-design single-redraw seek and semantic-step contract OK")
+
 # Continuous touch scrubbing updates the semantics at input frequency, but
 # must not flood the polite screen-reader status region until input commits.
 seek_block = controls_js.split("seek.addEventListener('input', () => {", 1)[1].split(
