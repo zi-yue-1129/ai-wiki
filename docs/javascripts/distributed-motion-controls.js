@@ -655,8 +655,16 @@
         });
       }
       seek.addEventListener('input', () => {
+        // A touch drag can emit dozens of input events each second. Keep the
+        // SVG, aria-valuetext and text interpretation in sync immediately,
+        // but do not flood the polite live region while the thumb is moving.
         const selected = Number(seek.value);
         stop(); setTime(selected / 1000 * config.duration);
+      });
+      seek.addEventListener('change', () => {
+        // Announce the selected mathematical state once the user commits the
+        // seek (pointer release or a completed keyboard adjustment).
+        if (!svg) return;
         status.textContent = interpretation.isConnected ? interpretation.textContent
           : label('Animation at ', '動畫時間 ') + time.toFixed(1) + 's';
       });
@@ -708,7 +716,10 @@
           if (!root || typeof root.pauseAnimations !== 'function' || typeof root.setCurrentTime !== 'function') return;
           svg = root;
           svg.pauseAnimations();
-          setTime(0);
+          // SVG <object> can reload after a reduced-motion toggle or document
+          // navigation. Restore the reader's position and pinned A/B context;
+          // restarting at zero silently changes the synthetic comparison.
+          setTime(time);
           if (pin) pin.disabled = false;
           if (guided) guided.disabled = false;
           landmarkButtons.forEach(({ button }) => { button.disabled = false; });

@@ -798,6 +798,36 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     }""")
     page.wait_for_timeout(120)
     assert abs(get_time() - hidden_pause_time) < 0.03, 'animation auto-resumed after tab return'
+
+    # Dragging may emit a dense stream of input events. The graphical state
+    # and aria-valuetext update immediately, but the polite status announces
+    # only once the user commits the chosen position.
+    status_region = controls.locator('.concept-motion-status')
+    controls.locator('button.distributed-motion-landmark').first.click()
+    previous_announcement = status_region.inner_text()
+    assert previous_announcement
+    for position in (250, 500, 750):
+        seek.evaluate("""(el, value) => {
+            el.value = String(value);
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+        }""", position)
+        assert status_region.inner_text() == previous_announcement, (
+            stem, 'live region flooded while scrubbing', position)
+    assert seek.get_attribute('aria-valuetext')
+    assert abs(get_time() - 9) < .04
+    seek.dispatch_event('change')
+    assert status_region.inner_text() == interpretation.inner_text()
+    assert status_region.inner_text() != previous_announcement
+    # Replaying the real object's load event must not reset the selected
+    # state or the pinned A/B comparison. This tests the actual event handler
+    # without falsely claiming a complete object network reload.
+    controls.locator('button.distributed-motion-pin').click()
+    pinned_label = comparison.locator('.distributed-motion-compare-a').inner_text()
+    selected_time = get_time()
+    frame.evaluate('el => el.dispatchEvent(new Event("load"))')
+    assert abs(get_time() - selected_time) < .04, (stem, 'SVG load handler reset selection')
+    assert comparison.locator('.distributed-motion-compare-a').inner_text() == pinned_label
+    clear_pin.click()
     record['interactive'] = {
         'reset_time': reset_time, 'hidden_pause_time': hidden_pause_time,
         'visible_svg': True, 'hidden_no_script_fallback': True,

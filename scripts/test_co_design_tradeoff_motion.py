@@ -658,3 +658,21 @@ for language in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     body = (pages / language).read_text(encoding="utf-8")
     assert ("比較前一步" if language.endswith(".zh-TW.md") else "Compare previous") in body
 print("Bilingual adjacent-state comparison shortcuts and temporal direction OK")
+
+# Continuous touch scrubbing updates the semantics at input frequency, but
+# must not flood the polite screen-reader status region until input commits.
+seek_block = controls_js.split("seek.addEventListener('input', () => {", 1)[1].split(
+    "seek.addEventListener('change', () => {", 1)[0]
+assert "stop(); setTime(selected / 1000 * config.duration);" in seek_block
+assert "status.textContent" not in seek_block
+commit_block = controls_js.split("seek.addEventListener('change', () => {", 1)[1].split(
+    "rate.addEventListener('change'", 1)[0]
+assert "status.textContent = interpretation.isConnected ?" in commit_block
+assert "svg.pauseAnimations();\n          // SVG <object> can reload" in controls_js
+assert "setTime(time);\n          if (pin) pin.disabled = false;" in controls_js
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+             "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    text = (pages / name).read_text(encoding="utf-8")
+    assert ("polite status region" if name.endswith((".md",)) and not name.endswith(".zh-TW.md")
+            else "狀態播報") in text
+print("Co-design scrubbing quiet-live-region and SVG load continuity contracts OK")
