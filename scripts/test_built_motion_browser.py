@@ -853,6 +853,43 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         assert frame.evaluate('el => el.contentDocument.documentElement.__qaSeekCount') == 1, (
             stem, 'duplicate SVG draw on semantic step', direction)
         assert direction * (get_time() - before_step) > 0, (stem, 'step did not move', direction)
+    # A long bilingual page may contain multiple SVG players. Native viewport
+    # observation must pause one only when both its image and detached mobile
+    # controls have left view, never resume it automatically, and retain A/B.
+    seek.evaluate('''e => {
+        e.value = '350';
+        e.dispatchEvent(new Event('input', { bubbles: true }));
+    }''')
+    retained_a = comparison.locator('.distributed-motion-compare-a').inner_text() if comparison.is_visible() else None
+    page.evaluate("""() => {
+        const spacer = document.createElement('div');
+        spacer.dataset.qaMotionSpacer = 'yes';
+        spacer.style.height = '2600px';
+        document.body.append(spacer);
+    }""")
+    frame.scroll_into_view_if_needed()
+    start_visible = get_time()
+    # Avoid an implicit Playwright auto-scroll to controls: on small screens
+    # it can move the SVG offscreen before the observer checks both targets.
+    buttons.nth(1).evaluate('button => button.click()')
+    page.wait_for_timeout(180)
+    assert get_time() > start_visible + 0.03, (stem, 'visible playback did not progress')
+    page.evaluate('window.scrollTo(0, document.documentElement.scrollHeight)')
+    page.wait_for_function(
+        '(el) => /out of view|離開畫面/.test(el.textContent || "")',
+        arg=status_region.element_handle(), timeout=5000)
+    out_of_view_time = get_time()
+    page.wait_for_timeout(160)
+    assert abs(get_time() - out_of_view_time) < 0.03, (
+        stem, 'SVG continued advancing outside viewport')
+    page.evaluate('window.scrollTo(0, 0)')
+    page.wait_for_timeout(140)
+    assert abs(get_time() - out_of_view_time) < 0.03, (
+        stem, 'SVG restarted without explicit Play after return')
+    if retained_a is not None:
+        assert comparison.locator('.distributed-motion-compare-a').inner_text() == retained_a
+    page.evaluate('document.querySelector("[data-qa-motion-spacer]")?.remove()')
+    record['viewport_pause'] = 'passed'
     record['interactive'] = {
         'reset_time': reset_time, 'hidden_pause_time': hidden_pause_time,
         'visible_svg': True, 'hidden_no_script_fallback': True,
