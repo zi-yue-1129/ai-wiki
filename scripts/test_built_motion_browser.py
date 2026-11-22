@@ -603,6 +603,34 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert controls.locator('.concept-motion-status').inner_text() in (
         'Pinned comparison cleared', '已清除釘選比較'
     )
+    # Guided presets must populate both real SVG/semantic states and retain
+    # manual pin/swap functionality; inspect on real built bilingual pages.
+    guided = controls.locator('select.distributed-motion-scenario')
+    expect(guided).to_be_enabled()
+    expect(guided.locator('option')).to_have_count(3)
+    cases = {
+        'checkpoint-spacing': [('s=1', 's=4'), ('s=8', 's=4')],
+        'fp16-scaling-window': [('S=4', 'S=8'), ('S=1024', 'S=2048')],
+        'gradscaler-feedback': [('t1', 't5'), ('t2', 't3')],
+    }[stem]
+    for case_number, (a_token, b_token) in enumerate(cases):
+        guided.select_option(str(case_number))
+        expect(comparison).to_be_visible()
+        assert a_token in comparison.locator('.distributed-motion-compare-a').inner_text()
+        assert b_token in comparison.locator('.distributed-motion-compare-b').inner_text()
+        assert comparison.locator('.distributed-motion-compare-delta').inner_text().strip()
+        assert guided.input_value() == ''  # repeat-selection remains possible
+        if case_number == 0:
+            comparison.scroll_into_view_if_needed()
+            assert_document_fits(page, viewport)
+            page.screenshot(path=str(output / f'image-{index}-guided-case.png'))
+        swap_pin.click()
+        assert b_token in comparison.locator('.distributed-motion-compare-a').inner_text()
+        assert a_token in comparison.locator('.distributed-motion-compare-b').inner_text()
+    clear_pin.click()
+    expect(comparison).to_be_hidden()
+    # Re-establish the earlier 9s point for the playback progression assertion.
+    seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
     rate.select_option('2')
     assert rate.input_value() == '2'
     buttons.nth(1).click()  # Play at 2x
