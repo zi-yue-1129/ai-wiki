@@ -914,6 +914,26 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     fallback_capture = output / f'co-design-{index}-invalid-svg-fallback.png'
     page.screenshot(path=str(fallback_capture))
     page.unroute(invalid_url)
+    # Retry is a fresh, same-origin document navigation, not a fake load event.
+    retry_button = page.locator('.distributed-motion-retry')
+    expect(retry_button).to_be_visible(timeout=8000)
+    retry_button.click()
+    expect(frame).to_be_visible(timeout=10000)
+    expect(controls).to_be_visible(timeout=10000)
+    expect(retry_button).to_be_hidden(timeout=10000)
+    expect(image).to_be_hidden(timeout=10000)
+    assert frame.evaluate(
+        'el => el.contentDocument?.documentElement?.localName') == 'svg', (
+            stem, 'retry did not load a valid SVG')
+    assert abs(get_time() - out_of_view_time) < 0.06, (
+        stem, 'retry lost the synthetic seek position')
+    if retained_a is not None:
+        assert comparison.locator('.distributed-motion-compare-a').inner_text() == retained_a, (
+            stem, 'retry lost pinned comparison')
+    recovered_capture = output / f'co-design-{index}-retry-recovered.png'
+    page.screenshot(path=str(recovered_capture))
+    record['invalid_svg_retry_recovery'] = 'passed'
+    record['retry_recovered_screenshot'] = recovered_capture.name
     record['invalid_svg_still_fallback'] = 'passed'
     record['invalid_svg_fallback_screenshot'] = fallback_capture.name
     record['interactive'] = {

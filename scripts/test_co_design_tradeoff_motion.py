@@ -689,3 +689,17 @@ for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     assert ("polite status region" if name.endswith((".md",)) and not name.endswith(".zh-TW.md")
             else "狀態播報") in text
 print("Co-design scrubbing quiet-live-region and SVG load continuity contracts OK")
+
+# Reviewable bilingual recovery for an unavailable teaching animation.
+assert "const retry = document.createElement('button');" in controls_js
+assert "Animation unavailable · Retry" in controls_js and "動畫無法載入 · 重試" in controls_js
+assert "url.searchParams.set('_motion_retry', String(++retryCount));" in controls_js
+assert "frame.setAttribute('aria-hidden', 'true');" in controls_js
+assert "frame.removeAttribute('aria-hidden');" in controls_js
+assert ".distributed-motion-retry:focus-visible" in controls_css
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+             "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    body = (pages / name).read_text(encoding="utf-8")
+    assert ("Animation unavailable · Retry" if not name.endswith(".zh-TW.md")
+            else "動畫無法載入 · 重試") in body
+print("Bilingual in-page SVG recovery source contracts OK")

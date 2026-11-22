@@ -299,6 +299,15 @@
         bar.classList.add('co-design-motion-controls');
         coDesignRegion.after(bar);
       } else host.append(bar);
+      // Keep recovery outside the 640px figure scroller; retain the still.
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'distributed-motion-retry';
+      retry.textContent = label('Animation unavailable · Retry', '動畫無法載入 · 重試');
+      retry.hidden = true;
+      if (coDesignRegion) bar.after(retry);
+      else host.append(retry);
+      let retrying = false, retryCount = 0;
 
       function teachingState(t) {
         // All values are derived from the same synthetic schedules used by
@@ -674,11 +683,14 @@
       const onReduce = event => {
         stop();
         if (event.matches) {
+          retry.hidden = true;
           frame.hidden = true; bar.hidden = true;
           img.hidden = false;
           if (previousControls) previousControls.hidden = false;
           img.src = img.dataset.stillSrc || src.replace(/-motion\.svg(?=$|[?#])/, '-still.svg');
         } else if (svg) {
+          retry.hidden = true;
+          frame.removeAttribute('aria-hidden');
           img.src = src;
           img.hidden = true;
           frame.hidden = false; frame.style.visibility = '';
@@ -687,6 +699,7 @@
           if (previousControls) previousControls.hidden = true;
           setTime(time);
         } else if (!svg) {
+          retry.hidden = true;
           // Chromium may defer loading an <object> while it is display:none.
           // Re-enable its offscreen loading placeholder; the load handler
           // will swap the real SVG into view only after it is ready.
@@ -732,13 +745,38 @@
       // alongside controls that appear to operate a nonexistent timeline.
       const showStaticFallback = () => {
         stop(false);
+        retrying = false;
+        retry.removeAttribute('aria-disabled');
+        retry.textContent = label('Animation unavailable · Retry', '動畫無法載入 · 重試');
+        retry.hidden = reduced.matches;
         svg = null;
         img.src = img.dataset.stillSrc || src.replace(/-motion\.svg(?=$|[?#])/, '-still.svg');
         img.hidden = false;
-        frame.hidden = true;
+        // display:none may defer a subsequent object navigation.
+        frame.hidden = reduced.matches;
+        frame.setAttribute('aria-hidden', 'true');
+        frame.style.visibility = 'hidden';
+        frame.style.position = 'absolute';
+        frame.style.width = '1px';
+        frame.style.height = '1px';
         bar.hidden = true;
         if (previousControls) previousControls.hidden = false;
       };
+      retry.addEventListener('click', () => {
+        if (retrying || reduced.matches) return;
+        retrying = true;
+        retry.textContent = label('Loading animation…', '動畫載入中…');
+        retry.setAttribute('aria-disabled', 'true');
+        frame.hidden = false;
+        frame.style.visibility = 'hidden';
+        frame.style.position = 'absolute';
+        frame.style.width = '1px';
+        frame.style.height = '1px';
+        // Fetch the same reviewed asset, bypassing any cached transient error.
+        const url = new URL(src, document.baseURI);
+        url.searchParams.set('_motion_retry', String(++retryCount));
+        frame.data = url.href;
+      });
       frame.addEventListener('error', showStaticFallback);
       frame.addEventListener('load', () => {
         try {
@@ -748,6 +786,11 @@
             return;
           }
           svg = root;
+          retrying = false;
+          retry.removeAttribute('aria-disabled');
+          const retryFocused = document.activeElement === retry;
+          retry.hidden = true;
+          retry.textContent = label('Animation unavailable · Retry', '動畫無法載入 · 重試');
           svg.pauseAnimations();
           // SVG <object> can reload after a reduced-motion toggle or document
           // navigation. Restore the reader's position and pinned A/B context;
@@ -762,9 +805,11 @@
           img.hidden = true;
           frame.hidden = false;
           frame.style.visibility = '';
+          frame.removeAttribute('aria-hidden');
           frame.style.position = ''; frame.style.width = ''; frame.style.height = '';
           bar.hidden = false;
           if (previousControls) previousControls.hidden = true;
+          if (retryFocused) play.focus();
         } catch (_) { showStaticFallback(); }
       });
       const observer = new MutationObserver(() => {
@@ -773,6 +818,7 @@
         document.removeEventListener('visibilitychange', onVisibility);
         viewportObserver?.disconnect();
         if (coDesignRegion) bar.remove();
+        retry.remove();
       });
       observer.observe(document.body, { childList: true, subtree: true });
     }

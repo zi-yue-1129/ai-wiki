@@ -223,3 +223,25 @@
   outline-offset: 2px;
 }
 .co-design-motion-controls .distributed-motion-landmark:disabled { opacity: .55; cursor: wait; }
+
+/* Bilingual recovery action outside the mobile SVG scroller. */
+.distributed-motion-retry {
+  display: block;
+  max-width: 100%;
+  margin: .5rem 0;
+  padding: .4rem .65rem;
+  border: 1px solid var(--md-default-fg-color--lighter, #9cafbe);
+  border-radius: .45rem;
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #24394c);
+  font: inherit;
+  font-size: .75rem;
+  cursor: pointer;
+  white-space: normal;
+}
+.distributed-motion-retry[hidden] { display: none !important; }
+.distributed-motion-retry[aria-disabled="true"] { cursor: progress; }
+.distributed-motion-retry:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 3px;
+}
