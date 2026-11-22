@@ -496,7 +496,11 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     assert comparison.locator('.distributed-motion-compare-delta').inner_text().strip(), (
         'Missing computed difference'
     )
-    capture('a-b-comparison')
+    # The A/B panel is separate evidence, not a fourth playback state.
+    comparison.scroll_into_view_if_needed()
+    assert_document_fits(page, viewport)
+    comparison_screenshot = output / f'image-{index}-a-b-comparison.png'
+    page.screenshot(path=str(comparison_screenshot))
     pin.click()  # Replace A with the current B, no stale baseline retained.
     assert 'Replace' in pin.inner_text() or '更新' in pin.inner_text()
     clear_pin.click()
@@ -562,6 +566,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         'paused_time': paused, 'previous_time': previous, 'speed': 2,
         'semantic_initial': initial_summary, 'semantic_seek': selected_summary,
         'screenshot': replay_screenshot,
+        'comparison_screenshot': comparison_screenshot.name,
     }
 
 
