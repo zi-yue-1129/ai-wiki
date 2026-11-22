@@ -488,6 +488,15 @@ print("Co-design synchronized numerical interpretation, bilingual copy and acces
 
 # A/B pinning is a teaching comparison, not another static illustration.
 # No duplicated language-specific SVG or JavaScript may be introduced.
+assert "swapPin.textContent = label('Swap A/B', '交換 A／B')" in controls_js
+assert "swapPin?.addEventListener('click', () => {" in controls_js
+assert "pinnedTime = time;" in controls_js and "setTime(previousA);" in controls_js
+assert "swapPin.hidden = true" in controls_js and "swapPin.hidden = false" in controls_js
+assert ".distributed-motion-swap" in controls_css
+for name in ("gradient-checkpointing.md", "mixed-precision.md"):
+    assert "**Swap A/B**" in (pages / name).read_text(encoding="utf-8")
+for name in ("gradient-checkpointing.zh-TW.md", "mixed-precision.zh-TW.md"):
+    assert "**交換 A／B**" in (pages / name).read_text(encoding="utf-8")
 assert "pin.textContent = label('Pin A', '釘選 A')" in controls_js
 assert "clearPin.textContent = label('Clear A', '清除 A')" in controls_js
 assert "function compareChange(a, b)" in controls_js
