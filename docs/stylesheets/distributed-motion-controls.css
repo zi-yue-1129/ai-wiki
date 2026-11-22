@@ -158,3 +158,22 @@
 @media (prefers-reduced-motion: reduce) {
   .distributed-motion-visual-fill { transition: none; }
 }
+
+/* Guided comparisons select real, reviewed synthetic states.  Native select
+ * keyboard behaviour and focus outlines are preserved at narrow widths. */
+.co-design-motion-controls .distributed-motion-scenario {
+  flex: 0 1 15rem;
+  max-width: 100%;
+  min-width: 0;
+  border: 1px solid var(--md-default-fg-color--lighter, #9cafbe);
+  border-radius: .45rem;
+  padding: .3rem .35rem;
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #24394c);
+  font: inherit;
+  font-size: .72rem;
+}
+.co-design-motion-controls .distributed-motion-scenario:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 3px;
+}
