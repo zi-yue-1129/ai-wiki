@@ -112,6 +112,8 @@ The timeline plots the scale **used by each iteration**, not the newly computed 
 
 **Interpret the qualitative transitions.** FP16 A/B now identifies whether the selected synthetic gradients are in a **LOW ZERO**, **BOTH FINITE NONZERO**, or **HIGH INF** regime. These are rounded outcomes for exactly the two illustrated gradients, not a guarantee of safe scaling for a whole model. GradScaler A/B additionally names the next-scale action as **hold**, **grow**, or **backoff**, explicitly separating finite-check history from a single iteration's eligibility. Neither display is a measured optimizer result.
 
+**Guided numerical-boundary cases (MkDocs).** Each diagram's keyboard-accessible **Try a worked comparison…** menu pauses and loads a pinned A and live B. In the FP16 window, **S=4 → 8** crosses the small-gradient zero-rounding boundary while **S=1024 → 2048** crosses the large-gradient overflow boundary; these are distinct failure modes. In the GradScaler controller, **t1 → t5** compares identical finite checks with different *history-dependent* next scales, while **t2 → t3** reveals overflow-triggered backoff after growth. **Swap A/B**, seek and manual pinning still work. All inputs and outputs are constructed examples, not observed training runs.
+
 ## Results
 
 Micikevicius et al. (2017) report that using this approach reduces the memory consumption of deep learning models by nearly two times. They recommend keeping a single-precision copy of the weights that accumulates the gradients after each optimiser step, and scaling the loss to handle the loss of information in half-precision gradients. They tested convolutional, recurrent and generative adversarial networks.
