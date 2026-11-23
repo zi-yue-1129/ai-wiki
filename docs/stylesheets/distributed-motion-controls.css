@@ -337,3 +337,17 @@
 .distributed-motion-pareto-legend { display: flex; gap: .7rem; flex-wrap: wrap; font-size: .69rem; line-height: 1.35; }
 @media (max-width: 420px) { .distributed-motion-pareto { padding: .6rem .55rem; } .distributed-motion-pareto-plot { height: 12rem; margin-left: 1.6rem; margin-right: .25rem; } .distributed-motion-pareto-dot { width: 1.7rem; height: 1.7rem; font-size: .66rem; } .distributed-motion-pareto-axis-y { left: -1.55rem; } }
 @media (prefers-reduced-motion: reduce) { .distributed-motion-pareto-dot { transition: none; } }
+
+/* 13-scale IEEE/FTZ counterfactual; driven by the existing FP16 timeline. */
+.distributed-motion-policy-window { flex: 1 0 100%; min-width: 0; box-sizing: border-box; margin: .4rem 0; padding: .55rem .65rem .6rem; border: 1px solid #9db3c2; border-radius: .55rem; background: var(--md-code-bg-color, #f7f9fa); color: var(--md-default-fg-color, #24394c); }
+.distributed-motion-policy-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .3rem; font-size: .75rem; font-weight: 650; margin-bottom: .35rem; }
+.distributed-motion-policy-direction { font-variant-numeric: tabular-nums; font-weight: 700; }
+.distributed-motion-policy-row { display: grid; grid-template-columns: minmax(2.5rem, 3.2rem) repeat(13, minmax(0, 1fr)); gap: clamp(.12rem, .35vw, .28rem); align-items: center; margin: .2rem 0; min-width: 0; }
+.distributed-motion-policy-label { font-size: .67rem; font-weight: 700; white-space: nowrap; }
+.distributed-motion-policy-tick { font-size: .56rem; font-variant-numeric: tabular-nums; text-align: center; color: var(--md-default-fg-color, #24394c); }
+.distributed-motion-policy-cell { display: block; box-sizing: border-box; height: 1.65rem; border: 1px solid #637785; border-radius: .18rem; min-width: 0; }
+.distributed-motion-policy-cell[data-state="underflow"] { background: repeating-linear-gradient(135deg,#e49e39 0,#e49e39 3px,#ffe8b4 3px,#ffe8b4 6px); }
+.distributed-motion-policy-cell[data-state="valid"] { background: #12858a; }
+.distributed-motion-policy-cell[data-state="overflow"] { background: repeating-linear-gradient(45deg,#374759 0,#374759 4px,#bfccd5 4px,#bfccd5 6px); }
+.distributed-motion-policy-cell[data-current="true"] { outline: 3px solid var(--md-default-fg-color, #15283c); outline-offset: 1px; z-index: 1; }
+@media (max-width: 420px) { .distributed-motion-policy-window { padding: .45rem .45rem .5rem; } .distributed-motion-policy-row { grid-template-columns: minmax(2.3rem, 2.5rem) repeat(13, minmax(0, 1fr)); gap: .12rem; } .distributed-motion-policy-cell { height: 1.3rem; border-radius: .1rem; } }
