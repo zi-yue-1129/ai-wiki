@@ -192,6 +192,23 @@ class ScopedCanvas(unittest.TestCase):
         for tag, selector, attr, expected in tracks:
             self.assert_fp8_track(motion, still, tag, selector, attr, expected, '9s')
 
+        # The purple history underlines must refer to the preceding two samples,
+        # never the white-outlined current step. The first two bars are seeds.
+        centers = [25, 43] + [74 + 47*i for i in range(len(maxima))]
+        for offset in (0, 1):
+            selected = centers[offset:offset+len(maxima)]
+            selector = {'y1': '105', 'y2': '105', 'stroke': '#a993f9',
+                        'x1': str(selected[2] - 6)}
+            for attr, delta in [('x1', -6), ('x2', 6)]:
+                self.assert_fp8_track(motion, still, 'line', selector, attr,
+                                      [x+delta for x in selected], '9s')
+        for root in (motion, still):
+            for center in centers[:2]:
+                seeds = [node for node in root.iter(v.NS + 'rect')
+                         if node.get('x') == str(center-6) and node.get('y') == '71.5']
+                self.assertEqual(len(seeds), 1)
+                self.assertEqual((seeds[0].get('width'), seeds[0].get('height')), ('12', '7.5'))
+
     def test_original_prefix_exclusions_are_not_broadened(self):
         for prefix, excluded in EXPECTED_EXCLUSIONS.items():
             with patch.object(v, 'PREFIX_EXCLUSIONS', {}):

@@ -57,11 +57,11 @@ FP8 是一種用於深度學習的 8 位元浮點格式。Micikevicius 等人（
 
 ### 動態解說：即時縮放與延遲縮放
 
-<img data-source-asset-urls src="../../../assets/concept-animations/fp8-delayed-amax-still.svg" data-motion-src="../../../assets/concept-animations/fp8-delayed-amax-motion.svg" data-still-src="../../../assets/concept-animations/fp8-delayed-amax-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="六次張量最大量值在第三步突增；即時縮放追蹤當前最大值，延遲縮放截斷突增值，之後兩步仍保留較大的上限。">
+<img data-source-asset-urls src="../../../assets/concept-animations/fp8-delayed-amax-still.svg" data-motion-src="../../../assets/concept-animations/fp8-delayed-amax-motion.svg" data-still-src="../../../assets/concept-animations/fp8-delayed-amax-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="六次張量最大量值在第三步突增；紫色底線標示先前兩筆量值，白框標示目前迭代。延遲縮放截斷突增值，直到該值離開歷史視窗前都保留較大的上限。">
 
 *原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態圖](../../../assets/concept-animations/fp8-delayed-amax-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/fp8-delayed-amax-motion.svg)。播放／暫停與減少動態效果的回退顯示沿用網站共用播放器。
 
-實務上的縮放策略可使用當前張量的最大量值，或以先前記錄的最大量值估計縮放係數。[^fp8-delayed] 在此人工例子中，令 $a_t=\max|x_t|$ 依序為 $(1,1,4,1,1,1)$，並令 $H_t=\max(a_{t-2},a_{t-1})$，初始兩筆歷史值均為 1。對格式最大值 $F$，理想化即時縮放係數為 $F/a_t$，延遲縮放則為 $F/H_t$。因此，換算回原始輸入單位的量值上限（白線）分別是 $a_t$ 與 $H_t$。第 3 步的延遲上限為 1，但觀察到的最大量值為 4；若採飽和轉換，量值大於 1 的元素會被截斷至上限。第 4、5 步的延遲上限仍為 4，當前量值僅需要上限的四分之一；第 6 步突增值移出歷史視窗。橘色長度表示超過上限的量值區間，不代表被截斷的元素比例。此例假設最大量值為正、縮放運算精確、無安全餘裕，且歷史只保留兩筆以利教學；並非效能測試、模型準確率結論或特定函式庫更新時序的精確重現。
+實務上的縮放策略可使用當前張量的最大量值，或以先前記錄的最大量值估計縮放係數。[^fp8-delayed] 在此人工例子中，令 $a_t=\max|x_t|$ 依序為 $(1,1,4,1,1,1)$，並令 $H_t=\max(a_{t-2},a_{t-1})$，初始兩筆歷史值均為 1。Init 的兩個短條代表這兩筆初始值；紫色底線隨著計算 $H_t$ 所使用的兩筆歷史樣本移動，白框則標示目前迭代。第 3 步的突增值尚未進入歷史視窗，第 4、5 步仍包含該值，而第 6 步的兩筆歷史樣本已不包含突增值。對格式最大值 $F$，理想化即時縮放係數為 $F/a_t$，延遲縮放則為 $F/H_t$。因此，換算回原始輸入單位的量值上限（白線）分別是 $a_t$ 與 $H_t$。第 3 步的延遲上限為 1，但觀察到的最大量值為 4；若採飽和轉換，量值大於 1 的元素會被截斷至上限。第 4、5 步的延遲上限仍為 4，當前量值僅需要上限的四分之一；第 6 步突增值移出歷史視窗。橘色長度表示超過上限的量值區間，不代表被截斷的元素比例。此例假設最大量值為正、縮放運算精確、無安全餘裕，且歷史只保留兩筆以利教學；並非效能測試、模型準確率結論或特定函式庫更新時序的精確重現。
 
 [^fp8-delayed]: NVIDIA，[FP8 Delayed Scaling](https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/fp8_delayed_scaling/fp8_delayed_scaling.html)。說明依據歷史量值選擇縮放係數，以及量化與張量讀取的取捨。
 
