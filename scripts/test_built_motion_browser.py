@@ -643,7 +643,12 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         # Check a real built-page strip, not only source text.
         trace = controls.locator('.distributed-motion-retention-trace')
         expect(trace).to_be_visible()
-        assert trace.get_attribute('aria-hidden') == 'true'
+        assert trace.get_attribute('role') == 'group'
+        assert 'GradScaler' in trace.get_attribute('aria-label')
+        nav = trace.locator('button.distributed-motion-retention-step')
+        expect(nav).to_have_count(6)
+        assert 'Inf' in nav.nth(2).get_attribute('aria-label')
+        expect(trace.locator('.distributed-motion-retention-legend-item')).to_have_count(5)
         rows = trace.locator('.distributed-motion-retention-row')
         expect(rows).to_have_count(3)
         ieee = rows.nth(1).locator('.distributed-motion-retention-cell')
@@ -652,6 +657,11 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         expect(ftz).to_have_count(6)
         assert [ieee.nth(i).get_attribute('data-state') for i in range(3)] == ['retained', 'retained', 'future']
         assert [ftz.nth(i).get_attribute('data-state') for i in range(3)] == ['lost', 'lost', 'future']
+        nav.nth(2).focus()
+        page.keyboard.press('Enter')
+        assert nav.nth(2).get_attribute('aria-current') == 'step'
+        assert ieee.nth(2).get_attribute('data-state') == 'skipped'
+        assert get_time() > 4.0
         seek.evaluate('e => {e.value="342";e.dispatchEvent(new Event("input",{bubbles:true}));}')
         assert ieee.nth(2).get_attribute('data-state') == 'skipped'
         assert ftz.nth(2).get_attribute('data-state') == 'skipped'
@@ -700,6 +710,9 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     if stem == 'checkpoint-spacing':
         expect(controls.locator('.distributed-motion-pareto-dot.is-pinned')).to_have_count(1)
         expect(controls.locator('.distributed-motion-pareto-dot[data-spacing="1"].is-pinned')).to_have_count(1)
+    if stem == 'gradscaler-feedback':
+        expect(controls.locator('.distributed-motion-retention-cell[data-pinned="true"]')).to_have_count(2)
+        expect(controls.locator('.distributed-motion-retention-step.is-pinned')).to_have_count(1)
     if stem == 'checkpoint-spacing':
         ab_link = controls.locator('.distributed-motion-pareto-ab')
         expect(ab_link).to_have_count(1)
@@ -728,6 +741,10 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     if stem == 'fp16-scaling-window':
         expect(controls.locator('.distributed-motion-policy-cell[data-pinned="true"]')).to_have_count(2)
         expect(controls.locator('.distributed-motion-policy-legend-swatch[data-state="pinned"]')).to_have_count(1)
+    if stem == 'gradscaler-feedback':
+        expect(controls.locator('.distributed-motion-retention-cell[data-pinned="true"]')).to_have_count(2)
+        expect(controls.locator('.distributed-motion-retention-step.is-current')).to_have_count(1)
+        assert controls.locator('.distributed-motion-retention-step.is-current').inner_text() == 't5'
     assert comparison.locator('.distributed-motion-compare-delta').inner_text().strip(), (
         'Missing computed difference'
     )
