@@ -872,3 +872,21 @@ for lang, text in (("mixed-precision.md", "Why finite-check feedback cannot repa
     content = (pages / lang).read_text(encoding="utf-8")
     assert text in content and "1, 2, 2, 3, 4, 4" in content.replace("、", ", ")
 print("GradScaler FTZ/IEEE low-gradient retention, bilingual contracts OK")
+
+# Real six-iteration retention strip (IEEE vs hypothetical FTZ) is
+# synchronized with the controlled SVG's cursor, not auto-animated.
+for token in ("retentionTraceCells", "distributed-motion-retention-trace",
+              "cell.dataset.state = i > current ? 'future'",
+              "policy === 0 ? 'retained' : 'lost'",
+              "i === 2 || i === 5",
+              "trace.setAttribute('aria-hidden', 'true')"):
+    assert token in controls_js, token
+for token in ('data-state="retained"', 'data-state="lost"',
+              'data-state="skipped"', 'box-sizing: border-box',
+              'minmax(0, 1fr)'):
+    assert token in controls_css, token
+for name, text in (("mixed-precision.md", "Follow information retention (MkDocs)"),
+                   ("mixed-precision.zh-TW.md", "追蹤梯度資訊保留（MkDocs）")):
+    assert text in (pages / name).read_text(encoding="utf-8")
+assert "rows = trace.locator('.distributed-motion-retention-row')" in browser_source
+print("IEEE/FTZ six-step visual trace, bilingual text, CSS and E2E contracts OK")

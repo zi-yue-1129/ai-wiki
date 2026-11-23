@@ -245,3 +245,76 @@
   outline: 3px solid var(--md-accent-fg-color, #387e99);
   outline-offset: 3px;
 }
+
+/* Six-step temporal low-gradient retention under two illustrative policies.
+ * The real SVG controls own the timeline; no autonomous CSS animation. */
+.co-design-motion-controls .distributed-motion-retention-trace {
+  flex: 1 0 100%;
+  box-sizing: border-box;
+  display: grid;
+  gap: .22rem;
+  min-width: 0;
+  padding: .5rem .6rem;
+  border: 1px solid var(--md-default-fg-color--lightest, #d1d8df);
+  border-radius: .4rem;
+  background: var(--md-code-bg-color, #f4f6f8);
+}
+.distributed-motion-retention-row {
+  display: grid;
+  grid-template-columns: minmax(2.75rem, 3.5rem) repeat(6, minmax(0, 1fr));
+  align-items: center;
+  column-gap: clamp(.18rem, .7vw, .55rem);
+  min-width: 0;
+}
+.distributed-motion-retention-label {
+  font-size: .67rem;
+  font-weight: 700;
+  color: var(--md-default-fg-color, #24394c);
+}
+.distributed-motion-retention-step {
+  font-size: .58rem;
+  text-align: center;
+  color: var(--md-default-fg-color--light, #6b7886);
+  font-variant-numeric: tabular-nums;
+}
+.distributed-motion-retention-cell {
+  display: block;
+  position: relative;
+  height: .85rem;
+  min-width: 0;
+  border-radius: .18rem;
+  background: var(--md-default-fg-color--lightest, #d1d8df);
+  border: 1px solid transparent;
+  opacity: .42;
+}
+.distributed-motion-retention-cell[data-state="retained"] {
+  opacity: 1;
+  background: #247e9d;
+}
+.distributed-motion-retention-cell[data-state="lost"] {
+  opacity: 1;
+  background: #e6b05b;
+  background-image: repeating-linear-gradient(135deg, transparent 0 5px, #8b5115 5px 7px);
+}
+.distributed-motion-retention-cell[data-state="skipped"] {
+  opacity: 1;
+  background: #9aa6b0;
+}
+.distributed-motion-retention-cell[data-state="skipped"]::after {
+  content: '';
+  position: absolute;
+  inset: 45% 3%;
+  height: 1px;
+  background: #344454;
+  transform: rotate(-12deg);
+}
+.distributed-motion-retention-cell[data-current="true"] {
+  outline: 2px solid var(--md-default-fg-color, #24394c);
+  outline-offset: 2px;
+}
+@media (max-width: 480px) {
+  .co-design-motion-controls .distributed-motion-retention-trace { padding: .42rem .38rem; }
+  .distributed-motion-retention-row {
+    grid-template-columns: minmax(2.2rem, 2.75rem) repeat(6, minmax(0, 1fr));
+  }
+}

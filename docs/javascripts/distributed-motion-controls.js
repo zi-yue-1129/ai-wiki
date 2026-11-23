@@ -124,6 +124,8 @@
       // Running count of toy *eligible* steps; do not imply that an
       // optimizer ran or weights changed in this illustrative sequence.
       const eligibleSoFar = [1, 2, 2, 3, 4, 4];
+      // Rendering only: accessible counts remain in interpretation and slider.
+      const retentionTraceCells = [];
       const gauges = match[1] === 'checkpoint-spacing' ? [
         { id: 'peak', en: 'PEAK', tw: '峰值槽位', max: 17, at: t => 16 / checkpointSpacing(t) + checkpointSpacing(t) },
         { id: 'rebuilt', en: 'TOTAL REBUILT', tw: '總重算量', max: 15, at: t => 16 - 16 / checkpointSpacing(t) },
@@ -312,6 +314,42 @@
       interpretation.setAttribute('aria-live', 'off');
       if (host.classList.contains('co-design-motion-timeline')) {
         bar.append(interpretation);
+        if (match[1] === 'gradscaler-feedback') {
+          // Two hypothetical storage policies follow the same six checks;
+          // colours do NOT represent measurements of a particular GPU.
+          const trace = document.createElement('div');
+          trace.className = 'distributed-motion-retention-trace';
+          trace.setAttribute('aria-hidden', 'true');
+          const header = document.createElement('div');
+          header.className = 'distributed-motion-retention-row';
+          header.append(document.createElement('span'));
+          for (let i = 1; i <= 6; i++) {
+            const step = document.createElement('span');
+            step.className = 'distributed-motion-retention-step';
+            step.textContent = 't' + i;
+            header.append(step);
+          }
+          trace.append(header);
+          for (const policy of ['IEEE', 'FTZ']) {
+            const lane = document.createElement('div');
+            lane.className = 'distributed-motion-retention-row';
+            const heading = document.createElement('strong');
+            heading.className = 'distributed-motion-retention-label';
+            heading.textContent = policy;
+            lane.append(heading);
+            const cells = [];
+            for (let i = 0; i < 6; i++) {
+              const cell = document.createElement('span');
+              cell.className = 'distributed-motion-retention-cell';
+              cell.dataset.state = 'future';
+              lane.append(cell);
+              cells.push(cell);
+            }
+            retentionTraceCells.push(cells);
+            trace.append(lane);
+          }
+          bar.append(trace);
+        }
         bar.append(comparison);
       }
       // Keep controls outside the horizontally scrolled 640px figure on
@@ -523,6 +561,20 @@
         }
         readout.textContent = time.toFixed(1) + ' / ' + config.duration + 's';
         if (interpretation.isConnected) interpretation.textContent = teachingState(time);
+        if (retentionTraceCells.length) {
+          const current = feedbackIndex(time);
+          retentionTraceCells.forEach((cells, policy) => {
+            cells.forEach((cell, i) => {
+              // Cyan: nonzero IEEE low; hatched amber: FTZ silently lost low.
+              // A skipped nonfinite check appears in BOTH policy lanes.
+              cell.dataset.state = i > current ? 'future'
+                : (i === 2 || i === 5) ? 'skipped'
+                  : policy === 0 ? 'retained' : 'lost';
+              if (i === current) cell.dataset.current = 'true';
+              else delete cell.dataset.current;
+            });
+          });
+        }
         updateComparison();
         if (comparePrevious) comparePrevious.disabled = previousStateTime(time) === null;
         for (const { button, event } of landmarkButtons) {

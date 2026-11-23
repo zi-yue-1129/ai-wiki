@@ -579,6 +579,29 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         assert 'ELIGIBLE SO FAR 2' in summary or '累計符合更新條件 2 次' in summary, summary
         assert ('ELIGIBLE LOW KEPT: IEEE 2 / FTZ 0' in summary or
                 '符合條件且小梯度非零累計：IEEE 2／沖零假設 0' in summary), summary
+        # Check a real built-page strip, not only source text.
+        trace = controls.locator('.distributed-motion-retention-trace')
+        expect(trace).to_be_visible()
+        assert trace.get_attribute('aria-hidden') == 'true'
+        rows = trace.locator('.distributed-motion-retention-row')
+        expect(rows).to_have_count(3)
+        ieee = rows.nth(1).locator('.distributed-motion-retention-cell')
+        ftz = rows.nth(2).locator('.distributed-motion-retention-cell')
+        expect(ieee).to_have_count(6)
+        expect(ftz).to_have_count(6)
+        assert [ieee.nth(i).get_attribute('data-state') for i in range(3)] == ['retained', 'retained', 'future']
+        assert [ftz.nth(i).get_attribute('data-state') for i in range(3)] == ['lost', 'lost', 'future']
+        seek.evaluate('e => {e.value="342";e.dispatchEvent(new Event("input",{bubbles:true}));}')
+        assert ieee.nth(2).get_attribute('data-state') == 'skipped'
+        assert ftz.nth(2).get_attribute('data-state') == 'skipped'
+        assert ieee.nth(2).get_attribute('data-current') == 'true'
+        seek.evaluate('e => {e.value="860";e.dispatchEvent(new Event("input",{bubbles:true}));}')
+        assert ieee.nth(4).get_attribute('data-state') == 'retained'
+        assert ftz.nth(4).get_attribute('data-state') == 'lost'
+        assert ieee.nth(5).get_attribute('data-state') == 'skipped'
+        assert ftz.nth(5).get_attribute('data-state') == 'skipped'
+        assert ftz.nth(5).get_attribute('data-current') == 'true'
+        assert_document_fits(page, viewport)
         seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
     buttons.nth(2).click()  # Semantic next step
     status_region = controls.locator('.concept-motion-status')
