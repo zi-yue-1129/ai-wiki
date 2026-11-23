@@ -566,6 +566,20 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         frontier_summary = interpretation.inner_text()
         assert 'DOMINATED' in frontier_summary or '被其他設定支配' in frontier_summary, frontier_summary
         assert 'FWD LAYER EVALS 30' in frontier_summary or '前向層計算 30' in frontier_summary, frontier_summary
+        witness = pareto.locator('.distributed-motion-pareto-witness')
+        expect(witness).to_have_count(1)
+        assert witness.evaluate('(e) => getComputedStyle(e).display') != 'none'
+        assert float(witness.get_attribute('y2')) > float(witness.get_attribute('y1'))
+        assert ('s=2 witness: PEAK 10=10; REBUILT 8<14' in frontier_summary or
+                's=2 支配此設定：峰值同為 10、重建量 8<14' in frontier_summary)
+        dots.nth(4).click()
+        s16_summary = interpretation.inner_text()
+        assert 's=2 witness: PEAK 10<17; REBUILT 8<15' in s16_summary or 's=2 支配此設定：峰值 10<17、重建量 8<15' in s16_summary
+        assert witness.evaluate('(e) => getComputedStyle(e).display') != 'none'
+        assert float(witness.get_attribute('x2')) < float(witness.get_attribute('x1'))
+        dots.nth(2).click()
+        assert witness.evaluate('(e) => getComputedStyle(e).display') == 'none'
+        assert_document_fits(page, viewport)
         seek.evaluate('e => {e.value = "0"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
     # Native browser checks of exact subnormal and post-growth states.
     if stem == 'fp16-scaling-window':

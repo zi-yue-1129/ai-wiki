@@ -129,6 +129,7 @@
       const policyWindowCells = [];
       let policyWindowDirection = null;
       const paretoMapDots = [];
+      let paretoWitness = null; // Rendered only for a dominated sampled spacing.
       const gauges = match[1] === 'checkpoint-spacing' ? [
         { id: 'peak', en: 'PEAK', tw: '峰值槽位', max: 17, at: t => 16 / checkpointSpacing(t) + checkpointSpacing(t) },
         { id: 'rebuilt', en: 'TOTAL REBUILT', tw: '總重算量', max: 15, at: t => 16 - 16 / checkpointSpacing(t) },
@@ -450,7 +451,30 @@
           line.setAttribute('points', choices.slice(0, 3).map(choice =>
             (10 + 80 * choice.peak / 17).toFixed(3) + ',' +
             (90 - 80 * choice.rebuilt / 15).toFixed(3)).join(' '));
-          curve.append(line);
+          // A state-dependent witness is distinct from the sampled frontier:
+          // s=2 dominates s=8 at equal PEAK and also dominates s=16 in
+          // both modelled costs. The diagram does not draw an optimiser path.
+          const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+          const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+          const markerId = 'co-design-witness-' +
+            (document.querySelectorAll('.distributed-motion-pareto').length + 1);
+          marker.setAttribute('id', markerId);
+          marker.setAttribute('markerWidth', '7');
+          marker.setAttribute('markerHeight', '7');
+          marker.setAttribute('refX', '5');
+          marker.setAttribute('refY', '3');
+          marker.setAttribute('orient', 'auto');
+          const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          arrowHead.setAttribute('d', 'M0 0 6 3 0 6');
+          arrowHead.setAttribute('fill', 'none');
+          arrowHead.setAttribute('stroke', '#ac6731');
+          arrowHead.setAttribute('stroke-width', '1.7');
+          marker.append(arrowHead); defs.append(marker);
+          paretoWitness = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          paretoWitness.classList.add('distributed-motion-pareto-witness');
+          paretoWitness.setAttribute('marker-end', 'url(#' + markerId + ')');
+          paretoWitness.style.display = 'none';
+          curve.append(defs, line, paretoWitness);
           plot.append(curve);
           for (const choice of choices) {
             const dot = document.createElement('button');
@@ -486,8 +510,8 @@
           plot.append(x, y);
           const legend = document.createElement('div');
           legend.className = 'distributed-motion-pareto-legend';
-          legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A',
-                                     '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A');
+          legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A · Arrow: dominance witness',
+                                     '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A · 箭頭：可支配目前設定的方案');
           map.append(heading, plot, legend);
           bar.append(map);
         }
@@ -543,9 +567,13 @@
           const totalRebuilt = 16 - 16 / spacing;
           const within = Math.max(0, (t - phase * 2.4) / 2.4);
           const replayed = spacing === 1 ? 0 : Math.min(scratch, Math.floor(within * spacing / 0.9));
+          const witnessEn = spacing === 8 ? ' · s=2 witness: PEAK 10=10; REBUILT 8<14'
+            : spacing === 16 ? ' · s=2 witness: PEAK 10<17; REBUILT 8<15' : '';
+          const witnessTw = spacing === 8 ? ' · s=2 支配此設定：峰值同為 10、重建量 8<14'
+            : spacing === 16 ? ' · s=2 支配此設定：峰值 10<17、重建量 8<15' : '';
           return label(
-            `s=${spacing} · KEEP ${keep} + REBUILD ${scratch} = PEAK ${keep + scratch} · TOTAL REBUILT ${totalRebuilt} (all segments) · FWD LAYER EVALS ${16 + totalRebuilt} (initial + replay) · active replay ${replayed}/${scratch} (last segment; example slots) · ${spacing <= 4 ? 'PARETO FRONTIER' : 'DOMINATED'} (five choices)`,
-            `s=${spacing} · 保留 ${keep} + 重算暫存 ${scratch} = 峰值 ${keep + scratch} · 全區段重建總數 ${totalRebuilt} · 前向層計算 ${16 + totalRebuilt}（初次加重算）· 末段重算進度 ${replayed}/${scratch}（示意槽位）· ${spacing <= 4 ? '非支配解' : '被其他設定支配'}（限五種選項）`
+            `s=${spacing} · KEEP ${keep} + REBUILD ${scratch} = PEAK ${keep + scratch} · TOTAL REBUILT ${totalRebuilt} (all segments) · FWD LAYER EVALS ${16 + totalRebuilt} (initial + replay) · active replay ${replayed}/${scratch} (last segment; example slots) · ${spacing <= 4 ? 'PARETO FRONTIER' : 'DOMINATED'} (five choices)${witnessEn}`,
+            `s=${spacing} · 保留 ${keep} + 重算暫存 ${scratch} = 峰值 ${keep + scratch} · 全區段重建總數 ${totalRebuilt} · 前向層計算 ${16 + totalRebuilt}（初次加重算）· 末段重算進度 ${replayed}/${scratch}（示意槽位）· ${spacing <= 4 ? '非支配解' : '被其他設定支配'}（限五種選項）${witnessTw}`
           );
         }
         if (match[1] === 'fp16-scaling-window') {
@@ -710,6 +738,25 @@
           button.classList.toggle('is-current', active);
           if (active) button.setAttribute('aria-current', 'true');
           else button.removeAttribute('aria-current');
+        }
+        if (paretoWitness) {
+          const selected = checkpointSpacing(time);
+          if (selected === 8 || selected === 16) {
+            // Coordinates match the sampled points; shorten the shaft to
+            // keep the arrowhead outside the s=2 button even at phone width.
+            const point = s => ({
+              x: 10 + 80 * (16 / s + s) / 17,
+              y: 90 - 80 * (16 - 16 / s) / 15
+            });
+            const from = point(selected), to = point(2);
+            for (const [attribute, value] of [
+              ['x1', from.x + .15 * (to.x - from.x)],
+              ['y1', from.y + .15 * (to.y - from.y)],
+              ['x2', from.x + .78 * (to.x - from.x)],
+              ['y2', from.y + .78 * (to.y - from.y)]
+            ]) paretoWitness.setAttribute(attribute, value.toFixed(3));
+            paretoWitness.style.display = '';
+          } else paretoWitness.style.display = 'none';
         }
         if (policyWindowCells.length) {
           const exponent = scaleExponent(time);
