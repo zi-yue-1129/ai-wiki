@@ -130,6 +130,11 @@
       const policyWindowCells = [];
       let policyWindowDirection = null, policyScaleSelect = null, policySweepSelect = null;
       const paretoMapDots = [];
+      // Fixed synthetic choices; peak-cap feasibility is not a GPU measurement.
+      const checkpointChoices = [1, 2, 4, 8, 16].map(spacing => ({
+        spacing, peak: 16 / spacing + spacing, rebuilt: 16 - 16 / spacing
+      }));
+      let paretoBudgetSelect = null, paretoBudgetLine = null, paretoBudgetReadout = null;
       let paretoWitness = null; // Rendered only for a dominated sampled spacing.
       let paretoABPath = null; // Curved dotted link between pinned A and current B (not a trajectory).
       const gauges = match[1] === 'checkpoint-spacing' ? [
@@ -514,12 +519,14 @@
           curve.setAttribute('preserveAspectRatio', 'none');
           curve.setAttribute('aria-hidden', 'true');
           const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-          const choices = [1, 2, 4, 8, 16].map((spacing, i) => ({
-            spacing, i, peak: 16 / spacing + spacing, rebuilt: 16 - 16 / spacing
-          }));
+          const choices = checkpointChoices.map((choice, i) => ({ ...choice, i }));
           line.setAttribute('points', choices.slice(0, 3).map(choice =>
             (10 + 80 * choice.peak / 17).toFixed(3) + ',' +
             (90 - 80 * choice.rebuilt / 15).toFixed(3)).join(' '));
+          paretoBudgetLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          paretoBudgetLine.classList.add('distributed-motion-pareto-budget-line');
+          paretoBudgetLine.setAttribute('y1', '10');
+          paretoBudgetLine.setAttribute('y2', '90');
           // A state-dependent witness is distinct from the sampled frontier:
           // s=2 dominates s=8 at equal PEAK and also dominates s=16 in
           // both modelled costs. The diagram does not draw an optimiser path.
@@ -547,8 +554,22 @@
           paretoABPath.classList.add('distributed-motion-pareto-ab');
           paretoABPath.style.display = 'none';
           // Draw behind the dominance witness; never imply an optimisation direction.
-          curve.append(defs, line, paretoABPath, paretoWitness);
+          curve.append(defs, paretoBudgetLine, line, paretoABPath, paretoWitness);
           plot.append(curve);
+          const budgetLabel = document.createElement('label');
+          budgetLabel.className = 'distributed-motion-budget-control';
+          budgetLabel.append(document.createTextNode(label('Memory cap (slots)', '記憶體上限（槽）')));
+          paretoBudgetSelect = document.createElement('input');
+          paretoBudgetSelect.type = 'range';
+          paretoBudgetSelect.min = '8';
+          paretoBudgetSelect.max = '17';
+          paretoBudgetSelect.step = '1';
+          paretoBudgetSelect.value = '10';
+          paretoBudgetSelect.disabled = true; // enable only after SVG verification
+          budgetLabel.append(paretoBudgetSelect);
+          paretoBudgetReadout = document.createElement('p');
+          paretoBudgetReadout.className = 'distributed-motion-budget-readout';
+          paretoBudgetReadout.setAttribute('aria-live', 'off');
           for (const choice of choices) {
             const dot = document.createElement('button');
             dot.type = 'button';
@@ -585,7 +606,7 @@
           legend.className = 'distributed-motion-pareto-legend';
           legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A · Arrow: dominance witness · Violet dots: A/B link',
                                      '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A · 箭頭：支配見證 · 紫色點線：A/B 連結');
-          map.append(heading, plot, legend);
+          map.append(heading, budgetLabel, plot, legend, paretoBudgetReadout);
           bar.append(map);
         }
         bar.append(comparison);
@@ -806,6 +827,31 @@
         }
         readout.textContent = time.toFixed(1) + ' / ' + config.duration + 's';
         if (interpretation.isConnected) interpretation.textContent = teachingState(time);
+        if (paretoBudgetLine && paretoBudgetSelect && paretoBudgetReadout) {
+          const cap = Number(paretoBudgetSelect.value);
+          const feasible = checkpointChoices.filter(choice => choice.peak <= cap)
+            .sort((a, b) => a.rebuilt - b.rebuilt);
+          // The minimum 8-slot cap guarantees at least the s=4 choice.
+          const best = feasible[0];
+          const cutoff = (10 + 80 * cap / 17).toFixed(3);
+          paretoBudgetLine.setAttribute('x1', cutoff);
+          paretoBudgetLine.setAttribute('x2', cutoff);
+          for (const { button, spacing } of paretoMapDots) {
+            const choice = checkpointChoices.find(candidate => candidate.spacing === spacing);
+            button.dataset.feasible = String(choice.peak <= cap);
+            button.dataset.best = String(spacing === best.spacing);
+          }
+          paretoBudgetReadout.textContent = label(
+            'Cap ' + cap + ' slots: ' + feasible.length + '/5 feasible; least replay s=' +
+              best.spacing + ' (' + best.peak + ' peak, ' + best.rebuilt + ' rebuilt).',
+            '上限 ' + cap + ' 槽：5 種中有 ' + feasible.length + ' 種可行；重建最少為 s=' +
+              best.spacing + '（峰值 ' + best.peak + '、重建 ' + best.rebuilt + '）。'
+          );
+          paretoBudgetSelect.setAttribute('aria-valuetext', label(
+            cap + ' slots; best feasible s=' + best.spacing,
+            cap + ' 槽；可行配置中重建最少 s=' + best.spacing
+          ));
+        }
         for (const { button, spacing } of paretoMapDots) {
           const active = checkpointSpacing(time) === spacing;
           button.classList.toggle('is-current', active);
@@ -1116,6 +1162,13 @@
       };
       policyScaleSelect?.addEventListener('change', jumpToPolicyChoice);
       policySweepSelect?.addEventListener('change', jumpToPolicyChoice);
+      paretoBudgetSelect?.addEventListener('input', () => {
+        // Reuse the same sampled points; no second animation clock.
+        draw();
+      });
+      paretoBudgetSelect?.addEventListener('change', () => {
+        status.textContent = paretoBudgetReadout?.textContent || '';
+      });
       seek.addEventListener('input', () => {
         // A touch drag can emit dozens of input events each second. Keep the
         // SVG, aria-valuetext and text interpretation in sync immediately,
@@ -1284,6 +1337,7 @@
           if (guided) guided.disabled = false;
           landmarkButtons.forEach(({ button }) => { button.disabled = false; });
           paretoMapDots.forEach(({ button }) => { button.disabled = false; });
+          if (paretoBudgetSelect) paretoBudgetSelect.disabled = false;
           retentionTraceButtons.forEach(button => { button.disabled = false; });
           if (policyScaleSelect) policyScaleSelect.disabled = false;
           if (policySweepSelect) policySweepSelect.disabled = false;
