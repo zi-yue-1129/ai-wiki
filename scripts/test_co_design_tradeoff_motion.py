@@ -916,8 +916,8 @@ for spacing, peak, rebuilt in ((8, 10, 14), (16, 17, 15)):
     assert 10 <= peak and 8 < rebuilt
 assert "let paretoWitness = null" in controls_js
 assert "selected === 8 || selected === 16" in controls_js
-assert "'s=2 witness: PEAK 10=10; REBUILT 8<14'" in controls_js
-assert "'s=2 witness: PEAK 10<17; REBUILT 8<15'" in controls_js
+assert "s=2 witness: PEAK 10=10; REBUILT 8<14" in controls_js
+assert "s=2 witness: PEAK 10<17; REBUILT 8<15" in controls_js
 assert ".distributed-motion-pareto-witness" in controls_css
 for name, expected in (("gradient-checkpointing.md", "Dominance witness (MkDocs)"),
                        ("gradient-checkpointing.zh-TW.md", "支配關係的動態見證（MkDocs）")):
