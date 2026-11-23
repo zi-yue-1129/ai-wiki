@@ -359,7 +359,7 @@
           const high = exponent >= 11 ? 'Inf' : 'finite';
           return label(
             `S=2^${exponent} (${scale}) · LOW ${low}${low === '0' ? ' (silent underflow)' : ''} · HIGH ${high} · ${exponent >= 11 ? 'SKIP' : 'STEP ELIGIBLE'} (example)`,
-            `S=2^${exponent}（${scale}）· 小梯度${low === '0' ? '歸零（仍為有限值）' : '非零有限'} · 大梯度${high === 'Inf' ? '溢位' : '有限'} · ${exponent >= 11 ? '跳過更新' : '符合更新條件'}（示意）`
+            `S=2^${exponent}（${scale}）· 小梯度${low === '0' ? '歸零（仍為有限值）' : '非零次正規'} · 大梯度${high === 'Inf' ? '溢位' : '有限'} · ${exponent >= 11 ? '跳過更新' : '符合更新條件'}（示意）`
           );
         }
         if (match[1] === 'gradscaler-feedback') {

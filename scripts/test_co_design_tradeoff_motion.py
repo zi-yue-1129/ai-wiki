@@ -792,3 +792,5 @@ for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     body = (pages / name).read_text(encoding="utf-8")
     assert "2^{-17}" in body and ("subnormal" in body or "次正規" in body)
 print("Pareto, binary16 subnormal and GradScaler reset contracts OK")
+
+assert "非零次正規" in controls_js
