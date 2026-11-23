@@ -554,6 +554,32 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
             'true', 'true', 'true', 'false', 'false']
         expect(dots.first).to_have_attribute('aria-current', 'true')
         assert all(dots.nth(i).is_enabled() for i in range(5))
+        # Native budget-slider feasibility: constrain PEAK but optimize
+        # total rebuilt activations only among feasible sampled spacings.
+        budget = pareto.locator('.distributed-motion-budget-control input[type="range"]')
+        expect(budget).to_have_count(1)
+        assert budget.is_enabled()
+        budget_line = pareto.locator('.distributed-motion-pareto-budget-line')
+        expect(budget_line).to_have_count(1)
+        cap_readout = pareto.locator('.distributed-motion-budget-readout')
+        for cap, feasible_count, best in ((8, 1, 's=4'), (10, 3, 's=2'), (17, 5, 's=1')):
+            budget.evaluate("""(element, value) => {
+                element.value = String(value);
+                element.dispatchEvent(new Event('input', {bubbles:true}));
+            }""", cap)
+            assert pareto.locator('.distributed-motion-pareto-dot[data-feasible="true"]').count() == feasible_count
+            expect(pareto.locator('.distributed-motion-pareto-dot[data-best="true"]')).to_have_count(1)
+            assert best in cap_readout.inner_text(), (cap, cap_readout.inner_text())
+            assert budget_line.get_attribute('x1') == budget_line.get_attribute('x2')
+        budget.focus()
+        page.keyboard.press('Home')
+        assert budget.input_value() == '8'
+        assert 's=4' in budget.get_attribute('aria-valuetext')
+        page.keyboard.press('End')
+        assert budget.input_value() == '17'
+        assert 's=1' in budget.get_attribute('aria-valuetext')
+        budget.evaluate("""e => {e.value='10';e.dispatchEvent(new Event('input', {bubbles:true}));}""")
+        assert_document_fits(page, viewport)
         dots.nth(2).focus()
         page.keyboard.press('Enter')  # native accessible map selection
         assert 's=4' in seek.get_attribute('aria-valuetext')
