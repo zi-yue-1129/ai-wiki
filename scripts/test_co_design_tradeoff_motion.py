@@ -774,3 +774,21 @@ for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
     body = (pages / name).read_text(encoding="utf-8")
     assert ("s=2 → s=8" if name.startswith("gradient-") else "S=2048 → 1024") in body
 print("Expanded bilingual guided examples and built-browser contracts OK")
+
+# Binary16 boundary reasoning and shared bilingual teaching contracts.
+for exponent in range(13):
+    low = 2.0 ** (exponent - 27)
+    high = 2.0 ** (exponent + 5)
+    assert (exponent <= 2) == (low <= 2 ** -25)
+    assert (exponent >= 3) == (2 ** -24 <= low < 2 ** -14)
+    assert (exponent >= 11) == (high >= 2 ** 16)
+assert "LOW SUBNORMAL, HIGH FINITE" in controls_js
+assert "Pareto-dominates" in controls_js
+assert "counter resets to 0" in controls_js
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
+    body = (pages / name).read_text(encoding="utf-8")
+    assert "Pareto" in body and ("at least one" in body or "至少一項" in body)
+for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    body = (pages / name).read_text(encoding="utf-8")
+    assert "2^{-17}" in body and ("subnormal" in body or "次正規" in body)
+print("Pareto, binary16 subnormal and GradScaler reset contracts OK")

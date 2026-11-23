@@ -542,6 +542,19 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     }[stem])
     assert all(token in initial_summary for token in initial_tokens[stem]), (stem, initial_summary)
     capture('initial')
+    # Native browser checks of exact subnormal and post-growth states.
+    if stem == 'fp16-scaling-window':
+        for chosen, expected in ((1.42, 'subnormal'), (4.66, 'subnormal'), (5.12, 'Inf')):
+            seek.evaluate("""(el,t) => {el.value=String(Math.round(t/12*1000));
+                el.dispatchEvent(new Event('input',{bubbles:true}));}""", chosen)
+            summary = interpretation.inner_text()
+            assert expected in summary or ('次正規' if expected == 'subnormal' else '溢位') in summary, summary
+        seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
+    if stem == 'gradscaler-feedback':
+        seek.evaluate("""el => {el.value="171";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
+        summary = interpretation.inner_text()
+        assert 'counter resets to 0' in summary or '計數歸零' in summary, summary
+        seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
     buttons.nth(2).click()  # Semantic next step
     status_region = controls.locator('.concept-motion-status')
     step_announcement = status_region.inner_text()
@@ -621,8 +634,8 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     before_swap_delta = comparison.locator('.distributed-motion-compare-delta').inner_text()
     qualitative_forward = {
         'checkpoint-spacing': ('Memory–recomputation trade-off.', '記憶體與重算量存在取捨。'),
-        'fp16-scaling-window': ('Rounded regime: LOW ZERO → BOTH FINITE NONZERO',
-                                '捨入狀態：小梯度歸零 → 兩筆皆為有限非零'),
+        'fp16-scaling-window': ('Rounded regime: LOW ZERO → LOW SUBNORMAL, HIGH FINITE',
+                                '捨入狀態：小梯度歸零 → 小梯度次正規、大梯度有限'),
         'gradscaler-feedback': ('Next-scale action: hold → grow', '下一次縮放動作：維持 → 放大'),
     }[stem]
     assert any(t in before_swap_delta for t in qualitative_forward), (stem, before_swap_delta)
@@ -630,7 +643,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     # from Inf-triggered skipping, and separates GradScaler history from
     # the one-iteration finite-check result.
     if stem == 'fp16-scaling-window':
-        assert '0 → finite' in before_swap_delta and 'Δ +6' in before_swap_delta, (
+        assert '0 → subnormal' in before_swap_delta and 'Δ +6' in before_swap_delta, (
             stem, before_swap_delta
         )
     if stem == 'gradscaler-feedback':
@@ -648,13 +661,13 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     after_swap_delta = comparison.locator('.distributed-motion-compare-delta').inner_text()
     qualitative_reverse = {
         'checkpoint-spacing': ('Memory–recomputation trade-off.', '記憶體與重算量存在取捨。'),
-        'fp16-scaling-window': ('Rounded regime: BOTH FINITE NONZERO → LOW ZERO',
-                                '捨入狀態：兩筆皆為有限非零 → 小梯度歸零'),
+        'fp16-scaling-window': ('Rounded regime: LOW SUBNORMAL, HIGH FINITE → LOW ZERO',
+                                '捨入狀態：小梯度次正規、大梯度有限 → 小梯度歸零'),
         'gradscaler-feedback': ('Next-scale action: grow → hold', '下一次縮放動作：放大 → 維持'),
     }[stem]
     assert any(t in after_swap_delta for t in qualitative_reverse), (stem, after_swap_delta)
     if stem == 'fp16-scaling-window':
-        assert 'finite → 0' in after_swap_delta and 'Δ -6' in after_swap_delta, (
+        assert 'subnormal → 0' in after_swap_delta and 'Δ -6' in after_swap_delta, (
             stem, after_swap_delta
         )
     if stem == 'gradscaler-feedback':
@@ -675,12 +688,12 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         # s=8 is strictly dominated by s=4 under the two toy-model metrics.
         seek.evaluate('e => {e.value = "417"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
         verdict = comparison.locator('.distributed-motion-compare-delta').inner_text()
-        assert ('B dominates A on both schematic costs.' in verdict or
-                'B 在兩項示意成本上皆不劣於 A。' in verdict), verdict
+        assert ('B Pareto-dominates A (no worse on either cost).' in verdict or
+                'B 在雙成本上 Pareto 支配 A（皆不劣且至少一項更好）。' in verdict), verdict
         swap_pin.click()
         reversed_verdict = comparison.locator('.distributed-motion-compare-delta').inner_text()
-        assert ('A dominates B on both schematic costs.' in reversed_verdict or
-                'A 在兩項示意成本上皆不劣於 B。' in reversed_verdict), reversed_verdict
+        assert ('A Pareto-dominates B (no worse on either cost).' in reversed_verdict or
+                'A 在雙成本上 Pareto 支配 B（皆不劣且至少一項更好）。' in reversed_verdict), reversed_verdict
     clear_pin.click()
     expect(comparison).to_be_hidden()
     expect(clear_pin).to_be_hidden()

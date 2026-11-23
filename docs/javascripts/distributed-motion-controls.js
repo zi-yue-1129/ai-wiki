@@ -147,7 +147,7 @@
         { t: 7.25, en: 's=8', tw: 's=8', hintEn: 'Checkpoint spacing 8: peak 10, rebuilt 14', hintTw: '間距 8：峰值 10、重算 14' },
         { t: 9.65, en: 's=16', tw: 's=16', hintEn: 'Checkpoint spacing 16: peak 17, rebuilt 15', hintTw: '間距 16：峰值 17、重算 15' },
       ] : match[1] === 'fp16-scaling-window' ? [
-        { t: 1.42, en: 'LOW +', tw: '小值保留', hintEn: 'Ascending scale 8: small gradient first survives rounding', hintTw: '上升至縮放 8：小梯度首次不再歸零' },
+        { t: 1.42, en: 'LOW +', tw: '小值保留', hintEn: 'Ascending scale 8: small gradient first survives as a subnormal', hintTw: '上升至縮放 8：小梯度首次成為非零次正規數' },
         { t: 5.12, en: 'HIGH Inf', tw: '大值溢位', hintEn: 'Ascending scale 2048: large gradient overflows to infinity', hintTw: '上升至縮放 2048：大梯度溢位成無限值' },
         { t: 6.98, en: 'HIGH finite', tw: '大值恢復', hintEn: 'Descending scale 1024: large gradient becomes finite again', hintTw: '下降至縮放 1024：大梯度重新成為有限值' },
         { t: 10.67, en: 'LOW 0', tw: '小值歸零', hintEn: 'Descending scale 4: small gradient rounds to zero again', hintTw: '下降至縮放 4：小梯度再次捨入為零' },
@@ -355,7 +355,7 @@
           // 27 equal discrete SMIL frames: 0..12, 12..0, final 0.
           const exponent = scaleExponent(t);
           const scale = 2 ** exponent;
-          const low = exponent <= 2 ? '0' : 'finite';
+          const low = exponent <= 2 ? '0' : 'subnormal';
           const high = exponent >= 11 ? 'Inf' : 'finite';
           return label(
             `S=2^${exponent} (${scale}) · LOW ${low}${low === '0' ? ' (silent underflow)' : ''} · HIGH ${high} · ${exponent >= 11 ? 'SKIP' : 'STEP ELIGIBLE'} (example)`,
@@ -369,8 +369,8 @@
           const check = i === 2 || i === 5 ? 'Inf' : 'finite';
           const streak = [1, 2, 0, 1, 2, 0][i];
           return label(
-            `t${i + 1} · S ${current} → NEXT ${following} · ${check} · ${check === 'Inf' ? 'SKIP / reset' : 'STEP ELIGIBLE'} · ${check === 'Inf' ? 'backoff' : streak === 2 ? 'grow after 2/2' : 'streak 1/2'} (example)`,
-            `t${i + 1} · 當次 ${current} → 下次 ${following} · ${check === 'Inf' ? '溢位、跳過並重設' : '通過非有限值檢查、符合更新條件'} · ${check === 'Inf' ? '縮小係數' : streak === 2 ? '連續通過 2/2，放大' : '連續通過 1/2'}（示意）`
+            `t${i + 1} · S ${current} → NEXT ${following} · ${check} · ${check === 'Inf' ? 'SKIP / reset' : 'STEP ELIGIBLE'} · ${check === 'Inf' ? 'backoff' : streak === 2 ? 'grow after 2/2; counter resets to 0' : 'streak 1/2'} (example)`,
+            `t${i + 1} · 當次 ${current} → 下次 ${following} · ${check === 'Inf' ? '溢位、跳過並重設' : '通過非有限值檢查、符合更新條件'} · ${check === 'Inf' ? '縮小係數' : streak === 2 ? '連續通過 2/2，放大後計數歸零' : '連續通過 1/2'}（示意）`
           );
         }
         return '';
@@ -385,8 +385,8 @@
         }
         if (match[1] === 'fp16-scaling-window') {
           const k = scaleExponent(t);
-          return label(`S=${2 ** k} · LOW ${k <= 2 ? '0' : 'finite'} · HIGH ${k >= 11 ? 'Inf' : 'finite'} · ${k >= 11 ? 'SKIP' : 'ELIGIBLE'}`,
-                       `S=${2 ** k} · 小梯度${k <= 2 ? '歸零' : '有限'} · 大梯度${k >= 11 ? '溢位' : '有限'} · ${k >= 11 ? '跳過' : '符合更新條件'}`);
+          return label(`S=${2 ** k} · LOW ${k <= 2 ? '0' : 'subnormal'} · HIGH ${k >= 11 ? 'Inf' : 'finite'} · ${k >= 11 ? 'SKIP' : 'ELIGIBLE'}`,
+                       `S=${2 ** k} · 小梯度${k <= 2 ? '歸零' : '次正規'} · 大梯度${k >= 11 ? '溢位' : '有限'} · ${k >= 11 ? '跳過' : '符合更新條件'}`);
         }
         const i = Math.min(5, Math.floor(t / 2));
         const s = [1024, 1024, 2048, 1024, 1024, 2048][i];
@@ -411,7 +411,7 @@
         if (match[1] === 'fp16-scaling-window') {
           const x = scaleExponent(a), y = scaleExponent(b);
           const result = k => k >= 11 ? 'SKIP' : 'ELIGIBLE';
-          const low = k => k <= 2 ? '0' : 'finite';
+          const low = k => k <= 2 ? '0' : 'subnormal';
           const high = k => k >= 11 ? 'Inf' : 'finite';
           // A rounded zero is finite: it loses information but does not
           // trigger the nonfinite step gate. Compare both rounded inputs.
@@ -438,10 +438,10 @@
           const dReplay = (16 - 16 / sb) - (16 - 16 / sa);
           if (!dPeak && !dReplay) return label('Same aggregate costs.', '總體成本相同。');
           if (dPeak <= 0 && dReplay <= 0) {
-            return label('B dominates A on both schematic costs.', 'B 在兩項示意成本上皆不劣於 A。');
+            return label('B Pareto-dominates A (no worse on either cost).', 'B 在雙成本上 Pareto 支配 A（皆不劣且至少一項更好）。');
           }
           if (dPeak >= 0 && dReplay >= 0) {
-            return label('A dominates B on both schematic costs.', 'A 在兩項示意成本上皆不劣於 B。');
+            return label('A Pareto-dominates B (no worse on either cost).', 'A 在雙成本上 Pareto 支配 B（皆不劣且至少一項更好）。');
           }
           return label('Memory–recomputation trade-off.', '記憶體與重算量存在取捨。');
         }
@@ -449,7 +449,7 @@
           const regime = k => k <= 2
             ? label('LOW ZERO', '小梯度歸零')
             : k >= 11 ? label('HIGH INF', '大梯度溢位')
-              : label('BOTH FINITE NONZERO', '兩筆皆為有限非零');
+              : label('LOW SUBNORMAL, HIGH FINITE', '小梯度次正規、大梯度有限');
           return label('Rounded regime: ', '捨入狀態：') + regime(scaleExponent(a)) + ' → ' + regime(scaleExponent(b)) +
             label(' (illustrative binary16 only).', '（僅限本例 binary16）。');
         }
