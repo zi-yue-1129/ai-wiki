@@ -579,6 +579,28 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         assert budget.input_value() == '17'
         assert 's=1' in budget.get_attribute('aria-valuetext')
         budget.evaluate("""e => {e.value='10';e.dispatchEvent(new Event('input', {bubbles:true}));}""")
+        # Compare the original A to constrained-optimal B via native keyboard
+        # activation; this must seek the real SVG and update the existing map.
+        compare_best = pareto.locator('button.distributed-motion-budget-compare')
+        expect(compare_best).to_have_count(1)
+        dots.nth(4).click()  # current s=16
+        for cap, expected_best, previous in ((8, 's=4', 's=16'),
+                                             (10, 's=2', 's=4'),
+                                             (17, 's=1', 's=2')):
+            budget.evaluate("""(e,v) => {e.value=String(v);
+                e.dispatchEvent(new Event('input',{bubbles:true}));}""", cap)
+            assert compare_best.is_enabled(), (cap, expected_best)
+            compare_best.focus()
+            page.keyboard.press('Enter')
+            assert expected_best in seek.get_attribute('aria-valuetext')
+            assert compare_best.is_disabled()
+            expect(controls.locator('.distributed-motion-comparison')).to_be_visible()
+            assert previous in controls.locator('.distributed-motion-compare-a').inner_text()
+            assert expected_best in controls.locator('.distributed-motion-compare-b').inner_text()
+            assert pareto.locator('.distributed-motion-pareto-ab').evaluate(
+                '(e) => getComputedStyle(e).display') != 'none'
+        controls.locator('button.distributed-motion-clear').click()
+        budget.evaluate("""e => {e.value='10';e.dispatchEvent(new Event('input', {bubbles:true}));}""")
         assert_document_fits(page, viewport)
         dots.nth(2).focus()
         page.keyboard.press('Enter')  # native accessible map selection

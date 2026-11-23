@@ -135,6 +135,7 @@
         spacing, peak: 16 / spacing + spacing, rebuilt: 16 - 16 / spacing
       }));
       let paretoBudgetSelect = null, paretoBudgetLine = null, paretoBudgetReadout = null;
+      let paretoBudgetCompareButton = null; // Constrained, keyboard-operable A/B action.
       let paretoWitness = null; // Rendered only for a dominated sampled spacing.
       let paretoABPath = null; // Curved dotted link between pinned A and current B (not a trajectory).
       const gauges = match[1] === 'checkpoint-spacing' ? [
@@ -567,6 +568,17 @@
           paretoBudgetSelect.value = '10';
           paretoBudgetSelect.disabled = true; // enable only after SVG verification
           budgetLabel.append(paretoBudgetSelect);
+          // Compare the selected state A with the least-replay feasible B,
+          // without introducing another animation timeline.
+          const budgetActions = document.createElement('div');
+          budgetActions.className = 'distributed-motion-budget-actions';
+          paretoBudgetCompareButton = document.createElement('button');
+          paretoBudgetCompareButton.type = 'button';
+          paretoBudgetCompareButton.className = 'distributed-motion-budget-compare';
+          paretoBudgetCompareButton.textContent = label('Compare current → best feasible',
+                                                       '比較目前 → 最佳可行');
+          paretoBudgetCompareButton.disabled = true;
+          budgetActions.append(paretoBudgetCompareButton);
           paretoBudgetReadout = document.createElement('p');
           paretoBudgetReadout.className = 'distributed-motion-budget-readout';
           paretoBudgetReadout.setAttribute('aria-live', 'off');
@@ -606,7 +618,7 @@
           legend.className = 'distributed-motion-pareto-legend';
           legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A · Arrow: dominance witness · Violet dots: A/B link',
                                      '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A · 箭頭：支配見證 · 紫色點線：A/B 連結');
-          map.append(heading, budgetLabel, plot, legend, paretoBudgetReadout);
+          map.append(heading, budgetLabel, budgetActions, plot, legend, paretoBudgetReadout);
           bar.append(map);
         }
         bar.append(comparison);
@@ -851,6 +863,17 @@
             cap + ' slots; best feasible s=' + best.spacing,
             cap + ' 槽；可行配置中重建最少 s=' + best.spacing
           ));
+          if (paretoBudgetCompareButton) {
+            const current = checkpointSpacing(time);
+            // Disable a no-op when B already is the constrained optimum.
+            paretoBudgetCompareButton.disabled = current === best.spacing;
+            paretoBudgetCompareButton.setAttribute('aria-label', label(
+              'Pin current s=' + current + ' as A; compare to least-replay feasible s=' +
+                best.spacing + ' under cap ' + cap,
+              '將目前 s=' + current + ' 釘選為 A，與上限 ' + cap +
+                ' 槽下重建最少的可行配置 s=' + best.spacing + ' 比較'
+            ));
+          }
         }
         for (const { button, spacing } of paretoMapDots) {
           const active = checkpointSpacing(time) === spacing;
@@ -1168,6 +1191,31 @@
       });
       paretoBudgetSelect?.addEventListener('change', () => {
         status.textContent = paretoBudgetReadout?.textContent || '';
+      });
+      paretoBudgetCompareButton?.addEventListener('click', () => {
+        if (!svg || !paretoBudgetSelect) return;
+        const cap = Number(paretoBudgetSelect.value);
+        const feasible = checkpointChoices.filter(choice => choice.peak <= cap)
+          .sort((a, b) => a.rebuilt - b.rebuilt);
+        const best = feasible[0]; // cap >= 8 guarantees a feasible choice
+        const before = checkpointSpacing(time);
+        if (before === best.spacing) return;
+        const target = landmarks.find(event => event.en === 's=' + best.spacing);
+        if (!target) return;
+        stop(false);
+        pinnedTime = time; // A is the original reader-selected spacing
+        comparison.hidden = false;
+        clearPin.hidden = false;
+        swapPin.hidden = false;
+        sweepPin.hidden = false;
+        pin.textContent = label('Replace A', '更新 A');
+        setTime(target.t); // B redraws existing SMIL, A/B gauges and map
+        status.textContent = label(
+          'Cap ' + cap + ': pinned s=' + before + ' as A; selected best feasible s=' +
+            best.spacing + ' as B. ' + compareChange(pinnedTime, time),
+          '上限 ' + cap + ' 槽：釘選 s=' + before + ' 為 A；選取最佳可行 s=' +
+            best.spacing + ' 為 B。' + compareChange(pinnedTime, time)
+        );
       });
       seek.addEventListener('input', () => {
         // A touch drag can emit dozens of input events each second. Keep the

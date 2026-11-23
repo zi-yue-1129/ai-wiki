@@ -469,6 +469,25 @@
   outline-offset: 3px;
 }
 .distributed-motion-budget-control input:disabled { opacity: .5; }
+/* Native constrained A/B action is outside the range label for correct Tab order. */
+.distributed-motion-budget-actions {
+  display: flex; gap: .45rem; flex-wrap: wrap; margin: .1rem 0 .65rem;
+}
+.distributed-motion-budget-compare {
+  box-sizing: border-box; min-height: 2rem; max-width: 100%; padding: .3rem .7rem;
+  border: 1px solid #8b46bf; border-radius: .35rem;
+  font: inherit; font-size: .73rem; font-weight: 650;
+  color: var(--md-default-fg-color, #35264b);
+  background: var(--md-code-bg-color, #f1eafa); cursor: pointer;
+}
+.distributed-motion-budget-compare:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #903ec7);
+  outline-offset: 3px;
+}
+.distributed-motion-budget-compare:disabled { opacity: .58; cursor: not-allowed; }
+@media (max-width: 420px) {
+  .distributed-motion-budget-compare { width: 100%; }
+}
 .distributed-motion-budget-readout {
   margin: .45rem 0 0;
   font-size: .73rem;

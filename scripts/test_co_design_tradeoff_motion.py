@@ -1081,3 +1081,30 @@ for page in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
     assert ("Constrained memory budget (MkDocs)" if page.endswith("ing.md")
             else "記憶體上限下的可行選擇（MkDocs）") in text
 print("Constrained checkpoint Pareto budgets, safe fallback and bilingual links OK")
+
+# The budget action must pin the selected original A and seek B on the same
+# tested SVG clock; it is not a decorative second chart.
+for token in (
+    "paretoBudgetCompareButton = document.createElement('button')",
+    "paretoBudgetCompareButton.disabled = current === best.spacing",
+    "paretoBudgetCompareButton?.addEventListener('click'",
+    "pinnedTime = time; // A is the original reader-selected spacing",
+    "setTime(target.t); // B redraws existing SMIL, A/B gauges and map",
+):
+    assert token in controls_js, token
+assert '.distributed-motion-budget-compare:focus-visible' in controls_css
+for cap, old, expected_s, expected_peak, expected_rebuilt in (
+    (8, 16, 4, -9, -3),
+    (10, 8, 2, 0, -6),
+    (17, 2, 1, 7, -8),
+):
+    choices = [(s, 16 // s + s, 16 - 16 // s) for s in (1, 2, 4, 8, 16)]
+    best = min((choice for choice in choices if choice[1] <= cap), key=lambda choice: choice[2])
+    assert best[0] == expected_s
+    assert best[1] - (16 // old + old) == expected_peak
+    assert best[2] - (16 - 16 // old) == expected_rebuilt
+assert 'Compare current to best feasible (MkDocs)' in (
+    pages / 'gradient-checkpointing.md').read_text(encoding='utf-8')
+assert '目前配置與最佳可行解的比較（MkDocs）' in (
+    pages / 'gradient-checkpointing.zh-TW.md').read_text(encoding='utf-8')
+print('Budget-to-A/B decisions, delta contracts and bilingual copy OK')
