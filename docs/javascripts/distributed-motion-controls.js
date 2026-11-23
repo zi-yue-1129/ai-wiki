@@ -126,6 +126,8 @@
       const eligibleSoFar = [1, 2, 2, 3, 4, 4];
       // Rendering only: accessible counts remain in interpretation and slider.
       const retentionTraceCells = [];
+      const policyWindowCells = [];
+      let policyWindowDirection = null;
       const paretoMapDots = [];
       const gauges = match[1] === 'checkpoint-spacing' ? [
         { id: 'peak', en: 'PEAK', tw: '峰值槽位', max: 17, at: t => 16 / checkpointSpacing(t) + checkpointSpacing(t) },
@@ -350,6 +352,55 @@
             trace.append(lane);
           }
           bar.append(trace);
+        }
+        if (match[1] === 'fp16-scaling-window') {
+          // Hypothetical binary16 storage FTZ versus ideal IEEE subnormals;
+          // the SVG and all controls still share one timeline.
+          const panel = document.createElement('section');
+          panel.className = 'distributed-motion-policy-window';
+          panel.setAttribute('aria-hidden', 'true');
+          const heading = document.createElement('div');
+          heading.className = 'distributed-motion-policy-heading';
+          const textLabel = document.createElement('span');
+          textLabel.textContent = 'FP16 PAIR · IEEE / FTZ';
+          policyWindowDirection = document.createElement('span');
+          policyWindowDirection.className = 'distributed-motion-policy-direction';
+          heading.append(textLabel, policyWindowDirection);
+          panel.append(heading);
+          const ticks = document.createElement('div');
+          ticks.className = 'distributed-motion-policy-row';
+          const kLabel = document.createElement('strong');
+          kLabel.className = 'distributed-motion-policy-label';
+          kLabel.textContent = '2^k';
+          ticks.append(kLabel);
+          for (let k = 0; k <= 12; k++) {
+            const tick = document.createElement('span');
+            tick.className = 'distributed-motion-policy-tick';
+            tick.textContent = [0, 3, 6, 10, 12].includes(k) ? String(k) : '';
+            ticks.append(tick);
+          }
+          panel.append(ticks);
+          for (const policy of ['IEEE', 'FTZ']) {
+            const row = document.createElement('div');
+            row.className = 'distributed-motion-policy-row';
+            const policyLabel = document.createElement('strong');
+            policyLabel.className = 'distributed-motion-policy-label';
+            policyLabel.textContent = policy;
+            row.append(policyLabel);
+            const cells = [];
+            for (let k = 0; k <= 12; k++) {
+              const cell = document.createElement('span');
+              cell.className = 'distributed-motion-policy-cell';
+              cell.dataset.exponent = String(k);
+              cell.dataset.state = k >= 11 ? 'overflow'
+                : policy === 'IEEE' && pairWindow(k) ? 'valid' : 'underflow';
+              row.append(cell);
+              cells.push(cell);
+            }
+            policyWindowCells.push(cells);
+            panel.append(row);
+          }
+          bar.append(panel);
         }
         if (match[1] === 'checkpoint-spacing') {
           // A second, synchronised view exposes the sampled Pareto frontier:
@@ -638,6 +689,17 @@
           button.classList.toggle('is-current', active);
           if (active) button.setAttribute('aria-current', 'true');
           else button.removeAttribute('aria-current');
+        }
+        if (policyWindowCells.length) {
+          const exponent = scaleExponent(time);
+          policyWindowDirection.textContent = 'S=2^' + exponent +
+            (fp16Frame(time) <= 12 ? ' ↑' : ' ↓');
+          for (const cells of policyWindowCells) {
+            cells.forEach((cell, k) => {
+              if (k === exponent) cell.dataset.current = 'true';
+              else delete cell.dataset.current;
+            });
+          }
         }
         if (retentionTraceCells.length) {
           const current = feedbackIndex(time);
