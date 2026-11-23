@@ -587,6 +587,24 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
             mismatch = pair_expected
             assert (f'IEEE/FTZ MISMATCH {mismatch}' in summary or
                     f'IEEE／沖零判斷相異：{"是" if mismatch == "YES" else "否"}' in summary), summary
+        policy = controls.locator('.distributed-motion-policy-window')
+        expect(policy).to_be_visible()
+        assert policy.get_attribute('aria-hidden') == 'true'
+        policy_rows = policy.locator('.distributed-motion-policy-row')
+        expect(policy_rows).to_have_count(3)
+        ieee_cells = policy_rows.nth(1).locator('.distributed-motion-policy-cell')
+        ftz_cells = policy_rows.nth(2).locator('.distributed-motion-policy-cell')
+        expect(ieee_cells).to_have_count(13)
+        expect(ftz_cells).to_have_count(13)
+        for k, ieee_state, ftz_state in ((0, 'underflow', 'underflow'), (3, 'valid', 'underflow'), (10, 'valid', 'underflow'), (11, 'overflow', 'overflow')):
+            assert ieee_cells.nth(k).get_attribute('data-state') == ieee_state
+            assert ftz_cells.nth(k).get_attribute('data-state') == ftz_state
+        for t, k, direction in ((1.42, 3, '↑'), (5.12, 11, '↑'), (6.98, 10, '↓')):
+            seek.evaluate("""(el,t) => {el.value=String(Math.round(t/12*1000));el.dispatchEvent(new Event('input',{bubbles:true}));}""", t)
+            assert ieee_cells.nth(k).get_attribute('data-current') == 'true'
+            assert ftz_cells.nth(k).get_attribute('data-current') == 'true'
+            assert direction in policy.locator('.distributed-motion-policy-direction').inner_text()
+            assert_document_fits(page, viewport)
         seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
     if stem == 'gradscaler-feedback':
         seek.evaluate("""el => {el.value="171";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
