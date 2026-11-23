@@ -854,3 +854,21 @@ for lang, phrase in (("mixed-precision.md", "What if subnormals are flushed to z
                      ("mixed-precision.zh-TW.md", "次正規數沖零時的反事實比較")):
     assert phrase in (pages / lang).read_text(encoding="utf-8")
 print("FTZ vs ideal binary16 arithmetic and bilingual explanation contracts OK")
+
+
+# The FTZ counterfactual must also explain why a GradScaler nonfinite gate
+# cannot notice silent loss of a small (subnormal) gradient.
+eligible_history = [1, 2, 2, 3, 4, 4]
+scales = [1024, 1024, 2048, 1024, 1024, 2048]
+assert all(0 < (2 ** -27) * s < 2 ** -14 for s in scales)
+assert [((2 ** -27) * s) >= 2 ** -24 for s in scales] == [True] * 6
+assert eligible_history == [1, 2, 2, 3, 4, 4]
+for token in ("ELIGIBLE LOW KEPT: IEEE", "ELIGIBLE LOW KEPT IEEE/FTZ",
+              "ELIGIBLE LOW KEPT IEEE ${eligibleSoFar[ia]}",
+              "符合條件且小梯度非零累計", "符合條件且保留小梯度"):
+    assert token in controls_js, token
+for lang, text in (("mixed-precision.md", "Why finite-check feedback cannot repair silent FTZ loss"),
+                   ("mixed-precision.zh-TW.md", "有限值回饋無法修復 FTZ 的靜默資訊流失")):
+    content = (pages / lang).read_text(encoding="utf-8")
+    assert text in content and "1, 2, 2, 3, 4, 4" in content.replace("、", ", ")
+print("GradScaler FTZ/IEEE low-gradient retention, bilingual contracts OK")

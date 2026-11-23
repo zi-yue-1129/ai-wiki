@@ -577,6 +577,8 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         assert 'counter resets to 0' in summary or '計數歸零' in summary, summary
         assert 'POST-DECISION STREAK 0/2' in summary or '決策後計數 0/2' in summary, summary
         assert 'ELIGIBLE SO FAR 2' in summary or '累計符合更新條件 2 次' in summary, summary
+        assert ('ELIGIBLE LOW KEPT: IEEE 2 / FTZ 0' in summary or
+                '符合條件且小梯度非零累計：IEEE 2／沖零假設 0' in summary), summary
         seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
     buttons.nth(2).click()  # Semantic next step
     status_region = controls.locator('.concept-motion-status')
@@ -674,6 +676,8 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         )
     if stem == 'gradscaler-feedback':
         assert 'ELIGIBLE SO FAR 1 → 4' in before_swap_delta or '累計符合更新條件 1 → 4' in before_swap_delta
+        assert ('ELIGIBLE LOW KEPT IEEE 1 → 4 / FTZ 0 → 0' in before_swap_delta or
+                '符合條件且小梯度保留 IEEE 1 → 4／沖零假設 0 → 0' in before_swap_delta), before_swap_delta
         assert '1/2 → 2/2' in before_swap_delta and 'Δ +1024' in before_swap_delta, (
             stem, before_swap_delta
         )
@@ -700,6 +704,8 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         )
     if stem == 'gradscaler-feedback':
         assert 'ELIGIBLE SO FAR 4 → 1' in after_swap_delta or '累計符合更新條件 4 → 1' in after_swap_delta
+        assert ('ELIGIBLE LOW KEPT IEEE 4 → 1 / FTZ 0 → 0' in after_swap_delta or
+                '符合條件且小梯度保留 IEEE 4 → 1／沖零假設 0 → 0' in after_swap_delta), after_swap_delta
         assert '2/2 → 1/2' in after_swap_delta and 'Δ -1024' in after_swap_delta, (
             stem, after_swap_delta
         )

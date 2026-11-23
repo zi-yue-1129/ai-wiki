@@ -387,8 +387,8 @@
           const check = i === 2 || i === 5 ? 'Inf' : 'finite';
           const streak = [1, 2, 0, 1, 2, 0][i];
           return label(
-            `t${i + 1} · S ${current} → NEXT ${following} · ${check} · ${check === 'Inf' ? 'SKIP / reset' : 'STEP ELIGIBLE'} · ${check === 'Inf' ? 'backoff' : streak === 2 ? 'grow after 2/2; counter resets to 0' : 'streak 1/2'} · POST-DECISION STREAK ${postDecisionStreak[i]}/2 · ELIGIBLE SO FAR ${eligibleSoFar[i]} (example)`,
-            `t${i + 1} · 當次 ${current} → 下次 ${following} · ${check === 'Inf' ? '溢位、跳過並重設' : '通過非有限值檢查、符合更新條件'} · ${check === 'Inf' ? '縮小係數' : streak === 2 ? '連續通過 2/2，放大後計數歸零' : '連續通過 1/2'} · 決策後計數 ${postDecisionStreak[i]}/2 · 累計符合更新條件 ${eligibleSoFar[i]} 次（示意）`
+            `t${i + 1} · S ${current} → NEXT ${following} · ${check} · ${check === 'Inf' ? 'SKIP / reset' : 'STEP ELIGIBLE'} · ${check === 'Inf' ? 'backoff' : streak === 2 ? 'grow after 2/2; counter resets to 0' : 'streak 1/2'} · POST-DECISION STREAK ${postDecisionStreak[i]}/2 · ELIGIBLE SO FAR ${eligibleSoFar[i]} (example) · ELIGIBLE LOW KEPT: IEEE ${eligibleSoFar[i]} / FTZ 0 (hypothetical storage)`,
+            `t${i + 1} · 當次 ${current} → 下次 ${following} · ${check === 'Inf' ? '溢位、跳過並重設' : '通過非有限值檢查、符合更新條件'} · ${check === 'Inf' ? '縮小係數' : streak === 2 ? '連續通過 2/2，放大後計數歸零' : '連續通過 1/2'} · 決策後計數 ${postDecisionStreak[i]}/2 · 累計符合更新條件 ${eligibleSoFar[i]} 次（示意）· 符合條件且小梯度非零累計：IEEE ${eligibleSoFar[i]}／沖零假設 0`
           );
         }
         return '';
@@ -410,8 +410,8 @@
         const s = [1024, 1024, 2048, 1024, 1024, 2048][i];
         const next = [1024, 2048, 1024, 1024, 2048, 1024][i];
         const skip = i === 2 || i === 5;
-        return label(`t${i + 1} · S ${s} → ${next} · ${skip ? 'SKIP' : 'ELIGIBLE'} · ELIGIBLE SO FAR ${eligibleSoFar[i]}`,
-                     `t${i + 1} · 縮放 ${s} → ${next} · ${skip ? '跳過' : '符合更新條件'} · 累計符合更新條件 ${eligibleSoFar[i]} 次`);
+        return label(`t${i + 1} · S ${s} → ${next} · ${skip ? 'SKIP' : 'ELIGIBLE'} · ELIGIBLE SO FAR ${eligibleSoFar[i]} · ELIGIBLE LOW KEPT IEEE/FTZ ${eligibleSoFar[i]}/0`,
+                     `t${i + 1} · 縮放 ${s} → ${next} · ${skip ? '跳過' : '符合更新條件'} · 累計符合更新條件 ${eligibleSoFar[i]} 次 · 符合條件且保留小梯度 IEEE／沖零 ${eligibleSoFar[i]}／0`);
       }
       function compareChange(a, b) {
         // Signed changes distinguish scale/exponent shifts from the absolute
@@ -443,8 +443,8 @@
         const streak = [1, 2, 0, 1, 2, 0];
         const nextScale = [1024, 2048, 1024, 1024, 2048, 1024];
         const ia = index(a), ib = index(b);
-        return label(`Finite check: ${skipped(ia) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(ib) ? 'SKIP' : 'ELIGIBLE'} · streak ${streak[ia]}/2 → ${streak[ib]}/2 · NEXT S ${nextScale[ia]} → ${nextScale[ib]} (Δ ${signed(nextScale[ib] - nextScale[ia])}) · POST-DECISION ${postDecisionStreak[ia]}/2 → ${postDecisionStreak[ib]}/2 · ELIGIBLE SO FAR ${eligibleSoFar[ia]} → ${eligibleSoFar[ib]} (Δ ${signed(eligibleSoFar[ib] - eligibleSoFar[ia])})`,
-                     `有限值檢查：${skipped(ia) ? '跳過' : '符合更新條件'} → ${skipped(ib) ? '跳過' : '符合更新條件'} · 連續通過 ${streak[ia]}/2 → ${streak[ib]}/2 · 下次縮放 ${nextScale[ia]} → ${nextScale[ib]}（Δ ${signed(nextScale[ib] - nextScale[ia])}）· 決策後 ${postDecisionStreak[ia]}/2 → ${postDecisionStreak[ib]}/2 · 累計符合更新條件 ${eligibleSoFar[ia]} → ${eligibleSoFar[ib]}（Δ ${signed(eligibleSoFar[ib] - eligibleSoFar[ia])}）`);
+        return label(`Finite check: ${skipped(ia) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(ib) ? 'SKIP' : 'ELIGIBLE'} · streak ${streak[ia]}/2 → ${streak[ib]}/2 · NEXT S ${nextScale[ia]} → ${nextScale[ib]} (Δ ${signed(nextScale[ib] - nextScale[ia])}) · POST-DECISION ${postDecisionStreak[ia]}/2 → ${postDecisionStreak[ib]}/2 · ELIGIBLE SO FAR ${eligibleSoFar[ia]} → ${eligibleSoFar[ib]} (Δ ${signed(eligibleSoFar[ib] - eligibleSoFar[ia])}) · ELIGIBLE LOW KEPT IEEE ${eligibleSoFar[ia]} → ${eligibleSoFar[ib]} / FTZ 0 → 0`,
+                     `有限值檢查：${skipped(ia) ? '跳過' : '符合更新條件'} → ${skipped(ib) ? '跳過' : '符合更新條件'} · 連續通過 ${streak[ia]}/2 → ${streak[ib]}/2 · 下次縮放 ${nextScale[ia]} → ${nextScale[ib]}（Δ ${signed(nextScale[ib] - nextScale[ia])}）· 決策後 ${postDecisionStreak[ia]}/2 → ${postDecisionStreak[ib]}/2 · 累計符合更新條件 ${eligibleSoFar[ia]} → ${eligibleSoFar[ib]}（Δ ${signed(eligibleSoFar[ib] - eligibleSoFar[ia])}）· 符合條件且小梯度保留 IEEE ${eligibleSoFar[ia]} → ${eligibleSoFar[ib]}／沖零假設 0 → 0`);
       }
       function comparisonInsight(a, b) {
         // Interpret the paired *synthetic* states, not only their numbers.
