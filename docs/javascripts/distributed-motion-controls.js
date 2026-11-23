@@ -915,7 +915,16 @@
       play.addEventListener('click', () => {
         if (!svg) return;
         if (playing) stop();
-        else { playing = true; last = 0; draw(); raf = requestAnimationFrame(tick); }
+        else {
+          // A click dispatched while the player is offscreen or the tab is
+          // hidden must not restart an otherwise paused SMIL timeline.
+          if (!canStartMotion()) {
+            status.textContent = label('Scroll the diagram or controls into view to play.',
+                                       '請先捲動至動畫或控制列，再開始播放。');
+            return;
+          }
+          playing = true; last = 0; draw(); raf = requestAnimationFrame(tick);
+        }
         status.textContent = playing ? label('Animation playing', '動畫播放中') : label('Animation paused', '動畫已暫停');
       });
       function step(direction) {
@@ -982,6 +991,13 @@
         if (!svg || pinnedTime === null) return;
         const target = time;
         stop();
+        // The A→B scan is motion too; it must obey exactly the same
+        // visibility and reduced-motion policy as ordinary playback.
+        if (!canStartMotion()) {
+          status.textContent = label('Scroll the diagram or controls into view to scan A→B.',
+                                     '請先捲動至動畫或控制列，再進行 A→B 掃描。');
+          return;
+        }
         if (Math.abs(target - pinnedTime) < 0.02) {
           status.textContent = label('A and B are identical; choose a different B to scan.',
                                      'A 與 B 相同，請先選擇其他 B。');
@@ -1120,6 +1136,17 @@
       // view before pausing, or a reader using controls on a phone would
       // accidentally stop the diagram while its controls remain visible.
       const viewportTargets = coDesignRegion ? [coDesignRegion, bar] : [host];
+      // IntersectionObserver delivers updates asynchronously, so its last
+      // cached state is not enough to gate a new Play/Scan request. Inspect
+      // actual current geometry as well as tab and motion preferences.
+      const canStartMotion = () => !document.hidden && !reduced.matches &&
+        viewportTargets.some(target => {
+          if (!target.isConnected) return false;
+          const rect = target.getBoundingClientRect();
+          return rect.width > 0 && rect.height > 0 && rect.bottom > 0 &&
+            rect.right > 0 && rect.top < window.innerHeight &&
+            rect.left < window.innerWidth;
+        });
       const viewportVisible = new Map(viewportTargets.map(target => [target, true]));
       const viewportObserver = typeof IntersectionObserver === 'function'
         ? new IntersectionObserver(entries => {
