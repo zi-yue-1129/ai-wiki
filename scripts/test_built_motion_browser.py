@@ -556,7 +556,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         assert all(dots.nth(i).is_enabled() for i in range(5))
         # Native budget-slider feasibility: constrain PEAK but optimize
         # total rebuilt activations only among feasible sampled spacings.
-        budget = pareto.locator('.distributed-motion-budget-control input[type="range"]')
+        budget = pareto.locator('.distributed-motion-budget-control:not(.distributed-motion-replay-control) input[type="range"]')
         expect(budget).to_have_count(1)
         assert budget.is_enabled()
         budget_line = pareto.locator('.distributed-motion-pareto-budget-line')
