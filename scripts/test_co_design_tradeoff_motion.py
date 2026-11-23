@@ -794,3 +794,19 @@ for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
 print("Pareto, binary16 subnormal and GradScaler reset contracts OK")
 
 assert "非零次正規" in controls_js
+
+# Synthetic three-axis interpretation contracts: one global frontier,
+# two-gradient representability (not the optimizer's Inf/NaN gate), and
+# the post-decision GradScaler streak in addition to the decision-time value.
+assert "const pairWindow = k => k >= 3 && k <= 10;" in controls_js
+assert "const postDecisionStreak = [1, 0, 0, 1, 0, 0];" in controls_js
+for token in ("PARETO FRONTIER", "DOMINATED", "PAIR WINDOW", "POST-DECISION STREAK", "POST-DECISION"):
+    assert token in controls_js, token
+for lang in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
+    content = (pages / lang).read_text(encoding="utf-8")
+    assert ("Pareto frontier" in content or "Pareto 前緣" in content)
+for lang in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    content = (pages / lang).read_text(encoding="utf-8")
+    assert "1,0,0,1,0,0" in content or "1、0、0、1、0、0" in content
+    assert "1024" in content and ("PAIR WINDOW" in content or "兩筆均非零有限" in content)
+print("Frontier, two-gradient window and post-decision feedback contracts OK")
