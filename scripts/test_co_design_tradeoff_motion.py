@@ -1040,3 +1040,44 @@ assert 'Direct scale and sweep navigation (MkDocs)' in (
 assert '直接選擇縮放係數與掃描方向（MkDocs）' in (
     pages / 'mixed-precision.zh-TW.md').read_text(encoding='utf-8')
 print('Native FP16 bidirectional scale selection and bilingual history-invariance contract OK')
+
+# Constrained five-choice memory budgets: optimize reconstructed activations
+# *only* over sampled configurations satisfying the synthetic peak-slot cap.
+from xml.etree import ElementTree as _ET
+_choices = [(s, 16 // s + s, 16 - 16 // s) for s in (1, 2, 4, 8, 16)]
+for cap in range(8, 18):
+    eligible = [(s, peak, rebuild) for s, peak, rebuild in _choices if peak <= cap]
+    assert eligible, cap
+    best = min(eligible, key=lambda choice: choice[2])
+    assert best[0] == (4 if cap <= 9 else 2 if cap <= 16 else 1), (cap, best)
+    assert len(eligible) == (1 if cap <= 9 else 3 if cap <= 16 else 5)
+for token in (
+    "const checkpointChoices = [1, 2, 4, 8, 16]",
+    "paretoBudgetSelect.min = '8'",
+    "paretoBudgetSelect.max = '17'",
+    "const feasible = checkpointChoices.filter(choice => choice.peak <= cap)",
+    "button.dataset.feasible = String(choice.peak <= cap)",
+    "button.dataset.best = String(spacing === best.spacing)",
+    "paretoBudgetSelect?.addEventListener('input'",
+    "if (paretoBudgetSelect) paretoBudgetSelect.disabled = false",
+):
+    assert token in controls_js, token
+for token in (".distributed-motion-budget-control", ".distributed-motion-pareto-budget-line",
+              '.distributed-motion-pareto-dot[data-feasible="false"]',
+              '.distributed-motion-pareto-dot[data-best="true"]::after'):
+    assert token in controls_css, token
+_budget_still = (asset / "checkpoint-memory-cap-still.svg").read_text(encoding="utf-8")
+_budget_root = _ET.fromstring(_budget_still)
+assert _budget_root.get("viewBox") == "0 0 360 250"
+assert "BEST FEASIBLE: s=2" in _budget_still
+assert "SCHEMATIC" in _budget_still
+for node in _budget_root.iter():
+    assert node.tag not in {svg + "script", svg + "foreignObject", svg + "image", svg + "use"}
+    assert all(not name.lower().startswith("on") and not name.lower().endswith("href")
+               for name in node.attrib)
+for page in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
+    text = (pages / page).read_text(encoding="utf-8")
+    assert "checkpoint-memory-cap-still.svg" in text
+    assert ("Constrained memory budget (MkDocs)" if page.endswith("ing.md")
+            else "記憶體上限下的可行選擇（MkDocs）") in text
+print("Constrained checkpoint Pareto budgets, safe fallback and bilingual links OK")
