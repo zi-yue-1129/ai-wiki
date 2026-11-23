@@ -1057,6 +1057,34 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     page.wait_for_timeout(160)
     assert abs(get_time() - out_of_view_time) < 0.03, (
         stem, 'SVG continued advancing outside viewport')
+    # The observer already paused this offscreen player. Synthetic Play and
+    # Scan events must not reanimate it when neither image nor controls can
+    # be seen; guard at action time, not only on observer callbacks.
+    buttons.nth(1).evaluate('button => button.click()')
+    page.wait_for_timeout(150)
+    assert abs(get_time() - out_of_view_time) < .03, (
+        stem, 'offscreen Play restarted the SVG clock')
+    assert ('Scroll the diagram or controls' in status_region.inner_text() or
+            '請先捲動至動畫或控制列' in status_region.inner_text())
+    pin.evaluate('button => button.click()')
+    seek.evaluate('''e => {
+        e.value = '750';
+        e.dispatchEvent(new Event('input', { bubbles: true }));
+    }''')
+    offscreen_scan_time = get_time()
+    sweep_pin.evaluate('button => button.click()')
+    page.wait_for_timeout(150)
+    assert abs(get_time() - offscreen_scan_time) < .03, (
+        stem, 'offscreen A/B scan restarted the SVG clock')
+    assert ('Scroll the diagram or controls' in status_region.inner_text() or
+            '請先捲動至動畫或控制列' in status_region.inner_text())
+    seek.evaluate('''(e, t) => {
+        e.value = String(Math.round(t / 12 * 1000));
+        e.dispatchEvent(new Event('input', { bubbles: true }));
+    }''', out_of_view_time)
+    clear_pin.evaluate('button => button.click()')
+    assert abs(get_time() - out_of_view_time) < .03, (
+        stem, 'offscreen guard test failed to restore original selection')
     page.evaluate('window.scrollTo(0, 0)')
     page.wait_for_timeout(140)
     assert abs(get_time() - out_of_view_time) < 0.03, (
