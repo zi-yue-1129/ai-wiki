@@ -47,11 +47,11 @@ FP8 是一種用於深度學習的 8 位元浮點格式。Micikevicius 等人（
 
 ### 動態解說：兩種 FP8 格點的捨入差異
 
-<img data-source-asset-urls src="../../../assets/concept-animations/fp8-rounding-grid-still.svg" data-motion-src="../../../assets/concept-animations/fp8-rounding-grid-motion.svg" data-still-src="../../../assets/concept-animations/fp8-rounding-grid-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="從 1 到 2 的十七個輸入樣本，E4M3 的格點比 E5M2 密集；橘色水平線段表示捨入誤差。">
+<img data-source-asset-urls src="../../../assets/concept-animations/fp8-rounding-grid-still.svg" data-motion-src="../../../assets/concept-animations/fp8-rounding-grid-motion.svg" data-still-src="../../../assets/concept-animations/fp8-rounding-grid-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="從 1 到 2 的十七個輸入樣本，E4M3 的格點比 E5M2 密集；橘色水平線段表示捨入誤差；只有在平手時，兩個白色虛線環才標示等距的候選格點。">
 
 *原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態圖](../../../assets/concept-animations/fp8-rounding-grid-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/fp8-rounding-grid-motion.svg)。網站可播放／暫停；暫停會回到代表性靜態圖，而非凍結當前影格。
 
-這個例子只考慮單一正規指數區間，縮放係數為 1，並明確採用最接近值捨入、平手取偶數（round-to-nearest, ties-to-even）。依照有效數位的配置，E4M3 在 $[1,2]$ 的間距為 $2^{-3}=1/8$，E5M2 則為 $2^{-2}=1/4$。[^fp8-grid] 輸入樣本為 $x=1+i/16$，$i=0,\ldots,16$。輸出標記跳至對應格點；橘線長度代表 $|Q(x)-x|$。當 $x=1.125$ 時，E4M3 能精確保留該值，E5M2 則將中點捨入至 1；當 $x=1.0625$ 時，兩者皆捨入至 1。在這個取樣指數區間內，兩種格式的最大絕對捨入誤差分別為 $1/16$ 與 $1/8$。這些是數學示意值，不是硬體或模型實測；不同指數區間、次正規數與其他轉換規則會有不同結果。
+這個例子只考慮單一正規指數區間，縮放係數為 1，並明確採用最接近值捨入、平手取偶數（round-to-nearest, ties-to-even）。依照有效數位的配置，E4M3 在 $[1,2]$ 的間距為 $2^{-3}=1/8$，E5M2 則為 $2^{-2}=1/4$。[^fp8-grid] 輸入樣本為 $x=1+i/16$，$i=0,\ldots,16$。輸出標記跳至對應格點；橘線長度代表 $|Q(x)-x|$。在精確中點時，兩個白色虛線環標示等距的候選格點；實心輸出標記選取有效數最低位元為偶數（0）的候選值，而非一律向下捨入。例如 E5M2 將 $1.125$ 向下捨入至 1，卻將 $1.375$ 向上捨入至 1.5。非平手時虛線環消失。當 $x=1.125$ 時，E4M3 能精確保留該值，E5M2 則將中點捨入至 1；當 $x=1.0625$ 時，兩者皆捨入至 1。在這個取樣指數區間內，兩種格式的最大絕對捨入誤差分別為 $1/16$ 與 $1/8$。這些是數學示意值，不是硬體或模型實測；不同指數區間、次正規數與其他轉換規則會有不同結果。
 
 [^fp8-grid]: Micikevicius 等人（2022），第 3 節，[FP8 Formats for Deep Learning](https://arxiv.org/abs/2209.05433)。格點範例與捨入規則為本圖的示意設定。
 

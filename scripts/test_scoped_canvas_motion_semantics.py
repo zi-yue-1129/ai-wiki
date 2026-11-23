@@ -168,6 +168,30 @@ class ScopedCanvas(unittest.TestCase):
         self.assertEqual([max(abs(x - y) for x, y in zip(inputs, q)) / 256
                           for q in (q4, q5)], [1/16, 1/8])
 
+    def test_fp8_rounding_tie_candidates_follow_exact_midpoints(self):
+        motion, still = [ET.parse(ASSETS / f'fp8-rounding-grid-{kind}.svg').getroot()
+                         for kind in ('motion', 'still')]
+        for stride, y in ((2, 131), (4, 195)):
+            # Samples are exact sixteenths. Only half a grid step is a tie.
+            visible = [int(i % stride == stride // 2) for i in range(17)]
+            for side in (0, 1):
+                selector = {'data-tie-grid': str(stride),
+                            'data-tie-candidate': str(side)}
+                candidates = [70 + 16 * min(16, stride * (i // stride + side)) - 9
+                              for i in range(17)]
+                self.assert_fp8_track(motion, still, 'rect', selector,
+                                      'x', candidates, '8.5s')
+                self.assert_fp8_track(motion, still, 'rect', selector,
+                                      'opacity', visible, '8.5s')
+                for root in (motion, still):
+                    ring = next(n for n in root.iter(v.NS + 'rect')
+                                if all(n.get(k) == val for k, val in selector.items()))
+                    self.assertEqual((ring.get('y'), ring.get('width'), ring.get('height'),
+                                      ring.get('fill'), ring.get('stroke-dasharray')),
+                                     (str(y - 9), '18', '18', 'none', '3 2'))
+            self.assert_fp8_track(motion, still, 'text', {'data-tie-label': str(stride)},
+                                  'opacity', visible, '8.5s')
+
     def test_fp8_delayed_scaling_tracks_follow_the_previous_two_maxima(self):
         stem = 'fp8-delayed-amax'
         motion, still = [ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
