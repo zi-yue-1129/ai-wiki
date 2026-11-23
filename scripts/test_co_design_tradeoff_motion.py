@@ -975,3 +975,12 @@ for sa, sb in ((1, 4), (2, 8), (4, 16)):
     b = (16 / sb + sb, 16 - 16 / sb)
     assert a != b
 print("Pinned checkpoint A/B plane link and dual precision marker contracts OK")
+
+# GitHub-safe checkpoint screenshot must identify the pinned baseline and
+# current point separately from its Pareto-dominance arrow.
+witness_still = (asset / "checkpoint-pareto-witness-still.svg").read_text(encoding="utf-8")
+for marker in ("A/B link", "Pinned A", "Current B", 'stroke="#8b46bf"',
+               'stroke="#ffbc72"', 'stroke="#1b2a39"'):
+    assert marker in witness_still, marker
+ET.fromstring(witness_still)
+print("Pinned A vs current B checkpoint fallback labels and SVG XML OK")

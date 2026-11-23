@@ -101,7 +101,7 @@ The animation changes the checkpoint boundaries, the stored/rebuilt slot counts,
 
 ![GitHub fallback showing the five synthetic checkpoint cost choices with a dominance arrow from spacing eight to spacing two](../../../assets/concept-animations/checkpoint-pareto-witness-still.svg)
 
-*Original static GitHub fallback for the interactive Pareto-witness overlay, CC BY-SA 4.0. The MkDocs view moves the arrow with the selected dominated spacing; the five-choice computation SVG above remains the primary process animation.*
+*Original GitHub fallback snapshot for both overlays, CC BY-SA 4.0.* Here **s=2 is pinned A** (amber halo) and **s=8 is current B** (dark ring). The straight amber arrow is a *dominance witness*, while the curved violet dotted link simply joins A and B. The live MkDocs controls move both indicators independently; the original five-choice computation SVG remains the primary process animation. All costs are synthetic.
 
 **Key-transition navigation (MkDocs):** Five native, keyboard-focusable state buttons jump directly to `s=1, 2, 4, 8, 16`. The current synthetic spacing is highlighted without relying only on colour, and every jump pauses any A→B sweep while synchronizing the SVG, numerical interpretation and pinned comparison. The buttons navigate reviewed sample configurations; they do not estimate an optimal real-world GPU checkpoint schedule.
 
