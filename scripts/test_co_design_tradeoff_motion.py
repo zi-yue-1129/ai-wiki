@@ -715,7 +715,9 @@ assert "showStaticFallback();" in controls_js
 assert "clearLoadTimer();" in controls_js
 assert "frame.data = url.href;\n        abandoned.replaceWith(frame);\n        armLoadTimer();" in controls_js
 assert "frame = abandoned.cloneNode(true);" in controls_js
-assert "if (candidate === frame && acceptingFrameLoad) onFrameLoad();" in controls_js
+assert "if (candidate !== frame) return;" in controls_js
+assert "if (acceptingFrameLoad) {\n            onFrameLoad();" in controls_js
+assert "candidate.contentDocument?.documentElement?.pauseAnimations?.();" in controls_js
 assert "if (candidate === frame && acceptingFrameLoad) showStaticFallback();" in controls_js
 assert "frame.data = src;\n          armLoadTimer();" in controls_js
 print("Stalled SVG requests have bounded fallback and reusable retry controls OK")
@@ -728,6 +730,8 @@ assert "if (!acceptingFrameLoad) return;" in controls_js
 assert "acceptingFrameLoad = true;\n        retry.textContent" in controls_js
 assert "candidate === frame && acceptingFrameLoad" in controls_js
 assert "late_valid_svg_ignored" in (root / "scripts/test_built_motion_browser.py").read_text(encoding="utf-8")
+assert "documentElement?.animationsPaused?.() === true" in (
+    root / "scripts/test_built_motion_browser.py").read_text(encoding="utf-8")
 print("Expired SVG responses cannot silently revive interactive controls OK")
 
 
