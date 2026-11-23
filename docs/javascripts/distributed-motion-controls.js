@@ -128,7 +128,7 @@
       const retentionTraceCells = [];
       const retentionTraceButtons = []; // Native navigation, synchronized to SVG.
       const policyWindowCells = [];
-      let policyWindowDirection = null;
+      let policyWindowDirection = null, policyScaleSelect = null, policySweepSelect = null;
       const paretoMapDots = [];
       let paretoWitness = null; // Rendered only for a dominated sampled spacing.
       let paretoABPath = null; // Curved dotted link between pinned A and current B (not a trajectory).
@@ -390,6 +390,39 @@
           bar.append(trace);
         }
         if (match[1] === 'fp16-scaling-window') {
+          // Two native selectors let readers inspect any of the 13 scales in
+          // either sweep direction without 26 fine-grained slider key presses.
+          // Both navigate the original SVG time axis, not a duplicate model.
+          const selector = document.createElement('div');
+          selector.className = 'distributed-motion-policy-jump';
+          const scaleLabel = document.createElement('label');
+          scaleLabel.textContent = label('Scale', '縮放係數');
+          policyScaleSelect = document.createElement('select');
+          policyScaleSelect.className = 'distributed-motion-policy-scale';
+          policyScaleSelect.disabled = true;
+          for (let k = 0; k <= 12; k++) {
+            const option = document.createElement('option');
+            option.value = String(k);
+            option.textContent = 'S=' + (2 ** k);
+            policyScaleSelect.append(option);
+          }
+          scaleLabel.append(policyScaleSelect);
+          const sweepLabel = document.createElement('label');
+          sweepLabel.textContent = label('Sweep', '掃描方向');
+          policySweepSelect = document.createElement('select');
+          policySweepSelect.className = 'distributed-motion-policy-sweep';
+          policySweepSelect.disabled = true;
+          for (const [value, en, tw] of [
+            ['up', 'Ascending ↑', '上升 ↑'],
+            ['down', 'Descending ↓', '下降 ↓']
+          ]) {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = label(en, tw);
+            policySweepSelect.append(option);
+          }
+          sweepLabel.append(policySweepSelect);
+          selector.append(scaleLabel, sweepLabel);
           // Hypothetical binary16 storage FTZ versus ideal IEEE subnormals;
           // the SVG and all controls still share one timeline.
           const panel = document.createElement('section');
@@ -458,7 +491,7 @@
             legend.append(item);
           }
           panel.append(legend);
-          bar.append(panel);
+          bar.append(selector, panel);
         }
         if (match[1] === 'checkpoint-spacing') {
           // A second, synchronised view exposes the sampled Pareto frontier:
@@ -825,8 +858,12 @@
         if (policyWindowCells.length) {
           const exponent = scaleExponent(time);
           const exponentA = pinnedTime === null ? null : scaleExponent(pinnedTime);
+          const sweepDirection = fp16Frame(time) <= 12 ? 'up' : 'down';
           policyWindowDirection.textContent = 'S=2^' + exponent +
-            (fp16Frame(time) <= 12 ? ' ↑' : ' ↓');
+            (sweepDirection === 'up' ? ' ↑' : ' ↓');
+          // Playback, seek and Pin A/B all share this state.
+          policyScaleSelect.value = String(exponent);
+          policySweepSelect.value = sweepDirection;
           for (const cells of policyWindowCells) {
             cells.forEach((cell, k) => {
               if (k === exponent) cell.dataset.current = 'true';
@@ -1067,6 +1104,18 @@
           // aria-live utterance for every repeated keypress.
         });
       }
+      const jumpToPolicyChoice = () => {
+        if (!svg || !policyScaleSelect || !policySweepSelect) return;
+        const exponent = Number(policyScaleSelect.value);
+        // Frames 0..12 ascend; 13..25 descend from 12 to 0.
+        // The small offset lands inside a discrete SMIL state.
+        const index = policySweepSelect.value === 'up' ? exponent : 25 - exponent;
+        stop(false);
+        setTime(index === 0 ? 0 : (index + 0.12) * config.duration / 26);
+        status.textContent = teachingState(time);
+      };
+      policyScaleSelect?.addEventListener('change', jumpToPolicyChoice);
+      policySweepSelect?.addEventListener('change', jumpToPolicyChoice);
       seek.addEventListener('input', () => {
         // A touch drag can emit dozens of input events each second. Keep the
         // SVG, aria-valuetext and text interpretation in sync immediately,
@@ -1236,6 +1285,8 @@
           landmarkButtons.forEach(({ button }) => { button.disabled = false; });
           paretoMapDots.forEach(({ button }) => { button.disabled = false; });
           retentionTraceButtons.forEach(button => { button.disabled = false; });
+          if (policyScaleSelect) policyScaleSelect.disabled = false;
+          if (policySweepSelect) policySweepSelect.disabled = false;
           // Also capture a load that finishes while reduced motion is active:
           // otherwise turning motion back on can leave this player stranded.
           if (reduced.matches) return;
