@@ -863,7 +863,16 @@
       };
       const bindFrameEvents = candidate => {
         candidate.addEventListener('load', () => {
-          if (candidate === frame && acceptingFrameLoad) onFrameLoad();
+          if (candidate !== frame) return;
+          if (acceptingFrameLoad) {
+            onFrameLoad();
+          } else {
+            // A timed-out request may still finish as a valid SMIL SVG. Keep
+            // its reviewed still visible AND stop its hidden animation clock:
+            // ignoring the late event alone leaves animation work running.
+            try { candidate.contentDocument?.documentElement?.pauseAnimations?.(); }
+            catch (_) { /* Cross-origin or unavailable document: retain still. */ }
+          }
         });
         candidate.addEventListener('error', () => {
           if (candidate === frame && acceptingFrameLoad) showStaticFallback();
