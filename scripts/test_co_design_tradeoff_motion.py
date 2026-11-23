@@ -911,3 +911,19 @@ for marker in (".distributed-motion-pareto-plot", ".distributed-motion-pareto-do
 assert "Interactive Pareto map (MkDocs)" in (pages / "gradient-checkpointing.md").read_text(encoding="utf-8")
 assert "互動式 Pareto 成本地圖（MkDocs）" in (pages / "gradient-checkpointing.zh-TW.md").read_text(encoding="utf-8")
 print("Five-choice Pareto plane, interaction and bilingual contracts OK")
+
+# Two counterfactual 13-state policies; FTZ affects LOW storage only.
+for k in range(13):
+    ieee = "overflow" if k >= 11 else "valid" if 3 <= k <= 10 else "underflow"
+    ftz = "overflow" if k >= 11 else "underflow"
+    assert ieee in ("underflow", "valid", "overflow")
+    assert ftz in ("underflow", "overflow")
+for marker in ("policyWindowCells", "distributed-motion-policy-window", "policyWindowDirection.textContent",
+               "policy === 'IEEE' && pairWindow(k)", "cell.dataset.current = 'true'"):
+    assert marker in controls_js, marker
+for marker in ('.distributed-motion-policy-row', '.distributed-motion-policy-cell[data-state="valid"]',
+               '.distributed-motion-policy-cell[data-state="underflow"]', '.distributed-motion-policy-cell[data-state="overflow"]'):
+    assert marker in controls_css, marker
+assert "IEEE/FTZ comparison strip (MkDocs)" in (pages / "mixed-precision.md").read_text(encoding="utf-8")
+assert "IEEE／FTZ 雙軌對照（MkDocs）" in (pages / "mixed-precision.zh-TW.md").read_text(encoding="utf-8")
+print("Synchronized IEEE/FTZ 13-scale policy visualization contracts OK")
