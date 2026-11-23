@@ -631,6 +631,37 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
             assert ftz_cells.nth(k).get_attribute('data-current') == 'true'
             assert direction in policy.locator('.distributed-motion-policy-direction').inner_text()
             assert_document_fits(page, viewport)
+        # Direct native scale/sweep selection must seek the original SVG
+        # in both directions, preserving the IEEE/FTZ regimes at fixed S.
+        picker = controls.locator('.distributed-motion-policy-jump')
+        expect(picker).to_be_visible()
+        scale_choice = picker.locator('select.distributed-motion-policy-scale')
+        sweep_choice = picker.locator('select.distributed-motion-policy-sweep')
+        expect(scale_choice).to_be_enabled()
+        expect(sweep_choice).to_be_enabled()
+        expect(scale_choice.locator('option')).to_have_count(13)
+        assert scale_choice.locator('option').nth(12).inner_text() == 'S=4096'
+        sweep_choice.select_option('up')
+        scale_choice.select_option('3')
+        expect(scale_choice).to_have_value('3')
+        expect(sweep_choice).to_have_value('up')
+        assert ieee_cells.nth(3).get_attribute('data-current') == 'true'
+        assert ftz_cells.nth(3).get_attribute('data-current') == 'true'
+        assert '↑' in policy.locator('.distributed-motion-policy-direction').inner_text()
+        up_state = interpretation.inner_text()
+        sweep_choice.select_option('down')
+        expect(sweep_choice).to_have_value('down')
+        assert ieee_cells.nth(3).get_attribute('data-current') == 'true'
+        assert ftz_cells.nth(3).get_attribute('data-current') == 'true'
+        assert '↓' in policy.locator('.distributed-motion-policy-direction').inner_text()
+        down_state = interpretation.inner_text()
+        assert up_state == down_state, (up_state, down_state)
+        scale_choice.select_option('11')
+        assert 'Inf' in interpretation.inner_text() or '溢位' in interpretation.inner_text()
+        sweep_choice.select_option('up')
+        assert ieee_cells.nth(11).get_attribute('data-current') == 'true'
+        assert ftz_cells.nth(11).get_attribute('data-current') == 'true'
+        assert_document_fits(page, viewport)
         seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
     if stem == 'gradscaler-feedback':
         seek.evaluate("""el => {el.value="171";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
