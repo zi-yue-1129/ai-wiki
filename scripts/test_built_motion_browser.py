@@ -715,11 +715,14 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     # manual pin/swap functionality; inspect on real built bilingual pages.
     guided = controls.locator('select.distributed-motion-scenario')
     expect(guided).to_be_enabled()
-    expect(guided.locator('option')).to_have_count(3)
+    expect(guided.locator('option')).to_have_count(5)
     cases = {
-        'checkpoint-spacing': [('s=1', 's=4'), ('s=8', 's=4')],
-        'fp16-scaling-window': [('S=4', 'S=8'), ('S=1024', 'S=2048')],
-        'gradscaler-feedback': [('t1', 't5'), ('t2', 't3')],
+        'checkpoint-spacing': [('s=1', 's=4'), ('s=8', 's=4'),
+                               ('s=2', 's=8'), ('s=1', 's=16')],
+        'fp16-scaling-window': [('S=4', 'S=8'), ('S=1024', 'S=2048'),
+                                ('S=2048', 'S=1024'), ('S=8', 'S=4')],
+        'gradscaler-feedback': [('t1', 't5'), ('t2', 't3'),
+                                ('t1', 't2'), ('t3', 't4')],
     }[stem]
     for case_number, (a_token, b_token) in enumerate(cases):
         guided.select_option(str(case_number))

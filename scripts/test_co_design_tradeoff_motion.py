@@ -752,3 +752,21 @@ assert "img.hidden = false;" in pending_reduce_load
 assert "img.src = src;" not in pending_reduce_load
 assert "frame.data = src;\n          armLoadTimer();" in pending_reduce_load
 print("Pending SVG initialization retains accessible reduced-motion still preview OK")
+
+# Four guided contrasts per diagram expose equal-peak dominance,
+# both directions of FP16 threshold crossings, and GradScaler history.
+for snippet in (
+    "s=2 → s=8 · equal peak, more replay",
+    "s=1 → s=16 · equal peak, extra replay",
+    "S=2048 → 1024 · descending recovery",
+    "S=8 → 4 · descending underflow",
+    "t1 → t2 · finite streak grows",
+    "t3 → t4 · finite recovery holds",
+):
+    assert snippet in controls_js, snippet
+assert "to_have_count(5)" in browser_source
+for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md",
+             "mixed-precision.md", "mixed-precision.zh-TW.md"):
+    body = (pages / name).read_text(encoding="utf-8")
+    assert ("s=2 → s=8" if name.startswith("gradient-") else "S=2048 → 1024") in body
+print("Expanded bilingual guided examples and built-browser contracts OK")

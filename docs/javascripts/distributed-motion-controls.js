@@ -123,12 +123,18 @@
       const guidedCases = match[1] === 'checkpoint-spacing' ? [
         { en: 's=1 → s=4 · memory/replay trade-off', tw: 's=1 → s=4 · 記憶體與重算取捨', a: 0, b: 4.85 },
         { en: 's=8 → s=4 · dominated choice', tw: 's=8 → s=4 · 支配關係', a: 7.25, b: 4.85 },
+        { en: 's=2 → s=8 · equal peak, more replay', tw: 's=2 → s=8 · 峰值相同、重算較多', a: 2.45, b: 7.25 },
+        { en: 's=1 → s=16 · equal peak, extra replay', tw: 's=1 → s=16 · 峰值相同、重算增加', a: 0, b: 9.65 },
       ] : match[1] === 'fp16-scaling-window' ? [
         { en: 'S=4 → 8 · recover LOW', tw: 'S=4 → 8 · 小梯度恢復', a: 0.95, b: 1.42 },
         { en: 'S=1024 → 2048 · HIGH overflow', tw: 'S=1024 → 2048 · 大梯度溢位', a: 4.66, b: 5.12 },
+        { en: 'S=2048 → 1024 · descending recovery', tw: 'S=2048 → 1024 · 下降時恢復有限', a: 6.52, b: 6.98 },
+        { en: 'S=8 → 4 · descending underflow', tw: 'S=8 → 4 · 下降時再次歸零', a: 10.21, b: 10.67 },
       ] : match[1] === 'gradscaler-feedback' ? [
         { en: 't1 → t5 · finite-history effect', tw: 't1 → t5 · 歷史計數效應', a: 0, b: 8.05 },
         { en: 't2 → t3 · overflow backoff', tw: 't2 → t3 · 溢位回退', a: 2.05, b: 4.05 },
+        { en: 't1 → t2 · finite streak grows', tw: 't1 → t2 · 連續通過後放大', a: 0, b: 2.05 },
+        { en: 't3 → t4 · finite recovery holds', tw: 't3 → t4 · 恢復有限後維持', a: 4.05, b: 6.05 },
       ] : [];
       // Semantic transition navigator: jump directly to state boundaries,
       // including the distinct upward/downward crossings in the FP16 sweep.
