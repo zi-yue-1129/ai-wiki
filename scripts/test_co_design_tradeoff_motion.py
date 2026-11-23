@@ -1057,7 +1057,7 @@ for token in (
     "paretoBudgetSelect.max = '17'",
     "const feasible = checkpointChoices.filter(choice =>",
     "button.dataset.feasible = String(choice.peak <= cap && choice.rebuilt <= replayCap)",
-    "button.dataset.best = String(spacing === best.spacing)",
+    "button.dataset.best = String(Boolean(best) && spacing === best.spacing)",
     "paretoBudgetSelect?.addEventListener('input'",
     "if (paretoBudgetSelect) paretoBudgetSelect.disabled = false",
 ):
