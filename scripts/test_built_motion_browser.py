@@ -542,6 +542,13 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     }[stem])
     assert all(token in initial_summary for token in initial_tokens[stem]), (stem, initial_summary)
     capture('initial')
+    # Verify three independent synthetic teaching distinctions on real MkDocs pages.
+    if stem == 'checkpoint-spacing':
+        assert 'PARETO FRONTIER' in initial_summary or '非支配解' in initial_summary, initial_summary
+        seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
+        frontier_summary = interpretation.inner_text()
+        assert 'DOMINATED' in frontier_summary or '被其他設定支配' in frontier_summary, frontier_summary
+        seek.evaluate('e => {e.value = "0"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
     # Native browser checks of exact subnormal and post-growth states.
     if stem == 'fp16-scaling-window':
         for chosen, expected in ((1.42, 'subnormal'), (4.66, 'subnormal'), (5.12, 'Inf')):
@@ -549,11 +556,15 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
                 el.dispatchEvent(new Event('input',{bubbles:true}));}""", chosen)
             summary = interpretation.inner_text()
             assert expected in summary or ('次正規' if expected == 'subnormal' else '溢位') in summary, summary
+            pair_expected = 'NO' if chosen == 5.12 else 'YES'
+            assert (f'PAIR WINDOW {pair_expected}' in summary or
+                    f'兩筆均非零有限：{"否" if pair_expected == "NO" else "是"}' in summary), summary
         seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
     if stem == 'gradscaler-feedback':
         seek.evaluate("""el => {el.value="171";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
         summary = interpretation.inner_text()
         assert 'counter resets to 0' in summary or '計數歸零' in summary, summary
+        assert 'POST-DECISION STREAK 0/2' in summary or '決策後計數 0/2' in summary, summary
         seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
     buttons.nth(2).click()  # Semantic next step
     status_region = controls.locator('.concept-motion-status')
