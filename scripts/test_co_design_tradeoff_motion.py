@@ -835,3 +835,22 @@ for fragment, path in (
 ):
     assert fragment in (pages / path).read_text(encoding="utf-8")
 print("Bilingual forward-work, ideal binary16 FP32-unscale and eligible-step contracts OK")
+
+# Counterfactual flush-to-zero at the binary16 output/storage boundary.
+# In this synthetic pair, the low gradient is still subnormal at S=4096;
+# making it normal at S=8192 necessarily overflows the high gradient.
+for k in range(13):
+    low_scaled = 2.0 ** (k - 27)
+    high_scaled = 2.0 ** (k + 5)
+    assert low_scaled < 2.0 ** -14
+    assert not (low_scaled >= 2.0 ** -14 and high_scaled <= 65504)
+    assert (3 <= k <= 10) == (k >= 3 and k <= 10)
+assert (2.0 ** -27 * 8192) == 2.0 ** -14
+assert 2.0 ** 5 * 8192 > 65504
+for token in ("FTZ LOW 0", "FTZ PAIR NO", "IEEE/FTZ MISMATCH",
+              "沖零假設：小梯度 0", "IEEE／沖零判斷相異"):
+    assert token in controls_js, token
+for lang, phrase in (("mixed-precision.md", "What if subnormals are flushed to zero?"),
+                     ("mixed-precision.zh-TW.md", "次正規數沖零時的反事實比較")):
+    assert phrase in (pages / lang).read_text(encoding="utf-8")
+print("FTZ vs ideal binary16 arithmetic and bilingual explanation contracts OK")

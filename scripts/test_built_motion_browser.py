@@ -564,6 +564,12 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
             pair_expected = 'NO' if chosen == 5.12 else 'YES'
             assert (f'PAIR WINDOW {pair_expected}' in summary or
                     f'兩筆均非零有限：{"否" if pair_expected == "NO" else "是"}' in summary), summary
+            # SVG continues to teach IEEE-with-subnormals; the adjacent
+            # readout explicitly contrasts a hypothetical FTZ storage path.
+            assert 'FTZ PAIR NO' in summary or '沖零假設：小梯度 0、兩筆非零有限 否' in summary, summary
+            mismatch = pair_expected
+            assert (f'IEEE/FTZ MISMATCH {mismatch}' in summary or
+                    f'IEEE／沖零判斷相異：{"是" if mismatch == "YES" else "否"}' in summary), summary
         seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
     if stem == 'gradscaler-feedback':
         seek.evaluate("""el => {el.value="171";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
@@ -661,6 +667,8 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     # the one-iteration finite-check result.
     if stem == 'fp16-scaling-window':
         assert 'LOW AFTER UNSCALE 0 → 2^-27' in before_swap_delta or '還原小梯度 0 → 2^-27' in before_swap_delta
+        assert ('IEEE/FTZ MISMATCH NO → YES' in before_swap_delta or
+                'IEEE／沖零判斷相異 否 → 是' in before_swap_delta), before_swap_delta
         assert '0 → subnormal' in before_swap_delta and 'Δ +6' in before_swap_delta, (
             stem, before_swap_delta
         )

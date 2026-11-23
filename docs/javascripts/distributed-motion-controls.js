@@ -109,6 +109,11 @@
       // Independent of the Inf/NaN skip gate: both sampled gradients must
       // remain nonzero and finite in the idealized binary16 path.
       const pairWindow = k => k >= 3 && k <= 10;
+      // Counterfactual FTZ at the binary16 gradient-storage boundary.
+      // Even the largest sampled S=4096 leaves LOW at 2^-15 (< 2^-14,
+      // the smallest normal). LOW needs S>=8192 to be normal, but HIGH
+      // already overflows at S>=2048. No single scale preserves both
+      // values when these subnormal outputs are flushed to zero.
       // Idealized binary16 rounding of S*g_low, followed by *FP32* division
       // by S. All example powers of two that survive rounding recover 2^-27
       // exactly; a skipped optimizer step is a separate condition.
@@ -371,8 +376,8 @@
           const low = exponent <= 2 ? '0' : 'subnormal';
           const high = exponent >= 11 ? 'Inf' : 'finite';
           return label(
-            `S=2^${exponent} (${scale}) · LOW ${low}${low === '0' ? ' (silent underflow)' : ''} · HIGH ${high} · ${exponent >= 11 ? 'SKIP' : 'STEP ELIGIBLE'} · PAIR WINDOW ${pairWindow(exponent) ? 'YES' : 'NO'} · LOW AFTER FP32 UNSCALE ${unscaledLow(exponent)}${exponent >= 11 ? ' (step skipped)' : ''} (example)`,
-            `S=2^${exponent}（${scale}）· 小梯度${low === '0' ? '歸零（仍為有限值）' : '非零次正規'} · 大梯度${high === 'Inf' ? '溢位' : '有限'} · ${exponent >= 11 ? '跳過更新' : '符合更新條件'} · 兩筆均非零有限：${pairWindow(exponent) ? '是' : '否'} · FP32 還原小梯度 ${unscaledLow(exponent)}${exponent >= 11 ? '（跳過更新）' : ''}（示意）`
+            `S=2^${exponent} (${scale}) · LOW ${low}${low === '0' ? ' (silent underflow)' : ''} · HIGH ${high} · ${exponent >= 11 ? 'SKIP' : 'STEP ELIGIBLE'} · PAIR WINDOW ${pairWindow(exponent) ? 'YES' : 'NO'} · FTZ LOW 0 · FTZ PAIR NO · IEEE/FTZ MISMATCH ${pairWindow(exponent) ? 'YES' : 'NO'} · LOW AFTER FP32 UNSCALE ${unscaledLow(exponent)}${exponent >= 11 ? ' (step skipped)' : ''} (example)`,
+            `S=2^${exponent}（${scale}）· 小梯度${low === '0' ? '歸零（仍為有限值）' : '非零次正規'} · 大梯度${high === 'Inf' ? '溢位' : '有限'} · ${exponent >= 11 ? '跳過更新' : '符合更新條件'} · 兩筆均非零有限：${pairWindow(exponent) ? '是' : '否'} · 沖零假設：小梯度 0、兩筆非零有限 否 · IEEE／沖零判斷相異：${pairWindow(exponent) ? '是' : '否'} · FP32 還原小梯度 ${unscaledLow(exponent)}${exponent >= 11 ? '（跳過更新）' : ''}（示意）`
           );
         }
         if (match[1] === 'gradscaler-feedback') {
@@ -398,8 +403,8 @@
         }
         if (match[1] === 'fp16-scaling-window') {
           const k = scaleExponent(t);
-          return label(`S=${2 ** k} · LOW ${k <= 2 ? '0' : 'subnormal'} · HIGH ${k >= 11 ? 'Inf' : 'finite'} · ${k >= 11 ? 'SKIP' : 'ELIGIBLE'} · PAIR WINDOW ${pairWindow(k) ? 'YES' : 'NO'} · LOW UNSCALED ${unscaledLow(k)}`,
-                       `S=${2 ** k} · 小梯度${k <= 2 ? '歸零' : '次正規'} · 大梯度${k >= 11 ? '溢位' : '有限'} · ${k >= 11 ? '跳過' : '符合更新條件'} · 兩筆非零有限 ${pairWindow(k) ? '是' : '否'} · 還原小梯度 ${unscaledLow(k)}`);
+          return label(`S=${2 ** k} · LOW ${k <= 2 ? '0' : 'subnormal'} · HIGH ${k >= 11 ? 'Inf' : 'finite'} · ${k >= 11 ? 'SKIP' : 'ELIGIBLE'} · PAIR WINDOW ${pairWindow(k) ? 'YES' : 'NO'} · FTZ PAIR NO · IEEE/FTZ MISMATCH ${pairWindow(k) ? 'YES' : 'NO'} · LOW UNSCALED ${unscaledLow(k)}`,
+                       `S=${2 ** k} · 小梯度${k <= 2 ? '歸零' : '次正規'} · 大梯度${k >= 11 ? '溢位' : '有限'} · ${k >= 11 ? '跳過' : '符合更新條件'} · 兩筆非零有限 ${pairWindow(k) ? '是' : '否'} · 沖零假設兩筆非零 否 · IEEE／沖零判斷相異 ${pairWindow(k) ? '是' : '否'} · 還原小梯度 ${unscaledLow(k)}`);
         }
         const i = Math.min(5, Math.floor(t / 2));
         const s = [1024, 1024, 2048, 1024, 1024, 2048][i];
@@ -428,8 +433,8 @@
           const high = k => k >= 11 ? 'Inf' : 'finite';
           // A rounded zero is finite: it loses information but does not
           // trigger the nonfinite step gate. Compare both rounded inputs.
-          return label(`Outcome: ${result(x)} → ${result(y)} · LOW ${low(x)} → ${low(y)} · HIGH ${high(x)} → ${high(y)} · scale exponent ${x} → ${y} (Δ ${signed(y - x)}) · PAIR WINDOW ${pairWindow(x) ? 'YES' : 'NO'} → ${pairWindow(y) ? 'YES' : 'NO'} · LOW AFTER UNSCALE ${unscaledLow(x)} → ${unscaledLow(y)}`,
-                       `更新資格：${result(x) === 'SKIP' ? '跳過' : '符合'} → ${result(y) === 'SKIP' ? '跳過' : '符合'} · 小梯度 ${low(x)} → ${low(y)} · 大梯度 ${high(x)} → ${high(y)} · 指數 ${x} → ${y}（Δ ${signed(y - x)}）· 兩筆均非零有限 ${pairWindow(x) ? '是' : '否'} → ${pairWindow(y) ? '是' : '否'} · 還原小梯度 ${unscaledLow(x)} → ${unscaledLow(y)}`);
+          return label(`Outcome: ${result(x)} → ${result(y)} · LOW ${low(x)} → ${low(y)} · HIGH ${high(x)} → ${high(y)} · scale exponent ${x} → ${y} (Δ ${signed(y - x)}) · PAIR WINDOW ${pairWindow(x) ? 'YES' : 'NO'} → ${pairWindow(y) ? 'YES' : 'NO'} · IEEE/FTZ MISMATCH ${pairWindow(x) ? 'YES' : 'NO'} → ${pairWindow(y) ? 'YES' : 'NO'} · FTZ PAIR NO → NO · LOW AFTER UNSCALE ${unscaledLow(x)} → ${unscaledLow(y)}`,
+                       `更新資格：${result(x) === 'SKIP' ? '跳過' : '符合'} → ${result(y) === 'SKIP' ? '跳過' : '符合'} · 小梯度 ${low(x)} → ${low(y)} · 大梯度 ${high(x)} → ${high(y)} · 指數 ${x} → ${y}（Δ ${signed(y - x)}）· 兩筆均非零有限 ${pairWindow(x) ? '是' : '否'} → ${pairWindow(y) ? '是' : '否'} · IEEE／沖零判斷相異 ${pairWindow(x) ? '是' : '否'} → ${pairWindow(y) ? '是' : '否'} · 沖零假設兩筆非零 否 → 否 · 還原小梯度 ${unscaledLow(x)} → ${unscaledLow(y)}`);
         }
         const index = t => Math.min(5, Math.floor(t / 2));
         const skipped = i => i === 2 || i === 5;
