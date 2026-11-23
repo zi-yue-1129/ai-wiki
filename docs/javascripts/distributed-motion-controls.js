@@ -126,6 +126,7 @@
       const eligibleSoFar = [1, 2, 2, 3, 4, 4];
       // Rendering only: accessible counts remain in interpretation and slider.
       const retentionTraceCells = [];
+      const retentionTraceButtons = []; // Native navigation, synchronized to SVG.
       const policyWindowCells = [];
       let policyWindowDirection = null;
       const paretoMapDots = [];
@@ -324,20 +325,37 @@
           // colours do NOT represent measurements of a particular GPU.
           const trace = document.createElement('div');
           trace.className = 'distributed-motion-retention-trace';
-          trace.setAttribute('aria-hidden', 'true');
+          trace.setAttribute('role', 'group');
+          trace.setAttribute('aria-label', label(
+            'GradScaler iterations: ideal IEEE versus hypothetical FTZ low-gradient retention',
+            'GradScaler 迭代：理想 IEEE 與假設 FTZ 的小梯度保留比較'));
           const header = document.createElement('div');
           header.className = 'distributed-motion-retention-row';
           header.append(document.createElement('span'));
           for (let i = 1; i <= 6; i++) {
-            const step = document.createElement('span');
+            const step = document.createElement('button');
+            step.type = 'button';
             step.className = 'distributed-motion-retention-step';
             step.textContent = 't' + i;
+            step.disabled = true;
+            const skipped = i === 3 || i === 6;
+            step.setAttribute('aria-label', label(
+              `Iteration ${i}, scale ${skipped ? 2048 : 1024}: ${skipped ? 'Inf check; optimizer step skipped' : 'eligible finite check; IEEE LOW retained, hypothetical FTZ LOW zero'}`,
+              `第 ${i} 次迭代，縮放 ${skipped ? 2048 : 1024}：${skipped ? '偵測到 Inf，跳過最佳化器更新' : '通過有限值檢查；IEEE 保留小梯度，FTZ 假設使小梯度歸零'}`));
+            step.addEventListener('click', () => {
+              if (!svg) return;
+              stop(false);
+              setTime((i - 1) * 2 + 0.05);
+              status.textContent = teachingState(time);
+            });
             header.append(step);
+            retentionTraceButtons.push(step);
           }
           trace.append(header);
           for (const policy of ['IEEE', 'FTZ']) {
             const lane = document.createElement('div');
             lane.className = 'distributed-motion-retention-row';
+            lane.setAttribute('aria-hidden', 'true');
             const heading = document.createElement('strong');
             heading.className = 'distributed-motion-retention-label';
             heading.textContent = policy;
@@ -353,6 +371,22 @@
             retentionTraceCells.push(cells);
             trace.append(lane);
           }
+          const traceLegend = document.createElement('div');
+          traceLegend.className = 'distributed-motion-retention-legend';
+          traceLegend.setAttribute('aria-hidden', 'true');
+          for (const [state, caption] of [
+            ['retained', 'LOW +'], ['lost', 'LOW 0'], ['skipped', 'SKIP'],
+            ['current', 'Selected B'], ['pinned', 'Pinned A']
+          ]) {
+            const item = document.createElement('span');
+            item.className = 'distributed-motion-retention-legend-item';
+            const swatch = document.createElement('span');
+            swatch.className = 'distributed-motion-retention-legend-swatch';
+            swatch.dataset.state = state;
+            item.append(swatch, document.createTextNode(caption));
+            traceLegend.append(item);
+          }
+          trace.append(traceLegend);
           bar.append(trace);
         }
         if (match[1] === 'fp16-scaling-window') {
@@ -804,6 +838,14 @@
         }
         if (retentionTraceCells.length) {
           const current = feedbackIndex(time);
+          const pinned = pinnedTime === null ? null : feedbackIndex(pinnedTime);
+          retentionTraceButtons.forEach((button, i) => {
+            const active = i === current;
+            button.classList.toggle('is-current', active);
+            button.classList.toggle('is-pinned', i === pinned);
+            if (active) button.setAttribute('aria-current', 'step');
+            else button.removeAttribute('aria-current');
+          });
           retentionTraceCells.forEach((cells, policy) => {
             cells.forEach((cell, i) => {
               // Cyan: nonzero IEEE low; hatched amber: FTZ silently lost low.
@@ -813,6 +855,8 @@
                   : policy === 0 ? 'retained' : 'lost';
               if (i === current) cell.dataset.current = 'true';
               else delete cell.dataset.current;
+              if (i === pinned) cell.dataset.pinned = 'true';
+              else delete cell.dataset.pinned;
             });
           });
         }
@@ -1164,6 +1208,7 @@
           if (guided) guided.disabled = false;
           landmarkButtons.forEach(({ button }) => { button.disabled = false; });
           paretoMapDots.forEach(({ button }) => { button.disabled = false; });
+          retentionTraceButtons.forEach(button => { button.disabled = false; });
           // Also capture a load that finishes while reduced motion is active:
           // otherwise turning motion back on can leave this player stranded.
           if (reduced.matches) return;
