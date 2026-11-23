@@ -698,6 +698,14 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     if stem == 'checkpoint-spacing':
         expect(controls.locator('.distributed-motion-pareto-dot.is-pinned')).to_have_count(1)
         expect(controls.locator('.distributed-motion-pareto-dot[data-spacing="1"].is-pinned')).to_have_count(1)
+    if stem == 'checkpoint-spacing':
+        ab_link = controls.locator('.distributed-motion-pareto-ab')
+        expect(ab_link).to_have_count(1)
+        assert ab_link.evaluate('(e) => getComputedStyle(e).display') == 'none'
+    if stem == 'fp16-scaling-window':
+        expect(controls.locator('.distributed-motion-policy-cell[data-pinned="true"]')).to_have_count(2)
+        assert all(c.get_attribute('data-state') == 'underflow'
+                   for c in controls.locator('.distributed-motion-policy-cell[data-pinned="true"]').all())
     expect(comparison).to_be_visible()
     expect(clear_pin).to_be_visible()
     expect(swap_pin).to_be_visible()
@@ -711,6 +719,13 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
                   'gradscaler-feedback': 't5'}[stem]
     assert expected_a in pinned_baseline, (stem, pinned_baseline)
     assert expected_b in compared_live, (stem, compared_live)
+    if stem == 'checkpoint-spacing':
+        ab_link = controls.locator('.distributed-motion-pareto-ab')
+        assert ab_link.evaluate('(e) => getComputedStyle(e).display') != 'none'
+        assert ab_link.get_attribute('d').startswith('M ')
+    if stem == 'fp16-scaling-window':
+        expect(controls.locator('.distributed-motion-policy-cell[data-pinned="true"]')).to_have_count(2)
+        expect(controls.locator('.distributed-motion-policy-legend-swatch[data-state="pinned"]')).to_have_count(1)
     assert comparison.locator('.distributed-motion-compare-delta').inner_text().strip(), (
         'Missing computed difference'
     )
@@ -815,6 +830,11 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         assert ('A Pareto-dominates B (no worse on either cost).' in reversed_verdict or
                 'A 在雙成本上 Pareto 支配 B（皆不劣且至少一項更好）。' in reversed_verdict), reversed_verdict
     clear_pin.click()
+    if stem == 'checkpoint-spacing':
+        assert controls.locator('.distributed-motion-pareto-ab').evaluate(
+            '(e) => getComputedStyle(e).display') == 'none'
+    if stem == 'fp16-scaling-window':
+        expect(controls.locator('.distributed-motion-policy-cell[data-pinned="true"]')).to_have_count(0)
     expect(comparison).to_be_hidden()
     expect(clear_pin).to_be_hidden()
     expect(swap_pin).to_be_hidden()

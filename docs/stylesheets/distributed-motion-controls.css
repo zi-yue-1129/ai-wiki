@@ -361,3 +361,20 @@
 .distributed-motion-policy-legend-swatch[data-state="valid"] { background: #12858a; }
 .distributed-motion-policy-legend-swatch[data-state="overflow"] { background: repeating-linear-gradient(45deg,#374759 0,#374759 4px,#bfccd5 4px,#bfccd5 6px); }
 .distributed-motion-policy-legend-swatch[data-state="current"] { background: var(--md-code-bg-color,#f7f9fa); outline: 2px solid var(--md-default-fg-color,#15283c); outline-offset: 1px; margin: 0 .1rem; }
+
+/* A/B pinned-to-current comparison, not the amber Pareto witness. */
+.distributed-motion-pareto-ab {
+  fill: none;
+  stroke: #8b46bf;
+  stroke-width: 2.5;
+  stroke-dasharray: 2 5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+/* A stays visible in both counterfactual precision lanes while B moves. */
+.distributed-motion-policy-cell[data-pinned="true"] {
+  box-shadow: inset 0 -4px #8b46bf;
+}
+.distributed-motion-policy-legend-swatch[data-state="pinned"] {
+  box-shadow: inset 0 -4px #8b46bf;
+}

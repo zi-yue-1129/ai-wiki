@@ -953,3 +953,25 @@ for token in ('.distributed-motion-policy-legend-item',
 for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     assert "PAIR nonzero" in (pages / name).read_text(encoding="utf-8"), name
 print("Synchronized IEEE/FTZ policy visualization and in-panel texture key contracts OK")
+
+# Pinned A/B visual references must follow the shared simulation; no independent
+# timeline, optimizer path, or modified synthetic arithmetic is introduced.
+for token in ("let paretoABPath = null", "distributed-motion-pareto-ab",
+              "paretoABPath.setAttribute('d'", "spacingA !== spacingB",
+              "const exponentA = pinnedTime === null ? null : scaleExponent(pinnedTime)",
+              "cell.dataset.pinned = 'true'", "delete cell.dataset.pinned",
+              "['pinned', 'Pinned A']"):
+    assert token in controls_js, token
+for token in (".distributed-motion-pareto-ab", '.distributed-motion-policy-cell[data-pinned="true"]',
+              '.distributed-motion-policy-legend-swatch[data-state="pinned"]'):
+    assert token in controls_css, token
+for name, marker in (("gradient-checkpointing.md", "Pinned A/B cost-plane link (MkDocs)"),
+                     ("gradient-checkpointing.zh-TW.md", "A/B 雙成本連結（MkDocs）"),
+                     ("mixed-precision.md", "Pinned scale marker (MkDocs)"),
+                     ("mixed-precision.zh-TW.md", "釘選縮放指數標記（MkDocs）")):
+    assert marker in (pages / name).read_text(encoding="utf-8"), (name, marker)
+for sa, sb in ((1, 4), (2, 8), (4, 16)):
+    a = (16 / sa + sa, 16 - 16 / sa)
+    b = (16 / sb + sb, 16 - 16 / sb)
+    assert a != b
+print("Pinned checkpoint A/B plane link and dual precision marker contracts OK")

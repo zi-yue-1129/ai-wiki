@@ -128,6 +128,8 @@ The timeline plots the scale **used by each iteration**, not the newly computed 
 
 The compact MkDocs legend labels the hatched **LOW 0**, solid **PAIR nonzero** (both gradients nonzero and finite), crosshatched **HIGH Inf**, and the **Selected** outline. These symbols are explanatory categories of the synthetic pair, not hardware measurements.
 
+**Pinned scale marker (MkDocs).** **Pin A** or a guided A/B case now adds a short **violet underline** at A's exponent in *both* IEEE and hypothetical FTZ rows. The dark outline still follows the currently selected B; both marks remain visible when A and B coincide. **Swap A/B** reverses their roles, and **Clear A** removes the underline without changing either quantisation policy. This is a visual reference between two artificial scale settings, not a new numeric regime or hardware result. The static GitHub preview below remains readable without storing interactive A/B state.
+
 ![GitHub fallback: thirteen FP16 scales under ideal IEEE binary16 and hypothetical FTZ, with only IEEE exponents 3 through 10 preserving both gradients](../../../assets/concept-animations/fp16-ieee-ftz-policy-still.svg)
 
 *Original GitHub-readable fallback for the interactive policy comparison; CC BY-SA 4.0. Synthetic values only.*

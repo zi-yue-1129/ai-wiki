@@ -130,6 +130,7 @@
       let policyWindowDirection = null;
       const paretoMapDots = [];
       let paretoWitness = null; // Rendered only for a dominated sampled spacing.
+      let paretoABPath = null; // Curved dotted link between pinned A and current B (not a trajectory).
       const gauges = match[1] === 'checkpoint-spacing' ? [
         { id: 'peak', en: 'PEAK', tw: '峰值槽位', max: 17, at: t => 16 / checkpointSpacing(t) + checkpointSpacing(t) },
         { id: 'rebuilt', en: 'TOTAL REBUILT', tw: '總重算量', max: 15, at: t => 16 - 16 / checkpointSpacing(t) },
@@ -412,6 +413,7 @@
             ['valid', 'PAIR nonzero'],
             ['overflow', 'HIGH Inf'],
             ['current', 'Selected'],
+            ['pinned', 'Pinned A'],
           ]) {
             const item = document.createElement('span');
             item.className = 'distributed-motion-policy-legend-item';
@@ -474,7 +476,11 @@
           paretoWitness.classList.add('distributed-motion-pareto-witness');
           paretoWitness.setAttribute('marker-end', 'url(#' + markerId + ')');
           paretoWitness.style.display = 'none';
-          curve.append(defs, line, paretoWitness);
+          paretoABPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          paretoABPath.classList.add('distributed-motion-pareto-ab');
+          paretoABPath.style.display = 'none';
+          // Draw behind the dominance witness; never imply an optimisation direction.
+          curve.append(defs, line, paretoABPath, paretoWitness);
           plot.append(curve);
           for (const choice of choices) {
             const dot = document.createElement('button');
@@ -510,8 +516,8 @@
           plot.append(x, y);
           const legend = document.createElement('div');
           legend.className = 'distributed-motion-pareto-legend';
-          legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A · Arrow: dominance witness',
-                                     '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A · 箭頭：可支配目前設定的方案');
+          legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A · Arrow: dominance witness · Violet dots: A/B link',
+                                     '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A · 箭頭：支配見證 · 紫色點線：A/B 連結');
           map.append(heading, plot, legend);
           bar.append(map);
         }
@@ -758,14 +764,41 @@
             paretoWitness.style.display = '';
           } else paretoWitness.style.display = 'none';
         }
+        if (paretoABPath) {
+          const spacingA = pinnedTime === null ? null : checkpointSpacing(pinnedTime);
+          const spacingB = checkpointSpacing(time);
+          if (spacingA !== null && spacingA !== spacingB) {
+            const position = s => ({
+              x: 10 + 80 * (16 / s + s) / 17,
+              y: 90 - 80 * (16 - 16 / s) / 15
+            });
+            const a = position(spacingA), b = position(spacingB);
+            const dx = b.x - a.x, dy = b.y - a.y;
+            const distance = Math.hypot(dx, dy) || 1;
+            // The small perpendicular bend keeps A/B distinguishable from
+            // the straight amber dominance witness at equal PEAK; it is only
+            // a UI connector, not a cost function or time/optimisation path.
+            const midX = (a.x + b.x) / 2 - 8 * dy / distance;
+            const midY = (a.y + b.y) / 2 + 8 * dx / distance;
+            paretoABPath.setAttribute('d',
+              `M ${a.x.toFixed(3)} ${a.y.toFixed(3)} Q ${midX.toFixed(3)} ${midY.toFixed(3)} ${b.x.toFixed(3)} ${b.y.toFixed(3)}`);
+            paretoABPath.style.display = '';
+          } else {
+            paretoABPath.removeAttribute('d');
+            paretoABPath.style.display = 'none';
+          }
+        }
         if (policyWindowCells.length) {
           const exponent = scaleExponent(time);
+          const exponentA = pinnedTime === null ? null : scaleExponent(pinnedTime);
           policyWindowDirection.textContent = 'S=2^' + exponent +
             (fp16Frame(time) <= 12 ? ' ↑' : ' ↓');
           for (const cells of policyWindowCells) {
             cells.forEach((cell, k) => {
               if (k === exponent) cell.dataset.current = 'true';
               else delete cell.dataset.current;
+              if (k === exponentA) cell.dataset.pinned = 'true';
+              else delete cell.dataset.pinned;
             });
           }
         }
@@ -868,6 +901,7 @@
         sweepPin.hidden = false;
         pin.textContent = label('Replace A', '更新 A');
         updateComparison();
+        draw(); // The plotted baseline markers must appear immediately on Pin A.
         status.textContent = label('Pinned state A. Move the timeline to compare B.',
                                    '已釘選 A，移動時間軸即可比較 B。');
       });
@@ -883,6 +917,7 @@
         sweepPin.hidden = false;
         pin.textContent = label('Replace A', '更新 A');
         updateComparison();
+        draw(); // Previous-state baseline is also a visual state.
         status.textContent = label('Comparing the previous synthetic state A to current B.',
                                    '已比較前一個人工示意狀態 A 與目前狀態 B。');
       });
@@ -942,6 +977,7 @@
         sweepPin.hidden = true;
         pin.textContent = label('Pin A', '釘選 A');
         updateComparison();
+        draw(); // Remove A/B link and pinned FTZ/IEEE markers on Clear A.
         status.textContent = label('Pinned comparison cleared', '已清除釘選比較');
       });
       // Native range sliders advance 1/1000 of the 12-second animation per
