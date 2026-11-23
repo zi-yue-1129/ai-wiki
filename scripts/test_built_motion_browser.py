@@ -544,6 +544,23 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     capture('initial')
     # Verify three independent synthetic teaching distinctions on real MkDocs pages.
     if stem == 'checkpoint-spacing':
+        # The new map must be live, responsive and tied to this exact SVG
+        # timeline, not a decorative separate/static approximation.
+        pareto = controls.locator('.distributed-motion-pareto')
+        expect(pareto).to_be_visible()
+        dots = pareto.locator('button.distributed-motion-pareto-dot')
+        expect(dots).to_have_count(5)
+        assert [dots.nth(i).get_attribute('data-frontier') for i in range(5)] == [
+            'true', 'true', 'true', 'false', 'false']
+        expect(dots.first).to_have_attribute('aria-current', 'true')
+        assert all(dots.nth(i).is_enabled() for i in range(5))
+        dots.nth(2).focus()
+        page.keyboard.press('Enter')  # native accessible map selection
+        assert 's=4' in seek.get_attribute('aria-valuetext')
+        expect(dots.nth(2)).to_have_attribute('aria-current', 'true')
+        assert 'PEAK 8' in interpretation.inner_text() or '峰值 8' in interpretation.inner_text()
+        assert_document_fits(page, viewport)
+        seek.evaluate('e => {e.value = "0"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
         assert 'PARETO FRONTIER' in initial_summary or '非支配解' in initial_summary, initial_summary
         seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
         frontier_summary = interpretation.inner_text()
@@ -636,6 +653,9 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     expect(comparison).to_be_hidden()
     seek.evaluate('e => {e.value = "0"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
     pin.click()
+    if stem == 'checkpoint-spacing':
+        expect(controls.locator('.distributed-motion-pareto-dot.is-pinned')).to_have_count(1)
+        expect(controls.locator('.distributed-motion-pareto-dot[data-spacing="1"].is-pinned')).to_have_count(1)
     expect(comparison).to_be_visible()
     expect(clear_pin).to_be_visible()
     expect(swap_pin).to_be_visible()

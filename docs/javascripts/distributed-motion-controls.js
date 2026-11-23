@@ -126,6 +126,7 @@
       const eligibleSoFar = [1, 2, 2, 3, 4, 4];
       // Rendering only: accessible counts remain in interpretation and slider.
       const retentionTraceCells = [];
+      const paretoMapDots = [];
       const gauges = match[1] === 'checkpoint-spacing' ? [
         { id: 'peak', en: 'PEAK', tw: '峰值槽位', max: 17, at: t => 16 / checkpointSpacing(t) + checkpointSpacing(t) },
         { id: 'rebuilt', en: 'TOTAL REBUILT', tw: '總重算量', max: 15, at: t => 16 - 16 / checkpointSpacing(t) },
@@ -350,6 +351,74 @@
           }
           bar.append(trace);
         }
+        if (match[1] === 'checkpoint-spacing') {
+          // A second, synchronised view exposes the sampled Pareto frontier:
+          // x = peak *simultaneously live* activation slots, y = total
+          // reconstructed activations. It is not a benchmark or GPU profile.
+          const map = document.createElement('section');
+          map.className = 'distributed-motion-pareto';
+          map.setAttribute('role', 'group');
+          map.setAttribute('aria-label', label('Five-choice checkpoint memory and recomputation map',
+                                             '五種檢查點配置的記憶體與重算量地圖'));
+          const heading = document.createElement('p');
+          heading.className = 'distributed-motion-pareto-title';
+          heading.textContent = label('Peak storage × total replay (schematic)',
+                                      '峰值儲存 × 總重建量（示意）');
+          const plot = document.createElement('div');
+          plot.className = 'distributed-motion-pareto-plot';
+          const curve = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          curve.classList.add('distributed-motion-pareto-line');
+          curve.setAttribute('viewBox', '0 0 100 100');
+          curve.setAttribute('preserveAspectRatio', 'none');
+          curve.setAttribute('aria-hidden', 'true');
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+          const choices = [1, 2, 4, 8, 16].map((spacing, i) => ({
+            spacing, i, peak: 16 / spacing + spacing, rebuilt: 16 - 16 / spacing
+          }));
+          line.setAttribute('points', choices.slice(0, 3).map(choice =>
+            (10 + 80 * choice.peak / 17).toFixed(3) + ',' +
+            (90 - 80 * choice.rebuilt / 15).toFixed(3)).join(' '));
+          curve.append(line);
+          plot.append(curve);
+          for (const choice of choices) {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'distributed-motion-pareto-dot';
+            dot.dataset.spacing = String(choice.spacing);
+            dot.dataset.frontier = String(choice.i < 3);
+            dot.style.left = (10 + 80 * choice.peak / 17) + '%';
+            dot.style.bottom = (10 + 80 * choice.rebuilt / 15) + '%';
+            dot.textContent = String(choice.spacing);
+            dot.disabled = true; // never advertise seeking before SVG verification
+            dot.setAttribute('aria-label', label(
+              'Select spacing ' + choice.spacing + ': peak ' + choice.peak +
+              ' slots, rebuilt ' + choice.rebuilt + '; ' +
+              (choice.i < 3 ? 'Pareto frontier' : 'dominated'),
+              '選取間距 ' + choice.spacing + '：峰值 ' + choice.peak +
+              ' 槽、重建 ' + choice.rebuilt + '；' +
+              (choice.i < 3 ? '非支配解' : '被其他設定支配')));
+            dot.addEventListener('click', () => {
+              if (!svg) return;
+              stop(false);
+              setTime(config.steps[choice.i]);
+              status.textContent = interpretation.textContent;
+            });
+            paretoMapDots.push({ button: dot, spacing: choice.spacing });
+            plot.append(dot);
+          }
+          const x = document.createElement('span'), y = document.createElement('span');
+          x.className = 'distributed-motion-pareto-axis-x';
+          y.className = 'distributed-motion-pareto-axis-y';
+          x.textContent = 'PEAK →';
+          y.textContent = 'REBUILT ↑';
+          plot.append(x, y);
+          const legend = document.createElement('div');
+          legend.className = 'distributed-motion-pareto-legend';
+          legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A',
+                                     '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A');
+          map.append(heading, plot, legend);
+          bar.append(map);
+        }
         bar.append(comparison);
       }
       // Keep controls outside the horizontally scrolled 640px figure on
@@ -536,6 +605,9 @@
         return i ? config.steps[i - 1] : null;
       }
       function updateComparison() {
+        for (const { button, spacing } of paretoMapDots) {
+          button.classList.toggle('is-pinned', pinnedTime !== null && checkpointSpacing(pinnedTime) === spacing);
+        }
         if (pinnedTime === null || !comparison) return;
         pinA.textContent = label('A · pinned: ', 'A · 已釘選：') + conciseState(pinnedTime);
         pinB.textContent = label('B · current: ', 'B · 目前：') + conciseState(time);
@@ -561,6 +633,12 @@
         }
         readout.textContent = time.toFixed(1) + ' / ' + config.duration + 's';
         if (interpretation.isConnected) interpretation.textContent = teachingState(time);
+        for (const { button, spacing } of paretoMapDots) {
+          const active = checkpointSpacing(time) === spacing;
+          button.classList.toggle('is-current', active);
+          if (active) button.setAttribute('aria-current', 'true');
+          else button.removeAttribute('aria-current');
+        }
         if (retentionTraceCells.length) {
           const current = feedbackIndex(time);
           retentionTraceCells.forEach((cells, policy) => {
@@ -733,6 +811,7 @@
         swapPin.hidden = true;
         sweepPin.hidden = true;
         pin.textContent = label('Pin A', '釘選 A');
+        updateComparison();
         status.textContent = label('Pinned comparison cleared', '已清除釘選比較');
       });
       // Native range sliders advance 1/1000 of the 12-second animation per
@@ -918,6 +997,7 @@
           if (pin) pin.disabled = false;
           if (guided) guided.disabled = false;
           landmarkButtons.forEach(({ button }) => { button.disabled = false; });
+          paretoMapDots.forEach(({ button }) => { button.disabled = false; });
           // Also capture a load that finishes while reduced motion is active:
           // otherwise turning motion back on can leave this player stranded.
           if (reduced.matches) return;

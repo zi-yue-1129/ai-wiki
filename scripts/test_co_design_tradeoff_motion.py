@@ -890,3 +890,24 @@ for name, text in (("mixed-precision.md", "Follow information retention (MkDocs)
     assert text in (pages / name).read_text(encoding="utf-8")
 assert "rows = trace.locator('.distributed-motion-retention-row')" in browser_source
 print("IEEE/FTZ six-step visual trace, bilingual text, CSS and E2E contracts OK")
+# Interactive Pareto plane: five *sampled* choices, and the same two costs
+# as the original animation. It never represents an empirical GPU frontier.
+sampled = [(s, 16 // s + s, 16 - 16 // s) for s in (1, 2, 4, 8, 16)]
+frontier = [s for s, peak, rebuilt in sampled if not any(
+    (other_peak <= peak and other_rebuilt <= rebuilt and
+     (other_peak < peak or other_rebuilt < rebuilt))
+    for other_s, other_peak, other_rebuilt in sampled if other_s != s)]
+assert frontier == [1, 2, 4], frontier
+for marker in ("paretoMapDots", "distributed-motion-pareto", "dataset.frontier",
+               "dot.addEventListener('click'", "stop(false);",
+               "paretoMapDots.forEach(({ button }) => { button.disabled = false; });",
+               "button.classList.toggle('is-pinned'", "aria-current"):
+    assert marker in controls_js, marker
+for marker in (".distributed-motion-pareto-plot", ".distributed-motion-pareto-dot.is-current",
+               ".distributed-motion-pareto-dot.is-pinned",
+               '.distributed-motion-pareto-dot[data-frontier="false"]',
+               ".distributed-motion-pareto-dot:focus-visible"):
+    assert marker in controls_css, marker
+assert "Interactive Pareto map (MkDocs)" in (pages / "gradient-checkpointing.md").read_text(encoding="utf-8")
+assert "互動式 Pareto 成本地圖（MkDocs）" in (pages / "gradient-checkpointing.zh-TW.md").read_text(encoding="utf-8")
+print("Five-choice Pareto plane, interaction and bilingual contracts OK")
