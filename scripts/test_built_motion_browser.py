@@ -963,6 +963,11 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     expect(image).to_be_visible()
     expect(controls).to_be_hidden()
     expect(retry_button).to_be_visible(timeout=5000)
+    # Even an ignored late SVG must have its SMIL clock paused. Otherwise
+    # the hidden <object> continues animating after the visible still returns.
+    page.wait_for_function(
+        'el => el.contentDocument?.documentElement?.animationsPaused?.() === true',
+        arg=frame.element_handle(), timeout=5000)
     assert image.evaluate('img => img.complete && img.naturalWidth > 0'), (
         stem, 'late valid SVG changed the decoded static fallback')
     late_capture = output / f'co-design-{index}-late-response-ignored.png'
