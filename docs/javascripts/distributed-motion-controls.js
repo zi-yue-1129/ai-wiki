@@ -880,7 +880,7 @@
               ' peak, ' + best.rebuilt + ' rebuilt).',
             '重建最少為 s=' + best.spacing + '（峰值 ' +
               best.peak + '、重建 ' + best.rebuilt + '）。'
-          ) : label('no sampled choice satisfies both caps.',
+          ) : label('no feasible sampled choice satisfies both caps.',
                     '沒有取樣配置同時符合兩項上限。');
           paretoBudgetReadout.textContent = label(
             'Caps ' + cap + ' slots / ' + replayCap + ' rebuilt: ' +
