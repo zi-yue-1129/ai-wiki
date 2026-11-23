@@ -889,6 +889,22 @@ for name, text in (("mixed-precision.md", "Follow information retention (MkDocs)
                    ("mixed-precision.zh-TW.md", "追蹤梯度資訊保留（MkDocs）")):
     assert text in (pages / name).read_text(encoding="utf-8")
 assert "rows = trace.locator('.distributed-motion-retention-row')" in browser_source
+for token in ("retentionTraceButtons", "step.addEventListener('click'",
+              "button.classList.toggle('is-pinned'", "cell.dataset.pinned = 'true'"):
+    assert token in controls_js, token
+for token in (".distributed-motion-retention-step.is-pinned",
+              '.distributed-motion-retention-cell[data-pinned="true"]',
+              ".distributed-motion-retention-legend"):
+    assert token in controls_css, token
+preview = asset / "gradscaler-ieee-ftz-retention-still.svg"
+assert preview.exists()
+ET.parse(preview)
+for name, marker in (("mixed-precision.md", "Select and compare retention iterations (MkDocs)"),
+                     ("mixed-precision.zh-TW.md", "逐次選取與比較資訊保留（MkDocs）")):
+    body = (pages / name).read_text(encoding="utf-8")
+    assert marker in body and "gradscaler-ieee-ftz-retention-still.svg" in body
+assert "nav.nth(2).focus()" in browser_source
+print("GradScaler navigable retention trace, A/B pin, and GitHub SVG contracts OK")
 print("IEEE/FTZ six-step visual trace, bilingual text, CSS and E2E contracts OK")
 # Interactive Pareto plane: five *sampled* choices, and the same two costs
 # as the original animation. It never represents an empirical GPU frontier.
