@@ -607,10 +607,12 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         legend = policy.locator('.distributed-motion-policy-legend')
         expect(legend).to_be_visible()
         legend_items = legend.locator('.distributed-motion-policy-legend-item')
-        expect(legend_items).to_have_count(4)
-        for expected_text, expected_state in (
+        expected_legend = (
             ('LOW 0', 'underflow'), ('PAIR nonzero', 'valid'),
-            ('HIGH Inf', 'overflow'), ('Selected', 'current')):
+            ('HIGH Inf', 'overflow'), ('Selected', 'current'), ('Pinned A', 'pinned'),
+        )
+        expect(legend_items).to_have_count(len(expected_legend))
+        for expected_text, expected_state in expected_legend:
             item = legend_items.filter(has_text=expected_text)
             expect(item).to_have_count(1)
             assert item.locator('.distributed-motion-policy-legend-swatch').get_attribute('data-state') == expected_state
