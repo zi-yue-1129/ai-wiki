@@ -439,3 +439,52 @@
   background: var(--md-code-bg-color,#f4f6f8); box-shadow: inset 0 -3px #8b46bf;
 }
 @media (prefers-reduced-motion: reduce) { .distributed-motion-retention-step { transition: none; } }
+
+/* Constrained checkpoint comparison: a memory-cap line filters the sampled
+ * choices; the violet ring is the least-replay *feasible* option, not a GPU
+ * recommendation or a continuously fitted Pareto curve. */
+.distributed-motion-pareto-budget-line {
+  stroke: #8b46bf;
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  vector-effect: non-scaling-stroke;
+}
+.distributed-motion-budget-control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .35rem .6rem;
+  margin: .3rem 0 .7rem;
+  font-size: .77rem;
+  font-weight: 650;
+}
+.distributed-motion-budget-control input {
+  flex: 1 1 9rem;
+  max-width: 17rem;
+  min-width: 6rem;
+  accent-color: #8b46bf;
+}
+.distributed-motion-budget-control input:focus-visible {
+  outline: 3px solid #903ec7;
+  outline-offset: 3px;
+}
+.distributed-motion-budget-control input:disabled { opacity: .5; }
+.distributed-motion-budget-readout {
+  margin: .45rem 0 0;
+  font-size: .73rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.distributed-motion-pareto-dot[data-feasible="false"] {
+  opacity: .52;
+  background: repeating-linear-gradient(45deg,
+    #f7f1f1 0, #f7f1f1 4px, #e1d6db 4px, #e1d6db 7px);
+}
+.distributed-motion-pareto-dot[data-best="true"]::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border: 2px solid #8b46bf;
+  border-radius: 50%;
+  pointer-events: none;
+}
