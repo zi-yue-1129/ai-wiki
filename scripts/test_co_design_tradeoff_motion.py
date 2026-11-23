@@ -926,4 +926,14 @@ for marker in ('.distributed-motion-policy-row', '.distributed-motion-policy-cel
     assert marker in controls_css, marker
 assert "IEEE/FTZ comparison strip (MkDocs)" in (pages / "mixed-precision.md").read_text(encoding="utf-8")
 assert "IEEE／FTZ 雙軌對照（MkDocs）" in (pages / "mixed-precision.zh-TW.md").read_text(encoding="utf-8")
-print("Synchronized IEEE/FTZ 13-scale policy visualization contracts OK")
+for token in ("distributed-motion-policy-legend", "distributed-motion-policy-legend-swatch",
+              "['underflow', 'LOW 0']", "['valid', 'PAIR nonzero']",
+              "['overflow', 'HIGH Inf']", "['current', 'Selected']"):
+    assert token in controls_js, token
+for token in ('.distributed-motion-policy-legend-item',
+              '.distributed-motion-policy-legend-swatch[data-state="underflow"]',
+              '.distributed-motion-policy-legend-swatch[data-state="overflow"]'):
+    assert token in controls_css, token
+for name in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
+    assert "PAIR nonzero" in (pages / name).read_text(encoding="utf-8"), name
+print("Synchronized IEEE/FTZ policy visualization and in-panel texture key contracts OK")

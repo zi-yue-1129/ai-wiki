@@ -590,6 +590,16 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         policy = controls.locator('.distributed-motion-policy-window')
         expect(policy).to_be_visible()
         assert policy.get_attribute('aria-hidden') == 'true'
+        legend = policy.locator('.distributed-motion-policy-legend')
+        expect(legend).to_be_visible()
+        legend_items = legend.locator('.distributed-motion-policy-legend-item')
+        expect(legend_items).to_have_count(4)
+        for expected_text, expected_state in (
+            ('LOW 0', 'underflow'), ('PAIR nonzero', 'valid'),
+            ('HIGH Inf', 'overflow'), ('Selected', 'current')):
+            item = legend_items.filter(has_text=expected_text)
+            expect(item).to_have_count(1)
+            assert item.locator('.distributed-motion-policy-legend-swatch').get_attribute('data-state') == expected_state
         policy_rows = policy.locator('.distributed-motion-policy-row')
         expect(policy_rows).to_have_count(3)
         ieee_cells = policy_rows.nth(1).locator('.distributed-motion-policy-cell')

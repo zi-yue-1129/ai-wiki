@@ -351,3 +351,12 @@
 .distributed-motion-policy-cell[data-state="overflow"] { background: repeating-linear-gradient(45deg,#374759 0,#374759 4px,#bfccd5 4px,#bfccd5 6px); }
 .distributed-motion-policy-cell[data-current="true"] { outline: 3px solid var(--md-default-fg-color, #15283c); outline-offset: 1px; z-index: 1; }
 @media (max-width: 420px) { .distributed-motion-policy-window { padding: .45rem .45rem .5rem; } .distributed-motion-policy-row { grid-template-columns: minmax(2.3rem, 2.5rem) repeat(13, minmax(0, 1fr)); gap: .12rem; } .distributed-motion-policy-cell { height: 1.3rem; border-radius: .1rem; } }
+
+/* Compact visual key for the two illustrative binary16 quantization paths. */
+.distributed-motion-policy-legend { display: flex; flex-wrap: wrap; gap: .35rem .85rem; margin-top: .5rem; padding-top: .43rem; border-top: 1px solid var(--md-default-fg-color--lightest, #d5dce3); font-size: .64rem; line-height: 1.35; }
+.distributed-motion-policy-legend-item { display: inline-flex; align-items: center; gap: .32rem; white-space: nowrap; }
+.distributed-motion-policy-legend-swatch { display: inline-block; width: 1rem; height: .75rem; flex: none; box-sizing: border-box; border: 1px solid #637785; border-radius: .12rem; }
+.distributed-motion-policy-legend-swatch[data-state="underflow"] { background: repeating-linear-gradient(135deg,#e49e39 0,#e49e39 3px,#ffe8b4 3px,#ffe8b4 6px); }
+.distributed-motion-policy-legend-swatch[data-state="valid"] { background: #12858a; }
+.distributed-motion-policy-legend-swatch[data-state="overflow"] { background: repeating-linear-gradient(45deg,#374759 0,#374759 4px,#bfccd5 4px,#bfccd5 6px); }
+.distributed-motion-policy-legend-swatch[data-state="current"] { background: var(--md-code-bg-color,#f7f9fa); outline: 2px solid var(--md-default-fg-color,#15283c); outline-offset: 1px; margin: 0 .1rem; }

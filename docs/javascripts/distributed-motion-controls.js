@@ -400,6 +400,27 @@
             policyWindowCells.push(cells);
             panel.append(row);
           }
+          // A small in-panel key explains texture and the current outline
+          // without forcing a reader to scroll to the bilingual prose.
+          // The entire visual panel remains aria-hidden: the localized slider
+          // value and interpretation are the authoritative accessible reading.
+          const legend = document.createElement('div');
+          legend.className = 'distributed-motion-policy-legend';
+          for (const [state, caption] of [
+            ['underflow', 'LOW 0'],
+            ['valid', 'PAIR nonzero'],
+            ['overflow', 'HIGH Inf'],
+            ['current', 'Selected'],
+          ]) {
+            const item = document.createElement('span');
+            item.className = 'distributed-motion-policy-legend-item';
+            const swatch = document.createElement('span');
+            swatch.className = 'distributed-motion-policy-legend-swatch';
+            swatch.dataset.state = state;
+            item.append(swatch, document.createTextNode(caption));
+            legend.append(item);
+          }
+          panel.append(legend);
           bar.append(panel);
         }
         if (match[1] === 'checkpoint-spacing') {
