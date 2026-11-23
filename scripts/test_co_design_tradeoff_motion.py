@@ -1086,7 +1086,7 @@ print("Constrained checkpoint Pareto budgets, safe fallback and bilingual links 
 # tested SVG clock; it is not a decorative second chart.
 for token in (
     "paretoBudgetCompareButton = document.createElement('button')",
-    "paretoBudgetCompareButton.disabled = current === best.spacing",
+    "paretoBudgetCompareButton.disabled = !best || current === best.spacing",
     "paretoBudgetCompareButton?.addEventListener('click'",
     "pinnedTime = time; // A is the original reader-selected spacing",
     "setTime(target.t); // B redraws existing SMIL, A/B gauges and map",
@@ -1108,3 +1108,31 @@ assert 'Compare current to best feasible (MkDocs)' in (
 assert '目前配置與最佳可行解的比較（MkDocs）' in (
     pages / 'gradient-checkpointing.zh-TW.md').read_text(encoding='utf-8')
 print('Budget-to-A/B decisions, delta contracts and bilingual copy OK')
+
+# Two independent upper bounds: empty feasibility is a first-class learning state.
+for mem, replay, expected in ((8,8,()), (10,8,(2,)), (17,0,(1,)),
+                              (8,12,(4,)), (10,15,(2,4,8))):
+    feasible = tuple(s for s in (1,2,4,8,16)
+                     if 16//s+s <= mem and 16-16//s <= replay)
+    assert feasible == expected, (mem, replay, feasible)
+for token in ("paretoReplaySelect.min = '0'", "paretoReplaySelect.max = '15'",
+              "paretoReplaySelect.value = '15'",
+              "choice.peak <= cap && choice.rebuilt <= replayCap",
+              "paretoBudgetCompareButton.disabled = !best || current === best.spacing",
+              "if (!best) return", "paretoReplayLine.setAttribute('y1', replayCutoff)"):
+    assert token in controls_js, token
+for token in (".distributed-motion-pareto-replay-line",
+              ".distributed-motion-replay-control input"):
+    assert token in controls_css, token
+joint = ET.parse(asset / "checkpoint-joint-budget-still.svg").getroot()
+assert joint.get("viewBox") == "0 0 360 270"
+assert joint.find(svg+"title") is not None and joint.find(svg+"desc") is not None
+for element in joint.iter():
+    assert element.tag not in {svg+"script",svg+"foreignObject",svg+"image",svg+"use"}
+    assert all(not key.lower().startswith("on") and not key.lower().endswith("href")
+               for key in element.attrib)
+for suffix, snippet in ((".md", "Joint memory-and-replay constraints (MkDocs)"),
+                        (".zh-TW.md", "記憶體與重建量的聯合限制（MkDocs）")):
+    page = (pages/("gradient-checkpointing"+suffix)).read_text(encoding="utf-8")
+    assert snippet in page and "checkpoint-joint-budget-still.svg" in page
+print("Joint checkpoint constraints, empty feasible set and fallback contracts OK")

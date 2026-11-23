@@ -571,6 +571,35 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
             expect(pareto.locator('.distributed-motion-pareto-dot[data-best="true"]')).to_have_count(1)
             assert best in cap_readout.inner_text(), (cap, cap_readout.inner_text())
             assert budget_line.get_attribute('x1') == budget_line.get_attribute('x2')
+        # A second upper bound can make the sampled intersection empty.
+        replay = pareto.locator('.distributed-motion-replay-control input[type="range"]')
+        expect(replay).to_have_count(1)
+        assert replay.is_enabled()
+        replay_line = pareto.locator('.distributed-motion-pareto-replay-line')
+        expect(replay_line).to_have_count(1)
+        replay.focus()
+        page.keyboard.press('Home')
+        assert replay.input_value() == '0'
+        page.keyboard.press('End')
+        assert replay.input_value() == '15'
+        for memory_cap, replay_cap, feasible, best in ((8, 8, 0, None),
+                                                       (10, 8, 1, 's=2'),
+                                                       (17, 0, 1, 's=1')):
+            budget.evaluate("""(e,v) => {e.value=String(v);
+                e.dispatchEvent(new Event('input',{bubbles:true}));}""", memory_cap)
+            replay.evaluate("""(e,v) => {e.value=String(v);
+                e.dispatchEvent(new Event('input',{bubbles:true}));}""", replay_cap)
+            assert pareto.locator('.distributed-motion-pareto-dot[data-feasible="true"]').count() == feasible
+            assert pareto.locator('.distributed-motion-pareto-dot[data-best="true"]').count() == int(best is not None)
+            assert replay_line.get_attribute('y1') == replay_line.get_attribute('y2')
+            assert ('no feasible' in cap_readout.inner_text().lower() or '沒有取樣配置' in cap_readout.inner_text()) if best is None else best in cap_readout.inner_text()
+            if best is None:
+                assert pareto.locator('button.distributed-motion-budget-compare').is_disabled()
+                assert ('no feasible' in replay.get_attribute('aria-valuetext').lower() or
+                        '沒有可行' in replay.get_attribute('aria-valuetext'))
+        replay.evaluate("""e => {e.value='15';e.dispatchEvent(new Event('input',{bubbles:true}));}""")
+        budget.evaluate("""e => {e.value='10';e.dispatchEvent(new Event('input',{bubbles:true}));}""")
+        assert_document_fits(page, viewport)
         budget.focus()
         page.keyboard.press('Home')
         assert budget.input_value() == '8'

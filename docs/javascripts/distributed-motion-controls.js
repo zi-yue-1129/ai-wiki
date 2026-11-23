@@ -135,6 +135,7 @@
         spacing, peak: 16 / spacing + spacing, rebuilt: 16 - 16 / spacing
       }));
       let paretoBudgetSelect = null, paretoBudgetLine = null, paretoBudgetReadout = null;
+      let paretoReplaySelect = null, paretoReplayLine = null; // Independent replay-cost cap, same five sampled points.
       let paretoBudgetCompareButton = null; // Constrained, keyboard-operable A/B action.
       let paretoWitness = null; // Rendered only for a dominated sampled spacing.
       let paretoABPath = null; // Curved dotted link between pinned A and current B (not a trajectory).
@@ -528,6 +529,10 @@
           paretoBudgetLine.classList.add('distributed-motion-pareto-budget-line');
           paretoBudgetLine.setAttribute('y1', '10');
           paretoBudgetLine.setAttribute('y2', '90');
+          paretoReplayLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          paretoReplayLine.classList.add('distributed-motion-pareto-replay-line');
+          paretoReplayLine.setAttribute('x1', '10');
+          paretoReplayLine.setAttribute('x2', '90');
           // A state-dependent witness is distinct from the sampled frontier:
           // s=2 dominates s=8 at equal PEAK and also dominates s=16 in
           // both modelled costs. The diagram does not draw an optimiser path.
@@ -555,7 +560,7 @@
           paretoABPath.classList.add('distributed-motion-pareto-ab');
           paretoABPath.style.display = 'none';
           // Draw behind the dominance witness; never imply an optimisation direction.
-          curve.append(defs, paretoBudgetLine, line, paretoABPath, paretoWitness);
+          curve.append(defs, paretoBudgetLine, paretoReplayLine, line, paretoABPath, paretoWitness);
           plot.append(curve);
           const budgetLabel = document.createElement('label');
           budgetLabel.className = 'distributed-motion-budget-control';
@@ -568,6 +573,17 @@
           paretoBudgetSelect.value = '10';
           paretoBudgetSelect.disabled = true; // enable only after SVG verification
           budgetLabel.append(paretoBudgetSelect);
+          const replayLabel = document.createElement('label');
+          replayLabel.className = 'distributed-motion-budget-control distributed-motion-replay-control';
+          replayLabel.append(document.createTextNode(label('Replay cap (rebuilt)', '重建上限（個）')));
+          paretoReplaySelect = document.createElement('input');
+          paretoReplaySelect.type = 'range';
+          paretoReplaySelect.min = '0';
+          paretoReplaySelect.max = '15';
+          paretoReplaySelect.step = '1';
+          paretoReplaySelect.value = '15'; // Default keeps the prior memory-only lesson intact.
+          paretoReplaySelect.disabled = true;
+          replayLabel.append(paretoReplaySelect);
           // Compare the selected state A with the least-replay feasible B,
           // without introducing another animation timeline.
           const budgetActions = document.createElement('div');
@@ -616,9 +632,9 @@
           plot.append(x, y);
           const legend = document.createElement('div');
           legend.className = 'distributed-motion-pareto-legend';
-          legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A · Arrow: dominance witness · Violet dots: A/B link',
-                                     '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A · 箭頭：支配見證 · 紫色點線：A/B 連結');
-          map.append(heading, budgetLabel, budgetActions, plot, legend, paretoBudgetReadout);
+          legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A · Arrow: dominance witness · Violet/blue lines: memory/replay caps',
+                                     '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A · 箭頭：支配見證 · 紫／藍線：記憶體／重建上限');
+          map.append(heading, budgetLabel, replayLabel, budgetActions, plot, legend, paretoBudgetReadout);
           bar.append(map);
         }
         bar.append(comparison);
@@ -839,40 +855,57 @@
         }
         readout.textContent = time.toFixed(1) + ' / ' + config.duration + 's';
         if (interpretation.isConnected) interpretation.textContent = teachingState(time);
-        if (paretoBudgetLine && paretoBudgetSelect && paretoBudgetReadout) {
+        if (paretoBudgetLine && paretoBudgetSelect && paretoReplayLine &&
+            paretoReplaySelect && paretoBudgetReadout) {
           const cap = Number(paretoBudgetSelect.value);
-          const feasible = checkpointChoices.filter(choice => choice.peak <= cap)
-            .sort((a, b) => a.rebuilt - b.rebuilt);
-          // The minimum 8-slot cap guarantees at least the s=4 choice.
-          const best = feasible[0];
+          const replayCap = Number(paretoReplaySelect.value);
+          const feasible = checkpointChoices.filter(choice =>
+            choice.peak <= cap && choice.rebuilt <= replayCap
+          ).sort((a, b) => a.rebuilt - b.rebuilt);
+          // Two independent upper bounds may have an empty intersection.
+          const best = feasible[0] || null;
           const cutoff = (10 + 80 * cap / 17).toFixed(3);
+          const replayCutoff = (90 - 80 * replayCap / 15).toFixed(3);
           paretoBudgetLine.setAttribute('x1', cutoff);
           paretoBudgetLine.setAttribute('x2', cutoff);
+          paretoReplayLine.setAttribute('y1', replayCutoff);
+          paretoReplayLine.setAttribute('y2', replayCutoff);
           for (const { button, spacing } of paretoMapDots) {
             const choice = checkpointChoices.find(candidate => candidate.spacing === spacing);
-            button.dataset.feasible = String(choice.peak <= cap);
-            button.dataset.best = String(spacing === best.spacing);
+            button.dataset.feasible = String(choice.peak <= cap && choice.rebuilt <= replayCap);
+            button.dataset.best = String(Boolean(best) && spacing === best.spacing);
           }
+          const result = best ? label(
+            'least replay s=' + best.spacing + ' (' + best.peak +
+              ' peak, ' + best.rebuilt + ' rebuilt).',
+            '重建最少為 s=' + best.spacing + '（峰值 ' +
+              best.peak + '、重建 ' + best.rebuilt + '）。'
+          ) : label('no sampled choice satisfies both caps.',
+                    '沒有取樣配置同時符合兩項上限。');
           paretoBudgetReadout.textContent = label(
-            'Cap ' + cap + ' slots: ' + feasible.length + '/5 feasible; least replay s=' +
-              best.spacing + ' (' + best.peak + ' peak, ' + best.rebuilt + ' rebuilt).',
-            '上限 ' + cap + ' 槽：5 種中有 ' + feasible.length + ' 種可行；重建最少為 s=' +
-              best.spacing + '（峰值 ' + best.peak + '、重建 ' + best.rebuilt + '）。'
-          );
-          paretoBudgetSelect.setAttribute('aria-valuetext', label(
-            cap + ' slots; best feasible s=' + best.spacing,
-            cap + ' 槽；可行配置中重建最少 s=' + best.spacing
-          ));
+            'Caps ' + cap + ' slots / ' + replayCap + ' rebuilt: ' +
+              feasible.length + '/5 feasible; ',
+            '上限 ' + cap + ' 槽／' + replayCap + ' 個重建：5 種中有 ' +
+              feasible.length + ' 種可行；'
+          ) + result;
+          const accessibleResult = best ? label('best feasible s=' + best.spacing,
+            '可行配置中重建最少 s=' + best.spacing) :
+            label('no feasible sampled choice', '沒有可行的取樣配置');
+          paretoBudgetSelect.setAttribute('aria-valuetext', label(cap + ' slots', cap + ' 槽') +
+            '; ' + accessibleResult);
+          paretoReplaySelect.setAttribute('aria-valuetext',
+            label(replayCap + ' rebuilt maximum', '最多重建 ' + replayCap + ' 個') +
+            '; ' + accessibleResult);
           if (paretoBudgetCompareButton) {
             const current = checkpointSpacing(time);
-            // Disable a no-op when B already is the constrained optimum.
-            paretoBudgetCompareButton.disabled = current === best.spacing;
-            paretoBudgetCompareButton.setAttribute('aria-label', label(
-              'Pin current s=' + current + ' as A; compare to least-replay feasible s=' +
-                best.spacing + ' under cap ' + cap,
-              '將目前 s=' + current + ' 釘選為 A，與上限 ' + cap +
-                ' 槽下重建最少的可行配置 s=' + best.spacing + ' 比較'
-            ));
+            paretoBudgetCompareButton.disabled = !best || current === best.spacing;
+            paretoBudgetCompareButton.setAttribute('aria-label', best ? label(
+              'Pin current s=' + current + ' as A; compare to best feasible s=' +
+                best.spacing + ' under both caps',
+              '將目前 s=' + current + ' 釘選為 A，與兩項上限下最佳可行 s=' +
+                best.spacing + ' 比較'
+            ) : label('No sampled choice satisfies both caps; comparison unavailable',
+                      '沒有同時符合兩項上限的取樣配置，無法比較'));
           }
         }
         for (const { button, spacing } of paretoMapDots) {
@@ -1192,12 +1225,19 @@
       paretoBudgetSelect?.addEventListener('change', () => {
         status.textContent = paretoBudgetReadout?.textContent || '';
       });
+      paretoReplaySelect?.addEventListener('input', () => draw());
+      paretoReplaySelect?.addEventListener('change', () => {
+        status.textContent = paretoBudgetReadout?.textContent || '';
+      });
       paretoBudgetCompareButton?.addEventListener('click', () => {
-        if (!svg || !paretoBudgetSelect) return;
+        if (!svg || !paretoBudgetSelect || !paretoReplaySelect) return;
         const cap = Number(paretoBudgetSelect.value);
-        const feasible = checkpointChoices.filter(choice => choice.peak <= cap)
-          .sort((a, b) => a.rebuilt - b.rebuilt);
-        const best = feasible[0]; // cap >= 8 guarantees a feasible choice
+        const replayCap = Number(paretoReplaySelect.value);
+        const feasible = checkpointChoices.filter(choice =>
+          choice.peak <= cap && choice.rebuilt <= replayCap
+        ).sort((a, b) => a.rebuilt - b.rebuilt);
+        const best = feasible[0];
+        if (!best) return; // An empty feasible intersection cannot be compared.
         const before = checkpointSpacing(time);
         if (before === best.spacing) return;
         const target = landmarks.find(event => event.en === 's=' + best.spacing);
@@ -1211,9 +1251,9 @@
         pin.textContent = label('Replace A', '更新 A');
         setTime(target.t); // B redraws existing SMIL, A/B gauges and map
         status.textContent = label(
-          'Cap ' + cap + ': pinned s=' + before + ' as A; selected best feasible s=' +
+          'Caps ' + cap + ' slots / ' + replayCap + ' rebuilt: pinned s=' + before + ' as A; selected best feasible s=' +
             best.spacing + ' as B. ' + compareChange(pinnedTime, time),
-          '上限 ' + cap + ' 槽：釘選 s=' + before + ' 為 A；選取最佳可行 s=' +
+          '上限 ' + cap + ' 槽／' + replayCap + ' 個重建：釘選 s=' + before + ' 為 A；選取最佳可行 s=' +
             best.spacing + ' 為 B。' + compareChange(pinnedTime, time)
         );
       });
@@ -1386,6 +1426,7 @@
           landmarkButtons.forEach(({ button }) => { button.disabled = false; });
           paretoMapDots.forEach(({ button }) => { button.disabled = false; });
           if (paretoBudgetSelect) paretoBudgetSelect.disabled = false;
+          if (paretoReplaySelect) paretoReplaySelect.disabled = false;
           retentionTraceButtons.forEach(button => { button.disabled = false; });
           if (policyScaleSelect) policyScaleSelect.disabled = false;
           if (policySweepSelect) policySweepSelect.disabled = false;

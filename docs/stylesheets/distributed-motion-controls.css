@@ -507,3 +507,13 @@
   border-radius: 50%;
   pointer-events: none;
 }
+
+/* Second independent bound: horizontal, blue total-replay cap in the same
+ * sampled Pareto plane. No animation clock or independent state simulation. */
+.distributed-motion-pareto-replay-line {
+  stroke: #256f9f;
+  stroke-width: 2;
+  stroke-dasharray: 3 5;
+  vector-effect: non-scaling-stroke;
+}
+.distributed-motion-replay-control input { accent-color: #256f9f; }
