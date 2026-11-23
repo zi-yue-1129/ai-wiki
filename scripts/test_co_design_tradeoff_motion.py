@@ -547,10 +547,10 @@ print("Paired A/B gauge rendering contract and bilingual descriptions OK")
 # A/B interpretations explicitly distinguish restricted-model dominance,
 # binary16 representability regimes and GradScaler history-based decisions.
 assert "function comparisonInsight(a, b)" in controls_js
-assert "B dominates A on both schematic costs." in controls_js
-assert "A dominates B on both schematic costs." in controls_js
+assert "B Pareto-dominates A (no worse on either cost)." in controls_js
+assert "A Pareto-dominates B (no worse on either cost)." in controls_js
 assert "Memory–recomputation trade-off." in controls_js
-assert "Rounded regime: " in controls_js and "BOTH FINITE NONZERO" in controls_js
+assert "Rounded regime: " in controls_js and "LOW SUBNORMAL, HIGH FINITE" in controls_js
 assert "Next-scale action: " in controls_js and "backoff" in controls_js
 for name in ("gradient-checkpointing.md", "gradient-checkpointing.zh-TW.md"):
     assert "s=8" in (pages / name).read_text(encoding="utf-8")
