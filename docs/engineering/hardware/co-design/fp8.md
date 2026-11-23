@@ -60,6 +60,27 @@ Scaling is done in software. Each tensor is multiplied by a scaling factor befor
 The coloured bands bound the **positive magnitudes** of finite, nonzero representable values after the pre-cast multiplication $s\lvert x\rvert$, mapped back to unscaled input units. With subnormals supported, E4M3 has $[2^{-9}/s,448/s]$ and E5M2 has $[2^{-16}/s,57344/s]$. As **illustrative** $s$ moves continuously from 1 to 16 and back, both bands slide left on a logarithmic axis; the scale slider is also logarithmic (its midpoint is $s=4$). The solid bands are envelopes, not continuous sets of exactly representable numbers. Two fixed schematic inputs are $\lvert x_{\mathrm{low}}\rvert=5\times10^{-4}$ and $\lvert x_{\mathrm{high}}\rvert=10^3$. Larger $s$ brings the low input into E4M3's nonzero range but places more large values above its finite maximum. The wide E5M2 band is a *range* comparison only: this picture does not show per-bin rounding, numerical error or model accuracy, and exact underflow/overflow behaviour depends on conversion rules.
 
 
+### Animated explanation: rounding on two FP8 grids
+
+<img data-source-asset-urls src="../../../assets/concept-animations/fp8-rounding-grid-still.svg" data-motion-src="../../../assets/concept-animations/fp8-rounding-grid-motion.svg" data-still-src="../../../assets/concept-animations/fp8-rounding-grid-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="Seventeen input samples from 1 to 2; E4M3 rounds on a finer grid than E5M2, with orange horizontal error segments.">
+
+*Original educational animation, CC BY-SA 4.0.* [GitHub-readable still](../../../assets/concept-animations/fp8-rounding-grid-still.svg) · [Full SVG animation](../../../assets/concept-animations/fp8-rounding-grid-motion.svg). Use Play/Pause on the website; Pause returns to the representative still rather than freezing the current frame.
+
+This example isolates one normal binade, with scale 1 and an explicitly chosen round-to-nearest, ties-to-even rule. The spacing on $[1,2]$ is $2^{-3}=1/8$ for E4M3 and $2^{-2}=1/4$ for E5M2, following their significand layouts.[^fp8-grid] The input samples are $x=1+i/16$, $i=0,\ldots,16$. The output markers jump to the nearest grid point; the orange segment length is $|Q(x)-x|$. At $x=1.125$, E4M3 retains the value exactly while E5M2 rounds the midpoint to 1. At $x=1.0625$, both round to 1. The maximum absolute rounding error over this sampled binade is $1/16$ versus $1/8$. These are analytical values, not hardware or model measurements; other binades, subnormals, and other conversion rules behave differently.
+
+[^fp8-grid]: Micikevicius et al. (2022), Section 3, [FP8 Formats for Deep Learning](https://arxiv.org/abs/2209.05433). The grid example and rounding rule are illustrative choices.
+
+### Animated explanation: current versus delayed scaling
+
+<img data-source-asset-urls src="../../../assets/concept-animations/fp8-delayed-amax-still.svg" data-motion-src="../../../assets/concept-animations/fp8-delayed-amax-motion.svg" data-still-src="../../../assets/concept-animations/fp8-delayed-amax-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="Six tensor maxima with a spike at step three. Current scaling follows each maximum; delayed scaling clips the spike and keeps a wider limit for two subsequent steps.">
+
+*Original educational animation, CC BY-SA 4.0.* [GitHub-readable still](../../../assets/concept-animations/fp8-delayed-amax-still.svg) · [Full SVG animation](../../../assets/concept-animations/fp8-delayed-amax-motion.svg). Play/Pause and reduced-motion fallback use the shared website player.
+
+A practical scaling recipe may use the present tensor maximum or previously recorded maxima to choose the scale.[^fp8-delayed] For this synthetic example, let $a_t=\max|x_t|$ be $(1,1,4,1,1,1)$, and use $H_t=\max(a_{t-2},a_{t-1})$ with two initial history entries of 1. For format maximum $F$, the idealized current scale is $F/a_t$, and the delayed scale is $F/H_t$. Thus the unscaled upper magnitude limits (white marks) are $a_t$ and $H_t$. At step 3 the delayed limit is 1 while the observed maximum is 4; under a saturating cast, magnitudes above 1 clip. At steps 4 and 5, the delayed limit is still 4, so only a quarter of the available upper magnitude range is needed; at step 6 the spike leaves the history. The orange length shows the interval above the limit, not the fraction of elements clipped. The example assumes positive maxima, exact scale arithmetic, no safety margin, and a two-entry history for clarity; it is not a benchmark, a claim about model accuracy, or an exact reproduction of a library's update schedule.
+
+[^fp8-delayed]: NVIDIA, [FP8 Delayed Scaling](https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/fp8_delayed_scaling/fp8_delayed_scaling.html). Describes history-based scale selection and the quantization/read trade-off.
+
+
 ## Results
 
 The paper reports that FP8 training effectively matches 16-bit training on a range of image and language tasks, with hyperparameters unchanged. The models include convolutional networks, recurrent networks and Transformers, with language models up to 175 billion parameters.
@@ -97,6 +118,8 @@ FP8 extends the idea of [mixed-precision training](mixed-precision.md), which ke
 - Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — Surveys the energy and throughput trade-offs of DNN hardware, including hardware–algorithm co-design.
 
 ### Articles and documentation
+
+- NVIDIA. *FP8 Delayed Scaling*. https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/fp8_delayed_scaling/fp8_delayed_scaling.html — Explains history-based scaling, tensor reads, and clipping.
 
 - Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — Shows that per-channel 8-bit integer quantisation keeps many CNNs within 2% of floating-point accuracy, the integer counterpart of FP8 inference.
 - Gholami, A., et al. (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — Argues that memory, rather than compute, has become the primary bottleneck for AI applications, particularly serving, which is the pressure that lower-bit formats relieve.

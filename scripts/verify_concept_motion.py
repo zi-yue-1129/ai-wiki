@@ -1470,6 +1470,8 @@ def main() -> int:
     # expose the animated variant to the MkDocs player through data-motion-src.
     # Check both paths rather than accepting the data attribute as the fallback.
     html_motion_topics = {
+        "fp8-rounding-grid": "engineering/hardware/co-design/fp8",
+        "fp8-delayed-amax": "engineering/hardware/co-design/fp8",
         "odin-gradient-perturbation": "theory/machine-learning/ood-detection/odin",
         "mahalanobis-ellipse-threshold": "theory/machine-learning/ood-detection/mahalanobis-distance",
     }
