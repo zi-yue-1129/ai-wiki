@@ -1006,3 +1006,37 @@ for marker in ("A/B link", "Pinned A", "Current B", 'stroke="#8b46bf"',
     assert marker in witness_still, marker
 ET.fromstring(witness_still)
 print("Pinned A vs current B checkpoint fallback labels and SVG XML OK")
+
+
+# FP16 representability is history-free at fixed S, unlike GradScaler.
+# Direct navigation must reuse the single 26-cell SMIL sweep (13 ascending,
+# 13 descending) rather than a duplicate simulated clock.
+for exponent in range(13):
+    ascending = exponent
+    descending = 25 - exponent
+    assert 0 <= ascending <= 12 and 13 <= descending <= 25
+    assert (ascending if ascending <= 12 else 25 - ascending) == exponent
+    assert (descending if descending <= 12 else 25 - descending) == exponent
+for token in (
+    'distributed-motion-policy-jump',
+    "policyScaleSelect.disabled = true",
+    "policySweepSelect.disabled = true",
+    "policyScaleSelect.value = String(exponent)",
+    "policySweepSelect.value = sweepDirection",
+    "const index = policySweepSelect.value === 'up' ? exponent : 25 - exponent",
+    "policyScaleSelect?.addEventListener('change', jumpToPolicyChoice)",
+    "policySweepSelect?.addEventListener('change', jumpToPolicyChoice)",
+    "if (policyScaleSelect) policyScaleSelect.disabled = false",
+):
+    assert token in controls_js, token
+for token in (
+    '.distributed-motion-policy-jump',
+    '.distributed-motion-policy-jump select:focus-visible',
+    '@media (max-width: 420px)',
+):
+    assert token in controls_css, token
+assert 'Direct scale and sweep navigation (MkDocs)' in (
+    pages / 'mixed-precision.md').read_text(encoding='utf-8')
+assert '直接選擇縮放係數與掃描方向（MkDocs）' in (
+    pages / 'mixed-precision.zh-TW.md').read_text(encoding='utf-8')
+print('Native FP16 bidirectional scale selection and bilingual history-invariance contract OK')
