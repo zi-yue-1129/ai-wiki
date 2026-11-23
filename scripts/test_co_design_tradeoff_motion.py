@@ -879,8 +879,14 @@ for token in ("retentionTraceCells", "distributed-motion-retention-trace",
               "cell.dataset.state = i > current ? 'future'",
               "policy === 0 ? 'retained' : 'lost'",
               "i === 2 || i === 5",
-              "trace.setAttribute('aria-hidden', 'true')"):
+              "trace.setAttribute('role', 'group')",
+              "trace.setAttribute('aria-label', label(",
+              "GradScaler iterations: ideal IEEE versus hypothetical FTZ low-gradient retention",
+              "GradScaler 迭代：理想 IEEE 與假設 FTZ 的小梯度保留比較",
+              "lane.setAttribute('aria-hidden', 'true')",
+              "traceLegend.setAttribute('aria-hidden', 'true')"):
     assert token in controls_js, token
+assert "trace.setAttribute('aria-hidden', 'true')" not in controls_js
 for token in ('data-state="retained"', 'data-state="lost"',
               'data-state="skipped"', 'box-sizing: border-box',
               'minmax(0, 1fr)'):
