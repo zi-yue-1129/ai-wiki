@@ -548,6 +548,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         seek.evaluate('e => {e.value = "750"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
         frontier_summary = interpretation.inner_text()
         assert 'DOMINATED' in frontier_summary or '被其他設定支配' in frontier_summary, frontier_summary
+        assert 'FWD LAYER EVALS 30' in frontier_summary or '前向層計算 30' in frontier_summary, frontier_summary
         seek.evaluate('e => {e.value = "0"; e.dispatchEvent(new Event("input", {bubbles:true}));}')
     # Native browser checks of exact subnormal and post-growth states.
     if stem == 'fp16-scaling-window':
@@ -556,6 +557,10 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
                 el.dispatchEvent(new Event('input',{bubbles:true}));}""", chosen)
             summary = interpretation.inner_text()
             assert expected in summary or ('次正規' if expected == 'subnormal' else '溢位') in summary, summary
+            assert ('LOW AFTER FP32 UNSCALE 2^-27' in summary or
+                    'FP32 還原小梯度 2^-27' in summary), summary
+            if chosen == 5.12:
+                assert '(step skipped)' in summary or '（跳過更新）' in summary, summary
             pair_expected = 'NO' if chosen == 5.12 else 'YES'
             assert (f'PAIR WINDOW {pair_expected}' in summary or
                     f'兩筆均非零有限：{"否" if pair_expected == "NO" else "是"}' in summary), summary
@@ -565,6 +570,7 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
         summary = interpretation.inner_text()
         assert 'counter resets to 0' in summary or '計數歸零' in summary, summary
         assert 'POST-DECISION STREAK 0/2' in summary or '決策後計數 0/2' in summary, summary
+        assert 'ELIGIBLE SO FAR 2' in summary or '累計符合更新條件 2 次' in summary, summary
         seek.evaluate("""el => {el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));}""")
     buttons.nth(2).click()  # Semantic next step
     status_region = controls.locator('.concept-motion-status')
@@ -654,10 +660,12 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     # from Inf-triggered skipping, and separates GradScaler history from
     # the one-iteration finite-check result.
     if stem == 'fp16-scaling-window':
+        assert 'LOW AFTER UNSCALE 0 → 2^-27' in before_swap_delta or '還原小梯度 0 → 2^-27' in before_swap_delta
         assert '0 → subnormal' in before_swap_delta and 'Δ +6' in before_swap_delta, (
             stem, before_swap_delta
         )
     if stem == 'gradscaler-feedback':
+        assert 'ELIGIBLE SO FAR 1 → 4' in before_swap_delta or '累計符合更新條件 1 → 4' in before_swap_delta
         assert '1/2 → 2/2' in before_swap_delta and 'Δ +1024' in before_swap_delta, (
             stem, before_swap_delta
         )
@@ -678,10 +686,12 @@ def check_co_design_timeline(page, image, host, output, index, record, viewport)
     }[stem]
     assert any(t in after_swap_delta for t in qualitative_reverse), (stem, after_swap_delta)
     if stem == 'fp16-scaling-window':
+        assert 'LOW AFTER UNSCALE 2^-27 → 0' in after_swap_delta or '還原小梯度 2^-27 → 0' in after_swap_delta
         assert 'subnormal → 0' in after_swap_delta and 'Δ -6' in after_swap_delta, (
             stem, after_swap_delta
         )
     if stem == 'gradscaler-feedback':
+        assert 'ELIGIBLE SO FAR 4 → 1' in after_swap_delta or '累計符合更新條件 4 → 1' in after_swap_delta
         assert '2/2 → 1/2' in after_swap_delta and 'Δ -1024' in after_swap_delta, (
             stem, after_swap_delta
         )

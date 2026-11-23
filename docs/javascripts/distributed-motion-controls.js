@@ -109,9 +109,16 @@
       // Independent of the Inf/NaN skip gate: both sampled gradients must
       // remain nonzero and finite in the idealized binary16 path.
       const pairWindow = k => k >= 3 && k <= 10;
+      // Idealized binary16 rounding of S*g_low, followed by *FP32* division
+      // by S. All example powers of two that survive rounding recover 2^-27
+      // exactly; a skipped optimizer step is a separate condition.
+      const unscaledLow = k => k <= 2 ? '0' : '2^-27';
       // A growth decision shows 2/2 at evaluation time, but resets the
       // counter *after* committing the scale update for the next iteration.
       const postDecisionStreak = [1, 0, 0, 1, 0, 0];
+      // Running count of toy *eligible* steps; do not imply that an
+      // optimizer ran or weights changed in this illustrative sequence.
+      const eligibleSoFar = [1, 2, 2, 3, 4, 4];
       const gauges = match[1] === 'checkpoint-spacing' ? [
         { id: 'peak', en: 'PEAK', tw: '峰值槽位', max: 17, at: t => 16 / checkpointSpacing(t) + checkpointSpacing(t) },
         { id: 'rebuilt', en: 'TOTAL REBUILT', tw: '總重算量', max: 15, at: t => 16 - 16 / checkpointSpacing(t) },
@@ -353,8 +360,8 @@
           const within = Math.max(0, (t - phase * 2.4) / 2.4);
           const replayed = spacing === 1 ? 0 : Math.min(scratch, Math.floor(within * spacing / 0.9));
           return label(
-            `s=${spacing} · KEEP ${keep} + REBUILD ${scratch} = PEAK ${keep + scratch} · TOTAL REBUILT ${totalRebuilt} (all segments) · active replay ${replayed}/${scratch} (last segment; example slots) · ${spacing <= 4 ? 'PARETO FRONTIER' : 'DOMINATED'} (five choices)`,
-            `s=${spacing} · 保留 ${keep} + 重算暫存 ${scratch} = 峰值 ${keep + scratch} · 全區段重建總數 ${totalRebuilt} · 末段重算進度 ${replayed}/${scratch}（示意槽位）· ${spacing <= 4 ? '非支配解' : '被其他設定支配'}（限五種選項）`
+            `s=${spacing} · KEEP ${keep} + REBUILD ${scratch} = PEAK ${keep + scratch} · TOTAL REBUILT ${totalRebuilt} (all segments) · FWD LAYER EVALS ${16 + totalRebuilt} (initial + replay) · active replay ${replayed}/${scratch} (last segment; example slots) · ${spacing <= 4 ? 'PARETO FRONTIER' : 'DOMINATED'} (five choices)`,
+            `s=${spacing} · 保留 ${keep} + 重算暫存 ${scratch} = 峰值 ${keep + scratch} · 全區段重建總數 ${totalRebuilt} · 前向層計算 ${16 + totalRebuilt}（初次加重算）· 末段重算進度 ${replayed}/${scratch}（示意槽位）· ${spacing <= 4 ? '非支配解' : '被其他設定支配'}（限五種選項）`
           );
         }
         if (match[1] === 'fp16-scaling-window') {
@@ -364,8 +371,8 @@
           const low = exponent <= 2 ? '0' : 'subnormal';
           const high = exponent >= 11 ? 'Inf' : 'finite';
           return label(
-            `S=2^${exponent} (${scale}) · LOW ${low}${low === '0' ? ' (silent underflow)' : ''} · HIGH ${high} · ${exponent >= 11 ? 'SKIP' : 'STEP ELIGIBLE'} · PAIR WINDOW ${pairWindow(exponent) ? 'YES' : 'NO'} (example)`,
-            `S=2^${exponent}（${scale}）· 小梯度${low === '0' ? '歸零（仍為有限值）' : '非零次正規'} · 大梯度${high === 'Inf' ? '溢位' : '有限'} · ${exponent >= 11 ? '跳過更新' : '符合更新條件'} · 兩筆均非零有限：${pairWindow(exponent) ? '是' : '否'}（示意）`
+            `S=2^${exponent} (${scale}) · LOW ${low}${low === '0' ? ' (silent underflow)' : ''} · HIGH ${high} · ${exponent >= 11 ? 'SKIP' : 'STEP ELIGIBLE'} · PAIR WINDOW ${pairWindow(exponent) ? 'YES' : 'NO'} · LOW AFTER FP32 UNSCALE ${unscaledLow(exponent)}${exponent >= 11 ? ' (step skipped)' : ''} (example)`,
+            `S=2^${exponent}（${scale}）· 小梯度${low === '0' ? '歸零（仍為有限值）' : '非零次正規'} · 大梯度${high === 'Inf' ? '溢位' : '有限'} · ${exponent >= 11 ? '跳過更新' : '符合更新條件'} · 兩筆均非零有限：${pairWindow(exponent) ? '是' : '否'} · FP32 還原小梯度 ${unscaledLow(exponent)}${exponent >= 11 ? '（跳過更新）' : ''}（示意）`
           );
         }
         if (match[1] === 'gradscaler-feedback') {
@@ -375,8 +382,8 @@
           const check = i === 2 || i === 5 ? 'Inf' : 'finite';
           const streak = [1, 2, 0, 1, 2, 0][i];
           return label(
-            `t${i + 1} · S ${current} → NEXT ${following} · ${check} · ${check === 'Inf' ? 'SKIP / reset' : 'STEP ELIGIBLE'} · ${check === 'Inf' ? 'backoff' : streak === 2 ? 'grow after 2/2; counter resets to 0' : 'streak 1/2'} · POST-DECISION STREAK ${postDecisionStreak[i]}/2 (example)`,
-            `t${i + 1} · 當次 ${current} → 下次 ${following} · ${check === 'Inf' ? '溢位、跳過並重設' : '通過非有限值檢查、符合更新條件'} · ${check === 'Inf' ? '縮小係數' : streak === 2 ? '連續通過 2/2，放大後計數歸零' : '連續通過 1/2'} · 決策後計數 ${postDecisionStreak[i]}/2（示意）`
+            `t${i + 1} · S ${current} → NEXT ${following} · ${check} · ${check === 'Inf' ? 'SKIP / reset' : 'STEP ELIGIBLE'} · ${check === 'Inf' ? 'backoff' : streak === 2 ? 'grow after 2/2; counter resets to 0' : 'streak 1/2'} · POST-DECISION STREAK ${postDecisionStreak[i]}/2 · ELIGIBLE SO FAR ${eligibleSoFar[i]} (example)`,
+            `t${i + 1} · 當次 ${current} → 下次 ${following} · ${check === 'Inf' ? '溢位、跳過並重設' : '通過非有限值檢查、符合更新條件'} · ${check === 'Inf' ? '縮小係數' : streak === 2 ? '連續通過 2/2，放大後計數歸零' : '連續通過 1/2'} · 決策後計數 ${postDecisionStreak[i]}/2 · 累計符合更新條件 ${eligibleSoFar[i]} 次（示意）`
           );
         }
         return '';
@@ -386,20 +393,20 @@
           const spacing = [1, 2, 4, 8, 16][Math.min(4, Math.floor(t / 2.4))];
           const peak = 16 / spacing + spacing;
           const total = 16 - 16 / spacing;
-          return label(`s=${spacing} · PEAK ${peak} · TOTAL REBUILT ${total} · ${spacing <= 4 ? 'FRONTIER' : 'DOMINATED'}`,
-                       `s=${spacing} · 峰值 ${peak} · 全區段重建 ${total} · ${spacing <= 4 ? '非支配' : '被支配'}`);
+          return label(`s=${spacing} · PEAK ${peak} · TOTAL REBUILT ${total} · FWD EVALS ${16 + total} · ${spacing <= 4 ? 'FRONTIER' : 'DOMINATED'}`,
+                       `s=${spacing} · 峰值 ${peak} · 全區段重建 ${total} · 前向層計算 ${16 + total} · ${spacing <= 4 ? '非支配' : '被支配'}`);
         }
         if (match[1] === 'fp16-scaling-window') {
           const k = scaleExponent(t);
-          return label(`S=${2 ** k} · LOW ${k <= 2 ? '0' : 'subnormal'} · HIGH ${k >= 11 ? 'Inf' : 'finite'} · ${k >= 11 ? 'SKIP' : 'ELIGIBLE'} · PAIR WINDOW ${pairWindow(k) ? 'YES' : 'NO'}`,
-                       `S=${2 ** k} · 小梯度${k <= 2 ? '歸零' : '次正規'} · 大梯度${k >= 11 ? '溢位' : '有限'} · ${k >= 11 ? '跳過' : '符合更新條件'} · 兩筆非零有限 ${pairWindow(k) ? '是' : '否'}`);
+          return label(`S=${2 ** k} · LOW ${k <= 2 ? '0' : 'subnormal'} · HIGH ${k >= 11 ? 'Inf' : 'finite'} · ${k >= 11 ? 'SKIP' : 'ELIGIBLE'} · PAIR WINDOW ${pairWindow(k) ? 'YES' : 'NO'} · LOW UNSCALED ${unscaledLow(k)}`,
+                       `S=${2 ** k} · 小梯度${k <= 2 ? '歸零' : '次正規'} · 大梯度${k >= 11 ? '溢位' : '有限'} · ${k >= 11 ? '跳過' : '符合更新條件'} · 兩筆非零有限 ${pairWindow(k) ? '是' : '否'} · 還原小梯度 ${unscaledLow(k)}`);
         }
         const i = Math.min(5, Math.floor(t / 2));
         const s = [1024, 1024, 2048, 1024, 1024, 2048][i];
         const next = [1024, 2048, 1024, 1024, 2048, 1024][i];
         const skip = i === 2 || i === 5;
-        return label(`t${i + 1} · S ${s} → ${next} · ${skip ? 'SKIP' : 'ELIGIBLE'}`,
-                     `t${i + 1} · 縮放 ${s} → ${next} · ${skip ? '跳過' : '符合更新條件'}`);
+        return label(`t${i + 1} · S ${s} → ${next} · ${skip ? 'SKIP' : 'ELIGIBLE'} · ELIGIBLE SO FAR ${eligibleSoFar[i]}`,
+                     `t${i + 1} · 縮放 ${s} → ${next} · ${skip ? '跳過' : '符合更新條件'} · 累計符合更新條件 ${eligibleSoFar[i]} 次`);
       }
       function compareChange(a, b) {
         // Signed changes distinguish scale/exponent shifts from the absolute
@@ -411,8 +418,8 @@
             return [16 / s + s, 16 - 16 / s];
           };
           const [peakA, totalA] = get(a), [peakB, totalB] = get(b);
-          return label(`B − A: Δ PEAK ${signed(peakB - peakA)} slots · Δ TOTAL REBUILT ${signed(totalB - totalA)}`,
-                       `B − A：峰值 ${signed(peakB - peakA)} 槽 · 全區段重建 ${signed(totalB - totalA)}`);
+          return label(`B − A: Δ PEAK ${signed(peakB - peakA)} slots · Δ TOTAL REBUILT ${signed(totalB - totalA)} · Δ FWD EVALS ${signed(totalB - totalA)}`,
+                       `B − A：峰值 ${signed(peakB - peakA)} 槽 · 全區段重建 ${signed(totalB - totalA)} · 前向層計算 Δ ${signed(totalB - totalA)}`);
         }
         if (match[1] === 'fp16-scaling-window') {
           const x = scaleExponent(a), y = scaleExponent(b);
@@ -421,8 +428,8 @@
           const high = k => k >= 11 ? 'Inf' : 'finite';
           // A rounded zero is finite: it loses information but does not
           // trigger the nonfinite step gate. Compare both rounded inputs.
-          return label(`Outcome: ${result(x)} → ${result(y)} · LOW ${low(x)} → ${low(y)} · HIGH ${high(x)} → ${high(y)} · scale exponent ${x} → ${y} (Δ ${signed(y - x)}) · PAIR WINDOW ${pairWindow(x) ? 'YES' : 'NO'} → ${pairWindow(y) ? 'YES' : 'NO'}`,
-                       `更新資格：${result(x) === 'SKIP' ? '跳過' : '符合'} → ${result(y) === 'SKIP' ? '跳過' : '符合'} · 小梯度 ${low(x)} → ${low(y)} · 大梯度 ${high(x)} → ${high(y)} · 指數 ${x} → ${y}（Δ ${signed(y - x)}）· 兩筆均非零有限 ${pairWindow(x) ? '是' : '否'} → ${pairWindow(y) ? '是' : '否'}`);
+          return label(`Outcome: ${result(x)} → ${result(y)} · LOW ${low(x)} → ${low(y)} · HIGH ${high(x)} → ${high(y)} · scale exponent ${x} → ${y} (Δ ${signed(y - x)}) · PAIR WINDOW ${pairWindow(x) ? 'YES' : 'NO'} → ${pairWindow(y) ? 'YES' : 'NO'} · LOW AFTER UNSCALE ${unscaledLow(x)} → ${unscaledLow(y)}`,
+                       `更新資格：${result(x) === 'SKIP' ? '跳過' : '符合'} → ${result(y) === 'SKIP' ? '跳過' : '符合'} · 小梯度 ${low(x)} → ${low(y)} · 大梯度 ${high(x)} → ${high(y)} · 指數 ${x} → ${y}（Δ ${signed(y - x)}）· 兩筆均非零有限 ${pairWindow(x) ? '是' : '否'} → ${pairWindow(y) ? '是' : '否'} · 還原小梯度 ${unscaledLow(x)} → ${unscaledLow(y)}`);
         }
         const index = t => Math.min(5, Math.floor(t / 2));
         const skipped = i => i === 2 || i === 5;
@@ -431,8 +438,8 @@
         const streak = [1, 2, 0, 1, 2, 0];
         const nextScale = [1024, 2048, 1024, 1024, 2048, 1024];
         const ia = index(a), ib = index(b);
-        return label(`Finite check: ${skipped(ia) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(ib) ? 'SKIP' : 'ELIGIBLE'} · streak ${streak[ia]}/2 → ${streak[ib]}/2 · NEXT S ${nextScale[ia]} → ${nextScale[ib]} (Δ ${signed(nextScale[ib] - nextScale[ia])}) · POST-DECISION ${postDecisionStreak[ia]}/2 → ${postDecisionStreak[ib]}/2`,
-                     `有限值檢查：${skipped(ia) ? '跳過' : '符合更新條件'} → ${skipped(ib) ? '跳過' : '符合更新條件'} · 連續通過 ${streak[ia]}/2 → ${streak[ib]}/2 · 下次縮放 ${nextScale[ia]} → ${nextScale[ib]}（Δ ${signed(nextScale[ib] - nextScale[ia])}）· 決策後 ${postDecisionStreak[ia]}/2 → ${postDecisionStreak[ib]}/2`);
+        return label(`Finite check: ${skipped(ia) ? 'SKIP' : 'ELIGIBLE'} → ${skipped(ib) ? 'SKIP' : 'ELIGIBLE'} · streak ${streak[ia]}/2 → ${streak[ib]}/2 · NEXT S ${nextScale[ia]} → ${nextScale[ib]} (Δ ${signed(nextScale[ib] - nextScale[ia])}) · POST-DECISION ${postDecisionStreak[ia]}/2 → ${postDecisionStreak[ib]}/2 · ELIGIBLE SO FAR ${eligibleSoFar[ia]} → ${eligibleSoFar[ib]} (Δ ${signed(eligibleSoFar[ib] - eligibleSoFar[ia])})`,
+                     `有限值檢查：${skipped(ia) ? '跳過' : '符合更新條件'} → ${skipped(ib) ? '跳過' : '符合更新條件'} · 連續通過 ${streak[ia]}/2 → ${streak[ib]}/2 · 下次縮放 ${nextScale[ia]} → ${nextScale[ib]}（Δ ${signed(nextScale[ib] - nextScale[ia])}）· 決策後 ${postDecisionStreak[ia]}/2 → ${postDecisionStreak[ib]}/2 · 累計符合更新條件 ${eligibleSoFar[ia]} → ${eligibleSoFar[ib]}（Δ ${signed(eligibleSoFar[ib] - eligibleSoFar[ia])}）`);
       }
       function comparisonInsight(a, b) {
         // Interpret the paired *synthetic* states, not only their numbers.

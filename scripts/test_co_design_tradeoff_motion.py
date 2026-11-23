@@ -810,3 +810,28 @@ for lang in ("mixed-precision.md", "mixed-precision.zh-TW.md"):
     assert "1,0,0,1,0,0" in content or "1、0、0、1、0、0" in content
     assert "1024" in content and ("PAIR WINDOW" in content or "兩筆均非零有限" in content)
 print("Frontier, two-gradient window and post-decision feedback contracts OK")
+
+# Three additional synthetic teaching quantities: total forward re-executions,
+# post-rounding FP32 unscale, and cumulative step eligibility.
+for s, expected in ((1, 16), (2, 24), (4, 28), (8, 30), (16, 31)):
+    assert 16 + (16 - 16 // s) == expected
+import struct
+for k in range(13):
+    scale = 2 ** k
+    scaled_low = 2.0 ** (k - 27)
+    rounded = struct.unpack("<e", struct.pack("<e", scaled_low))[0]
+    restored = rounded / scale
+    assert restored == (0 if k <= 2 else 2.0 ** -27)
+assert [sum(i not in (2, 5) for i in range(t + 1)) for t in range(6)] == [1, 2, 2, 3, 4, 4]
+for fragment in ("FWD LAYER EVALS", "LOW AFTER FP32 UNSCALE",
+                 "ELIGIBLE SO FAR", "const unscaledLow =",
+                 "const eligibleSoFar ="):
+    assert fragment in controls_js, fragment
+for fragment, path in (
+    ("forward-layer evaluations", "gradient-checkpointing.md"),
+    ("前向層計算總次數", "gradient-checkpointing.zh-TW.md"),
+    ("LOW AFTER FP32 UNSCALE", "mixed-precision.md"),
+    ("FP32 還原小梯度", "mixed-precision.zh-TW.md"),
+):
+    assert fragment in (pages / path).read_text(encoding="utf-8")
+print("Bilingual forward-work, ideal binary16 FP32-unscale and eligible-step contracts OK")
