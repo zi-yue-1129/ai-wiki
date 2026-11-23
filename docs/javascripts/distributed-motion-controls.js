@@ -632,8 +632,8 @@
           plot.append(x, y);
           const legend = document.createElement('div');
           legend.className = 'distributed-motion-pareto-legend';
-          legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A · Arrow: dominance witness · Violet/blue lines: memory/replay caps',
-                                     '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A · 箭頭：支配見證 · 紫／藍線：記憶體／重建上限');
+          legend.textContent = label('Solid: frontier · Dashed: dominated · Ring: selected · Amber: pinned A · Violet curve: A/B · Violet vertical/blue horizontal: caps · Arrow: dominance',
+                                     '實線點：非支配 · 虛線點：被支配 · 外框：目前 · 琥珀框：釘選 A · 紫色弧線：A/B · 紫色直線／藍色橫線：雙上限 · 箭頭：支配見證');
           map.append(heading, budgetLabel, replayLabel, budgetActions, plot, legend, paretoBudgetReadout);
           bar.append(map);
         }
