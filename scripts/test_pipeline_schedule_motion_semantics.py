@@ -21,6 +21,7 @@ class PipelineSchedule(unittest.TestCase):
                 histories = [[0] for _ in range(3)]
                 idle = 0
                 local = [[] for _ in range(3)]
+                completed_at = {}
                 for t in range(12):
                     pending = []
                     for stage in range(3):
@@ -44,6 +45,7 @@ class PipelineSchedule(unittest.TestCase):
                             saved[stage].remove(batch)
                         local[stage].append(op)
                         pending.append(key)
+                        completed_at[key] = t + 1
                     done.update(pending)
                     for stage in range(3):
                         histories[stage].append(len(saved[stage]))
@@ -57,6 +59,17 @@ class PipelineSchedule(unittest.TestCase):
                 self.assertEqual(max(weighted), 56 if policy == 0 else 22)
                 self.assertEqual(weighted.index(max(weighted)), 6 if policy == 0 else 3)
                 self.assertEqual(sum(weighted[:-1]), 288 if policy == 0 else 130)
+                # Double-count the saved-set area using each micro-batch's lifetime.
+                durations = [[completed_at[(s, 'B', b)] - completed_at[(s, 'F', b)]
+                              for b in range(1, 5)] for s in range(3)]
+                expected_durations = ([[11, 9, 7, 5], [9, 7, 5, 3], [7, 5, 3, 1]]
+                                      if policy == 0 else [[5, 6, 7, 5], [3, 4, 3, 3], [1, 1, 1, 1]])
+                self.assertEqual(durations, expected_durations)
+                stage_areas = [sum(row) for row in durations]
+                self.assertEqual(stage_areas, [sum(row[:-1]) for row in histories])
+                self.assertEqual(stage_areas, [32, 24, 16] if policy == 0 else [23, 13, 4])
+                self.assertEqual(sum(area * size for area, size in zip(stage_areas, (2, 4, 8))),
+                                 sum(weighted[:-1]))
                 self.assertEqual(len(done), 24)
                 self.assertEqual(idle, 12)
                 self.assertTrue(all(not s for s in saved))
