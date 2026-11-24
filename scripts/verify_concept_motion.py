@@ -255,6 +255,8 @@ TOPICS = {
     "effective-number-growth": "theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss",
     "logit-prior-decision": "theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment",
     "roofline-ridge-sweep": "engineering/hardware/memory-hierarchy/roofline",
+    "memory-wall-weight-reuse": "engineering/hardware/memory-hierarchy/ai-and-memory-wall",
+    "sparse-index-intersection": "engineering/hardware/accelerators/eyeriss-v2/index",
     "memory-tiled-input-reuse": "engineering/hardware/memory-hierarchy/index",
     "roofline-hierarchy-bottleneck": "engineering/hardware/memory-hierarchy/roofline",
     "fp8-scale-range": "engineering/hardware/co-design/fp8",
@@ -818,6 +820,8 @@ CANONICAL_VIEWBOXES = {'interconnect-ring-reduction': '0 0 360 300',
  'roc-tie-half-credit': '0 0 640 360',
  'roi-align-sampling': '0 0 800 460',
  'roofline-ridge-sweep': '0 0 640 360',
+ 'memory-wall-weight-reuse': '0 0 360 262',
+ 'sparse-index-intersection': '0 0 360 254',
  'memory-tiled-input-reuse': '0 0 640 360',
  'roofline-hierarchy-bottleneck': '0 0 640 360',
  'rope-axial-2d': '0 0 640 360',
@@ -1313,7 +1317,7 @@ def main() -> int:
                 errors.extend(verify_source_pair(page, text, stem))
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)}:
                     errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
-            elif stem in {"memory-tiled-input-reuse", "roofline-hierarchy-bottleneck"}:
+            elif stem in {"memory-wall-weight-reuse", "sparse-index-intersection", "memory-tiled-input-reuse", "roofline-hierarchy-bottleneck"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
