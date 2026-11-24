@@ -47,6 +47,14 @@ The output of a layer is the vector of column currents, which is then digitised.
 
 Training is harder than inference. Updating a weight means reprogramming a device, which may be slow, may wear the device out, and may not change its conductance by the exact amount required. Ambrogio et al. use a mixed hardware-software approach in which the weight updates are carried out on analogue memory while the training keeps the accuracy of software training.
 
+### Animated explanation: current summation in a crossbar
+
+<img data-source-asset-urls src="../../../assets/concept-animations/analog-crossbar-current-sum-still.svg" data-motion-src="../../../assets/concept-animations/analog-crossbar-current-sum-motion.svg" data-still-src="../../../assets/concept-animations/analog-crossbar-current-sum-still.svg" width="360" height="300" style="display:block;width:100%;max-width:540px;height:auto" alt="Two row voltages drive four fixed conductances; branch currents change together and the two column currents are their respective sums.">
+
+*Original educational animation, CC BY-SA 4.0.* [GitHub-readable still](../../../assets/concept-animations/analog-crossbar-current-sum-still.svg) · [Full SVG animation](../../../assets/concept-animations/analog-crossbar-current-sum-motion.svg). The website offers keyboard-accessible Play/Pause; Pause restores the representative still, and reduced-motion preference defaults to the still.
+
+In an ideal illustrative crossbar, the conductance rows are $(2,1)$ and $(3,4)$ in $\mu\mathrm{S}$. Hold the second input at $2\,\mathrm{V}$ and sweep the first through 0, 1, 2, 3 and 4 V, then back. At each setting, teal row wires carry the applied voltages, purple cells show the fixed conductances, and orange labels show the branch currents $V_iG_{ij}$ in $\mu\mathrm{A}$. The column wires grow thicker as branch currents accumulate. For example, with inputs $(2,2)$, the column currents are $(4+6,2+8)=(10,10)\,\mu\mathrm{A}$; with inputs $(4,2)$, they are $(14,12)\,\mu\mathrm{A}$. Both rows conduct simultaneously at each setting; the animation changes the input, not the order of multiply-adds. Row and column wires that cross outside a device are not electrically joined. This positive-only ideal circuit assumes the columns are held at reference potential and neglects wire resistance, converter limits and device variation; the values are schematic, not measurements or recommended operating voltages (see Wan et al., 2022).
+
 ## Results
 
 Ambrogio et al. (2018) report generalisation accuracy equivalent to software-based training on MNIST, MNIST-backrand, CIFAR-10 and CIFAR-100. Their efficiency and throughput figures are the authors' calculations for their implementation, not measured results, and they say these exceed those of contemporary GPUs by two orders of magnitude.
