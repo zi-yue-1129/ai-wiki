@@ -38,6 +38,38 @@ The 2019 MAPL paper by Tillet, Kung and Cox introduces the intermediate language
 
 Triton is also used as a backend. TorchInductor generates Triton code for NVIDIA, AMD and Intel GPUs, as described on the [torch.compile page](torch-compile.md).
 
+### Worked example: masking a partial tile
+
+A vector of length $N=6$ is divided into logical blocks of size $B=4$. Launch $\lceil N/B\rceil=2$ programs. Program $p$ uses offsets $pB+[0,1,2,3]$ and sets its memory-access mask to `offsets < N`. The same mask protects both the load and the store, as in the official vector-addition tutorial.[^tail-mask]
+
+<img data-source-asset-urls src="../../../assets/concept-animations/triton-tail-mask-still.svg" data-motion-src="../../../assets/concept-animations/triton-tail-mask-motion.svg" data-still-src="../../../assets/concept-animations/triton-tail-mask-still.svg" alt="Two blocks of four offsets cover six elements. The first mask is 1111; the second is 1100. Only offsets zero through five read and store values, yielding 2, 4, 6, 8, 10, 12.">
+
+*Original animated teaching diagram, CC BY-SA 4.0.* The outline identifies the current program; previously evaluated masks stay visible as a historical record, not live registers; dashed cells at offsets 6 and 7 are out of bounds, not allocated padding. The sequence shows one possible illustrative order, not the GPU scheduler. On MkDocs, use the keyboard-accessible **Play/Pause** control; reduced-motion preferences initially show the still. [Static preview for GitHub](../../../assets/concept-animations/triton-tail-mask-still.svg).
+
+For input $[1,2,3,4,5,6]$ and pointwise operation $y=2x$:
+
+| Program | Offsets | Mask | Valid outputs |
+|---|---|---|---|
+| 0 | 0, 1, 2, 3 | 1, 1, 1, 1 | 2, 4, 6, 8 |
+| 1 | 4, 5, 6, 7 | 1, 1, 0, 0 | 10, 12 |
+
+The core of this illustrative kernel is:
+
+```python
+offsets = tl.program_id(0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
+mask = offsets < n_elements
+x = tl.load(x_ptr + offsets, mask=mask, other=0)
+tl.store(y_ptr + offsets, 2 * x, mask=mask)
+```
+
+Masked loads return the specified fallback value here, without reading invalid memory. Masked stores do not write. Dashes in the compute row omit inactive lane values: the mask does not imply that all arithmetic instructions for those lanes disappear. The two independent programs need not run in the depicted order. Six valid element loads and six stores are logical counts, not GPU memory-transaction measurements.
+
+The choice of `other` also depends on the subsequent arithmetic. For a max reduction over the valid values $[-5,-2]$, zero-filling two invalid lanes would incorrectly produce 0 instead of −2. A floating-point maximum uses negative infinity as the neutral fill; for a nonempty finite softmax row, those padded positions then contribute zero after exponentiation. The official [Fused Softmax](https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html) tutorial uses this pattern.[^tail-reduction] Masking the final store alone cannot repair a corrupted reduction.
+
+[^tail-reduction]: Triton contributors, *Fused Softmax*, shows the masked load with negative infinity, row maximum, exponentiation and masked store.
+
+[^tail-mask]: Triton contributors, [Vector Addition](https://triton-lang.org/main/getting-started/tutorials/01-vector-add.html), demonstrates the program ID, offset calculation and matching load/store masks.
+
 ## Results
 
 The official documentation describes the language and its goals, and it does not report benchmark results. This page gives no speed-up figures. Kernels written in Triton should be measured on the target GPU, with the Triton version recorded.
@@ -73,3 +105,6 @@ The official documentation describes the language and its goals, and it does not
 - Triton contributors. *Triton documentation*. https://triton-lang.org/main/index.html — Official documentation of the language, its Python-based environment and its goals.
 - PyTorch. *torch.compiler: Compiling PyTorch models*. https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html — Official description of how TorchInductor uses Triton for GPU kernels.
 - OpenXLA. *XLA: Optimized compiler for machine learning*. https://openxla.org/xla — Official description of the compiler path that competes with hand-written kernels.
+
+- Triton contributors. *Vector Addition*. https://triton-lang.org/main/getting-started/tutorials/01-vector-add.html — Official tutorial on program IDs, offsets and masking partial blocks.
+- Triton contributors. *Fused Softmax*. https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html — Demonstrates reduction-aware padding and masked output stores in a fused kernel.
