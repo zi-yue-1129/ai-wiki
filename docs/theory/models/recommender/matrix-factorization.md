@@ -99,6 +99,14 @@ The paper describes two ways to minimise the objective.
 
 The paper also extends the model to implicit signals. Items a user has interacted with, and user attributes such as demographics, add extra factor vectors to the user's profile. The authors give three reasons: explicit ratings are sparse, implicit behaviour such as purchases and browsing needs no effort from the user, and extra user information helps in the cold-start case. Confidence weights let one-off events count for less than repeated behaviour.
 
+## Key methods
+
+Three landmark recommender methods are compared with this one. Each has its own page.
+
+- [Item-based collaborative filtering (Sarwar et al., 2001)](item-based-cf.md): predicts from the user's ratings of similar items, with no latent factors to learn.
+- [BPR (Rendle et al., 2012)](bpr.md): keeps a factor model but trains it on pairs, so that observed items rank above unobserved ones. This suits implicit feedback.
+- [Neural collaborative filtering (He et al., 2017)](neural-cf.md): replaces the inner product with a neural network that learns the user–item interaction function.
+
 ## Results
 
 The paper evaluates on the Netflix Prize data: more than 100 million ratings from about 500,000 anonymous customers on more than 17,000 movies, with a test set of about 3 million ratings scored by root-mean-square error (RMSE). Netflix's own system reached an RMSE of 0.9514 on this data, and the grand-prize threshold was 0.8563. The authors report improvements of 8.43% over Netflix's algorithm for the 2007 Progress Prize, and 9.46% for their 2008 Progress Prize entry. That entry combined more than 100 predictor sets, mostly factorisation models.
