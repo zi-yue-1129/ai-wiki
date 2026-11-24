@@ -9138,6 +9138,36 @@
         }
       ],
       "viewBox": "0 0 640 360"
+    },
+    "memory-wall-weight-reuse": {
+      "origins": [
+        {
+          "origin_blob": "b9c67de773d87c00b26f2d86624e2006f750e943",
+          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
+          "path": "docs/assets/concept-animations/memory-wall-weight-reuse-motion.svg"
+        },
+        {
+          "origin_blob": "af3d17b025299f6280992a329741c20f35b07ac2",
+          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
+          "path": "docs/assets/concept-animations/memory-wall-weight-reuse-still.svg"
+        }
+      ],
+      "viewBox": "0 0 360 262"
+    },
+    "sparse-index-intersection": {
+      "origins": [
+        {
+          "origin_blob": "65b7f2f61d80139af7d293901cf19fb9dcb78086",
+          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
+          "path": "docs/assets/concept-animations/sparse-index-intersection-motion.svg"
+        },
+        {
+          "origin_blob": "d33a18550decbadcf99c785900e8800b197a2e35",
+          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
+          "path": "docs/assets/concept-animations/sparse-index-intersection-still.svg"
+        }
+      ],
+      "viewBox": "0 0 360 254"
     }
   },
   "extra": {
