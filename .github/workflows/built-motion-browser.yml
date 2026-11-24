@@ -125,7 +125,9 @@ jobs:
   support-browser:
     name: Support browser suites
     runs-on: ubuntu-24.04
-    timeout-minutes: 50
+    # Every numerical motion contract and every support browser suite must run;
+    # 50 minutes prematurely cancelled support jobs before evidence receipts.
+    timeout-minutes: 90
     env:
       EVIDENCE_PREFIX: motion-${{ github.run_id }}-${{ github.run_attempt }}-support
     steps:

@@ -42,6 +42,15 @@ Four patterns recur in the literature and in frameworks.
 3. **Conversational group.** Agents talk in a shared thread until a termination condition holds. AutoGen (Wu et al., 2023) is a framework for building applications from conversable agents that can combine language models, human input and tools, and whose conversation patterns can be set in code or natural language.
 4. **Simulated society.** Agents live in a shared simulated world or act as communicating partners. Generative Agents (Park et al., 2023) simulate interactive agents as a model of human behaviour, and CAMEL (Li et al., 2023) studies communicative agents in a society of language models.
 
+## Key methods
+
+Two of the four patterns above have a named framework with its own page:
+
+- [MetaGPT (Hong et al., 2023)](metagpt.md) (sequential pipeline): fixed roles that pass defined documents along, so that each handoff has a known form. The paper's ablation shows that executable feedback adds 4.2 and 5.4 points on HumanEval and MBPP.
+- [AutoGen (Wu et al., 2023)](autogen.md) (conversational group): agents exchange messages until a termination rule holds, with the flow set in code, in natural language or both.
+
+The orchestrator and simulated-society patterns have no separate page here and are compared only above.
+
 ## Trade-offs
 
 - **Cost and latency.** Each agent adds model calls to every step, and conversational patterns can grow long.
