@@ -170,5 +170,50 @@ class ScopedCanvas(unittest.TestCase):
             path.write_text('<svg>')
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
 
+
+class ArrayMotionSemantics(unittest.TestCase):
+    @staticmethod
+    def states(stem):
+        root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
+        return [node for node in root.iter(v.NS + 'g') if node.get('id', '').startswith('state-')]
+
+    @staticmethod
+    def labels(node):
+        return {(int(label.get('x')), int(label.get('y'))): label.text for label in node.iter(v.NS + 'text')}
+
+    def test_systolic_wavefront(self):
+        states = self.states('tpu-systolic-wavefront')
+        self.assertEqual(len(states), 5)
+        inputs, weights = ((1, 2), (3, 1)), ((2, 1), (3, 4))
+        output = [[sum(x[k]*weights[k][j] for k in range(2)) for j in range(2)] for x in inputs]
+        for t, state in enumerate(states[:4]):
+            labels = self.labels(state)
+            for r, cy in enumerate((90, 177)):
+                for j, cx in enumerate((140, 255)):
+                    m = t-r-j
+                    if 0 <= m < len(inputs):
+                        psum = sum(inputs[m][k]*weights[k][j] for k in range(r+1))
+                        self.assertEqual(labels[(cx, cy+24)], f'= {psum}')
+                    else:
+                        self.assertNotIn((cx, cy+24), labels)
+            for j, cx in enumerate((140, 255)):
+                m = t-1-j
+                expected = f'y{m+1} = {output[m][j]}' if 0 <= m < 2 else '—'
+                self.assertEqual(labels[(cx, 252)], expected)
+        self.assertEqual(self.labels(states[-1])[(180, 252)], 'y1 = (8, 9)     y2 = (9, 7)')
+
+    def test_crossbar_current_sum(self):
+        states = self.states('analog-crossbar-current-sum')
+        voltages = (0, 1, 2, 3, 4, 3, 2, 1)
+        self.assertEqual(len(states), len(voltages))
+        conductance = ((2, 1), (3, 4))
+        for state, first in zip(states, voltages):
+            labels = self.labels(state)
+            for j, cx in enumerate((145, 258)):
+                products = [value*conductance[r][j] for r, value in enumerate((first, 2))]
+                for r, cy in enumerate((88, 158)):
+                    self.assertEqual(labels[(cx+15, cy+40)], str(products[r]))
+                self.assertEqual(labels[(cx+35, 261)], str(sum(products)))
+
 if __name__ == '__main__':
     unittest.main()
