@@ -50,6 +50,18 @@ In this **schematic, not measured** example, $C=AB$ with $A=[[1,2],[3,4]]$ and $
 
 The intentionally uncached comparison fetches two input elements from HBM per MAC, for 16 reads. The tiled schedule fetches four elements per $k$ and therefore needs eight reads; the counter includes the initial tile load at the first MAC for that $k$. Both schedules keep the output accumulators local and write the four outputs once at the end. The counters exclude those identical output writes and all other traffic. The resulting matrix is $[[19,22],[43,50]]$. Local storage must accommodate the tile and partial sums; real cache behaviour, larger matrices and scheduling overhead can change the traffic and throughput. This is not a claim of a twofold speedup (Sze et al., 2017).
 
+For a non-animated reading of the critical transitions, the completed MAC count and cumulative input reads are:
+
+| Completed MACs | Local tile | No reuse (reads) | Tiled (reads) |
+|---:|---|---:|---:|
+| 0 | None | 0 | 0 |
+| 1 | First column / row | 2 | 4 |
+| 4 | First column / row | 8 | 4 |
+| 5 | Second column / row | 10 | 8 |
+| 8 | Second column / row | 16 | 8 |
+
+The first MAC of a tile pays for all four input reads; the next three reuse those elements. If inputs and final outputs are each stored in two bytes, the illustrated total HBM traffic (including the four output writes) is 40 bytes without reuse and 24 bytes with tiling. The corresponding operational intensities are 0.4 and approximately 0.667 FLOP/byte. Accumulators may use a wider local representation; their internal traffic is not included here. This is a concrete example of the traffic denominator in the [roofline model](roofline.md), not a measured bandwidth or latency.
+
 ## Equation or algorithm
 
 The arithmetic intensity of a kernel is the number of floating-point operations divided by the number of bytes it moves to or from off-chip memory:
