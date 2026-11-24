@@ -1657,6 +1657,10 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
         result['keyboard_scroll'] = check_keyboard_scrollers(page, output)
         # These diagrams intentionally preserve a 640px reading width on phones.
         topic = target.source.rsplit('/', 1)[-1].removesuffix('.md').removesuffix('.zh-TW')
+        if viewport['width'] < 600 and topic == 'gpipe':
+            expect(page.locator('.gpipe-comparison-timeline[tabindex="0"]')).to_have_count(4)
+            assert sum(r['scrollWidth'] >= 640 and r['afterArrowRight'] > 0
+                       for r in result['keyboard_scroll']) >= 4, 'Four keyboard-scrollable GPipe diagrams required'
         if viewport['width'] < 600 and topic in {'t-sne', 'umap', 'minhash-deduplication', 'data-programming'}:
             assert any(r['scrollWidth'] >= 640 and r['afterArrowRight'] > 0
                        for r in result['keyboard_scroll']), 'Readable mobile diagram scroller is missing'

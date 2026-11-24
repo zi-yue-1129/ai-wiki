@@ -30,7 +30,10 @@
       if (host.dataset.distributedTimeline === 'yes') continue;
       const img = host.querySelector('img[src*="concept-animations/"]');
       if (!img) continue;
-      const src = img.dataset.motionSrc || img.getAttribute('src') || '';
+      // Legacy Markdown points at motion directly; the base player may
+      // already have selected the still on a reduced-motion page load.
+      const src = (img.dataset.motionSrc || img.getAttribute('src') || '').replace(
+        /\/(gpipe-(?:fill-drain|gradient-accumulation))-still\.svg(?=$|[?#])/, '/$1-motion.svg');
       const match = src.match(/(?:^|\/)([a-z0-9-]+)-motion\.svg(?:[?#]|$)/);
       if (!match || !Object.hasOwn(sequences, match[1])) continue;
       const config = sequences[match[1]];
@@ -40,9 +43,9 @@
         host.classList.add('co-design-motion-timeline');
       }
       const zh = /[\u3400-\u9fff]/.test(img.alt || '');
-      // The new GPipe diagrams retain native-width labels on narrow screens.
-      // Their actual overflow owner must be keyboard-focusable in either motion mode.
-      if (/^gpipe-(1f1b-schedule|activation-liveness)$/.test(match[1])) {
+      // All GPipe diagrams, including the existing fill/drain and accumulation
+      // timelines, retain native-width labels and a keyboard-focusable scroller.
+      if (/^gpipe-(fill-drain|gradient-accumulation|1f1b-schedule|activation-liveness)$/.test(match[1])) {
         host.classList.add('gpipe-comparison-timeline');
         host.tabIndex = 0;
         host.setAttribute('role', 'region');
