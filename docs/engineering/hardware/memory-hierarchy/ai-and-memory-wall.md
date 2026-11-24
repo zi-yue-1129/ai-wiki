@@ -41,6 +41,14 @@ The paper argues that autoregressive decoding is the clearest case of a memory-b
 
 The profiling assumes 8-bit precision and a batch size of 1. The authors note that the conclusion may not hold for every decoder application, for example for long input prompts or large batches (footnotes 5 and 6).
 
+### Animated explanation: weight reuse across requests
+
+<img data-source-asset-urls src="../../../assets/concept-animations/memory-wall-weight-reuse-still.svg" data-motion-src="../../../assets/concept-animations/memory-wall-weight-reuse-motion.svg" data-still-src="../../../assets/concept-animations/memory-wall-weight-reuse-still.svg" width="360" height="262" style="display:block;width:100%;max-width:540px;height:auto" alt="Four requests complete one at a time: the serial schedule reloads four weights each time, whereas the batched schedule retains one tile and reuses it for all four. Both execute sixteen MACs.">
+
+*Original educational animation, CC BY-SA 4.0.* [GitHub-readable still](../../../assets/concept-animations/memory-wall-weight-reuse-still.svg) · [Full SVG animation](../../../assets/concept-animations/memory-wall-weight-reuse-motion.svg). The website offers keyboard-accessible Play/Pause; Pause restores the representative still, and reduced-motion preference defaults to the still.
+
+Consider four independent requests, each evaluating the same $2\times2$ weight matrix on its own two-element vector. The orange tiles are weight reads for a serial schedule that evicts the tile between requests; the violet tile is a single ideal load shared across a batch. Each newly filled output circle corresponds to four multiply-accumulates (MACs). After $k$ requests the two schedules have read $4k$ and $4$ weight elements respectively, and both have executed $4k$ MACs. At $k=4$, that is 16 versus 4 weight reads with 16 MACs in either case. This isolates the reuse behind higher arithmetic intensity in batched matrix multiplication (Gholami et al., 2024, Section II-B). It does not batch successive dependent tokens of a single autoregressive sequence. The example counts only weight elements crossing one chosen memory boundary, not bytes of activations, output or KV cache, and assumes perfect tile retention for the batch but none across serial requests. Actual cache reuse and latency depend on the implementation; the counts are schematic, not measurements.
+
 ## Proposed responses
 
 The paper's Section III discusses several responses, and it argues that the architecture itself must be rethought, since many large Transformers are scaled versions of nearly the same base design:
