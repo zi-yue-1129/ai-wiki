@@ -56,6 +56,8 @@ Consider the scalar computation $y=\max(0,x+2)$ with $x=-3$ and a constant bias 
 
 The two kernels require two launches versus one for the fused version in this example. If each stored element occupies $b$ bytes and every logical transfer reaches HBM, the counts correspond to $4b$ versus $2b$ bytes per element. Actual HBM traffic may differ because of caches, memory transactions, register spills and other inputs. The counts are schematic, not GPU measurements or a prediction of twice the speed. See [Triton](../frameworks/compilers-and-kernels/triton.md) for an example of tiled loads and stores.
 
+For a chain of $m$ pointwise operations with one input and one final output, assume equal-sized elements, no extra inputs, no externally needed intermediates, and no spills. Materialising every intermediate entails $2mb$ logical bytes per element; a fully fused pass entails $2b$, eliminating $2(m-1)b$. This is a traffic model, not a latency model. If an intermediate is also an externally visible output or is needed by another kernel, its store may still be required; increased register pressure can also offset the benefit. The masked-load example on the Triton page shows another constraint: fusion must preserve the original computation at partial tiles, including reduction semantics.
+
 [^fusion-traffic]: Triton contributors, [Fused Softmax](https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html), illustrates how retaining intermediate results on chip can reduce memory traffic; the scalar example above is original.
 
 ## Key methods

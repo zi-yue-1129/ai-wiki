@@ -44,7 +44,7 @@ A vector of length $N=6$ is divided into logical blocks of size $B=4$. Launch $\
 
 <img data-source-asset-urls src="../../../assets/concept-animations/triton-tail-mask-still.svg" data-motion-src="../../../assets/concept-animations/triton-tail-mask-motion.svg" data-still-src="../../../assets/concept-animations/triton-tail-mask-still.svg" alt="Two blocks of four offsets cover six elements. The first mask is 1111; the second is 1100. Only offsets zero through five read and store values, yielding 2, 4, 6, 8, 10, 12.">
 
-*Original animated teaching diagram, CC BY-SA 4.0.* The outline identifies the current program; dashed cells at offsets 6 and 7 are out of bounds, not allocated padding. The sequence shows one possible illustrative order, not the GPU scheduler. On MkDocs, use the keyboard-accessible **Play/Pause** control; reduced-motion preferences initially show the still. [Static preview for GitHub](../../../assets/concept-animations/triton-tail-mask-still.svg).
+*Original animated teaching diagram, CC BY-SA 4.0.* The outline identifies the current program; previously evaluated masks stay visible as a historical record, not live registers; dashed cells at offsets 6 and 7 are out of bounds, not allocated padding. The sequence shows one possible illustrative order, not the GPU scheduler. On MkDocs, use the keyboard-accessible **Play/Pause** control; reduced-motion preferences initially show the still. [Static preview for GitHub](../../../assets/concept-animations/triton-tail-mask-still.svg).
 
 For input $[1,2,3,4,5,6]$ and pointwise operation $y=2x$:
 
@@ -63,6 +63,10 @@ tl.store(y_ptr + offsets, 2 * x, mask=mask)
 ```
 
 Masked loads return the specified fallback value here, without reading invalid memory. Masked stores do not write. Dashes in the compute row omit inactive lane values: the mask does not imply that all arithmetic instructions for those lanes disappear. The two independent programs need not run in the depicted order. Six valid element loads and six stores are logical counts, not GPU memory-transaction measurements.
+
+The choice of `other` also depends on the subsequent arithmetic. For a max reduction over the valid values $[-5,-2]$, zero-filling two invalid lanes would incorrectly produce 0 instead of −2. A floating-point maximum uses negative infinity as the neutral fill; for a nonempty finite softmax row, those padded positions then contribute zero after exponentiation. The official [Fused Softmax](https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html) tutorial uses this pattern.[^tail-reduction] Masking the final store alone cannot repair a corrupted reduction.
+
+[^tail-reduction]: Triton contributors, *Fused Softmax*, shows the masked load with negative infinity, row maximum, exponentiation and masked store.
 
 [^tail-mask]: Triton contributors, [Vector Addition](https://triton-lang.org/main/getting-started/tutorials/01-vector-add.html), demonstrates the program ID, offset calculation and matching load/store masks.
 
@@ -103,3 +107,4 @@ The official documentation describes the language and its goals, and it does not
 - OpenXLA. *XLA: Optimized compiler for machine learning*. https://openxla.org/xla — Official description of the compiler path that competes with hand-written kernels.
 
 - Triton contributors. *Vector Addition*. https://triton-lang.org/main/getting-started/tutorials/01-vector-add.html — Official tutorial on program IDs, offsets and masking partial blocks.
+- Triton contributors. *Fused Softmax*. https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html — Demonstrates reduction-aware padding and masked output stores in a fused kernel.

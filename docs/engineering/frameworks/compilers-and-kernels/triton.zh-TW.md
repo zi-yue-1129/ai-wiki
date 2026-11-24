@@ -45,7 +45,7 @@ Triton 也被當作後端使用。TorchInductor 會為 NVIDIA、AMD 與 Intel GP
 
 <img data-source-asset-urls src="../../../assets/concept-animations/triton-tail-mask-still.svg" data-motion-src="../../../assets/concept-animations/triton-tail-mask-motion.svg" data-still-src="../../../assets/concept-animations/triton-tail-mask-still.svg" alt="兩個各含四個偏移量的區塊涵蓋六個元素。第一組遮罩為 1111，第二組為 1100。只有偏移量零至五讀取與寫回數值，得到 2、4、6、8、10、12。">
 
-*原創教學動畫，CC BY-SA 4.0。* 外框標示目前的 program；偏移量 6 與 7 的虛線格代表超出邊界的位置，而非實際配置的填充元素。動畫是其中一種示意順序，並非 GPU 排程器的實際時序。在 MkDocs 可使用支援鍵盤操作的 **播放／暫停** 控制；偏好減少動態效果時預設顯示靜態圖。[GitHub 靜態預覽](../../../assets/concept-animations/triton-tail-mask-still.svg)。
+*原創教學動畫，CC BY-SA 4.0。* 外框標示目前的 program；已計算的遮罩保留於圖中作為歷史紀錄，並不代表暫存器仍保有其值；偏移量 6 與 7 的虛線格代表超出邊界的位置，而非實際配置的填充元素。動畫是其中一種示意順序，並非 GPU 排程器的實際時序。在 MkDocs 可使用支援鍵盤操作的 **播放／暫停** 控制；偏好減少動態效果時預設顯示靜態圖。[GitHub 靜態預覽](../../../assets/concept-animations/triton-tail-mask-still.svg)。
 
 以輸入 $[1,2,3,4,5,6]$ 與逐元素運算 $y=2x$ 為例：
 
@@ -64,6 +64,10 @@ tl.store(y_ptr + offsets, 2 * x, mask=mask)
 ```
 
 遮罩為假的讀取會取得此處指定的替代值，不會讀取無效記憶體；遮罩為假的寫回不會寫入。運算列以破折號省略非有效 lane 的數值：遮罩並不代表這些 lane 的所有算術指令都會消失。兩個獨立 program 不一定依圖示順序執行。六次有效元素讀取與六次寫回是邏輯計數，並非 GPU 記憶體交易的實測值。
+
+`other` 的選擇也取決於後續算術。若對有效值 $[-5,-2]$ 執行最大值歸約，將另外兩個無效 lane 填入零會錯誤得到 0，而非 −2。浮點最大值歸約的中性填充值為負無窮大；對非空且有效值有限的 softmax 列，這些填充位置經指數運算後貢獻為零。官方 [Fused Softmax](https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html) 教學採用此模式。[^tail-reduction] 僅遮罩最終寫回無法修正已受到污染的歸約結果。
+
+[^tail-reduction]: Triton contributors，*Fused Softmax*，示範以負無窮大作為遮罩讀取替代值、計算列最大值與指數，並以遮罩寫回。
 
 [^tail-mask]: Triton contributors，[Vector Addition](https://triton-lang.org/main/getting-started/tutorials/01-vector-add.html)，示範 program ID、偏移量計算與相同的讀寫遮罩。
 
@@ -104,3 +108,4 @@ tl.store(y_ptr + offsets, 2 * x, mask=mask)
 - OpenXLA. *XLA: Optimized compiler for machine learning*. https://openxla.org/xla — 與手寫核心程式競爭的編譯器路徑之官方說明。
 
 - Triton contributors. *Vector Addition*. https://triton-lang.org/main/getting-started/tutorials/01-vector-add.html — 示範 program ID、偏移量及不完整區塊遮罩的官方教學。
+- Triton contributors. *Fused Softmax*. https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html — 示範融合核心中考量歸約運算的填充值與輸出遮罩。

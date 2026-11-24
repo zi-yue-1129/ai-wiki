@@ -185,6 +185,9 @@ class KernelTeachingStates(unittest.TestCase):
         still = ET.parse(ASSETS / f'{stem}-still.svg').getroot()
         self.assertEqual([(e.get('x'), e.get('y'), e.text) for e in still.iter(v.NS + 'text')],
                          [(e.get('x'), e.get('y'), e.text) for e in groups[-1].iter(v.NS + 'text')])
+        # The fallback must preserve shapes and styling as well as text.
+        self.assertEqual([ET.tostring(e) for e in list(still)[3:]],
+                         [ET.tostring(e) for e in list(groups[-1])[1:]])
         return groups
 
     def test_fusion_intermediate_traffic(self):
@@ -217,7 +220,7 @@ class KernelTeachingStates(unittest.TestCase):
                 loaded = active and stage >= 1 and valid
                 done = valid and (k//B < pid or (active and stage == 2))
                 stored += done
-                expected = [str(k), str(int(valid)) if active else '–', str(k+1) if loaded else '–', str(2*(k+1)) if loaded else '–', str(2*(k+1)) if done else '–']
+                expected = [str(k), str(int(valid)) if k//B <= pid else '–', str(k+1) if loaded else '–', str(2*(k+1)) if loaded else '–', str(2*(k+1)) if done else '–']
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
