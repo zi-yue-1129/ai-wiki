@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     'dnn-output-stationary-traffic': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'dnn-sliding-window-reuse': 'engineering/hardware/accelerators/efficient-dnn-processing',
+    'kernel-fusion-intermediate-traffic': 'engineering/inference-optimization/fused-kernels',
+    'triton-tail-mask': 'engineering/frameworks/compilers-and-kernels/triton',
     'alibi-content-recency': 'theory/models/transformer/positional-encodings/index',
     'alibi-distance-softmax': 'theory/models/transformer/positional-encodings/index',
     'alibi-head-prefix': 'theory/models/transformer/positional-encodings/index',
@@ -455,6 +457,8 @@ TOPICS = {
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
 CANONICAL_VIEWBOXES = {'dnn-output-stationary-traffic': '0 0 640 360',
  'dnn-sliding-window-reuse': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
+ 'triton-tail-mask': '0 0 640 360',
  '3d-unet-context-tiling': '0 0 800 420',
  '3d-unet-depth-kernel': '0 0 800 420',
  '3d-unet-evaluation-holdout': '0 0 800 420',
@@ -1380,6 +1384,11 @@ def main() -> int:
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
                     errors.append(f"{page}: missing independent static preview for {stem}")
+            elif stem in {"kernel-fusion-intermediate-traffic", "triton-tail-mask"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing GitHub-readable fallback link {static_path.name}")
             elif stem.startswith("diffusion-policy-"):
                 errors.extend(verify_source_pair(page, text, stem))
             elif animated_path.resolve() not in linked_images:

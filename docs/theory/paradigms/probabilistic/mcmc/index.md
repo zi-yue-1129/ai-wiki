@@ -1,6 +1,6 @@
 ---
-status: draft
-last_reviewed: 2026-10-28
+status: complete
+last_reviewed: 2026-11-19
 related:
   - theory/math/probability-statistics
   - theory/paradigms/unsupervised/density-and-generative-models
@@ -16,52 +16,111 @@ aliases:
 
 # Markov Chain Monte Carlo
 
-Markov chain Monte Carlo (MCMC) approximates a probability distribution by drawing samples from a Markov chain whose stationary distribution is that distribution. It is the main tool for sampling from posteriors that cannot be integrated exactly. Part of [Probabilistic & Bayesian methods](../index.md).
+Markov chain Monte Carlo (MCMC) estimates expectations using a sequence of dependent draws from a Markov chain designed to preserve a target distribution. It is widely used for posterior inference when direct independent sampling is difficult. Part of [Probabilistic & Bayesian methods](../index.md).[^intro]
 
 ## Overview
 
-Many Bayesian computations need expectations under a posterior \(p(\theta\mid D)\), which is only known up to a normalising constant. MCMC builds a chain \(\theta^{(1)}, \theta^{(2)}, \dots\) whose long-run distribution is the target. Averages over the chain estimate expectations, and the normalising constant is never needed. The chain must mix, meaning it moves across the whole distribution rather than staying in one region.
+Many Bayesian computations need expectations under a posterior $\pi(\theta)=p(\theta\mid D)$ known only up to a normalising constant. MCMC constructs transitions from the current state to the next. Under suitable convergence conditions, averages along the chain approach expectations under $\pi$.[^intro]
 
-The basic recipe is to propose a move and accept it with a probability that preserves the target distribution. The [Metropolis–Hastings](metropolis-hastings.md), [Gibbs sampling](gibbs-sampling.md) and [Hamiltonian Monte Carlo](hamiltonian-monte-carlo.md) algorithms are the best-known ways of doing this.
+The [Metropolis–Hastings](metropolis-hastings.md), [Gibbs sampling](gibbs-sampling.md) and [Hamiltonian Monte Carlo](hamiltonian-monte-carlo.md) pages explain particular transition rules. Choosing a valid rule and assessing how efficiently its output explores the target are both part of using MCMC.
 
 ## Key concepts
 
-- **Markov chain**: a sequence in which each state depends only on the previous one. Its stationary distribution is the target.
-- **Detailed balance**: a sufficient condition for a chain to leave the target invariant, requiring that flows between any two states balance.
-- **Burn-in**: the initial samples, discarded because the chain has not yet reached the target.
-- **Mixing and autocorrelation**: strongly correlated samples carry less information. The effective sample size measures how many independent-equivalent draws a chain provides.
-- **Diagnostics**: convergence checks such as comparing several chains, or measuring the potential scale reduction, to detect whether a chain has explored the target.
+- **Markov property** means that, conditional on the current state, the next state is independent of earlier states.
+- **Stationary distribution** is a distribution preserved by a transition. Starting a chain in that distribution keeps each subsequent state's marginal distribution the same.
+- **Mixing** describes how quickly the chain explores its target and loses the effect of its starting state.
+- **Warmup or burn-in** is an initial segment excluded from the reported sample. Warmup can also adapt sampler settings, as in NUTS.[^nuts]
+- **Effective sample size (ESS)** describes Monte Carlo precision for a particular estimated quantity, accounting for dependence between draws.[^stan]
 
 ## How it works
 
-For a target \(\pi(\theta)\), a generic MCMC step is: propose \(\theta'\) from a proposal distribution, accept it with probability \(\alpha\), and otherwise stay at \(\theta\). Choosing \(\alpha\) so that detailed balance holds makes \(\pi\) the stationary distribution. Andrieu et al. (2003) give a general introduction for machine learning readers, covering these conditions and the standard algorithms in one framework.
+### Preserve the target and establish convergence
 
-Using samples, the expectation of any function \(f\) is estimated by \(\frac{1}{N}\sum_{t} f(\theta^{(t)})\), after discarding burn-in. Its error decreases roughly as \(1/\sqrt{N_{\text{eff}}}\), so effective sample size, not just the number of draws, sets the precision.
+For a finite state space, let $P_{ij}$ be the probability of moving from state $i$ to state $j$. Each row sums to one. With $\pi$ written as a row vector, stationarity requires
+
+$$
+\pi P=\pi.
+$$
+
+A sufficient condition is **detailed balance**, $\pi_iP_{ij}=\pi_jP_{ji}$, which balances the stationary probability flow in each direction. For a finite chain, irreducibility and aperiodicity ensure convergence to its unique stationary distribution. Irreducibility means every state can be reached from every other state, and aperiodicity rules out returns restricted to a fixed cycle. Continuous state spaces require corresponding general-state-space conditions.[^intro]
+
+The identity matrix preserves every distribution, but a chain using it stays at its initial state forever. Thus checking stationarity alone cannot establish that a run explores the target.
+
+### Estimate a quantity and its Monte Carlo error
+
+For $N$ retained draws and a scalar function $f$, estimate
+
+$$
+\widehat{\mu}_f=\frac{1}{N}\sum_{t=1}^{N} f(\theta^{(t)}).
+$$
+
+Keep repeated states after a rejected proposal when forming ordinary chain averages. They represent time spent at that state.[^intro]
+
+For a stationary chain, write $\rho_f(k)$ for the lag-$k$ autocorrelation of $f(\theta^{(t)})$. With finite variance, a summable autocorrelation series and a valid Markov chain central limit theorem, define the integrated autocorrelation time and the corresponding asymptotic ESS by[^stan]
+
+$$
+\tau_f=1+2\sum_{k=1}^{\infty}\rho_f(k),
+\qquad
+N_{\mathrm{eff},f}=\frac{N}{\tau_f}.
+$$
+
+The approximate Monte Carlo standard error of the estimated mean is
+
+$$
+\operatorname{MCSE}(\widehat{\mu}_f)
+\approx
+\sqrt{\frac{\operatorname{Var}_{\pi}(f)}{N_{\mathrm{eff},f}}}.
+$$
+
+This measures error in the numerical estimate of an expectation. A posterior standard deviation instead describes uncertainty in the model's target distribution. ESS depends on $f$, so a mean and a tail probability can have different precision from the same draws.[^diagnostics]
+
+### Two chains with the same target
+
+Consider an illustrative two-state target $\pi=(1/4,3/4)$ over states $A,B$. For $0<a<1/4$, define
+
+$$
+P_a=
+\begin{pmatrix}
+1-3a & 3a\\
+a & 1-a
+\end{pmatrix}.
+$$
+
+The flows balance because $(1/4)(3a)=(3/4)a$. Both states communicate and have self-transitions, so the chain converges to $\pi$. Yet the rate depends strongly on $a$.
+
+For $f(B)=1$ and $f(A)=0$, the stationary mean is $3/4$ and the variance is $3/16$. The centred function is an eigenvector of $P_a$ with eigenvalue $\lambda=1-4a$. Consequently $\rho_f(k)=\lambda^k$ and $\tau_f=(1+\lambda)/(1-\lambda)$.
+
+| Transition parameter | $\lambda$ | $\tau_f$ | Asymptotic ESS for $N=1000$ |
+|---|---:|---:|---:|
+| $a=1/6$ | $1/3$ | $2$ | $500$ |
+| $a=1/100$ | $0.96$ | $49$ | $20.4$ |
+
+These are analytic calculations for stationary chains. The second chain spends longer in each state, leaving substantially less information about the probability of $B$ for the same number of draws. A valid stationary distribution does not determine sampling efficiency.
 
 ## Key methods
 
-- [Metropolis–Hastings](metropolis-hastings.md): proposes moves from any proposal distribution and accepts them with the Metropolis–Hastings ratio. The most general method.
-- [Gibbs sampling](gibbs-sampling.md): samples each variable from its conditional distribution in turn. No accept step is needed, and it suits models with conjugate conditionals.
-- [Hamiltonian Monte Carlo](hamiltonian-monte-carlo.md): uses gradients and simulated dynamics to make distant, high-acceptance proposals. It is the basis of the No-U-Turn Sampler in Stan and similar tools.
+- [Metropolis–Hastings](metropolis-hastings.md) proposes moves and applies an acceptance ratio that accounts for both forward and reverse proposals.[^intro]
+- [Gibbs sampling](gibbs-sampling.md) draws from full conditional distributions, updating variables or blocks.[^intro]
+- [Hamiltonian Monte Carlo](hamiltonian-monte-carlo.md) uses gradients and simulated dynamics to explore continuous targets.[^neal] NUTS adapts the trajectory length.[^nuts]
 
-## Connections
+## Connections and applications
 
-- [Variational inference](../variational-inference/index.md) is the optimisation-based alternative. It is faster but biased, while MCMC is asymptotically exact.
+- [Variational inference](../variational-inference/index.md) approximates a posterior by optimisation. MCMC and VI have different sources of error and computational costs.
 - [Probability and statistics](../../../math/probability-statistics/index.md) gives the posterior and expectation calculations that MCMC approximates.
-- [Score-based diffusion models](../../unsupervised/density-and-generative-models/diffusion/index.md) generate samples by reversing a noising process. Their sampling methods are closely related to Langevin dynamics, a gradient-based MCMC method.
-- Brain and cognition: sampling-based accounts of perception propose that neural activity samples from a posterior over hidden causes. This is an active hypothesis, not a settled result.
+- Posterior samples support Bayesian estimates, credible intervals and predictions. Probabilistic programming systems use samplers such as NUTS for user-defined models.[^nuts]
 
-## Applications
+## Diagnostics and limitations
 
-- **Bayesian regression and hierarchical models**: posterior samples give credible intervals (Gelman et al., 2013).
-- **Probabilistic programming**: general-purpose samplers such as HMC/NUTS run inference for user-written models (Hoffman & Gelman, 2014).
-- **Scientific inference**: parameter estimation in physics, ecology and epidemiology, where the likelihood is complex.
+- **Compare multiple chains.** Use dispersed initial values and inspect trace or rank plots. Rank-normalised split and folded $\widehat{R}$ diagnostics detect differences in location and scale between chains. Vehtari et al. recommend $\widehat{R}<1.01$ as part of a broader diagnostic assessment.[^diagnostics]
+- **Check the quantities being reported.** Inspect bulk and tail ESS, and compute MCSE for the actual mean, quantile or probability of interest. Rank-based bulk ESS is a diagnostic and does not directly supply the MCSE of a raw posterior mean.[^diagnostics]
+- **Assess exploration.** Discarding a chosen number of warmup draws does not establish convergence. Chains can agree while all miss an isolated mode, so diagnostics provide evidence about a finite run with limited access to the state space.[^diagnostics]
+- **Consider cost per effective draw.** Small steps can create strong positive autocorrelation. HMC can reduce random-walk behaviour, but its gradients and trajectory calculations also cost computation.[^neal] Compare precision for the quantity of interest within a computational budget.
 
-## Open questions
-
-- Diagnosing convergence is hard, because a chain can look converged while missing a distant mode.
-- High-dimensional and multimodal posteriors mix slowly, and adaptive methods help but have their own theoretical gaps.
-- Combining MCMC with large neural networks, where gradients are noisy and the posterior is huge, remains difficult.
+[^intro]: Andrieu et al. (2003), §3, explain transition kernels, stationary distributions, convergence conditions and the standard MCMC algorithms.
+[^stan]: Stan Development Team, *Posterior Analysis*, derives autocorrelation-based ESS and the Monte Carlo standard error of a mean.
+[^diagnostics]: Vehtari et al. (2021), §§2–4, develop rank-based diagnostics, local ESS and Monte Carlo error estimates, and discuss the limits of convergence checks.
+[^neal]: Neal (2011) reviews Hamiltonian dynamics, random-walk behaviour and computational tradeoffs in MCMC.
+[^nuts]: Hoffman & Gelman (2014) describe NUTS, its path-length selection and warmup adaptation.
 
 ## References
 
@@ -69,14 +128,18 @@ Using samples, the expectation of any function \(f\) is estimated by \(\frac{1}{
 
 - Metropolis, N., Rosenbluth, A. W., Rosenbluth, M. N., Teller, A. H. & Teller, E. (1953). Equation of state calculations by fast computing machines. *Journal of Chemical Physics* 21(6), 1087–1092. https://doi.org/10.1063/1.1699114 — Introduces the Metropolis algorithm for sampling from a Boltzmann distribution.
 - Hastings, W. K. (1970). Monte Carlo sampling methods using Markov chains and their applications. *Biometrika* 57(1), 97–109. https://doi.org/10.1093/biomet/57.1.97 — Generalises the Metropolis rule to asymmetric proposals.
-- Duane, S., Kennedy, A. D., Pendleton, B. J. & Roweth, D. (1987). Hybrid Monte Carlo. *Physics Letters B* 195(2), 216–222. https://ui.adsabs.harvard.edu/abs/1987PhLB..195..216D/abstract — Introduces the hybrid (Hamiltonian) Monte Carlo method.
+- Duane, S., Kennedy, A. D., Pendleton, B. J. & Roweth, D. (1987). Hybrid Monte Carlo. *Physics Letters B* 195(2), 216–222. https://doi.org/10.1016/0370-2693(87)91197-X — Introduces the hybrid (Hamiltonian) Monte Carlo method.
 
 ### Surveys and textbooks
 
-- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://doi.org/10.1023/A:1020281327116 — Tutorial on MCMC for machine learning, covering Metropolis–Hastings, Gibbs and their relations.
+- Andrieu, C., de Freitas, N., Doucet, A. & Jordan, M. I. (2003). An introduction to MCMC for machine learning. *Machine Learning* 50, 5–43. https://www.cs.ubc.ca/~nando/papers/mlintro.pdf — Tutorial on MCMC for machine learning, covering Metropolis–Hastings, Gibbs and their relations.
 - Neal, R. M. (2011). MCMC using Hamiltonian dynamics. In *Handbook of Markov Chain Monte Carlo*. arXiv:1206.1901. https://arxiv.org/abs/1206.1901 — Review of HMC, its tuning, and its advantages over random-walk samplers.
 - Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers MCMC methods and their diagnostics.
+
+- Vehtari, A., Gelman, A., Simpson, D., Carpenter, B. & Bürkner, P.-C. (2021). *Rank-normalization, folding, and localization: An improved R-hat for assessing convergence of MCMC*. Bayesian Analysis. https://arxiv.org/abs/1903.08008 — Develops rank-based convergence diagnostics and effective sample sizes for different parts of a distribution.
 
 ### Articles and documentation
 
 - Hoffman, M. D. & Gelman, A. (2014). The No-U-Turn sampler: adaptively setting path lengths in Hamiltonian Monte Carlo. *Journal of Machine Learning Research* 15. https://jmlr.org/papers/v15/hoffman14a.html — Introduces NUTS, which tunes the path length of HMC automatically.
+
+- Stan Development Team. *Stan Reference Manual: Posterior Analysis*. https://mc-stan.org/docs/reference-manual/analysis.html — Explains multiple-chain diagnostics, autocorrelation, effective sample size and Monte Carlo standard errors.
