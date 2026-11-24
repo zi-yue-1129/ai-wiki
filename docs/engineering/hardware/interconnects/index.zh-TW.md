@@ -36,6 +36,26 @@ T \approx \frac{2(N-1)}{N} \cdot \frac{S}{B}
 
 不同的平行化策略傳送的內容不同。資料平行每個步驟對梯度做一次全歸約。張量平行在每一層內對激活值做全歸約，頻率高，需要快速連線。流水線平行只在相鄰的階段之間傳送激活值，資料量少得多。如 ZeRO 與 FSDP 的分片資料平行，則在使用前做參數的全收集，在使用後做梯度的歸約分散。
 
+### 動畫解說：環狀歸約與結果複製
+
+<img data-source-asset-urls src="../../../assets/concept-animations/interconnect-ring-reduction-still.svg" data-motion-src="../../../assets/concept-animations/interconnect-ring-reduction-motion.svg" data-still-src="../../../assets/concept-animations/interconnect-ring-reduction-still.svg" width="360" height="300" style="display:block;width:100%;max-width:540px;height:auto" alt="三個 rank 向下一個鄰居傳送部分和，兩輪後各持有一個完整分片；再經兩輪複製分片，每個 rank 都得到 12、15、18。">
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態預覽](../../../assets/concept-animations/interconnect-ring-reduction-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/interconnect-ring-reduction-motion.svg)。
+
+Rank 0 起始為 (1, 2, 3)，rank 1 為 (4, 5, 6)，rank 2 為 (7, 8, 9)。每一同步輪次，各 rank 將一個分片傳給下一個鄰居（0 → 1 → 2 → 0）。前兩輪歸約分散中，接收端將收到的部分和加到本地對應分片；圖中隱藏已送出、不再參與後續運算的部分和，並非表示實際釋放緩衝區。最後 rank 0 持有 B=15、rank 1 持有 C=18、rank 2 持有 A=12。後兩輪全收集只複製已完成歸約的分片，不再相加，最終每個 rank 都得到 (12, 15, 18)。移動圓點代表傳輸中的封包，卡片則顯示每輪開始前仍有效的資料狀態。
+
+若原始向量大小為 $S$，且三個分片等大，每個 rank 共傳送四個分片，即 $4S/3$ 位元組，接收量亦相同。這是上述頻寬成本式在三個 rank 情況下的單方向流量，而非網路介面吞吐量實測值。四個輪次還會產生啟動延遲。
+
+### 動畫解說：通訊與計算重疊
+
+<img data-source-asset-urls src="../../../assets/concept-animations/interconnect-bucket-overlap-still.svg" data-motion-src="../../../assets/concept-animations/interconnect-bucket-overlap-motion.svg" data-still-src="../../../assets/concept-animations/interconnect-bucket-overlap-still.svg" width="360" height="300" style="display:block;width:100%;max-width:540px;height:auto" alt="共用時間游標比較兩個計算桶與兩個通訊桶的串行及重疊排程，分別在時間 10 與 8 完成。">
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態預覽](../../../assets/concept-animations/interconnect-bucket-overlap-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/interconnect-bucket-overlap-motion.svg)。
+
+假設 C1、C2 各需三個時間單位，在計算串流中執行；N1、N2 各需兩個時間單位，在獨立的通訊串流中執行。每個 N 桶須等對應的 C 桶完成。串行排程先完成兩個計算桶，再依序通訊，共需 10 單位。重疊排程中，N1 在時間 3、C1 完成後立即開始，與 C2 重疊至時間 5；N2 必須等 C2 在時間 6 完成後才開始，因此整步在時間 8 結束。橘色游標以相同速率掃過兩種排程；較亮的區塊表示正在執行，較暗的區塊則依游標位置區分尚未執行或已完成。最後一段通訊仍暴露在關鍵路徑上，無法透過這個排程隱藏。
+
+上述皆為示意數值，並非硬體實測。此例假設計算與通訊資源獨立，且無資源競爭或額外啟動成本，實際重疊程度可能更低。兩項動畫均沿用網站可使用鍵盤操作的播放／暫停控制；暫停會回到代表性靜態圖，偏好減少動態效果時預設顯示靜態圖。
+
 ## 結果
 
 Jouppi 等人（2023）描述 TPU v4 的 pod，它以光學電路交換器重新配置互連拓撲。他們報告，交換器與其光學元件佔系統成本不到 5%、佔系統功耗不到 3%。在相近規模的系統上，TPU v4 比 Nvidia A100 快 1.2 至 1.7 倍，功耗低 1.3 至 1.9 倍。

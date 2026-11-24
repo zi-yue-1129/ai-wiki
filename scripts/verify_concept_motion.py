@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "interconnect-ring-reduction": "engineering/hardware/interconnects/index",
+    "interconnect-bucket-overlap": "engineering/hardware/interconnects/index",
     'alibi-content-recency': 'theory/models/transformer/positional-encodings/index',
     'alibi-distance-softmax': 'theory/models/transformer/positional-encodings/index',
     'alibi-head-prefix': 'theory/models/transformer/positional-encodings/index',
@@ -451,7 +453,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
+CANONICAL_VIEWBOXES = {'interconnect-ring-reduction': '0 0 360 300',
+ 'interconnect-bucket-overlap': '0 0 360 300',
+ '3d-unet-context-tiling': '0 0 800 420',
  '3d-unet-depth-kernel': '0 0 800 420',
  '3d-unet-evaluation-holdout': '0 0 800 420',
  '3d-unet-orthogonal-slices': '0 0 640 360',
@@ -1288,6 +1292,10 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"interconnect-ring-reduction", "interconnect-bucket-overlap"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)}:
+                    errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
                 match = re.search(r'<img\s+data-source-asset-urls\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
