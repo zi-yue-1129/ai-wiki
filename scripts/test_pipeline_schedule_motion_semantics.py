@@ -51,6 +51,12 @@ class PipelineSchedule(unittest.TestCase):
                 self.assertEqual(aggregate[3], 6)
                 self.assertEqual([row[6] for row in histories], [4, 4, 4] if policy == 0 else [2, 2, 0])
                 self.assertEqual(max(aggregate), 12 if policy == 0 else 6)
+                # Weight each stage's boundary counts by its saved-set size (MiB).
+                weighted = [sum(n * size for n, size in zip(values, (2, 4, 8)))
+                            for values in zip(*histories)]
+                self.assertEqual(max(weighted), 56 if policy == 0 else 22)
+                self.assertEqual(weighted.index(max(weighted)), 6 if policy == 0 else 3)
+                self.assertEqual(sum(weighted[:-1]), 288 if policy == 0 else 130)
                 self.assertEqual(len(done), 24)
                 self.assertEqual(idle, 12)
                 self.assertTrue(all(not s for s in saved))

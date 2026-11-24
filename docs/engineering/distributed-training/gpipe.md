@@ -73,6 +73,8 @@ If each stage's saved set occupies $A_s$ bytes, the illustrative per-stage peak 
 
 For a second reading exercise, seek both figures to the end of slot 3: GPipe and 1F1B have each saved $(3,2,1)$ sets across stages. At the end of slot 6, GPipe has $(4,4,4)$ whereas 1F1B has $(2,2,0)$. With equal-size sets across stages, the maximum simultaneous aggregate count over this example is 12 versus 6. This is a sum across devices, not a single-device peak; the sum of independent stage peaks is only an upper bound in general because their peak times may differ. Use the same saved-set and slot-boundary assumptions as the curves.
 
+For unequal stage sizes, read the same curves with weights rather than counting sets. If $A_1,A_2,A_3$ are 2, 4 and 8 MiB, respectively, the simultaneous saved-activation peak is 56 MiB for GPipe (slot 6) versus 22 MiB for 1F1B (slot 3). A second quantity is activation residency over time: summing the weighted counts at boundaries 0 through 11 gives 288 versus 130 MiB·slot, interpreting each boundary count as the saved sets retained until the next boundary. This discrete memory-time proxy is neither a peak allocation nor memory traffic; it does not count reads/writes or model within-slot allocations. All sizes and durations are illustrative.
+
 On MkDocs, use the keyboard-accessible Play/Pause, previous/next slot, timeline and speed controls for both figures. The initial and reduced-motion fallback is the full still; the final two seconds of playback hold the completed schedule.
 
 ## Key methods
