@@ -15,7 +15,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 437 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 439 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -170,6 +170,40 @@ class ScopedCanvas(unittest.TestCase):
             path.write_text('<svg>')
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
 
+    def test_hardware_weight_reuse_and_sparse_merge_states(self):
+        def tracks(stem):
+            root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
+            groups = root.findall(v.NS + 'g')
+            for i, group in enumerate(groups):
+                anim = group.find(v.NS + 'animate')
+                self.assertEqual(anim.get('attributeName'), 'opacity')
+                self.assertEqual(anim.get('values').split(';'),
+                                 [str(int(j == i)) for j in range(len(groups))])
+                self.assertEqual(anim.get('repeatCount'), 'indefinite')
+            return [[t.text for t in group.findall(v.NS + 'text')] for group in groups]
+
+        reuse = tracks('memory-wall-weight-reuse')
+        self.assertEqual(len(reuse), 4)
+        for k, labels in enumerate(reuse, 1):
+            self.assertEqual(labels[-4:], [str(4*k), '4', f'{4*k} vs 4', str(4*k)])
+
+        a, b = {0:2, 2:3, 5:4}, {1:7, 2:6, 5:8}
+        i = j = total = 0
+        aa, bb = sorted(a), sorted(b)
+        expected = []
+        while i < len(aa) and j < len(bb):
+            x, y = aa[i], bb[j]
+            if x < y:
+                op = 'Skip A'; i += 1
+            elif x > y:
+                op = 'Skip B'; j += 1
+            else:
+                op = f'{a[x]} × {b[y]}'
+                total += a[x] * b[y]; i += 1; j += 1
+            expected.append([op, str(total)])
+        expected.append(['Done', str(total)])
+        self.assertEqual(tracks('sparse-index-intersection'), expected)
+        self.assertEqual(total, 50)
 
 class InterconnectTiming(unittest.TestCase):
     def test_ring_delivery_before_state_transition(self):
