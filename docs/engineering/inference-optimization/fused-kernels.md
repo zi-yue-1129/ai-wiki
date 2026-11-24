@@ -37,6 +37,27 @@ On a modern accelerator, the arithmetic units are often faster than the path to 
 
 A fused attention kernel divides the query, key and value matrices into blocks that fit in fast memory. It loads a block, computes the attention scores for that block, updates a running normalisation, and writes only the final output. The full matrix of scores is never written out. The result is the same as standard attention, which is why the method is described as exact. Fusing small operations, such as adding a bias, applying an activation and normalising, follows the same principle on a smaller scale.
 
+### Worked example: fusing bias and activation
+
+Consider the scalar computation $y=\max(0,x+2)$ with $x=-3$ and a constant bias already available on chip. Compare two separate kernels that materialise their intermediate in HBM with one fused kernel that keeps it on chip. The same arithmetic is performed in both cases.[^fusion-traffic]
+
+<img data-source-asset-urls src="../../assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg" data-motion-src="../../assets/concept-animations/kernel-fusion-intermediate-traffic-motion.svg" data-still-src="../../assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg" alt="Two schedules load minus three, add two, apply ReLU and store zero. Only the separate schedule writes and reloads minus one; its cumulative transfers are four versus two.">
+
+*Original animated teaching diagram, CC BY-SA 4.0.* Arrows mark completed logical element transfers, not simultaneous or cycle-accurate events. On MkDocs, use the keyboard-accessible **Play/Pause** control; reduced-motion preferences initially show the still. [Static preview for GitHub](../../assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg).
+
+| Operation completed | Separate transfers | Fused transfers |
+|---|---:|---:|
+| Load input | 1 | 1 |
+| Add bias (intermediate −1) | 1 | 1 |
+| Write intermediate | 2 | 1 |
+| Reload intermediate | 3 | 1 |
+| ReLU (result 0) | 3 | 1 |
+| Write output | 4 | 2 |
+
+The two kernels require two launches versus one for the fused version in this example. If each stored element occupies $b$ bytes and every logical transfer reaches HBM, the counts correspond to $4b$ versus $2b$ bytes per element. Actual HBM traffic may differ because of caches, memory transactions, register spills and other inputs. The counts are schematic, not GPU measurements or a prediction of twice the speed. See [Triton](../frameworks/compilers-and-kernels/triton.md) for an example of tiled loads and stores.
+
+[^fusion-traffic]: Triton contributors, [Fused Softmax](https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html), illustrates how retaining intermediate results on chip can reduce memory traffic; the scalar example above is original.
+
 ## Key methods
 
 - [FlashAttention (Dao et al., 2022)](../../theory/models/transformer/attention-variants/flash-attention/index.md): exact attention computed in blocks, so the full score matrix is not stored. It is described on its own page in the Models section.
@@ -75,3 +96,7 @@ A fused attention kernel divides the query, key and value matrices into blocks t
 - Micikevicius, P. et al. (2018). Mixed Precision Training. ICLR. https://arxiv.org/abs/1710.03740 — Shows that training with reduced-precision arithmetic can match full-precision accuracy, which reduces memory traffic.
 - Kwon, W. et al. (2023). Efficient Memory Management for Large Language Model Serving with PagedAttention. SOSP. https://arxiv.org/abs/2309.06180 — Manages the attention cache in pages, which is a memory-system approach to serving.
 - Chen, T. et al. (2018). TVM: An Automated End-to-End Optimizing Compiler for Deep Learning. OSDI. https://arxiv.org/abs/1802.04799 — A compiler that generates optimised kernels for many hardware targets, the automated counterpart to hand-written kernels.
+
+### Articles and documentation
+
+- Triton contributors. *Fused Softmax*. https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html — Demonstrates the memory-traffic motivation for fusing operations when intermediate data fit on chip.
