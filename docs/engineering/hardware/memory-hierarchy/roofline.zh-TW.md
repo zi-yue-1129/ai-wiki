@@ -75,6 +75,32 @@ P_{\text{attainable}} = \min\left(P_{\text{peak}},\; B \cdot I\right)
 
 原始模型只計算到主記憶體的流量，並假設工作集無法完全放入晶片上的快取。當快取服務了大部分流量時，單一記憶體上限會給出誤導性的上界。Yang 等人（2020）把分析延伸到 NVIDIA GPU 的記憶體階層，並自動刻畫機器與應用本身的特性。逐層分別繪製，才能讓一個核心受某一層限制，卻不受另一層限制，這正是階層式觀點的重點。他們也把 Empirical Roofline Toolkit 延伸到更多數值精度與 Tensor Core 運算，並以一個以 TensorFlow 與 PyTorch 撰寫的深度學習氣候影像分割應用進行分析。
 
+### 動態解說：瓶頸會在記憶體階層間轉移
+
+<img data-source-asset-urls width="640" height="360" style="width:100%;max-width:640px;height:auto;display:block" src="../../../assets/concept-animations/roofline-hierarchy-bottleneck-still.svg" data-motion-src="../../../assets/concept-animations/roofline-hierarchy-bottleneck-motion.svg" data-still-src="../../../assets/concept-animations/roofline-hierarchy-bottleneck-still.svg" alt="固定運算量與 SRAM 流量，逐步減少 HBM 流量，HBM 效能上限由每秒 4 提高到 64 GFLOPs；當 SRAM 成為瓶頸，共同上界停在每秒 16 GFLOPs。">
+
+*原創教學動畫，CC BY-SA 4.0。GitHub 顯示[靜態 SVG](../../../assets/concept-animations/roofline-hierarchy-bottleneck-still.svg)；網站提供播放／暫停（暫停時顯示代表性靜態畫面）。* [完整 SVG 動畫](../../../assets/concept-animations/roofline-hierarchy-bottleneck-motion.svg)。
+
+在這個**人工設定、非設備實測**的核心示例中，運算量 $F=32$ FLOPs，$Q_{\mathrm{SRAM}}=32$ 位元組，$Q_{\mathrm{HBM}}$ 依序取 32、16、8、4、2 位元組。$Q$ 計算的是各自記憶體邊界的搬移流量，而非配置的記憶體容量。假設 HBM 與 SRAM 的持續頻寬分別為 4 GB/s 與 16 GB/s，運算上限為 32 GFLOP/s，共同上界為
+
+$
+P\leq\min\left(32,\;4F/Q_{\mathrm{HBM}},\;16F/Q_{\mathrm{SRAM}}\right)\;\mathrm{GFLOP/s}.
+$
+
+藍綠方塊表示 HBM 流量（每格兩位元組），橘框標出達到最小上界的資源，包含並列情形。晶片外流量減少時，僅考慮 HBM 的效能上限從 4 提高到 64 GFLOP/s。當 HBM 流量為 8 位元組時，兩層記憶體上界皆為 16 GFLOP/s；進一步降低 HBM 流量，SRAM 因流量不變而成為瓶頸，共同上界仍維持 16。因此，改善某一記憶體邊界未必能改善整體上界。各層都使用自身的運算強度 $F/Q$，而非所有階層共用同一個運算強度。此例僅隔離流量變化，並非實際剖析資料，也不預測延遲或實測吞吐量（Yang 等人，2020）。
+
+下表提供相同流量掃描的文字版，各效能上限的單位皆為 GFLOP/s：
+
+| HBM 流量（位元組） | HBM 上限 | SRAM 上限 | 運算上限 | 共同上界 | 限制資源 |
+|---:|---:|---:|---:|---:|---|
+| 32 | 4 | 16 | 32 | 4 | HBM |
+| 16 | 8 | 16 | 32 | 8 | HBM |
+| 8 | 16 | 16 | 32 | 16 | HBM 與 SRAM |
+| 4 | 32 | 16 | 32 | 16 | SRAM |
+| 2 | 64 | 16 | 32 | 16 | SRAM |
+
+在兩層上界並列時，單獨降低 HBM 流量無法提高共同上界，必須同時改善 SRAM。例如 HBM 流量為 4 位元組時，若將 SRAM 流量從 32 減半至 16 位元組，SRAM 上限便從 16 提升至 32 GFLOP/s，共同上界也提高到 32 GFLOP/s，此時達到運算上限，且與兩層記憶體上限並列。這是額外的假設性對照，不是動畫中的狀態，也不是效能實測。
+
 ## 套用於 LLM 推論
 
 Yuan 等人（2024）使用 屋頂線框架分析 LLM 推論的效率。摘要指出，此框架處理的問題包括 LLM 為何受記憶體限制、需要多少記憶體與運算，以及如何選擇硬體。[記憶體階層](index.zh-TW.md)頁面也說明了相同的算術：模型為一個序列生成一個詞元時，每個權重只讀取一次，並僅用於約一次運算，因此運算強度約為 1，遠在屋脊點的左側。把多個序列批次化，可以讓每個權重在整個批次中重複使用，使該點往右移。
