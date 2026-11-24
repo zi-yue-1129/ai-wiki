@@ -126,6 +126,7 @@ on:
       - "docs/stylesheets/video-architecture-labs.css"
       - "scripts/test_uncertainty_motion_semantics.py"
       - "scripts/test_probability_motion_semantics.py"
+      - "scripts/test_information_motion_semantics.py"
       - "scripts/test_predictive_coding_motion_browser.py"
       - "scripts/test_predictive_coding_motion_semantics.py"
       - "scripts/test_predictive_coding_labs.cjs"
@@ -373,6 +374,8 @@ jobs:
           node scripts/test_diffusion_policy_player.cjs
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
+      - name: Check information-theory motion analytical timelines
+        run: python scripts/test_information_motion_semantics.py
       - name: Verify selective classification animation and GitHub fallback arithmetic
         run: |
           python scripts/test_selective_accuracy_motion_semantics.py

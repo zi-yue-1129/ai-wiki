@@ -28,6 +28,40 @@ H(p,q) = H(p) + D_{\mathrm{KL}}(p\,\|\,q)
 
 由於 \(H(p)\) 與模型 \(q\) 無關，最小化資料上的交叉熵，等同於最小化資料與模型之間的 KL 散度。
 
+## 教學動畫：KL 散度方向性與通道雜訊
+
+### 伯努利 KL 散度：交換分布後不一定相同
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="伯努利 KL 散度方向比較動畫">
+<div style="width:720px">
+<img data-source-asset-urls style="width:720px;min-width:720px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/bernoulli-kl-direction-still.svg" data-still-src="../../assets/concept-animations/bernoulli-kl-direction-still.svg" data-motion-src="../../assets/concept-animations/bernoulli-kl-direction-motion.svg" alt="固定伯努利分布 p 為 0.80，讓 q 從 0.25 移動到 0.90；兩條曲線分別顯示正向與反向 KL 散度，標記點與長條隨參數變化。" width="720" height="400">
+</div>
+</div>
+
+*原創數學教學動畫（CC BY-SA 4.0）。* 固定 \(p=P(X=1)=0.80\)，並讓 \(q=Q(X=1)\) 在 0.25 至 0.90 間移動。正向的伯努利 KL 散度為
+
+$
+D_{\mathrm{KL}}(p\|q)=p\ln\frac pq+(1-p)\ln\frac{1-p}{1-q},
+$
+
+反向則交換 \(p\) 與 \(q\)。當 \(q=0.25\) 時，**\(D_{\mathrm{KL}}(p\|q)\approx0.6662\) nats**，而 **\(D_{\mathrm{KL}}(q\|p)\approx0.7005\) nats**。兩者在 \(q=p=0.8\) 時都降為零，但其他位置通常不相等。動態游標與長條是依公式解析計算，**參數完全是人工示意，並非模型實測**。MkDocs 提供可使用鍵盤操作的播放／暫停控制；偏好減少動態效果或停用腳本時，會顯示 \(q=0.25\) 的靜態畫面。[GitHub 靜態預覽](../../assets/concept-animations/bernoulli-kl-direction-still.svg)與[完整 SVG 動畫](../../assets/concept-animations/bernoulli-kl-direction-motion.svg)可直接開啟；手機可水平捲動。
+
+### 二元對稱通道：雜訊如何減少可用資訊
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="二元對稱通道資訊量動畫">
+<div style="width:720px">
+<img data-source-asset-urls style="width:720px;min-width:720px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/binary-channel-information-still.svg" data-still-src="../../assets/concept-animations/binary-channel-information-still.svg" data-motion-src="../../assets/concept-animations/binary-channel-information-motion.svg" alt="均勻二元輸入經過對稱位元翻轉通道；翻轉率提高至 0.5 時，翻轉路徑變粗、互資訊下降而條件熵上升。" width="720" height="400">
+</div>
+</div>
+
+*原創數學教學動畫（CC BY-SA 4.0）。* 對於**均勻分布的二元輸入** \(X\)，令 \(Y=X\oplus N\)，其中 \(N\) 是獨立的伯努利位元翻轉變數，且 \(P(N=1)=e\)。青綠色路徑對應 \(P(Y=X\mid X)=1-e\)，橘色路徑對應 \(P(Y\ne X\mid X)=e\)；線條粗細表示的是**條件轉移機率，而不是實際傳輸次數**。右側兩條曲線為
+
+$
+H(X\mid Y)=h_2(e),\qquad I(X;Y)=1-h_2(e),
+$
+
+其中 \(h_2(e)=-e\log_2e-(1-e)\log_2(1-e)\)，端點採用 \(0\log0=0\) 的慣例。當 \(e=0.25\)，條件熵與互資訊分別為 **0.8113**、**0.1887 位元**；當 \(e=0.5\)，輸入與輸出獨立，通道容量為零。對二元對稱通道，均勻輸入可以達到每一個 \(e\) 下的通道容量。**這些都是解析示意數值，不是實際傳輸實驗。** MkDocs 提供鍵盤可操作的播放／暫停控制與減少動態效果時的靜態回退。[GitHub 靜態預覽](../../assets/concept-animations/binary-channel-information-still.svg)與[完整 SVG 動畫](../../assets/concept-animations/binary-channel-information-motion.svg)可直接開啟；手機可水平捲動。
+
 ## 運作方式
 
 **壓縮。** 一枚公平硬幣每次擲出需要一個位元。一枚有 90% 機率出現正面的硬幣，其熵約為 0.47 位元，因此理想編碼可以讓高機率的結果使用短碼，使每次擲硬幣的平均碼長低於半個位元。壓縮之所以有效，是因為它利用了可預測性：模型對資料掌握得越好，能達到的熵就越低。這就是為什麼**困惑度**（交叉熵平均值的指數）是[語言模型](../models/llm/index.md)的標準衡量指標。它可以理解為模型在每一步仍需在多少個等可能的選項之間權衡。

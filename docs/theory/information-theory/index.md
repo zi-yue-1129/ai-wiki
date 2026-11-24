@@ -37,6 +37,40 @@ H(p,q) = H(p) + D_{\mathrm{KL}}(p\,\|\,q)
 
 Because \(H(p)\) does not depend on the model \(q\), minimising cross-entropy against the data is the same as minimising the KL divergence between the data and the model.
 
+## Animated teaching examples: KL direction and channel noise
+
+### Bernoulli KL divergence is directional
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Bernoulli KL divergence comparison animation">
+<div style="width:720px">
+<img data-source-asset-urls style="width:720px;min-width:720px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/bernoulli-kl-direction-still.svg" data-still-src="../../assets/concept-animations/bernoulli-kl-direction-still.svg" data-motion-src="../../assets/concept-animations/bernoulli-kl-direction-motion.svg" alt="Two analytic Bernoulli KL curves with p fixed at 0.80 and q moving from 0.25 to 0.90. The forward and reverse divergences are traced independently and generally differ." width="720" height="400">
+</div>
+</div>
+
+*Original mathematical teaching animation (CC BY-SA 4.0).* Fix \(p=P(X=1)=0.80\), and move \(q=Q(X=1)\) between 0.25 and 0.90. The two curves show
+
+$
+D_{\mathrm{KL}}(p\|q)=p\ln\frac pq+(1-p)\ln\frac{1-p}{1-q},
+$
+
+with \(p\) and \(q\) exchanged for the reverse direction. At \(q=0.25\), **\(D_{\mathrm{KL}}(p\|q)\approx0.6662\) nats** but **\(D_{\mathrm{KL}}(q\|p)\approx0.7005\) nats**. Both reach zero when \(q=p=0.8\), but they are generally unequal elsewhere. The moving dots and bars are computed from these formulas; **these are invented analytical probabilities, not measurements from a model**. On MkDocs the image has an accessible Play/Pause control. With reduced motion or without scripting, the still shows the \(q=0.25\) case. [GitHub static preview](../../assets/concept-animations/bernoulli-kl-direction-still.svg) · [full SVG animation](../../assets/concept-animations/bernoulli-kl-direction-motion.svg). Scroll horizontally on narrow screens.
+
+### Binary symmetric channel: noise versus usable information
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Binary symmetric channel information animation">
+<div style="width:720px">
+<img data-source-asset-urls style="width:720px;min-width:720px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/binary-channel-information-still.svg" data-still-src="../../assets/concept-animations/binary-channel-information-still.svg" data-motion-src="../../assets/concept-animations/binary-channel-information-motion.svg" alt="A uniform binary input passes through a symmetric bit-flip channel. As flip probability increases toward 0.5, the conditional flip arrows grow, mutual information falls and conditional entropy rises." width="720" height="400">
+</div>
+</div>
+
+*Original mathematical teaching animation (CC BY-SA 4.0).* For a **uniform binary input** \(X\), let \(Y=X\oplus N\), where \(N\) is an independent Bernoulli bit-flip variable with \(P(N=1)=e\). The teal paths represent \(P(Y=X\mid X)=1-e\) and orange paths represent \(P(Y\ne X\mid X)=e\); their widths indicate **conditional transition probabilities, not empirical traffic counts**. The two right-hand curves show
+
+$
+H(X\mid Y)=h_2(e),\qquad I(X;Y)=1-h_2(e),
+$
+
+where \(h_2(e)=-e\log_2e-(1-e)\log_2(1-e)\), with the endpoint convention \(0\log 0=0\). At \(e=0.25\), these values are **0.8113** and **0.1887 bits** respectively. At \(e=0.5\), \(X\) and \(Y\) are independent and the capacity is zero. Uniform input achieves the binary symmetric channel's capacity at every \(e\). All values are **analytical illustrations, not measured transmissions**. The MkDocs player supports keyboard-operable Play/Pause and a reduced-motion still. [GitHub static preview](../../assets/concept-animations/binary-channel-information-still.svg) · [full SVG animation](../../assets/concept-animations/binary-channel-information-motion.svg). Scroll horizontally on narrow screens.
+
 ## How it works
 
 **Compression.** A fair coin needs one bit per toss. A coin that lands heads 90% of the time has entropy of about 0.47 bits, so an ideal code can average under half a bit per toss by giving frequent outcomes short codewords. Compression works by exploiting predictability: the better a model knows the data, the lower the entropy it can reach. This is why *perplexity*, the exponential of the average cross-entropy, is the standard measure for [language models](../models/llm/index.md). It can be read as the effective number of equally likely choices the model still weighs at each step.
