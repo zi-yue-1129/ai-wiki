@@ -88,6 +88,32 @@ For a **schematic, not measured** device with sustained bandwidth $B=4\,\mathrm{
 
 The original model counts only traffic to main memory, and it assumes the working set does not fit in on-chip caches. When caches do serve much of the traffic, a single memory ceiling gives a misleading bound. Yang et al. (2020) extend the analysis across the memory hierarchy of NVIDIA GPUs, with automated characterisation of both the machine and the application. Charting each level separately is what lets a kernel be limited by one level and not by another, which is the point of the hierarchical view. They also extend the Empirical Roofline Toolkit to more numerical precisions and to Tensor Core operations, and apply the analysis to a deep learning climate segmentation application written in TensorFlow and PyTorch.
 
+### Animated explanation: the bottleneck can move between levels
+
+<img data-source-asset-urls width="640" height="360" style="width:100%;max-width:640px;height:auto;display:block" src="../../../assets/concept-animations/roofline-hierarchy-bottleneck-still.svg" data-motion-src="../../../assets/concept-animations/roofline-hierarchy-bottleneck-motion.svg" data-still-src="../../../assets/concept-animations/roofline-hierarchy-bottleneck-still.svg" alt="With fixed work and SRAM traffic, reducing HBM traffic raises the HBM throughput ceiling from 4 to 64 GFLOP/s. The joint bound stops at 16 GFLOP/s when SRAM becomes limiting.">
+
+*Original educational animation, CC BY-SA 4.0. GitHub displays the [static SVG](../../../assets/concept-animations/roofline-hierarchy-bottleneck-still.svg); the site offers Play/Pause (pause restores the representative still).* [Full SVG animation](../../../assets/concept-animations/roofline-hierarchy-bottleneck-motion.svg).
+
+For a **schematic, not measured** kernel, let $F=32$ FLOPs, $Q_{\mathrm{SRAM}}=32$ bytes and $Q_{\mathrm{HBM}}$ take the values 32, 16, 8, 4 and 2 bytes. Here $Q$ counts the traffic across its own memory boundary, not the allocated memory capacity. Assume the sustained bandwidths are 4 GB/s for HBM and 16 GB/s for SRAM and the compute ceiling is 32 GFLOP/s. The joint upper bound is
+
+$
+P\leq\min\left(32,\;4F/Q_{\mathrm{HBM}},\;16F/Q_{\mathrm{SRAM}}\right)\;\mathrm{GFLOP/s}.
+$
+
+The blue-green blocks encode the HBM bytes (each block is two bytes); the orange outlines indicate which resource attains the minimum, including ties. As off-chip traffic drops, the HBM-only ceiling goes from 4 to 64 GFLOP/s. At 8 HBM bytes both memory bounds equal 16 GFLOP/s; below that, the unchanged SRAM traffic makes SRAM the limiter and the joint bound remains 16. Thus an improvement at one memory boundary need not improve the end-to-end bound. Each ceiling uses its own intensity $F/Q$, not a single intensity for all levels. This is a deliberately isolated traffic sweep, not a real profiler trace, and does not predict latency or measured throughput (Yang et al., 2020).
+
+The same sweep is available as text, with every ceiling in GFLOP/s:
+
+| HBM traffic (bytes) | HBM ceiling | SRAM ceiling | Compute ceiling | Joint bound | Limiting resource |
+|---:|---:|---:|---:|---:|---|
+| 32 | 4 | 16 | 32 | 4 | HBM |
+| 16 | 8 | 16 | 32 | 8 | HBM |
+| 8 | 16 | 16 | 32 | 16 | HBM and SRAM |
+| 4 | 32 | 16 | 32 | 16 | SRAM |
+| 2 | 64 | 16 | 32 | 16 | SRAM |
+
+At the tie, reducing HBM traffic alone cannot raise the bound: SRAM must also be improved. For example, at 4 HBM bytes, halving SRAM traffic from 32 to 16 bytes would raise the SRAM ceiling from 16 to 32 GFLOP/s; the joint bound would then be 32 GFLOP/s. The compute ceiling would be reached (tied with both memory ceilings). This additional hypothetical counterfactual is not a state of the animation or a performance measurement.
+
 ## Applying the model to LLM inference
 
 Yuan et al. (2024) use a roofline framework to analyse the efficiency of LLM inference. The abstract says the framework addresses why LLMs are memory-bound, how much memory and computation they need, and how to choose hardware. The same arithmetic is set out in the [memory hierarchy](index.md) page: when a model generates one token for one sequence, each weight is read once and used for about one operation, so the intensity is roughly one, far to the left of the ridge point. Batching sequences reuses each weight across the batch and moves the point to the right.

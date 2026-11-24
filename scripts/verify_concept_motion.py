@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'dnn-output-stationary-traffic': 'engineering/hardware/accelerators/efficient-dnn-processing',
+    'dnn-sliding-window-reuse': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'kernel-fusion-intermediate-traffic': 'engineering/inference-optimization/fused-kernels',
     'triton-tail-mask': 'engineering/frameworks/compilers-and-kernels/triton',
     'alibi-content-recency': 'theory/models/transformer/positional-encodings/index',
@@ -251,6 +253,8 @@ TOPICS = {
     "effective-number-growth": "theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss",
     "logit-prior-decision": "theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment",
     "roofline-ridge-sweep": "engineering/hardware/memory-hierarchy/roofline",
+    "memory-tiled-input-reuse": "engineering/hardware/memory-hierarchy/index",
+    "roofline-hierarchy-bottleneck": "engineering/hardware/memory-hierarchy/roofline",
     "fp8-scale-range": "engineering/hardware/co-design/fp8",
     "roc-threshold-sweep": "theory/evaluation/metrics/classification/roc-auc",
     "pr-threshold-sweep": "theory/evaluation/metrics/classification/pr-auc",
@@ -453,7 +457,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'dnn-output-stationary-traffic': '0 0 640 360',
+ 'dnn-sliding-window-reuse': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'triton-tail-mask': '0 0 640 360',
  '3d-unet-context-tiling': '0 0 800 420',
  '3d-unet-depth-kernel': '0 0 800 420',
@@ -808,6 +814,8 @@ CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'roc-tie-half-credit': '0 0 640 360',
  'roi-align-sampling': '0 0 800 460',
  'roofline-ridge-sweep': '0 0 640 360',
+ 'memory-tiled-input-reuse': '0 0 640 360',
+ 'roofline-hierarchy-bottleneck': '0 0 640 360',
  'rope-axial-2d': '0 0 640 360',
  'rope-cache-reindex': '0 0 640 360',
  'rope-frequency-bands': '0 0 640 360',
@@ -1297,6 +1305,8 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"memory-tiled-input-reuse", "roofline-hierarchy-bottleneck"}:
+                errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
                 match = re.search(r'<img\s+data-source-asset-urls\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
@@ -1380,6 +1390,11 @@ def main() -> int:
             elif stem in {"layernorm-feature-shift", "seq2seq-context-handoff", "flashattention-online-rescale", "flashattention-exact-merge", "flashattention-causal-tiles", "flashattention-backward-remat", "flashattention2-query-parallel", "flashattention3-load-compute-pipeline"}:
 
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"dnn-output-stationary-traffic", "dnn-sliding-window-reuse"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing independent static preview for {stem}")
             elif stem in {"kernel-fusion-intermediate-traffic", "triton-tail-mask"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)

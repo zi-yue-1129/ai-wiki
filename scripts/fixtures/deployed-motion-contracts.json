@@ -458,32 +458,32 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
-    "kernel-fusion-intermediate-traffic": {
+    "dnn-output-stationary-traffic": {
       "origins": [
         {
-          "origin_blob": "5eef9901d0281b2e491b85c0bf454231f1535bd7",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-motion.svg"
+          "origin_blob": "0d296be4fbd6ac81b9391f88c443e54362048b78",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-output-stationary-traffic-motion.svg"
         },
         {
-          "origin_blob": "b6cae036ffab182d60a635a5fe75bf11df7a4f27",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg"
+          "origin_blob": "9961ce3de6f1353b307c911f70a91b3c66c64c36",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-output-stationary-traffic-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
     },
-    "triton-tail-mask": {
+    "dnn-sliding-window-reuse": {
       "origins": [
         {
-          "origin_blob": "93f9c51b2dc0c8609c0db30dd491dee0edb5b488",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/triton-tail-mask-motion.svg"
+          "origin_blob": "389cd72f2d58641038f7cac986d0b8dceb241ab6",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-sliding-window-reuse-motion.svg"
         },
         {
-          "origin_blob": "ede6e22bd208e676197877b8fc86e9c4f57feb9e",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/triton-tail-mask-still.svg"
+          "origin_blob": "4ac9993874e953f185e9f441004c16cae6b447b7",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-sliding-window-reuse-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
@@ -3469,6 +3469,36 @@
           "origin_blob": "d9cd12b96574a8fa9152bfd740635fa03a0e2c4b",
           "origin_commit": "15c481b6e404a995701352554969476d4bf66fc8",
           "path": "docs/assets/concept-animations/roc-tie-half-credit-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "memory-tiled-input-reuse": {
+      "origins": [
+        {
+          "origin_blob": "e10dd17b078e0517a7c9a2919c6705422c6b6e21",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-motion.svg"
+        },
+        {
+          "origin_blob": "8cb2336d523f923a3daf40966e4c80a43ea3ca32",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roofline-hierarchy-bottleneck": {
+      "origins": [
+        {
+          "origin_blob": "46c4b23bbfeb01ca4e6f945053d18b05255844e8",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-motion.svg"
+        },
+        {
+          "origin_blob": "7eeec6c060bb38bce367bbfc95cb07cfbee3fb0c",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
@@ -9048,6 +9078,36 @@
           "blob": "4928cb237538163fbf43b346c0b975cb5e0aa17d"
         }
       ]
+    },
+    "kernel-fusion-intermediate-traffic": {
+      "origins": [
+        {
+          "origin_blob": "5eef9901d0281b2e491b85c0bf454231f1535bd7",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-motion.svg"
+        },
+        {
+          "origin_blob": "b6cae036ffab182d60a635a5fe75bf11df7a4f27",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "triton-tail-mask": {
+      "origins": [
+        {
+          "origin_blob": "93f9c51b2dc0c8609c0db30dd491dee0edb5b488",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/triton-tail-mask-motion.svg"
+        },
+        {
+          "origin_blob": "ede6e22bd208e676197877b8fc86e9c4f57feb9e",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/triton-tail-mask-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {

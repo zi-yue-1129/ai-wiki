@@ -40,6 +40,28 @@ Keep data close to where it is used, and reuse it as many times as possible befo
 
 Software decides how much of the work stays in the fast levels. Tiling a matrix multiplication so that each tile is reused in SRAM is the classic example.
 
+### Animated explanation: tiled matrix multiplication
+
+<img data-source-asset-urls width="640" height="360" style="width:100%;max-width:640px;height:auto;display:block" src="../../../assets/concept-animations/memory-tiled-input-reuse-still.svg" data-motion-src="../../../assets/concept-animations/memory-tiled-input-reuse-motion.svg" data-still-src="../../../assets/concept-animations/memory-tiled-input-reuse-still.svg" alt="Eight multiply-accumulates update a two-by-two output matrix. Each purple column of A and row of B is reused for four products; counters compare 16 versus 8 HBM input reads.">
+
+*Original educational animation, CC BY-SA 4.0. GitHub displays the [static SVG](../../../assets/concept-animations/memory-tiled-input-reuse-still.svg); the site offers Play/Pause (pause restores the representative still).* [Full SVG animation](../../../assets/concept-animations/memory-tiled-input-reuse-motion.svg).
+
+In this **schematic, not measured** example, $C=AB$ with $A=[[1,2],[3,4]]$ and $B=[[5,6],[7,8]]$. Both schedules initialise the four output accumulators to zero and execute the same eight multiply-accumulates (16 FLOPs by the two-FLOP convention), in the order $k$, $i$, $j$. The animation highlights the active input pair in teal and the updated output in orange. The purple cells are the input tile held locally: for each $k$, load the two entries of column $A_{:,k}$ and the two of row $B_{k,:}$ once, then reuse them for the four products of an outer-product update.
+
+The intentionally uncached comparison fetches two input elements from HBM per MAC, for 16 reads. The tiled schedule fetches four elements per $k$ and therefore needs eight reads; the counter includes the initial tile load at the first MAC for that $k$. Both schedules keep the output accumulators local and write the four outputs once at the end. The counters exclude those identical output writes and all other traffic. The resulting matrix is $[[19,22],[43,50]]$. Local storage must accommodate the tile and partial sums; real cache behaviour, larger matrices and scheduling overhead can change the traffic and throughput. This is not a claim of a twofold speedup (Sze et al., 2017).
+
+For a non-animated reading of the critical transitions, the completed MAC count and cumulative input reads are:
+
+| Completed MACs | Local tile | No reuse (reads) | Tiled (reads) |
+|---:|---|---:|---:|
+| 0 | None | 0 | 0 |
+| 1 | First column / row | 2 | 4 |
+| 4 | First column / row | 8 | 4 |
+| 5 | Second column / row | 10 | 8 |
+| 8 | Second column / row | 16 | 8 |
+
+The first MAC of a tile pays for all four input reads; the next three reuse those elements. If inputs and final outputs are each stored in two bytes, the illustrated total HBM traffic (including the four output writes) is 40 bytes without reuse and 24 bytes with tiling. The corresponding operational intensities are 0.4 and approximately 0.667 FLOP/byte. Accumulators may use a wider local representation; their internal traffic is not included here. This is a concrete example of the traffic denominator in the [roofline model](roofline.md), not a measured bandwidth or latency.
+
 ## Equation or algorithm
 
 The arithmetic intensity of a kernel is the number of floating-point operations divided by the number of bytes it moves to or from off-chip memory:
