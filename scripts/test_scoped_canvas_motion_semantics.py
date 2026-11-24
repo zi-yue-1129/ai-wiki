@@ -170,5 +170,75 @@ class ScopedCanvas(unittest.TestCase):
             path.write_text('<svg>')
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
 
+
+class InterconnectTiming(unittest.TestCase):
+    def test_ring_delivery_before_state_transition(self):
+        from fractions import Fraction
+        root = ET.parse(ASSETS / 'interconnect-ring-reduction-motion.svg').getroot()
+        n = 3
+        rounds = 2 * (n - 1)
+        duration = 2 * (rounds + 1)
+        ns = v.NS
+        groups = {g.get('id'): g for g in root.iter(ns + 'g') if (g.get('id') or '').startswith('round-')}
+        self.assertEqual(len(groups), rounds + 1)
+        state = [list(range(1 + n*r, 1 + n*(r+1))) for r in range(n)]
+        for step in range(rounds + 1):
+            group = groups[f'round-{step}']
+            track = group.find(ns + 'animate')
+            self.assertEqual(track.get('calcMode'), 'discrete')
+            self.assertEqual(track.get('dur'), f'{duration}s')
+            times = list(map(Fraction, track.get('keyTimes').split(';')))
+            self.assertEqual(times, [Fraction(i, rounds + 1) for i in range(rounds + 2)])
+            values = list(map(int, track.get('values').split(';')))
+            self.assertEqual(values, [int(min(i, rounds) == step) for i in range(rounds + 2)])
+            labels = [t.text for t in group.iter(ns + 'text') if t.get('y') == '150']
+            self.assertEqual(labels, [str(x) if x is not None else '–' for row in state for x in row])
+            if step == rounds:
+                self.assertEqual(state, [[sum(range(c+1, n*n+1, n)) for c in range(n)]] * n)
+                self.assertEqual(list(group.iter(ns + 'circle')), [])
+                break
+            chunks = [(rank - step) % n for rank in range(n)]
+            expected_packets = [f'{chr(65+c)}: {state[r][c]}' for r, c in enumerate(chunks)]
+            self.assertEqual([t.text for t in group.iter(ns + 'text') if t.get('y') == '235'], expected_packets)
+            circles = list(group.iter(ns + 'circle'))
+            self.assertEqual(len(circles), n)
+            for rank, circle in enumerate(circles):
+                packet = circle.find(ns + 'animate')
+                self.assertEqual(packet.get('dur'), f'{duration}s')
+                self.assertEqual(packet.get('attributeName'), 'cx')
+                begin, arrival = Fraction(2*step, duration), Fraction(20*step+18, 10*duration)
+                times = list(map(Fraction, packet.get('keyTimes').split(';')))
+                self.assertEqual(times, [Fraction(0)] + ([begin] if step else []) + [arrival, Fraction(1)])
+                x0 = 22 + 120*rank
+                self.assertEqual(list(map(int, packet.get('values').split(';'))), [x0] + ([x0] if step else []) + [x0+76, x0+76])
+                self.assertLess(arrival, Fraction(2*(step+1), duration))
+            previous = [row[:] for row in state]
+            if step < n-1:
+                for r, c in enumerate(chunks):
+                    state[r][c] = None
+                for r, c in enumerate(chunks):
+                    receiver = (r+1) % n
+                    state[receiver][c] = previous[receiver][c] + previous[r][c]
+            else:
+                for r, c in enumerate(chunks):
+                    state[(r+1) % n][c] = previous[r][c]
+
+    def test_overlap_activity_matches_common_cursor(self):
+        from fractions import Fraction
+        ns = v.NS
+        root = ET.parse(ASSETS / 'interconnect-bucket-overlap-motion.svg').getroot()
+        cursor = next(root.iter(ns + 'animateTransform'))
+        end = Fraction(cursor.get('keyTimes').split(';')[1])
+        # C1, C2 serial; N1, N2 serial; C1, C2 overlap; N1, N2 overlap.
+        schedules = [(0,3), (3,6), (6,8), (8,10), (0,3), (3,6), (3,5), (6,8)]
+        tracks = [a for a in root.iter(ns + 'animate') if a.get('attributeName') == 'fill-opacity']
+        self.assertEqual(len(tracks), len(schedules))
+        for a, (start, stop) in zip(tracks, schedules):
+            self.assertEqual(a.get('dur'), cursor.get('dur'))
+            times = list(map(Fraction, a.get('keyTimes').split(';')))
+            values = list(map(Fraction, a.get('values').split(';')))
+            self.assertEqual(times, [Fraction(0)] + ([end*start/10] if start else []) + [end*stop/10, Fraction(1)])
+            self.assertEqual(values, ([Fraction(28,100)] if start else []) + [Fraction(1), Fraction(65,100), Fraction(65,100)])
+
 if __name__ == '__main__':
     unittest.main()
