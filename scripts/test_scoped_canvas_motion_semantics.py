@@ -15,7 +15,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 429 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 431 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -170,6 +170,79 @@ class ScopedCanvas(unittest.TestCase):
             path.write_text('<svg>')
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
 
+# Independent arithmetic and state checks for DNN dataflow illustrations.
+def dnn_dataflow_states(stem):
+    root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
+    groups = [g for g in root.iter(v.NS + 'g') if g.get('id', '').startswith('state-')]
+    assert len(groups) == 4
+    for i, group in enumerate(groups):
+        animation = group.find(v.NS + 'animate')
+        assert group.get('opacity') == str(int(i == 0))
+        assert animation.get('keyTimes') == '0;0.25;0.5;0.75;1'
+        assert animation.get('values').split(';') == [str(int(i == j)) for j in (0, 1, 2, 3, 3)]
+        assert animation.get('dur') == '12s'
+        assert animation.get('repeatCount') == 'indefinite'
+        assert animation.get('calcMode') == 'discrete'
+    return groups
+
+
+def dnn_dataflow_labels(node):
+    return {(t.get('x'), t.get('y')): t.text for t in node.iter(v.NS + 'text')}
+
+
+class DNNDataflowMotion(unittest.TestCase):
+    def test_output_stationary_and_spill(self):
+        stem = 'dnn-output-stationary-traffic'
+        partial = 0
+        for i, group in enumerate(dnn_dataflow_states(stem)):
+            if i:
+                partial += i * (i + 1)
+            text = dnn_dataflow_labels(group)
+            self.assertEqual(text['215', '159'], str(partial) if i < 3 else '—')
+            self.assertEqual(text['485', '159'], str(partial) if i == 3 else '—')
+            self.assertEqual(text['485', '257'], str(partial) if i else '—')
+            self.assertEqual(text['270', '321'], f'Keep: {int(i == 3)}')
+            self.assertEqual(text['480', '321'], f'Spill: {i + max(0, i - 1)}')
+        still = dnn_dataflow_labels(ET.parse(ASSETS / f'{stem}-still.svg').getroot())
+        self.assertEqual(still['485', '159'], str(partial))
+        self.assertEqual(still['485', '257'], str(partial))
+        self.assertEqual(still['480', '321'], 'Spill: 5')
+
+    def test_overlapping_input_windows(self):
+        stem = 'dnn-sliding-window-reuse'
+        x, w = [1, 2, 3, 4, 5], [1, 2, 1]
+        expected = [sum(a * b for a, b in zip(x[j:j+3], w)) for j in range(3)]
+        prior = set()
+        reads = 0
+        for i, group in enumerate(dnn_dataflow_states(stem)):
+            active = set(range(i - 1, i + 2)) if i else set()
+            reads += len(active - prior)
+            text = dnn_dataflow_labels(group)
+            self.assertEqual(text['225', '302'], str(i * len(w)))
+            self.assertEqual(text['515', '302'], str(reads))
+            for j in range(3):
+                self.assertEqual(text[str(219 + j * 98), '237'], str(expected[j]) if j < i else '—')
+            cells = {int(r.get('x')): r for r in group.findall(v.NS + 'rect') if r.get('y') == '99'}
+            for j in range(5):
+                color = '#45DDC4' if j in active & prior else '#FFBD6A' if j in active else '#304361'
+                self.assertEqual(cells[100 + j * 98].get('stroke'), color)
+                cx = str(139 + j * 98)
+                if j in active:
+                    self.assertEqual(text[cx, '126'], str(x[j]))
+                    self.assertEqual(text[cx, '152'], 'Keep' if j in prior else 'New')
+                    self.assertEqual(text[cx, '194'], f'×{w[j - (i - 1)]}')
+                else:
+                    self.assertNotIn((cx, '152'), text)
+                    self.assertNotIn((cx, '194'), text)
+            prior = active
+        still = dnn_dataflow_labels(ET.parse(ASSETS / f'{stem}-still.svg').getroot())
+        self.assertEqual(still['225', '302'], '9')
+        self.assertEqual(still['515', '302'], '5')
+        for j in range(2, 5):
+            cx = str(139 + j * 98)
+            self.assertEqual(still[cx, '152'], 'Keep' if j < 4 else 'New')
+            self.assertEqual(still[cx, '194'], f'×{w[j - 2]}')
+        self.assertEqual([still[str(219 + j * 98), '237'] for j in range(3)], list(map(str, expected)))
 class KernelTeachingStates(unittest.TestCase):
     def states(self, stem, n):
         root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
