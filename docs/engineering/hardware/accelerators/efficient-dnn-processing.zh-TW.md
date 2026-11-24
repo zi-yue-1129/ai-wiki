@@ -49,6 +49,41 @@ Sze、Chen、Yang 與 Emer（2017）綜述了如何在硬體上高效處理深�
 
 在論文以批次大小 16 對 AlexNet 卷積層進行的比較中，列固定的總能耗最低。論文報告，它的能耗比其他資料流低 1.4 到 2.5 倍，並指出 WS 與 OS 分別對其所屬的資料類型最有利，而 NLR 的 DRAM 能耗最低，但全域緩衝區的能耗很高（第 V-B.4 節，圖 33）。
 
+### 動畫示例：部分和搬移
+
+<img data-source-asset-urls width="640" height="360" src="../../../assets/concept-animations/dnn-output-stationary-traffic-still.svg" data-motion-src="../../../assets/concept-animations/dnn-output-stationary-traffic-motion.svg" data-still-src="../../../assets/concept-animations/dnn-output-stationary-traffic-still.svg" alt="三次乘加依序得到 2、8、20。部分和保留於本地只需一次最終全域緩衝區寫入；每次乘加後寫回則需五次搬移。">
+
+*原創教學動畫，CC BY-SA 4.0。網站提供播放／暫停及鍵盤操作；GitHub 可查看 [靜態預覽](../../../assets/concept-animations/dnn-output-stationary-traffic-still.svg) 與 [完整動畫](../../../assets/concept-animations/dnn-output-stationary-traffic-motion.svg).*
+
+以單一輸出為例，三個輸入與權重的乘積分別為 $1\times2$、$2\times3$ 與 $3\times4$。兩種排程以相同順序完成三次乘加。上列將部分和保留在處理單元（PE）內，直到寫出最終結果；下列則在每次乘加後將部分和寫回全域緩衝區，並在下一次乘加前重新讀取。箭頭摘要各步驟的搬移（先讀取、再運算、最後寫回），不代表同時發生或週期精確的傳輸。破折號代表該階段結束時未在該處保留數值。
+
+| 已完成乘加 | 部分和 | 本地保留：搬移次數 | 寫回：搬移次數 |
+| --- | --- | --- | --- |
+| 0 | 0 | 0 | 0 |
+| 1 | 2 | 0 | 1 |
+| 2 | 8 | 0 | 3 |
+| 3 | 20 | 1 | 5 |
+
+兩種計數皆包含最終輸出寫入，但不包含權重與激活值的搬移。這些數值是 PE 與全域緩衝區間的示意元素搬移次數，不是 DRAM 存取、實測能耗或完整資料流的通用比較。
+
+對於包含 $K\geq 1$ 次乘加的歸約運算，假設累加器初始為零且中途不被逐出，本地保留只需一次最終寫入；每次乘加後寫回則需 $K$ 次寫入及 $K-1$ 次讀取，合計 $2K-1$ 次搬移。兩種排程均假設將完成的輸出寫入同一全域緩衝區，這並非總記憶體流量模型。
+
+### 動畫示例：重疊卷積視窗
+
+<img data-source-asset-urls width="640" height="360" src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" data-motion-src="../../../assets/concept-animations/dnn-sliding-window-reuse-motion.svg" data-still-src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" alt="長度三的卷積核依序移過五個輸入值。New 標示新讀入的值，Keep 標示從前一個視窗保留的值，卷積核係數與目前輸入位置對齊。輸出為 8、12、16；輸入讀取為九次對五次。">
+
+*原創教學動畫，CC BY-SA 4.0。網站提供播放／暫停及鍵盤操作；GitHub 可查看 [靜態預覽](../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg) 與 [完整動畫](../../../assets/concept-animations/dnn-sliding-window-reuse-motion.svg).*
+
+以輸入 $[1,2,3,4,5]$ 與卷積核 $[1,2,1]$ 進行步幅為一、無填補的互相關運算，三個輸出分別為 8、12、16。第一個視窗讀入三個值，後續每個視窗保留兩個值並讀入一個新值。橘色 New 標示新讀入的輸入，藍綠色 Keep 標示從前一個視窗保留的輸入。紫色外框標示目前運算元，下方對齊的係數顯示各輸入所乘的卷積核權重。重用激活值不等於重用乘積：例如輸入 3 隨視窗移動，依序乘上 1、2、1。
+
+| 視窗 | 輸出 | 全部重讀：輸入讀取 | 保留重疊：輸入讀取 |
+| --- | --- | --- | --- |
+| 1 | 8 | 3 | 3 |
+| 2 | 12 | 6 | 4 |
+| 3 | 16 | 9 | 5 |
+
+兩種排程皆執行九次乘加。此理想化的本地視窗示例不包含權重讀取及輸出寫入，只示範激活值重用，並非完整的列固定映射，也不是實測能耗或加速結果。它與部分和範例互補：迴圈順序及本地儲存容量決定了可以重用的運算元。詳見 Sze et al.（2017）的資料流討論。
+
 ## Eyeriss
 
 論文以 Eyeriss 為實例說明，它是一個列固定加速器。設計包含 14 乘 12 的處理單元陣列與 108 KB 的全域緩衝區，並加上 ReLU 與特徵圖壓縮單元，透過複製與摺疊來維持陣列的使用率（第 V-B.4 節，圖 31）。前面引用的能耗優勢來自一個模擬的 256 個 PE 架構，而非實際製造的晶片（Sze et al., 2017）。
