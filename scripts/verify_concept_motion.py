@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
     'dynamo-graph-break-resume': 'engineering/frameworks/compilers-and-kernels/torch-compile',
+    "interconnect-ring-reduction": "engineering/hardware/interconnects/index",
+    "interconnect-bucket-overlap": "engineering/hardware/interconnects/index",
     'dnn-output-stationary-traffic': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'dnn-sliding-window-reuse': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'kernel-fusion-intermediate-traffic': 'engineering/inference-optimization/fused-kernels',
@@ -462,6 +464,9 @@ TOPICS = {
 CANONICAL_VIEWBOXES = {'dnn-output-stationary-traffic': '0 0 640 360',
  'dynamo-shape-guard-cache': '0 0 640 360',
  'dynamo-graph-break-resume': '0 0 640 360',
+ 'interconnect-ring-reduction': '0 0 360 300',
+ 'interconnect-bucket-overlap': '0 0 360 300',
+ 'dnn-output-stationary-traffic': '0 0 640 360',
  'dnn-sliding-window-reuse': '0 0 640 360',
  'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'triton-tail-mask': '0 0 640 360',
@@ -1304,6 +1309,10 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"interconnect-ring-reduction", "interconnect-bucket-overlap"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)}:
+                    errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
             elif stem in {"memory-tiled-input-reuse", "roofline-hierarchy-bottleneck"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
