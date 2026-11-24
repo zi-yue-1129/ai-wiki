@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 622" role="img" aria-labelledby="title desc">
+<title id="title">Class coverage and rejected-case outcomes under selective acceptance</title>
+<desc id="desc">Constructed example, not model measurements. All accepted: eight of eight accepted, six correct and none rejected. Selective: five accepted, all correct, with one of four positive and all four negative cases kept. Of three rejected cases, one was correct and two wrong. Rejection changes which outcomes are counted, not the predictions. Positive cases are right, wrong, wrong, right. Under selective acceptance P2, P3 and the originally correct P4 are rejected; all four negative cases remain correct and accepted.</desc>
+<rect width="380" height="622" rx="14" fill="#f8fafc"/><rect x="1" y="1" width="378" height="620" rx="13" fill="none" stroke="#d4deec"/>
+<text x="20" y="28" fill="#526783" font-family="Arial,sans-serif" font-size="15" font-weight="bold">CLASS COVERAGE</text>
+<rect x="14" y="43" width="352" height="180" rx="11" fill="#ffffff" stroke="#d4deec"/>
+<rect x="14" y="260" width="352" height="180" rx="11" fill="#ffffff" stroke="#d4deec"/>
+<g fill="#526783" font-family="Arial,sans-serif" font-weight="bold" font-size="14"><text x="30" y="68">ALL</text><text x="30" y="285">SELECTIVE</text></g>
+<g fill="#526783" font-family="Arial,sans-serif" font-size="12" font-weight="bold"><text x="30" y="103">POS</text><text x="30" y="147">NEG</text><text x="30" y="177">OVERALL</text><text x="30" y="203">REJECTED</text><text x="30" y="320">POS</text><text x="30" y="364">NEG</text><text x="30" y="394">OVERALL</text><text x="30" y="420">REJECTED</text></g>
+<g fill="#e5ebf2"><rect x="83" y="86" width="215" height="22" rx="6"/><rect x="83" y="130" width="215" height="22" rx="6"/><rect x="83" y="303" width="215" height="22" rx="6"/><rect x="83" y="347" width="215" height="22" rx="6"/></g>
+<rect x="83" y="86" width="215" height="22" rx="6" fill="#087e85"/><rect x="83" y="130" width="215" height="22" rx="6" fill="#3c719d"/><rect x="83" y="303" width="53.75" height="22" rx="6" fill="#087e85"/><rect x="83" y="347" width="215" height="22" rx="6" fill="#3c719d"/>
+<g fill="#172b4d" font-family="Arial,sans-serif" font-weight="bold" font-size="14" text-anchor="middle"><text x="325" y="103">4/4</text><text x="325" y="147">4/4</text><text x="325" y="320">1/4</text><text x="325" y="364">4/4</text></g>
+<g fill="#172b4d" font-family="Arial,sans-serif" font-size="12"><text x="109" y="177">8/8 accepted · 6/8 correct</text><text x="109" y="203">0/8 rejected · accuracy N/A</text><text x="109" y="394">5/8 accepted · 5/5 correct</text><text x="109" y="420">3/8 rejected · 1/3 correct · 2/3 wrong</text></g>
+<path d="M190 231v21m-5 -6l5 6 5 -6" fill="none" stroke="#087e85" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+<rect x="14" y="459" width="352" height="142" rx="11" fill="#ffffff" stroke="#d4deec"/>
+<text x="28" y="482" fill="#526783" font-family="Arial,sans-serif" font-size="13" font-weight="bold">SELECTIVE CASE OUTCOMES</text>
+<text x="28" y="520" fill="#526783" font-family="Arial,sans-serif" font-size="12" font-weight="bold">POS</text><text x="28" y="557" fill="#526783" font-family="Arial,sans-serif" font-size="12" font-weight="bold">NEG</text>
+<rect x="81" y="503" width="56" height="25" rx="6" fill="#e3f0ef" stroke="#087e85" stroke-width="1.5" data-case-id="P1" data-case-correct="true" data-case-accepted="true"/>
+<text x="88" y="520" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#193e69">P1</text><text x="116" y="521" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#0d626a">✓</text>
+<rect x="147" y="503" width="56" height="25" rx="6" fill="#eef2f7" stroke="#9aacc1" stroke-width="1.5" stroke-dasharray="4 3" data-case-id="P2" data-case-correct="false" data-case-accepted="false"/>
+<text x="154" y="520" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#193e69">P2</text><text x="182" y="521" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#b45336">×</text>
+<rect x="213" y="503" width="56" height="25" rx="6" fill="#eef2f7" stroke="#9aacc1" stroke-width="1.5" stroke-dasharray="4 3" data-case-id="P3" data-case-correct="false" data-case-accepted="false"/>
+<text x="220" y="520" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#193e69">P3</text><text x="248" y="521" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#b45336">×</text>
+<rect x="279" y="503" width="56" height="25" rx="6" fill="#eef2f7" stroke="#9aacc1" stroke-width="1.5" stroke-dasharray="4 3" data-case-id="P4" data-case-correct="true" data-case-accepted="false"/>
+<text x="286" y="520" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#193e69">P4</text><text x="314" y="521" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#0d626a">✓</text>
+<rect x="81" y="540" width="56" height="25" rx="6" fill="#e3f0ef" stroke="#087e85" stroke-width="1.5" data-case-id="N1" data-case-correct="true" data-case-accepted="true"/>
+<text x="88" y="557" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#193e69">N1</text><text x="116" y="558" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#0d626a">✓</text>
+<rect x="147" y="540" width="56" height="25" rx="6" fill="#e3f0ef" stroke="#087e85" stroke-width="1.5" data-case-id="N2" data-case-correct="true" data-case-accepted="true"/>
+<text x="154" y="557" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#193e69">N2</text><text x="182" y="558" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#0d626a">✓</text>
+<rect x="213" y="540" width="56" height="25" rx="6" fill="#e3f0ef" stroke="#087e85" stroke-width="1.5" data-case-id="N3" data-case-correct="true" data-case-accepted="true"/>
+<text x="220" y="557" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#193e69">N3</text><text x="248" y="558" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#0d626a">✓</text>
+<rect x="279" y="540" width="56" height="25" rx="6" fill="#e3f0ef" stroke="#087e85" stroke-width="1.5" data-case-id="N4" data-case-correct="true" data-case-accepted="true"/>
+<text x="286" y="557" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#193e69">N4</text><text x="314" y="558" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#0d626a">✓</text>
+<text x="28" y="587" fill="#526783" font-family="Arial,sans-serif" font-size="11">Teal accepted · Pale rejected · ✓ right · × wrong</text>
+</svg>

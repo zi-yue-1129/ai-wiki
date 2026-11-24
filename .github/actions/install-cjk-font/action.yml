@@ -24,8 +24,19 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        sudo apt-get -o APT::Update::Error-Mode=any update -qq
-        sudo apt-get install -y --no-install-recommends python3-apt
+        # Fresh, signed Ubuntu package metadata is required for each attempt.
+        # Retry only transport/mirror failures; never accept partial index updates.
+        for attempt in 1 2 3; do
+          if sudo apt-get -o APT::Update::Error-Mode=any update -qq &&
+             sudo apt-get install -y --no-install-recommends python3-apt; then
+            break
+          fi
+          if [ "$attempt" -eq 3 ]; then
+            echo "Verified font prerequisite install failed after 3 attempts" >&2
+            exit 1
+          fi
+          sleep $((15 * attempt))
+        done
     - name: Resolve current signed candidate and isolated workspace
       id: prepare
       shell: bash

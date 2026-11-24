@@ -9228,6 +9228,336 @@
         }
       ],
       "viewBox": "0 0 360 300"
+    },
+    "accuracy-multilabel-error-placement": {
+      "origins": [
+        {
+          "origin_blob": "47a03ce06ed61df52e62252ada24f6cf709281be",
+          "origin_commit": "aa43001eb40c4712466815182e45793f498f406d",
+          "path": "docs/assets/concept-animations/accuracy-multilabel-error-placement-motion.svg"
+        },
+        {
+          "origin_blob": "b4b74ffb3a0a29c60f0350b14e2a95c3a6637f2e",
+          "origin_commit": "aa43001eb40c4712466815182e45793f498f406d",
+          "path": "docs/assets/concept-animations/accuracy-multilabel-error-placement-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "accuracy-sample-weight-ranking": {
+      "origins": [
+        {
+          "origin_blob": "5295301e2a992c25578f89784765ac4433401065",
+          "origin_commit": "aa43001eb40c4712466815182e45793f498f406d",
+          "path": "docs/assets/concept-animations/accuracy-sample-weight-ranking-motion.svg"
+        },
+        {
+          "origin_blob": "f0387a6f654dc8bb8b5df80eb749e36d77a5d662",
+          "origin_commit": "aa43001eb40c4712466815182e45793f498f406d",
+          "path": "docs/assets/concept-animations/accuracy-sample-weight-ranking-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "accuracy-selective-class-coverage": {
+      "origins": [
+        {
+          "origin_blob": "08a6911fc2f85d9d022df8032ab4e959f566204c",
+          "origin_commit": "203021abd5d230dbf93c34efa179588c34b44577",
+          "path": "docs/assets/concept-animations/accuracy-selective-class-coverage-motion.svg"
+        },
+        {
+          "origin_blob": "580a6dfc1884f483ac6d420ca41be17a195b2110",
+          "origin_commit": "203021abd5d230dbf93c34efa179588c34b44577",
+          "path": "docs/assets/concept-animations/accuracy-selective-class-coverage-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "accuracy-selective-coverage": {
+      "origins": [
+        {
+          "origin_blob": "6fb8b7d62c60d055aea0518a5821efb736e9d732",
+          "origin_commit": "203021abd5d230dbf93c34efa179588c34b44577",
+          "path": "docs/assets/concept-animations/accuracy-selective-coverage-motion.svg"
+        },
+        {
+          "origin_blob": "03230f3fdd680695b36ff34e42346c5879601c8c",
+          "origin_commit": "203021abd5d230dbf93c34efa179588c34b44577",
+          "path": "docs/assets/concept-animations/accuracy-selective-coverage-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "accuracy-topk-tie-policy": {
+      "origins": [
+        {
+          "origin_blob": "622dd472bd8ce720e9496f61129cde913a213b84",
+          "origin_commit": "1a7a428e54cde70583e67f5d82875623c12e72d5",
+          "path": "docs/assets/concept-animations/accuracy-topk-tie-policy-motion.svg"
+        },
+        {
+          "origin_blob": "c154f99fe50e9ee64917facda329b7b8e6d82dd1",
+          "origin_commit": "1a7a428e54cde70583e67f5d82875623c12e72d5",
+          "path": "docs/assets/concept-animations/accuracy-topk-tie-policy-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "accuracy-topk-window": {
+      "origins": [
+        {
+          "origin_blob": "9b1494373e59403edaef1c23533bf932009a0078",
+          "origin_commit": "1a7a428e54cde70583e67f5d82875623c12e72d5",
+          "path": "docs/assets/concept-animations/accuracy-topk-window-motion.svg"
+        },
+        {
+          "origin_blob": "10382110d20b84442687c7e7e7005722e8a75808",
+          "origin_commit": "1a7a428e54cde70583e67f5d82875623c12e72d5",
+          "path": "docs/assets/concept-animations/accuracy-topk-window-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "confusion-condition-direction": {
+      "origins": [
+        {
+          "origin_blob": "f5d9d619634a81c86b3b8a429ab3be3e2bbda19a",
+          "origin_commit": "45e6b45a97a25730cde7d9f4e8d3554f29753730",
+          "path": "docs/assets/concept-animations/confusion-condition-direction-motion.svg"
+        },
+        {
+          "origin_blob": "3ac222f0e4bd9819ad71b5035fb00e928eac69bc",
+          "origin_commit": "599cfd3150df6944dd5298f8a399d3d748148fcb",
+          "path": "docs/assets/concept-animations/confusion-condition-direction-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "f1-averaging-rules": {
+      "origins": [
+        {
+          "origin_blob": "4c7ddfe6c54540e2c6ed327ae2357d0764191d75",
+          "origin_commit": "fdd23440206941772ec561ec138711ce6781f9a3",
+          "path": "docs/assets/concept-animations/f1-averaging-rules-motion.svg"
+        },
+        {
+          "origin_blob": "f8959b967dc29c6f2395b13cbd3f2eecc5cf2339",
+          "origin_commit": "9787067c57e15955f22aa30541d5a5faccc96017",
+          "path": "docs/assets/concept-animations/f1-averaging-rules-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "f1-multilabel-aggregation": {
+      "origins": [
+        {
+          "origin_blob": "6b6b511beb0a701a5de15b7e0e4fe57553968712",
+          "origin_commit": "1d5f8a0f4adaaa8cc614bc55a129789ec44eb160",
+          "path": "docs/assets/concept-animations/f1-multilabel-aggregation-motion.svg"
+        },
+        {
+          "origin_blob": "057620518fc5180131286f5155a43fede695b58d",
+          "origin_commit": "cf97a06efc757d16a5da099882579924efb31209",
+          "path": "docs/assets/concept-animations/f1-multilabel-aggregation-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-batch": {
+      "origins": [
+        {
+          "origin_blob": "2eee33e705b1e2cca2c2fe786568d6dfb4c83da3",
+          "origin_commit": "c6244496acffb169c3111945518a59105ee3a53c",
+          "path": "docs/assets/concept-animations/roc-fpr-batch-motion.svg"
+        },
+        {
+          "origin_blob": "8b3576e8bc62e3f0f4a14fa226e67f67be5df11b",
+          "origin_commit": "c6244496acffb169c3111945518a59105ee3a53c",
+          "path": "docs/assets/concept-animations/roc-fpr-batch-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-budget-mix": {
+      "origins": [
+        {
+          "origin_blob": "7d206389f79dad9d21599738eecd2171fc02e57d",
+          "origin_commit": "0113d23f15ce1a711c6b988d866d0d1da3d80844",
+          "path": "docs/assets/concept-animations/roc-fpr-budget-mix-motion.svg"
+        },
+        {
+          "origin_blob": "4c7da14ffb89748417cc1bb5b8985427eb088b46",
+          "origin_commit": "0113d23f15ce1a711c6b988d866d0d1da3d80844",
+          "path": "docs/assets/concept-animations/roc-fpr-budget-mix-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-certificate-power": {
+      "origins": [
+        {
+          "origin_blob": "7a1dd6b615001f784be65631b5cdf6f1ed539323",
+          "origin_commit": "358325f70f5204a3da8d44ec20c767f298c64294",
+          "path": "docs/assets/concept-animations/roc-fpr-certificate-power-motion.svg"
+        },
+        {
+          "origin_blob": "c3df196f34809b7312f0766a31ebea2471cda8c2",
+          "origin_commit": "358325f70f5204a3da8d44ec20c767f298c64294",
+          "path": "docs/assets/concept-animations/roc-fpr-certificate-power-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-dependence": {
+      "origins": [
+        {
+          "origin_blob": "e07d21f90af111a8c836526ffebc869048de058a",
+          "origin_commit": "dda8005a65139ea43a8d1d81243d7367152cc019",
+          "path": "docs/assets/concept-animations/roc-fpr-dependence-motion.svg"
+        },
+        {
+          "origin_blob": "bd5f5848f3887127dda56c7d485aca6c70ccd4ba",
+          "origin_commit": "dda8005a65139ea43a8d1d81243d7367152cc019",
+          "path": "docs/assets/concept-animations/roc-fpr-dependence-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-mix-coverage": {
+      "origins": [
+        {
+          "origin_blob": "56d5b962c143b3322c208437b395c659f791a744",
+          "origin_commit": "15c66fb54683982eeaa9100a3596311ad75da514",
+          "path": "docs/assets/concept-animations/roc-fpr-mix-coverage-motion.svg"
+        },
+        {
+          "origin_blob": "55fa0ee8a73e3158a4641955960f575fd26cd9e7",
+          "origin_commit": "15c66fb54683982eeaa9100a3596311ad75da514",
+          "path": "docs/assets/concept-animations/roc-fpr-mix-coverage-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-retries": {
+      "origins": [
+        {
+          "origin_blob": "f5e20393999a6a87f13f3c4683c0ad033b838e48",
+          "origin_commit": "85e9e4ab1c131f6392ce59a7d6c844b2b66a802e",
+          "path": "docs/assets/concept-animations/roc-fpr-retries-motion.svg"
+        },
+        {
+          "origin_blob": "57c77e864489480fd4a5ee514a7c7996c4f36131",
+          "origin_commit": "85e9e4ab1c131f6392ce59a7d6c844b2b66a802e",
+          "path": "docs/assets/concept-animations/roc-fpr-retries-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-shared-bound": {
+      "origins": [
+        {
+          "origin_blob": "26e99d0a6c65c2d3ca739d6d8481309eea7c505e",
+          "origin_commit": "30d7f7a4788dc08cae26d7bbc52fac734f7b0903",
+          "path": "docs/assets/concept-animations/roc-fpr-shared-bound-motion.svg"
+        },
+        {
+          "origin_blob": "3eab66b69157b095786aab90afcaae7df634fbd8",
+          "origin_commit": "30d7f7a4788dc08cae26d7bbc52fac734f7b0903",
+          "path": "docs/assets/concept-animations/roc-fpr-shared-bound-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-fpr-zero-alarms": {
+      "origins": [
+        {
+          "origin_blob": "9aa805b7bad6e9e36203f6eb24c0c8907d1e2abd",
+          "origin_commit": "661c01390c2c2380d21e5b0c17a98f25701cd64a",
+          "path": "docs/assets/concept-animations/roc-fpr-zero-alarms-motion.svg"
+        },
+        {
+          "origin_blob": "e5ebb4bc9677b81efc7819daf2628f1a65e057e8",
+          "origin_commit": "661c01390c2c2380d21e5b0c17a98f25701cd64a",
+          "path": "docs/assets/concept-animations/roc-fpr-zero-alarms-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-pr-shift": {
+      "origins": [
+        {
+          "origin_blob": "c5c34967c4247aee5058192c2c9ee03740a89497",
+          "origin_commit": "ebe5adcd17199882319b6f59eb764b7c301e5de7",
+          "path": "docs/assets/concept-animations/roc-pr-shift-motion.svg"
+        },
+        {
+          "origin_blob": "132f94f42040d67856f9e6da96af1cd5c237d0f0",
+          "origin_commit": "f4a8534644c6af35bab70d722c1595190f58b9b2",
+          "path": "docs/assets/concept-animations/roc-pr-shift-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-prior-policy": {
+      "origins": [
+        {
+          "origin_blob": "a1d0af3e2ebbcd194f05ddaf146cf8e7edcaf913",
+          "origin_commit": "caf469aa6f375dec090f610a072a7e6036bb5fc6",
+          "path": "docs/assets/concept-animations/roc-prior-policy-motion.svg"
+        },
+        {
+          "origin_blob": "8a45d402816597575718a3d4abc6e2bd7cfdb2b5",
+          "origin_commit": "eadece8407c7e89322914c19627e4bd61c845f88",
+          "path": "docs/assets/concept-animations/roc-prior-policy-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-score-quantization": {
+      "origins": [
+        {
+          "origin_blob": "f0600aa751884c65a0d3f888d26d662933faf5a5",
+          "origin_commit": "f0a8666f9f10dfdd04ebbfcfb03d8ec7c516e988",
+          "path": "docs/assets/concept-animations/roc-score-quantization-motion.svg"
+        },
+        {
+          "origin_blob": "829325d609fd0563c3ad328b9f3626c3ec67bd33",
+          "origin_commit": "f0a8666f9f10dfdd04ebbfcfb03d8ec7c516e988",
+          "path": "docs/assets/concept-animations/roc-score-quantization-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-tie-group-step": {
+      "origins": [
+        {
+          "origin_blob": "4b61471fa16826dcc0c944a68859a09eae6e0f64",
+          "origin_commit": "0c29ae06e7249b4cf822f1a99a4746a2439a09a7",
+          "path": "docs/assets/concept-animations/roc-tie-group-step-motion.svg"
+        },
+        {
+          "origin_blob": "b83501ad79279b521d16fad84498da43f2405a24",
+          "origin_commit": "1c4afa97acfce2b98e4325cd2140c7e5e74c0580",
+          "path": "docs/assets/concept-animations/roc-tie-group-step-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roc-youden-cost": {
+      "origins": [
+        {
+          "origin_blob": "6fcaf1392b50d52d150e0be44594db6800a34d82",
+          "origin_commit": "ebe5adcd17199882319b6f59eb764b7c301e5de7",
+          "path": "docs/assets/concept-animations/roc-youden-cost-motion.svg"
+        },
+        {
+          "origin_blob": "35e36b5268e239e90b7d574ce5c4ff089b479e9b",
+          "origin_commit": "f4a8534644c6af35bab70d722c1595190f58b9b2",
+          "path": "docs/assets/concept-animations/roc-youden-cost-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {

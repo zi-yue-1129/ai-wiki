@@ -1,5 +1,6 @@
 """Execute SVG guard positives/mutations; never infer expected geometry from input."""
 from copy import deepcopy
+import hashlib
 from pathlib import Path
 import tempfile
 import json
@@ -15,7 +16,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 441 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 463 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -276,6 +277,19 @@ class ScopedCanvas(unittest.TestCase):
             path.write_text('<svg>')
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
 
+    def test_new_roc_assets_match_independently_reviewed_git_blob_origins(self):
+        for stem in ("accuracy-multilabel-error-placement", "accuracy-sample-weight-ranking", "accuracy-selective-coverage", "accuracy-selective-class-coverage", "roc-pr-shift", "roc-youden-cost", "roc-prior-policy", "roc-fpr-budget-mix", "roc-fpr-batch", "roc-fpr-zero-alarms", "roc-fpr-dependence", "roc-fpr-shared-bound", "roc-fpr-mix-coverage"):
+            origin = CONTRACTS["canonical"][stem]
+            self.assertEqual(origin["viewBox"], "0 0 640 360")
+            self.assertEqual(len(origin["origins"]), 2)
+            for record in origin["origins"]:
+                source = ROOT / record["path"]
+                data = source.read_bytes()
+                git_blob_sha = hashlib.sha1(
+                    f"blob {len(data)}".encode("utf-8") + bytes([0]) + data
+                ).hexdigest()
+                with self.subTest(asset=source.name):
+                    self.assertEqual(git_blob_sha, record["origin_blob"])
     def test_hardware_weight_reuse_and_sparse_merge_states(self):
         def tracks(stem):
             root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()

@@ -83,7 +83,10 @@ each shard a fixed viewport/motion combination. Mobile or reduced-motion work ca
 therefore be slower. The observed 888-case/24-minute serial phase is only a
 baseline; no 6–8 minute shard runtime or wall-time saving is claimed before a real
 full CI run measures every shard, support job, gate and artifact upload. Cold
-dependencies can dominate; producer budgets remain 50 minutes.
+dependencies can dominate. Full-motion shard jobs retain 50-minute budgets;
+the complete support-browser job has a 100-minute budget, because it also runs
+all numerical semantics, all registered bilingual browser support suites, and
+lossless evidence packaging. This does not skip any required check.
 
 The always-running gate rejects a missing/cancelled/skipped producer, missing or
 extra shard, duplicate/missing/extra case, incomplete image states, failed case,
@@ -166,10 +169,28 @@ The negative fixture is not a formal page case. Missing or inconsistent lazy
 proof fails closed, including in the support job.
 
 The source's 75-minute monolithic transitional budget is superseded here by
-50-minute full-shard/support jobs and a 30-minute independent strict-build gate.
+50-minute full-shard jobs, a 100-minute complete support job and a 30-minute
+independent strict-build gate.
 Tests parse the actual job budgets numerically; the original full coverage and
 all support suites remain. The unsharded reference fixture is historical only.
 
 ### DDIM schedule prose coverage
 
 The support registry additionally requires `ddim-prose`: the English and Traditional Chinese DDIM chapters at 390 and 1280 pixels. It uses the real built prose harness and `ddim-prose-pages.json`, with a required `schedule.png` for the schedule-dependent stochasticity section in every case. The gate rejects a missing suite, page, section screenshot, or capture claim; the original seven support suites remain intact. Packaging retains the ninth `ddim-prose` root.
+
+### Support-job timeout regression (2026-11-19)
+
+The support job in [run 44540063208](https://github.com/zi-yue-1129/ai-wiki/actions/runs/44540063208)
+started at 14:05 UTC and was cancelled by its 50-minute timeout at 14:56 UTC,
+during the real planning/evolution browser suite, **after all four full-motion
+shards succeeded**. Its subsequent lossless pack detected source files changing
+during cancellation; the exact-attempt receipt was unavailable, so the gate
+correctly failed closed. This was a **runtime budget failure**, not evidence of a
+visual-content pass or an excuse to ignore missing suites.
+
+The support job now permits 100 minutes. Coverage, exact-attempt artifact
+integrity, lossless packaging, required Chromium interactions, and independent
+gate assertions are unchanged. The workflow regression asserts that the support
+budget stays within 90–120 minutes while retaining all four 50-minute motion
+shards and the 30-minute gate. A new run must still finish successfully before
+the complete browser regression can be reported green.
