@@ -36,6 +36,41 @@ Capture the program as a graph, lower it to a linear-algebra intermediate repres
 
 The official page links to a walkthrough of the journey from HLO to an executable, which is the place to look for the detail of these steps.
 
+### Buffer assignment: reuse after the last consumer
+
+After scheduling, logical values with disjoint live ranges can share a physical buffer slice; XLA's buffer assignment uses lifetime and alias information to avoid overwriting live values.[^xla-buffers] Consider four equal-sized arrays in the fixed sequence $a=f(x), b=g(a), c=h(b), d=k(c)$. Assume pure operations, no in-place aliasing, external input $x$, and that each operation's input and output must coexist.
+
+<img data-source-asset-urls src="../../../assets/concept-animations/xla-buffer-lifetime-reuse-still.svg" data-motion-src="../../../assets/concept-animations/xla-buffer-lifetime-reuse-motion.svg" data-still-src="../../../assets/concept-animations/xla-buffer-lifetime-reuse-still.svg" alt="Four operations reveal slots A and B over time. A holds a, a, c, c; B holds no value, b, b, d. Four logical values occupy two physical slots.">
+
+*Original animated teaching diagram, CC BY-SA 4.0.* The orange outline tracks the active operation; earlier columns remain as history. On MkDocs use the keyboard-accessible **Play/Pause** control; reduced-motion preferences initially show the still. [Static preview for GitHub](../../../assets/concept-animations/xla-buffer-lifetime-reuse-still.svg).
+
+| Operation | Live values in slot A | Live values in slot B |
+|---|---|---|
+| a = f(x) | a | — |
+| b = g(a) | a | b |
+| c = h(b) | c | b |
+| d = k(c) | c | d |
+
+The last use of $a$ is in the second operation; its slot becomes available for $c$ in the third. Likewise $d$ reuses the slot of $b$ after the third operation. The table includes the produced output $d$ but excludes the external input $x$. Four distinct logical values require only two equal-sized physical slots in this schedule. This is a schematic allocation, not an XLA dump or a measurement of allocated GPU memory.
+
+### Rematerialization: shorten a live range by recomputing
+
+XLA also has a rematerialization pass, which trades recomputation for lower memory pressure.[^xla-remat] Change the example so $y=k(a,c)$ needs $a$ again after $b=g(a)$ and $c=h(b)$. Keeping $a$ alive across the third operation requires three simultaneously live internal arrays. Alternatively, drop $a$ after computing $b$, then recompute $a=f(x)$ after producing $c$.
+
+<img data-source-asset-urls src="../../../assets/concept-animations/xla-rematerialization-liveness-still.svg" data-motion-src="../../../assets/concept-animations/xla-rematerialization-liveness-motion.svg" data-still-src="../../../assets/concept-animations/xla-rematerialization-liveness-still.svg" alt="Keep and Remat schedules reveal five columns. At c equals h of b, Keep holds a, b, c while Remat holds b, c. Remat recomputes a before the final operation; peak internal arrays fall from three to two.">
+
+*Original animated teaching diagram, CC BY-SA 4.0.* Each coloured block is one live internal array; the fourth column is idle in Keep and recomputes a only in Remat. Use **Play/Pause** on MkDocs; reduced motion initially shows the still. [Static preview for GitHub](../../../assets/concept-animations/xla-rematerialization-liveness-still.svg).
+
+| Stage | Keep | Remat |
+|---|---|---|
+| Compute a | a | a |
+| Compute b | a, b | a, b |
+| Compute c | a, b, c | b, c |
+| Keep idle / recompute a | a, c | a, c |
+| Compute y | a, c | a, c |
+
+For equal-sized temporaries of $M$ bytes, the peak internal storage drops from $3M$ to $2M$ while the number of calls to $f$ rises from one to two. Both schedules exclude the externally held input $x$, final output $y$ and operator workspace; input and output temporaries coexist during each operation. Recomputing is valid here because $f$ is pure and $x$ remains available unchanged. This is a fixed illustrative schedule, not a claim about which schedule XLA will select or its measured memory consumption. Actual decisions depend on the graph, buffer sizes, aliasing, execution schedule and cost model.
+
 ## Results
 
 The official page describes the system and does not report benchmark results, so this page gives no speed-up figures. The claims it makes concern coverage: XLA is integrated with PyTorch, JAX and TensorFlow, and it targets GPUs, CPUs and ML accelerators.
@@ -71,3 +106,9 @@ The official page describes the system and does not report benchmark results, so
 - OpenXLA. *XLA: Optimized compiler for machine learning*. https://openxla.org/xla — Official description of XLA, the frameworks it supports, its backends and its optimisation passes.
 - PyTorch. *torch.compiler: Compiling PyTorch models*. https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html — Official PyTorch documentation of torch.compile and its backend options, for comparison with XLA's approach.
 - Triton contributors. *Triton documentation*. https://triton-lang.org/main/index.html — Official documentation of the hand-written kernel language that complements compilers such as XLA.
+
+- OpenXLA. *From HLO to Thunks*. https://openxla.org/xla/hlo_to_thunks — Explains buffer assignment, live ranges and backend lowering.
+- OpenXLA. *HLO Passes*. https://openxla.org/xla/hlo_passes — Explains rematerialization and other HLO optimizations.
+
+[^xla-buffers]: OpenXLA, *From HLO to Thunks*, https://openxla.org/xla/hlo_to_thunks.
+[^xla-remat]: OpenXLA, *HLO Passes*, https://openxla.org/xla/hlo_passes.
