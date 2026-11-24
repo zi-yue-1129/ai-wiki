@@ -47,6 +47,8 @@ aliases:
 - [Toolformer](toolformer.zh-TW.md)：從模型自身文字中學會的工具呼叫。
 - [Voyager](voyager.zh-TW.md)：在探索 Minecraft 時建立可執行技能庫的代理。
 - [SWE-agent](swe-agent.zh-TW.md)：用於解決軟體問題的代理電腦介面。
+- [AutoGen](autogen.zh-TW.md)：代理以對話協作的框架，人類與工具可作為選擇性參與者。
+- [MetaGPT](metagpt.zh-TW.md)：扮演軟體公司角色、沿流水線傳遞定義文件的代理。
 
 ## 執行契約與狀態轉移
 

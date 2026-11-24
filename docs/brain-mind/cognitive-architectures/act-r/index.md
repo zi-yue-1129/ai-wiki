@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-10-28
+last_reviewed: 2026-11-19
 ---
 
 # ACT-R: a modular architecture of mind (Anderson et al., 2004)
@@ -8,7 +8,7 @@ last_reviewed: 2026-10-28
 ACT-R is a cognitive architecture: a computational theory of the mind, realised as a program, that aims to explain and predict human behaviour across many kinds of cognition.
 
 !!! note "Scope of this page"
-    This version is built from three kinds of source: the abstract of the 2004 paper named in the title, the review by Ritter and colleagues, and the standard-model paper by Laird and colleagues. The full text of the 2004 paper and the official ACT-R documentation could not be opened when this version was written. So the subsymbolic equations, the timing parameters and the detailed empirical results are not included yet. The page stays a draft until those are added.
+    This version is built from three kinds of source: the abstract of the 2004 paper named in the title, the review by Ritter and colleagues, and the standard-model paper by Laird and colleagues. This version reads the 2004 paper from a copy hosted at IIT Delhi, for its equations and the list of its empirical examples. The official ACT-R documentation was not opened, and the equations are not yet checked against the printed journal version. The page stays a draft until that check and the detailed empirical results are added.
 
 ## Overview
 
@@ -45,20 +45,39 @@ The architecture's credibility therefore rests on how well its mechanisms predic
 
 ## Equation or algorithm
 
-The main quantitative content of ACT-R is in its subsymbolic layer, which sets how rules are chosen and how modules operate. The 2004 paper describes that layer, but its equations are not reproduced here, because the full text was not read for this version. This section therefore describes only the processing cycle named in the abstract.
+The 2004 paper states the subsymbolic layer in named equations. The paper does not number them, so they are cited here by name, with the paper's own symbols.
 
-1. Each module places a chunk in its buffer. The modules named in the paper include perceptual-motor, goal and declarative memory.
-2. The production system reads the pattern of chunks across the buffers.
-3. A single production rule is selected to respond to that pattern. Subsymbolic values help decide which rule fires.
-4. The selected rule responds to the pattern. Its response changes the state of the buffers or the modules, and the cycle then repeats.
+**Base-level learning equation.** The base-level activation of a chunk grows with how often it was practised and falls with how long ago. With \(t_j\) the time since the \(j\)th practice and \(d\) a decay parameter,
 
-The abstract gives no timing values and no formula for rule selection. Those details belong to the full paper and to the official documentation, and they are the first additions to make when this page is extended.
+\[
+B_i = \ln \sum_{j=1}^{n} t_j^{-d}
+\]
+
+The paper uses \(d = 0.5\) as its default value.
+
+**Activation equation.** Total activation adds a contextual term to base-level activation, \(A_i = B_i + \sum_j W_j S_{ji}\), where \(W_j\) is the attention weight given to each context element and \(S_{ji}\) is the strength of association from that element to the chunk.
+
+**Retrieval.** A chunk can be retrieved only if its activation exceeds a threshold \(\tau\), and activation carries noise. Retrieval time falls off exponentially with activation, \(T_i = F e^{-A_i}\), where \(F\) is a latency factor.
+
+**Production choice.** Each production has a utility \(U_i\). The probability that production \(i\) is chosen among the applicable productions is
+
+\[
+P_i = \frac{e^{U_i/t}}{\sum_j e^{U_j/t}}
+\]
+
+where \(t\) controls the noise in the utilities, with a typical value of about 0.5. The paper defines utility from the estimated probability of achieving the goal if the production is chosen, \(P\), the goal value \(G\) and the estimated cost \(C\), as \(U = PG - C\).
+
+**Caveat on these equations.** They were read from a copy of the paper hosted at IIT Delhi, in which text extraction dropped some operators. The reconstructed form of the utility equation (including its minus sign) and the value of the spreading-activation constant are not yet confirmed against the printed page. The paper also reports different values for that constant in different fits, so the constant should be read with its context. Before this page is complete, these equations should be checked against the published journal version.
+
+The processing cycle named in the abstract is as follows. Each module places a chunk in its buffer. The production system reads the pattern across the buffers. A single production is selected, with subsymbolic values helping to decide which one. The selected production responds and changes the buffers or modules, and the cycle repeats. The paper gives a cycle time of about 50 ms.
 
 ## Results
 
 The 2004 abstract describes "a number of simple and complex empirical examples" that illustrate how the modules function singly and in concert. These examples are illustrations of the architecture at work. The abstract does not report a single benchmark number, and this page gives none.
 
 The review by Ritter and colleagues describes ACT-R's record in general terms: several major accomplishments in both basic and applied science, including insights about human behaviour. The standard-model paper reports a different kind of result, a synthesis of agreement across ACT-R, Sigma and Soar. It identifies places where the architectures agree and where they disagree, and it notes areas where the consensus remains incomplete.
+
+The paper's body names the empirical examples it uses. These include the fan effect in sentence recognition, a dual-task study pairing a vocal tone task with a manual position task, the Tower of Hanoi and Tower of London, two-button probability learning, paired-associate recall, and a naval air-defence identification task. Each is presented as an illustration of how the modules work together, not as a single benchmark score.
 
 ## Limitations
 

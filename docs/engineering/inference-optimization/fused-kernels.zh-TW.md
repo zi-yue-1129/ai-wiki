@@ -36,6 +36,29 @@ aliases:
 
 融合的注意力核心會把查詢、鍵與值矩陣切成能放進快速記憶體的區塊。它載入一個區塊，計算該區塊的注意力分數，更新一個累積的正規化量，最後只寫出最終輸出。完整的分數矩陣從未被寫出。結果與標準注意力相同，因此此方法被描述為精確的。把偏置、啟動函式與正規化等小運算融合，也遵循相同原則，只是規模較小。
 
+### 數值示例：融合偏置與啟動函式
+
+考慮純量運算 $y=\max(0,x+2)$，其中 $x=-3$，常數偏置已在晶片上。比較將中間值寫入 HBM 的兩個獨立核心，以及將中間值保留在晶片上的單一融合核心。兩者執行相同的算術運算。[^fusion-traffic]
+
+<img data-source-asset-urls src="../../assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg" data-motion-src="../../assets/concept-animations/kernel-fusion-intermediate-traffic-motion.svg" data-still-src="../../assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg" alt="兩種排程都讀取負三、加二、執行 ReLU 並寫出零。只有分離排程寫回並重新讀取負一，累計搬移次數為四次，融合排程為兩次。">
+
+*原創教學動畫，CC BY-SA 4.0。* 箭頭標示已完成的邏輯元素搬移，並非同時發生的事件或週期精確時序。在 MkDocs 可使用支援鍵盤操作的 **播放／暫停** 控制；偏好減少動態效果時預設顯示靜態圖。[GitHub 靜態預覽](../../assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg)。
+
+| 已完成的運算 | 分離核心累計搬移 | 融合核心累計搬移 |
+|---|---:|---:|
+| 讀取輸入 | 1 | 1 |
+| 加上偏置（中間值 −1） | 1 | 1 |
+| 寫回中間值 | 2 | 1 |
+| 重新讀取中間值 | 3 | 1 |
+| ReLU（結果 0） | 3 | 1 |
+| 寫回輸出 | 4 | 2 |
+
+在此示例中，分離核心需要啟動兩次，融合核心只需一次。若每個儲存元素占 $b$ 位元組，而且每次邏輯搬移均到達 HBM，則每個元素對應 $4b$ 與 $2b$ 位元組的流量。實際 HBM 流量會受快取、記憶體交易、暫存器溢出及其他輸入影響。此為示意數值，並非 GPU 實測，也不代表效能必然提升兩倍。分塊載入與寫回的示例見 [Triton](../frameworks/compilers-and-kernels/triton.zh-TW.md)。
+
+對於包含 $m$ 個逐元素運算的串接流程，假設只有一個輸入及一個最終輸出、元素大小相同、沒有額外輸入、不需對外保留中間值，且沒有暫存器溢出。若每個中間值均寫回記憶體，每個元素需要 $2mb$ 位元組的邏輯流量；完全融合後則為 $2b$，省去 $2(m-1)b$。這是流量模型，不是延遲模型。若中間值本身也是對外可見的輸出，或其他核心仍需讀取它，就可能仍須寫回；暫存器壓力增加也可能抵銷效益。Triton 頁面的遮罩讀取示例則說明另一項限制：融合必須保留尾端分塊的原始運算語意，包含歸約運算。
+
+[^fusion-traffic]: Triton contributors，[Fused Softmax](https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html)，說明如何透過將中間值保留在晶片上來降低記憶體流量；上面的純量示例為原創。
+
 ## 關鍵方法
 
 - [FlashAttention（Dao 等人，2022）](../../theory/models/transformer/attention-variants/flash-attention/index.zh-TW.md)：以區塊計算的精確注意力，不儲存完整的分數矩陣。其專屬頁面位於模型章節。
@@ -74,3 +97,7 @@ aliases:
 - Micikevicius, P. 等人（2018）。*Mixed Precision Training*。ICLR。https://arxiv.org/abs/1710.03740 — 顯示使用降低精度的算術訓練，可以達到與全精度相當的準確率，因而減少記憶體流量。
 - Kwon, W. 等人（2023）。*Efficient Memory Management for Large Language Model Serving with PagedAttention*。SOSP。https://arxiv.org/abs/2309.06180 — 以分頁方式管理注意力快取，是服務端的記憶體系統做法。
 - Chen, T. 等人（2018）。*TVM: An Automated End-to-End Optimizing Compiler for Deep Learning*。OSDI。https://arxiv.org/abs/1802.04799 — 為多種硬體目標產生最佳化核心的編譯器，是手寫核心的自動化對應。
+
+### 文件與說明
+
+- Triton contributors. *Fused Softmax*. https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html — 示範中間資料可容納於晶片上時，融合運算如何減少記憶體流量。

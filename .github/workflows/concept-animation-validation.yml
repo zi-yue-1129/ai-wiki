@@ -416,6 +416,8 @@ jobs:
           python scripts/test_source_contract_retention_motion_semantics.py
       - name: Check uncertainty motion numerical semantics
         run: python scripts/test_uncertainty_motion_semantics.py
+      - name: Validate co-design memory and loss-scale motion arithmetic
+        run: python scripts/test_co_design_tradeoff_motion.py
       - name: Check SVD geometry and power-iteration numerical timelines
         run: python scripts/test_linear_algebra_motion_semantics.py
       - name: Exercise bilingual guided motion controls and fallback

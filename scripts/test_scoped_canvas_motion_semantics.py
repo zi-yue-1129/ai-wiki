@@ -16,7 +16,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 449 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 451 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -184,6 +184,61 @@ class ScopedCanvas(unittest.TestCase):
                 ).hexdigest()
                 with self.subTest(asset=source.name):
                     self.assertEqual(git_blob_sha, record["origin_blob"])
+class KernelTeachingStates(unittest.TestCase):
+    def states(self, stem, n):
+        root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
+        groups = root.findall(v.NS + 'g')
+        self.assertEqual(len(groups), n)
+        for i, group in enumerate(groups):
+            self.assertEqual(group.get('id'), f'state-{i}')
+            a = group.find(v.NS + 'animate')
+            self.assertEqual(a.get('values').split(';'), [str(int(j % n == i)) for j in range(n + 1)])
+            self.assertEqual(a.get('dur'), f'{2*n}s')
+            for j, t in enumerate(a.get('keyTimes').split(';')):
+                self.assertAlmostEqual(float(t), j/n, places=7)
+        still = ET.parse(ASSETS / f'{stem}-still.svg').getroot()
+        self.assertEqual([(e.get('x'), e.get('y'), e.text) for e in still.iter(v.NS + 'text')],
+                         [(e.get('x'), e.get('y'), e.text) for e in groups[-1].iter(v.NS + 'text')])
+        # The fallback must preserve shapes and styling as well as text.
+        self.assertEqual([ET.tostring(e) for e in list(still)[3:]],
+                         [ET.tostring(e) for e in list(groups[-1])[1:]])
+        return groups
+
+    def test_fusion_intermediate_traffic(self):
+        groups = self.states('kernel-fusion-intermediate-traffic', 7)
+        a, b = -3, 2
+        tmp, out = a+b, max(a+b, 0)
+        fmt = lambda value: str(value).replace('-', '−')
+        for i, group in enumerate(groups):
+            cells = {(float(e.get('x')), float(e.get('y'))): e.text for e in group.iter(v.NS + 'text')}
+            for lane in (0, 1):
+                x = 12 + 312*lane
+                expected = sum(event <= i for event in ([1, 3, 4, 6] if lane == 0 else [1, 6]))
+                self.assertEqual(cells[x+16,312], f'Transfers: {expected}')
+                self.assertEqual(cells[x+56,161.5], fmt(a))
+                self.assertEqual(cells[x+152,161.5], fmt(tmp) if lane == 0 and i>=3 else '–')
+                self.assertEqual(cells[x+248,161.5], fmt(out) if i==6 else '–')
+                local = '–' if i==0 or (lane==0 and i==3) else fmt(a if i==1 else tmp if i<5 else out)
+                self.assertEqual(cells[x+152,248], local)
+
+    def test_tail_tile_masks_and_outputs(self):
+        groups = self.states('triton-tail-mask', 6)
+        N, B = 6, 4
+        for i, group in enumerate(groups):
+            cells = {(float(e.get('x')), float(e.get('y'))): e.text for e in group.iter(v.NS + 'text')}
+            pid, stage = divmod(i, 3)
+            stored = 0
+            for k in range(2*B):
+                active = k//B == pid
+                valid = k < N
+                loaded = active and stage >= 1 and valid
+                done = valid and (k//B < pid or (active and stage == 2))
+                stored += done
+                expected = [str(k), str(int(valid)) if k//B <= pid else '–', str(k+1) if loaded else '–', str(2*(k+1)) if loaded else '–', str(2*(k+1)) if done else '–']
+                for row, value in enumerate(expected):
+                    self.assertEqual(cells[152+k*63,95+row*47], value)
+            self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
 
 if __name__ == '__main__':
     unittest.main()

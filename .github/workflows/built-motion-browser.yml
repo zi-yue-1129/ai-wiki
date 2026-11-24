@@ -140,6 +140,9 @@ jobs:
     # Observed run 44540063208 spent 50m on all required semantics + full support suites;
     # avoid cancelling before evidence packaging while keeping the fail-closed gate.
     timeout-minutes: 100
+    # Every numerical motion contract and every support browser suite must run;
+    # 50 minutes prematurely cancelled support jobs before evidence receipts.
+    timeout-minutes: 90
     env:
       EVIDENCE_PREFIX: motion-${{ github.run_id }}-${{ github.run_attempt }}-support
     steps:
