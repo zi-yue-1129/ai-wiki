@@ -4,6 +4,8 @@
 (() => {
   'use strict';
   const sequences = {
+    'gpipe-1f1b-schedule': { duration: 14, steps: [0, 1.02, 2.02, 3.02, 4.02, 5.02, 6.02, 7.02, 8.02, 9.02, 10.02, 11.02, 12.02] },
+    'gpipe-activation-liveness': { duration: 14, steps: [0, 1.02, 2.02, 3.02, 4.02, 5.02, 6.02, 7.02, 8.02, 9.02, 10.02, 11.02, 12.02] },
     'gpipe-fill-drain': { duration: 12, steps: [0, 1.5, 3, 4.5, 6, 7.5, 9, 10.5, 11.9] },
     'gpipe-gradient-accumulation': { duration: 14, steps: [0, 2, 4, 6, 8, 10, 12, 13.5] },
     'fsdp-gather-scatter': { duration: 10, steps: [0, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5] },

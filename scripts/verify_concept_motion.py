@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
+    'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dnn-output-stationary-traffic': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'dnn-sliding-window-reuse': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'kernel-fusion-intermediate-traffic': 'engineering/inference-optimization/fused-kernels',
@@ -457,7 +459,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'dnn-output-stationary-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'gpipe-1f1b-schedule': '0 0 640 360',
+ 'gpipe-activation-liveness': '0 0 640 360',
+ 'dnn-output-stationary-traffic': '0 0 640 360',
  'dnn-sliding-window-reuse': '0 0 640 360',
  'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'triton-tail-mask': '0 0 640 360',
@@ -1390,7 +1394,7 @@ def main() -> int:
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
                     errors.append(f"{page}: missing independent static preview for {stem}")
-            elif stem in {"kernel-fusion-intermediate-traffic", "triton-tail-mask"}:
+            elif stem in {"kernel-fusion-intermediate-traffic", "triton-tail-mask", "gpipe-1f1b-schedule", "gpipe-activation-liveness"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:

@@ -46,6 +46,31 @@ Change the number of stages $K$ and micro-batches $M$, then step through or play
 
 <div class="distributed-explorer" data-explorer="gpipe" data-lang="en"></div>
 
+
+### Synchronous 1F1B: change the schedule, not the optimizer semantics
+
+Non-interleaved one-forward-one-backward (1F1B, as in PipeDream-Flush) starts backward work earlier than GPipe's all-forward/all-backward schedule. A warm-up of forward passes is followed by alternating forward and backward work on each stage, then a backward drain. Weights remain fixed within the mini-batch and the optimizer updates only after all backward contributions are accumulated.[^pipeline-schedules]
+
+<img data-source-asset-urls src="../../assets/concept-animations/gpipe-1f1b-schedule-still.svg" data-motion-src="../../assets/concept-animations/gpipe-1f1b-schedule-motion.svg" data-still-src="../../assets/concept-animations/gpipe-1f1b-schedule-still.svg" alt="Two 12-slot schedules on three stages and four micro-batches. GPipe runs all forwards first; 1F1B starts backward micro-batch one at the last stage in slot four. Both have 12 idle stage-slots." width="640" height="360">
+
+*Original teaching animation, CC BY-SA 4.0.* F/B cells identify a forward/backward computation for the numbered micro-batch; a dot marks a completed idle slot, while blank cells are future slots. The cursor moves continuously and a column becomes visible only when that slot completes. For three stages, four micro-batches, equal-duration forward/backward operations and negligible communication time, both schedules execute 24 operations in 12 wall-clock slots, with 12 idle stage-slots out of 36 (one-third). The fraction is relative to elapsed capacity, not the overhead relative to ideal busy time (12/24). Non-interleaved 1F1B changes when work is done; it does not remove the pipeline bubble in this example. These are schematic timings, not GPU measurements. [GitHub static preview](../../assets/concept-animations/gpipe-1f1b-schedule-still.svg) · [Full animation](../../assets/concept-animations/gpipe-1f1b-schedule-motion.svg).
+
+### Saved activation lifetime
+
+<img data-source-asset-urls src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" data-motion-src="../../assets/concept-animations/gpipe-activation-liveness-motion.svg" data-still-src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" alt="Step curves show saved activation sets after each slot. GPipe peaks at four on each stage; non-interleaved 1F1B peaks at three, two and one on stages one through three." width="640" height="360">
+
+*Original teaching animation, CC BY-SA 4.0.* At the end of each slot, a completed forward saves one activation set for its micro-batch and the matching backward frees it. The solid teal line is GPipe and the dashed orange line is 1F1B. This assumes a fixed-size saved set per micro-batch within each stage and ignores rematerialization, in-operation workspace, communication buffers and allocator overhead; the counts are not measured bytes or total device memory. [GitHub static preview](../../assets/concept-animations/gpipe-activation-liveness-still.svg) · [Full animation](../../assets/concept-animations/gpipe-activation-liveness-motion.svg).
+
+| Stage | GPipe peak saved sets | 1F1B peak saved sets |
+|---|---:|---:|
+| S1 | 4 | 3 |
+| S2 | 4 | 2 |
+| S3 | 4 | 1 |
+
+If each stage's saved set occupies $A_s$ bytes, the illustrative per-stage peak is $4A_s$ for GPipe versus $(4-s)A_s$ for 1F1B, with stages numbered $s=1,2,3$. For the standard balanced non-interleaved schedule with $K$ stages and $M$ micro-batches, the corresponding maximum number of outstanding forwards on stage $s$ is $\min(M,K-s+1)$; GPipe retains up to $M$. Actual memory also depends on the implementation of activation checkpointing and the stage's other live tensors. The earlier backward work reduces saved activation residency without changing the number of computations or this idealized bubble.
+
+On MkDocs, use the keyboard-accessible Play/Pause, previous/next slot, timeline and speed controls for both figures. The initial and reduced-motion fallback is the full still; the final two seconds of playback hold the completed schedule.
+
 ## Key methods
 
 The method is the micro-batch pipeline with synchronous gradient accumulation. The paper's evidence is measured throughput as the number of accelerators grows, for very large image models.
@@ -77,3 +102,5 @@ The paper reports close to linear speedup as accelerators are added for the mode
 - Shoeybi, M. et al. (2019). *Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism*. https://arxiv.org/abs/1909.08053 — The layer-internal split that pipeline parallelism complements.
 - Rajbhandari, S. et al. (2020). *ZeRO: Memory Optimizations Toward Training Trillion Parameter Models*. SC 2020. https://arxiv.org/abs/1910.02054 — Reduces model-state memory on each stage, a different route to fitting large models.
 - Li, S. et al. (2020). *PyTorch Distributed: Experiences on Accelerating Data Parallel Training*. VLDB 2020. https://arxiv.org/abs/2006.15704 — Describes the data-parallel communication that pipelines are often combined with.
+
+[^pipeline-schedules]: Narayanan et al. (2021), *Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM*. https://arxiv.org/abs/2104.04473 — Section 2.2.1 contrasts GPipe with the non-interleaved PipeDream-Flush schedule and analyzes activation residency and pipeline bubbles.
