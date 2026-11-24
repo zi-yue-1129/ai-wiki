@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Chromium integration checks for same-origin SMIL controls on six real diagrams."""
+"""Chromium integration checks for same-origin SMIL controls on eight real diagrams."""
 from __future__ import annotations
 
 import os
@@ -12,7 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs'
 OUT = ROOT / 'distributed-motion-screenshots'
 STEMS = ('gpipe-fill-drain', 'gpipe-gradient-accumulation', 'fsdp-gather-scatter',
-         'fsdp-parameter-residency', 'zero-state-sharding', 'megatron-column-row')
+         'fsdp-parameter-residency', 'zero-state-sharding', 'megatron-column-row',
+         'gpipe-1f1b-schedule', 'gpipe-activation-liveness')
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -43,10 +44,15 @@ def main():
                         page = ctx.new_page()
                         # Keep the document on the same origin as the SVG object.
                         page.goto(f'http://127.0.0.1:{server.server_port}/stylesheets/concept-motion.css')
+                        paired = stem in ('gpipe-1f1b-schedule', 'gpipe-activation-liveness')
+                        motion = f'/assets/concept-animations/{stem}-motion.svg'
+                        still_src = f'/assets/concept-animations/{stem}-still.svg'
+                        source = (f'src="{still_src}" data-motion-src="{motion}" data-still-src="{still_src}"'
+                                  if paired else f'src="{motion}"')
                         page.set_content(f'''<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1">
                             <style>body{{margin:12px}} .concept-motion-player{{display:block;max-width:640px}}
                             .concept-motion-player img{{display:block;width:100%}}</style></head><body>
-                            <img alt="{alt}" src="/assets/concept-animations/{stem}-motion.svg"></body></html>''')
+                            <img alt="{alt}" {source}></body></html>''')
                         for sheet in ('concept-motion.css', 'distributed-motion-controls.css', 'extra.css'):
                             page.add_style_tag(content=(DOCS / 'stylesheets' / sheet).read_text())
                         for script in ('concept-motion.js', 'distributed-motion-controls.js'):
@@ -82,6 +88,8 @@ def main():
                                 expect(panel).to_be_visible()
                                 expect(obj).to_be_visible()
                                 expect(still).to_be_hidden()
+                                page.wait_for_function('e => !!e.contentDocument?.documentElement?.getCurrentTime',
+                                                       arg=obj.element_handle())
                                 assert obj.evaluate('e => e.contentDocument.documentElement.getCurrentTime()') < 0.1
                                 host.get_by_role('button', name='下一步' if zh else 'Step →').press('Space')
                                 assert obj.evaluate('e => e.contentDocument.documentElement.getCurrentTime()') > 0

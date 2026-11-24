@@ -47,6 +47,10 @@ class PipelineSchedule(unittest.TestCase):
                     done.update(pending)
                     for stage in range(3):
                         histories[stage].append(len(saved[stage]))
+                aggregate = [sum(values) for values in zip(*histories)]
+                self.assertEqual(aggregate[3], 6)
+                self.assertEqual([row[6] for row in histories], [4, 4, 4] if policy == 0 else [2, 2, 0])
+                self.assertEqual(max(aggregate), 12 if policy == 0 else 6)
                 self.assertEqual(len(done), 24)
                 self.assertEqual(idle, 12)
                 self.assertTrue(all(not s for s in saved))

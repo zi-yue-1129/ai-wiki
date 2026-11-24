@@ -55,6 +55,8 @@ Non-interleaved one-forward-one-backward (1F1B, as in PipeDream-Flush) starts ba
 
 *Original teaching animation, CC BY-SA 4.0.* F/B cells identify a forward/backward computation for the numbered micro-batch; a dot marks a completed idle slot, while blank cells are future slots. The cursor moves continuously and a column becomes visible only when that slot completes. For three stages, four micro-batches, equal-duration forward/backward operations and negligible communication time, both schedules execute 24 operations in 12 wall-clock slots, with 12 idle stage-slots out of 36 (one-third). The fraction is relative to elapsed capacity, not the overhead relative to ideal busy time (12/24). Non-interleaved 1F1B changes when work is done; it does not remove the pipeline bubble in this example. These are schematic timings, not GPU measurements. [GitHub static preview](../../assets/concept-animations/gpipe-1f1b-schedule-still.svg) · [Full animation](../../assets/concept-animations/gpipe-1f1b-schedule-motion.svg).
 
+On MkDocs, use Play/Pause, the previous/next-slot buttons, timeline slider or speed selector to compare both schedules at the same time. The horizontal region is keyboard-focusable on narrow screens. Reduced motion initially shows the completed static schedule.
+
 ### Saved activation lifetime
 
 <img data-source-asset-urls src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" data-motion-src="../../assets/concept-animations/gpipe-activation-liveness-motion.svg" data-still-src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" alt="Step curves show saved activation sets after each slot. GPipe peaks at four on each stage; non-interleaved 1F1B peaks at three, two and one on stages one through three." width="640" height="360">
@@ -68,6 +70,8 @@ Non-interleaved one-forward-one-backward (1F1B, as in PipeDream-Flush) starts ba
 | S3 | 4 | 1 |
 
 If each stage's saved set occupies $A_s$ bytes, the illustrative per-stage peak is $4A_s$ for GPipe versus $(4-s)A_s$ for 1F1B, with stages numbered $s=1,2,3$. For the standard balanced non-interleaved schedule with $K$ stages and $M$ micro-batches, the corresponding maximum number of outstanding forwards on stage $s$ is $\min(M,K-s+1)$; GPipe retains up to $M$. Actual memory also depends on the implementation of activation checkpointing and the stage's other live tensors. The earlier backward work reduces saved activation residency without changing the number of computations or this idealized bubble.
+
+For a second reading exercise, seek both figures to the end of slot 3: GPipe and 1F1B have each saved $(3,2,1)$ sets across stages. At the end of slot 6, GPipe has $(4,4,4)$ whereas 1F1B has $(2,2,0)$. With equal-size sets across stages, the maximum simultaneous aggregate count over this example is 12 versus 6. This is a sum across devices, not a single-device peak; the sum of independent stage peaks is only an upper bound in general because their peak times may differ. Use the same saved-set and slot-boundary assumptions as the curves.
 
 On MkDocs, use the keyboard-accessible Play/Pause, previous/next slot, timeline and speed controls for both figures. The initial and reduced-motion fallback is the full still; the final two seconds of playback hold the completed schedule.
 
