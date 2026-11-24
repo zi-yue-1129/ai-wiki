@@ -26,7 +26,7 @@ PyTorch's eager mode is easy to debug, but it runs one operation at a time, so e
 
 ## Core idea
 
-Trace the Python frames that run the model, record the tensor operations as a graph, and compile that graph. When the tracer meets code it cannot capture, it splits the graph there and runs the rest in Python. TorchDynamo does the capture. The official documentation says it "uses a CPython feature called the Frame Evaluation API to safely capture PyTorch graphs."
+Trace the Python frames that run the model, record the tensor operations as a graph, and compile that graph. When the tracer meets code it cannot capture, it can split the graph, run that region in Python, and resume capture afterward. TorchDynamo does the capture. The official documentation says it "uses a CPython feature called the Frame Evaluation API to safely capture PyTorch graphs."
 
 The design is described in the ASPLOS 2024 paper on PyTorch 2, which covers the graph capture and compilation stack that `torch.compile` uses.
 

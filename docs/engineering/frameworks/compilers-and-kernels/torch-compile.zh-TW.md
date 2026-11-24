@@ -27,7 +27,7 @@ PyTorch 的即時執行模式容易除錯，但它一次只執行一個運算，
 
 ## 核心想法
 
-追蹤執行模型的 Python 框架，把張量運算記錄為圖，然後編譯這張圖。遇到無法擷取的程式碼時，圖會在該處切開，其餘部分改回 Python 執行。擷取工作由 TorchDynamo 負責。官方文件寫道，它「使用 CPython 的一項功能，稱為 Frame Evaluation API，以安全地擷取 PyTorch 圖」。
+追蹤執行模型的 Python 框架，把張量運算記錄為圖，然後編譯這張圖。遇到無法擷取的程式碼時，可以在該處切開圖，將該區域交回 Python 執行，再接續擷取。擷取工作由 TorchDynamo 負責。官方文件寫道，它「使用 CPython 的一項功能，稱為 Frame Evaluation API，以安全地擷取 PyTorch 圖」。
 
 ASPLOS 2024 關於 PyTorch 2 的論文說明了 `torch.compile` 所用的圖擷取與編譯堆疊的設計。
 
