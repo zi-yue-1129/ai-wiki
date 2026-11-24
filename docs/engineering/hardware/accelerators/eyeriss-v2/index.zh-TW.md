@@ -16,7 +16,15 @@ MobileNet 這類緊湊模型體積小，且常是稀疏的。為稠密矩陣乘�
 
 ## 公式或演算法
 
-晶片以盡量重用每個運算元的資料流，計算某層的卷積。對稀疏資料而言，處理單元只接收非零值及其索引，因此工作量與非零乘積的數量成比例，而非與整層的大小成比例。網狀網路把這些數值路由到需要它們的單元。
+晶片以盡量重用每個運算元的資料流，計算某層的卷積。對稀疏資料而言，處理單元只接收非零值及其索引，因此可避免零值乘法；但實際執行成本也包含索引處理與資料搬移。網狀網路把這些數值路由到需要它們的單元。
+
+### 動態解說：壓縮稀疏運算元的索引配對
+
+<img data-source-asset-urls src="../../../../assets/concept-animations/sparse-index-intersection-still.svg" data-motion-src="../../../../assets/concept-animations/sparse-index-intersection-motion.svg" data-still-src="../../../../assets/concept-animations/sparse-index-intersection-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="兩組已排序的索引和值依序略過未配對項目，累加相同索引的乘積 18 與 32，得到 50。">
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態預覽](../../../../assets/concept-animations/sparse-index-intersection-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/sparse-index-intersection-motion.svg)。網站提供鍵盤可操作的播放／暫停；暫停時回到代表性靜態圖，系統偏好減少動態效果時預設使用靜態圖。
+
+以下稀疏內積示意可看出索引處理的成本。假設兩個長度為六的向量，其非零項為 $A=\{0:2,2:3,5:4\}$ 與 $B=\{1:7,2:6,5:8\}$。每列依序儲存非零項索引，下方為對應數值。比較目前索引（白框）：若不同，僅推進較小索引（橘色連線）；若相同，將乘積加到累加器（藍綠色連線），再同時推進兩者。四次比較依序為 $(0,1),(2,1),(2,2),(5,5)$。只有索引 2 與 5 有貢獻，故累加器從 0 變成 18 再變成 50。稠密迴圈會嘗試六次乘法；這個合併演算法只計算兩個非零乘積，但仍有索引比較與中繼資料的成本。這是避免零值乘法的抽象示意，不是 Eyeriss v2 壓縮稀疏欄（compressed sparse column）處理單元的週期精確重現（Chen 等人，2018）。數值與次數皆為示意，不是實測吞吐量或能耗。
 
 ## 關鍵方法
 

@@ -249,6 +249,8 @@ TOPICS = {
     "effective-number-growth": "theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss",
     "logit-prior-decision": "theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment",
     "roofline-ridge-sweep": "engineering/hardware/memory-hierarchy/roofline",
+    "memory-wall-weight-reuse": "engineering/hardware/memory-hierarchy/ai-and-memory-wall",
+    "sparse-index-intersection": "engineering/hardware/accelerators/eyeriss-v2/index",
     "fp8-scale-range": "engineering/hardware/co-design/fp8",
     "roc-threshold-sweep": "theory/evaluation/metrics/classification/roc-auc",
     "pr-threshold-sweep": "theory/evaluation/metrics/classification/pr-auc",
@@ -804,6 +806,8 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'roc-tie-half-credit': '0 0 640 360',
  'roi-align-sampling': '0 0 800 460',
  'roofline-ridge-sweep': '0 0 640 360',
+ 'memory-wall-weight-reuse': '0 0 360 262',
+ 'sparse-index-intersection': '0 0 360 254',
  'rope-axial-2d': '0 0 640 360',
  'rope-cache-reindex': '0 0 640 360',
  'rope-frequency-bands': '0 0 640 360',
@@ -1287,6 +1291,8 @@ def main() -> int:
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
             if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
+                errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"memory-wall-weight-reuse", "sparse-index-intersection"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
