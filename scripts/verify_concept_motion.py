@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'dnn-output-stationary-traffic': 'engineering/hardware/accelerators/efficient-dnn-processing',
+    'dnn-sliding-window-reuse': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'alibi-content-recency': 'theory/models/transformer/positional-encodings/index',
     'alibi-distance-softmax': 'theory/models/transformer/positional-encodings/index',
     'alibi-head-prefix': 'theory/models/transformer/positional-encodings/index',
@@ -451,7 +453,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
+CANONICAL_VIEWBOXES = {'dnn-output-stationary-traffic': '0 0 640 360',
+ 'dnn-sliding-window-reuse': '0 0 640 360',
+ '3d-unet-context-tiling': '0 0 800 420',
  '3d-unet-depth-kernel': '0 0 800 420',
  '3d-unet-evaluation-holdout': '0 0 800 420',
  '3d-unet-orthogonal-slices': '0 0 640 360',
@@ -1371,6 +1375,11 @@ def main() -> int:
             elif stem in {"layernorm-feature-shift", "seq2seq-context-handoff", "flashattention-online-rescale", "flashattention-exact-merge", "flashattention-causal-tiles", "flashattention-backward-remat", "flashattention2-query-parallel", "flashattention3-load-compute-pipeline"}:
 
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"dnn-output-stationary-traffic", "dnn-sliding-window-reuse"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing independent static preview for {stem}")
             elif stem.startswith("diffusion-policy-"):
                 errors.extend(verify_source_pair(page, text, stem))
             elif animated_path.resolve() not in linked_images:
