@@ -147,6 +147,14 @@ class Packaging(unittest.TestCase):
         for key in ('full-motion','support-browser'):
             job=data['jobs'][key];self.assertIsInstance(job['timeout-minutes'],int);self.assertGreaterEqual(job['timeout-minutes'],50)
             steps=job['steps']
+            if key == 'support-browser':
+                # Keep all required numerical motion tests. A 50-min cancellation
+                # previously truncated browser support and its evidence manifest.
+                self.assertGreaterEqual(job['timeout-minutes'], 90)
+                self.assertNotIn('continue-on-error', job)
+                numerical=next(s for s in steps if s.get('name') ==
+                               'Check available motion numerical semantics')
+                self.assertIn('test_*motion_semantics.py', numerical['run'])
             prep=next(s for s in steps if s.get('name')=='Package bounded lossless evidence, including failed cases')
             self.assertEqual(prep['if'],'always()');self.assertNotIn('continue-on-error',prep)
             self.assertIn('--allow-missing-roots',prep['run']);self.assertIn('--artifact-prefix',prep['run'])

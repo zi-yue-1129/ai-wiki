@@ -1,41 +1,57 @@
 ---
-translation_reviewed: 2026-11-17
-
-translation_reviewed: 2026-11-13
+translation_reviewed: 2026-11-20
 ---
 
 # 特徵值分解
 
-特徵值分解把方陣寫成其特徵向量與特徵值的形式。對稱矩陣的特徵向量彼此正交，特徵值為實數，因此此分解常用於共變異數矩陣與損失函數的海森矩陣。本頁是[線性代數](index.md)的一部分。
+特徵值分解利用特徵向量基底與特徵值，表示可對角化的方陣。實對稱矩陣必定具有實數特徵值，並可選取標準正交的特徵向量基底，因此此分解適合用於共變異數矩陣與損失函數的海森矩陣。本頁是[線性代數](index.md)的一部分。[^spectral]
 
 ## 概述
 
-方陣 \(A\) 的特徵向量是非零向量 \(\mathbf{v}\)，\(A\) 作用後方向不變：\(A\mathbf{v} = \lambda \mathbf{v}\)。純量 \(\lambda\) 為特徵值，即 \(A\) 沿該方向拉伸的倍數。沿特徵向量方向，矩陣只做簡單的縮放，因此重複作用很容易分析：\(A^k\mathbf{v} = \lambda^k\mathbf{v}\)。
+方陣 $A$ 的特徵向量是滿足 $A\mathbf{v}=\lambda\mathbf{v}$ 的非零向量 $\mathbf{v}$，純量 $\lambda$ 是其特徵值。對實數特徵對，正特徵值保留朝向，負特徵值使朝向反轉，零特徵值則將向量映射為零。對正整數 $k$，重複作用可得 $A^k\mathbf{v}=\lambda^k\mathbf{v}$。[^diagonalization]
 
 ## 關鍵概念
 
 - **特徵對**：特徵值與其對應的特徵向量。
-- **譜定理**：實對稱矩陣的特徵值皆為實數，且有一組標準正交的特徵向量。
+- **譜定理**：實對稱矩陣具有實數特徵值，且存在標準正交的特徵向量基底。在重複特徵值的特徵空間內，可以選取標準正交基底。[^spectral]
 - **半正定矩陣**：所有特徵值皆非負的對稱矩陣。共變異數矩陣即屬此類。
-- **譜半徑**：特徵值絕對值的最大值。矩陣重複相乘時，增長或衰減取決於譜半徑大於或小於一。
+- **譜半徑** $\rho(A)=\max_i|\lambda_i|$ 決定固定矩陣冪次的漸近衰減情形。在 $\rho(A)=1$ 的邊界情況，還需要考量 Jordan 結構。[^dynamics]
 
 ## 運作方式
 
-對實對稱 \(n\times n\) 矩陣，譜定理給出
+對實對稱 $n\times n$ 矩陣，譜定理給出
 
-\[
+$$
 A = Q\Lambda Q^\top, \qquad \Lambda = \operatorname{diag}(\lambda_1, \dots, \lambda_n),
-\]
+$$
 
-其中正交矩陣 \(Q\) 的各欄為特徵向量。二次型因此沿特徵方向分解：
+其中正交矩陣 $Q$ 的各欄為特徵向量。對應不同特徵值的特徵向量彼此正交。在重複特徵值的特徵空間內，不同的標準正交基底都能給出有效分解。例如，任何非零向量都是 $I$ 的特徵向量，因此任意選取的兩個特徵向量，其內積可能非零。[^spectral]
 
-\[
+一般的 $n\times n$ 矩陣，恰在所選數域中具有 $n$ 個線性獨立特徵向量時，才存在分解 $A=V\Lambda V^{-1}$。相異特徵值是充分條件。特徵值重複時，可能仍有完整特徵基底，也可能得到不可對角化的矩陣，下方剪切範例展示了後者。[^diagonalization]
+
+二次型因此沿特徵方向分解：
+
+$$
 \mathbf{x}^\top A \mathbf{x} = \sum_{i} \lambda_i \, (\mathbf{q}_i^\top \mathbf{x})^2 .
-\]
+$$
 
-因此每個特徵值就是該二次函數在其自身方向上的曲率。這是海森矩陣的特徵值對最佳化很重要的原因：大的特徵值標示陡峭方向，小的則標示平坦方向（見[微積分與最佳化](../calculus/index.md)）。
+對目標函數 $f(\mathbf{x})=\tfrac12\mathbf{x}^\top A\mathbf{x}$，海森矩陣為 $A$，沿單位特徵向量 $\mathbf{q}_i$ 的方向二階導數為 $\lambda_i$。對 $\mathbf{x}^\top A\mathbf{x}$，海森矩陣則為 $2A$。正、負海森特徵值分別描述向上與向下的曲率，絕對值較小則代表局部較平坦的方向（見[微積分與最佳化](../calculus/index.md)）。[^curvature]
 
-求主特徵向量的一個標準方法是冪迭代，即反覆套用 \(A\) 並正規化結果。當主特徵值與其他特徵值有明顯間隔時，它會收斂到絕對值最大特徵值所對應的特徵向量（見 [Golub 與 Van Loan](index.md)）。
+求主特徵方向的一個標準方法是冪迭代，即反覆套用 $A$ 並正規化結果。對實對稱矩陣，要收斂到唯一主方向，需要嚴格最大的特徵值絕對值，且初始向量在該方向有非零投影。若主特徵值為負，迭代向量的符號可能交替變化。特徵值絕對值的比率控制漸近收斂速度，見 Golub 與 Van Loan。
+
+### 重複作用的穩定性
+
+對固定的有限維矩陣，恰在 $\rho(A)<1$ 時，所有初始向量經 $A^k$ 作用都會趨近零。若 $\rho(A)>1$，則有些初始狀態會增長。當 $\rho(A)=1$ 時，矩陣冪次可能維持有界，也可能以多項式速度增長。[^dynamics]
+
+取下方範例中的固定剪切矩陣 $J=A(1)$，直接相乘可得
+
+$$
+J=\begin{bmatrix}1&1\\0&1\end{bmatrix},
+\qquad
+J^k=\begin{bmatrix}1&k\\0&1\end{bmatrix}.
+$$
+
+因此，即使兩個特徵值皆為一，$J^k e_2=(k,1)^\top$ 仍會增長。$I^k=I$ 則維持有界。對連續時間系統 $\dot{x}=Ax$，所有軌跡衰減的條件是全部特徵值的實部嚴格小於零。[^dynamics]
 
 ### 動態範例：冪迭代逐步靠近主特徵向量
 
@@ -59,14 +75,14 @@ A = Q\Lambda Q^\top, \qquad \Lambda = \operatorname{diag}(\lambda_1, \dots, \lam
 
 [GitHub 可讀的特徵方向靜態預覽](../../../assets/concept-animations/eigen-linear-map-still.svg)
 
-考慮**人工合成的對稱矩陣** \(A=Q\operatorname{diag}(3,1)Q^\top\)，其中 \(Q=R(35^\circ)\)。對正交特徵向量 \(\mathbf q_1,\mathbf q_2\)，
+考慮**人工合成的對稱矩陣** $A=Q\operatorname{diag}(3,1)Q^\top$，其中 $Q=R(35^\circ)$。對正交特徵向量 $\mathbf q_1,\mathbf q_2$，
 
-\[
+$$
 \mathbf x(\theta)=\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2,\qquad
 A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
-\]
+$$
 
-輸入端點沿圓周移動，輸出端點則描繪橢圓。\(\theta=0\) 時，\(\mathbf q_1\) 分量放大三倍；\(\theta=90^\circ\) 時，\(\mathbf q_2\) 分量保持不變。一般方向的輸入與輸出不一定共線。**左右圖面採不同繪圖尺度**，應比較各圖內的形狀與方向，而非跨圖箭頭的絕對長度。角度掃描只是幾何示範，**不是迭代求解或模型訓練**。原創圖，**CC BY-SA 4.0**。
+輸入端點沿圓周移動，輸出端點則描繪橢圓。$\theta=0$ 時，$\mathbf q_1$ 分量放大三倍；$\theta=90^\circ$ 時，$\mathbf q_2$ 分量保持不變。一般方向的輸入與輸出不一定共線。**左右圖面採不同繪圖尺度**，應比較各圖內的形狀與方向，而非跨圖箭頭的絕對長度。角度掃描只是幾何示範，**不是迭代求解或模型訓練**。原創圖，**CC BY-SA 4.0**。
 
 ### 動態反例：實數旋轉矩陣未必有實特徵向量
 
@@ -76,7 +92,7 @@ A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
 
 [GitHub 可讀的旋轉軌跡靜態預覽](../../../assets/concept-animations/eigen-rotation-no-real-still.svg)
 
-旋轉矩陣 \(R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}\) 將每個非零**實向量**映射到與原向量正交的方向。橘色箭頭代表 \(\mathbf x_{k-1}\)，青綠色箭頭代表 \(\mathbf x_k=R\mathbf x_{k-1}\)；右側標記顯示模 4 的離散迭代狀態。四次矩陣乘法後，\(R^4\mathbf x_0=\mathbf x_0\)。因為對任意實向量皆有 \(\mathbf x^\top R\mathbf x=0\)，而 \(R\) 可逆，因此不存在非零**實**特徵向量。其特徵值 \(\pm i\) 位於**複數域**，與要求矩陣**對稱**的譜定理不矛盾。兩個離散轉向之間的平滑畫面僅為*視覺插值*，**不代表額外的矩陣乘法**。原創圖，**CC BY-SA 4.0**。
+旋轉矩陣 $R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}$ 將每個非零**實向量**映射到與原向量正交的方向。橘色箭頭代表 $\mathbf x_{k-1}$，青綠色箭頭代表 $\mathbf x_k=R\mathbf x_{k-1}$；右側標記顯示模 4 的離散迭代狀態。四次矩陣乘法後，$R^4\mathbf x_0=\mathbf x_0$。因為對任意實向量皆有 $\mathbf x^\top R\mathbf x=0$，而 $R$ 可逆，因此不存在非零**實**特徵向量。其特徵值 $\pm i$ 位於**複數域**，與要求矩陣**對稱**的譜定理不矛盾。兩個離散轉向之間的平滑畫面僅為*視覺插值*，**不代表額外的矩陣乘法**。原創圖，**CC BY-SA 4.0**。
 
 兩組範例皆可在 MkDocs 使用**播放／暫停**控制；GitHub 直接顯示靜態 SVG。偏好減少動態時播放器預設暫停。手機可將焦點移到圖面區域，利用方向鍵水平捲動。
 
@@ -109,7 +125,7 @@ A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
   <img data-source-asset-urls data-still-src="../../../assets/concept-animations/power-iteration-projection-contraction-still.svg" src="../../../assets/concept-animations/power-iteration-projection-contraction-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-projection-contraction-motion.svg" alt="冪迭代將單位向量逐次轉向主特徵向量；右側長條同步呈現主方向投影增加、正交方向投影下降。" style="display:block;width:640px;min-width:640px;height:auto">
 </div>
 
-*原創幾何教學動畫，CC BY-SA 4.0。* 此例使用二維對稱矩陣 \(A=Q\operatorname{diag}(1.60,0.45)Q^\top\)，其中主特徵向量與水平軸夾角為 28 度，並反覆計算 \(v_{k+1}=Av_k/\|Av_k\|_2\)。初始方向為 -44 度時，\(|q_1^\top v_k|\) 從約 0.309 上升至第三次迭代後約 0.998，正交方向投影則逐漸降低。離散迭代點之間的動態僅為視覺插值，**不是連續時間演算法，也不是模型實測軌跡**；動畫反向返回起點只是循環示範，並非冪迭代具有反向步驟。要收斂至唯一主方向，通常需要適當的特徵值絕對值間隔，以及初始向量在該方向有非零投影。Wiki 網站支援播放／暫停與鍵盤操作；GitHub 顯示靜態回退畫面。數值方法的依據見本頁參考文獻。
+*原創幾何教學動畫，CC BY-SA 4.0。* 此例使用二維對稱矩陣 $A=Q\operatorname{diag}(1.60,0.45)Q^\top$，其中主特徵向量與水平軸夾角為 28 度，並反覆計算 $v_{k+1}=Av_k/\|Av_k\|_2$。初始方向為 -44 度時，$|q_1^\top v_k|$ 從約 0.309 上升至第三次迭代後約 0.998，正交方向投影則逐漸降低。離散迭代點之間的動態僅為視覺插值，**不是連續時間演算法，也不是模型實測軌跡**；動畫反向返回起點只是循環示範，並非冪迭代具有反向步驟。要收斂至唯一主方向，通常需要適當的特徵值絕對值間隔，以及初始向量在該方向有非零投影。Wiki 網站支援播放／暫停與鍵盤操作；GitHub 顯示靜態回退畫面。數值方法的依據見本頁參考文獻。
 
 ## 主要方法
 
@@ -128,13 +144,18 @@ A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
 ## 應用
 
 - **主成分分析**：資料集的主成分即其共變異數矩陣的特徵向量（Bishop, 2006 涵蓋 PCA）。
-- **曲率與條件數**：海森矩陣最大與最小特徵值之比，說明一個二次目標用梯度下降解有多困難（Boyd & Vandenberghe, 2004）。
-- **穩定性分析**：線性動力系統會衰減或增長，取決於其矩陣的特徵值。
+- **曲率與條件數**：對具有實對稱正定海森矩陣 $H$ 的二次目標函數，歐氏條件數為 $\kappa_2(H)=\lambda_{\max}(H)/\lambda_{\min}(H)$，此比率會影響梯度下降的收斂界限。不定海森矩陣也描述負曲率方向，而奇異海森矩陣的條件數，依通常慣例定為無限大。[^curvature]
+- **穩定性分析**：離散時間迭代與連續時間動力系統使用不同的特徵值條件，見上文說明。[^dynamics]
 
 ## 開放問題
 
 - 對非常大的矩陣（例如大型網路的海森矩陣）計算特徵值分解成本高昂，實用方法依賴近似，而其精確度難以保證。
 - 非對稱矩陣的特徵值可能為複數或病態，因此其特徵值分解比對稱矩陣可靠度低。
+
+[^spectral]: MIT OpenCourseWare（2011）〈Symmetric matrices and positive definiteness〉說明正交特徵基底。Boyd 與 Vandenberghe（2004）附錄 A.5.2 給出對稱譜分解。
+[^diagonalization]: MIT OpenCourseWare（2011）〈Diagonalization and powers of A〉說明特徵基底與重複特徵值的條件。
+[^curvature]: Boyd 與 Vandenberghe（2004）附錄 A.4.3 與第 9.3 節說明二階近似與正定二次問題的條件數。
+[^dynamics]: Boyd（2008）EE263 的〈Eigenvectors and diagonalization〉與〈Jordan canonical form〉講義說明離散、連續時間穩定性，以及 Jordan 區塊的冪次。
 
 ## 參考文獻
 
@@ -151,6 +172,10 @@ A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
 ### 講義
 
 - Strang, G., *18.06 Linear Algebra*, MIT. https://web.mit.edu/18.06/www/ — 課程講次包含特徵值與特徵向量，之後是對角化。
+
+- MIT OpenCourseWare (2011). *Symmetric matrices and positive definiteness*. 18.06SC Linear Algebra. https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/804ab1e53134741d2044d241b50a285e_MIT18_06SCF11_Ses3.1sum.pdf — 說明實對稱矩陣如何選取標準正交特徵基底。
+- MIT OpenCourseWare (2011). *Diagonalization and powers of A*. 18.06SC Linear Algebra. https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/d05795355f5cbe35356a4a1b39658336_MIT18_06SCF11_Ses2.9sum.pdf — 說明線性獨立特徵向量、重複特徵值與矩陣冪次。
+- Boyd, S. (2008). *Introduction to Linear Dynamical Systems*. EE263, Stanford University. https://ee263.stanford.edu/archive/ — 課程講義包含特徵值、對角化、Jordan 結構與穩定性條件。
 
 ### 文章與文件
 
