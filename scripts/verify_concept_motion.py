@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
+    'dynamo-graph-break-resume': 'engineering/frameworks/compilers-and-kernels/torch-compile',
     "tpu-systolic-wavefront": "engineering/hardware/accelerators/tpu/index",
     "analog-crossbar-current-sum": "engineering/hardware/in-memory-computing/index",
     "interconnect-ring-reduction": "engineering/hardware/interconnects/index",
@@ -490,6 +492,9 @@ TOPICS = {
 CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
  'ece-bin-merging': '0 0 640 360',
+ 'dnn-output-stationary-traffic': '0 0 640 360',
+ 'dynamo-shape-guard-cache': '0 0 640 360',
+ 'dynamo-graph-break-resume': '0 0 640 360',
  'interconnect-ring-reduction': '0 0 360 300',
  'interconnect-bucket-overlap': '0 0 360 300',
  'dnn-output-stationary-traffic': '0 0 640 360',
@@ -1465,7 +1470,7 @@ def main() -> int:
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
                     errors.append(f"{page}: missing independent static preview for {stem}")
-            elif stem in {"kernel-fusion-intermediate-traffic", "triton-tail-mask"}:
+            elif stem in {"dynamo-shape-guard-cache", "dynamo-graph-break-resume", "kernel-fusion-intermediate-traffic", "triton-tail-mask"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
