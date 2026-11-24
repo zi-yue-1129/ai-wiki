@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "kernel-fusion-intermediate-traffic": {
+      "origins": [
+        {
+          "origin_blob": "5eef9901d0281b2e491b85c0bf454231f1535bd7",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-motion.svg"
+        },
+        {
+          "origin_blob": "b6cae036ffab182d60a635a5fe75bf11df7a4f27",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "triton-tail-mask": {
+      "origins": [
+        {
+          "origin_blob": "93f9c51b2dc0c8609c0db30dd491dee0edb5b488",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/triton-tail-mask-motion.svg"
+        },
+        {
+          "origin_blob": "ede6e22bd208e676197877b8fc86e9c4f57feb9e",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/triton-tail-mask-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "3d-unet-context-tiling": {
       "origins": [
         {

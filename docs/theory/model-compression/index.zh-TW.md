@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-20
 ---
 
 # 模型壓縮
@@ -44,6 +44,15 @@ translation_reviewed: 2026-10-28
 
 有些模型從一開始就設計成小型。MobileNet 以深度可分離卷積取代標準卷積。多查詢與分組查詢注意力讓多個注意力頭共享鍵與值，以縮小 [KV 快取](../../theory/models/transformer/kv-cache/index.zh-TW.md)。專家混合層保持總參數量龐大，但每個 token 只啟用少數專家。這些屬於架構選擇，因此放在[模型](../models/index.zh-TW.md)下的各個架構家族中。
 
+## 關鍵方法
+
+以下四個代表性方法分別對應各個家族，以及結合它們的流程，顯示這個領域建立在哪些基礎上。每個方法都連結到自己的頁面。
+
+- [同時學習權重與連接（Han 等人，2015）](pruning/learning-weights-and-connections/index.zh-TW.md)：剪除權重較小的連接並重新訓練網路，是迭代式量值剪枝的早期例子。
+- [GPTQ（Frantar 等人，2022）](quantisation/post-training/gptq/index.zh-TW.md)：訓練後的權重量化，逐欄量化權重，並調整尚未量化的欄位以補償捨入誤差，只需要一小批校準資料。
+- [蒸餾知識（Hinton 等人，2015）](knowledge-distillation/response-based/hinton-distillation/index.zh-TW.md)：以大型教師模型的軟輸出訓練小型學生模型。
+- [深度壓縮（Han 等人，2016）](deep-compression/index.zh-TW.md)：把剪枝、碼本量化與霍夫曼編碼串在同一條流程中，是結合多種壓縮方法的標準範例。
+
 ## 組合式流程
 
 方法常常會組合在同一條流程中。[深度壓縮](deep-compression/index.zh-TW.md)串接了剪枝、碼本量化與霍夫曼編碼，其頁面說明各階段、儲存空間的結果與其限制。
@@ -73,6 +82,7 @@ translation_reviewed: 2026-10-28
 ### 開創性論文
 
 - Han, S., Mao, H., Dally, W. J. (2016). *Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding*. ICLR. https://arxiv.org/abs/1510.00149 — 結合剪枝、碼本量化與霍夫曼編碼，報告儲存空間減少 35 至 49 倍。
+- Han, S., Pool, J., Tran, J., Dally, W. J. (2015). *Learning both Weights and Connections for Efficient Neural Networks*. arXiv:1506.02626. https://arxiv.org/abs/1506.02626 — 剪除低量值連接並重新訓練，即剪枝一節所依據的迭代剪枝方法。
 - Hinton, G., Vinyals, O., Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — 提出以大模型的軟輸出訓練小模型。
 - Jacob, B., 等人 (2017). *Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference*. arXiv:1712.05877. https://arxiv.org/abs/1712.05877 — 量化感知訓練與純整數推論，是許多部署流程的基礎。
 
@@ -88,5 +98,6 @@ translation_reviewed: 2026-10-28
 
 ### 文章與文件
 
+- Frantar, E., Ashkboos, S., Hoefler, T., Alistarh, D. (2022). *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*. arXiv:2210.17323. https://arxiv.org/abs/2210.17323 — 大型語言模型的逐層一次性權重量化，並以二階誤差補償。
 - Gale, T., Elsen, E., Hooker, S. (2019). *The State of Sparsity in Deep Neural Networks*. arXiv:1902.09574. https://arxiv.org/abs/1902.09574 — 顯示在大型任務上，簡單的量值剪枝與更複雜的稀疏方法相當或更好。
 - Dettmers, T., 等人 (2022). *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*. NeurIPS. https://arxiv.org/abs/2208.07339 — 大型語言模型的混合精度 8 位元推論，詳見量化頁。
