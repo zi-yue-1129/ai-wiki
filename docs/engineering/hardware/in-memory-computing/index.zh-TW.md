@@ -28,6 +28,14 @@ I_j = \sum_i V_i \, G_{ij}
 
 訓練比推論困難。更新一個權重，意味著要重新程式化一個元件，這可能很慢、可能磨損元件，而且電導變化的幅度也未必正好是所需的量。Ambrogio 等人採用混合的軟硬體方法，在類比記憶體上進行權重更新，同時保有軟體訓練的準確度。
 
+### 動畫解說：交叉陣列的電流加總
+
+<img data-source-asset-urls src="../../../assets/concept-animations/analog-crossbar-current-sum-still.svg" data-motion-src="../../../assets/concept-animations/analog-crossbar-current-sum-motion.svg" data-still-src="../../../assets/concept-animations/analog-crossbar-current-sum-still.svg" width="360" height="300" style="display:block;width:100%;max-width:540px;height:auto" alt="兩列輸入電壓驅動四個固定電導；支路電流同步改變，兩個欄電流各自為對應支路的總和。">
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態預覽](../../../assets/concept-animations/analog-crossbar-current-sum-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/analog-crossbar-current-sum-motion.svg)。網站提供可用鍵盤操作的播放／暫停；暫停會回到代表性靜態圖，減少動態效果偏好預設顯示靜態圖。
+
+理想化的示意交叉陣列中，兩列電導分別為 $(2,1)$ 與 $(3,4)$，單位為 $\mu\mathrm{S}$。固定第二列輸入為 $2\,\mathrm{V}$，將第一列電壓依序調整為 0、1、2、3、4 V 後再降回。每一組輸入下，藍綠色列導線表示施加的電壓，紫色元件表示固定電導，橘色數值表示支路電流 $V_iG_{ij}$，單位為 $\mu\mathrm{A}$。隨支路電流加總，欄導線會變粗。例如輸入為 $(2,2)$ 時，欄電流為 $(4+6,2+8)=(10,10)\,\mu\mathrm{A}$；輸入為 $(4,2)$ 時則為 $(14,12)\,\mu\mathrm{A}$。每組輸入下，兩列同時導通；動畫改變的是輸入，不是乘加順序。元件以外相交的列與欄導線並未電氣連接。此僅含正電導的理想電路假設欄端維持參考電位，忽略導線電阻、轉換器限制與元件變異；數值為示意，並非實測或建議工作電壓（參見 Wan 等人，2022）。
+
 ## 結果
 
 Ambrogio 等人（2018）報告，在類比記憶體上訓練神經網路，在 MNIST、MNIST-backrand、CIFAR-10 與 CIFAR-100 上，能達到與軟體訓練相當的泛化準確度。他們的效率與吞吐量數字，是作者針對其實作所做的計算，並非實測結果；作者表示這些數字比當時的 GPU 高出兩個數量級。
