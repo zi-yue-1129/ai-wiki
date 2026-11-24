@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "tpu-systolic-wavefront": "engineering/hardware/accelerators/tpu/index",
+    "analog-crossbar-current-sum": "engineering/hardware/in-memory-computing/index",
     'alibi-content-recency': 'theory/models/transformer/positional-encodings/index',
     'alibi-distance-softmax': 'theory/models/transformer/positional-encodings/index',
     'alibi-head-prefix': 'theory/models/transformer/positional-encodings/index',
@@ -804,6 +806,8 @@ CANONICAL_VIEWBOXES = {'3d-unet-context-tiling': '0 0 800 420',
  'roc-tie-half-credit': '0 0 640 360',
  'roi-align-sampling': '0 0 800 460',
  'roofline-ridge-sweep': '0 0 640 360',
+ 'tpu-systolic-wavefront': '0 0 360 300',
+ 'analog-crossbar-current-sum': '0 0 360 300',
  'rope-axial-2d': '0 0 640 360',
  'rope-cache-reindex': '0 0 640 360',
  'rope-frequency-bands': '0 0 640 360',
@@ -1288,6 +1292,11 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"tpu-systolic-wavefront", "analog-crossbar-current-sum"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing GitHub-readable static preview for {stem}")
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
                 match = re.search(r'<img\s+data-source-asset-urls\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
