@@ -51,6 +51,8 @@ The section has five pages, each covering one part of the work. Each compares a 
 - [Toolformer](toolformer.md): tool calls learned from the model's own text.
 - [Voyager](voyager.md): an agent that builds a library of executable skills while exploring Minecraft.
 - [SWE-agent](swe-agent.md): an agent-computer interface for resolving software issues.
+- [AutoGen](autogen.md): a framework in which agents hold conversations, with people and tools as optional participants.
+- [MetaGPT](metagpt.md): software-company roles that pass defined documents along a pipeline.
 
 ## Execution contracts and state transitions
 

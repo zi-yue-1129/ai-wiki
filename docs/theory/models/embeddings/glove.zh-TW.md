@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-18
+translation_reviewed: 2026-11-23
 ---
 
 # GloVe
@@ -12,7 +12,9 @@ Pennington、Socher 與 Manning（2014）指出，潛在語義分析等計數方
 
 ## 核心概念
 
-令 \(X_{ij}\) 為詞 \(j\) 出現在詞 \(i\) 上下文的次數。模型為詞與上下文分別學習 \(w_i\)、\(\widetilde w_j\) 及偏置，使內積加偏置近似 \(\log X_{ij}\)。加權則降低稀少詞對的影響，並避免極高頻詞對持續取得更大權重。
+令 $X_{ij}$ 為詞 $i$ 與上下文詞 $j$ 累積的共現計數。模型分別學習詞向量 $w_i$、上下文向量 $\widetilde w_j$ 及各自的偏置，使內積加偏置近似 $\log X_{ij}$。[^objective]
+
+加權發生在兩個不同階段。建立 $X$ 時，論文讓相隔 $d$ 個詞元位置的詞對貢獻 $1/d$，所以計數可以是分數。例如，同一詞對的兩次出現分別相隔 2 與 3 個位置，若都在上下文視窗內，累積貢獻就是 $1/2+1/3=5/6$。先將語料彙整成這些計數，再進行擬合。損失則另外使用 $f(X_{ij})$，為每個已觀察詞對的迴歸誤差加權。[^counts]
 
 模型由共現矩陣出發，卻使用可最佳化的迴歸目標。作者指出，計數與預測兩類方法都利用同一種共現資訊，並非完全對立。
 
@@ -20,19 +22,53 @@ Pennington、Socher 與 Manning（2014）指出，潛在語義分析等計數方
 
 對觀察過的詞與上下文配對，最小化加權平方誤差：
 
-\[
+$$
 J=\sum_{i,j:X_{ij}>0}f(X_{ij})\left(w_i^\top\widetilde w_j+b_i+\widetilde b_j-\log X_{ij}\right)^2.
-\]
+$$
 
-僅對正計數求和，避免計算 \(\log 0\)。權重為
+僅對正計數求和，避免計算 $\log 0$。零項不產生迴歸損失，也不要求內積等於零。模型不需要把目標換成 $\log(1+X_{ij})$。介於零與一之間的正計數，其對數值為負，仍是有效目標。[^objective]
 
-\[
+權重為
+
+$$
 f(x)=\begin{cases}(x/x_{\max})^\alpha,&0<x<x_{\max},\\1,&x\ge x_{\max}.\end{cases}
-\]
+$$
 
-論文設定 \(x_{\max}=100\)、\(\alpha=3/4\)。權重隨計數增加，直到封頂為 1；不是高頻越高、權重越低。作者發現截止值影響較小，\(\alpha=3/4\) 相較線性權重 \(\alpha=1\) 有適度改善。
+論文設定 $x_{\max}=100$、$\alpha=3/4$。權重隨計數增加，直到封頂為 1；不是高頻越高、權重越低。作者發現截止值影響較小，$\alpha=3/4$ 相較線性權重 $\alpha=1$ 有適度改善。[^objective]
+
+### 如何閱讀加權殘差
+
+使用前述設定，下列建構的計數會得到這些目標與權重，四捨五入至小數點後四位。
+
+| 正計數 $x$ | 迴歸目標 $\log x$ | 權重 $f(x)$ |
+|---|---|---|
+| 0.5 | -0.6931 | 0.0188 |
+| 1 | 0.0000 | 0.0316 |
+| 16 | 2.7726 | 0.2530 |
+| 100 | 4.6052 | 1.0000 |
+| 400 | 5.9915 | 1.0000 |
+
+若擬合值 $w_i^\top\widetilde w_j+b_i+\widetilde b_j$ 比目標大一，該詞對對上述目標函數的貢獻恰為 $f(x)$。因此，$x=1$ 即使對應零目標，仍然是訓練樣本。截止值封頂的是**權重**，對數目標在計數超過 100 後仍持續增加。這些是直接計算的說明例子，不是已訓練模型的實測誤差。
 
 先掃描語料建立共現矩陣，再對非零項迭代最佳化；因此每輪成本依賴實際觀察到的詞對數，而非必須遍歷完整矩陣。
+
+## 使用學得的向量
+
+訓練維護兩組向量表與兩組偏置表。用作下游詞表示時，論文將同一詞彙項目的詞向量與上下文向量相加。[^vectors]
+
+$$
+e_i=w_i+\widetilde w_i.
+$$
+
+所引用的參考實作在預設的文字輸出模式 `-model 2` 中，輸出不含偏置的向量和。文字模式 `-model 1` 只輸出詞向量，`-model 0` 則輸出兩組向量與偏置。把一行的所有數值視為 $e_i$ 的座標前，應先確認輸出模式。[^implementation]
+
+對非零的輸出向量，常見比較方式是餘弦相似度，
+
+$$
+\operatorname{cos}(e_i,e_j)=\frac{e_i^\top e_j}{\lVert e_i\rVert_2\lVert e_j\rVert_2}.
+$$
+
+此比較使用兩個輸出的詞表示。迴歸擬合的是帶有偏置的詞與上下文內積，因此不能把輸出向量間的餘弦值直接解讀為擬合的對數計數。
 
 ## 結果
 
@@ -49,11 +85,16 @@ f(x)=\begin{cases}(x/x_{\max})^\alpha,&0<x<x_{\max},\\1,&x\ge x_{\max}.\end{case
 
 ## 限制
 
-- **經驗性權重**：\(\alpha=3/4\) 的選擇主要由實驗支持。
+- **經驗性權重**：$\alpha=3/4$ 的選擇主要由實驗支持。
 - **比較依賴設定**：兩類模型有多種超參數；作者承認需要更完整的分析。
 - **語料組成影響**：語義準確率未隨語料量單調上升；作者認為 Gigaword 的固定新聞來源與過時事實可能是原因之一。
 - **最壞成本**：非零詞對數最壞可與詞彙量平方同階；更緊的估計依賴共現計數的冪律假設。
 - **靜態向量**：不同詞義仍共用同一向量。
+
+[^objective]: Pennington、Socher 與 Manning（2014）第 3 節，式（8）、（9）。前文將對數內加一的做法列為另一個基準；提出的損失只對已觀察的共現項加權。
+[^counts]: Pennington、Socher 與 Manning（2014）第 4.2 節，說明建立計數時採用反距離貢獻；此步驟與迴歸權重函數不同。
+[^vectors]: Pennington、Socher 與 Manning（2014）第 4.2 節，說明兩組向量與用於評估的向量和。
+[^implementation]: Stanford NLP Group，提交 `52f7dbc` 的 `src/glove.c`，見下方連結的 `save_params` 與 `-model` 選項。此處輸出模式的敘述適用於文字輸出。
 
 ## 參考資料
 
@@ -70,3 +111,4 @@ f(x)=\begin{cases}(x/x_{\max})^\alpha,&0<x<x_{\max},\\1,&x\ge x_{\max}.\end{case
 
 - Mikolov, T., Sutskever, I., Chen, K., Corrado, G. & Dean, J. (2013). *Distributed Representations of Words and Phrases and their Compositionality*. arXiv. https://arxiv.org/abs/1310.4546 — 說明常用於比較的負採樣詞向量方法。
 - Goldberg, Y. & Levy, O. (2014). *word2vec Explained: deriving Mikolov et al.'s negative-sampling word-embedding method*. arXiv. https://arxiv.org/abs/1402.3722 — 解釋 word2vec 負採樣目標。
+- Stanford NLP Group. *GloVe reference implementation, src/glove.c*. https://github.com/stanfordnlp/GloVe/blob/52f7dbc512be3f72e9c11e7cbb19dfdfa4651e9c/src/glove.c — 訓練殘差與文字輸出模式展示模型學習及輸出的向量與偏置。
