@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="250" viewBox="0 0 360 250" role="img" aria-labelledby="title desc">
+<title id="title">Memory cap and checkpoint replay, five schematic configurations</title>
+<desc id="desc">At a peak activation budget of ten slots, s=2 has the least total rebuilt activations, eight. s=4 is also feasible with twelve rebuilds, while s=8 has fourteen. s=1 and s=16 exceed the ten-slot budget. Counts are invented for a uniform sixteen-layer chain, not hardware measurements.</desc>
+<rect width="360" height="250" rx="12" fill="#f8fafb"/>
+<text x="20" y="26" fill="#243b4d" font-family="Arial,sans-serif" font-weight="700" font-size="14">MEMORY CAP = 10</text>
+<text x="336" y="25" text-anchor="end" fill="#526b7b" font-family="Arial,sans-serif" font-size="10">16 LAYERS · SCHEMATIC</text>
+<rect x="116" y="40" width="188" height="155" fill="#fae5e5" opacity=".5"/>
+<path d="M 54 42 V 195 H 314" fill="none" stroke="#8298a8" stroke-width="1.5"/>
+<path d="M 116 40 V 195" fill="none" stroke="#9a5aad" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M 284 190 L 116 116 L 68 79" fill="none" stroke="#0e8082" stroke-width="2.5" stroke-dasharray="5 4"/>
+<text x="117" y="38" text-anchor="middle" fill="#7d418e" font-family="Arial,sans-serif" font-size="10">CAP</text>
+<text x="183" y="227" text-anchor="middle" fill="#425a6b" font-family="Arial,sans-serif" font-size="12" font-weight="600">PEAK SLOTS →</text>
+<text x="26" y="123" transform="rotate(-90 26 123)" text-anchor="middle" fill="#425a6b" font-family="Arial,sans-serif" font-size="11" font-weight="600">REBUILT ↑</text>
+<text x="68" y="208" fill="#607789" font-family="Arial,sans-serif" font-size="9" text-anchor="middle">8</text>
+<text x="116" y="208" fill="#607789" font-family="Arial,sans-serif" font-size="9" text-anchor="middle">10</text>
+<text x="284" y="208" fill="#607789" font-family="Arial,sans-serif" font-size="9" text-anchor="middle">17</text>
+<circle cx="284" cy="190" r="8.5" fill="#fff" stroke="#9c6570" stroke-width="2" stroke-dasharray="2 2"/>
+<circle cx="284" cy="51" r="8.5" fill="#fff" stroke="#9c6570" stroke-width="2" stroke-dasharray="2 2"/>
+<circle cx="116" cy="60.5" r="8.5" fill="#eef9f8" stroke="#007e82" stroke-width="2" stroke-dasharray="2 2"/>
+<circle cx="68" cy="79" r="8.5" fill="#cfece7" stroke="#007e82" stroke-width="2"/>
+<circle cx="116" cy="116" r="11.5" fill="none" stroke="#7d418e" stroke-width="3"/>
+<circle cx="116" cy="116" r="8" fill="#d7f7eb" stroke="#007e82" stroke-width="2"/>
+<text x="129" y="125" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="#4e3866">s=2</text>
+<text x="57" y="65" text-anchor="end" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#2e6062">s=4</text>
+<text x="129" y="55" font-family="Arial,sans-serif" font-size="11" fill="#526d76">s=8</text>
+<text x="269" y="176" text-anchor="end" font-family="Arial,sans-serif" font-size="11" fill="#805c68">s=1</text>
+<text x="269" y="47" text-anchor="end" font-family="Arial,sans-serif" font-size="11" fill="#805c68">s=16</text>
+<text x="180" y="242" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#596d77">BEST FEASIBLE: s=2 · 8 REBUILT</text>
+</svg>
