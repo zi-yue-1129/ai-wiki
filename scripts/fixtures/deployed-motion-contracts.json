@@ -9171,6 +9171,26 @@
     }
   },
   "extra": {
+    "fp8-rounding-grid-motion.svg": {
+      "origin_blob": "6b528dde97391063fce64a939c932ca810312b9d",
+      "origin_commit": "3c5cc63524becfa35b09977abb7ee67ae751a5ea",
+      "viewBox": "0 0 360 254"
+    },
+    "fp8-rounding-grid-still.svg": {
+      "origin_blob": "bac088829001ef76372d955cdd5a98510c6abe60",
+      "origin_commit": "3c5cc63524becfa35b09977abb7ee67ae751a5ea",
+      "viewBox": "0 0 360 254"
+    },
+    "fp8-delayed-amax-motion.svg": {
+      "origin_blob": "80585ad097cb3991178f03febf32d02841547e57",
+      "origin_commit": "3c5cc63524becfa35b09977abb7ee67ae751a5ea",
+      "viewBox": "0 0 360 254"
+    },
+    "fp8-delayed-amax-still.svg": {
+      "origin_blob": "edf902a86bbcde56d271b79794732eba1c7829c2",
+      "origin_commit": "3c5cc63524becfa35b09977abb7ee67ae751a5ea",
+      "viewBox": "0 0 360 254"
+    },
     "brier-expected-risk-motion.svg": {
       "origin_blob": "ada28d26cbf07b85cfc3fbe0d5535b6b6e05e5a9",
       "origin_commit": "07ac637904c787a32fe192fdfec01bd80598ea89",

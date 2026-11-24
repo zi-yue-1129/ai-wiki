@@ -15,7 +15,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 437 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 437 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -126,6 +126,112 @@ class ScopedCanvas(unittest.TestCase):
                     self.assertEqual(v.verify_svg(path, kind == 'motion'), [])
                     root.set('viewBox', '0 0 1 1'); path.write_bytes(ET.tostring(root))
                     self.assertTrue(any('viewBox' in e for e in v.verify_svg(path, kind == 'motion')))
+
+
+    def assert_fp8_track(self, motion, still, tag, selector, attr, expected, duration):
+        """Check actual SMIL values and the representative third-state fallback."""
+        def select(root):
+            matches = [node for node in root.iter(v.NS + tag)
+                       if all(node.get(key) == value for key, value in selector.items())]
+            self.assertEqual(len(matches), 1, (tag, selector))
+            return matches[0]
+
+        node = select(motion)
+        tracks = [a for a in node.findall(v.NS + 'animate') if a.get('attributeName') == attr]
+        self.assertEqual(len(tracks), 1, (selector, attr))
+        track = tracks[0]
+        self.assertEqual((track.get('dur'), track.get('calcMode'), track.get('repeatCount')),
+                         (duration, 'discrete', 'indefinite'))
+        self.assertIsNone(track.get('keyTimes'), 'These examples use equally spaced states')
+        self.assertEqual([float(x) for x in track.get('values').split(';')], expected)
+        self.assertEqual(float(select(still).get(attr)), expected[2])
+
+    def test_fp8_rounding_tracks_follow_nearest_even_on_both_grids(self):
+        stem = 'fp8-rounding-grid'
+        motion, still = [ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+                         for kind in ('motion', 'still')]
+        inputs = [70 + 16 * i for i in range(17)]
+        # i is an exact sixteenth; stride is the FP8 grid in sixteenths.
+        # Python round uses ties-to-even and these binary fractions are exact.
+        q4, q5 = [[70 + 16 * stride * round(i / stride) for i in range(17)]
+                  for stride in (2, 4)]
+        for y, expected in [(67, inputs), (131, q4), (195, q5)]:
+            self.assert_fp8_track(motion, still, 'circle', {'cy': str(y)},
+                                  'cx', expected, '8.5s')
+        for y, output in [(117, q4), (181, q5)]:
+            selector = {'y1': str(y), 'y2': str(y), 'stroke': '#ffbd6a'}
+            self.assert_fp8_track(motion, still, 'line', selector, 'x1', inputs, '8.5s')
+            self.assert_fp8_track(motion, still, 'line', selector, 'x2', output, '8.5s')
+        guide = {'y1': '48', 'y2': '207', 'stroke-dasharray': '3 4'}
+        for attr in ('x1', 'x2'):
+            self.assert_fp8_track(motion, still, 'line', guide, attr, inputs, '8.5s')
+        self.assertEqual([max(abs(x - y) for x, y in zip(inputs, q)) / 256
+                          for q in (q4, q5)], [1/16, 1/8])
+
+    def test_fp8_rounding_tie_candidates_follow_exact_midpoints(self):
+        motion, still = [ET.parse(ASSETS / f'fp8-rounding-grid-{kind}.svg').getroot()
+                         for kind in ('motion', 'still')]
+        for stride, y in ((2, 131), (4, 195)):
+            # Samples are exact sixteenths. Only half a grid step is a tie.
+            visible = [int(i % stride == stride // 2) for i in range(17)]
+            for side in (0, 1):
+                selector = {'data-tie-grid': str(stride),
+                            'data-tie-candidate': str(side)}
+                candidates = [70 + 16 * min(16, stride * (i // stride + side)) - 9
+                              for i in range(17)]
+                self.assert_fp8_track(motion, still, 'rect', selector,
+                                      'x', candidates, '8.5s')
+                self.assert_fp8_track(motion, still, 'rect', selector,
+                                      'opacity', visible, '8.5s')
+                for root in (motion, still):
+                    ring = next(n for n in root.iter(v.NS + 'rect')
+                                if all(n.get(k) == val for k, val in selector.items()))
+                    self.assertEqual((ring.get('y'), ring.get('width'), ring.get('height'),
+                                      ring.get('fill'), ring.get('stroke-dasharray')),
+                                     (str(y - 9), '18', '18', 'none', '3 2'))
+            self.assert_fp8_track(motion, still, 'text', {'data-tie-label': str(stride)},
+                                  'opacity', visible, '8.5s')
+
+    def test_fp8_delayed_scaling_tracks_follow_the_previous_two_maxima(self):
+        stem = 'fp8-delayed-amax'
+        motion, still = [ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+                         for kind in ('motion', 'still')]
+        maxima = [1, 1, 4, 1, 1, 1]
+        history = [1, 1] + maxima
+        limits = [max(history[i:i+2]) for i in range(len(maxima))]
+        self.assertEqual(limits, [1, 1, 1, 4, 4, 1])
+        tracks = [
+            ('rect', {'y': '43', 'stroke': '#fff'}, 'x',
+             [58 + 47*i for i in range(len(maxima))]),
+            ('rect', {'y': '129', 'fill': '#45ddc4'}, 'width', [60*a for a in maxima]),
+            ('rect', {'y': '185', 'fill': '#45ddc4'}, 'width',
+             [60*min(a, h) for a, h in zip(maxima, limits)]),
+            ('rect', {'y': '185', 'fill': '#ffbd6a'}, 'width',
+             [60*max(0, a-h) for a, h in zip(maxima, limits)]),
+        ]
+        for y, values in [(123, maxima), (179, limits)]:
+            for attr in ('x1', 'x2'):
+                tracks.append(('line', {'y1': str(y), 'stroke': '#fff'}, attr,
+                               [82+60*a for a in values]))
+        for tag, selector, attr, expected in tracks:
+            self.assert_fp8_track(motion, still, tag, selector, attr, expected, '9s')
+
+        # The purple history underlines must refer to the preceding two samples,
+        # never the white-outlined current step. The first two bars are seeds.
+        centers = [25, 43] + [74 + 47*i for i in range(len(maxima))]
+        for offset in (0, 1):
+            selected = centers[offset:offset+len(maxima)]
+            selector = {'y1': '105', 'y2': '105', 'stroke': '#a993f9',
+                        'x1': str(selected[2] - 6)}
+            for attr, delta in [('x1', -6), ('x2', 6)]:
+                self.assert_fp8_track(motion, still, 'line', selector, attr,
+                                      [x+delta for x in selected], '9s')
+        for root in (motion, still):
+            for center in centers[:2]:
+                seeds = [node for node in root.iter(v.NS + 'rect')
+                         if node.get('x') == str(center-6) and node.get('y') == '71.5']
+                self.assertEqual(len(seeds), 1)
+                self.assertEqual((seeds[0].get('width'), seeds[0].get('height')), ('12', '7.5'))
 
     def test_original_prefix_exclusions_are_not_broadened(self):
         for prefix, excluded in EXPECTED_EXCLUSIONS.items():
