@@ -458,35 +458,35 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
-    "memory-wall-weight-reuse": {
+    "interconnect-ring-reduction": {
       "origins": [
         {
-          "origin_blob": "b9c67de773d87c00b26f2d86624e2006f750e943",
-          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
-          "path": "docs/assets/concept-animations/memory-wall-weight-reuse-motion.svg"
+          "origin_blob": "76ea685ce0ca0d73ac30a2bfbc62585991216d73",
+          "origin_commit": "f30d9f625adb154a5156d544e9e05b7042ed989f",
+          "path": "docs/assets/concept-animations/interconnect-ring-reduction-motion.svg"
         },
         {
-          "origin_blob": "af3d17b025299f6280992a329741c20f35b07ac2",
-          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
-          "path": "docs/assets/concept-animations/memory-wall-weight-reuse-still.svg"
+          "origin_blob": "de516e67e6933135d3e626b728171c7946c52aa2",
+          "origin_commit": "f30d9f625adb154a5156d544e9e05b7042ed989f",
+          "path": "docs/assets/concept-animations/interconnect-ring-reduction-still.svg"
         }
       ],
-      "viewBox": "0 0 360 262"
+      "viewBox": "0 0 360 300"
     },
-    "sparse-index-intersection": {
+    "interconnect-bucket-overlap": {
       "origins": [
         {
-          "origin_blob": "65b7f2f61d80139af7d293901cf19fb9dcb78086",
-          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
-          "path": "docs/assets/concept-animations/sparse-index-intersection-motion.svg"
+          "origin_blob": "42f8266ff6fdd1576ec0f3f7b184b5dcd6ed57cb",
+          "origin_commit": "f30d9f625adb154a5156d544e9e05b7042ed989f",
+          "path": "docs/assets/concept-animations/interconnect-bucket-overlap-motion.svg"
         },
         {
-          "origin_blob": "d33a18550decbadcf99c785900e8800b197a2e35",
-          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
-          "path": "docs/assets/concept-animations/sparse-index-intersection-still.svg"
+          "origin_blob": "ff4ee0e47a57016e5e1ea0a1e6a00b112ee3a828",
+          "origin_commit": "f30d9f625adb154a5156d544e9e05b7042ed989f",
+          "path": "docs/assets/concept-animations/interconnect-bucket-overlap-still.svg"
         }
       ],
-      "viewBox": "0 0 360 254"
+      "viewBox": "0 0 360 300"
     },
     "3d-unet-context-tiling": {
       "origins": [
@@ -3469,6 +3469,36 @@
           "origin_blob": "d9cd12b96574a8fa9152bfd740635fa03a0e2c4b",
           "origin_commit": "15c481b6e404a995701352554969476d4bf66fc8",
           "path": "docs/assets/concept-animations/roc-tie-half-credit-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "memory-tiled-input-reuse": {
+      "origins": [
+        {
+          "origin_blob": "e10dd17b078e0517a7c9a2919c6705422c6b6e21",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-motion.svg"
+        },
+        {
+          "origin_blob": "8cb2336d523f923a3daf40966e4c80a43ea3ca32",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "roofline-hierarchy-bottleneck": {
+      "origins": [
+        {
+          "origin_blob": "46c4b23bbfeb01ca4e6f945053d18b05255844e8",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-motion.svg"
+        },
+        {
+          "origin_blob": "7eeec6c060bb38bce367bbfc95cb07cfbee3fb0c",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
@@ -9109,35 +9139,35 @@
       ],
       "viewBox": "0 0 640 360"
     },
-    "memory-tiled-input-reuse": {
+    "memory-wall-weight-reuse": {
       "origins": [
         {
-          "origin_blob": "e10dd17b078e0517a7c9a2919c6705422c6b6e21",
-          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
-          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-motion.svg"
+          "origin_blob": "b9c67de773d87c00b26f2d86624e2006f750e943",
+          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
+          "path": "docs/assets/concept-animations/memory-wall-weight-reuse-motion.svg"
         },
         {
-          "origin_blob": "8cb2336d523f923a3daf40966e4c80a43ea3ca32",
-          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
-          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-still.svg"
+          "origin_blob": "af3d17b025299f6280992a329741c20f35b07ac2",
+          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
+          "path": "docs/assets/concept-animations/memory-wall-weight-reuse-still.svg"
         }
       ],
-      "viewBox": "0 0 640 360"
+      "viewBox": "0 0 360 262"
     },
-    "roofline-hierarchy-bottleneck": {
+    "sparse-index-intersection": {
       "origins": [
         {
-          "origin_blob": "46c4b23bbfeb01ca4e6f945053d18b05255844e8",
-          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
-          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-motion.svg"
+          "origin_blob": "65b7f2f61d80139af7d293901cf19fb9dcb78086",
+          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
+          "path": "docs/assets/concept-animations/sparse-index-intersection-motion.svg"
         },
         {
-          "origin_blob": "7eeec6c060bb38bce367bbfc95cb07cfbee3fb0c",
-          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
-          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-still.svg"
+          "origin_blob": "d33a18550decbadcf99c785900e8800b197a2e35",
+          "origin_commit": "1f8f21889ad552f6434afb2c88e995c8655a6ba4",
+          "path": "docs/assets/concept-animations/sparse-index-intersection-still.svg"
         }
       ],
-      "viewBox": "0 0 640 360"
+      "viewBox": "0 0 360 254"
     }
   },
   "extra": {

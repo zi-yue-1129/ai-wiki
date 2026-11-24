@@ -21,6 +21,7 @@ class ValidatorPreservation(unittest.TestCase):
             '0 0 360 262': ['memory-wall-weight-reuse'],
             '0 0 360 254': ['sparse-index-intersection'],
         })
+        exceptions['0 0 360 300'] = ['interconnect-ring-reduction', 'interconnect-bucket-overlap']
         expected = {stem: box for box, stems in exceptions.items() for stem in stems}
         with tempfile.TemporaryDirectory() as directory:
             for stem in TOPICS:
@@ -37,7 +38,7 @@ class ValidatorPreservation(unittest.TestCase):
                         self.assertTrue(any("invalid SVG root/viewBox" in e
                                             for e in verify_svg(wrong, animated)))
             # Special families must not accidentally accept a globally legal default size.
-            for stem in ("sac-entropy-temperature", "dpo-preference-margin",
+            for stem in ("interconnect-ring-reduction", "interconnect-bucket-overlap", "sac-entropy-temperature", "dpo-preference-margin",
                          "vivit-factorised-attention", "i3d-filter-inflation",
                          "s4d-diagonal-modes", "mamba2-ssd-causal-map", "forward-ad-dual-chain", "offline-iql-expectile", "offline-cql-conservative", "rainbow-c51-projection", "q-sarsa-epsilon", "nstep-lambda-forward", "rnd-state-novelty", "icm-predictable-stochastic",
                          "memory-wall-weight-reuse", "sparse-index-intersection"):
