@@ -6,7 +6,7 @@ import os
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Thread
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import expect, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs'
@@ -54,9 +54,42 @@ def main():
                         host = page.locator('.concept-motion-player')
                         assert host.count() == 1, stem
                         if reduce:
-                            assert '-still.svg' in host.locator('img').first.get_attribute('src')
-                            assert host.locator('.distributed-motion-controls').count() == 0
-                            assert host.locator('img').first.is_visible()
+                            still = host.locator('img').first
+                            panel = host.locator('.distributed-motion-controls')
+                            obj = host.locator('object.distributed-motion-frame')
+                            expect(still).to_be_visible()
+                            assert still.get_attribute('src').endswith(f'{stem}-still.svg')
+                            expect(panel).to_be_hidden()
+                            expect(obj).to_be_hidden()
+                            assert host.get_by_role('slider').count() == 0
+                            assert host.get_by_role('combobox').count() == 0
+
+                            if stem.startswith('gpipe-'):
+                                # The legacy player has already chosen the still.
+                                # The richer timeline must be present but inactive.
+                                expect(panel).to_have_count(1)
+                                expect(obj).to_have_count(1)
+                                assert panel.evaluate("""panel => {
+                                    const button = panel.querySelector('button');
+                                    button.focus();
+                                    return document.activeElement !== button;
+                                }""")
+                                assert obj.evaluate("""obj => {
+                                    const svg = obj.contentDocument?.documentElement;
+                                    return !svg?.getCurrentTime || svg.animationsPaused();
+                                }""")
+                                page.emulate_media(reduced_motion='no-preference')
+                                expect(panel).to_be_visible()
+                                expect(obj).to_be_visible()
+                                expect(still).to_be_hidden()
+                                assert obj.evaluate('e => e.contentDocument.documentElement.getCurrentTime()') < 0.1
+                                host.get_by_role('button', name='下一步' if zh else 'Step →').press('Space')
+                                assert obj.evaluate('e => e.contentDocument.documentElement.getCurrentTime()') > 0
+                                page.emulate_media(reduced_motion='reduce')
+                                expect(obj).to_be_hidden()
+                                expect(panel).to_be_hidden()
+                                expect(still).to_be_visible()
+                                assert still.get_attribute('src').endswith(f'{stem}-still.svg')
                         else:
                             page.wait_for_function('''() => {
                                 const b=document.querySelector('.distributed-motion-controls');
