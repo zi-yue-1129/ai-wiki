@@ -15,7 +15,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 427 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 429 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -169,6 +169,54 @@ class ScopedCanvas(unittest.TestCase):
             self.assertTrue(any('no animation' in e for e in v.verify_svg(path, True)))
             path.write_text('<svg>')
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
+
+
+class MemoryHierarchyMotion(unittest.TestCase):
+    ns = {'s': 'http://www.w3.org/2000/svg'}
+
+    def states(self, stem, suffix='motion'):
+        root = ET.parse(ASSETS / f'{stem}-{suffix}.svg').getroot()
+        return root.findall('.//s:g[@id]', self.ns)
+
+    def text_at(self, state, x, y):
+        return state.find(f"s:text[@x='{x}'][@y='{y}']", self.ns).text
+
+    def test_tiling_partial_sums_and_read_counts(self):
+        stem = 'memory-tiled-input-reuse'
+        states = self.states(stem)
+        self.assertEqual(len(states), 9)
+        a, b = ((1, 2), (3, 4)), ((5, 6), (7, 8))
+        for m, state in enumerate(states):
+            executed = [(i, j, k) for k in range(2) for i in range(2) for j in range(2)][:m]
+            expected = [[sum(a[i][k] * b[k][j] for ii, jj, k in executed if (ii, jj) == (i, j)) for j in range(2)] for i in range(2)]
+            actual = [[int(self.text_at(state, 477 + 62*j, 114 + 62*i)) for j in range(2)] for i in range(2)]
+            self.assertEqual(actual, expected)
+            self.assertEqual(int(self.text_at(state, 616, 290)), 2*m)
+            self.assertEqual(int(self.text_at(state, 616, 332)), 4*len({k for _, _, k in executed}))
+            for y, count in ((269, 2*m), (311, 4*len({k for _, _, k in executed}))):
+                bars = state.findall(f"s:rect[@x='204'][@y='{y}']", self.ns)
+                self.assertEqual(len(bars), 1 + bool(count))
+                if count:
+                    self.assertEqual(int(bars[-1].get('width')), 23*count-4)
+        self.assertEqual([self.text_at(self.states(stem, 'still')[0], 477 + 62*j, 114 + 62*i) for i in range(2) for j in range(2)], ['19','22','43','50'])
+
+    def test_hierarchy_bound_and_ties(self):
+        stem = 'roofline-hierarchy-bottleneck'
+        states = self.states(stem)
+        self.assertEqual(len(states), 5)
+        for q, state in zip((32, 16, 8, 4, 2), states):
+            caps = [4*32/q, 16*32/32, 32]
+            expected = [*caps, min(caps)]
+            self.assertEqual(self.text_at(state, 616, 34), f'{q} B')
+            self.assertEqual([float(self.text_at(state, 616, 148 + 45*i)) for i in range(4)], expected)
+            for i, value in enumerate(expected):
+                bars = state.findall(f"s:rect[@x='170'][@y='{124+45*i}']", self.ns)
+                self.assertEqual(int(bars[-1].get('width')), round(value*6.25))
+                self.assertEqual(bars[-1].get('stroke') == '#ffbf70', i < 3 and value == min(caps))
+        still = self.states(stem, 'still')[0]
+        self.assertEqual(self.text_at(still, 616, 34), '4 B')
+        self.assertEqual(self.text_at(still, 616, 283), '16')
+
 
 if __name__ == '__main__':
     unittest.main()

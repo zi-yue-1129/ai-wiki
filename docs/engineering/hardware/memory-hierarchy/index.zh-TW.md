@@ -25,6 +25,16 @@ translation_reviewed: 2026-10-28
 
 哪些工作留在快的層級，由軟體決定。把矩陣乘法切成分塊，讓每個分塊在 SRAM 中被重複使用，就是典型的做法。
 
+### 動態解說：矩陣乘法分塊
+
+<img data-source-asset-urls width="640" height="360" style="width:100%;max-width:640px;height:auto;display:block" src="../../../assets/concept-animations/memory-tiled-input-reuse-still.svg" data-motion-src="../../../assets/concept-animations/memory-tiled-input-reuse-motion.svg" data-still-src="../../../assets/concept-animations/memory-tiled-input-reuse-still.svg" alt="八次乘加逐步更新二乘二輸出矩陣。每組紫色的 A 欄與 B 列重複用於四個乘積；計數器比較 HBM 輸入讀取 16 次與 8 次。">
+
+*原創教學動畫，CC BY-SA 4.0。GitHub 顯示[靜態 SVG](../../../assets/concept-animations/memory-tiled-input-reuse-still.svg)；網站提供播放／暫停（暫停時顯示代表性靜態畫面）。* [完整 SVG 動畫](../../../assets/concept-animations/memory-tiled-input-reuse-motion.svg)。
+
+在這個**人工設定、非設備實測**的示例中，$C=AB$，其中 $A=[[1,2],[3,4]]$、$B=[[5,6],[7,8]]$。兩種排程都將四個輸出累加器初始化為零，依 $k$、$i$、$j$ 的順序執行相同的八次乘加（若一次乘加算兩次浮點運算，共 16 FLOPs）。藍綠框標示當前運算元，橘框標示更新的輸出。紫色格子是保留在本地的輸入分塊：每個 $k$ 只讀取一次 $A_{:,k}$ 的兩個元素與 $B_{k,:}$ 的兩個元素，再重複用於外積更新的四個乘積。
+
+刻意不重用輸入的對照排程，每次乘加都從 HBM 讀取兩個輸入，共 16 次；分塊排程每個 $k$ 讀取四個元素，共 8 次，計數器在該 $k$ 的第一次乘加時便計入分塊載入。兩種排程都將輸出累加器保留在本地，最後各寫出四個輸出一次。計數器不含這些相同的輸出寫入與其他流量，結果矩陣均為 $[[19,22],[43,50]]$。本地儲存須能容納分塊與部分和；真實快取行為、較大矩陣及排程開銷都會改變流量與吞吐量，不能據此宣稱兩倍加速（Sze 等人，2017）。
+
 ## 公式或演算法
 
 一個核心的算術強度，是浮點運算數除以它與晶片外記憶體之間搬移的位元組數：
