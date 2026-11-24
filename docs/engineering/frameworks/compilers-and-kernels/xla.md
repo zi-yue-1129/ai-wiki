@@ -110,5 +110,5 @@ The official page describes the system and does not report benchmark results, so
 - OpenXLA. *From HLO to Thunks*. https://openxla.org/xla/hlo_to_thunks — Explains buffer assignment, live ranges and backend lowering.
 - OpenXLA. *HLO Passes*. https://openxla.org/xla/hlo_passes — Explains rematerialization and other HLO optimizations.
 
-[^xla-buffers]: OpenXLA, *From HLO to Thunks*, https://openxla.org/xla/hlo_to_thunks.
-[^xla-remat]: OpenXLA, *HLO Passes*, https://openxla.org/xla/hlo_passes.
+[^xla-buffers]: OpenXLA, *From HLO to Thunks*, https://openxla.org/xla/hlo_to_thunks — Covers GPU scheduling and buffer assignment using value lifetimes.
+[^xla-remat]: OpenXLA, *HLO Passes*, https://openxla.org/xla/hlo_passes — Explains how selective recomputation reduces peak HLO memory use.
