@@ -1,0 +1,225 @@
+name: Upload bounded browser evidence
+description: Upload every verified lossless 100MiB group with an exact-attempt prefix
+inputs:
+  prefix:
+    required: true
+    description: Unique run-attempt producer artifact prefix
+runs:
+  using: composite
+  steps:
+    - name: Upload group 01
+      if: always() && hashFiles('browser-artifact-parts/group-01/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-01
+        path: browser-artifact-parts/group-01/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 02
+      if: always() && hashFiles('browser-artifact-parts/group-02/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-02
+        path: browser-artifact-parts/group-02/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 03
+      if: always() && hashFiles('browser-artifact-parts/group-03/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-03
+        path: browser-artifact-parts/group-03/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 04
+      if: always() && hashFiles('browser-artifact-parts/group-04/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-04
+        path: browser-artifact-parts/group-04/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 05
+      if: always() && hashFiles('browser-artifact-parts/group-05/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-05
+        path: browser-artifact-parts/group-05/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 06
+      if: always() && hashFiles('browser-artifact-parts/group-06/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-06
+        path: browser-artifact-parts/group-06/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 07
+      if: always() && hashFiles('browser-artifact-parts/group-07/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-07
+        path: browser-artifact-parts/group-07/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 08
+      if: always() && hashFiles('browser-artifact-parts/group-08/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-08
+        path: browser-artifact-parts/group-08/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 09
+      if: always() && hashFiles('browser-artifact-parts/group-09/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-09
+        path: browser-artifact-parts/group-09/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 10
+      if: always() && hashFiles('browser-artifact-parts/group-10/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-10
+        path: browser-artifact-parts/group-10/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 11
+      if: always() && hashFiles('browser-artifact-parts/group-11/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-11
+        path: browser-artifact-parts/group-11/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 12
+      if: always() && hashFiles('browser-artifact-parts/group-12/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-12
+        path: browser-artifact-parts/group-12/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 13
+      if: always() && hashFiles('browser-artifact-parts/group-13/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-13
+        path: browser-artifact-parts/group-13/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 14
+      if: always() && hashFiles('browser-artifact-parts/group-14/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-14
+        path: browser-artifact-parts/group-14/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 15
+      if: always() && hashFiles('browser-artifact-parts/group-15/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-15
+        path: browser-artifact-parts/group-15/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 16
+      if: always() && hashFiles('browser-artifact-parts/group-16/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-16
+        path: browser-artifact-parts/group-16/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 17
+      if: always() && hashFiles('browser-artifact-parts/group-17/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-17
+        path: browser-artifact-parts/group-17/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 18
+      if: always() && hashFiles('browser-artifact-parts/group-18/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-18
+        path: browser-artifact-parts/group-18/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 19
+      if: always() && hashFiles('browser-artifact-parts/group-19/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-19
+        path: browser-artifact-parts/group-19/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 20
+      if: always() && hashFiles('browser-artifact-parts/group-20/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-20
+        path: browser-artifact-parts/group-20/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 21
+      if: always() && hashFiles('browser-artifact-parts/group-21/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-21
+        path: browser-artifact-parts/group-21/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 22
+      if: always() && hashFiles('browser-artifact-parts/group-22/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-22
+        path: browser-artifact-parts/group-22/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 23
+      if: always() && hashFiles('browser-artifact-parts/group-23/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-23
+        path: browser-artifact-parts/group-23/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14
+    - name: Upload group 24
+      if: always() && hashFiles('browser-artifact-parts/group-24/**') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.prefix }}-24
+        path: browser-artifact-parts/group-24/
+        if-no-files-found: error
+        include-hidden-files: true
+        retention-days: 14

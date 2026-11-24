@@ -43,11 +43,13 @@ $$
 
 ### 動態示例：先驗與逐次更新的後驗眾數
 
-<img data-source-asset-urls class="concept-motion-wide" tabindex="0"
+<div class="reviewed-motion-scroll" tabindex="0" role="region" aria-label="可水平捲動的概念動畫，使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls class="concept-motion-wide"
      src="../../../assets/concept-animations/map-beta-posterior-still.svg"
      data-motion-src="../../../assets/concept-animations/map-beta-posterior-motion.svg"
      data-still-src="../../../assets/concept-animations/map-beta-posterior-still.svg"
      alt="固定的對稱 Beta 先驗與逐筆更新的後驗密度，在 12 次伯努利觀測加入後改變；紫色 MAP 標記與橘色虛線 MLE 標記供對照。" width="640" height="360">
+</div>
 
 *原創 12 秒教學動畫（CC BY-SA 4.0）。* 此**獨立示意序列**沿用[最大概似動畫](maximum-likelihood.zh-TW.md)的 12 筆觀測，並使用上方兩次成功算例相同的 $\operatorname{Beta}(3,3)$ 先驗。前 $n$ 次試驗有 $s_n$ 次成功時，後驗為 $\operatorname{Beta}(3+s_n,3+n-s_n)$，其內部眾數為 $\hat p_{\mathrm{MAP}}=(s_n+2)/(n+4)$。灰色虛線是先驗，紫色是後驗，橘色虛線標記為 MLE $s_n/n$。**先驗與每個後驗曲線都各自把峰值正規化為 1**，高度不可直接比較機率質量。當 $n=2,s_n=2$ 時，MAP 為 $2/3$、MLE 為 $1$，與上方算例一致；當 $n=12,s_n=8$ 時，MAP 為 $10/16=0.625$，而 MLE 約為 $0.667$。這是**人工構造的觀測資料，並非模型實測結果**。MkDocs 可播放／暫停，並支援減少動態效果的靜態回退；GitHub 顯示[靜態預覽](../../../assets/concept-animations/map-beta-posterior-still.svg)。
 

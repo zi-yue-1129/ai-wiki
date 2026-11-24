@@ -25,6 +25,20 @@ A forecast is a function from a history of observations to a prediction for one 
 
 Evaluation must respect time. A model is trained on the past and tested on a later period, and the test window is usually rolled forward over many origins, so that the result does not depend on one lucky split. Shuffling the data, as is standard in many machine-learning tasks, leaks future information into training and can overstate accuracy.
 
+### Comparing errors across series
+
+MASE scales forecast errors by a seasonal naïve error from the training range, not by a denominator estimated on the test set. For training length $T$, seasonal period $m$ and forecast horizon $H$:
+
+\[
+\begin{gathered}
+d_m=\frac{1}{T-m}\sum_{t=m+1}^{T}|y_t-y_{t-m}|,\\
+\mathrm{MASE}=\frac{1}{H}\sum_{h=1}^{H}
+\frac{|y_{T+h}-\hat y_{T+h|T}|}{d_m}.
+\end{gathered}
+\]
+
+Use $m=1$ for a non-seasonal series. When $d_m=0$, the ratio is undefined, not a zero error. M4 compared 100,000 series and 61 methods, but a competition advantage is not a guarantee for every application. Probabilistic forecasts also require calibration and interval evaluation rather than point errors alone. See [Hyndman and Koehler (2006)](https://doi.org/10.1016/j.ijforecast.2006.03.001), [FPP3](https://otexts.com/fpp3/toolbox.html#scaled-errors) and [Gneiting and Katzfuss (2014)](https://doi.org/10.1146/annurev-statistics-062713-085831).
+
 ## Key concepts
 
 - **Horizon**: how far ahead the model predicts. Multi-horizon forecasts predict several steps at once.

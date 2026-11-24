@@ -11,7 +11,7 @@ tags:
   - positional encoding
   - length generalisation
   - long context
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-16
 ---
 
 # 位置編碼
@@ -37,32 +37,156 @@ translation_reviewed: 2026-10-28
 | 位置內插 | 把位置索引縮放到訓練範圍內，再短暫微調 | Chen et al. (2023), [arXiv:2306.15595](https://arxiv.org/abs/2306.15595) |
 | YaRN | 依頻率的內插，加上注意力的溫度調整 | Peng et al. (2023), [arXiv:2309.00071](https://arxiv.org/abs/2309.00071) |
 
+### 正弦位置編碼：多尺度相位的同步演進
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/sinusoidal-multiscale-still.svg" data-motion-src="../../../../assets/concept-animations/sinusoidal-multiscale-motion.svg" data-still-src="../../../../assets/concept-animations/sinusoidal-multiscale-still.svg" alt="位置游標掃過三條週期不同的正弦曲線，右側的正弦與餘弦成對向量以不同速度旋轉；快速頻段重複時，其他頻段仍可能不同。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* 原始 Transformer 將 $PE(p,2i)=\sin(\omega_i p)$、$PE(p,2i+1)=\cos(\omega_i p)$ 加到 token 嵌入，其中 $\omega_i=10000^{-2i/d_{model}}$。每一組正弦／餘弦通道都相當於單位圓上的旋轉向量；**單一頻段相位重複，不代表整體位置表示相同**。本圖刻意使用**週期 4、12、24**、位置 $p=0,\ldots,12$，**不是 Transformer 原本的頻率配置**。曲線標記密集取樣連續正弦公式，取樣之間做視覺內插；箭頭使用相同連續相位。向上參考向量採用（正弦、餘弦）的通道順序。這些不是模型參數或實測注意力。[開啟 SVG 動畫](../../../../assets/concept-animations/sinusoidal-multiscale-motion.svg)。MkDocs 沿用播放／暫停、鍵盤操作及減少動態效果的回退；GitHub 顯示靜態圖。依據 Vaswani 等人（2017；參考文獻）。
+
 ### 相對與旋轉式編碼
 
 Shaw et al. 對截斷後的每個相對距離加入學到的向量，加到鍵與值上。RoPE 採用不同的做法：查詢或鍵中的每對維度，都會依 token 的位置旋轉一個角度。兩個旋轉後向量的內積，就只取決於它們位置的差。RoPE 不需要額外參數，可以搭配一般的鍵值快取，是許多現今開源模型的預設。
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/shaw-relative-clipping-still.svg" data-motion-src="../../../../assets/concept-animations/shaw-relative-clipping-motion.svg" data-still-src="../../../../assets/concept-animations/shaw-relative-clipping-still.svg" alt="查詢位置掃過九個 token 索引，原始相對距離持續變化，但裁切半徑為二的關係類別在遠距離處飽和，許多不同距離共用相同類別。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* 在 Shaw 等人（2018）的**裁切式相對位置表示**中，查詢位置 $i$ 與鍵位置 $j$ 對應的關係類別為 $b(i,j)=\operatorname{clip}(j-i,-K,K)$。此人工例子固定 $j=4$、裁切半徑 $K=2$，讓查詢掃過 $i=0,\ldots,8$。原始距離從 $4$ 降到 $-4$，而關係類別依序為 $2,2,2,1,0,-1,-2,-2,-2$。因此，不同的遠距離可以共用同一組可學習關係向量；這**不表示**對應 token 的內容或注意力權重相同。為便於觀察，動畫在**離散整數位置間做連續視覺內插**，並非模型實際執行紀錄。[開啟 SVG 動畫](../../../../assets/concept-animations/shaw-relative-clipping-motion.svg)。MkDocs 提供播放／暫停與鍵盤操作，手機可聚焦後在圖面內水平捲動；GitHub 顯示靜態回退預覽。方法依據 Shaw 等人（2018；參考文獻）。
+
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/shaw-relative-value-still.svg" data-motion-src="../../../../assets/concept-animations/shaw-relative-value-motion.svg" data-still-src="../../../../assets/concept-animations/shaw-relative-value-still.svg" alt="固定三個鍵的內容值與注意力權重，查詢位置逐步移動時，裁切式相對值向量的加權貢獻與最終聚合輸出隨之改變。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* Shaw 式相對位置注意力不只修正鍵的相似度，**也修改值向量的聚合**：$z_i=\sum_j\alpha_{ij}(v_j+a^V_{ij})$。為單獨觀察值路徑，這個人工純量範例**固定注意力權重** $(0.2,0.5,0.3)$，三個鍵的內容值為 $v=(1,0,-1)$，因此純內容貢獻恆為 $\sum_j\alpha_jv_j=-0.1$。對鍵索引 $j=0,1,2$ 與查詢索引 $i=0,\ldots,4$，人工設定 $a^V_{ij}=0.3\operatorname{clip}(j-i,-2,2)$，得到相對值貢獻 $(0.33,0.03,-0.27,-0.51,-0.60)$ 與最終輸出 $(0.23,-0.07,-0.37,-0.61,-0.70)$。橘框與圖上標記同步在解析式算出的**整數查詢位置**間做連續視覺內插，僅為方便理解；最後停留，再於新循環一起重設。實際 Shaw 注意力還會透過相對鍵向量改變 $\alpha_{ij}$，固定權重是刻意隔離機制；上述純量與數值**不是已訓練模型參數或實測結果**。[開啟 SVG 動畫](../../../../assets/concept-animations/shaw-relative-value-motion.svg)。MkDocs 支援播放／暫停、鍵盤與減少動態效果的回退，GitHub 顯示靜態圖。依據 [Shaw 等人（2018）](https://arxiv.org/abs/1803.02155)。
 
 ![RoPE 動畫：查詢與鍵向量依 token 位置旋轉，同時平移兩個位置索引時，相對角度與內積維持不變。](../../../../assets/concept-animations/rope-relative-rotation.gif)
 
 *原創二維 RoPE 概念動畫，CC BY-SA 4.0。* 對於**相同的原始查詢與鍵向量**及固定旋轉頻率，將位置從 **(1, 3)** 一起平移至 **(4, 6)**，兩個向量會增加相同的旋轉角度。相對位移仍為兩個位置，因此內積不變：$(R_m q)^\top(R_n k)=q^\top R_{n-m}k$。動畫中的箭頭方向只是示意，**不是實測注意力分數**；完整 RoPE 在不同維度對使用不同的旋轉頻率。參見 [Su 等人（2021）](https://arxiv.org/abs/2104.09864)。
 
+### 二維 Axial RoPE：水平與垂直位置分別旋轉
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-axial-2d-still.svg" data-motion-src="../../../../assets/concept-animations/rope-axial-2d-motion.svg" data-still-src="../../../../assets/concept-animations/rope-axial-2d-still.svg" alt="鍵在二維影像區塊格點間移動，查詢保持固定；水平與垂直方向各自的相位指針和平均餘弦分數會隨座標差改變。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* **Axial 2D RoPE** 將不同旋轉維度對分配給水平、垂直座標，而非直接以所有 patch 展平後的序號作為唯一位置。固定查詢 $(x_q,y_q)=(1,1)$，鍵依序移動 $(1,1)\to(2,1)\to(3,1)\to(3,2)\to(3,3)$。若每組旋轉平面內的原始查詢與鍵向量都是相同單位向量，人工設定 $\omega_x=\pi/3$、$\omega_y=\pi/2$，兩組旋轉內積的正規化示意為
+
+$$
+\begin{aligned}s=\tfrac12\big[&\cos(\omega_x(x_k-x_q))\\&+\cos(\omega_y(y_k-y_q))\big]\end{aligned}
+$$
+
+最後到達 $(3,3)$ 時，$s=[\cos(2\pi/3)+\cos\pi]/2=\mathbf{-0.75}$。格點顏色**僅由這個人工餘弦公式產生**，不是實測注意力熱圖、機率或預測；鍵在離散 patch 之間的移動只是視覺內插。[開啟 10 秒動畫](../../../../assets/concept-animations/rope-axial-2d-motion.svg)。MkDocs 沿用播放／暫停、鍵盤操作及減少動態效果回退；Heo 等人（2024；參考文獻）研究視覺 Transformer 的二維 RoPE。
+
 ### 偏置式編碼
 
 ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的懲罰，每個頭的斜率不同。模型不學習任何位置向量。Press et al. 指出，在短序列上訓練的模型，可以在更長的序列上評估，而不會像正弦編碼那樣崩潰。
 
+
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/alibi-distance-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/alibi-distance-softmax-motion.svg" data-still-src="../../../../assets/concept-animations/alibi-distance-softmax-still.svg" alt="八個鍵的因果內容分數相同；當 ALiBi 距離偏置斜率增加時，正規化後的注意力權重逐漸集中到目前的鍵，GitHub 靜態回退圖則並列比較兩個端點。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* 在人工建構的八鍵因果注意力範例中，所有內容分數皆為零。對距離 $d\in\{0,\ldots,7\}$ 與非負的注意力頭斜率 $m$，權重為 $a_d(m)=\exp(-md)/\sum_{r=0}^{7}\exp(-mr)$。當 $m=0$，每個鍵的機率都是 $1/8$；當 $m=1$，目前位置（$d=0$）的機率約為 **0.6323**。動畫依解析式計算多個斜率的結果，並在取樣狀態間平滑呈現；**不是**真實模型的內容分數、各注意力頭實際使用的斜率或準確率實測。ALiBi 的原始方法見 Press 等人（2021；參考文獻）。[開啟 SVG 動畫](../../../../assets/concept-animations/alibi-distance-softmax-motion.svg)。MkDocs 網站可使用**播放／暫停**，窄螢幕可聚焦圖面並水平捲動；GitHub 與停用 JavaScript 時仍能看見靜態對照圖。
+
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/alibi-content-recency-still.svg" data-motion-src="../../../../assets/concept-animations/alibi-content-recency-motion.svg" data-still-src="../../../../assets/concept-animations/alibi-content-recency-still.svg" alt="五個因果注意力鍵中，距離為四的舊鍵具有內容分數二；隨 ALiBi 斜率上升，舊鍵與目前鍵的正規化權重在斜率 0.5 時相等，靜態圖標出交會點。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* 與上方所有內容分數相等的例子不同，這裡人工設定五個因果注意力鍵中**最舊的鍵**（距離 $d=4$）具有內容 logit $c_4=2$，另外四個鍵的內容 logit 為零。ALiBi 調整後為 $s_d=c_d-md$，注意力權重為 $\operatorname{softmax}(s)_d$。當 $m=0$，舊鍵的內容優勢使它權重最高；當 $m=1/2$，其分數 $2-4m=0$ 與目前鍵（$d=0$）相同，因此**正規化後的兩個機率也相等**，即使 softmax 分母還包含另外三個鍵。斜率繼續提高，較近的目前鍵便占優勢。動畫游標沿解析式計算的機率曲線移動，中間影格採取樣內插；**不是真實模型的注意力權重或準確率實測**。[開啟動態 SVG](../../../../assets/concept-animations/alibi-content-recency-motion.svg)。MkDocs 沿用播放／暫停及鍵盤控制，窄螢幕可以在圖面內水平捲動，GitHub 則顯示可獨立理解的靜態圖。方法依據 Press 等人（2021；參考文獻）。
+
+
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/alibi-head-prefix-still.svg" data-motion-src="../../../../assets/concept-animations/alibi-head-prefix-motion.svg" data-still-src="../../../../assets/concept-animations/alibi-head-prefix-still.svg" alt="三個示意 ALiBi 注意力頭分別使用 0.25、0.5 和 1.0 的斜率；隨查詢前綴增長，各頭對可見鍵的機率熱度重新正規化，較大斜率更集中在最近的鍵。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* **不同注意力頭的近期偏好不只是偏置直線不同**，因為每增加一個可見鍵，Softmax 都要重新正規化。假設人工示意的因果序列目前查詢索引為 $t$，所有內容 logit 為零，三個頭的 ALiBi 斜率為 $m\in\{0.25,0.5,1\}$，則 $p_m(j\mid t)=e^{-m(t-j)}/Z_m(t)$，其中 $Z_m(t)=\sum_{r=0}^{t}e^{-m(t-r)}$，其中 $0\le j\le t$。可見鍵的色塊不透明度為 $0.06+0.9p$，未來鍵為零；不透明度本身不是機率。8 秒動畫以**每個離散時間點的解析式機率**繪製熱圖，讓 $t$ 從 0 移動到 7。最後八個鍵都可見時，最近鍵在三個頭的機率分別約為 **0.2558、0.4008、0.6323**。這些斜率與分數皆為人工設定，**不是**訓練模型的注意力結果，也不能視為準確率。 [開啟動畫](../../../../assets/concept-animations/alibi-head-prefix-motion.svg)。MkDocs 沿用播放／暫停及鍵盤操作；GitHub 與 Reduced Motion 顯示八鍵靜態回退。方法依據 Press 等人（2021；參考文獻）。
+
 ### 延伸上下文
 
-在 4,096 個位置上訓練的 RoPE 模型，若給它 16,384 個位置，表現會下降，因為旋轉角度會超出訓練時見過的範圍。位置內插把位置索引除以一個係數，讓較長的序列映射回訓練範圍，再短暫微調。YaRN 更進一步：它保持高頻維度不變，只內插低頻維度，並調整注意力，使較長長度下的熵維持在可比較的水準。另一個想法 NTK-aware scaling，起源於 2023 年的非正式社群文章而非論文，YaRN 則分析了它的行為。
+在 4,096 個位置上訓練的 RoPE 模型，延長到 16,384 個位置時可能退化：相對位置的相位分布偏離訓練條件；不能只由取模後的角度判斷退化。位置內插把位置索引除以一個係數，讓較長的序列映射回訓練範圍，再短暫微調。YaRN 更進一步：它保持高頻維度不變，只內插低頻維度，並調整注意力，校正較長上下文的注意力集中程度，但不保證熵完全不變。另一個想法 NTK-aware scaling，起源於 2023 年的非正式社群文章而非論文，YaRN 則分析了它的行為。
+
+
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-interpolation-angle-still.svg" data-motion-src="../../../../assets/concept-animations/rope-interpolation-angle-motion.svg" data-still-src="../../../../assets/concept-animations/rope-interpolation-angle-still.svg" alt="示意 RoPE 的單一旋轉頻率為每位置 0.6 弧度；位置由零增加到十六時，未縮放角度到達 9.6 弧度，而將位置索引減半後的角度維持在訓練範例上界 4.8 弧度。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* 假設 RoPE **其中一組二維頻率對**的角頻率是 $\omega=0.6$ 弧度／位置，人工設定的訓練位置範圍為 $p=0,\ldots,8$。延長到 $p=16$ 時，未縮放的**累積旋轉角**為 $\theta=\omega p=9.6$ 弧度；若進行二倍位置內插，使用 $p'=p/2$，則 $\theta'=\omega p'=4.8$ 弧度，回到本範例的訓練角度範圍。對固定頻率及所有查詢／鍵位置一致使用的單一縮放，$\omega(p/s)=(\omega/s)p$ 只是相位代數恆等式，不表示任意頻段調整、不一致的快取鍵或已訓練模型都等價。圓盤箭頭以 $2\pi$ 為週期顯示方向，底部長條則呈現未取模的累積角度。內插**會改變相對旋轉相位**，仍須透過微調與實驗評估；這個人工角度例子**不是**長度泛化效果實測，也不代表 RoPE 所有頻段。參見 Chen 等人（2023；參考文獻）。[開啟 SVG 動畫](../../../../assets/concept-animations/rope-interpolation-angle-motion.svg)。MkDocs 網站提供**播放／暫停**、鍵盤操作與減少動態效果的靜態回退；GitHub 顯示端點對照圖。
+
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-frequency-bands-still.svg" data-motion-src="../../../../assets/concept-animations/rope-frequency-bands-motion.svg" data-still-src="../../../../assets/concept-animations/rope-frequency-bands-still.svg" alt="RoPE 的快速與慢速頻率對會隨相對距離以不同速度旋轉。距離四時，快速頻率已完成一次週期，但慢速頻率仍處於不同相位。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* RoPE 會讓**不同維度對使用不同旋轉頻率**，因此單一維度對回到原有相位，不代表整個旋轉表示也已重複。固定人工二維查詢與鍵向量 $q=k=(1,0)$ 時，每個維度對在相對距離 $\Delta$ 的示意相似度為 $\cos(\omega\Delta)$。圖中選擇 $\omega_{\mathrm{fast}}=\pi/2$ 與 $\omega_{\mathrm{slow}}=\pi/10$ 弧度／位置。當 $\Delta=4$，快速分量完成 $2\pi$ 旋轉、相似度回到 $1$；慢速分量只旋轉 $2\pi/5$（72°），相似度 $\cos(2\pi/5)\approx 0.309$。圖上的兩個向量與曲線游標隨 $\Delta\in[0,16]$ 同步前進。這些刻意選取的頻率及向量只是**可解析的數學示例**，不代表任何真實模型使用的頻率配置、注意力權重或長度外推準確率。多頻率的旋轉規則依據 Su 等人（2021；參考文獻）。[開啟動態 SVG](../../../../assets/concept-animations/rope-frequency-bands-motion.svg)。MkDocs 沿用播放／暫停與鍵盤操作，GitHub 顯示完整可讀的靜態回退圖。
+
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/yarn-frequency-ramp-still.svg" data-motion-src="../../../../assets/concept-animations/yarn-frequency-ramp-motion.svg" data-still-src="../../../../assets/concept-animations/yarn-frequency-ramp-still.svg" alt="六組示意 RoPE 頻段在 YaRN 的波長分段內插下呈現不同變化：低頻縮放、中間頻段混合，高頻保留原有旋轉速度。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* **YaRN 由兩部分組成**：NTK-by-parts 頻率分段內插，以及額外的**注意力 logit 溫度校正**；此圖**僅呈現頻率部分**。令 $r=L/\lambda$ 為原始上下文長度內的旋轉週數，人工設定 $s=4$、$\alpha=1$、$\beta=4$。當
+
+$$
+\gamma(r)=\operatorname{clip}((r-\alpha)/(\beta-\alpha),0,1)
+$$
+
+，有效頻率比例為 $\theta'(r)/\theta=\gamma(r)+(1-\gamma(r))/s$。六個示意頻段 $r=(0.5,1,1.5,2,3,4)$ 的最終比例為 $(0.25,0.25,0.375,0.5,0.75,1)$。動畫使各長條隨倒數比例 $1/s$ 從 $1$ 變化至 $1/4$ 再回復，清楚比較**低頻內插、中間頻段混合、高頻保留**的不同效果。**頻段、門檻與數值皆為人工教學設定，不是真實模型的 YaRN 參數、推論輸出或上下文效能實測。** 完整方法與注意力溫度校正見 Peng 等人（2023；參考文獻）。[開啟動態 SVG](../../../../assets/concept-animations/yarn-frequency-ramp-motion.svg)。MkDocs 使用播放／暫停及鍵盤操作；GitHub 與 Reduced Motion 則顯示靜態端點圖。
+
+
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/yarn-attention-temperature-still.svg" data-motion-src="../../../../assets/concept-animations/yarn-attention-temperature-motion.svg" data-still-src="../../../../assets/concept-animations/yarn-attention-temperature-still.svg" alt="使用人工 logits 二、一、零、負一，固定較平滑的機率分布作為基準；逐步提高另一組 logits 的乘法倍率時，Softmax 機率集中且熵長條縮短。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* YaRN 除了前一圖的頻段式 RoPE 調整，也包含**注意力 logit 溫度校正**。本圖單獨解釋乘法縮放對 Softmax 的一般效果：人工設定內容分數 $c=(2,1,0,-1)$，令 $p_j(\lambda)=\exp(\lambda c_j)/\sum_k\exp(\lambda c_k)$。當示意倍率 $\lambda$ 由 $0.5$ 增至 $2$，機率集中至最大 logit 的鍵，Shannon 熵 $H=-\sum_jp_j\ln p_j$ 約從 **1.245 降至 0.455 nats**。左側長條固定在 $\lambda=0.5$，右側長條及熵計量條以相同倍率密集取樣 Softmax 與熵，取樣之間做視覺內插。**這些倍率並非 YaRN 論文的實際溫度設定規則**；機率不是已訓練模型的量測、長度泛化準確率，亦不代表注意力愈尖銳愈好。[開啟 SVG 動畫](../../../../assets/concept-animations/yarn-attention-temperature-motion.svg)。MkDocs 沿用播放／暫停與減少動態效果回退，GitHub 顯示靜態對照。方法脈絡見 [Peng 等人（2023）](https://arxiv.org/abs/2309.00071)。
+
+<div class="concept-motion-scroll" tabindex="0" role="group" aria-label="位置編碼圖：可水平捲動" style="max-width:100%;overflow-x:auto">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls class="concept-motion-wide" tabindex="0" src="../../../../assets/concept-animations/rope-cache-reindex-still.svg" data-motion-src="../../../../assets/concept-animations/rope-cache-reindex-motion.svg" data-still-src="../../../../assets/concept-animations/rope-cache-reindex-still.svg" alt="示意鍵的原始位置是二、查詢位置是六，淘汰部分 token 後仍相距四；若錯誤地把保留 token 的位置重新編為零到三，相對距離變成二，RoPE 的單頻餘弦貢獻也隨之改變。">
+</div>
+</div>
+
+*原創 CC BY-SA 4.0 教學動畫。* **KV 快取的緊密儲存位址不等於 RoPE 位置索引。** 假設 token 的原始位置為 $0,\ldots,6$，淘汰位置 $1,3,4$，只保留 $\{0,2,5,6\}$。原本位置 6 的查詢與位置 2 的鍵，相距 $6-2=4$。如果實作不只是壓縮儲存空間，還**錯誤地把保留 token 的位置重新編為 $0,1,2,3$**，這一對 token 的表面相對距離就變成 $3-1=2$。選取人工二維 RoPE 頻段、固定 $q=k=(1,0)$ 且 $\omega=\pi/6$，其內積貢獻將從 $\cos(4\omega)=-1/2$ 變為 $\cos(2\omega)=+1/2$。動畫先標示被淘汰的 token，再呈現錯誤的重新編號；靜態回退直接比較兩種結果。**將所有位置同時平移相同常數並不會出錯**，因為相對距離仍相同；這裡的問題是中間缺口被不均勻壓縮。這是位置一致性的數學示意，**不是**特定 KV 快取實作的實測注意力結果。[開啟動畫](../../../../assets/concept-animations/rope-cache-reindex-motion.svg)。MkDocs 沿用共用播放／暫停與鍵盤控制。旋轉內積恆等式依據 Su 等人（2021；參考文獻）。
 
 ## 取捨
 
 - **外推與準確。** 能外推的編碼（例如 ALiBi）可能在訓練長度上犧牲一些準確度。內插式 RoPE 在訓練範圍內保持準確，但要延伸就需要微調。
 - **延伸的成本。** 內插方法需要較長上下文的訓練資料與運算，偏置式方法則不需要。
-- **與快取的互動。** 有些快取淘汰方法會丟棄 token，這會改變模型看到的相對距離。位置處理必須與快取保持一致。
+- **與快取的互動。** 丟棄 token 會改變可見鍵集合，不一定改變保留 token 的位置距離；錯誤的不均勻重新編號才會改變該距離。位置處理必須與快取保持一致。
 - **多模態輸入。** 影像與影片是二維或三維的，因此一維旋轉需要推廣到位置的網格上。
 
 ## 相關連結
 
-位置編碼對[注意力變體](../attention-variants/index.md)很重要，因為稀疏與局部模式本身的結構就已編碼了部分位置。它們也與 [KV 快取管理](../kv-cache/index.md)互動：從序列中間移除 token，會改變剩餘 token 所呈現給模型的位置。與大腦的連結是間接的：訓練過的 Transformer 中的循環式位置編碼，可以產生類似位置細胞與網格細胞的表示，見 [Transformers & Attention](../index.md) 頁面。
+位置編碼對[注意力變體](../attention-variants/index.md)很重要，因為稀疏與局部模式本身的結構就已編碼了部分位置。它們也與 [KV 快取管理](../kv-cache/index.md)互動：從序列中間移除 token 時，應保留其餘 token 的原始位置，除非有意對查詢與鍵一致採用位置變換。與大腦的連結是間接的：訓練過的 Transformer 中的循環式位置編碼，可以產生類似位置細胞與網格細胞的表示，見 [Transformers & Attention](../index.md) 頁面。
 
 ## 未解問題與更多變體
 
@@ -80,6 +204,8 @@ ALiBi 在每個注意力分數上加入與查詢和鍵之間距離成正比的�
 - Shaw, P., Uszkoreit, J. & Vaswani, A. (2018). "Self-Attention with Relative Position Representations". NAACL 2018. [arXiv:1803.02155](https://arxiv.org/abs/1803.02155) — 在自注意力中，對截斷後的距離使用相對位置向量。
 - Su, J., et al. (2021). "RoFormer: Enhanced Transformer with Rotary Position Embedding". [arXiv:2104.09864](https://arxiv.org/abs/2104.09864) — 旋轉式位置嵌入，使內積只取決於相對位置。
 - Press, O., Smith, N. A. & Lewis, M. (2021). "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation". [arXiv:2108.12409](https://arxiv.org/abs/2108.12409) — ALiBi，對注意力分數加上距離懲罰，可外推到更長的輸入。
+
+- Heo, B., Park, S., Han, D. & Yun, S. (2024). *Rotary Position Embedding for Vision Transformer*. ECCV. https://arxiv.org/abs/2403.13298 — 分析視覺區塊的軸向與其他二維旋轉位置編碼。
 
 ### 綜述與教科書
 

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
   - applications/robotics/navigation
   - theory/paradigms/imitation
@@ -38,6 +38,16 @@ ViNG 由 Shah、Eysenbach、Kahn、Rhinehart 與 Levine（ICRA 2021）提出，�
 3. **控制器。** 比例-微分控制器使用預測的偏移，驅動機器人朝向目前的路點。它輸出連續的線速度與角速度，本身不是學習得到的。
 
 圖由離線觀測建立，節點是影像，沒有幾何座標。邊以距離函數加權。估計可通行程度低於稀疏門檻的邊會被丟棄。測試時，目前的影像與目標影像被加入圖中，並連接到最容易通行的鄰近節點，接著以加權的 Dijkstra 搜尋找出最短路徑。機器人則朝路徑上的下一個節點移動。
+
+## 動畫解讀：學得的時間距離與圖形路線搜尋
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="完整導航教學圖；聚焦後用方向鍵水平捲動" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/ving-learned-graph-routing-still.svg" data-motion-src="../../../assets/concept-animations/ving-learned-graph-routing-motion.svg" data-still-src="../../../assets/concept-animations/ving-learned-graph-routing-still.svg" alt="ViNG 以觀測影像構成加權圖，並逐步顯示從 S 經過 B、D 抵達 G 的最短路線">
+</div>
+
+這裡逐段顯示已選出的最短路徑，不是 Dijkstra 佇列操作的逐步動畫。路徑由邊成本決定，不由螢幕上的邊長決定。 圖框保留 640px 可讀文字，手機可聚焦後用方向鍵水平捲動。這裡呈現視覺目標導航，不是語言條件動作生成。
+
+*原創教學動畫（CC BY-SA 4.0）。* 圖的節點代表**儲存的觀測影像**，不是具有實際座標的地圖點；節點在畫面上的位置僅用於排版。邊上的數字是**人工設定、用來模擬學得時間距離的權重**。在這個小型例子中，加權 Dijkstra 搜尋得到 `S → B → D → G`，總成本為 `2 + 2 + 2 = 6`；另一條 `S → A → C → G` 路線則為 `3 + 2 + 2 = 7`。青綠色逐步畫出的線代表**規劃出的觀測節點順序**，**不是實際機器人移動軌跡，也不是實測距離**。ViNG 另外預測指向下一個節點（此例為 `B`）的相對路點，再交由傳統控制器追蹤；觀測圖本身不是幾何地圖。權重與連線均為人工示例，**非模型真實輸出或效能數據**。MkDocs 網站可使用播放／暫停；GitHub 可閱讀[完整結果靜態預覽](../../../assets/concept-animations/ving-learned-graph-routing-still.svg)。研究來源見參考文獻 Shah 等人（2021）。
 
 ## 結果
 

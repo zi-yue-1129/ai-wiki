@@ -1,0 +1,11 @@
+/* Original CC BY-SA 4.0 bilingual classical-planning teaching labs. */
+.planning-lab{border:1px solid var(--md-default-fg-color--lightest,#d3dbe6);border-radius:14px;padding:1rem;margin:1.25rem 0;background:var(--md-code-bg-color,#f8fafc);color:var(--md-default-fg-color,#263238)}
+.planning-lab .planning-parameters,.planning-lab .planning-controls{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem;padding:.4rem 0}
+.planning-lab .planning-parameters label,.planning-lab .planning-controls label{display:flex;align-items:center;gap:.35rem;font-size:.82rem}
+.planning-lab button,.planning-lab select{min-height:2.2rem;padding:.34rem .65rem;border:1px solid #8294b1;border-radius:7px;background:var(--md-default-bg-color,#fff);color:inherit;font-size:.82rem;cursor:pointer}
+.planning-lab button:focus-visible,.planning-lab select:focus-visible,.planning-lab input:focus-visible,.planning-lab .planning-canvas:focus-visible{outline:3px solid #217cc3;outline-offset:2px}
+.planning-lab .planning-canvas{overflow-x:auto;max-width:100%;overscroll-behavior-inline:contain;border-radius:10px;border:1px solid #c9d6e4;background:#fff}
+.planning-lab .planning-canvas svg{width:720px;min-width:720px;height:250px;display:block}
+.planning-lab input[type=range]{width:110px;max-width:35vw}
+.planning-lab .planning-status{margin:.35rem 0 0;font-size:.78rem;line-height:1.5;overflow-wrap:anywhere}
+@media (prefers-reduced-motion:reduce){.planning-lab *{animation:none!important;transition:none!important}}

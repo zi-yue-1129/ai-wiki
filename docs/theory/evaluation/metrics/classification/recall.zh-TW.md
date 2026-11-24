@@ -17,6 +17,18 @@ $$\text{召回率} = \frac{TP}{TP + FN}$$
 
 當資料中沒有任何真正例時，召回率沒有定義，因為分母為零。
 
+## 動態教學：門檻掃描：召回率與誤報的取捨
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="分類指標計算動畫（可使用方向鍵水平捲動）">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/precision-recall-threshold-still.svg" data-motion-src="../../../../assets/concept-animations/precision-recall-threshold-motion.svg" data-still-src="../../../../assets/concept-animations/precision-recall-threshold-still.svg" alt="選取邊界在八筆人工標記資料之間連續移動，呈現找出的正例、誤報與漏報數量的變化。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* MkDocs 網站可播放／暫停；鍵盤可聚焦後水平捲動。減少動態效果設定會顯示靜態影格；GitHub 顯示靜態預覽。 [GitHub 靜態預覽](../../../../assets/concept-animations/precision-recall-threshold-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/precision-recall-threshold-motion.svg).
+
+此圖沿用精確率頁面的**同一組人工排序案例**，不是另一項實驗。選取前四筆時 TP = 3、FN = 1，因此召回率為 **3/4 = 0.75**；選取前六筆時 TP = 4、FN = 0，召回率達到 **1.00**，但仍有兩筆誤報。對固定的分數與標籤而言，降低門檻不會降低召回率，卻可能降低精確率。這不是分類器實測結果。
+
 ## 解讀
 
 召回率衡量漏報的代價。在疾病篩檢中，召回率高的測試很少讓真正的病例漏網。與精確率一樣，召回率取決於門檻：降低門檻會抓到更多真正例、提高召回率，但也會增加誤報。

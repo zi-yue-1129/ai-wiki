@@ -39,6 +39,36 @@ Take four cases with scores. The two positives score 0.9 and 0.6, and the two ne
 
 *Original animated teaching visual (CC BY-SA 4.0).* This separate, invented ten-case example has positive cases at ranks **1, 3, 6** and seven negative cases; all prediction scores are distinct. Lowering the decision threshold accepts the scores in rank order. Each true positive moves the ROC operating point **up** by $1/3$ (TPR), while each false positive moves it **right** by $1/7$ (FPR). After six accepted cases, $TP=3$, $FP=3$, $TPR=1$ and $FPR=3/7$. Of the 21 positive–negative pairs in the full ranking, 17 have the correct score order, so **ROC-AUC = $17/21 \approx 0.810$**. The pale line shows the full curve and the coloured portion shows the thresholds already visited. All labels and scores are **synthetic, not measured model predictions**. MkDocs provides a keyboard-operable Play/Pause button and uses the still image when reduced motion is preferred; the [GitHub static preview](../../../../assets/concept-animations/roc-threshold-sweep-still.svg) and [complete SVG animation](../../../../assets/concept-animations/roc-threshold-sweep-motion.svg) are also available. On narrow screens, scroll horizontally. The ROC ranking interpretation is discussed in Fawcett (2006) in References.
 
+## Animated ROC-AUC: every positive-negative comparison
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC-AUC pairwise comparison animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-pairwise-auc-still.svg" data-still-src="../../../../assets/concept-animations/roc-pairwise-auc-still.svg" data-motion-src="../../../../assets/concept-animations/roc-pairwise-auc-motion.svg" alt="A two by two grid compares two positive scores (0.90 and 0.60) against negative scores (0.80 and 0.30). Four comparisons are revealed sequentially, with three wins and one loss, so ROC-AUC is 3/4." width="640" height="360">
+</div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* This second visualization explains the **ranking interpretation** rather than repeating the threshold sweep. In a **synthetic** four-case example, positive scores are 0.90 and 0.60; negative scores are 0.80 and 0.30. The four positive-negative comparisons yield **three wins and one loss**, so `AUC = 3 / 4 = 0.75`. In general, `AUC = (wins + 0.5 × ties) / (n_positive × n_negative)`; a tie contributes one half. Comparisons are revealed one at a time, and the final grid is visible in the static fallback. The running count is **not a valid final AUC until all four pairs are considered**. All values are invented, not predictions from a fitted model. MkDocs provides a keyboard-operable Play/Pause control, while reduced-motion users get the still. [GitHub static preview](../../../../assets/concept-animations/roc-pairwise-auc-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-pairwise-auc-motion.svg). On a phone, scroll the figure horizontally.
+
+## Animated partial ROC area at low false-positive rates
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Partial ROC area cutoff">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-partial-area-still.svg" data-still-src="../../../../assets/concept-animations/roc-partial-area-still.svg" data-motion-src="../../../../assets/concept-animations/roc-partial-area-motion.svg" alt="Six synthetic ranked labels positive negative positive negative negative negative. A vertical FPR cutoff moves over the ROC staircase, revealing raw area 0.125 up to FPR 0.25 compared with full area 0.875." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* Six distinct-score, **synthetic** examples ranked `+ − + − − −` contain two positives and four negatives. The first positive reaches TPR $1/2$ at FPR $0$; the first negative moves to FPR $1/4$; the second positive reaches TPR $1$. Seven of eight positive–negative pair comparisons are correctly ranked, giving **full AUC $7/8=0.875$**. Restricting the integral to **FPR $\le 0.25$** produces the **raw partial ROC area $0.25\times 0.5=0.125$**. The animated cutoff reveals additional area as the FPR range expands to $1$. This is the **unnormalised** area, *not* the **standardized partial AUC** that scikit-learn's `roc_auc_score(max_fpr=...)` may return. All numbers are schematic, not classifier measurements. MkDocs offers keyboard-operated Play/Pause and a reduced-motion still. [GitHub static preview](../../../../assets/concept-animations/roc-partial-area-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-partial-area-motion.svg). Scroll horizontally on mobile.
+
+## Animated score transformation: ROC-AUC does not depend on score scale
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC-AUC monotone score transformation animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-rank-transform-still.svg" data-still-src="../../../../assets/concept-animations/roc-rank-transform-still.svg" data-motion-src="../../../../assets/concept-animations/roc-rank-transform-motion.svg" alt="Four synthetic scores, two positive and two negative, move from square-root-transformed to cubed positions on a 0-to-1 track. Their ranking stays fixed, leaving ROC-AUC at 0.75." width="640" height="360">
+</div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* The illustrative scores are positive **0.90, 0.60** and negative **0.80, 0.30**. As the circles move, the applied map changes continuously between $\sqrt{s}$ and $s^3$ according to $g_t(s)=(1-t)\sqrt{s}+t s^3$, with $0\leq t\leq1$. Each map is **strictly increasing** on $[0,1]$; therefore all four positive–negative comparisons retain their outcomes and **ROC-AUC remains $3/4=0.75$** despite potentially large changes in score magnitude. The open circles in the fallback indicate the square-root positions and the filled circles the cubed positions. This invariance does **not** imply calibrated probabilities, or preserve the set of predictions at a fixed numerical threshold. All scores are **synthetic, not model measurements**. MkDocs offers keyboard-accessible Play/Pause; a still is used when reduced motion is preferred. [GitHub static preview](../../../../assets/concept-animations/roc-rank-transform-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-rank-transform-motion.svg). On mobile, scroll horizontally. See Fawcett (2006) in References for the ranking interpretation.
+
 ## Properties and variants
 
 - **Probabilistic meaning.** ROC-AUC equals the probability that a random positive receives a higher score than a random negative, with ties counted as one half. This is the Mann-Whitney U statistic divided by the number of positive-negative pairs.
@@ -54,6 +84,60 @@ Take four cases with scores. The two positives score 0.9 and 0.6, and the two ne
 ## Related metrics
 
 [PR-AUC](pr-auc.md) is the precision-recall counterpart. The family overview is [Classification Metrics](index.md).
+
+
+## Animated explanation: Tied scores count as half a pair
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Animated explanation: Tied scores count as half a pair">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-tie-half-credit-still.svg" data-motion-src="../../../../assets/concept-animations/roc-tie-half-credit-motion.svg" data-still-src="../../../../assets/concept-animations/roc-tie-half-credit-still.svg" alt="A two-by-two positive–negative matrix adds three strict ranking wins and one tied pair for ROC-AUC 0.875." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation, CC BY-SA 4.0; GitHub uses the static SVG fallback.* [GitHub static preview](../../../../assets/concept-animations/roc-tie-half-credit-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-tie-half-credit-motion.svg).
+
+ROC-AUC counts an equal-score positive–negative pair as **half a correct ranking pair**. With artificial positive scores (0.90, 0.80) and negative scores (0.80, 0.20), the four credits are 1, 1, 1/2, 1, so $\mathrm{AUC}=(1+1+0.5+1)/4=0.875$. Watch each pair in turn before the final matrix is complete. The reduced-motion still presents the completed comparison. These are schematic scores, **not model measurements**. On MkDocs use Play/Pause and focus the frame for keyboard horizontal scrolling.
+
+
+## Animated randomized ROC operating-rule mixtures
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC randomized decision-rule mixtures">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-randomized-operating-mix-still.svg" data-still-src="../../../../assets/concept-animations/roc-randomized-operating-mix-still.svg" data-motion-src="../../../../assets/concept-animations/roc-randomized-operating-mix-motion.svg" alt="The illustrative ROC points of two fixed decision rules A (false-positive rate 0.10, true-positive rate 0.60) and B (0.40, 0.90) are joined by a segment. A marker and conditional-rate bars continuously interpolate as the probability of choosing B varies." width="640" height="360">
+</div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* Consider two **hypothetical fixed decision rules** evaluated against the same underlying population: rule A has `(FPR, TPR)=(0.10, 0.60)` and rule B has `(0.40, 0.90)`. Independently for each new instance, choose B with probability `λ` or A otherwise. Conditional on either true label, the **expected** false-positive and true-positive rates are:
+
+$$
+\begin{gathered}
+\mathrm{FPR}_{mix}=0.10+0.30\lambda,\\
+\mathrm{TPR}_{mix}=0.60+0.30\lambda.
+\end{gathered}
+$$
+
+The marker traces the straight line segment between A and B as `λ` changes continuously. For `λ=0.5`, the expected operating point is **(FPR 0.25, TPR 0.75)**. This represents randomized decisions between *two fixed rules*, **not** an interpolated model score, retraining, probability calibration, or a guarantee of exact finite-sample rates. It illustrates randomized points along an ROC operating envelope, as discussed by Fawcett (2006) in References. **These rates are constructed examples, not measurements.** MkDocs provides keyboard-operated Play/Pause and a reduced-motion still. [GitHub static preview](../../../../assets/concept-animations/roc-randomized-operating-mix-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-randomized-operating-mix-motion.svg). Scroll horizontally on narrow screens.
+
+## Animated cost-sensitive ROC operating-point selection
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Cost-aware ROC threshold selection animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/roc-cost-operating-point-still.svg" data-still-src="../../../../assets/concept-animations/roc-cost-operating-point-still.svg" data-motion-src="../../../../assets/concept-animations/roc-cost-operating-point-motion.svg" alt="Five acceptance thresholds of a synthetic positive negative positive negative score ranking select successive ROC points while expected costs are 0.500, 0.250, 0.625, 0.375, and 0.750. The second operating point minimizes the assumed cost." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0); all operating rates and cost inputs are **constructed, not measured or validated deployment statistics**.* Suppose four distinct ranked scores have labels `+ − + −`, with two positives and two negatives. Accepting the top $k=0,1,2,3,4$ items yields conditional $(FPR,TPR)$ points $(0,0)$, $(0,1/2)$, $(1/2,1/2)$, $(1/2,1)$, $(1,1)$. For a **hypothetical deployment population**, separately assume prevalence $p=0.25$, false-negative cost $C_{FN}=2$, and false-positive cost $C_{FP}=1$. Expected error cost per case is
+
+$$
+\begin{aligned}
+L(k)&=C_{FN}p[1-TPR(k)]\\
+&\quad+C_{FP}(1-p)FPR(k).
+\end{aligned}
+$$
+
+The five costs are respectively **0.500, 0.250, 0.625, 0.375, 0.750**. The moving outline and ROC marker jointly identify each threshold; the lowest illustrative expected cost occurs at **$k=1$**. Importantly, the balanced four-item ranking determines these illustrative **conditional** operating rates; the $25\%$ prevalence is a **separate assumption**, not inferred from those four cases. Actual deployment decisions additionally need calibrated cost estimates and representative rate estimates. **ROC-AUC does not select an optimal decision threshold by itself.** MkDocs offers keyboard-accessible Play/Pause and a reduced-motion still. [GitHub static preview](../../../../assets/concept-animations/roc-cost-operating-point-still.svg) · [Full SVG animation](../../../../assets/concept-animations/roc-cost-operating-point-motion.svg). On mobile, scroll horizontally. See Fawcett (2006) in References for ROC operating-point interpretation.
+
+The mixture sweeps its probability forward and backward, not training time. Cost thresholds instead advance in discrete steps and reset; the ROC connector is a reference guide, not a sequence of fractional observations.
 
 ## References
 

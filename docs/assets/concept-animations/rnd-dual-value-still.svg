@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 470" role="img" aria-labelledby="rnd-dual-title rnd-dual-desc">
+<title id="rnd-dual-title">RND: two separately discounted reward streams and two value heads</title>
+<desc id="rnd-dual-desc">Four future time steps feed extrinsic and intrinsic discounted returns with different gamma values. The extrinsic delayed reward yields 0.729; the intrinsic stream yields 1.468. Each sum targets a separate value head. All rewards and discounts are hypothetical, not parameters reported by the RND paper.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif}.muted{fill:#526477;font-weight:500}.strong{fill:#182c43;font-weight:700}.motion-only{display:none}@media(prefers-reduced-motion:reduce){.motion-only{display:none!important}.still-only{display:inline!important}}</style>
+<rect x="1" y="1" width="518" height="468" rx="16" fill="#ffffff" stroke="#cad8e7"/>
+<text x="22" y="36" font-size="25" class="strong">RND · two reward streams</text>
+<text x="22" y="62" font-size="16" class="muted">Same trajectory, different discounting</text>
+<rect x="18" y="80" width="484" height="154" rx="13" fill="#edf5fc" stroke="#d1dce7"/>
+<text x="34" y="107" font-size="20" font-weight="700" fill="#28699e">Extrinsic</text>
+<text x="478" y="107" text-anchor="end" font-size="16" class="muted">γ = .90</text>
+<text x="35" y="145" font-size="16" class="muted">r</text>
+<text x="35" y="194" font-size="16" class="muted">γᵏr</text>
+<path d="M87 203H470" stroke="#9fb0c2" stroke-width="1.5"/>
+<text x="120" y="132" font-size="15" text-anchor="middle" class="muted">k=0</text>
+<rect x="88" y="136" width="64" height="32" rx="9" fill="#fff" stroke="#cdd8e5"/>
+<text x="120" y="158" font-size="18" text-anchor="middle" font-weight="700" fill="#708499">0</text>
+<text x="218" y="132" font-size="15" text-anchor="middle" class="muted">k=1</text>
+<rect x="186" y="136" width="64" height="32" rx="9" fill="#fff" stroke="#cdd8e5"/>
+<text x="218" y="158" font-size="18" text-anchor="middle" font-weight="700" fill="#708499">0</text>
+<text x="316" y="132" font-size="15" text-anchor="middle" class="muted">k=2</text>
+<rect x="284" y="136" width="64" height="32" rx="9" fill="#fff" stroke="#cdd8e5"/>
+<text x="316" y="158" font-size="18" text-anchor="middle" font-weight="700" fill="#708499">0</text>
+<text x="414" y="132" font-size="15" text-anchor="middle" class="muted">k=3</text>
+<rect x="382" y="136" width="64" height="32" rx="9" fill="#fff" stroke="#cdd8e5"/>
+<text x="414" y="158" font-size="18" text-anchor="middle" font-weight="700" fill="#28699e">1</text>
+<rect x="397" y="180.13" width="34" height="21.87" rx="4" fill="#28699e"/>
+<text x="462" y="224" text-anchor="end" font-size="17" font-weight="700" fill="#28699e">G = 0.729</text>
+<text x="34" y="225" font-size="14" class="muted">Discounted terms</text>
+<rect x="18" y="244" width="484" height="154" rx="13" fill="#fff5e9" stroke="#d1dce7"/>
+<text x="34" y="271" font-size="20" font-weight="700" fill="#c27531">Intrinsic</text>
+<text x="478" y="271" text-anchor="end" font-size="16" class="muted">γ = .60</text>
+<text x="35" y="309" font-size="16" class="muted">r</text>
+<text x="35" y="358" font-size="16" class="muted">γᵏr</text>
+<path d="M87 367H470" stroke="#9fb0c2" stroke-width="1.5"/>
+<text x="120" y="296" font-size="15" text-anchor="middle" class="muted">k=0</text>
+<rect x="88" y="300" width="64" height="32" rx="9" fill="#fff" stroke="#cdd8e5"/>
+<text x="120" y="322" font-size="18" text-anchor="middle" font-weight="700" fill="#c27531">1</text>
+<rect x="103" y="336" width="34" height="30" rx="4" fill="#c27531"/>
+<text x="218" y="296" font-size="15" text-anchor="middle" class="muted">k=1</text>
+<rect x="186" y="300" width="64" height="32" rx="9" fill="#fff" stroke="#cdd8e5"/>
+<text x="218" y="322" font-size="18" text-anchor="middle" font-weight="700" fill="#c27531">0.6</text>
+<rect x="201" y="355.2" width="34" height="10.8" rx="4" fill="#c27531"/>
+<text x="316" y="296" font-size="15" text-anchor="middle" class="muted">k=2</text>
+<rect x="284" y="300" width="64" height="32" rx="9" fill="#fff" stroke="#cdd8e5"/>
+<text x="316" y="322" font-size="18" text-anchor="middle" font-weight="700" fill="#c27531">0.3</text>
+<rect x="299" y="362.76" width="34" height="3.24" rx="4" fill="#c27531"/>
+<text x="414" y="296" font-size="15" text-anchor="middle" class="muted">k=3</text>
+<rect x="382" y="300" width="64" height="32" rx="9" fill="#fff" stroke="#cdd8e5"/>
+<text x="414" y="322" font-size="18" text-anchor="middle" font-weight="700" fill="#708499">0</text>
+<text x="462" y="388" text-anchor="end" font-size="17" font-weight="700" fill="#c27531">G = 1.468</text>
+<text x="34" y="389" font-size="14" class="muted">Discounted terms</text>
+<text x="24" y="430" font-size="16" class="muted">Separate critic targets</text>
+<path d="M228 421H272" stroke="#9babbd" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M266 415l8 6-8 6" fill="none" stroke="#9babbd" stroke-width="2.2" stroke-linejoin="round"/>
+<rect x="294" y="402" width="92" height="39" rx="10" fill="#e6f1fa" stroke="#8fb8d9"/>
+<text x="340" y="428" font-size="18" text-anchor="middle" font-weight="700" fill="#236493">V ext</text>
+<rect x="396" y="402" width="100" height="39" rx="10" fill="#fff0df" stroke="#e8bb8c"/>
+<text x="446" y="428" font-size="18" text-anchor="middle" font-weight="700" fill="#a35e29">V int</text>
+<text x="23" y="459" font-size="13" class="muted">Illustrative rewards and γ (not empirical RND data)</text>
+</svg>

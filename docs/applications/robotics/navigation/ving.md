@@ -40,6 +40,16 @@ The system has three components:
 
 The graph is built from offline observations, with nodes as images and no geometric coordinates. Edges are weighted by the distance function. Edges whose estimated traversal is below a sparsity threshold are dropped. At test time the current and goal images are added to the graph and connected to their most traversable neighbours, and a weighted Dijkstra search gives the shortest path. The robot then moves toward the next node on that path.
 
+## Visual walkthrough: learned distances and graph routing
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Complete navigation diagram; focus and use arrow keys to scroll horizontally" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/ving-learned-graph-routing-still.svg" data-motion-src="../../../assets/concept-animations/ving-learned-graph-routing-motion.svg" data-still-src="../../../assets/concept-animations/ving-learned-graph-routing-still.svg" alt="ViNG animation showing a weighted observation graph and the progressively selected shortest path from S through B and D to G">
+</div>
+
+This is a reveal of the already selected shortest path, not a visualization of Dijkstra queue operations. Edge costs, not screen-space edge lengths, determine the route. The frame preserves readable 640px labels and supports keyboard horizontal scrolling on phones. This depicts visual-goal navigation, not language-conditioned action generation.
+
+*Original instructional animation (CC BY-SA 4.0).* Nodes are **stored observations**, not metric coordinates; the drawn node positions are only for visual clarity. The small numbers represent **invented learned temporal-distance edge estimates**. On this toy graph, weighted Dijkstra search selects `S → B → D → G`, with cost `2 + 2 + 2 = 6`, rather than `S → A → C → G`, whose cost is `3 + 2 + 2 = 7`. The expanding teal route visualizes the *planned sequence of observation nodes*, **not a robot trajectory or a measured distance**. ViNG separately predicts a relative local pose toward the next graph node (here `B`) and uses a conventional controller; the graph itself is not a geometric map. All scores and graph connections are illustrative, **not real network outputs or benchmarks**. Use MkDocs Play/Pause or the [GitHub-readable final-state preview](../../../assets/concept-animations/ving-learned-graph-routing-still.svg). See Shah et al. (2021) in References.
+
 ## Results
 
 In real-world trials, the authors report a success rate of 86% on the most challenging tasks. ViNG is the only method in the paper that reaches goals more than 40 metres away. The baselines for these trials are shown in Fig. 3 of the paper (Shah et al., 2021).

@@ -29,10 +29,12 @@ The authors observe that in a trained attention layer only a few queries have a 
 **ProbSparse attention.** For query $\mathbf{q}_i$ and keys $K$ with dimension $d$, the paper scores how far the attention distribution of a query is from uniform with a max-mean measure:
 
 $$
-M(\mathbf{q}_i, K) = \max_j \frac{\mathbf{q}_i \mathbf{k}_j^\top}{\sqrt{d}} - \frac{1}{L_K}\sum_{j=1}^{L_K}\frac{\mathbf{q}_i \mathbf{k}_j^\top}{\sqrt{d}}
+\overline M(\mathbf{q}_i, K) = \max_j \frac{\mathbf{q}_i \mathbf{k}_j^\top}{\sqrt{d}} - \frac{1}{L_K}\sum_{j=1}^{L_K}\frac{\mathbf{q}_i \mathbf{k}_j^\top}{\sqrt{d}}
 $$
 
 The paper avoids computing this exactly. It estimates the scores from a random sample of about $L_K \ln L_Q$ key products, keeps the top $u = c \ln L_Q$ queries with full attention, with $c$ set to 5 in practice, and gives the other queries the mean of the values. The authors state the cost as $O(L \ln L)$ in time and memory.
+
+The max-mean $\overline M$ above is an approximation, not the original KL-derived measure. Writing $s_j=\mathbf q_i\mathbf k_j^\top/\sqrt d$, the original score is $M=\log\sum_j e^{s_j}-\operatorname{mean}_j s_j$, equal to $D_{\mathrm{KL}}(U\Vert p)+\log L_K$ for uniform $U$ and $p=\mathrm{softmax}(s)$. Mean-value initialization of unselected queries describes the unmasked encoder, not a general rule for the causally masked decoder.
 
 **Self-attention distilling.** Between attention blocks, a one-dimensional convolution with kernel width 3, an ELU activation and a max-pooling step with stride 2 halve the time dimension. Several stacks receive progressively shorter inputs, and their outputs are concatenated, so the memory of the encoder is reduced.
 

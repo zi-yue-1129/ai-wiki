@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-12
 related:
   - theory/models/transformer
 tags:
@@ -31,22 +31,58 @@ aliases:
 對於以 ReLU 為編碼器的基準稀疏自編碼器，特徵與損失為
 
 $$
-f(x) = \mathrm{ReLU}\big(W_{\text{enc}}(x - b_{\text{dec}}) + b_{\text{enc}}\big), \qquad \mathcal{L} = \lVert x - \hat{x}(f(x)) \rVert_2^2 + \lambda \lVert f(x) \rVert_1
+\begin{aligned}
+f(x)&=\mathrm{ReLU}\big(W_{\text{enc}}(x-b_{\text{dec}})+b_{\text{enc}}\big),\\
+\mathcal L&=\lVert x-\hat{x}(f(x))\rVert_2^2+\lambda\lVert f(x)\rVert_1.
+\end{aligned}
 $$
 
-門控編碼器使用門的前激活 $\pi_{\text{gate}}(x) = W_{\text{gate}}(x - b_{\text{dec}}) + b_{\text{gate}}$，以及幅度的前激活 $\pi_{\text{mag}}(x) = W_{\text{mag}}(x - b_{\text{dec}}) + b_{\text{mag}}$：
+門控編碼器分別計算門控與幅度的前激活：
+
+$$
+\begin{aligned}
+\pi_{\text{gate}}(x)&=W_{\text{gate}}(x-b_{\text{dec}})+b_{\text{gate}},\\
+\pi_{\text{mag}}(x)&=W_{\text{mag}}(x-b_{\text{dec}})+b_{\text{mag}}.
+\end{aligned}
+$$
+
 
 $$
 \tilde{f}(x) = \mathbf{1}\big[\pi_{\text{gate}}(x) > 0\big] \odot \mathrm{ReLU}\big(\pi_{\text{mag}}(x)\big)
 $$
 
-幅度權重透過逐列（row-wise）的重新縮放與門的權重綁定，即 $W_{\text{mag}} = \exp(r_{\text{mag}}) \odot W_{\text{gate}}$，其中 $r_{\text{mag}}$ 是學得的參數。訓練損失為
+幅度權重透過逐列（row-wise）的重新縮放與門的權重綁定，即
 
 $$
-\mathcal{L}_{\text{gated}}(x) = \lVert x - \hat{x}(\tilde{f}(x)) \rVert_2^2 + \lambda \lVert \mathrm{ReLU}(\pi_{\text{gate}}(x)) \rVert_1 + \lVert x - \hat{x}_{\text{frozen}}\big(\mathrm{ReLU}(\pi_{\text{gate}}(x))\big) \rVert_2^2
+W_{\text{mag}} = \exp(r_{\text{mag}}) \odot W_{\text{gate}}
+$$
+
+其中 $r_{\text{mag}}$ 是學得的參數。訓練損失為
+
+$$
+\begin{aligned}
+\mathcal L_{\text{gated}}(x)
+&=\lVert x-\hat{x}(\tilde f(x))\rVert_2^2\\
+&\quad+\lambda\lVert\mathrm{ReLU}(\pi_{\text{gate}}(x))\rVert_1\\
+&\quad+\lVert x-\hat{x}_{\text{frozen}}\big(\mathrm{ReLU}(\pi_{\text{gate}}(x))\big)\rVert_2^2.
+\end{aligned}
 $$
 
 最後一項是輔助重建，經過解碼器的凍結副本，因此其梯度不會回傳到解碼器。論文的消融實驗指出，凍結此副本很重要。
+
+### 動態圖解：門控與幅度的分工
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" role="region" aria-label="可水平捲動的教學概念圖" tabindex="0">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto" src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" width="640" data-motion-src="../../assets/concept-animations/gated-sae-gate-magnitude-motion.svg" data-still-src="../../assets/concept-animations/gated-sae-gate-magnitude-still.svg" alt="門控稀疏自編碼器：特徵 A 的門控為負，因此即使幅度為正也會遭到遮罩；B 與 C 的正門控則讓幅度通過。">
+</div>
+</div>
+
+*Original instructional animation, CC BY-SA 4.0.* 這是一個**人工設定的前向傳播示例**：三個門控前激活為 $(-0.7,0.6,0.9)$，對應的幅度前激活為 $(1.5,2.0,0.7)$。門控指示值為 $(0,1,1)$，因此最後的稀疏特徵向量是 **$(0,2.0,0.7)$**。門控決定特徵*是否*啟用，幅度分支決定*啟用後的強度*。動畫依序呈現門控、幅度與遮罩後的輸出；它不代表實際學得的權重、訓練軌跡、權重共用參數化或輔助重建損失的完整運作。
+
+在 MkDocs 網站可使用**播放／暫停**檢視過程；不執行腳本時仍可在 GitHub 查看[靜態示意圖](../../assets/concept-animations/gated-sae-gate-magnitude-still.svg)。圖內數值均為教學用示意，**不是模型實測結果**。
+
+各長條共用每單位 40 SVG 像素的尺度，門控零點位於 x=132，負門控向左延伸。這些是依序改變可見度的固定值，不是計算時逐漸增加的數值；幅度完整顯示後才開始呈現輸出。
 
 ## 結果
 

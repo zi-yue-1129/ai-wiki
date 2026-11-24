@@ -38,7 +38,10 @@ A Dreamer agent has three learned parts. A world model encodes observations into
 For DreamerV1, the λ-weighted value target over imagined states, with discount \(\gamma\) and mixing weight \(\lambda\), is
 
 \[
-V_\lambda(s_\tau) \doteq (1-\lambda)\sum_{n=1}^{H-1}\lambda^{n-1}V^{n}_{N}(s_\tau) + \lambda^{H-1}V^{H}_{N}(s_\tau)
+\begin{aligned}
+V_\lambda(s_\tau) \doteq {}&(1-\lambda)\sum_{n=1}^{H-1}\lambda^{n-1}V^{n}_{N}(s_\tau)\\
+&+\lambda^{H-1}V^{H}_{N}(s_\tau).
+\end{aligned}
 \]
 
 where \(V^{k}_{N}\) is the \(k\)-step estimate that sums imagined rewards and bootstraps from the learned value function. The actor maximises the sum of these values along the imagined trajectory,
@@ -50,8 +53,55 @@ where \(V^{k}_{N}\) is the \(k\)-step estimate that sums imagined rewards and bo
 and the world model maximises a variational lower bound made of observation, reward and KL terms,
 
 \[
-J_{\text{REC}} = \mathbb{E}_p\Big[\sum_t \big(\ln q(o_t\mid s_t) + \ln q(r_t\mid s_t) - \beta\,\mathrm{KL}[\,p(s_t\mid s_{t-1},a_{t-1},o_t)\,\|\,q(s_t\mid s_{t-1},a_{t-1})\,]\big)\Big] + \text{const}
+\begin{aligned}
+J_{\text{REC}}&=\mathbb{E}_p\Big[\sum_t \ell_t\Big]+\text{const},\\
+\ell_t&=\ln q(o_t\mid s_t)+\ln q(r_t\mid s_t)\\
+&\quad-\beta\,\mathrm{KL}[p_t\|q_t],\\
+p_t&=p(s_t\mid s_{t-1},a_{t-1},o_t),\\
+q_t&=q(s_t\mid s_{t-1},a_{t-1}).
+\end{aligned}
 \]
+
+### Visual walkthrough: posterior conditioning versus prior imagination
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Dreamer teaching diagram, horizontally scrollable" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/dreamer-posterior-prior-still.svg" data-motion-src="../../../assets/concept-animations/dreamer-posterior-prior-motion.svg" data-still-src="../../../assets/concept-animations/dreamer-posterior-prior-still.svg" alt="Dreamer posterior state inferred from a real observation, followed by prior-only imagined latent transitions">
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* On the upper rail, the representation **posterior** receives a real observation and yields a latent state used to train the world model (including observation reconstruction). The lower rail starts from that inferred state: the learned transition **prior** advances through imagined states under actor actions, predicting rewards **without observing future images**. The recurrent deterministic state is omitted for legibility. The animation is a schematic process, not a measured rollout. On MkDocs use Play/Pause; the [GitHub static overview](../../../assets/concept-animations/dreamer-posterior-prior-still.svg) contains both pathways. This distinction follows Hafner et al. (2020) in References.
+
+### Visual walkthrough: backward λ-return from imagined rewards
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Dreamer teaching diagram, horizontally scrollable" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/dreamer-lambda-bootstrap-still.svg" data-motion-src="../../../assets/concept-animations/dreamer-lambda-bootstrap-motion.svg" data-still-src="../../../assets/concept-animations/dreamer-lambda-bootstrap-still.svg" alt="Dreamer imagined rewards and critic bootstrap combined into lambda returns from right to left">
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* The value at the horizon bootstraps the backward recursion. For a **three-step, nonterminal, illustrative** imagined trajectory, take \(\hat r_{1:3}=(1,0,2)\), \(\gamma=0.9\), \(\lambda=0.8\), and \(v(s_1)=0.8\), \(v(s_2)=1.1\), \(v(s_3)=1.5\). With \(G_3^\lambda=v(s_3)\),
+
+\[
+\begin{aligned}
+G_t^\lambda={}&\hat r_{t+1}+\gamma\bigl[(1-\lambda)v(s_{t+1})\\
+&\qquad+\lambda G_{t+1}^\lambda\bigr].
+\end{aligned}
+\]
+
+we get \(G_2^\lambda=3.350\), \(G_1^\lambda=2.610\), and \(G_0^\lambda=3.0232\) (the figure rounds to 3.023). This **backward return recursion is not neural-network backpropagation**; the DreamerV1 actor subsequently differentiates predicted values through the imagined dynamics. All numbers are hand-selected, **not training results**. Use MkDocs Play/Pause or the [GitHub static overview](../../../assets/concept-animations/dreamer-lambda-bootstrap-still.svg). See Hafner et al. (2020) in References.
+
+
+The figures retain a readable 640px width; focus them to scroll horizontally with arrow keys on phones. A state highlight or return reveal follows packet arrival; the static background is an overview, not a claim that every state was computed early. Here s₀ locally reindexes the current posterior state, while oₜ is the current real observation.
+
+Every transition continues in this nonterminal example. A true terminal transition sets the effective discount to zero so later values cannot enter the target; a time-limit truncation need not be a true terminal. With continuation indicator c:
+
+\[
+\begin{aligned}
+d_{t+1}&=\gamma c_{t+1},\\
+G_t^\lambda&=\hat r_{t+1}+d_{t+1}B_{t+1},\\
+B_{t+1}&=(1-\lambda)v(s_{t+1})\\
+&\quad+\lambda G_{t+1}^\lambda.
+\end{aligned}
+\]
+
+In imagined trajectories, continuation probabilities or discounts are learned predictions, not future real terminal observations; the original paper also weights actor/critic objectives by cumulative predicted discounts.
 
 ## Key methods
 

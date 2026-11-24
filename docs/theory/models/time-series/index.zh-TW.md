@@ -14,6 +14,20 @@ related:
 
 評估必須尊重時間順序。模型在過去的資料上訓練，並在之後的期間上測試，測試視窗通常會在許多起點上向前滾動，使結果不依賴某一次幸運的切分。許多機器學習任務慣用的打亂資料順序，會把未來資訊洩漏到訓練中，可能使準確率被高估。
 
+### 可跨序列比較的誤差尺度
+
+MASE 以訓練區間內的季節性天真預測誤差作尺度，而不是使用測試資料估計分母。設訓練長度為 $T$、季節週期為 $m$、預測期為 $H$：
+
+\[
+\begin{gathered}
+d_m=\frac{1}{T-m}\sum_{t=m+1}^{T}|y_t-y_{t-m}|,\\
+\mathrm{MASE}=\frac{1}{H}\sum_{h=1}^{H}
+\frac{|y_{T+h}-\hat y_{T+h|T}|}{d_m}.
+\end{gathered}
+\]
+
+非季節序列取 $m=1$；若 $d_m=0$，此比值未定義，不能直接當成零誤差。M4 比較了 100,000 條序列與 61 種方法，但競賽中的優勢不是所有場景的保證。機率預測還要檢查校準與預測區間，而不只比較點誤差。參見 [Hyndman 與 Koehler (2006)](https://doi.org/10.1016/j.ijforecast.2006.03.001)、[FPP3](https://otexts.com/fpp3/toolbox.html#scaled-errors) 及 [Gneiting 與 Katzfuss (2014)](https://doi.org/10.1146/annurev-statistics-062713-085831)。
+
 ## 關鍵概念
 
 - **預測期（horizon）**：模型向前預測多遠。多步預測會一次預測數步。

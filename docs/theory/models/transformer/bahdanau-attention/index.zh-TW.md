@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-15
 aliases:
   - Additive attention
   - Bahdanau attention
@@ -38,6 +38,36 @@ p(y_i \mid y_{<i}, x) = g(y_{i-1}, s_i, c_i)
 $$
 
 其中 $s_i$ 是解碼器狀態，$y_i$ 是輸出詞，$T_x$ 是來源長度。循環單元 $f$ 採用論文所用的門控隱藏單元。由於對齊模型是可微分的前饋網路，整個系統可以用梯度下降端到端訓練。
+
+## 動態圖解：隨解碼步驟改變的軟對齊
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Bahdanau 注意力脈絡向量動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" style="width:640px;min-width:640px;max-width:none" data-motion-src="../../../../assets/concept-animations/bahdanau-alignment-context-motion.svg" alt="Bahdanau 解碼器逐步產生三個輸出位置；每一步對四個編碼器標註有不同且總和為一的注意力權重，並形成新的加權脈絡向量。" width="640" height="360">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 四個編碼器標註 $h_1,\ldots,h_4$ 保持固定，解碼器依序處理**三個假設的輸出步驟**；各步的軟對齊向量分別是：
+
+$$
+\begin{aligned}
+\alpha_{1,:}=(0.65,0.20,0.10,0.05) \\
+\alpha_{2,:}=(0.08,0.72,0.12,0.08) \\
+\alpha_{3,:}=(0.05,0.15,0.20,0.60).
+\end{aligned}
+$$
+
+青綠色長條及連線呈現 $c_i=\sum_j\alpha_{ij}h_j$ 如何對**全部**編碼器標註加權，而非只挑選一個來源詞。動畫中間的平滑轉場只是**離散解碼步驟之間的視覺插值**，並非真實翻譯過程中連續變化的注意力狀態；所有權重均為人工示意，**不是** Bahdanau 模型的實測對齊。原方法在每個輸出步驟計算 $e_{ij}=a(s_{i-1},h_j)$，再經 Softmax 得到脈絡向量，供循環式解碼器更新使用。
+
+在 MkDocs 網站可使用**播放／暫停**，聚焦控制按鈕後也可按 Enter／Space；偏好減少動態效果時預設顯示靜態圖。GitHub 可直接閱讀包含三列權重的[靜態對齊矩陣](../../../../assets/concept-animations/bahdanau-alignment-context-still.svg)，也可透過支援 SVG 動畫的檢視器播放[完整動畫](../../../../assets/concept-animations/bahdanau-alignment-context-motion.svg)。
+
+### 互動實驗：逐解碼步驟重新計算脈絡向量
+
+<div class="concept-arithmetic-lab" data-concept-lab="bahdanau" data-lang="zh-TW">
+  沒有 JavaScript 時仍保留上方三列對齊靜態圖；數值實驗僅在 MkDocs 網站執行。
+</div>
+
+透過**上一步／下一步、播放／暫停、步驟滑桿、速度與重設**檢視三個離散解碼位置。選定一個來源標註 $h_j$，將其加性對齊分數偏置調整為 −2 至 2；實驗會對全部四個來源**重新執行 Softmax**，並以固定的人工二維標註 $h_1=(0.3,0.8)$、$h_2=(0.9,0.2)$、$h_3=(0.2,-0.4)$、$h_4=(-0.7,0.5)$ 計算 $c_i=\sum_j\alpha_{ij}h_j$。初始權重就是上方所列的三組人工對齊；一個分數改變會連帶改變**全部正規化權重**，不只是被選定的那一項。人工偏置只是學得的加性評分器 $a(s_{i-1},h_j)$ 的教學替身，**並非**真實神經翻譯或實測對齊。
 
 ## 結果
 

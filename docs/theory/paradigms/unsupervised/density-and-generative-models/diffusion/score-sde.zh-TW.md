@@ -27,20 +27,40 @@ Song 等人（2021）指出，兩種主要的分數式生成模型，是隨機�
 框架包含三個部分。
 
 - **前向 SDE。** 漂移項 \(f(x,t)\) 與擴散係數 \(g(t)\) 定義資料隨時間如何被擾動：
-\[
-dx = f(x,t)\,dt + g(t)\,dw
-\]
-這個過程是固定的，不依賴資料，也沒有任何可學習的參數。
+
+    \[
+    dx = f(x,t)\,dt + g(t)\,dw
+    \]
+
+    這個過程是固定的，不依賴資料，也沒有任何可學習的參數。
+
 - **逆時 SDE。** 反轉這個過程需要每個邊際分布 \(p_t\) 的分數 \(\nabla_x \log p_t(x)\)。Anderson（1982）給出逆時 SDE：
-\[
-dx = \big[f(x,t) - g(t)^2 \nabla_x \log p_t(x)\big]\,dt + g(t)\,d\bar w
-\]
-其中 \(\bar w\) 是沿時間反向運行的維納過程。一個神經網路被訓練來逼近各雜訊水準下的分數，然後求解此方程以產生樣本。
+
+    \[
+    dx = \big[f(x,t) - g(t)^2 \nabla_x \log p_t(x)\big]\,dt + g(t)\,d\bar w
+    \]
+
+    其中 \(\bar w\) 是沿時間反向運行的維納過程。一個神經網路被訓練來逼近各雜訊水準下的分數，然後求解此方程以產生樣本。
+
 - **機率流 ODE。** 確定性的 ODE
-\[
-dx = \big[f(x,t) - \tfrac{1}{2} g(t)^2 \nabla_x \log p_t(x)\big]\,dt
-\]
-與 SDE 具有相同的邊際密度 \(p_t\)。因為它是 ODE，當分數由神經網路表示時，可以給出精確的概似，並允許快速的確定性取樣。
+
+    \[
+    dx = \big[f(x,t) - \tfrac{1}{2} g(t)^2 \nabla_x \log p_t(x)\big]\,dt
+    \]
+
+    與 SDE 具有相同的邊際密度 \(p_t\)。因為它是 ODE，當分數由神經網路表示時，可以給出精確的概似，並允許快速的確定性取樣。
+
+### 視覺化：逆時 SDE 與機率流 ODE
+
+<img data-source-asset-urls src="../../../../../assets/concept-animations/score-sde-flow-still.svg" data-motion-src="../../../../../assets/concept-animations/score-sde-flow-motion.svg" data-still-src="../../../../../assets/concept-animations/score-sde-flow-still.svg" alt="逆時 SDE 與機率流 ODE 的動態對照：上方的隨機軌跡可由相同初始狀態分岔；下方的確定性軌跡由不同初始狀態出發，各自沿固定曲線演進。兩者的時間邊際機率密度相同。" width="800" height="420" />
+
+[靜態圖](../../../../../assets/concept-animations/score-sde-flow-still.svg)
+
+*原創 12 秒循環示意動畫（CC BY-SA 4.0）。* 上方的逆時 SDE 隨取樣雜訊產生不同路徑；下方 ODE 的兩條曲線從**不同初值**出發，同一初值在固定向量場下不會隨機分岔。淡色截面僅用來**象徵**兩種過程在相同時間的邊際密度一致，不是數值解、實測軌跡或密度估計；邊際分布相同也**不代表單一路徑相同**。MkDocs 網站支援播放／暫停及減少動態效果的靜態回退，GitHub 可直接閱讀靜態圖。參見參考文獻 Song 等人（2021）。
+
+圖表保留 800px 原始寬度以維持文字可讀性。聚焦圖表捲動區後，可按左右方向鍵檢視右側；播放／暫停控制不隨圖移動。
+
+動畫的橫向位置代表共同的反向時間進度，並非各曲線的弧長。邊際分佈相等需要精確的真實分數場及相應的初始分佈；學習誤差與數值求解誤差會破壞精確相等。
 
 ### 兩個特例
 

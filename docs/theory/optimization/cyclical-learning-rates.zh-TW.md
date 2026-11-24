@@ -34,6 +34,8 @@ translation_reviewed: 2026-10-31
 
 MkDocs 提供**播放／暫停**（Tab、Enter 或 Space），減少動態效果模式會顯示靜態對照圖。窄螢幕可聚焦圖形後以方向鍵水平捲動。先前的單一策略圖仍可透過 [triangular2 動畫](../../assets/concept-animations/clr-triangular2-motion.svg)與[靜態圖](../../assets/concept-animations/clr-triangular2-still.svg)閱讀。
 
+比較圖：[靜態預覽](../../assets/concept-animations/clr-triangular2-sweep-still.svg) · [完整動畫](../../assets/concept-animations/clr-triangular2-sweep-motion.svg)。
+
 ## 演算法
 
 **範圍測試。** 訓練數個 epoch，同時讓學習率從很小的值線性增加到很大的值，並繪製準確率與學習率的關係。下界是準確率開始上升之處；上界是準確率增長趨緩、變得不穩定，或開始下降之處。論文建議將下界設為上界的三分之一或四分之一。論文中，CIFAR-10 的測試為 8 個 epoch，GoogLeNet 為 4 個 epoch。

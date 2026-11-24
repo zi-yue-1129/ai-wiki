@@ -41,6 +41,45 @@ Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (nega
 
 *Original animated teaching visual (CC BY-SA 4.0).* This invented example uses the **same ten ranked scores as the ROC animation**: positives at ranks **1, 3, 6** and seven negatives. Each accepted positive increases recall by $1/3$; each accepted negative decreases precision while recall stays fixed. Precision at the three positive ranks is $1$, $2/3$ and $3/6$, giving **non-interpolated average precision $AP=(1+2/3+1/2)/3=13/18 \approx 0.722$**. The dashed line marks the positive prevalence $3/10=0.30$, a common population-level random-score reference. **For this finite ten-item example, the expected sample AP of a uniformly random permutation is about 0.450, not 0.300** (enumerating all 120 placements of three positives). At zero accepted cases, precision is undefined; the plot uses $(R,P)=(0,1)$ as an endpoint convention. The displayed polyline connects threshold operating points; **AP is the recall-increment-weighted mean of precisions, not the trapezoidal area underneath those segments** (see the scikit-learn reference). All scores and labels are **synthetic, not empirical model predictions**. MkDocs provides a keyboard-operable Play/Pause button and a reduced-motion still fallback; [GitHub static preview](../../../../assets/concept-animations/pr-threshold-sweep-still.svg) and [complete SVG animation](../../../../assets/concept-animations/pr-threshold-sweep-motion.svg) are also available. On narrow screens, scroll horizontally.
 
+## Animated AP: recall-weighted rectangles
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Average precision contribution animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-ap-rectangles-still.svg" data-still-src="../../../../assets/concept-animations/pr-ap-rectangles-still.svg" data-motion-src="../../../../assets/concept-animations/pr-ap-rectangles-motion.svg" alt="Four synthetic ranked cases with positive labels at ranks one and three. At each positive hit, a rectangle of width one half in recall and height equal to precision is added. The resulting average precision is five sixths, about 0.833." width="640" height="360">
+</div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* Unlike the threshold-sweep visualization above, this panel **builds AP from the actual recall increments**. Four invented scores are ordered 0.90 **(positive)**, 0.80 (negative), 0.60 **(positive)**, 0.30 (negative). Positive hits at ranks 1 and 3 contribute rectangular areas `(1/2) × (1/1)` and `(1/2) × (2/3)`, respectively. Thus **AP = 1/2 + 1/3 = 5/6 ≈ 0.833**. Selecting a negative case does not increase recall, so it adds **zero area** even though it changes the precision of the active prefix. The rectangles encode **non-interpolated average precision**, not a linearly interpolated trapezoidal PR area. No probabilities or measurements were fitted to data. Use the MkDocs Play/Pause control or reduced-motion still; [GitHub static preview](../../../../assets/concept-animations/pr-ap-rectangles-still.svg) and [full SVG animation](../../../../assets/concept-animations/pr-ap-rectangles-motion.svg) are provided. The figure scrolls horizontally on narrow screens.
+
+## Animated AP versus trapezoidal PR integration
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="AP rectangles and trapezoidal area comparison">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg" data-still-src="../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg" data-motion-src="../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg" alt="Four synthetic ranks positive negative positive negative. Non-interpolated average precision rectangles sum to 0.833, but straight-line interpolation between precision-recall points yields 0.792 trapezoidal area." width="640" height="360">
+</div>
+</div>
+
+*Original animated teaching visual (CC BY-SA 4.0).* For the same four **synthetic** cases `+ − + −`, **non-interpolated average precision** sums two recall-weighted rectangles: $AP=(1/2)(1)+(1/2)(2/3)=5/6\approx0.833$. Connecting the *threshold-derived* PR points with straight lines, including vertical changes at fixed recall, instead produces **trapezoidal area**:
+
+$$
+\begin{gathered}
+(1/2)(1)+(1/2)(1/2+2/3)/2 \\
+=19/24\approx0.792.
+\end{gathered}
+$$
+
+The difference is $1/24$ for this ranking. **Neither integration convention is always greater**; the ranking and interpolation rule matter. The animation reveals AP rectangles before the linearly interpolated region. These are analytic, not empirical classifier measurements; do not call the trapezoidal value `average_precision_score`. MkDocs supplies keyboard-operable Play/Pause and a reduced-motion still. [GitHub static comparison](../../../../assets/concept-animations/pr-ap-trapezoid-gap-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-ap-trapezoid-gap-motion.svg). The scikit-learn AP reference below defines the step-wise formula.
+
+## Animated comparison: equal ROC-AUC, different average precision
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="ROC-AUC versus average precision ranking comparison animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/auc-ap-ranking-contrast-still.svg" data-still-src="../../../../assets/concept-animations/auc-ap-ranking-contrast-still.svg" data-motion-src="../../../../assets/concept-animations/auc-ap-ranking-contrast-motion.svg" alt="Two synthetic four-item rankings have two correctly ordered positive–negative pairs out of four, so both ROC-AUC scores equal 0.5. Their positive ranks differ and average precision accumulates to 0.750 versus 0.583." width="640" height="360">
+</div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* Compare two **synthetic, distinct-score** rankings, each with two positives and two negatives. Ranking A is `+ − − +`; positive ranks **1 and 4** give **$AP_A=(1+2/4)/2=0.750$**. Ranking B is `− + + −`; positive ranks **2 and 3** give **$AP_B=(1/2+2/3)/2=7/12\approx0.583$**. Both rankings nonetheless have **two correctly ordered positive–negative pairs out of four**, so **ROC-AUC is $0.500$ for each**. As the scan line advances, contribution bars appear only for positive ranks. The displayed final AP and AUC summaries are computed from all four items, even before the scan completes. This illustrates why pairwise discrimination alone does not specify *where* relevant items occur in a retrieval ranking. These are analytic examples, not measured predictions. MkDocs provides Play/Pause by keyboard and a reduced-motion still; [GitHub static preview](../../../../assets/concept-animations/auc-ap-ranking-contrast-still.svg) · [Full SVG animation](../../../../assets/concept-animations/auc-ap-ranking-contrast-motion.svg). Scroll horizontally on narrow screens. See Fawcett (2006) and the scikit-learn AP reference in References.
+
 ## Properties and variants
 
 - **Baseline.** Prevalence is the population-level random-score reference; finite-sample expected AP can be higher. State which baseline is being used.
@@ -56,6 +95,50 @@ Use the same four scores. Sorted by score, the list is 0.9 (positive), 0.8 (nega
 ## Related metrics
 
 [ROC-AUC](roc-auc.md) is the threshold-free metric that uses the true and false positive rates instead. [Precision](precision.md) and [recall](recall.md) are the points on the curve. The family overview is [Classification Metrics](index.md).
+
+
+## Animated explanation: Average precision with tied scores
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Animated explanation: Average precision with tied scores">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg" data-motion-src="../../../../assets/concept-animations/pr-ap-tied-threshold-motion.svg" data-still-src="../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg" alt="Four schematic predictions include one positive and one negative tied at 0.70. The threshold admits both together, making noninterpolated AP rise to about 0.833." width="640" height="360">
+</div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0; GitHub shows the static fallback.* [GitHub static preview](../../../../assets/concept-animations/pr-ap-tied-threshold-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-ap-tied-threshold-motion.svg).
+
+A score-threshold precision–recall curve admits **every item at a tied score together**, rather than breaking ties arbitrarily. With artificial scores $0.90(+),0.70(+),0.70(-),0.20(-)$, distinct thresholds yield $(R,P)=(1/2,1)$, $(1,2/3)$, $(1,1/2)$. Non-interpolated average precision is:
+
+$$
+\begin{gathered}
+AP=(1/2)(1)+(1/2)(2/3)
+\\ =5/6\approx0.8333.
+\end{gathered}
+$$
+
+ The last negative lowers precision but does not increase recall or AP. A forced ordering of individual tied records can give a different positive-rank average; the illustration follows scikit-learn `average_precision_score` with grouped thresholds. The values are **synthetic, not measured**. MkDocs Play/Pause and keyboard horizontal scrolling are available.
+
+## Animated finite-sample random-ranking baseline for average precision
+
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Finite-sample random AP enumeration animation">
+<div style="width:640px">
+<img data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../../../assets/concept-animations/pr-random-ap-expectation-still.svg" data-still-src="../../../../assets/concept-animations/pr-random-ap-expectation-still.svg" data-motion-src="../../../../assets/concept-animations/pr-random-ap-expectation-motion.svg" alt="Every possible ranking of two positives and two negatives is displayed as coloured labels. Their six non-interpolated AP values and sequential running averages yield expected AP 49/72 or about 0.681, higher than prevalence 0.5." width="640" height="360">
+</div>
+</div>
+
+*Original instructional animation (CC BY-SA 4.0); all labels and scores are **synthetic, not measured model results**.* Assume four items with **two positives and two negatives**, unique exchangeable random scores, and uniform random ordering independent of the true labels. Exactly $\binom{4}{2}=6$ positive-label placements are equally likely. For a positive at rank $r$, its non-interpolated AP contribution is $P@r/2$; the six full-ranking AP values are $1,5/6,3/4,7/12,1/2,5/12$. The moving outline enumerates those possible rankings and the running mean over the enumerated orderings. Therefore
+
+$$
+\begin{gathered}
+\mathbb E[AP]=\tfrac16\left(1+\tfrac56+\tfrac34\right.\\
+\left.{}+\tfrac7{12}+\tfrac12+\tfrac5{12}\right)\\
+=\frac{49}{72}\approx0.681.
+\end{gathered}
+$$
+
+**not** the positive prevalence $2/4=0.5$. The prevalence reference belongs to the *population-level precision curve for label-independent scores*, not to the finite-sample mean of non-interpolated AP. This enumeration is a tiny exact combinatorial example, not a generally applicable random-AP correction formula. MkDocs supports keyboard-operable Play/Pause; reduced-motion readers see the completed table. [GitHub static preview](../../../../assets/concept-animations/pr-random-ap-expectation-still.svg) · [Full SVG animation](../../../../assets/concept-animations/pr-random-ap-expectation-motion.svg). Scroll horizontally on small screens. The AP definition follows the scikit-learn documentation already cited in References.
+
+The outline scans a fully displayed reference table; rows are whole alternative rankings, not newly observed items. The ordering of this enumeration is arbitrary, so intermediate running means are not a convergence guarantee. The loop resets to the first row.
 
 ## References
 

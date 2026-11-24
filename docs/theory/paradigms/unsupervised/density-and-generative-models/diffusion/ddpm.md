@@ -49,9 +49,17 @@ L_{\text{simple}} = \mathbb{E}_{t, x_0, \epsilon}\big[\|\epsilon - \epsilon_\the
 x_{t-1} = \frac{1}{\sqrt{\alpha_t}}\Big(x_t - \frac{\beta_t}{\sqrt{1-\bar\alpha_t}}\,\epsilon_\theta(x_t, t)\Big) + \sigma_t z
 \]
 
-The paper fixes \(\sigma_t^2\) to a constant, either \(\beta_t\) or \(\tilde\beta_t\), and reports similar results for both.
+The paper uses a fixed, non-learned variance schedule \(\sigma_t^2\), either \(\beta_t\) or \(\tilde\beta_t\), and reports similar results for both.
 
 **Settings:** \(T = 1000\) steps, with a linear schedule of \(\beta_t\) from \(10^{-4}\) to \(0.02\). The denoiser is a U-Net with time-step conditioning, adapted from PixelCNN++.
+
+## Animated walkthrough: forward noising
+
+<div class="diffusion-source-scroll" tabindex="0" role="region" aria-label="Diffusion diagram, horizontally scrollable">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ddpm-progressive-noising-still.svg" data-motion-src="../../../../../assets/concept-animations/ddpm-progressive-noising-motion.svg" data-still-src="../../../../../assets/concept-animations/ddpm-progressive-noising-still.svg" alt="The clean abstract pixel pattern is progressively mixed with a fixed schematic noise pattern, while the signal and noise contribution bars move in opposite directions." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original looping instructional SVG, CC BY-SA 4.0.* The stationary clean motif, noisy state $x_t$, and noise reference illustrate the DDPM marginal $x_t = \sqrt{\bar\alpha_t}x_0 + \sqrt{1-\bar\alpha_t}\epsilon$. ([Ho et al. (2020)](https://arxiv.org/abs/2006.11239)) As $t$ increases, the signal coefficient decreases and the noise coefficient increases. The bars and pixel colors are **qualitative, schematic illustrations**, not exact coefficients from a specific $\beta_t$ schedule, Gaussian pixel samples, or model-generated results. This forward corruption is fixed; the learned reverse sampler described above is generally stochastic. The MkDocs page adds keyboard-accessible **Play/Pause** controls, and reduced-motion preferences show a still. [Static preview for GitHub](../../../../../assets/concept-animations/ddpm-progressive-noising-still.svg).
 
 ## Results
 

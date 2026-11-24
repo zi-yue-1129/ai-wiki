@@ -16,7 +16,7 @@ DDPM 生成影像時，要模擬約一千個去噪步驟構成的馬可夫鏈。
 
 ## 核心想法
 
-論文定義了一族推論過程 \(q_\sigma(x_{1:T} \mid x_0)\)，由隨機性參數 \(\sigma\) 索引。每個成員都與 DDPM 具有相同的邊際分布，因此同一個已訓練的網路對每個 \(\sigma\) 都有效。接著，生成過程只在訓練步驟中長度為 \(S\) 的遞增子序列上進行，\(S\) 可以遠小於 \(T\)。令 \(\sigma = 0\) 得到確定性取樣器，同一個起始雜訊總會產生同一張影像。選擇 DDPM 的 \(\sigma\) 值則會還原祖先取樣，因此 DDPM 是 DDIM 的特例。
+論文定義了一族推論過程 \(q_\sigma(x_{1:T} \mid x_0)\)，由隨機性參數 \(\sigma\) 索引。每個成員都與 DDPM 具有相同的邊際分布，因此同一個已訓練的網路對每個 \(\sigma\) 都有效。取樣器先選擇長度為 \(S\) 的遞增訓練索引子序列，再以反向順序（由雜訊到乾淨樣本）遍歷；\(S\) 可以遠小於 \(T\)。令 \(\sigma = 0\) 得到確定性取樣器，同一個起始雜訊總會產生同一張影像。選擇 DDPM 的 \(\sigma\) 值則會還原祖先取樣，因此 DDPM 是 DDIM 的特例。
 
 ## 演算法
 
@@ -34,9 +34,41 @@ x_{t_{\text{prev}}} = \sqrt{\bar\alpha_{t_{\text{prev}}}}\,\hat x_0 + \sqrt{1-\b
 
 其中 \(t_{\text{prev}}\) 是子序列中的前一步。論文的記號中，\(\alpha_t\) 表示累積乘積，因此這裡的 \(\alpha_t\) 就是上面的 \(\bar\alpha_t\)。當 \(\sigma = 0\) 時，更新是確定性的。論文指出，這個更新類似常微分方程的歐拉積分一步，這也是它與神經 ODE 相關的基礎。
 
+## 教學動畫：確定性跨步取樣
+
+<div class="diffusion-source-scroll" tabindex="0" role="region" aria-label="擴散模型圖解，可水平捲動">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ddim-strided-sampling-still.svg" data-motion-src="../../../../../assets/concept-animations/ddim-strided-sampling-motion.svg" data-still-src="../../../../../assets/concept-animations/ddim-strided-sampling-still.svg" alt="上排凸顯環逐步走訪所有 DDPM 去噪時間步，下排只走訪 DDIM 子序列中隔一個選取的時間步。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*原創循環式 SVG 教學動畫，CC BY-SA 4.0。* 上排示意 DDPM 的八次連續去噪網路評估（最後一步不加入新雜訊）；下排使用**同一個已訓練的雜訊預測網路**，跳過部分訓練時間索引，顯示 $\eta=0$ 時四次確定性 DDIM 更新（參見 Song、Meng 與 Ermon，2021）。在此設定下，DDIM 的每次轉移不會再注入一份獨立抽取的高斯雜訊，與隨機的 DDPM 祖先取樣有所不同。**八次與四次只是人工設定的教學例子**，並非實際加速倍數或生成品質實測；減少更新次數也不保證品質相同。MkDocs 網站提供鍵盤可操作的**播放／暫停**控制及減少動態效果的靜態顯示。[GitHub 靜態預覽](../../../../../assets/concept-animations/ddim-strided-sampling-still.svg)。
+
+### 隨機程度取決於時間排程
+
+對選定的較早索引 \(s=t_{\text{prev}}<t\)，若 \(0<\bar\alpha_t<\bar\alpha_s\leq1\)，無因次參數 \(0\leq\eta\leq1\) 是轉移雜訊標準差的縮放因子，並非標準差本身：
+
+\[
+\sigma_{t\to s}(\eta)
+=\eta\sqrt{\frac{1-\bar\alpha_s}{1-\bar\alpha_t}}
+\sqrt{1-\frac{\bar\alpha_t}{\bar\alpha_s}}.
+\]
+
+上方更新式中的 \(\sigma\) 指 \(\sigma_{t\to s}(\eta)\)。這是 [Song、Meng 與 Ermon（2021）](https://arxiv.org/abs/2010.02502) 的排程，作者的[廣義取樣器實作](https://github.com/ermongroup/ddim/blob/main/functions/denoising.py) 也採用此式。當 \(\eta=0\) 時，更新不加入新的高斯抽樣；當 \(\eta=1\) 且索引相鄰、\(s=t-1\) 時，其變異數為後驗變異數
+
+\[
+\tilde\beta_t=\frac{\beta_t(1-\bar\alpha_{t-1})}{1-\bar\alpha_t}.
+\]
+
+因此得到對應的 DDPM 祖先取樣轉移。若跳過中間索引，則是隨機的廣義轉移，不是原本逐步執行的完整鏈；這不表示 DDPM 的所有變異數設定都等同此取樣器。
+
+<div class="diffusion-source-scroll" tabindex="0" role="region" aria-label="擴散模型圖解，可水平捲動">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ddim-eta-coefficients-still.svg" data-motion-src="../../../../../assets/concept-animations/ddim-eta-coefficients-motion.svg" data-still-src="../../../../../assets/concept-animations/ddim-eta-coefficients-still.svg" alt="DDIM 動畫隨 η 改變預測雜訊與新抽樣高斯雜訊的平方係數比例，而乾淨影像係數保持不變。" width="800" height="420" style="width:800px;min-width:800px;max-width:none;height:auto">
+</div>
+
+*原創 10 秒循環式教學 SVG，CC BY-SA 4.0。* 以人工設定的累積係數 \(\bar\alpha_t=0.36\)、\(\bar\alpha_s=0.64\) 示範，得到 \(\sigma_{t\to s}^2=0.24609375\eta^2\)。色塊長度是**純量係數的平方** \((\bar\alpha_s,\ 1-\bar\alpha_s-\sigma^2,\ \sigma^2)\)，三者總和為一，但**不是模型輸出的實際變異數或能量分解**，因為預測的乾淨影像與雜訊可能相關。下方兩列固定呈現端點，上方動態列依序切換 \(\eta=0,0.2,\ldots,1\) 後往返，讓每個顯示狀態的平方係數保持精確。所有數值皆為數學示意，非真實模型參數、高斯抽樣結果或品質量測。MkDocs 播放器提供鍵盤可操作的播放／暫停及減少動態效果時的靜態圖；另有 [GitHub 靜態預覽](../../../../../assets/concept-animations/ddim-eta-coefficients-still.svg)。原始方法見 [Song 等人（2021）](https://arxiv.org/abs/2010.02502)。
+
 ## 結果
 
-論文的表 1 報告無條件 CIFAR-10 上，FID 隨步數 \(S\) 的變化。這裡的 \(\eta\) 是論文對 \(\sigma\) 的命名：\(\eta = 0\) 為 DDIM，\(\eta = 1\) 為 DDPM。
+論文的表 1 報告無條件 CIFAR-10 上，FID 隨步數 \(S\) 的變化。這裡的 \(\eta\) 用來縮放依轉移而定的 \(\sigma_{t\to s}\)。\(\eta=0\) 一列採確定性 DDIM；\(\eta=1\) 一列是在選定排程上的 DDPM 式隨機取樣，須注意上方相鄰步驟的限定。
 
 | 步數 \(S\) | 10 | 20 | 50 | 100 | 1000 |
 |---|---|---|---|---|---|

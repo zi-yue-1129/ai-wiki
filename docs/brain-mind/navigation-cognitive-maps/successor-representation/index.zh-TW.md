@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-18
 status: complete
 last_reviewed: 2026-10-28
 tags:
@@ -42,13 +42,32 @@ Dayan（1993）示範了如何用 TD 機制學習一種表徵，其中每個狀�
 
 令 \(M(s, s')\) 為從狀態 \(s\) 出發，對狀態 \(s'\) 的期望折扣造訪次數，令 \(R(s')\) 為 \(s'\) 的獎勵。則
 
-\(M(s, s') = \mathbb{E}\left[\sum_{t \ge 0} \gamma^{t}\, \mathbf{1}[s_t = s'] \,\middle|\, s_0 = s\right]\)，且 \(V(s) = \sum_{s'} M(s, s')\, R(s')\)
+$$
+M(s, s') = \mathbb{E}\left[\sum_{t \ge 0} \gamma^{t}\, \mathbf{1}[s_t = s'] \,\middle|\, s_0 = s\right]
+$$
+
+且
+
+$$
+V(s) = \sum_{s'} M(s, s')\, R(s')
+$$
 
 其中 \(\gamma\) 為折扣因子。觀察到從 \(s\) 轉移到 \(s'\) 之後，列 \(M(s, \cdot)\) 以一步 TD 更新：
 
-\(M(s,\cdot) \leftarrow M(s,\cdot) + \alpha\,[\mathbf{1}_{s} + \gamma\, M(s',\cdot) - M(s,\cdot)]\)
+$$
+M(s,\cdot) \leftarrow M(s,\cdot) + \alpha\,[\mathbf{1}_{s} + \gamma\, M(s',\cdot) - M(s,\cdot)]
+$$
 
 其中 \(\alpha\) 為學習率。獎勵權重 \(R\) 則另外從各狀態觀察到的獎勵中估計。由於 \(M\) 由智慧體的策略定義，改變策略就會改變 \(M\)。
+
+
+### 折扣佔據與獎勵重估的動態示範
+
+<img data-source-asset-urls src="../../../assets/concept-animations/successor-occupancy-still.svg" data-motion-src="../../../assets/concept-animations/successor-occupancy-motion.svg" data-still-src="../../../assets/concept-animations/successor-occupancy-still.svg" alt="橘色標記依序走過五個狀態，折扣造訪長條累積；紫色獎勵標記改變位置後，狀態價值改變但佔據權重不變">
+
+*原創教學動畫（CC BY-SA 4.0）。* 在**確定性、單回合且固定策略**的鏈狀環境中，代理人依序造訪 $S_0\rightarrow S_1\rightarrow S_2\rightarrow S_3\rightarrow S_4$，並在 $S_4$ 終止。令 $\gamma=0.7$，因此 $M(S_0,S_j)=\gamma^j$（$j=0,\ldots,4$）；終止後不再計算吸收狀態的重複造訪。橘色標記沿狀態前進，青綠色長條依序累積折扣造訪量。紫色標記起初位於 $S_4$ 且 $R(S_4)=1$，因此 $V(S_0)=0.7^4=0.2401$；改將獎勵設於 $S_2$ 後，$V(S_0)=0.7^2=0.49$，而 **$M$ 保持不變**。此結果以轉移機率與策略不變為前提。全部數值皆為人工解析示意，並非動物行為或神經活動的實測值。在 MkDocs 可播放／暫停；亦有 [GitHub 靜態預覽](../../../assets/concept-animations/successor-occupancy-still.svg)。
+
+以 Tab 聚焦圖表區，再按左右方向鍵捲動；播放控制會留在可見範圍內。每次抵達狀態時才加入一次折扣造訪；標記在兩個狀態間移動只是轉移示意，不代表部分造訪。完整列 M 保持不變直到整段示範重播；底部數字是各狀態完整造訪的權重。
 
 ## 結果
 

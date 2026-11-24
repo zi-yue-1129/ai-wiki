@@ -39,7 +39,7 @@ The calibrated probabilities are
 The parameter \(T\) is chosen to minimise the NLL of the labels on a held-out validation set. Because dividing all logits by the same positive number leaves their order unchanged, the predicted class, and hence accuracy, does not change. Only the confidence changes. Guo et al. (2017) fit \(T\) by a simple one-dimensional optimisation and report that it reduces the expected calibration error of deep networks substantially on image benchmarks.
 
 
-<div style="max-width:100%;overflow-x:auto" role="group" aria-label="Temperature scaling animation">
+<div class="reviewed-motion-scroll" tabindex="0" style="max-width:100%;overflow-x:auto" role="region" aria-label="Temperature scaling animation">
 <div style="width:640px">
 <img data-source-asset-urls src="../../../../assets/concept-animations/temperature-softmax-still.svg" data-motion-src="../../../../assets/concept-animations/temperature-softmax-motion.svg" alt="Three illustrative logits A=3, B=1, C=0; the softmax bars change as temperature rises from 0.5 to 2 and falls again, while A remains the predicted class." width="640" height="360">
 </div>

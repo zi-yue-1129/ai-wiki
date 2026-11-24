@@ -27,7 +27,13 @@ Each node's representation is built layer by layer. At each depth, the node comb
 
 ### Animated walkthrough: sample, aggregate, concatenate
 
-<img data-source-asset-urls src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" data-motion-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg" data-still-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" alt="GraphSAGE chooses three neighbours out of six, averages their example features, and concatenates that result with the target node feature.">
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Scrollable figure; focus and use arrow keys">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" data-motion-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg" data-still-src="../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg" alt="GraphSAGE chooses three neighbours out of six, averages their example features, and concatenates that result with the target node feature." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+</div>
+
+On narrow screens the figure stays at its natural size for legibility. Swipe, or focus the frame and use arrow keys, to scroll horizontally.
 
 *Original CC BY-SA 4.0 teaching animation based on Hamilton et al. (2017; see References). The MkDocs **Play/Pause** control is keyboard accessible; reduced-motion preferences select the [GitHub-readable static overview](../../../../../assets/concept-animations/graphsage-sample-aggregate-still.svg). [Open the animated SVG](../../../../../assets/concept-animations/graphsage-sample-aggregate-motion.svg).*
 

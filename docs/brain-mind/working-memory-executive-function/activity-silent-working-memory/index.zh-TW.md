@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-15
 status: complete
 last_reviewed: 2026-11-04
 related:
@@ -50,6 +50,28 @@ aliases:
 3. 以放電進行的刷新會讀出記憶並重新裝載鈣。
 
 這些步驟描述的是簡化模型。其他隱藏狀態機制也有可能，而 Stokes（2015）更一般地討論活動靜默狀態。
+
+### 教學動畫：放電、靜默延遲與突觸刷新
+
+<div class="wm-motion-pan concept-motion-scroll" tabindex="0" role="region" aria-label="活動靜默工作記憶：比較放電與隱藏的突觸痕跡">
+<img data-source-asset-urls src="../../../assets/concept-animations/activity-silent-trace-still.svg" data-motion-src="../../../assets/concept-animations/activity-silent-trace-motion.svg" data-still-src="../../../assets/concept-animations/activity-silent-trace-still.svg" width="640" alt="示意時間軌跡：起始的短暫神經放電形成突觸易化痕跡；延遲期間放電趨於安靜，但痕跡緩慢衰減並仍保留；隨後的刷新放電再次提高痕跡。">
+</div>
+
+動畫每輪重設；共用游標依序揭露脈衝與痕跡，痕跡不會在載入或刷新脈衝之前上升。互動實驗的連線只連接離散步驟，不是連續時間的神經模型。
+
+上方時間軌跡呈現**短暫的神經放電**與中間的**安靜延遲期**；下方則是延遲期間持續高於起始狀態、緩慢衰減的**隱藏突觸易化痕跡**，後續放電又將其刷新。移動游標讓讀者沿同一時間軸對照兩種訊號。重點是**不需要持續可見的放電也可能維持資訊**，並非宣稱所有神經活動都消失。波形、衰減形狀與時間均為**人工示意**，不是鈣濃度、突觸效能或放電的實測資料，也不是 Mongillo 等人（2008）模型的數值重現；這只是工作記憶的其中一種解釋，不能據此否定其他任務中的持續放電（見 Stokes，2015）。
+
+MkDocs 網站支援**播放／暫停**，按鈕聚焦後可用 **Enter／Space** 操作；啟用減少動態效果偏好時呈現靜態圖。手機可將圖區聚焦後水平捲動；GitHub 顯示完整的靜態時間序列。兩份視覺資產皆為原創 **CC BY-SA 4.0** 教材。
+
+
+### 互動實驗：靜默延遲中的痕跡衰減與再活化
+
+<div data-wm-lab="silent" data-lang="zh-TW"></div>
+
+調整**痕跡衰減時間常數** $\tau$，並開關第 4 步的**再活化脈衝**。這個人工設計、無單位的狀態滿足 $s_0=1$ 與 $s_t=e^{-1/\tau}s_{t-1}+b_t$；啟用再活化時 $b_4=0.55$，其餘 $b_t=0$。例如 $\tau=4$ 時，第 4 步有脈衝時為 $e^{-1}+0.55\approx0.918$，沒有脈衝則為 $e^{-1}\approx0.368$。即使沒有放電標記，隱藏痕跡仍可能保留非零數值。
+
+這是**人工設定的純量指數衰減示範**，並非 Mongillo 等人鈣離子與突觸模型的數值再現、神經實測資料，也不能證明所有工作記憶都不需要持續放電。步數與脈衝大小都是示意參數。GitHub 不執行 JavaScript 時仍可查看前面的靜態 SVG，互動控制可透過鍵盤操作。
+
 
 ## 結果
 

@@ -1,0 +1,331 @@
+name: Built motion browser regression
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "hooks/**"
+      - "overrides/**"
+      - "includes/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+      - "scripts/prepare_browser_artifacts.py"
+      - "scripts/test_prepare_browser_artifacts.py"
+      - "scripts/test_built_motion_browser.py"
+      - "scripts/test_built_motion_discovery.py"
+      - "scripts/test_built_prose_browser.py"
+      - "scripts/fixtures/embedding-prose-pages.json"
+      - "scripts/test_policy_credit_labs_browser.py"
+      - "scripts/test_built_planning_evolution_labs_browser.py"
+      - "scripts/ci_font_archive.py"
+      - "scripts/test_ci_font_archive.py"
+      - ".github/actions/install-cjk-font/**"
+      - "scripts/test_mathjax_lifecycle.cjs"
+      - "scripts/test_*motion_semantics.py"
+      - "scripts/README-built-motion-browser.md"
+      - ".github/workflows/built-motion-browser.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  built-motion-browser:
+    # Keep the OS compatible with this pinned Playwright release.
+    runs-on: ubuntu-24.04
+    # Cold font/browser downloads took 24 minutes on an observed runner.
+    # Preserve full growing bilingual coverage, prose checks and both lab suites.
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install wiki and browser dependencies
+        run: |
+          python -m pip install -r requirements.txt "playwright==1.55.0"
+          python -m playwright install --with-deps chromium
+      - name: Install verified Traditional Chinese font
+        id: font
+        uses: ./.github/actions/install-cjk-font
+      - name: Verify font cache safety regressions
+        run: python scripts/test_ci_font_archive.py
+      - name: Keep font dependency measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: font-dependency-report
+          path: ${{ steps.font.outputs.report }}
+          if-no-files-found: warn
+      - name: Test source discovery and language-specific output mapping
+        run: |
+          python scripts/test_built_motion_discovery.py
+          node scripts/test_mathjax_lifecycle.cjs
+      - name: Check available motion numerical semantics
+        run: |
+          python - <<'PYTHON'
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          for test in sorted(Path("scripts").glob("test_*motion_semantics.py")):
+              print(f"Running {test}", flush=True)
+              subprocess.run([sys.executable, str(test)], check=True)
+          PYTHON
+      - name: Build real bilingual pages
+        run: mkdocs build --strict
+      - name: Preflight native keyboard scroll settling on bilingual mobile pages
+        run: python scripts/test_built_motion_browser.py --keyboard-preflight --output artifacts/keyboard-scroll-preflight
+      - name: Exercise built desktop, mobile and reduced-motion pages
+        run: python scripts/test_built_motion_browser.py
+      - name: Check bilingual variational-inference prose and mathematical layout
+        run: python scripts/test_built_prose_browser.py --sources docs/theory/paradigms/probabilistic/variational-inference/index.md docs/theory/paradigms/probabilistic/variational-inference/index.zh-TW.md --output artifacts/vi-prose
+      - name: Check bilingual embedding prose, navigation and mathematical layout
+        run: python scripts/test_built_prose_browser.py --manifest scripts/fixtures/embedding-prose-pages.json --output artifacts/embedding-pages
+      - name: Exercise sharpness calculators in the built bilingual site
+        run: SHARPNESS_SITE_DIR=site python scripts/test_sharpness_geometry_labs_browser.py
+      - name: Exercise built adaptive optimiser calculators
+        run: ADAPTIVE_SITE_DIR=site python scripts/test_adaptive_optimiser_labs_browser.py
+      - name: Exercise actual bilingual policy-credit labs
+        run: POLICY_CREDIT_SITE_DIR=site python scripts/test_policy_credit_labs_browser.py
+      - name: Exercise real bilingual planning and evolutionary labs
+        run: PLANNING_EVOLUTION_SITE_DIR=site python scripts/test_built_planning_evolution_labs_browser.py
+      - name: Test lossless artifact packaging contracts
+        if: always()
+        run: python scripts/test_prepare_browser_artifacts.py
+      - name: Prepare bounded lossless browser artifact groups
+        id: package_browser_artifacts
+        if: always()
+        run: python scripts/prepare_browser_artifacts.py --allow-missing-roots
+      - name: Keep browser artifact manifest (including missing or failed suites)
+        if: always() && hashFiles('browser-artifact-parts/manifest.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-manifest
+          path: browser-artifact-parts/manifest.json
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 01
+        if: always() && hashFiles('browser-artifact-parts/group-01/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-01
+          path: browser-artifact-parts/group-01/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 02
+        if: always() && hashFiles('browser-artifact-parts/group-02/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-02
+          path: browser-artifact-parts/group-02/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 03
+        if: always() && hashFiles('browser-artifact-parts/group-03/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-03
+          path: browser-artifact-parts/group-03/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 04
+        if: always() && hashFiles('browser-artifact-parts/group-04/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-04
+          path: browser-artifact-parts/group-04/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 05
+        if: always() && hashFiles('browser-artifact-parts/group-05/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-05
+          path: browser-artifact-parts/group-05/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 06
+        if: always() && hashFiles('browser-artifact-parts/group-06/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-06
+          path: browser-artifact-parts/group-06/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 07
+        if: always() && hashFiles('browser-artifact-parts/group-07/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-07
+          path: browser-artifact-parts/group-07/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 08
+        if: always() && hashFiles('browser-artifact-parts/group-08/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-08
+          path: browser-artifact-parts/group-08/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 09
+        if: always() && hashFiles('browser-artifact-parts/group-09/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-09
+          path: browser-artifact-parts/group-09/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 10
+        if: always() && hashFiles('browser-artifact-parts/group-10/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-10
+          path: browser-artifact-parts/group-10/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 11
+        if: always() && hashFiles('browser-artifact-parts/group-11/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-11
+          path: browser-artifact-parts/group-11/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 12
+        if: always() && hashFiles('browser-artifact-parts/group-12/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-12
+          path: browser-artifact-parts/group-12/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 13
+        if: always() && hashFiles('browser-artifact-parts/group-13/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-13
+          path: browser-artifact-parts/group-13/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 14
+        if: always() && hashFiles('browser-artifact-parts/group-14/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-14
+          path: browser-artifact-parts/group-14/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 15
+        if: always() && hashFiles('browser-artifact-parts/group-15/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-15
+          path: browser-artifact-parts/group-15/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 16
+        if: always() && hashFiles('browser-artifact-parts/group-16/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-16
+          path: browser-artifact-parts/group-16/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 17
+        if: always() && hashFiles('browser-artifact-parts/group-17/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-17
+          path: browser-artifact-parts/group-17/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 18
+        if: always() && hashFiles('browser-artifact-parts/group-18/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-18
+          path: browser-artifact-parts/group-18/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 19
+        if: always() && hashFiles('browser-artifact-parts/group-19/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-19
+          path: browser-artifact-parts/group-19/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 20
+        if: always() && hashFiles('browser-artifact-parts/group-20/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-20
+          path: browser-artifact-parts/group-20/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 21
+        if: always() && hashFiles('browser-artifact-parts/group-21/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-21
+          path: browser-artifact-parts/group-21/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 22
+        if: always() && hashFiles('browser-artifact-parts/group-22/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-22
+          path: browser-artifact-parts/group-22/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Keep lossless browser artifact group 23
+        if: always() && hashFiles('browser-artifact-parts/group-23/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-23
+          path: browser-artifact-parts/group-23/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+      - name: Validate full time-series prose matrix
+        run: python scripts/test_time_series_prose_browser.py
+      - name: Validate full causal inference prose matrix
+        run: python scripts/test_causal_inference_prose_browser.py
+      - name: Original policy SVG glyph and keyboard suite
+        run: python scripts/test_policy_gradient_motion_browser.py
+      - name: Keep lossless browser artifact group 24
+        if: always() && hashFiles('browser-artifact-parts/group-24/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-motion-browser-review-24
+          path: browser-artifact-parts/group-24/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14

@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 ---
 
 # 直接偏好最佳化（Rafailov 等人，2023）
@@ -14,14 +14,36 @@ translation_reviewed: 2026-10-28
 
 ## 核心想法
 
-帶 KL 約束的目標有已知的最佳策略。對參考策略 \(\pi_{\text{ref}}\)、係數 \(\beta\) 與獎勵 \(r\)，其最佳解為 \(\pi_r(y \mid x) \propto \pi_{\text{ref}}(y \mid x)\exp(r(x, y)/\beta)\)。整理後可以用策略表示獎勵：\(r(x, y) = \beta \log(\pi_r(y \mid x)/\pi_{\text{ref}}(y \mid x)) + \beta \log Z(x)\)。把它代入 Bradley–Terry 偏好模型後，配分項會消去，獎勵模型也隨之消失。剩下的只是一個只涉及策略與參考模型的損失。
+帶 KL 約束的目標有已知的最佳策略。對參考策略 \(\pi_{\text{ref}}\)、係數 \(\beta\) 與獎勵 \(r\)，其最佳解為
+
+\[
+\pi_r(y\mid x)\propto\pi_{\text{ref}}(y\mid x)e^{r(x,y)/\beta}.
+\]
+
+整理後可以用策略表示獎勵：
+
+$$
+\begin{aligned}
+r(x,y)&=\beta\log\frac{\pi_r(y\mid x)}{\pi_{\mathrm{ref}}(y\mid x)}\\
+&\quad+\beta\log Z(x).
+\end{aligned}
+$$
+
+把它代入 Bradley–Terry 偏好模型後，配分項會消去，獎勵模型也隨之消失。剩下的只是一個只涉及策略與參考模型的損失。
 
 ## 方程式與演算法
 
 在偏好三元組 \((x, y_w, y_l)\) 上，DPO 損失為
 
 \[
-\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l)} \left[\log \sigma\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right]
+\begin{aligned}
+\Delta_\theta(x,y_w,y_l)
+ &=\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)}\\
+ &\quad-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)},\\
+\mathcal L_{\mathrm{DPO}}
+ &=-\mathbb E_{(x,y_w,y_l)}\\
+ &\quad[\log\sigma(\beta\Delta_\theta(x,y_w,y_l))].
+\end{aligned}
 \]
 
 其中 \(y_w\) 是被偏好的回應，\(y_l\) 是不被偏好的回應，\(\beta\) 控制 KL 約束的強度。流程如下：
@@ -30,6 +52,66 @@ translation_reviewed: 2026-10-28
 2. 分別在策略與凍結的參考模型下，計算每個回應的對數機率。
 3. 對上式損失做一次梯度更新。
 4. 重複直到策略收斂。訓練時不需要從策略取樣。
+
+### 教學動畫：相對參考模型的偏好差距
+
+<div class="concept-motion-scroll sac-dpo-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="DPO 偏好差距示意圖；窄螢幕可水平捲動">
+<div class="sac-dpo-motion-frame" style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-still-src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="在固定參考模型下，偏好與拒絕回應的策略機率持續改變，橘色游標隨偏好差距移動於 DPO 邏輯損失曲線。" loading="lazy"></div>
+</div>
+
+*原創向量教學動畫（CC BY-SA 4.0）。* 考慮只有兩個回應的**人工示例**，令 \(\pi_{\mathrm{ref}}(y_w\mid x)=\pi_{\mathrm{ref}}(y_l\mid x)=0.5\)，相對參考模型的偏好差距與 DPO 損失為：
+
+$$
+\begin{aligned}
+\Delta&=\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)} \\
+&\quad-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)},\\
+\ell_{\mathrm{DPO}}=-\log\sigma(\beta\Delta).
+\end{aligned}
+$$
+
+取 \(\beta=1\)，將**構造的**差距從 \(-1.6\) 掃描到 \(+1.6\) 時，偏好回應的策略機率從 \(0.168\) 增至 \(0.832\)，損失由 \(1.784\) 降至 \(0.184\)。虛線長條是固定參考機率；橘色游標沿解析式損失曲線移動。**這是跨假設策略的連續視覺插值，不是梯度下降歷程、獎勵模型輸出或訓練實測資料。** MkDocs 網站支援播放／暫停及 Enter／Space，靜態與減少動態效果版本保留正差距端點。詳見 [Rafailov 等人（2023）](https://arxiv.org/abs/2305.18290)。
+
+### 互動計算實驗：相對參考策略的勝算
+
+<div data-sac-dpo-lab="dpo" data-lang="zh-TW">
+  <p>無 JavaScript 時仍能直接閱讀上方的靜態 SVG。</p>
+</div>
+
+這是**人工構造的雙回應模型**。可調整偏好回應的策略機率 \(p\)、凍結參考策略的偏好機率 \(r\) 與 \(\beta\)；拒絕回應的機率分別為 \(1-p\)、\(1-r\)。實驗會計算相對參考策略差距與配對邏輯損失：
+
+$$
+\begin{aligned}
+\Delta=\operatorname{logit}(p)-\operatorname{logit}(r),\\
+\ell=\log(1+\exp(-\beta\Delta)).
+\end{aligned}
+$$
+
+當 \(p=r\) 時，差距為零、損失為 \(\ln 2\approx0.693\)，不必要求機率為 0.5。若 \(p<r\)，即使 \(p>0.5\)，相對差距**仍為負值**。長條比較策略與參考分布，調整 \(r\) 或 \(\beta\) 時曲線會重新計算。支援上一步／下一步、播放／暫停、進度滑桿、0.5×／1×／2× 速度、重設、鍵盤操作與手機水平捲動；減少動態效果模式可手動逐步檢視。原有靜態 SVG 是 GitHub／無 JavaScript 的回退預覽。
+
+數值皆為**人工設計並解析計算**，不是實測 LLM 機率、DPO 最佳化軌跡或訓練結果。
+
+### 動態示範：參考策略校正後的偏好差距
+
+<div class="concept-motion-scroll" tabindex="0" role="region" aria-label="窄螢幕可聚焦圖框後使用方向鍵或滑動，水平捲動檢視原尺寸圖。" style="overflow-x:auto;max-width:100%">
+<div style="width:640px;min-width:640px" markdown="1">
+
+<img data-source-asset-urls src="../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg" data-motion-src="../../../../../assets/concept-animations/rlhf-dpo-margin-motion.svg" data-still-src="../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg" alt="DPO 動畫呈現固定的參考策略，以及偏好與非偏好回應的策略機率如何改變，進而影響偏好機率" width="640" height="360">
+
+</div>
+</div>
+
+窄螢幕可聚焦圖框後使用方向鍵或滑動，水平捲動檢視原尺寸圖。
+
+*原創教學動畫（CC BY-SA 4.0）。* 在這個**僅有兩種回應的人工示例**中，凍結的參考策略對兩個回應各給 0.50。訓練策略對偏好回應的機率由 0.50 變為 0.75，非偏好回應則由 0.50 變為 0.25。設定 \(\beta=1\)，參考策略校正後的差距由零增至
+
+\[
+\begin{aligned}
+\Delta&=\log(0.75/0.50)\\
+&\quad-\log(0.25/0.50)=\log3.
+\end{aligned}
+\]
+
+，Bradley–Terry 偏好概似 \(\sigma(\log 3)\) 從 0.50 升至 **0.75**，單筆 DPO 損失則由 \(\log 2\approx0.693\) 降至 \(-\log 0.75\approx0.288\)。長條連續移動是**示意插值，不是模型實測最佳化歷程**，也不能直接視為特定人類偏好的已校準預測。在 MkDocs 可使用**播放／暫停**；GitHub 可檢視[靜態重點圖](../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg)。推導依據 [Rafailov 等人（2023）](https://arxiv.org/abs/2305.18290)。
 
 ## 結果
 

@@ -17,36 +17,54 @@ aliases:
 
 # Eigendecomposition
 
-An eigendecomposition writes a square matrix in terms of its eigenvectors and eigenvalues. For a symmetric matrix the eigenvectors are orthogonal and the eigenvalues are real, which is why the factorisation is used for covariance matrices and the Hessians of loss functions. Part of [Linear algebra](index.md).
+An eigendecomposition expresses a diagonalizable square matrix using an eigenvector basis and its eigenvalues. A real symmetric matrix always admits an orthonormal eigenvector basis with real eigenvalues, which makes the factorisation useful for covariance matrices and the Hessians of loss functions. Part of [Linear algebra](index.md).[^spectral]
 
 ## Overview
 
-An eigenvector of a square matrix \(A\) is a nonzero vector \(\mathbf{v}\) whose direction \(A\) leaves unchanged: \(A\mathbf{v} = \lambda \mathbf{v}\). The scalar \(\lambda\) is the eigenvalue, the factor by which \(A\) stretches \(\mathbf{v}\). Along an eigenvector a matrix acts as a simple scaling, so repeated application is easy to analyse: \(A^k\mathbf{v} = \lambda^k\mathbf{v}\).
+An eigenvector of a square matrix $A$ is a nonzero vector $\mathbf{v}$ satisfying $A\mathbf{v}=\lambda\mathbf{v}$. The scalar $\lambda$ is its eigenvalue. For a real eigenpair, a positive eigenvalue preserves orientation, a negative one reverses it, and a zero eigenvalue maps the vector to zero. Repeated application gives $A^k\mathbf{v}=\lambda^k\mathbf{v}$ for positive integers $k$.[^diagonalization]
 
 ## Key concepts
 
 - **Eigenpair**: an eigenvalue together with its eigenvector.
-- **Spectral theorem**: a real symmetric matrix has real eigenvalues and an orthonormal set of eigenvectors.
+- **Spectral theorem**: a real symmetric matrix has real eigenvalues and an orthonormal basis of eigenvectors. Within a repeated eigenspace, the basis can be chosen orthonormal.[^spectral]
 - **Positive semidefinite matrix**: a symmetric matrix whose eigenvalues are all non-negative. Covariance matrices are of this kind.
-- **Spectral radius**: the largest absolute value of an eigenvalue. Repeated multiplication by a matrix grows or decays according to whether it is above or below one.
+- **Spectral radius** $\rho(A)=\max_i|\lambda_i|$ governs asymptotic decay of powers of a fixed matrix. The boundary case $\rho(A)=1$ requires attention to its Jordan structure.[^dynamics]
 
 ## How it works
 
-For a real symmetric \(n\times n\) matrix, the spectral theorem gives
+For a real symmetric $n\times n$ matrix, the spectral theorem gives
 
-\[
+$$
 A = Q\Lambda Q^\top, \qquad \Lambda = \operatorname{diag}(\lambda_1, \dots, \lambda_n),
-\]
+$$
 
-where the columns of the orthogonal matrix \(Q\) are the eigenvectors. The quadratic form then decomposes along the eigen-directions:
+where the columns of the orthogonal matrix $Q$ are the eigenvectors. Eigenvectors associated with distinct eigenvalues are orthogonal. Within a repeated eigenspace, different orthonormal bases give valid decompositions. For example, every nonzero vector is an eigenvector of $I$, so two arbitrarily chosen eigenvectors can have a nonzero dot product.[^spectral]
 
-\[
+A general $n\times n$ matrix has a factorisation $A=V\Lambda V^{-1}$ exactly when it has $n$ linearly independent eigenvectors over the chosen field. Distinct eigenvalues suffice, while repeated eigenvalues can yield either a full eigenbasis or a defective matrix, as the shear example below illustrates.[^diagonalization]
+
+The quadratic form then decomposes along the eigen-directions:
+
+$$
 \mathbf{x}^\top A \mathbf{x} = \sum_{i} \lambda_i \, (\mathbf{q}_i^\top \mathbf{x})^2 .
-\]
+$$
 
-So each eigenvalue is the curvature of the quadratic in its own direction. This is the reason the eigenvalues of a Hessian matter for optimisation: large eigenvalues mark steep directions and small ones mark flat directions (see [Calculus and optimisation](../calculus/index.md)).
+For the objective $f(\mathbf{x})=\tfrac12\mathbf{x}^\top A\mathbf{x}$, the Hessian is $A$ and the directional second derivative along a unit eigenvector $\mathbf{q}_i$ is $\lambda_i$. For $\mathbf{x}^\top A\mathbf{x}$, the Hessian is $2A$. Positive and negative Hessian eigenvalues describe upward and downward curvature, while small absolute values indicate locally flat directions (see [Calculus and optimisation](../calculus/index.md)).[^curvature]
 
-A standard way to find the dominant eigenvector is power iteration, which repeatedly applies \(A\) and normalises the result. It converges to the eigenvector of the largest-magnitude eigenvalue when that eigenvalue is well separated from the rest (see Golub and Van Loan).
+A standard way to find a dominant eigendirection is power iteration, which repeatedly applies $A$ and normalises the result. For a real symmetric matrix, convergence to a unique dominant direction requires a strictly largest eigenvalue magnitude and a nonzero initial projection onto that direction. A negative leading eigenvalue can alternate the sign of the iterates. The eigenvalue magnitude ratio controls the asymptotic rate (see Golub and Van Loan).
+
+### Stability of repeated application
+
+For a fixed finite-dimensional matrix, $A^k\to0$ for every initial vector exactly when $\rho(A)<1$. If $\rho(A)>1$, some initial states grow. When $\rho(A)=1$, powers can remain bounded or grow polynomially.[^dynamics]
+
+For the fixed shear matrix $J=A(1)$ from the example below, direct multiplication gives
+
+$$
+J=\begin{bmatrix}1&1\\0&1\end{bmatrix},
+\qquad
+J^k=\begin{bmatrix}1&k\\0&1\end{bmatrix}.
+$$
+
+Thus $J^k e_2=(k,1)^\top$ grows even though both eigenvalues are one. In contrast, $I^k=I$ stays bounded. For a continuous-time system $\dot{x}=Ax$, decay of every trajectory requires all eigenvalues to have strictly negative real parts.[^dynamics]
 
 ### Animated example: power iteration follows the dominant eigenvector
 
@@ -70,14 +88,14 @@ This convergence assumes a nonzero starting component along the unique largest-m
 
 [GitHub-safe static eigen-direction preview](../../../assets/concept-animations/eigen-linear-map-still.svg)
 
-Take the **synthetic symmetric** matrix \(A=Q\operatorname{diag}(3,1)Q^\top\) with \(Q=R(35^\circ)\). For its orthonormal eigenvectors \(\mathbf q_1,\mathbf q_2\),
+Take the **synthetic symmetric** matrix $A=Q\operatorname{diag}(3,1)Q^\top$ with $Q=R(35^\circ)$. For its orthonormal eigenvectors $\mathbf q_1,\mathbf q_2$,
 
-\[
+$$
 \mathbf x(\theta)=\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2,\qquad
 A\mathbf x(\theta)=3\cos\theta\,\mathbf q_1+\sin\theta\,\mathbf q_2.
-\]
+$$
 
-The input tip sweeps a circle while the output sweeps an ellipse. At \(\theta=0\), the \(\mathbf q_1\) component is multiplied by 3; at \(90^\circ\), the \(\mathbf q_2\) component is unchanged. In other directions, \(A\mathbf x\) is generally not collinear with \(\mathbf x\). **The panels use different drawing scales**, so compare within-panel shapes and directions rather than absolute arrow lengths across panels. The continuous angle sweep is geometry, **not an iterative solver or model training**. Original diagram, **CC BY-SA 4.0**.
+The input tip sweeps a circle while the output sweeps an ellipse. At $\theta=0$, the $\mathbf q_1$ component is multiplied by 3; at $90^\circ$, the $\mathbf q_2$ component is unchanged. In other directions, $A\mathbf x$ is generally not collinear with $\mathbf x$. **The panels use different drawing scales**, so compare within-panel shapes and directions rather than absolute arrow lengths across panels. The continuous angle sweep is geometry, **not an iterative solver or model training**. Original diagram, **CC BY-SA 4.0**.
 
 ### Animated counterexample: a real rotation need not have real eigenvectors
 
@@ -87,7 +105,7 @@ The input tip sweeps a circle while the output sweeps an ellipse. At \(\theta=0\
 
 [GitHub-safe static rotation-orbit preview](../../../assets/concept-animations/eigen-rotation-no-real-still.svg)
 
-The real rotation \(R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}\) maps each nonzero vector to a perpendicular vector. The orange arrow is \(\mathbf x_{k-1}\), the teal arrow is \(\mathbf x_k=R\mathbf x_{k-1}\); the orbit marker shows the discrete state \(k\) modulo 4. After four multiplications, \(R^4\mathbf x_0=\mathbf x_0\). Since \(\mathbf x^\top R\mathbf x=0\) for any real \(\mathbf x\), and \(R\) is invertible, there is no nonzero real eigenvector. Its eigenvalues \(\pm i\) are **complex**, consistent with the spectral theorem's **symmetry** assumption. Intermediate animated orientations are *visual interpolation*, **not intermediate matrix multiplications**. Original diagram, **CC BY-SA 4.0**.
+The real rotation $R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}$ maps each nonzero vector to a perpendicular vector. The orange arrow is $\mathbf x_{k-1}$, the teal arrow is $\mathbf x_k=R\mathbf x_{k-1}$; the orbit marker shows the discrete state $k$ modulo 4. After four multiplications, $R^4\mathbf x_0=\mathbf x_0$. Since $\mathbf x^\top R\mathbf x=0$ for any real $\mathbf x$, and $R$ is invertible, there is no nonzero real eigenvector. Its eigenvalues $\pm i$ are **complex**, consistent with the spectral theorem's **symmetry** assumption. Intermediate animated orientations are *visual interpolation*, **not intermediate matrix multiplications**. Original diagram, **CC BY-SA 4.0**.
 
 For both examples, the MkDocs player supports **Play/Pause**; GitHub displays the static SVG directly. A reduced-motion preference starts the player paused. On mobile, focus the figure region and use the arrow keys to scroll horizontally.
 
@@ -114,6 +132,14 @@ Consider the **synthetic family** $A(s)=\begin{bmatrix}1&s\\0&1\end{bmatrix}$ wi
 
 Both demonstrations reuse the MkDocs **Play/Pause** player and its reduced-motion static fallback. In GitHub the still SVG is directly readable. On narrow viewports, focus the figure and scroll horizontally with arrow keys.
 
+### Additional example: projection magnitudes under power iteration
+
+<div class="concept-motion-scroll" role="group" aria-label="Power iteration animation; scroll horizontally on narrow screens" tabindex="0" style="max-width:100%;overflow-x:auto">
+  <img data-source-asset-urls data-still-src="../../../assets/concept-animations/power-iteration-projection-contraction-still.svg" src="../../../assets/concept-animations/power-iteration-projection-contraction-still.svg" data-motion-src="../../../assets/concept-animations/power-iteration-projection-contraction-motion.svg" alt="Power iteration repeatedly rotates a unit vector toward the dominant eigenvector; synchronized bars show the leading projection increase and the orthogonal projection decrease." style="display:block;width:640px;min-width:640px;height:auto">
+</div>
+
+*Original geometric teaching animation, CC BY-SA 4.0.* The example applies $v_{k+1}=Av_k/\|Av_k\|_2$ to a two-dimensional symmetric matrix $A=Q\operatorname{diag}(1.60,0.45)Q^\top$, with its leading eigenvector 28 degrees above the horizontal. From an initial direction of -44 degrees, $|q_1^\top v_k|$ rises from approximately 0.309 to 0.998 after three iterations, while $|q_2^\top v_k|$ decreases. The unit-circle arc connecting discrete iterates is a visual interpolation, **not a continuous-time algorithm or a measured model trajectory**. The reverse motion only resets this looping illustration; power iteration itself does not run backwards. Convergence to a unique dominant direction requires a suitable eigenvalue magnitude gap and a nonzero starting component in that eigendirection. On the wiki website, use Play/Pause or keyboard activation; the static view remains readable on GitHub. See the numerical-linear-algebra texts in References.
+
 ## Key methods
 
 Eigendecomposition is one of the two landmark matrix factorisations of linear algebra. The other is the singular value decomposition.
@@ -131,13 +157,18 @@ Use eigendecomposition when the matrix is square and symmetric, such as a covari
 ## Applications
 
 - **Principal component analysis**: the principal components of a dataset are eigenvectors of its covariance matrix (Bishop, 2006, covers PCA).
-- **Curvature and conditioning**: the ratio of the largest to smallest Hessian eigenvalue indicates how hard a quadratic objective is to optimise by gradient descent (Boyd & Vandenberghe, 2004).
-- **Stability analysis**: whether a linear dynamical system decays or grows is decided by the eigenvalues of its matrix.
+- **Curvature and conditioning**: for a quadratic objective with a symmetric positive-definite Hessian $H$, its Euclidean condition number is $\kappa_2(H)=\lambda_{\max}(H)/\lambda_{\min}(H)$. This ratio affects gradient-descent convergence bounds. An indefinite Hessian also describes negative-curvature directions, and a singular Hessian has infinite condition number under the usual convention.[^curvature]
+- **Stability analysis**: discrete-time iteration and continuous-time dynamics use different eigenvalue conditions, as described above.[^dynamics]
 
 ## Open questions
 
 - Computing eigendecompositions of very large matrices, such as the Hessians of large networks, is expensive, and practical methods use approximations whose accuracy is hard to guarantee.
 - Non-symmetric matrices can have complex or ill-conditioned eigenvalues, which makes their eigendecompositions less reliable than symmetric ones.
+
+[^spectral]: MIT OpenCourseWare (2011), *Symmetric matrices and positive definiteness*, explains orthonormal eigenbases. Boyd & Vandenberghe (2004), Appendix A.5.2, gives the symmetric spectral decomposition.
+[^diagonalization]: MIT OpenCourseWare (2011), *Diagonalization and powers of A*, explains the eigenbasis condition and repeated eigenvalues.
+[^curvature]: Boyd & Vandenberghe (2004), Appendix A.4.3 and §9.3, explain second-order approximations and conditioning of positive-definite quadratic problems.
+[^dynamics]: Boyd (2008), EE263 slides *Eigenvectors and diagonalization* and *Jordan canonical form*, give the discrete- and continuous-time stability criteria and powers of Jordan blocks.
 
 ## References
 
@@ -154,6 +185,10 @@ Use eigendecomposition when the matrix is square and symmetric, such as a covari
 ### Lectures
 
 - Strang, G., *18.06 Linear Algebra*, MIT. https://web.mit.edu/18.06/www/ — The course lecture list includes a lecture on eigenvalues and eigenvectors, followed by diagonalisation.
+
+- MIT OpenCourseWare (2011). *Symmetric matrices and positive definiteness*. 18.06SC Linear Algebra. https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/804ab1e53134741d2044d241b50a285e_MIT18_06SCF11_Ses3.1sum.pdf — Explains how real symmetric matrices admit an orthonormal eigenvector basis.
+- MIT OpenCourseWare (2011). *Diagonalization and powers of A*. 18.06SC Linear Algebra. https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/d05795355f5cbe35356a4a1b39658336_MIT18_06SCF11_Ses2.9sum.pdf — Covers independent eigenvectors, repeated eigenvalues and powers of a matrix.
+- Boyd, S. (2008). *Introduction to Linear Dynamical Systems*. EE263, Stanford University. https://ee263.stanford.edu/archive/ — Course slides cover eigenvectors, diagonalization, Jordan structure and stability criteria.
 
 ### Articles and documentation
 

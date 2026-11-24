@@ -1,0 +1,60 @@
+/* Deterministic interactive lessons supplementing GitHub-safe static SVGs. */
+.bandit-lab { max-width: 860px; margin: 1.25rem auto 1.5rem; padding: .8rem; border: 1px solid var(--md-default-fg-color--lightest,#cbd5e1); border-radius: .75rem; background:var(--md-default-bg-color,#fff); color:var(--md-default-fg-color,#273649); }
+.bandit-lab-toolbar,.bandit-lab-parameters { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; margin-bottom:.75rem; }
+.bandit-lab-toolbar button { font:inherit; font-size:.8rem; padding:.3rem .6rem; border:1px solid #8099ae; border-radius:.4rem; background:var(--md-code-bg-color,#f1f5f9); color:inherit; cursor:pointer; }
+.bandit-lab-toolbar button:focus-visible,.bandit-lab select:focus-visible,.bandit-lab input:focus-visible,.bandit-lab-canvas:focus-visible { outline:3px solid #1582bf; outline-offset:2px; }
+.bandit-lab-field { display:inline-flex; align-items:center; flex-wrap:wrap; gap:.35rem; font-size:.75rem; }
+.bandit-lab-field input[type="range"] { width:105px; accent-color:#237eab; }
+.bandit-lab-field output { font-variant-numeric:tabular-nums; min-width:2.5rem; }
+.bandit-lab-field select { font:inherit; background:var(--md-code-bg-color,#f1f5f9); color:inherit; border:1px solid #8099ae; padding:.25rem; border-radius:.3rem; }
+.bandit-lab-canvas { width:100%; max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; border-radius:.6rem; }
+.bandit-lab-canvas svg { width:720px; min-width:720px; height:272px; display:block; }
+.bandit-lab-canvas .bandit-lab-svg-title { font:600 17px system-ui,sans-serif; fill:#274052; }
+.bandit-lab-canvas .bandit-lab-svg-score { font:700 14px system-ui,sans-serif; fill:#274052; }
+.bandit-lab-canvas .bandit-lab-svg-small { font:500 12px system-ui,sans-serif; fill:#506578; }
+.bandit-lab-metrics { display:flex; flex-wrap:wrap; gap:.6rem 1.3rem; padding:.5rem .15rem; font-size:.76rem; font-variant-numeric:tabular-nums; }
+.bandit-lab-note { font-size:.7rem; color:var(--md-default-fg-color--light,#64748b); margin:.25rem 0!important; }
+.bandit-lab-live { position:absolute!important; width:1px!important; height:1px!important; overflow:hidden!important; clip-path:inset(50%)!important; white-space:nowrap!important; }
+@media(prefers-reduced-motion:reduce){ .bandit-lab * {scroll-behavior:auto!important;transition:none!important;animation:none!important;} }
+
+.bandit-lab-legend { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; font-size:.71rem; padding:.4rem .1rem .1rem; }
+.bandit-lab-swatch {display:inline-block;vertical-align:middle;width:.7rem;height:.7rem;border-radius:.13rem;margin-right:.25rem;}
+
+
+/* Exact posterior probability that each arm has the largest independent Beta draw. */
+.bandit-lab-probabilities { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.4rem .7rem; align-items:center; margin:.3rem .1rem .55rem; font-variant-numeric:tabular-nums; }
+.bandit-lab-prob-title { grid-column:1/-1; font-size:.75rem; color:var(--md-default-fg-color,#273649); }
+.bandit-lab-prob-row { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; column-gap:.3rem; min-width:0; font:600 .73rem system-ui,sans-serif; }
+.bandit-lab-prob-row output { min-width:3.3rem; text-align:right; font-weight:500; }
+.bandit-lab-prob-track { height:.45rem; overflow:hidden; background:var(--md-code-bg-color,#e2e8f0); border-radius:999px; min-width:0; }
+.bandit-lab-prob-fill { height:100%; border-radius:inherit; }
+@media(max-width:550px){.bandit-lab-probabilities{grid-template-columns:minmax(0,1fr)} .bandit-lab-prob-row{grid-template-columns:1rem minmax(0,1fr) 3.5rem} }
+
+.bandit-lab-scroll-hint { display:none; margin:.25rem 0 .5rem!important; color:var(--md-default-fg-color--light,#64748b); font-size:.72rem; }
+@media(max-width:760px){.bandit-lab-scroll-hint{display:block}}
+
+
+/* Analytical UCB1 reward-pair decision boundary (t=18), no raster images. */
+.bandit-lab-boundary { margin:.7rem 0; max-width:390px; border:1px solid #d2dce6; border-radius:.6rem; background:#f8fafc; padding:.6rem; color:#263749; }
+.bandit-lab-boundary-scroll { max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; border-radius:.4rem; }
+.bandit-lab-boundary-scroll:focus-visible { outline:3px solid #1582bf; outline-offset:2px; }
+.bandit-lab-boundary svg { display:block; width:330px; min-width:330px; height:228px; }
+.bandit-lab-boundary-note { font:500 .73rem system-ui,sans-serif; margin:.35rem .15rem .1rem!important; }
+
+/* The analytical decision map is a pointer target; sliders remain its keyboard alternative. */
+.bandit-lab-boundary svg { cursor:crosshair; }
+.bandit-lab-boundary-hint { font:400 .7rem/1.45 system-ui,sans-serif; margin:.35rem .15rem .1rem!important; color:var(--md-default-fg-color--light,#586c80); }
+
+/* Exact discrete UCB margin and Beta conjugate-evidence transitions. */
+.bandit-lab-process { padding:.45rem .1rem; max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; }
+.bandit-lab-process:focus-visible { outline:3px solid #1582bf; outline-offset:2px; }
+.bandit-lab-process svg + svg { margin-top:.5rem; }
+.bandit-lab-process svg { display:block; width:338px; height:auto; min-width:338px; border-radius:.55rem; }
+
+/* Native-width, keyboard-scrollable learning diagrams for stochastic bandits. */
+.bandit-motion-viewport { display: block; width: 100%; max-width: 100%; overflow-x: auto; overflow-y: hidden; overscroll-behavior-inline: contain; border-radius: .55rem; }
+.bandit-motion-viewport:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 3px; }
+.bandit-motion-viewport > img,
+.bandit-motion-viewport .concept-motion-player,
+.bandit-motion-viewport .concept-motion-player img { display: block; width: 860px; min-width: 860px; max-width: none; height: auto; }
+.bandit-motion-viewport .concept-motion-player { margin: .5rem 0 1rem; }

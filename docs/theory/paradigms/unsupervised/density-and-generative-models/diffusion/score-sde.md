@@ -27,20 +27,40 @@ By 2020, diffusion-style and score-based models were built from discrete noise s
 The framework has three parts.
 
 - **Forward SDE.** A drift \(f(x,t)\) and a diffusion coefficient \(g(t)\) define how data is perturbed over time:
-\[
-dx = f(x,t)\,dt + g(t)\,dw
-\]
-This process is fixed and does not depend on the data or on any learned parameters.
+
+    \[
+    dx = f(x,t)\,dt + g(t)\,dw
+    \]
+
+    This process is fixed and does not depend on the data or on any learned parameters.
+
 - **Reverse-time SDE.** Reversing the process requires the score \(\nabla_x \log p_t(x)\) of each marginal distribution. Anderson (1982) gives the reverse SDE:
-\[
-dx = \big[f(x,t) - g(t)^2 \nabla_x \log p_t(x)\big]\,dt + g(t)\,d\bar w
-\]
-Here \(\bar w\) is a Wiener process running backward in time. A neural network is trained to approximate the score across noise levels, and then this equation is solved to generate samples.
+
+    \[
+    dx = \big[f(x,t) - g(t)^2 \nabla_x \log p_t(x)\big]\,dt + g(t)\,d\bar w
+    \]
+
+    Here \(\bar w\) is a Wiener process running backward in time. A neural network is trained to approximate the score across noise levels, and then this equation is solved to generate samples.
+
 - **Probability flow ODE.** The deterministic ODE
-\[
-dx = \big[f(x,t) - \tfrac{1}{2} g(t)^2 \nabla_x \log p_t(x)\big]\,dt
-\]
-has the same marginal densities \(p_t\) as the SDE. Because it is an ODE, it gives exact likelihoods when the score is a neural network, and it allows fast deterministic sampling.
+
+    \[
+    dx = \big[f(x,t) - \tfrac{1}{2} g(t)^2 \nabla_x \log p_t(x)\big]\,dt
+    \]
+
+    has the same marginal densities \(p_t\) as the SDE. Because it is an ODE, it gives exact likelihoods when the score is a neural network, and it allows fast deterministic sampling.
+
+### Visualising SDE versus probability-flow ODE
+
+<img data-source-asset-urls src="../../../../../assets/concept-animations/score-sde-flow-still.svg" data-motion-src="../../../../../assets/concept-animations/score-sde-flow-motion.svg" data-still-src="../../../../../assets/concept-animations/score-sde-flow-still.svg" alt="Animated comparison: multiple stochastic reverse SDE paths can diverge from an initial point; probability-flow ODE paths are deterministic for a fixed initial state. Both describe the same time-marginal probability densities." width="800" height="420" />
+
+[Static diagram](../../../../../assets/concept-animations/score-sde-flow-still.svg)
+
+*Original 12-second looping schematic (CC BY-SA 4.0).* The upper trajectories vary with sampled reverse-time noise; the lower ODE trajectories start at **different** inputs and follow fixed curves. The matching pale cross-sections only **symbolise** the theoretical equality of time-marginal densities, not an empirical density estimate or a numerical SDE/ODE solution. Equal marginals do **not** imply that the same initial sample follows the same trajectory under the two processes. The website offers Play/Pause; the still image is readable on GitHub and under reduced-motion preferences. See Song et al. (2021) in References.
+
+The diagram keeps its readable 800px native width. Focus the scroll region and use Left/Right arrow keys to inspect the right side; Play/Pause controls stay in place.
+
+Horizontal position represents shared reverse-time progress, not distance along each curve. Equality of marginals assumes the exact true score and matching initial distributions; learned-score and numerical solver errors need not preserve exact equality.
 
 ### Two special cases
 

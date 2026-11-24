@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 ---
 
 # For The Win（Jaderberg 等人，2019）
@@ -22,6 +22,17 @@ translation_reviewed: 2026-10-28
 ## 方程式或演算法
 
 論文沒有把此方法簡化為單一方程式。每個智能體以強化學習訓練，其獎勵結合了遊戲中稀疏的勝利訊號，以及學到的內在獎勵。外層的基於種群訓練會在訓練過程中調整所有智能體的內在獎勵與超參數。
+
+
+### 動態解說：雙層種群學習
+
+<div class="population-source-scroll" tabindex="0" role="region" aria-label="FTW 種群抽取隊友與對手進行比賽，接收稀疏勝負獎勵和內在獎勵，並分別透過內層強化學習與外層種群訓練更新的動畫" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../../assets/concept-animations/ftw-two-level-learning-still.svg" data-motion-src="../../../../../../assets/concept-animations/ftw-two-level-learning-motion.svg" data-still-src="../../../../../../assets/concept-animations/ftw-two-level-learning-still.svg" alt="FTW 種群抽取隊友與對手進行比賽，接收稀疏勝負獎勵和內在獎勵，並分別透過內層強化學習與外層種群訓練更新的動畫" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 種群會抽取不同**隊友與對手**參加比賽。比賽結果提供稀疏的外在訊號，而每名智能體也學習自己的**內在獎勵訊號**。**內層強化學習**用來更新個別智能體的策略；**外層 PBT** 調整內在獎勵與訓練超參數。彩色智能體及比賽訊號路徑都是**概念示意，並非實際遊戲紀錄、量測獎勵或固定配對規則**。原方法包含大量平行比賽；此動畫僅聚焦其中一個因果循環。MkDocs 網站可播放／暫停；GitHub 可查看[靜態回退預覽](../../../../../../assets/concept-animations/ftw-two-level-learning-still.svg)。依據 [Jaderberg 等人（2018 預印本；2019 正式發表）](https://arxiv.org/abs/1807.01281)。
+
+「學得的內部獎勵」在這裡是由較慢的外層 PBT 演化遊戲事件的獎勵轉換；內層 RL 用目前的內部獎勵更新策略，並非兩個神經網路同時用梯度擬合同一勝負標籤。外層根據跨對局的表現選擇／複製策略、獎勵設定與超參數，再探索新設定。圖中依序亮起的路徑只用來區分因果關係，不代表每打一場就必須同步執行一次 PBT。手機可在可鍵盤聚焦的圖框內橫向捲動。
 
 ## 結果
 

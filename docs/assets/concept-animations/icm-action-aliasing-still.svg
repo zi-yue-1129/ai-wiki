@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 448" role="img" aria-labelledby="title desc">
+<title id="title">Inverse-action ambiguity under blocked movement</title>
+<desc id="desc">Two independent trials begin at the same state. Left and right commands both collide with walls and produce the same next state. The ideal inverse action posterior stays split under balanced actions, despite a predictable forward transition. Schematic, not measured ICM data.</desc>
+<rect width="480" height="448" rx="20" fill="#f8fafc"/>
+<g font-family="Arial, sans-serif">
+<text x="23" y="36" fill="#263b52" font-size="18" font-weight="700">ACTION ALIASING</text>
+<g fill="#fff" stroke="#d7e1ed" stroke-width="1.4"><rect x="20" y="52" width="440" height="128" rx="14"/><rect x="20" y="192" width="440" height="128" rx="14"/><rect x="20" y="332" width="440" height="96" rx="14"/></g>
+<g font-size="15" font-weight="700" fill="#52687f"><text x="35" y="75">TRIAL A</text><text x="35" y="215">TRIAL B</text><text x="327" y="76">NEXT</text><text x="327" y="216">NEXT</text></g>
+<!-- Two separately sampled commands; the blue object is stationary. -->
+<g fill="#cbd5e1"><rect x="169" y="88" width="13" height="69" rx="4"/><rect x="250" y="88" width="13" height="69" rx="4"/><rect x="169" y="228" width="13" height="69" rx="4"/><rect x="250" y="228" width="13" height="69" rx="4"/></g>
+<g fill="#eef5fb" stroke="#b6cadc" stroke-width="1.5"><rect x="326" y="86" width="107" height="76" rx="10"/><rect x="326" y="226" width="107" height="76" rx="10"/></g>
+<g fill="#a8bbce"><rect x="339" y="94" width="10" height="61" rx="3"/><rect x="409" y="94" width="10" height="61" rx="3"/><rect x="339" y="234" width="10" height="61" rx="3"/><rect x="409" y="234" width="10" height="61" rx="3"/></g>
+<g fill="#2686c5"><circle cx="216" cy="123" r="15"/><circle cx="216" cy="263" r="15"/><circle cx="380" cy="124" r="15"/><circle cx="380" cy="264" r="15"/></g>
+<g stroke="#2686c5" stroke-width="3" fill="none" stroke-linecap="round"><path d="M 206 123 H 185 M 190 117 L 184 123 L 190 129"/><path d="M 226 263 H 247 M 242 257 L 248 263 L 242 269"/></g>
+<g font-size="17" font-weight="700"><text x="38" y="123" fill="#287bad">LEFT</text><text x="38" y="263" fill="#287bad">RIGHT</text></g>
+<g stroke="#849ab3" stroke-width="2" fill="none"><path d="M 272 124 H 311 M 305 119 L 312 124 L 305 129"/><path d="M 272 264 H 311 M 305 259 L 312 264 L 305 269"/></g>
+<g stroke="#7b8ea5" stroke-width="1.5" stroke-dasharray="4 5"><path d="M 40 168 H 441"/><path d="M 40 308 H 441"/></g>
+<text x="35" y="353" fill="#3d526a" font-size="15" font-weight="700">INVERSE</text>
+<text x="35" y="406" fill="#3d526a" font-size="15" font-weight="700">FORWARD</text>
+<rect x="133" y="340" width="280" height="19" rx="9" fill="#e7edf3"/>
+<rect x="133" y="340" width="140" height="19" rx="9" fill="#287fbd"/>
+<rect x="273" y="340" width="140" height="19" rx="9" fill="#ef9b45"/>
+<text x="155" y="354" fill="#fff" font-size="15" font-weight="700">50%</text>
+<text x="369" y="354" fill="#54320e" font-size="15" font-weight="700">50%</text>
+<text x="135" y="377" fill="#45647d" font-size="15">LEFT</text><text x="367" y="377" fill="#86501f" font-size="15">RIGHT</text>
+<rect x="133" y="392" width="280" height="16" rx="8" fill="#e7edf3"/>
+<rect x="133" y="392" width="280" height="16" rx="8" fill="#63b7a3"/>
+<text x="273" y="404" text-anchor="middle" fill="#164b43" font-size="15" font-weight="700">PREDICTABLE NEXT STATE</text>
+</g></svg>

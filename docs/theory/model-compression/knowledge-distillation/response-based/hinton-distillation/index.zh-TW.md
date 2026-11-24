@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 ---
 
 # Hinton 蒸餾
@@ -19,18 +19,35 @@ Hinton、Vinyals 與 Dean 在 2015 年的論文是現代知識蒸餾的起點。
 組合損失為
 
 \[
-\mathcal{L} = (1-\alpha)\, \mathrm{CE}(y, \sigma(z_s)) + \alpha\, T^2\, \mathrm{KL}\!\left(\sigma(z_t/T)\,\Vert\,\sigma(z_s/T)\right)
+\begin{aligned}
+\mathcal{L} &= (1-\alpha)\,\mathrm{CE}(y,\sigma(z_s))\\
+&\quad + \alpha T^2\mathcal{L}_{\mathrm{soft}},\\
+\mathcal{L}_{\mathrm{soft}} &= \mathrm{KL}(p_T\Vert q_T),\\
+p_T&=\sigma(z_t/T),\quad q_T=\sigma(z_s/T).
+\end{aligned}
 \]
 
 其中 \(z_s\) 與 \(z_t\) 分別是學生與教師的 logits，\(\sigma\) 是 softmax，\(T\) 是溫度，\(\alpha\) 為兩項的權重。因子 \(T^2\) 使不同溫度下的梯度大小保持相近。
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="溫度軟化與教師學生機率對齊動畫">
+<div style="width:720px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg" data-motion-src="../../../../../assets/concept-animations/kd-soft-target-alignment-motion.svg" data-still-src="../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg" alt="教師三類機率隨溫度由一上升至三而變得較平坦；箭頭傳遞軟目標，學生機率長條逐漸接近教師的分布。" width="720" height="400">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 固定**教師 logits (3, 1, 0)**，在 \(T=1\) 時的類別機率約為 **(0.844, 0.114, 0.042)**，於 \(T=3\) 則為 **(0.532, 0.273, 0.196)**。紫色學生長條由人工設定的 \(T=3\) 起始分布 **(0.48, 0.30, 0.22)** 逐漸靠近教師軟目標。中間影格是**教學插值，不是實測訓練軌跡、單步梯度更新或模型性能**。MkDocs 可使用支援鍵盤操作的播放／暫停按鈕；GitHub 可直接看[靜態回退圖](../../../../../assets/concept-animations/kd-soft-target-alignment-still.svg)。蒸餾損失中的教師與學生機率必須使用**相同溫度**，而真實標籤的交叉熵仍採用未軟化的學生輸出。參見[原始論文](https://arxiv.org/abs/1503.02531)。
+
 論文還給出一項分析。當溫度相對於 logits 的大小很高時，軟目標項對每個學生 logit \(z_i\) 的梯度近似為
 
 \[
-\frac{\partial \mathcal{L}}{\partial z_i} \approx \frac{1}{N T^2}\,(z_i - v_i)
+\frac{\partial \mathcal{L}_{\mathrm{soft}}}{\partial z_i} \approx \frac{1}{N T^2}\,(z_i - v_i)
 \]
 
 其中 \(v_i\) 是教師的 logits，\(N\) 是類別數。在論文對 logits 零均值的假設下，高溫的蒸餾等同於讓學生的 logits 匹配教師的 logits。論文也提出專家集成：一個通才模型加上許多專家模型，每個專家只針對一組容易混淆的類別訓練。與混合專家不同，這些專家可以快速且平行地訓練。
+
+教師在兩個精確 softmax 分布間離散切換，不把線性機率插值當成連續溫度路徑。兩排共用每單位機率 100 像素的尺度；學生始終使用 T=3，教師切換後才示範對齊，循環尾端明示重設。此處 $\mathcal{L}_{\mathrm{soft}}$ 是**尚未乘上權重或溫度平方的軟目標交叉熵（或 KL）**，不是上方總損失；高溫梯度約按 $1/T^2$ 縮小，乘上 $T^2$ 補償的是此主導效應，不保證任意溫度的梯度完全不變。
+
+[Full SVG animation](../../../../../assets/concept-animations/kd-soft-target-alignment-motion.svg).
 
 ## 結果
 

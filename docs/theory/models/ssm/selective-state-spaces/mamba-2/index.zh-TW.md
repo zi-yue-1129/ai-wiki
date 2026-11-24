@@ -12,7 +12,7 @@ tags:
   - structured matrices
   - attention duality
   - hardware-efficient training
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-14
 ---
 
 # Mamba-2
@@ -43,13 +43,34 @@ M_{ji} = (a_j a_{j-1}\cdots a_{i+1})\,(C_j^{\top} B_i) \qquad (j \ge i)。
 
 以矩陣形式寫成 \(M = L \circ (C B^{\top})\)，其中 \(L\) 是由 \(a_t\) 的累積乘積構成的下三角遮罩。對偶的二次形式為 \((L \circ QK^{\top})V\)，其中 \(Q = C\)、\(K = B\)、\(V = X\)。分塊演算法以此二次形式計算 \(M\) 的對角區塊；非對角區塊則以低秩因子分三步處理：每個區塊從零初始狀態算出其最終狀態，一段跨區塊的短掃描傳播真正的狀態，最後每個區塊把進入的狀態映射為輸出。
 
+
+
+以上矩陣式假設初始狀態為零；非零初始狀態需另加傳播項。選擇性參數可依賴輸入，因此固定參數後的矩陣等價，不代表完整網路對輸入是固定線性映射。純量轉移的乘積遮罩是 1-半可分；加入向量 B、C 後，完整 M 的半可分秩可高於 1。
+
+## 動態圖解：遞迴與因果矩陣是同一個映射
+
+<div class="ssm-motion-viewport" tabindex="0" role="group" aria-label="Mamba-2 結構化狀態空間對偶示意">
+  <img data-source-asset-urls src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" data-motion-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg" data-still-src="../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg" alt="左側四個遞迴狀態更新，與右側依序亮起的下三角因果矩陣各列，計算出完全相同的四個輸出數值。" />
+</div>
+
+動畫逐一追蹤四個輸出；左側青綠色的狀態光圈，與右側亮起的矩陣列，代表**同一個計算的兩種表示方式**。人工構造的一維範例取 $B_t=C_t=1$、$h_0=0$、輸入 $x=(1,0.7,-0.6,1.1)$，轉移係數 $(a_2,a_3,a_4)=(0.8,0.7,0.9)$。純量遞迴 $h_t=a_th_{t-1}+x_t$ 得到 $y=h=(1,1.5,0.45,1.505)$，與矩陣表示 $y=Mx$ 完全相同。例如 $M_{4,1}=0.8\cdot0.7\cdot0.9=0.504$。空白的上三角表示**因果性**，不是 softmax 產生的零值。
+
+此圖僅展示 SSD 的純量轉移與單頭概念；**不是**完整的 Mamba-2 網路區塊、分塊 GPU 演算法、softmax 注意力圖或實測模型激活值。移動的橘色標記象徵掃描順序，而非實際傳送的資料封包。原創圖採 CC BY-SA 4.0，依據下方 Dao 與 Gu（2024）的原始論文。GitHub 可直接閱讀[完整靜態預覽](../../../../../assets/concept-animations/mamba2-ssd-causal-map-still.svg)，也可[開啟 12 秒循環 SVG 動畫](../../../../../assets/concept-animations/mamba2-ssd-causal-map-motion.svg)；MkDocs 支援**播放／暫停**（Enter／Space），減少動態效果偏好會先顯示靜態圖。
+
+
+### 互動實驗：對照遞迴狀態與因果矩陣
+
+<div class="ssm-lab" data-ssm-lab="ssd" data-lang="zh"></div>
+
+調整純量轉移係數 $a_2,a_3,a_4$ 或最後的輸入 $x_4$，再依序檢查四個輸出。**左側遞迴**與**右側亮起的因果矩陣列**會使用相同參數各自重新計算，並顯示最大絕對差以檢查等價性。可用**上一步／下一步、播放／暫停、進度滑桿、0.5×／1×／2× 速度及重設**操作。上三角區域因因果限制而不存在，並非學得的注意力權重。此為確定性、單一維度的 SSD 人工範例，**不是訓練所得 Mamba-2 活化值、softmax 注意力圖或效能實測**；GitHub 與停用指令碼時可閱讀上方靜態 SVG。
+
 ## 結果
 
 摘要指出，SSD 層比 Mamba 最佳化過的選擇性掃描實作快 "2-8X"（2 至 8 倍）。論文指出，其循環狀態可以是 Mamba 的 "8× the size of Mamba or even higher"（8 倍大小或更大），且 "with minimal slowdown"（速度僅有極小下降）。與 FlashAttention-2 相比，論文指出 SSD 實作具競爭力：在序列長度約 2K 時交叉，在長度 16K 時快 6 倍。在 Pile 上，2.7B 參數、訓練 300B token 的 Mamba-2，勝過在相同資料上訓練的 Mamba-2.8B、Pythia-2.8B 與 Pythia-6.9B。論文也主張，在 Chinchilla 式的擴展下，Mamba-2 在困惑度與牆鐘時間上帕累托支配 Mamba 與 Transformer++；但此主張的實驗細節未在本頁核對。
 
 ## 限制
 
-純量轉移確實是一項限制。論文表示，此設計 "slightly decreasing the expressive power in return for significant training efficiency improvements"（以顯著的訓練效率提升，換取表達力的小幅下降）。與注意力的連結只涵蓋某些注意力變體，而對偶形式捨棄了 softmax。1-SS 形式的表達力嚴格弱於一般的半可分結構化遮罩注意力，且無法寫成標準的 SSM。對於短序列，二次模式可能比線性模式更有效率；在論文的比較中，約 2K token 以下時 SSD 實作慢於 FlashAttention-2。
+純量轉移確實是一項限制。論文表示，此設計 "slightly decreasing the expressive power in return for significant training efficiency improvements"（以顯著的訓練效率提升，換取表達力的小幅下降）。與注意力的連結只涵蓋某些注意力變體，而對偶形式捨棄了 softmax。1-SS 遮罩注意力正是純量乘單位矩陣轉移的 SSM 特例；論文 Remark 7 所說不能直接寫成標準 SSM 的對象，是更一般的半可分遮罩注意力，而不是 1-SS 特例。對於短序列，二次模式可能比線性模式更有效率；在論文的比較中，約 2K token 以下時 SSD 實作慢於 FlashAttention-2。
 
 ## 相關連結
 

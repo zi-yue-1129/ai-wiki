@@ -1,6 +1,6 @@
 ---
 status: complete
-last_reviewed: 2026-11-04
+last_reviewed: 2026-11-08
 related:
   - theory/machine-learning/adversarial-robustness
 tags:
@@ -25,17 +25,50 @@ FGSM is the simplest effective attack on a differentiable classifier. It needs o
 
 - **Perturbation budget \(\epsilon\)**: the largest allowed change to each input component, measured in the \(\ell_\infty\) norm.
 - **Loss gradient**: the derivative of the training loss with respect to the input, not the parameters.
-- **Sign operation**: keeping only the direction of each gradient component makes every pixel move by the full budget.
+- **Sign operation**: each nonzero gradient component contributes a perturbation of magnitude \(\epsilon\) before input-domain clipping; a zero component contributes no change. Components clipped at the valid input boundary may move by less than \(\epsilon\).
 
 ## How it works
 
 Given an input \(x\), label \(y\), loss \(J(\theta,x,y)\) and parameters \(\theta\), the adversarial input is
 
-\[
-\tilde{x} = x + \epsilon\,\mathrm{sign}\big(\nabla_x J(\theta, x, y)\big).
-\]
+$$
+\begin{gathered}
+g=\nabla_x J(\theta,x,y),\\
+\tilde{x}=x+\epsilon\,\mathrm{sign}(g).
+\end{gathered}
+$$
 
 Clipping \(\tilde{x}\) to the valid input range, such as \([0,1]\) for images, keeps the example a valid input. Goodfellow et al. (2015) show that a linear model is especially vulnerable, because the perturbation adds up across many input dimensions and changes the output by \(\epsilon\|w\|_1\).
+
+### Visual walkthrough
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Scrollable FGSM sign-gradient illustration" style="overflow-x:auto;max-width:100%"><div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../../assets/concept-animations/fgsm-sign-step-still.svg" data-motion-src="../../../assets/concept-animations/fgsm-sign-step-motion.svg" data-still-src="../../../assets/concept-animations/fgsm-sign-step-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="The gradient points northeast in a two-dimensional input space, while the FGSM sign step moves diagonally to the corner of the L-infinity perturbation budget. A linked marker shows the increasing first-order loss."></div></div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* This **analytic, two-coordinate illustration** uses a constant loss gradient $g=(0.90,0.45)$, an $\ell_\infty$ budget $\epsilon=1$ and a linearized change $\Delta J\approx g^\top\delta$. The orange arrow is the actual gradient direction, while the teal displacement uses **only its signs**: $\delta(t)=t(1,1)$ for $0\leq t\leq1$. Consequently, the linearized loss gain increases from zero to $\Delta J(1)=0.90+0.45=1.35$. The sign step is the exact maximizer **of this local linear approximation** under the stated unconstrained-input box; it need not maximize the nonlinear model loss, and clipping to valid image intensities can shorten the step. Values are selected for instruction, **not measured model gradients or attack success rates**. The MkDocs site provides Play/Pause and a reduced-motion static fallback; on a narrow screen, scroll the figure horizontally using touch or keyboard. [GitHub-readable static preview](../../../assets/concept-animations/fgsm-sign-step-still.svg).
+
+Animation time sweeps the scale of a single sign direction outward and back; it does not show repeated FGSM updates or loss decreasing during an optimizer run. The orange arrow indicates the gradient direction, not a second perturbation. A zero gradient component has sign zero and is unchanged; input-domain clipping can also prevent a component from moving by the full budget.
+
+### FGSM versus iterative PGD: trajectory
+
+<div role="region" tabindex="0" aria-label="Side-by-side FGSM and PGD schematic; use Left and Right arrow keys to scroll" style="overflow-x:auto;max-width:100%">
+<div style="width:720px;min-width:720px">
+<img src="../../../assets/concept-animations/fgsm-pgd-trajectory.svg" alt="Two-panel schematic: FGSM reaches the upper-right L-infinity budget corner in one step; PGD takes smaller feasible steps, proposes an out-of-budget candidate, then clips it back to the boundary" data-source-asset-urls="../../../assets/concept-animations/fgsm-pgd-trajectory.svg" style="width:720px;min-width:720px;max-width:none;height:auto">
+</div>
+</div>
+
+This side-by-side diagram isolates the order of the sign step, proposal and projection. It complements separate gradient-sign and multi-step loss-path diagrams; their numerical trajectories are not interchangeable. The figure retains its native size: focus its region and use Left/Right keys, or swipe horizontally on a narrow screen.
+
+*Original schematic animation.* The left panel shows one gradient-sign update; the right panel shows several smaller updates inside an illustrated \(\ell_\infty\) perturbation budget. The dashed orange segment is an unprojected candidate update from the last teal feasible iterate; the purple segment shows coordinate-wise clipping back to the right-hand budget boundary. The teal endpoint is the pre-candidate iterate, **not** the projection result. Positions, directions, and timing are illustrative, **not measured model outputs**. The full paths remain visible in GitHub's static SVG preview. Motion may be disabled by the viewer's browser; the geometry is still readable.
+
+**Read the motion in three phases:** during 0–2.5 s, the blue FGSM marker completes its sole step while teal PGD iterates advance within the budget. During 2.5–3.5 s, the orange candidate follows an *unconstrained* gradient update and can leave the feasible set. During 3.5–5 s, the purple marker returns that candidate to the feasible boundary by projection; this return is **not another gradient step**. The faint complete trajectories are a static preview, not a claim that all updates happen simultaneously. This five-second SVG plays once without play/pause or seek controls; readers who need to inspect a phase can use the static geometry and this timeline.
+
+**Reading the FGSM endpoint correctly.** The blue trajectory now reaches the *upper-right corner* of the illustrated \(\ell_\infty\) budget rectangle. This represents a full FGSM sign step for two nonzero gradient components pointing toward that corner, without input-domain clipping. The figure's screen coordinates and arrow lengths are schematic, not measured gradients; an input-domain boundary or zero gradient component can yield a different endpoint. The independent numerical example below uses a different hypothetical sign pattern and is **not** a coordinate readout from this drawing.
+
+**What the purple projection actually constrains.** For an image with valid input range \([0,1]\), an \(\ell_\infty\)-bounded PGD update projects the orange candidate \(z\) onto the intersection \(\mathcal{S}=[0,1]^d\cap\{u:\|u-x\|_\infty\le\epsilon\}\), not merely onto the image range. Coordinate \(i\) is clipped to \([\max(0,x_i-\epsilon),\min(1,x_i+\epsilon)]\). The drawing shows a two-dimensional slice with an active right-hand budget boundary; the horizontal purple return is a **schematic instance**, not a claim that every PGD projection is horizontal. Projection changes feasibility without recomputing the loss gradient.
+
+**A coordinate-exact FGSM comparison (schematic).** With \(x=(0.50,0.50)\), \(\epsilon=0.20\), and input-loss gradient \(g=(+2,-3)\), the untargeted sign update gives \(x+\epsilon\operatorname{sign}(g)=(0.70,0.30)\), exactly the lower-right corner of the feasible square. Its result depends on the **signs**, not the magnitudes 2 and 3; multiplying both gradient components by any positive constant leaves this step unchanged. In contrast, a PGD update of size \(\alpha=0.10\) from the same point with the same local sign would first reach \((0.60,0.40)\). Further PGD signs must be recomputed at the current iterate, so the illustration's later turns cannot be inferred from this single gradient. All values here are invented for instruction, not model measurements.
+
+**Worked projection example (schematic).** Let \(x=(0.50,0.50)\), \(\epsilon=0.20\), and the unprojected candidate be \(z=(0.82,0.63)\). The feasible coordinate intervals are both \([0.30,0.70]\), so \(\Pi_{\mathcal S}(z)=(0.70,0.63)\): only the first coordinate is clipped, producing a horizontal return like the purple segment. If instead \(z=(0.82,0.81)\), both coordinates are clipped to \((0.70,0.70)\); the projection is diagonal. These numbers are illustrative, not measurements from a trained model.
 
 ## Variants
 

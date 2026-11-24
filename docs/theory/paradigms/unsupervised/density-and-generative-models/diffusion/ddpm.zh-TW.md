@@ -40,9 +40,17 @@ L_{\text{simple}} = \mathbb{E}_{t, x_0, \epsilon}\big[\|\epsilon - \epsilon_\the
 x_{t-1} = \frac{1}{\sqrt{\alpha_t}}\Big(x_t - \frac{\beta_t}{\sqrt{1-\bar\alpha_t}}\,\epsilon_\theta(x_t, t)\Big) + \sigma_t z
 \]
 
-論文將 \(\sigma_t^2\) 固定為常數，可選 \(\beta_t\) 或 \(\tilde\beta_t\)，兩者結果相近。
+論文採用固定而非學習得到的變異數時程 \(\sigma_t^2\)（仍隨時間步驟而變），可選 \(\beta_t\) 或 \(\tilde\beta_t\)，兩者結果相近。
 
 **設定：**\(T = 1000\) 步，\(\beta_t\) 從 \(10^{-4}\) 到 \(0.02\) 線性增加。去噪器是帶有時間步條件的 U-Net，改編自 PixelCNN++。
+
+## 教學動畫：逐步前向加噪
+
+<div class="diffusion-source-scroll" tabindex="0" role="region" aria-label="擴散模型圖解，可水平捲動">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/ddpm-progressive-noising-still.svg" data-motion-src="../../../../../assets/concept-animations/ddpm-progressive-noising-motion.svg" data-still-src="../../../../../assets/concept-animations/ddpm-progressive-noising-still.svg" alt="抽象像素圖案逐步與示意雜訊圖案混合，訊號貢獻條縮短、雜訊貢獻條增長。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*原創循環式 SVG 教學動畫，CC BY-SA 4.0。* 左側固定的乾淨圖樣、中央的含噪狀態 $x_t$ 與右側雜訊參考圖，說明 DDPM 的前向邊際分布 $x_t = \sqrt{\bar\alpha_t}x_0 + \sqrt{1-\bar\alpha_t}\epsilon$（參見 Ho 等人，2020）。隨著 $t$ 增加，訊號係數逐漸下降，雜訊係數逐漸上升。進度條與像素色彩都只是**質性示意**，不是特定 $\beta_t$ 排程的精確係數、高斯雜訊實際樣本或模型生成結果。此處的前向擾動不需訓練，反向取樣才由模型學習且通常包含隨機性。MkDocs 網站提供鍵盤可操作的**播放／暫停**控制，減少動態效果偏好會顯示靜態圖。[GitHub 靜態預覽](../../../../../assets/concept-animations/ddpm-progressive-noising-still.svg)。
 
 ## 結果
 

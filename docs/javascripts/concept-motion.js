@@ -4,32 +4,103 @@
 (() => {
   'use strict';
   const suffix = /-motion\.svg(?=$|[?#])/;
+  const motorStill = /(?:forward-prediction-correction|ofc-selective-feedback)-still\.svg(?=$|[?#])/;
+  // These two diagrams use GitHub-readable stills as their canonical Markdown sources.
+  const staticFirst = /(?:score-sde-flow|consistency-trajectory-map)-still\.svg(?=$|[?#])/;
+  const wideDiagram = /(?:score-sde-flow|consistency-trajectory-map)-motion\.svg(?=$|[?#])/;
   const moeSuffix = /moe-top2-routing-motion\.svg(?=$|[?#])/;
   // Earlier CSS-animated diagrams keep their original filenames.
   const standalonePairs = {
     'flashattention-streaming-tiles.svg': 'flashattention-streaming-tiles-still.svg',
     'lstm-write-retain-read.svg': 'lstm-write-retain-read-still.svg',
   };
+  // These two chapters intentionally show a readable still in GitHub Markdown.
+  // MkDocs upgrades that exact preview to the matching loop automatically.
+  const stillFirstPairs = new Set(['paged-block-mapping-still.svg', 'expert-cache-miss-still.svg']);
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function enhance(root = document) {
     for (const img of root.querySelectorAll('img[src*="concept-animations/"]')) {
       if (img.dataset.conceptMotionEnhanced === 'yes') continue;
-      const animated = img.dataset.motionSrc || img.getAttribute('src') || '';
+      const source = img.getAttribute('src') || '';
+      const attentionStill = /(?:sliding-window-mask|linear-attention-recurrence|sliding-window-depth-reach|linear-attention-work-growth|gqa-cache-growth|global-local-pair-count|flashattention-online-rescale|flashattention-exact-merge|flashattention-causal-tiles|flashattention-backward-remat|flashattention2-query-parallel|flashattention3-load-compute-pipeline)-still\.svg(?=$|[?#])/;
+      const sourceName = source.split(/[?#]/, 1)[0].split('/').pop();
+      const animated = img.dataset.motionSrc || ((stillFirstPairs.has(sourceName) || motorStill.test(source) || staticFirst.test(source) || attentionStill.test(source))
+        ? source.replace(/-still\.svg(?=$|[?#])/, '-motion.svg') : source);
       const fileName = animated.split(/[?#]/, 1)[0].split('/').pop();
+      const isAttentionTopic = attentionStill.test(animated.replace('-motion.svg','-still.svg'));
       const pairedStill = standalonePairs[fileName];
       if (!suffix.test(animated) && !pairedStill) continue;
-      const still = img.dataset.stillSrc || (pairedStill
+      const still = img.dataset.stillSrc || (staticFirst.test(source)
+        ? source : pairedStill
         ? animated.replace(fileName, pairedStill)
         : animated.replace(suffix, '-still.svg'));
+      const isMobileIcm = /icm-predictable-stochastic-motion\.svg(?=$|[?#])/.test(animated);
+      const isMobileRnd = /rnd-state-novelty-motion\.svg(?=$|[?#])/.test(animated);
+      const hasMobileLayout = isMobileIcm || isMobileRnd;
+      const narrowScreen = window.matchMedia('(max-width: 640px)');
+      const mobileMotion = isMobileIcm ? animated.replace(
+        'icm-predictable-stochastic-motion.svg',
+        'icm-predictable-stochastic-mobile-motion.svg') : isMobileRnd ? animated.replace(
+        'rnd-state-novelty-motion.svg',
+        'rnd-state-novelty-mobile-motion.svg') : animated;
+      const mobileStill = isMobileIcm ? still.replace(
+        'icm-predictable-stochastic-still.svg',
+        'icm-predictable-stochastic-mobile-still.svg') : isMobileRnd ? still.replace(
+        'rnd-state-novelty-still.svg',
+        'rnd-state-novelty-mobile-still.svg') : still;
       const isMoe = moeSuffix.test(animated);
       const tokenB = isMoe ? animated.replace(suffix, '-token-b.svg') : '';
       const chinese = /[\u3400-\u9fff]/.test(img.alt || '');
       const originalAlt = img.alt;
       const host = document.createElement('span');
+      const navigation = /^(place-cell-firing|successor-occupancy)-motion\.svg$/.test(fileName);
       host.className = 'concept-motion-player';
+      if (navigation) host.className += ' concept-motion-navigation';
+      // The diagram stays at a legible native width on narrow viewports.
+      // Make the overflow region reachable with keyboard arrow keys.
+      if (stillFirstPairs.has(sourceName)) {
+        host.classList.add('concept-motion-inference');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫，使用左右方向鍵' : 'Scrollable concept animation; use Left and Right arrow keys');
+      }
+      // Planning timelines use a fixed legible canvas on narrow screens;
+      // the focusable player region supports touch and arrow-key scrolling.
+      if (/(?:strips-state-effects|graphplan-layer-extraction)-motion\.svg/.test(animated)) {
+        host.classList.add('concept-motion-wide');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese
+          ? '可水平捲動的教學規劃動畫'
+          : 'Horizontally scrollable planning animation');
+      }
+      if (/^(layernorm-feature-shift|seq2seq-context-handoff)-motion\.svg$/.test(fileName)) {
+        host.classList.add('norm-seq-wide');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', chinese ? '可水平捲動的概念動畫區域' : 'Horizontally scrollable concept animation');
+      }
+      if (isAttentionTopic) {host.classList.add('concept-motion-wide');host.classList.add('attention-motion-wide');host.tabIndex = 0;host.setAttribute('role','region');host.setAttribute('aria-label',chinese?'注意力圖解，可水平捲動':'Attention diagram, horizontally scrollable');}
       img.before(host);
-      host.append(img);
+      const diffusion = wideDiagram.test(animated);
+      if (diffusion) host.classList.add('concept-motion-diffusion');
+      if (motorStill.test(still)) host.className += ' concept-motion-motor';
+      if (navigation || motorStill.test(still) || diffusion) {
+        const viewport = document.createElement('span');
+        viewport.className = 'concept-motion-viewport' + (diffusion ? ' concept-motion-scroll' : '');
+        viewport.tabIndex = 0;
+        viewport.setAttribute('role', 'region');
+        viewport.setAttribute('aria-label', diffusion
+          ? (chinese ? '可水平捲動的教學動畫圖；聚焦後使用左右方向鍵' : 'Scrollable teaching animation; focus and use Left/Right arrow keys')
+          : motorStill.test(still)
+            ? (chinese ? '可水平捲動的概念動畫，使用左右方向鍵' : 'Scrollable concept animation: use arrow keys to scroll horizontally')
+            : (chinese ? '概念動畫：可使用方向鍵水平捲動' : 'Concept animation: use arrow keys to scroll horizontally'));
+        host.append(viewport);
+        viewport.append(img);
+      } else {
+        host.append(img);
+      }
       img.dataset.conceptMotionEnhanced = 'yes';
 
       const controls = document.createElement('span');
@@ -55,7 +126,9 @@
       }
 
       const sync = () => {
-        const next = paused ? (isMoe && token === 1 ? tokenB : still) : animated;
+        const motionSrc = hasMobileLayout && narrowScreen.matches ? mobileMotion : animated;
+        const stillSrc = hasMobileLayout && narrowScreen.matches ? mobileStill : still;
+        const next = paused ? (isMoe && token === 1 ? tokenB : stillSrc) : motionSrc;
         if (img.getAttribute('src') !== next) img.setAttribute('src', next);
         img.alt = paused && isMoe
           ? (token === 0
@@ -88,6 +161,7 @@
       reduced.addEventListener?.('change', event => {
         if (!overridden) { paused = event.matches; token = 0; sync(); }
       });
+      if (hasMobileLayout) narrowScreen.addEventListener?.('change', sync);
       host.append(controls);
       if (status) host.append(status);
       sync();

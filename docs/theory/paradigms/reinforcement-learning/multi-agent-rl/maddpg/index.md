@@ -25,7 +25,7 @@ The paper also proposes two extensions. Policy ensembles train \(K\) sub-policie
 For agent \(i\), the actor update is the deterministic policy gradient through the centralised critic:
 
 \[
-\nabla_{\theta_i} J(\mu_i) = \mathbb{E}_{x, \mathcal{D}}\left[\nabla_{\theta_i}\mu_i(o_i)\, \nabla_{a_i} Q_i^{\mu}(x, a_1, \ldots, a_N)\big|_{a_i = \mu_i(o_i)}\right]
+\nabla_{\theta_i} J(\mu_i) = \mathbb{E}_{x,a\sim\mathcal{D}}\left[\nabla_{\theta_i}\mu_i(o_i)\, \nabla_{a_i} Q_i^{\mu}(x, a_1, \ldots, a_N)\big|_{a_i = \mu_i(o_i)}\right]
 \]
 
 The critic is trained with a temporal-difference target built from the target actors, as in DDPG. The procedure:
@@ -35,6 +35,32 @@ The critic is trained with a temporal-difference target built from the target ac
 3. Update each critic \(Q_i\) with its centralised target.
 4. Update each actor \(\mu_i\) with the gradient through its critic.
 5. Update target networks slowly and repeat.
+
+<div class="marl-source-scroll" tabindex="0" role="region" aria-label="MADDPG centralised critic receives the joint actions and observations, and the actor gradient returns only to agent one" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/maddpg-actor-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/maddpg-actor-gradient-motion.svg" data-still-src="../../../../../assets/concept-animations/maddpg-actor-gradient-still.svg" alt="MADDPG centralised critic receives the joint actions and observations, and the actor gradient returns only to agent one" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* Follow the **blue and teal forward pulses** from the two local actors into agent 1's centralised critic. The **magenta reverse pulse** represents the derivative of \(Q_1\) with respect to agent 1's action, which updates \(\mu_1\); it does **not** update \(\mu_2\) through this actor-gradient path. The bottom row shows the execution-time path, when agent 1 needs only its own observation and actor, not the centralised critic. The diagram omits replay sampling, target critics and optimisers; the pulses are explanatory paths, **not measured gradients or learned activations**. On MkDocs, use Play/Pause; the [GitHub-readable static fallback](../../../../../assets/concept-animations/maddpg-actor-gradient-still.svg) shows the complete flow. See Lowe et al. (2017) in References.
+
+
+### Joint target bootstrap (agent 1)
+
+For a sampled joint transition, each **slow target actor** computes its next action from its own next observation. The target critic then evaluates the *joint* next action:
+
+\[
+a'_j=\mu'_j(o'_j),\qquad
+y_1=r_1+\gamma(1-d)Q'_1(x',a'_1,\ldots,a'_N).
+\]
+
+Here \(d=1\) denotes a terminal transition, so the bootstrap term vanishes. The example below is deliberately constructed: \(r_1=0.50\), \(\gamma=0.90\), \(d=0\), target critic output \(Q'_1=1.80\), and online critic output \(Q_1=1.40\). Thus \(y_1=2.12\) and the signed residual \(y_1-Q_1=0.72\). The illustration follows the original MADDPG target-network construction (Lowe et al., 2017, in References), not a recorded training run.
+
+<div class="marl-source-scroll" tabindex="0" role="region" aria-label="MADDPG joint replay observation flows through target actors to the target critic and Bellman residual" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/maddpg-joint-bootstrap-still.svg" data-motion-src="../../../../../assets/concept-animations/maddpg-joint-bootstrap-motion.svg" data-still-src="../../../../../assets/concept-animations/maddpg-joint-bootstrap-still.svg" alt="MADDPG joint replay observation flows through target actors to the target critic and Bellman residual" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* Follow the coloured pulses from replayed next observations through the two **target** actors, the joint target critic, then the bootstrapped target and residual. The glow progresses through the actual dependency order; the values are fixed **schematic examples, not measured neural outputs**. On the MkDocs website use Play/Pause; the [GitHub-readable static fallback](../../../../../assets/concept-animations/maddpg-joint-bootstrap-still.svg) retains every operation. The critic loss averages squared TD errors over a minibatch; the pictured residual is one sample, not the entire optimiser update.
+
+Values remain printed for checking; packets and outlines mark calculation dependencies, not measured signals. Each packet reaches its next node before the dependent stage. The figure stays 640 pixels wide inside a keyboard-focusable horizontal scroller.
 
 ## Results
 

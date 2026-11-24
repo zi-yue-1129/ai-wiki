@@ -3,13 +3,15 @@
 from pathlib import Path
 import json
 import tempfile
+import subprocess
 from types import SimpleNamespace
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from test_built_motion_browser import (
     Images, MotionPage, assert_document_fits, check_built_page, check_math_rendering, discover_pages,
     record_failure_diagnostics, source_asset_url, check_keyboard_scrollers,
+    check_math_renderer_canary, MOBILE_PREFLIGHT_NAMES, check_image,
 )
 
 BASE = "https://example.test/ai-wiki/"
@@ -17,7 +19,67 @@ IMAGE = ('<img data-source-asset-urls src="../assets/plot-still.svg" '
          'data-motion-src="../assets/plot-motion.svg" alt="Example plot">')
 
 
+class ResponsiveAssetTests(unittest.TestCase):
+    def test_exact_variants_boundaries_and_wrong_variants(self):
+        from test_built_motion_browser import responsive_asset_url
+        for stem in ['icm-predictable-stochastic','rnd-state-novelty']:
+            for state in ['motion','still']:
+                for suffix in ['', '?v=1','#sample']:
+                    url=BASE+'assets/concept-animations/'+stem+'-'+state+'.svg'+suffix
+                    for width in [390,640,641,1280]:
+                        expected=url.replace('-'+state+'.svg','-mobile-'+state+'.svg') if width<=640 else url
+                        self.assertEqual(responsive_asset_url(url,{'width':width}),expected)
+                        self.assertNotEqual(expected,expected.replace('-'+state+'.svg','-wrong-'+state+'.svg'))
+        for name in ['other-motion.svg','prefix-icm-predictable-stochastic-motion.svg','rnd-state-novelty-motion.svg.bak']:
+            url=BASE+name;self.assertEqual(responsive_asset_url(url,{'width':390}),url)
+    def test_resolver_matches_real_player_execution(self):
+        import os
+        from test_built_motion_browser import responsive_asset_url
+        root=Path(__file__).resolve().parents[1]
+        result=subprocess.check_output(['node','scripts/test_curiosity_player.cjs'],cwd=root,env={**os.environ,'REPORT_RESPONSIVE':'1'},text=True)
+        records=json.loads(result.splitlines()[0]);self.assertEqual(len(records),864)
+        for record in records:
+            self.assertEqual(responsive_asset_url(record['base'],{'width':record['width']}),record['actual'])
+        def check(resolve):
+            for r in records: assert resolve(r['base'],{'width':r['width']})==r['actual']
+        check(responsive_asset_url)
+        for bad in [lambda u,v:u,
+                    lambda u,v:responsive_asset_url(u,{'width':390}),
+                    lambda u,v:responsive_asset_url(u,v).replace('-mobile-','-wrong-')]:
+            with self.assertRaises(AssertionError):check(bad)
+        # Mutate the actual player boundary, not a copied implementation.
+        import shutil
+        with tempfile.TemporaryDirectory() as directory:
+            tmp=Path(directory)
+            paths=['scripts/test_curiosity_player.cjs','scripts/concept_motion_fixture_selector.cjs','docs/javascripts/concept-motion.js']
+            paths += ['docs/theory/paradigms/reinforcement-learning/exploration/'+topic+'/index'+lang+'.md' for topic in ['icm','rnd'] for lang in ['', '.zh-TW']]
+            for path in paths:
+                dest=tmp/path;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(root/path,dest)
+            player=tmp/'docs/javascripts/concept-motion.js';text=player.read_text();assert '(max-width: 640px)' in text
+            player.write_text(text.replace('(max-width: 640px)','(max-width: 639px)'))
+            mutated=subprocess.run(['node','scripts/test_curiosity_player.cjs'],cwd=tmp,capture_output=True,text=True)
+            self.assertNotEqual(mutated.returncode,0);self.assertIn('639px',mutated.stderr)
+
 class DiscoveryTests(unittest.TestCase):
+    def test_real_parser_rejects_blank_alt_in_source_and_built_page(self):
+        # Source and built values are obtained through actual HTML parsers.
+        # Whitespace is not trimmed for matching valid accessible names.
+        from markdown import Markdown
+        for alt in (None, "", "   ", "\t", "&#32;&#9;", "&nbsp;"):
+            with self.subTest(alt=alt):
+                attr = "" if alt is None else f' alt="{alt}"'
+                html = '<img data-source-asset-urls src="../assets/plot-still.svg" data-motion-src="../assets/plot-motion.svg"' + attr + '>'
+                rendered = Markdown().convert(html)
+                target = MotionPage("topic/page.md", "en", "topic/page/", "page.html", Images(rendered).images)
+                (self.site / "page.html").write_text(rendered.replace("data-source-asset-urls", "").replace('../assets/', '/ai-wiki/assets/'))
+                with self.assertRaisesRegex(AssertionError, "non-whitespace alt"):
+                    check_built_page(self.site, target, BASE)
+        for alt in ("Descriptive name", "  保留完整名稱  "):
+            html = f'<img data-source-asset-urls src="../assets/plot-still.svg" data-motion-src="../assets/plot-motion.svg" alt="{alt}">'
+            target = MotionPage("topic/page.md", "en", "topic/page/", "page.html", Images(Markdown().convert(html)).images)
+            (self.site / "page.html").write_text(html.replace("data-source-asset-urls", "").replace('../assets/', '/ai-wiki/assets/'))
+            self.assertEqual(check_built_page(self.site, target, BASE)[0]["alt"], alt)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
@@ -156,7 +218,7 @@ class DiscoveryTests(unittest.TestCase):
 
     def test_math_rendering_rejects_nested_or_forgotten_assistive_output(self):
         valid = {"sourceRoots": 1, "unrendered": 0, "containers": 1,
-                 "nestedAssistive": 0, "assistiveMathML": 1, "trackedItems": 1}
+                 "nestedAssistive": 0, "assistiveMathML": 1, "trackedItems": 1, "renderedErrors": []}
         page = SimpleNamespace(evaluate=lambda _js: valid)
         self.assertEqual(check_math_rendering(page), valid)
         for changes, message in [({"nestedAssistive": 1}, "typeset again"),
@@ -167,6 +229,61 @@ class DiscoveryTests(unittest.TestCase):
             with self.assertRaisesRegex(AssertionError, message):
                 check_math_rendering(page)
 
+    def test_rendered_errors_rejected_even_when_every_container_count_matches(self):
+        valid = {"sourceRoots": 1, "unrendered": 0, "containers": 1,
+                 "nestedAssistive": 0, "assistiveMathML": 1, "trackedItems": 1,
+                 "renderedErrors": []}
+        for tag in ('mjx-merror', 'merror', 'g[data-mml-node=merror]', 'span[data-mjx-error]'):
+            state = {**valid, "renderedErrors": [{"tag": tag, "message": "Unknown environment"}]}
+            with self.subTest(tag=tag), self.assertRaisesRegex(AssertionError, 'rendered MathJax error'):
+                check_math_rendering(SimpleNamespace(evaluate=lambda _: state))
+
+    def test_math_error_guard_inspects_nodes_not_prose_strings(self):
+        expressions = []
+        valid = {"sourceRoots": 0, "unrendered": 0, "containers": 0,
+                 "nestedAssistive": 0, "assistiveMathML": 0, "trackedItems": 0,
+                 "renderedErrors": []}
+        def evaluate(js):
+            expressions.append(js); return valid
+        self.assertEqual(check_math_rendering(SimpleNamespace(evaluate=evaluate)), valid)
+        rendered_query = expressions[-1]
+        for selector in ('mjx-merror', '[data-mjx-error]', 'merror', '[data-mml-node="merror"]'):
+            self.assertIn(selector, rendered_query)
+        self.assertNotIn('article.textContent', rendered_query)
+
+    def test_renderer_canary_requires_actual_rejection_and_closes_context(self):
+        browser = Mock(); context = browser.new_context.return_value
+        page = context.new_page.return_value; page.goto.return_value.ok = True
+        valid = {"containers": 1, "renderedErrors": []}
+        invalid = {"containers": 1, "renderedErrors": [{"tag": "mjx-merror"}]}
+        with patch('test_built_motion_browser.check_math_rendering', side_effect=[
+                valid, valid, AssertionError(('rendered MathJax error', invalid)), valid]):
+            result = check_math_renderer_canary(browser, BASE, self.site)
+        self.assertEqual(result['status'], 'passed')
+        self.assertEqual(result['invalid_rejected']['containers'], 1)
+        context.close.assert_called_once()
+        self.assertEqual(page.evaluate.call_count, 3)  # valid -> invalid -> cleared
+
+    def test_renderer_canary_fails_if_invalid_tex_is_accepted(self):
+        browser = Mock(); page = browser.new_context.return_value.new_page.return_value
+        page.goto.return_value.ok = True
+        with patch('test_built_motion_browser.check_math_rendering', return_value={"containers": 1}):
+            with self.assertRaisesRegex(AssertionError, 'incorrectly accepted'):
+                check_math_renderer_canary(browser, BASE, self.site)
+        browser.new_context.return_value.close.assert_called_once()
+        report = json.loads((self.site/'math-renderer-canary/report.json').read_text())
+        self.assertEqual(report['status'], 'failed')
+
+    def test_mobile_preflight_retains_original_topics_and_adds_shampoo(self):
+        self.assertEqual(MOBILE_PREFLIGHT_NAMES, {'t-sne', 'umap', 'minhash-deduplication',
+            'data-programming', 'regularized-evolution', 'asam', 'shampoo'})
+        self.assertEqual(len(MOBILE_PREFLIGHT_NAMES)*2*2, 28)
+
+    def test_actual_scroll_discovery_javascript(self):
+        # Execute the actual Python-embedded JS in Node's DOM-stub contract tests.
+        # Real native focus/keyboard/renderer assertions still run separately in CI Chromium.
+        subprocess.run(['node', str(Path(__file__).with_name('test_motion_scroll_discovery.cjs'))], check=True)
+
     def test_diagnostics_error_does_not_replace_original_failure(self):
         def fail(_js):
             raise RuntimeError("page unavailable")
@@ -174,6 +291,41 @@ class DiscoveryTests(unittest.TestCase):
         record_failure_diagnostics(SimpleNamespace(evaluate=fail), self.site, result)
         self.assertEqual(result, {"status": "failed", "error": "original failure",
                                   "overflow_diagnostics_error": "page unavailable"})
+
+
+class LazyImageTests(unittest.TestCase):
+    def test_scroll_precedes_decode_wait_and_preserves_image_checks(self):
+        events = []
+        image = Mock()
+        image.scroll_into_view_if_needed.side_effect = lambda: events.append('scroll')
+        image.get_attribute.return_value = 'Later lazy image'
+        image.is_visible.return_value = True
+        image.evaluate.return_value = {'complete': True, 'naturalWidth': 640, 'naturalHeight': 360}
+        page = Mock()
+        def decoded(js, *, arg):
+            self.assertEqual(events, ['scroll'])
+            for condition in ('img.src === url', 'img.complete', 'img.naturalWidth > 0', 'img.naturalHeight > 0'):
+                self.assertIn(condition, js)
+            self.assertEqual(arg, {'alt': 'Later lazy image', 'url': 'https://example.test/later.svg'})
+            events.append('decoded')
+        page.wait_for_function.side_effect = decoded
+        self.assertEqual(check_image(page, image, 'https://example.test/later.svg')['naturalWidth'], 640)
+        self.assertEqual(events, ['scroll', 'decoded'])
+        image.is_visible.assert_called_once()
+
+    def test_broken_lazy_image_timeout_is_not_swallowed(self):
+        page, image = Mock(), Mock()
+        page.wait_for_function.side_effect = TimeoutError('image failed to decode')
+        with self.assertRaisesRegex(TimeoutError, 'failed to decode'):
+            check_image(page, image, 'https://example.test/broken.svg')
+        image.scroll_into_view_if_needed.assert_called_once()
+        image.evaluate.assert_not_called()
+
+    def test_hidden_image_still_rejected(self):
+        page, image = Mock(), Mock()
+        image.is_visible.return_value = False
+        with self.assertRaisesRegex(AssertionError, 'image hidden'):
+            check_image(page, image, 'https://example.test/hidden.svg')
 
 
 class KeyboardScrollTests(unittest.TestCase):
@@ -184,8 +336,9 @@ class KeyboardScrollTests(unittest.TestCase):
             {'clientWidth': 358, 'scrollWidth': width}, None, True, 40, None, 0,
         ]
         page = Mock()
-        page.locator.return_value.count.return_value = 1
-        page.locator.return_value.nth.return_value = region
+        region.get_attribute.return_value = '0'
+        handle = Mock(); handle.as_element.return_value = region
+        page.evaluate_handle.return_value.get_properties.return_value = {'0': handle}
         return page, region
 
     def test_keyboard_scroll_is_measured_and_reset(self):
@@ -196,6 +349,29 @@ class KeyboardScrollTests(unittest.TestCase):
         region.press.assert_called_once_with('ArrowRight')
         page.wait_for_function.assert_called_once()
         self.assertIn('scrollLeft > 0', page.wait_for_function.call_args.args[0])
+
+    def test_missing_tabindex_is_a_failure_not_a_filtered_region(self):
+        page, region = self.fixture(); region.get_attribute.return_value = None
+        with self.assertRaisesRegex(AssertionError, 'lacks tabindex=0'):
+            check_keyboard_scrollers(page)
+        region.press.assert_not_called()
+        page.evaluate_handle.return_value.dispose.assert_called_once()
+
+    def test_unfocusable_region_fails(self):
+        page, region = self.fixture()
+        region.evaluate.side_effect = [{'clientWidth': 358, 'scrollWidth': 640}, None, False]
+        with self.assertRaisesRegex(AssertionError, 'cannot receive focus'):
+            check_keyboard_scrollers(page)
+
+    def test_right_edge_screenshot_and_reset_are_both_retained(self):
+        page, region = self.fixture()
+        region.evaluate.side_effect = [
+            {'clientWidth': 358, 'scrollWidth': 640}, None, True, 40, None, 282, None, 0]
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp); result = check_keyboard_scrollers(page, out)
+            page.screenshot.assert_called_once_with(path=str(out/'scroll-region-1-right.png'))
+        self.assertEqual(result[0]['rightEdge'], 282)
+        self.assertEqual(result[0]['rightEdgeScreenshot'], 'scroll-region-1-right.png')
 
     def test_scroll_settling_and_blur_are_not_skipped(self):
         page, region = self.fixture()
@@ -222,6 +398,54 @@ class KeyboardScrollTests(unittest.TestCase):
         page.wait_for_function.side_effect = TimeoutError('No native scrolling')
         with self.assertRaisesRegex(TimeoutError, 'No native scrolling'):
             check_keyboard_scrollers(page)
+
+
+class DpoExactRewardSelectorTests(unittest.TestCase):
+    def run_selector(self, roots):
+        from test_built_motion_browser import DPO_REWARD_SELECTOR_JS
+        from motion_shard_contract import DPO_REWARD_TEX
+        # Execute the production JS, with only DOM/MathJax retrieval mocked.
+        program="""const roots=JSON.parse(process.argv[1]);
+        global.MathJax={startup:{document:{getMathItemsWithin:root=>root.items}}};
+        const elements=roots.map(root=>({closest:()=>root}));
+        const select=(%s);
+        try { process.stdout.write(JSON.stringify({index:select(elements,%s)})); }
+        catch(error) { process.stdout.write(JSON.stringify({error:String(error)})); }
+        """ % (DPO_REWARD_SELECTOR_JS,json.dumps(DPO_REWARD_TEX))
+        result=subprocess.run(['node','-e',program,json.dumps(roots)],check=True,text=True,capture_output=True)
+        return json.loads(result.stdout)
+    def test_actual_js_reordered_displays_and_zero_multiple_matches(self):
+        from motion_shard_contract import DPO_REWARD_TEX
+        reward={'items':[{'math':DPO_REWARD_TEX}]};policy={'items':[{'math':r'\pi_r(y|x)=p'}]}
+        self.assertEqual(self.run_selector([policy,reward]),{'index':1})
+        self.assertEqual(self.run_selector([reward,policy]),{'index':0})
+        self.assertEqual(self.run_selector([policy,{'items':[{'math':' \n'+DPO_REWARD_TEX+' \n'}]}]),{'index':1})
+        for roots in ([],[policy],[reward,reward],[policy,{'items':reward['items']*2}],[{'items':[{'math':None}]}],[None]):
+            with self.subTest(roots=roots):self.assertIn('error',self.run_selector(roots))
+    def test_real_producer_uses_unique_tex_selection_not_first_display(self):
+        from test_built_motion_browser import check_dpo_reward_identity,DPO_REWARD_SELECTOR_JS
+        from motion_shard_contract import DPO_REWARD_TEX
+        reward={'items':[{'math':DPO_REWARD_TEX}]};policy={'items':[{'math':'policy'}]}
+        for roots in ([policy,reward],[reward,policy],[policy],[reward,reward]):
+            page=Mock();displays=page.locator.return_value;formula=displays.nth.return_value
+            def evaluate(js,expected):
+                self.assertEqual(js,DPO_REWARD_SELECTOR_JS);self.assertEqual(expected,DPO_REWARD_TEX)
+                result=self.run_selector(roots)
+                if 'error' in result:raise ValueError(result['error'])
+                return result['index']
+            displays.evaluate_all.side_effect=evaluate;formula.count.return_value=1
+            # Stop only after real producer selects its target, before native geometry.
+            formula.scroll_into_view_if_needed.side_effect=RuntimeError('SELECTED_REWARD')
+            with self.subTest(roots=roots):
+                if len(roots)==2 and roots[0]!=roots[1]:
+                    with self.assertRaisesRegex(RuntimeError,'SELECTED_REWARD'):
+                        check_dpo_reward_identity(Mock(),page,'url',{'width':390,'height':844},False,Path('.'),{})
+                    displays.nth.assert_called_once_with(roots.index(reward))
+                else:
+                    with self.assertRaises(ValueError):
+                        check_dpo_reward_identity(Mock(),page,'url',{'width':390,'height':844},False,Path('.'),{})
+                    displays.nth.assert_not_called()
+                self.assertFalse(displays.first.called)
 
 
 if __name__ == "__main__":

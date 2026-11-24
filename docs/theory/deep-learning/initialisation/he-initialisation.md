@@ -38,6 +38,57 @@ $$
 
 Choosing $v=2/n_{\mathrm{in}}$ makes the multiplier one. The second moment and centred variance are related by $\operatorname{Var}(x)=\mathbb{E}[x^2]-\mathbb{E}[x]^2$. ReLU outputs generally have positive mean. For example, if $z\sim\mathcal{N}(0,q)$, direct integration gives $\mathbb{E}[\operatorname{ReLU}(z)^2]=q/2$ and $\operatorname{Var}(\operatorname{ReLU}(z))=q(1/2-1/(2\pi))$.[^he]
 
+### Animated second-moment propagation through ReLU
+
+<div tabindex="0" role="region" aria-label="He and Xavier activation moment animation; scroll on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/he-relu-second-moment-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-second-moment-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-second-moment-still.svg" alt="He preserves the expected squared activation through four ReLU layers; unit-gain Xavier halves it each time, down to one sixteenth." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* For **square layers** with equal fan-in and fan-out $n$, independent zero-mean weights, symmetric preactivations and an input second moment $q_0=1$, the initialisation approximation yields $q_{\ell+1}=(nv/2)q_\ell$. He fan-in variance $v=2/n$ gives $q_\ell=1$, whereas **unit-gain** Xavier $v=1/n$ yields $q_\ell=2^{-\ell}$, reaching **0.0625 after four ReLUs**. The markers trace analytical **second moments, not centred variances**, simulated neurons or measured model results; correlations, residual paths and finite widths may change real behaviour.[^he][^glorot]
+
+The Wiki website provides **Play/Pause** (Enter/Space on the focused button), with a still image under reduced-motion preference and horizontal keyboard scrolling on small screens. [Animated SVG](../../../assets/concept-animations/he-relu-second-moment-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/he-relu-second-moment-still.svg).
+
+### Leaky-ReLU slope and the matching He gain
+
+<div tabindex="0" role="region" aria-label="Leaky-ReLU gain sweep; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/prelu-slope-gain-still.svg" data-motion-src="../../../assets/concept-animations/prelu-slope-gain-motion.svg" data-still-src="../../../assets/concept-animations/prelu-slope-gain-still.svg" alt="As the leaky-rectifier negative slope increases from zero to one, keeping the original ReLU weight variance doubles the expected squared-activation multiplier; the slope-adjusted He variance preserves it at one." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* For a fixed negative slope **a ∈ [0, 1]**, a symmetric preactivation gives **E[leaky-ReLU(z)²] = (1 + a²)E[z²]/2**. Keeping **ReLU-specific** weight variance **v = 2/n** therefore produces the multiplier **1 + a²**, which rises from **1 to 2**. Adjusting the initialisation to **v = 2/[n(1+a²)]** keeps the expected squared-activation multiplier at **1**. The two synchronised markers show these **analytic multipliers rather than experimental training results**; the calculation assumes independent, zero-mean weights and suitable symmetric preactivations, with a fixed slope at initialisation. A learned PReLU slope changes this approximation during training.[^he][^pytorch]
+
+The wiki provides Play/Pause with keyboard activation, a reduced-motion still image and horizontal keyboard scrolling on narrow screens. [Continuous SVG](../../../assets/concept-animations/prelu-slope-gain-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/prelu-slope-gain-still.svg).
+
+### Fan-in versus fan-out: one variance, two signal directions
+
+<div tabindex="0" role="region" aria-label="He fan-in and fan-out gain animation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg" alt="For a rectangular ReLU layer with 128 inputs and 512 outputs, fan-in initialisation preserves forward second-moment gain at one but yields backward squared-gradient gain four; fan-out reverses that compromise, with gains one quarter and one." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* For a schematic **128-to-512 ReLU layer**, independent zero-mean weights and symmetric preactivations give an approximate forward second-moment gain $m_f=n_{\mathrm{in}}v/2$; the analogous backward **squared-gradient** multiplier $m_b=n_{\mathrm{out}}v/2$ additionally assumes independent backward gradients and a rectifier derivative active half the time.[^he] With **fan-in** variance $v=2/128$, $(m_f,m_b)=(1,4)$; with **fan-out** variance $v=2/512$, the pair is $(0.25,1)$. The continuously moving bars follow the **hypothetical interpolation** $v(t)=2/[128+384t]$, $0\leq t\leq1$, connecting these two valid endpoint rules. Intermediate values are **not a separately recommended initialiser**. These are analytic teaching multipliers, **not measured activations, gradients, or training outcomes**. Finite widths and dependency violations can change observed propagation.
+
+On the Wiki website, use Play/Pause (Enter or Space on the focused control); reduced-motion users receive the still preview. Narrow screens can scroll the figure horizontally. [Continuous SVG](../../../assets/concept-animations/he-fan-mode-tradeoff-motion.svg) · [GitHub still fallback](../../../assets/concept-animations/he-fan-mode-tradeoff-still.svg).
+
+
+### ReLU mean shift: active probability is not retained energy
+
+<div tabindex="0" role="region" aria-label="Gaussian ReLU mean-shift animation; horizontally scroll on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" data-motion-src="../../../assets/concept-animations/he-relu-mean-shift-motion.svg" data-still-src="../../../assets/concept-animations/he-relu-mean-shift-still.svg" alt="Two moving analytic curves show that a Gaussian preactivation's active probability and its fraction of second moment surviving ReLU coincide at one half for zero mean, but separate as the mean shifts." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* The familiar ReLU factor **1/2** relies on a distribution symmetric about zero. In this separate **constructed Gaussian example**, let $Z\sim\mathcal N(b,1)$, with standard-normal density $\phi$ and cumulative distribution $\Phi$. Then
+
+$$
+\begin{gathered}
+P(Z>0)=\Phi(b),\\
+\frac{\mathbb E[\operatorname{ReLU}(Z)^2]}{\mathbb E[Z^2]}
+=\frac{(1+b^2)\Phi(b)+b\phi(b)}{1+b^2}.
+\end{gathered}
+$$
+
+At $b=0$ both quantities equal $0.5$; at $b=-1$ they are approximately **0.1587 and 0.0377**, and at $b=1$ approximately **0.8413 and 0.9623**. **The active fraction is not the fraction of the squared signal retained.** Consequently the symmetric-preactivation moment argument motivating $v=2/n_{\mathrm{in}}$ cannot be applied unchanged to a shifted preactivation. These are analytically specified Gaussian expectations, **not empirical activation statistics or a proposed bias-initialisation rule**.[^he][^propagation]
+
+On the Wiki site, the moving markers can be paused via the existing Play/Pause control (keyboard Enter/Space); reduced-motion preference selects the static fallback, while a narrow screen scrolls inside the figure. [Animated SVG](../../../assets/concept-animations/he-relu-mean-shift-motion.svg) · [GitHub still preview](../../../assets/concept-animations/he-relu-mean-shift-still.svg).
+
 ## Equation
 
 ### Normal and uniform forms
@@ -45,11 +96,13 @@ Choosing $v=2/n_{\mathrm{in}}$ makes the multiplier one. The second moment and c
 For a rectifier with negative slope $a$, the gain is $g=\sqrt{2/(1+a^2)}$. The forward rule uses the following distributions, with $a=0$ for ReLU. For PReLU, use the slope's value at initialisation.[^he][^pytorch]
 
 $$
+\begin{gathered}
 w_{ij}\sim\mathcal{N}\!\left(0,\frac{g^2}{n_{\mathrm{in}}}\right),
-\qquad
+\\
 w_{ij}\sim\mathcal{U}(-u,u),
-\qquad
+\\
 u=g\sqrt{\frac{3}{n_{\mathrm{in}}}}.
+\end{gathered}
 $$
 
 These choices have the same weight variance, since a uniform distribution on $[-u,u]$ has variance $u^2/3$. The normal distribution's standard deviation is $g/\sqrt{n_{\mathrm{in}}}$.
@@ -93,6 +146,8 @@ The rule supplies a weight scale for dense and convolutional layers followed by 
 [^pytorch]: PyTorch 2.15, [*torch.nn.init*](https://docs.pytorch.org/docs/2.15/nn.init.html), the gain table and Kaiming normal/uniform documentation.
 [^propagation]: Schoenholz et al., [*Deep Information Propagation*](https://arxiv.org/abs/1611.01232), abstract and §2.
 [^fixup]: Zhang, Dauphin and Ma, [*Fixup Initialization*](https://arxiv.org/abs/1901.09321), §§2–3.
+
+Discrete depth/channel examples hold exact integer states and reset; connecting lines are guides, not fractional layers or channels. Parameter sweeps are illustrative interpolations, not training trajectories. Reversing a parameter sweep is not reversing training. The density plot shows only a finite window of the Gaussian tails, without renormalising the truncated view.
 
 ## References
 

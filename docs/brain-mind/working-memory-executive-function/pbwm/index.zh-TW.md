@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-15
 status: complete
 last_reviewed: 2026-11-04
 related:
@@ -48,6 +48,28 @@ PBWM 有三個協同運作的部分。
 2. 若閘門開啟，前額葉表徵被覆寫；若閘門關閉，先前的內容會保留，因此資訊能撐過干擾。
 3. 任務產生結果。評論者比較它的預測與實際發生的情況，其差值即為預測誤差，性質與[多巴胺的獎勵預測誤差](../../neuroscience/dopamine-reward-prediction-error/index.md)頁所述相同，並在[強化學習](../../../theory/paradigms/reinforcement-learning/index.md)所涵蓋的行動者—評論者方法中扮演相同角色。
 4. 預測誤差同時訓練評論者與行動者。之後的閘控決策會偏好那些曾經有用的更新。
+
+### 教學動畫：工作記憶的選擇性閘控
+
+<div class="wm-motion-pan concept-motion-scroll" tabindex="0" role="region" aria-label="PBWM：檢視閘控與記憶內容">
+<img data-source-asset-urls src="../../../assets/concept-animations/pbwm-gate-still.svg" data-motion-src="../../../assets/concept-animations/pbwm-gate-motion.svg" data-still-src="../../../assets/concept-animations/pbwm-gate-still.svg" width="640" alt="PBWM 閘控過程：提示 A 通過開啟的基底核閘門進入前額葉記憶；干擾 X 被關閉的閘門阻擋，A 維持不變；接著提示 B 通過閘門並取代 A。">
+</div>
+
+動畫每輪重設為初始狀態，不代表記憶自發倒退。寫入只在提示到達儲存區時發生；閘門選擇是手動指定，而非學習所得。
+
+**藍色提示 A** 通過開啟的閘門，寫入前額葉儲存區；**橘色干擾 X** 遇到關閉的閘門，原有記憶 A 仍被保留；之後 **青綠色提示 B** 通過開啟的閘門，更新記憶。哪些提示對任務有用，以及三次閘門的開關決策，均是**人工設定**，只為示範更新規則；**不是**模型的實際學習軌跡、解剖迴路圖或神經記錄。科學依據請參閱參考文獻中的 O'Reilly 與 Frank（2006）。
+
+在 MkDocs 網站可使用**播放／暫停**按鈕，聚焦後按 **Enter／Space** 操作；偏好減少動態效果時，圖會維持靜態。手機可將圖區聚焦後水平捲動；GitHub 直接顯示三個狀態的靜態比較。兩份視覺資產均為原創 **CC BY-SA 4.0** 教材。
+
+
+### 互動實驗：閘控決策如何決定記憶覆寫
+
+<div data-wm-lab="gate" data-lang="zh-TW"></div>
+
+以**上一步／下一步**、進度滑桿或**播放／暫停**檢視 A → X → B。當時間步驟為 2，勾選「允許干擾 X 寫入」，可看見原本保存的 A 被 X 覆寫；到步驟 3 時，取消「允許提示 B 寫入」，則先前的記憶不會被 B 取代。符號化規則為：閘門開啟時 $m_t=u_t$；關閉時 $m_t=m_{t-1}$。
+
+這是**人工控制的離散狀態機**，不是基底核神經活動，也不是 PBWM 透過學習得到的閘控策略。輸入、閘門與記憶符號均為示意值。繁中操作介面與英文頁共用程式邏輯，圖內僅使用少量英文標籤；GitHub 不執行程式時仍可閱讀前面的靜態 SVG。所有控制均可用鍵盤操作並手動暫停。
+
 
 ## 結果
 

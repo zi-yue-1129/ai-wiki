@@ -56,20 +56,42 @@ This is the reciprocal of the average fan, **not** the arithmetic mean of the tw
 The original paper proposes a uniform distribution. For a symmetric uniform variable on $[-a,a]$, the variance is $a^2/3$, so
 
 $$
-W_{ji}\sim\mathcal{U}(-a,a),\qquad
+\begin{gathered}
+W_{ji}\sim\mathcal{U}(-a,a),\\
 a=\sqrt{\frac{6}{n_{\text{in}}+n_{\text{out}}}}.
+\end{gathered}
 $$
 
 The commonly implemented normal form matches that variance:
 
 $$
-W_{ji}\sim\mathcal{N}(0,\sigma_w^2),\qquad
+\begin{gathered}
+W_{ji}\sim\mathcal{N}(0,\sigma_w^2),\\
 \sigma_w=\sqrt{\frac{2}{n_{\text{in}}+n_{\text{out}}}}.
+\end{gathered}
 $$
 
 The normal distribution's scale parameter here is a **standard deviation**, not a variance. Equal variance does not make the two distributions identical: the uniform form is bounded, whereas the normal form is not.[^implementation]
 
 Some libraries expose a gain $g$: multiply $a$ or $\sigma_w$ by $g$, which multiplies the variance by $g^2$. The formulas above use $g=1$. PyTorch's Xavier functions default to that gain; its separately called gain helper recommends $5/3$ for tanh. Supplying that value explicitly changes the scale, rather than reproducing the unit-gain formula.[^implementation]
+
+
+### Tanh saturation: where the unit-slope approximation fails
+
+<div tabindex="0" role="region" aria-label="Tanh squared-derivative decay with Gaussian preactivation variance; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-tanh-saturation-still.svg" data-motion-src="../../../assets/concept-animations/glorot-tanh-saturation-motion.svg" data-still-src="../../../assets/concept-animations/glorot-tanh-saturation-still.svg" alt="A moving marker tracks the expected squared tanh derivative as Gaussian preactivation variance rises; the value falls from one toward 0.174 at variance nine, below a dashed unit-slope reference." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* Balancing linearised signal variance does **not** ensure the nonlinearity remains close to slope one. For a constructed preactivation $Z\sim\mathcal N(0,q)$, the **local squared derivative** of tanh has expectation
+
+$$
+G(q)=\mathbb E\!\left[(\tanh'(Z))^2\right]
+=\mathbb E\!\left[\operatorname{sech}^4(Z)\right].
+$$
+
+The purple curve is deterministic **Gaussian numerical quadrature**, not a fitted or measured training curve. It gives $G(0)=1$, $G(1)\approx0.4644$, and $G(9)\approx0.1742$. Increasing the input spread puts more preactivations in tanh's saturated tails, attenuating the local derivative. This factor alone does **not** give the full input-output Jacobian or imply a measured gradient norm: weight scaling, layer correlations and depth also matter.[^glorot][^propagation]
+
+The Wiki site supplies Play/Pause via the shared animation player, Enter/Space keyboard activation, a reduced-motion still fallback and horizontal scrolling inside small viewports. [Animated SVG](../../../assets/concept-animations/glorot-tanh-saturation-motion.svg) · [GitHub still preview](../../../assets/concept-animations/glorot-tanh-saturation-still.svg).
 
 ## Worked example: a rectangular layer
 
@@ -84,6 +106,36 @@ These are original calculations under the linear approximation, not measured net
 For the 100-to-400 layer, $a=\sqrt{0.012}\approx0.10954$ and $\sigma_w=\sqrt{0.004}\approx0.06325$. Averaging the two preservation targets instead would yield $(0.01+0.0025)/2=0.00625$, a different rule.
 
 The rectangular examples show why “preserves variance in both directions” needs qualification. Even a correctly implemented Glorot layer can shrink forward variance and enlarge backward variance.
+
+### Visualising the forward/backward trade-off
+
+<div tabindex="0" role="region" aria-label="Glorot animation; scroll horizontally on narrow screens." style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-fan-tradeoff-still.svg" data-motion-src="../../../assets/concept-animations/glorot-fan-tradeoff-motion.svg" data-still-src="../../../assets/concept-animations/glorot-fan-tradeoff-still.svg" alt="Glorot analytical variance multipliers as fan-out increases: teal forward scale decreases, purple backward scale increases, and both remain equal only when fan-in equals fan-out." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* With fan-in fixed at 100 and fan-out sweeping from 100 to 400, the Glorot variance is $2/(100+n_{\text{out}})$. The forward variance multiplier $200/(100+n_{\text{out}})$ decreases from **1 to 0.4**, while the backward multiplier $2n_{\text{out}}/(100+n_{\text{out}})$ increases from **1 to 1.6**. The dashed bar marker indicates a multiplier of one. This is an **analytical illustration**, not measurements from a trained model: the forward and backward approximations require the independence and near-linear assumptions described above.[^glorot]
+
+On the wiki site, use **Play/Pause** (Enter or Space when focused); a reduced-motion preference initially selects the still image. The 640-pixel graphic can be scrolled horizontally with the keyboard on small screens. [Open the continuous SVG](../../../assets/concept-animations/glorot-fan-tradeoff-motion.svg) · [View the static fallback](../../../assets/concept-animations/glorot-fan-tradeoff-still.svg).
+
+### Alternating widths: why variance still drifts with depth
+
+<div tabindex="0" role="region" aria-label="Glorot alternating-width propagation; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-alternating-width-still.svg" data-motion-src="../../../assets/concept-animations/glorot-alternating-width-motion.svg" data-still-src="../../../assets/concept-animations/glorot-alternating-width-still.svg" alt="Analytical forward variance across alternating 100 and 400 wide layers, dropping from 1 to 0.262 after six Glorot-initialised linearised layers." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* With widths **100 → 400 → 100 → 400 → 100 → 400 → 100**, each unit-gain, linearised layer uses unit-gain Glorot variance **2/(100 + 400)**. The forward variance multiplier alternates **0.4** and **1.6**. Its product over each two-layer pair is **0.64**, not 1; after six layers the **normalised forward variance is 0.64³ = 0.262144**. The moving marker follows these **theoretical expectations, not individual activations or measured network statistics**. The calculation assumes independent zero-mean weights, centred independent input features and locally near-linear activations; correlations, nonlinearity and residual connections change actual propagation.[^glorot]
+
+The wiki provides Play/Pause with keyboard activation and a still fallback when reduced motion is preferred. [Continuous SVG](../../../assets/concept-animations/glorot-alternating-width-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/glorot-alternating-width-still.svg).
+
+### Equal variance does not imply equal tails
+
+<div tabindex="0" role="region" aria-label="Glorot uniform and Gaussian density morph; scroll horizontally on narrow screens" style="overflow-x:auto;overflow-y:hidden;max-width:100%;">
+  <div style="width:640px;min-width:640px;">  <img data-source-asset-urls src="../../../assets/concept-animations/glorot-equal-variance-densities-still.svg" data-motion-src="../../../assets/concept-animations/glorot-equal-variance-densities-motion.svg" data-still-src="../../../assets/concept-animations/glorot-equal-variance-densities-still.svg" alt="A bounded unit-variance uniform density with support from minus square root of three to plus square root of three is compared with an unbounded standard Gaussian density; their means and variances agree but their tails differ." width="640" height="360" style="display:block;width:640px;max-width:none;height:auto;"></div>
+</div>
+
+*Original continuous teaching animation, CC BY-SA 4.0.* Let $\sigma^2=2/(n_{\mathrm{in}}+n_{\mathrm{out}})$ be Glorot's target weight variance. After normalising a weight by $\sigma$, the **uniform** form has $U\sim\mathcal U(-\sqrt3,\sqrt3)$, whereas the **normal** form has $G\sim\mathcal N(0,1)$. Both have mean zero and variance one, but the uniform support is bounded, while the Gaussian assigns nonzero probability to larger magnitudes.[^implementation] The morph displays the **illustrative density mixture** $p_t=(1-t)p_U+tp_G$, $0\leq t\leq1$. Because the endpoint distributions share a mean and variance, all intermediate mixtures also have mean zero and variance one; **the mixture itself is not a standard Glorot sampling rule**. The plotted curves are analytic densities, not sampled weight histograms or trained-network outcomes.
+
+The site supports Play/Pause with Enter/Space, a reduced-motion still and horizontal scrolling on narrow screens. [Continuous SVG](../../../assets/concept-animations/glorot-equal-variance-densities-motion.svg) · [GitHub static fallback](../../../assets/concept-animations/glorot-equal-variance-densities-still.svg).
 
 ## Practical use and checks
 
@@ -114,6 +166,8 @@ For a new architecture, the useful question is which signals the scale should st
 [^he]: He et al. (2015), section 2.2: rectifier-aware initialisation and forward/backward signal scaling.
 [^propagation]: Saxe et al. (2013), *Exact solutions*, and Schoenholz et al. (2016), *Deep Information Propagation*: complementary analyses of learning dynamics and signal propagation.
 [^normalisation]: Ioffe and Szegedy (2015), *Batch Normalization*: normalisation during training and reduced sensitivity to initialisation.
+
+Discrete depth/channel examples hold exact integer states and reset; connecting lines are guides, not fractional layers or channels. Parameter sweeps are illustrative interpolations, not training trajectories. Reversing a parameter sweep is not reversing training. The density plot shows only a finite window of the Gaussian tails, without renormalising the truncated view.
 
 ## References
 

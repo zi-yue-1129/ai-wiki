@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # DoRA
@@ -25,6 +25,17 @@ W' = m \cdot \frac{W_0 + BA}{\lVert W_0 + BA \rVert_c}
 \]
 
 訓練後，結果可合併成單一權重矩陣，因此推論成本與原模型相同。
+
+
+### 圖解方向與大小的獨立更新
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="可水平捲動的動畫圖表" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img src="../../../../assets/concept-animations/dora-independent-still.svg" data-source-asset-urls="true" data-motion-src="../../../../assets/concept-animations/dora-independent-motion.svg" data-still-src="../../../../assets/concept-animations/dora-independent-still.svg" alt="DoRA 權重向量先旋轉方向、再獨立增加大小的教學圖；藍色是凍結權重，青綠色是適應後的權重" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 藍色為固定的預訓練權重欄向量，青綠色為調整後的欄向量。動畫**先改變方向，再獨立調整大小**，突顯 DoRA 將兩個自由度分開訓練的概念。使用**人工示意、非模型實測**的 \(W_0=(3,4)\)、\(BA=(1,-1)\)，可得 \(V=(4,3)\)；若獨立學習的大小由 \(5\) 增至 \(6\)，則 \(W'=(4.8,3.6)\)。畫面僅在解析式端點間插值，**不是實際最佳化器的梯度或訓練軌跡**。MkDocs 網站提供支援鍵盤的播放／暫停；GitHub 直接顯示上述靜態預覽。手機可聚焦圖片並水平捲動，以完整尺寸閱讀。詳見 [DoRA 原始論文](https://arxiv.org/abs/2402.09353)。
 
 ## 結果
 
@@ -55,3 +66,7 @@ DoRA 與 [QLoRA](qlora.zh-TW.md) 同屬 LoRA 家族，QLoRA 量化的是凍結�
 - Dettmers, T., Pagnoni, A., Holtzman, A., Zettlemoyer, L. (2023). *QLoRA: Efficient Finetuning of Quantized LLMs*. arXiv:2305.14314. https://arxiv.org/abs/2305.14314 — 把 LoRA 適配器套用在 4 位元凍結基底上，是同一家族中的量化版本。
 - Houlsby, N., 等人 (2019). *Parameter-Efficient Transfer Learning for NLP*. arXiv:1902.00751. https://arxiv.org/abs/1902.00751 — 提出適配器，是與低秩更新相對的加層方法。
 - Liu, H., 等人 (2022). *Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning*. arXiv:2205.05638. https://arxiv.org/abs/2205.05638 — 顯示參數高效微調在準確度與運算成本上，都優於少樣本的上下文學習。
+
+小螢幕可左右滑動；鍵盤使用者可聚焦圖表外框後按左右方向鍵捲動。
+
+圖中採分段線性插值；中間影格相對指定長度的最大誤差小於 0.12 像素，端點為解析值。

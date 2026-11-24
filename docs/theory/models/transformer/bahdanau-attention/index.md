@@ -40,6 +40,36 @@ $$
 
 Here $s_i$ is the decoder state, $y_i$ the output word and $T_x$ the source length. The recurrent unit $f$ is the gated hidden unit the paper uses. Because the alignment model is a differentiable feed-forward network, the whole system is trained end to end by gradient descent.
 
+## Visual walkthrough: decoder-dependent alignment
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Bahdanau attention context animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" src="../../../../assets/concept-animations/bahdanau-alignment-context-still.svg" style="width:640px;min-width:640px;max-width:none" data-motion-src="../../../../assets/concept-animations/bahdanau-alignment-context-motion.svg" alt="A Bahdanau decoder visits three output steps; each has a different normalized attention distribution over four encoder annotations and forms a newly weighted context vector." width="640" height="360">
+</div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* The four encoder annotations $h_1,\ldots,h_4$ remain fixed while the decoder moves through **three hypothetical output steps**. Each step has its own normalized vector of soft alignment weights:
+
+$$
+\begin{aligned}
+\alpha_{1,:}=(0.65,0.20,0.10,0.05) \\
+\alpha_{2,:}=(0.08,0.72,0.12,0.08) \\
+\alpha_{3,:}=(0.05,0.15,0.20,0.60).
+\end{aligned}
+$$
+
+The green bars and connecting paths show how $c_i=\sum_j\alpha_{ij}h_j$ reweights **all** annotations rather than selecting one source token. The intermediate morph is a **visual interpolation between discrete decoding steps**; it is not a recorded translation or a continuously evolving attention state. The weights are synthetic teaching values, not measured alignments from the Bahdanau model. The original model computes $e_{ij}=a(s_{i-1},h_j)$, applies softmax separately at every target step, and uses the resulting context to update its recurrent decoder.
+
+On MkDocs, use **Play/Pause** or the focused button's Enter/Space keys; reduced-motion preferences show the still first. GitHub's [static alignment matrix](../../../../assets/concept-animations/bahdanau-alignment-context-still.svg) shows all three rows without JavaScript. An [animated SVG](../../../../assets/concept-animations/bahdanau-alignment-context-motion.svg) is also available for SVG-capable viewers.
+
+### Interactive experiment: decoder-specific context
+
+<div class="concept-arithmetic-lab" data-concept-lab="bahdanau" data-lang="en">
+  The static three-row alignment figure above remains available without JavaScript; the numerical experiment runs on MkDocs.
+</div>
+
+Use **Previous/Next**, **Play/Pause**, the **Step** slider, **Speed** and **Reset** to inspect three discrete output positions. Choose an encoder annotation $h_j$ and change its additive alignment-score bias from −2 to 2. The lab **recomputes** softmax over all four sources and the context $c_i=\sum_j \alpha_{ij}h_j$ for fixed two-dimensional toy annotations $h_1=(0.3,0.8)$, $h_2=(0.9,0.2)$, $h_3=(0.2,-0.4)$, $h_4=(-0.7,0.5)$. The starting weights are the three artificial vectors shown above; modifying a bias changes all *normalised* weights, not just the highlighted weight. This manually adjusted score is a pedagogical proxy for the learned additive scorer $a(s_{i-1},h_j)$—**not** a trained model, real token alignment, or translation measurement.
+
 ## Results
 
 The experiments use the WMT '14 English-to-French corpus, evaluated on the news-test-2014 set. Table 1 reports BLEU on all test sentences and on the subset with no unknown words.

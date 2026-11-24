@@ -21,6 +21,34 @@ The strongest robot vision-language-action models were closed, so most labs coul
 
 OpenVLA is built on the Prismatic-7B vision-language model. Its visual encoder concatenates DINOv2 and SigLIP features channel-wise, a two-layer MLP projects them into the language model, and a 7B Llama 2 backbone generates the action tokens (Sec. 3.1). The paper compares it with RT-2-X, which has 55 billion parameters, and reports that OpenVLA achieves a 16.5% higher absolute success rate across 29 tasks (abstract).
 
+## Visual walkthrough: perception fusion and action discretisation
+
+<div class="openvla-source-scroll" tabindex="0" role="region" aria-label="OpenVLA instructional animation: one camera observation branches into DINOv2 and SigLIP, patch-aligned channel concatenation, an MLP projection and the Llama 2 backbone" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/openvla-dual-encoder-fusion-still.svg" data-motion-src="../../../assets/concept-animations/openvla-dual-encoder-fusion-motion.svg" data-still-src="../../../assets/concept-animations/openvla-dual-encoder-fusion-still.svg" alt="OpenVLA instructional animation: one camera observation branches into DINOv2 and SigLIP, patch-aligned channel concatenation, an MLP projection and the Llama 2 backbone" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* **One camera observation** supplies both DINOv2 and SigLIP feature branches. Corresponding patch features are **concatenated along the channel dimension**, then a two-layer MLP projects the visual representation into tokens processed by the Llama 2 backbone. The moving markers indicate information flow, not measured network activations or identical feature values from the two encoders. Use the site's Play/Pause button (Enter or Space when focused), or examine the [GitHub static fusion preview](../../../assets/concept-animations/openvla-dual-encoder-fusion-still.svg). This is a schematic architecture, **not a recorded model forward pass**. See [Kim et al. (2024)](https://arxiv.org/abs/2406.09246), Section 3.1.
+
+<div class="openvla-source-scroll" tabindex="0" role="region" aria-label="OpenVLA instructional animation: example scalar actions clip to the 1st and 99th training percentiles before mapping into 256 action bins" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/openvla-percentile-action-bins-still.svg" data-motion-src="../../../assets/concept-animations/openvla-percentile-action-bins-motion.svg" data-still-src="../../../assets/concept-animations/openvla-percentile-action-bins-still.svg" alt="OpenVLA instructional animation: example scalar actions clip to the 1st and 99th training percentiles before mapping into 256 action bins" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* **Each of the seven action components is discretised separately, including gripper control.** For one dimension, first clamp to its training-data 1st- and 99th-percentile bounds and divide that interval into **256 equal-width bins**. The repeated short ticks in the drawing are a visual shorthand; **they do not indicate only 32 bins**. With *illustrative* bounds $[-1,+1]$, scalar examples $-1.40$, $+0.40$ and $+1.60$ map to indices $0$, $179$ and $255$: use
+
+\[
+b=\min\!\left(255,\left\lfloor\frac{256(a_{\mathrm{clip}}+1)}{2}\right\rfloor\right).
+\]
+
+. The original model repurposes 256 least-used Llama tokenizer entries for action tokens, training their next-token prediction with cross entropy. **All values, histogram bars and outputs in the diagram are hand-crafted teaching examples, not measurements or actual OpenVLA outputs.** Use the site's Play/Pause button, or view the [GitHub static quantisation example](../../../assets/concept-animations/openvla-percentile-action-bins-still.svg). See [Kim et al. (2024)](https://arxiv.org/abs/2406.09246), Section 3.2.
+
+### Paper-style illustration versus the released tokenizer
+
+The figure retains the paper-style **256 equal-width intervals** teaching formula; it is not an exact tokenizer-ID trace. The official [ActionTokenizer](https://github.com/openvla/openvla/blob/main/prismatic/vla/action_tokenizer.py) creates **256 edges and 255 intervals** with `linspace(-1, 1, 256)`, then applies `digitize` to obtain indices 1 through 256. For already-normalised inputs `[-1.40, 0.40, 1.60]`, clipping gives indices `[1, 179, 256]`; subtracting one gives `[0, 178, 255]`, while token IDs are vocabulary size minus the original indices. Decoding uses interval centres; the last two indices share the final centre.
+
+Official [data normalisation](https://github.com/openvla/openvla/blob/main/prismatic/vla/datasets/rlds/utils/data_utils.py) maps dataset/component q01 and q99 to `[-1,1]` and clips, with a mask for excluded components and an epsilon against division by zero. The invented figure bounds omit these implementation details. The highlight selects a discrete index rather than interpolating through unrelated tokens; its width is enlarged for visibility.
+
+The fusion figure shows only the visual path: language instructions and autoregressive action outputs are omitted, but remain essential to the full VLA. One image can receive encoder-specific preprocessing; matching patch features concatenate along channels, not along patch count and not by addition. On mobile, scroll within each keyboard-focusable figure.
+
 ## Procedure
 
 1. **Data:** curate 970k real-world robot demonstrations from Open X-Embodiment, which had more than 2 million trajectories across 70+ datasets at the time. Only manipulation datasets with a third-person camera and single-arm end-effector control are kept. The final mixture has 27 datasets (Sec. 3.3, Table 3). DROID is included at 10% weight and removed for the final third of training.
