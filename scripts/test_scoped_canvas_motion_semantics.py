@@ -226,10 +226,22 @@ class DNNDataflowMotion(unittest.TestCase):
             for j in range(5):
                 color = '#45DDC4' if j in active & prior else '#FFBD6A' if j in active else '#304361'
                 self.assertEqual(cells[100 + j * 98].get('stroke'), color)
+                cx = str(139 + j * 98)
+                if j in active:
+                    self.assertEqual(text[cx, '126'], str(x[j]))
+                    self.assertEqual(text[cx, '152'], 'Keep' if j in prior else 'New')
+                    self.assertEqual(text[cx, '194'], f'×{w[j - (i - 1)]}')
+                else:
+                    self.assertNotIn((cx, '152'), text)
+                    self.assertNotIn((cx, '194'), text)
             prior = active
         still = dnn_dataflow_labels(ET.parse(ASSETS / f'{stem}-still.svg').getroot())
         self.assertEqual(still['225', '302'], '9')
         self.assertEqual(still['515', '302'], '5')
+        for j in range(2, 5):
+            cx = str(139 + j * 98)
+            self.assertEqual(still[cx, '152'], 'Keep' if j < 4 else 'New')
+            self.assertEqual(still[cx, '194'], f'×{w[j - 2]}')
         self.assertEqual([still[str(219 + j * 98), '237'] for j in range(3)], list(map(str, expected)))
 
 

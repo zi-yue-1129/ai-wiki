@@ -66,13 +66,15 @@ Sze、Chen、Yang 與 Emer（2017）綜述了如何在硬體上高效處理深�
 
 兩種計數皆包含最終輸出寫入，但不包含權重與激活值的搬移。這些數值是 PE 與全域緩衝區間的示意元素搬移次數，不是 DRAM 存取、實測能耗或完整資料流的通用比較。
 
+對於包含 $K\geq 1$ 次乘加的歸約運算，假設累加器初始為零且中途不被逐出，本地保留只需一次最終寫入；每次乘加後寫回則需 $K$ 次寫入及 $K-1$ 次讀取，合計 $2K-1$ 次搬移。兩種排程均假設將完成的輸出寫入同一全域緩衝區，這並非總記憶體流量模型。
+
 ### 動畫示例：重疊卷積視窗
 
-<img data-source-asset-urls width="640" height="360" src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" data-motion-src="../../../assets/concept-animations/dnn-sliding-window-reuse-motion.svg" data-still-src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" alt="長度三的卷積核依序移過五個輸入值。橘色表示新讀入，藍綠色表示從前一個視窗保留的值。輸出為 8、12、16；輸入讀取為九次對五次。">
+<img data-source-asset-urls width="640" height="360" src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" data-motion-src="../../../assets/concept-animations/dnn-sliding-window-reuse-motion.svg" data-still-src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" alt="長度三的卷積核依序移過五個輸入值。New 標示新讀入的值，Keep 標示從前一個視窗保留的值，卷積核係數與目前輸入位置對齊。輸出為 8、12、16；輸入讀取為九次對五次。">
 
 *原創教學動畫，CC BY-SA 4.0。網站提供播放／暫停及鍵盤操作；GitHub 可查看 [靜態預覽](../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg) 與 [完整動畫](../../../assets/concept-animations/dnn-sliding-window-reuse-motion.svg).*
 
-以輸入 $[1,2,3,4,5]$ 與卷積核 $[1,2,1]$ 進行步幅為一、無填補的互相關運算，三個輸出分別為 8、12、16。第一個視窗讀入三個值，後續每個視窗保留兩個值並讀入一個新值。橘色表示新讀入的輸入，藍綠色表示重用，外框標示目前運算元。
+以輸入 $[1,2,3,4,5]$ 與卷積核 $[1,2,1]$ 進行步幅為一、無填補的互相關運算，三個輸出分別為 8、12、16。第一個視窗讀入三個值，後續每個視窗保留兩個值並讀入一個新值。橘色 New 標示新讀入的輸入，藍綠色 Keep 標示從前一個視窗保留的輸入。紫色外框標示目前運算元，下方對齊的係數顯示各輸入所乘的卷積核權重。重用激活值不等於重用乘積：例如輸入 3 隨視窗移動，依序乘上 1、2、1。
 
 | 視窗 | 輸出 | 全部重讀：輸入讀取 | 保留重疊：輸入讀取 |
 | --- | --- | --- | --- |

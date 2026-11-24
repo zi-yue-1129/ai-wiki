@@ -65,13 +65,15 @@ For one output, let the three input-weight products be $1\times2$, $2\times3$ an
 
 These counts include the final output write in both cases and exclude weight and activation movement. They are illustrative element transfers between the PE and global buffer, not DRAM accesses, measured energy, or a general comparison of complete dataflows.
 
+For a reduction of $K\geq 1$ MACs with a zero-initialized accumulator and no intermediate eviction, keeping the sum local needs one final write. Spilling after every MAC needs $K$ writes and $K-1$ reads, or $2K-1$ transfers. This comparison assumes both schedules write the completed output to the same global buffer; it is not a total-memory-traffic model.
+
 ### Animated example: overlapping convolution windows
 
-<img data-source-asset-urls width="640" height="360" src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" data-motion-src="../../../assets/concept-animations/dnn-sliding-window-reuse-motion.svg" data-still-src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" alt="A length-three kernel moves over five input values. Orange cells are newly loaded, teal cells are retained from the previous window. Outputs are 8, 12 and 16; input reads are 9 versus 5.">
+<img data-source-asset-urls width="640" height="360" src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" data-motion-src="../../../assets/concept-animations/dnn-sliding-window-reuse-motion.svg" data-still-src="../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg" alt="A length-three kernel moves over five input values. New labels identify newly loaded cells, Keep labels identify retained cells, and the kernel coefficients align below the active inputs. Outputs are 8, 12 and 16; input reads are 9 versus 5.">
 
 *Original educational animation, CC BY-SA 4.0. The website offers Play/Pause with keyboard controls; GitHub readers can open the [static preview](../../../assets/concept-animations/dnn-sliding-window-reuse-still.svg) and [full animation](../../../assets/concept-animations/dnn-sliding-window-reuse-motion.svg).*
 
-For valid stride-one cross-correlation with input $[1,2,3,4,5]$ and kernel $[1,2,1]$, the three output values are 8, 12 and 16. The first window loads three values; each subsequent window retains two and loads one. Orange cells are new inputs, teal cells are reused inputs, and the outlined window identifies the current operands.
+For valid stride-one cross-correlation with input $[1,2,3,4,5]$ and kernel $[1,2,1]$, the three output values are 8, 12 and 16. The first window loads three values; each subsequent window retains two and loads one. Orange cells marked New are newly loaded; teal cells marked Keep are retained from the previous window. The purple outline identifies the current operands, and the coefficients directly below them show which kernel weight multiplies each input. Reusing an activation does not mean reusing its product: input 3, for example, is multiplied by 1, then 2, then 1 as the window advances.
 
 | Window | Output | Reload all: input reads | Retain overlap: input reads |
 | --- | --- | --- | --- |
