@@ -219,7 +219,7 @@ class DiscoveryTests(unittest.TestCase):
     def test_math_rendering_rejects_nested_or_forgotten_assistive_output(self):
         valid = {"sourceRoots": 1, "unrendered": 0, "containers": 1,
                  "nestedAssistive": 0, "assistiveMathML": 1, "trackedItems": 1, "renderedErrors": []}
-        page = SimpleNamespace(evaluate=lambda _js: valid)
+        page = SimpleNamespace(evaluate=lambda _js: valid, wait_for_function=Mock())
         self.assertEqual(check_math_rendering(page), valid)
         for changes, message in [({"nestedAssistive": 1}, "typeset again"),
                                  ({"unrendered": 1}, "unrendered math"),
@@ -236,7 +236,7 @@ class DiscoveryTests(unittest.TestCase):
         for tag in ('mjx-merror', 'merror', 'g[data-mml-node=merror]', 'span[data-mjx-error]'):
             state = {**valid, "renderedErrors": [{"tag": tag, "message": "Unknown environment"}]}
             with self.subTest(tag=tag), self.assertRaisesRegex(AssertionError, 'rendered MathJax error'):
-                check_math_rendering(SimpleNamespace(evaluate=lambda _: state))
+                check_math_rendering(SimpleNamespace(evaluate=lambda _: state, wait_for_function=Mock()))
 
     def test_math_error_guard_inspects_nodes_not_prose_strings(self):
         expressions = []
@@ -245,7 +245,14 @@ class DiscoveryTests(unittest.TestCase):
                  "renderedErrors": []}
         def evaluate(js):
             expressions.append(js); return valid
-        self.assertEqual(check_math_rendering(SimpleNamespace(evaluate=evaluate)), valid)
+        readiness = Mock()
+        self.assertEqual(check_math_rendering(SimpleNamespace(
+            evaluate=evaluate, wait_for_function=readiness)), valid)
+        readiness.assert_called_once()
+        guard = readiness.call_args.args[0]
+        self.assertIn('startup?.document?.getMathItemsWithin', guard)
+        self.assertIn('startup?.promise?.then', guard)
+        self.assertEqual(readiness.call_args.kwargs['timeout'], 20000)
         rendered_query = expressions[-1]
         for selector in ('mjx-merror', '[data-mjx-error]', 'merror', '[data-mml-node="merror"]'):
             self.assertIn(selector, rendered_query)

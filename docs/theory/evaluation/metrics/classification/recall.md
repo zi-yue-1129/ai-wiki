@@ -31,7 +31,7 @@ This is the **same schematic eight-case ranking** shown on the precision page, n
 
 ## Interpretation
 
-Recall measures the cost of misses. A screening test with high recall rarely lets a real case pass unflagged. Like precision, recall depends on the threshold: lowering the threshold catches more true positives and raises recall, at the price of more false alarms.
+Recall measures the fraction of actual positives recovered; it does not quantify the application-specific cost of each missed case. A screening test with high recall rarely lets a real case pass unflagged. Like precision, recall depends on the threshold: lowering the threshold catches more true positives and raises recall, at the price of more false alarms.
 
 ## When to use it
 
@@ -39,7 +39,7 @@ Use recall when a missed positive is costly, for example in disease screening or
 
 ## Worked example
 
-Using the 100 cases above, there are 60 actual positives and the classifier finds 40 of them. Recall is $40 / (40 + 20) = 0.67$. It says nothing about the 10 false alarms, which precision captures.
+Using the [shared synthetic 100-case confusion matrix](index.md), there are 60 actual positives and the classifier finds 40 of them. Recall is $40 / (40 + 20) = 0.67$. It says nothing about the 10 false alarms, which precision captures.
 
 ## Properties and variants
 

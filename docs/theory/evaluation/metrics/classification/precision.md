@@ -47,7 +47,7 @@ At $p=0.01$ precision is **0.154**, at $p=0.10$ it is **0.667**, and at $p=0.50$
 
 ## Interpretation
 
-Precision measures the cost of false alarms. A spam filter with high precision rarely sends real mail to the spam folder. Precision depends on the decision threshold: raising the threshold usually removes some false positives and raises precision, at the price of [recall](recall.md).
+Precision measures the fraction of positive alerts that are correct; it does not quantify the application-specific cost of each false alarm. A spam filter with high precision rarely sends real mail to the spam folder. Precision depends on the decision threshold: raising the threshold usually removes some false positives and raises precision, at the price of [recall](recall.md).
 
 ## When to use it
 
@@ -55,7 +55,7 @@ Use precision when acting on a positive prediction is expensive or harmful, for 
 
 ## Worked example
 
-Using the 100 cases above, the classifier predicts 50 positives. Precision is $40 / (40 + 10) = 0.80$: four in five flagged cases are correct. It says nothing about the 20 positives that were missed.
+Using the [shared synthetic 100-case confusion matrix](index.md), the classifier predicts 50 positives. Precision is $40 / (40 + 10) = 0.80$: four in five flagged cases are correct. It says nothing about the 20 positives that were missed.
 
 ## Properties and variants
 

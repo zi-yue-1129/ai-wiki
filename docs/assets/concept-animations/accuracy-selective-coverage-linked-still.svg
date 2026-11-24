@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 356" role="img" aria-labelledby="title desc">
+<title id="title">Synthetic risk and coverage with an in-sample next-case marker and the spread between hypothetical outcomes</title>
+<desc id="desc">The six ranked synthetic predictions have correctness true, true, false, true, false, true. Risk at k one to six is zero, zero, one third, one quarter, two fifths, one third. Small hollow points mark intermediate cutoffs; filled points are interactive milestones at k two, four, and six on the MkDocs site. Risk can decrease as coverage increases; line segments only connect discrete values. At k three with one error, the two horizontal risk tracks share a 0–100 percent scale: one error in four (25 percent) if the next prediction were correct versus two errors in four (50 percent) if it were wrong. The gap is 25 percentage points, equal to one divided by four independent of earlier errors. A navy-outlined circle on the teal bar marks the correct fourth case in this fixed synthetic sample; the other bar remains an arithmetic alternative. Neither is model-measured performance or a confidence interval.</desc>
+<rect width="640" height="356" rx="12" fill="#f8fafc"/><rect x="1" y="1" width="638" height="354" rx="11" fill="none" stroke="#d4deec"/>
+<text x="24" y="27" fill="#526783" font-family="Arial,sans-serif" font-size="14" font-weight="bold">RISK</text>
+<path d="M84 45V144H588" fill="none" stroke="#9aacc1" stroke-width="1.6"/>
+<polyline points="160.00,144.00 240.00,144.00 320.00,77.33 400.00,94.00 480.00,64.00 560.00,77.33" fill="none" stroke="#087e85" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="160.00" cy="144.00" r="4" fill="#f8fafc" stroke="#087e85" stroke-width="2" data-risk-k="1"/>
+<circle cx="240.00" cy="144.00" r="6" fill="#087e85" data-risk-k="2"/>
+<circle cx="320.00" cy="77.33" r="4" fill="#f8fafc" stroke="#087e85" stroke-width="2" data-risk-k="3"/>
+<circle cx="400.00" cy="94.00" r="6" fill="#087e85" data-risk-k="4"/>
+<circle cx="480.00" cy="64.00" r="4" fill="#f8fafc" stroke="#087e85" stroke-width="2" data-risk-k="5"/>
+<circle cx="560.00" cy="77.33" r="6" fill="#087e85" data-risk-k="6"/>
+<text x="240.00" y="126.00" fill="#526783" font-family="Arial,sans-serif" font-size="14" font-weight="bold" text-anchor="middle">0%</text>
+<text x="240.00" y="165" fill="#526783" font-family="Arial,sans-serif" font-size="13" text-anchor="middle">2/6</text>
+<text x="400.00" y="76.00" fill="#526783" font-family="Arial,sans-serif" font-size="14" font-weight="bold" text-anchor="middle">25%</text>
+<text x="400.00" y="165" fill="#526783" font-family="Arial,sans-serif" font-size="13" text-anchor="middle">4/6</text>
+<text x="560.00" y="59.33" fill="#526783" font-family="Arial,sans-serif" font-size="14" font-weight="bold" text-anchor="middle">33%</text>
+<text x="560.00" y="165" fill="#526783" font-family="Arial,sans-serif" font-size="13" text-anchor="middle">6/6</text>
+<text x="24" y="190" fill="#526783" font-family="Arial,sans-serif" font-size="12">HOLLOW: k=1,3,5</text>
+<text x="461" y="190" fill="#526783" font-family="Arial,sans-serif" font-size="13" font-weight="bold">COVERAGE →</text>
+<path d="M24 204H616" stroke="#d4deec" stroke-width="1"/>
+<text x="24" y="228" fill="#193e69" font-family="Arial,sans-serif" font-size="12" font-weight="bold">AT k=3 · HYPOTHETICAL NEXT</text>
+<text x="24" y="258" fill="#0d626a" font-family="Arial,sans-serif" font-size="12" font-weight="bold">+CORRECT</text>
+<rect x="148" y="246" width="360" height="15" rx="6" fill="#e5ebf2"/>
+<rect x="148" y="246" width="90" height="15" rx="6" fill="#50aca3" data-next-bar="correct"/>
+<circle cx="238" cy="253.5" r="5" fill="#f8fafc" stroke="#193e69" stroke-width="2.5" data-next-observed="true"/><text x="522" y="258" fill="#193e69" font-family="Arial,sans-serif" font-size="12" font-weight="bold">1/4 25%</text>
+<text x="24" y="289" fill="#924624" font-family="Arial,sans-serif" font-size="12" font-weight="bold">+WRONG</text>
+<rect x="148" y="277" width="360" height="15" rx="6" fill="#e5ebf2"/>
+<rect x="148" y="277" width="180" height="15" rx="6" fill="#de9468" data-next-bar="wrong"/>
+<text x="522" y="289" fill="#193e69" font-family="Arial,sans-serif" font-size="12" font-weight="bold">2/4 50%</text>
+<path data-next-spread="true" d="M238 304V315 M238 310H328 M328 304V315" fill="none" stroke="#516a85" stroke-width="1.7" stroke-linecap="round"/>
+<text data-next-spread-value="true" x="283" y="336" fill="#193e69" font-family="Arial,sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Δ 25 pp</text><text x="407" y="336" fill="#193e69" font-family="Arial,sans-serif" font-size="11" font-weight="bold" data-next-observed-label="true">IN SAMPLE: +CORRECT</text></svg>

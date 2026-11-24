@@ -26,3 +26,13 @@
   font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
   font-size:.78rem; line-height:1.6; overflow-wrap:anywhere;
 }
+
+/* Keep semantic controls readable while the reviewed 640px SVG remains
+ * horizontally scrollable in a narrow parent frame. */
+.selective-motion-player > :is(.concept-motion-controls, .concept-motion-chapter-note, .concept-motion-calculation) {
+  position: sticky;
+  left: 0;
+  width: min(100%, calc(100vw - 2rem));
+  max-width: calc(100vw - 2rem);
+  box-sizing: border-box;
+}

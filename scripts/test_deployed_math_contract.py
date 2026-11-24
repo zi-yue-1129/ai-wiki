@@ -15,7 +15,7 @@ def verify_workflow(workflow):
     needed=['pip install -r requirements.txt','pip install playwright==1.55.0 Pillow==13.0.0','python -m playwright install --with-deps chromium','python scripts/test_deployed_math_contract.py','mkdocs build --strict','python scripts/test_deployed_math_browser.py']
     positions=[]
     for cmd in needed:
-        valid=[i for i,x in enumerate(steps) if unconditional(x) and cmd in x.get('run','').splitlines()]
+        valid=[i for i,x in enumerate(steps) if unconditional(x) and any(line.strip()==cmd for line in x.get('run','').splitlines())]
         assert valid,cmd
         positions.append(min(valid))
     assert positions[0]<positions[1]<positions[2]<positions[3]<positions[4]<positions[5]
@@ -154,6 +154,16 @@ for(const mode of ['valid','missing-math','duplicate','error','zero-height','mis
                 for key,value in [('if',False),('if',None),('continue-on-error',True),('run','# '+step['run']),('run',step['run']+' || true')]:
                     bad=copy.deepcopy(workflow);bad['jobs']['build-docs']['steps'][i][key]=value
                     with self.assertRaises(AssertionError):verify_workflow(bad)
+        # The browser install is an indented executable line inside a fail-closed
+        # retry block. Accept indentation, but not comments, weak fallbacks, or
+        # an absent / unpinned dependency install.
+        browser_cmd='python -m playwright install --with-deps chromium'
+        for replacement in ('# '+browser_cmd, browser_cmd+' || true', 'python -m playwright install chromium'):
+            bad=copy.deepcopy(workflow)
+            for step in bad['jobs']['build-docs']['steps']:
+                if any(line.strip()==browser_cmd for line in step.get('run','').splitlines()):
+                    step['run']='\n'.join(replacement if line.strip()==browser_cmd else line for line in step['run'].splitlines())
+            with self.assertRaises(AssertionError):verify_workflow(bad)
         bad=copy.deepcopy(workflow);bad['jobs']['build-docs']['runs-on']='ubuntu-latest'
         with self.assertRaises(AssertionError):verify_workflow(bad)
 

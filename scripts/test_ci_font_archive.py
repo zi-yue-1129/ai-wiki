@@ -293,13 +293,50 @@ class WorkflowTests(unittest.TestCase):
             sudo = p / 'sudo'
             sudo.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "$CALL_LOG"\nexit 23\n')
             sudo.chmod(0o755)
-            env = dict(os.environ, PATH=f'{p}:' + os.environ['PATH'], CALL_LOG=str(p / 'calls'))
-            result = subprocess.run(['bash', '-e', '-c', commands], env=env)
-            self.assertEqual(result.returncode, 23)
+            sleep = p / 'sleep'
+            sleep.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "$SLEEP_LOG"\n')
+            sleep.chmod(0o755)
+            env = dict(os.environ, PATH=f'{p}:' + os.environ['PATH'],
+                       CALL_LOG=str(p / 'calls'), SLEEP_LOG=str(p / 'sleeps'))
+            result = subprocess.run(['bash', '-e', '-c', commands], env=env, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn('after 3 attempts', result.stderr)
             calls = (p / 'calls').read_text().splitlines()
-            self.assertEqual(len(calls), 1)
-            self.assertIn('update -qq', calls[0])
-            self.assertNotIn('install', calls[0])
+            self.assertEqual(len(calls), 3)
+            self.assertTrue(all('update -qq' in call for call in calls))
+            self.assertTrue(all('install' not in call for call in calls))
+            self.assertEqual((p / 'sleeps').read_text().splitlines(), ['15', '30'])
+
+    def test_transient_metadata_refresh_succeeds_only_after_signed_retry(self):
+        root = Path(__file__).resolve().parents[1]
+        action = (root / '.github/actions/install-cjk-font/action.yml').read_text()
+        commands = action.split('      run: |', 1)[1].split('    - name:', 1)[0]
+        commands = '\n'.join(line[8:] for line in commands.splitlines() if line.strip())
+        with tempfile.TemporaryDirectory() as temp:
+            p = Path(temp)
+            sudo = p / 'sudo'
+            sudo.write_text(
+                '#!/bin/sh\nprintf "%s\\n" "$*" >> "$CALL_LOG"\n'
+                'case "$*" in *"update -qq"*)\n'
+                '  count=0; if [ -f "$COUNT_FILE" ]; then count=$(cat "$COUNT_FILE"); fi\n'
+                '  count=$((count + 1)); printf "%s\\n" "$count" > "$COUNT_FILE"\n'
+                '  if [ "$count" -lt 3 ]; then exit 23; fi;;\n'
+                'esac\nexit 0\n'
+            )
+            sudo.chmod(0o755)
+            sleep = p / 'sleep'
+            sleep.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "$SLEEP_LOG"\n')
+            sleep.chmod(0o755)
+            env = dict(os.environ, PATH=f'{p}:' + os.environ['PATH'],
+                       CALL_LOG=str(p / 'calls'), SLEEP_LOG=str(p / 'sleeps'),
+                       COUNT_FILE=str(p / 'attempts'))
+            result = subprocess.run(['bash', '-e', '-c', commands], env=env, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            calls = (p / 'calls').read_text().splitlines()
+            self.assertEqual(len(calls), 4)
+            self.assertTrue(all('update -qq' in call for call in calls[:3]))
+            self.assertIn('install -y --no-install-recommends python3-apt', calls[3])
+            self.assertEqual((p / 'sleeps').read_text().splitlines(), ['15', '30'])
 
 if __name__ == '__main__':
     unittest.main()
