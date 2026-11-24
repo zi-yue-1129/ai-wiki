@@ -15,7 +15,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 431 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 433 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -170,6 +170,112 @@ class ScopedCanvas(unittest.TestCase):
             path.write_text('<svg>')
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
 
+
+class MemoryHierarchyMotion(unittest.TestCase):
+    ns = {'s': 'http://www.w3.org/2000/svg'}
+
+    def states(self, stem, suffix='motion'):
+        root = ET.parse(ASSETS / f'{stem}-{suffix}.svg').getroot()
+        return root.findall('.//s:g[@id]', self.ns)
+
+    def text_at(self, state, x, y):
+        return state.find(f"s:text[@x='{x}'][@y='{y}']", self.ns).text
+
+    def test_tiling_partial_sums_and_read_counts(self):
+        stem = 'memory-tiled-input-reuse'
+        states = self.states(stem)
+        self.assertEqual(len(states), 9)
+        a, b = ((1, 2), (3, 4)), ((5, 6), (7, 8))
+        for m, state in enumerate(states):
+            executed = [(i, j, k) for k in range(2) for i in range(2) for j in range(2)][:m]
+            expected = [[sum(a[i][k] * b[k][j] for ii, jj, k in executed if (ii, jj) == (i, j)) for j in range(2)] for i in range(2)]
+            actual = [[int(self.text_at(state, 477 + 62*j, 114 + 62*i)) for j in range(2)] for i in range(2)]
+            self.assertEqual(actual, expected)
+            self.assertEqual(int(self.text_at(state, 616, 290)), 2*m)
+            self.assertEqual(int(self.text_at(state, 616, 332)), 4*len({k for _, _, k in executed}))
+            for y, count in ((269, 2*m), (311, 4*len({k for _, _, k in executed}))):
+                bars = state.findall(f"s:rect[@x='204'][@y='{y}']", self.ns)
+                self.assertEqual(len(bars), 1 + bool(count))
+                if count:
+                    self.assertEqual(int(bars[-1].get('width')), 23*count-4)
+        self.assertEqual([self.text_at(self.states(stem, 'still')[0], 477 + 62*j, 114 + 62*i) for i in range(2) for j in range(2)], ['19','22','43','50'])
+
+    def test_hierarchy_bound_and_ties(self):
+        stem = 'roofline-hierarchy-bottleneck'
+        states = self.states(stem)
+        self.assertEqual(len(states), 5)
+        for q, state in zip((32, 16, 8, 4, 2), states):
+            caps = [4*32/q, 16*32/32, 32]
+            expected = [*caps, min(caps)]
+            self.assertEqual(self.text_at(state, 616, 34), f'{q} B')
+            self.assertEqual([float(self.text_at(state, 616, 148 + 45*i)) for i in range(4)], expected)
+            for i, value in enumerate(expected):
+                bars = state.findall(f"s:rect[@x='170'][@y='{124+45*i}']", self.ns)
+                self.assertEqual(int(bars[-1].get('width')), round(value*6.25))
+                self.assertEqual(bars[-1].get('stroke') == '#ffbf70', i < 3 and value == min(caps))
+        still = self.states(stem, 'still')[0]
+        self.assertEqual(self.text_at(still, 616, 34), '4 B')
+        self.assertEqual(self.text_at(still, 616, 283), '16')
+
+
+    def test_discrete_timeline_is_one_hot_and_holds_final_state(self):
+        # Independent playback schedule: each operation is visible until the
+        # next one, with a longer final hold and a clean restart.
+        for stem, boundaries in (
+            ('memory-tiled-input-reuse', [i / 10 for i in range(9)] + [1]),
+            ('roofline-hierarchy-bottleneck', [i / 6 for i in range(5)] + [1]),
+        ):
+            states = self.states(stem)
+            self.assertEqual(len(states), len(boundaries) - 1)
+            tracks = []
+            for index, state in enumerate(states):
+                self.assertEqual(state.get('id'), f'state-{index}')
+                self.assertEqual(state.get('opacity'), str(int(index == 0)))
+                animations = state.findall('s:animate', self.ns)
+                self.assertEqual(len(animations), 1)
+                track = animations[0]
+                for attr, value in (('attributeName', 'opacity'), ('calcMode', 'discrete'),
+                                    ('dur', '12s'), ('repeatCount', 'indefinite')):
+                    self.assertEqual(track.get(attr), value)
+                times = [float(x) for x in track.get('keyTimes').split(';')]
+                self.assertEqual(len(times), len(boundaries))
+                for actual, expected in zip(times, boundaries):
+                    self.assertAlmostEqual(actual, expected, places=6)
+                tracks.append(track.get('values').split(';'))
+            for slot in range(len(boundaries)):
+                expected = slot if slot < len(states) else 0
+                self.assertEqual([t[slot] for t in tracks],
+                                 [str(int(i == expected)) for i in range(len(states))])
+
+    def test_tiling_highlights_and_displayed_mac_match_operand_dependencies(self):
+        a, b = ((1, 2), (3, 4)), ((5, 6), (7, 8))
+        partial = [[0, 0], [0, 0]]
+        states = self.states('memory-tiled-input-reuse')
+        self.assertEqual(len(states), 9)
+        def positions(state, attribute, value):
+            return {(int(r.get('x')), int(r.get('y')))
+                    for r in state.findall('s:rect', self.ns)
+                    if r.get(attribute) == value}
+        self.assertEqual(self.text_at(states[0], 320, 228), 'C = 0')
+        for m, (k, i, j) in enumerate(
+            ((k, i, j) for k in range(2) for i in range(2) for j in range(2)), 1
+        ):
+            state = states[m]
+            with self.subTest(mac=m):
+                a_pos = (32 + 62*k, 77 + 62*i)
+                b_pos = (240 + 62*j, 77 + 62*k)
+                c_pos = (448 + 62*j, 77 + 62*i)
+                tile = {(32 + 62*k, 77 + 62*r) for r in range(2)}
+                tile |= {(240 + 62*c, 77 + 62*k) for c in range(2)}
+                self.assertEqual(positions(state, 'fill', '#37335e'), tile)
+                self.assertEqual(positions(state, 'stroke', '#4adeca'), {a_pos, b_pos})
+                self.assertEqual(positions(state, 'stroke', '#ffbf70'), {c_pos})
+                previous = partial[i][j]
+                partial[i][j] += a[i][k] * b[k][j]
+                self.assertEqual(self.text_at(state, 320, 228),
+                                 f'{previous} + {a[i][k]} × {b[k][j]} = {partial[i][j]}')
+                self.assertEqual(self.text_at(state, 24, 34), f'MAC {m}/8')
+                self.assertEqual(self.text_at(state, 616, 34), f'k = {k}')
 # Independent arithmetic and state checks for DNN dataflow illustrations.
 def dnn_dataflow_states(stem):
     root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
