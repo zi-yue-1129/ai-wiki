@@ -904,7 +904,12 @@ CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'yarn-attention-temperature': '0 0 640 360',
  'yarn-frequency-ramp': '0 0 640 360'}
 # Explicit non-TOPICS assets validated by main(), not generic name allowances.
-EXTRA_CANONICAL_FILENAMES = {'brier-expected-risk-motion.svg': '0 0 640 360',
+EXTRA_CANONICAL_FILENAMES = {
+ 'fp8-rounding-grid-motion.svg': '0 0 360 254',
+ 'fp8-rounding-grid-still.svg': '0 0 360 254',
+ 'fp8-delayed-amax-motion.svg': '0 0 360 254',
+ 'fp8-delayed-amax-still.svg': '0 0 360 254',
+ 'brier-expected-risk-motion.svg': '0 0 640 360',
  'brier-expected-risk-still.svg': '0 0 640 360',
  'icm-predictable-stochastic-mobile-motion.svg': '0 0 380 770',
  'icm-predictable-stochastic-mobile-still.svg': '0 0 380 770',
@@ -1513,6 +1518,8 @@ def main() -> int:
     # expose the animated variant to the MkDocs player through data-motion-src.
     # Check both paths rather than accepting the data attribute as the fallback.
     html_motion_topics = {
+        "fp8-rounding-grid": "engineering/hardware/co-design/fp8",
+        "fp8-delayed-amax": "engineering/hardware/co-design/fp8",
         "odin-gradient-perturbation": "theory/machine-learning/ood-detection/odin",
         "mahalanobis-ellipse-threshold": "theory/machine-learning/ood-detection/mahalanobis-distance",
     }
