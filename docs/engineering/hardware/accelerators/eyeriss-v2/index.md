@@ -28,7 +28,15 @@ Organise the processing elements in a hierarchical mesh network, so that the on-
 
 ## Equation or algorithm
 
-The chip computes the convolutions of a layer with a dataflow chosen to reuse each operand as much as possible. For sparse data, the processing elements receive only the non-zero values together with their indices, so the work scales with the number of non-zero products rather than with the full layer size. The mesh routes these values to the elements that need them.
+The chip computes the convolutions of a layer with a dataflow chosen to reuse each operand as much as possible. For sparse data, the processing elements receive only the non-zero values together with their indices, so zero products can be avoided; actual execution cost also includes index handling and data movement. The mesh routes these values to the elements that need them.
+
+### Animated explanation: matching compressed sparse operands
+
+<img data-source-asset-urls src="../../../../assets/concept-animations/sparse-index-intersection-still.svg" data-motion-src="../../../../assets/concept-animations/sparse-index-intersection-motion.svg" data-still-src="../../../../assets/concept-animations/sparse-index-intersection-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="Two sorted index-value streams advance past unmatched entries and accumulate matching products 18 and 32, giving 50.">
+
+*Original educational animation, CC BY-SA 4.0.* [GitHub-readable still](../../../../assets/concept-animations/sparse-index-intersection-still.svg) · [Full SVG animation](../../../../assets/concept-animations/sparse-index-intersection-motion.svg). The website offers keyboard-accessible Play/Pause; Pause restores the representative still, and reduced-motion preference defaults to the still.
+
+A schematic sparse dot product makes the index-handling cost visible. Let two length-six vectors have nonzero entries $A=\{0:2,2:3,5:4\}$ and $B=\{1:7,2:6,5:8\}$. Each row stores its nonzero indices in sorted order, above the associated values. Compare the current indices (white outlines): if unequal, advance only the smaller one (orange link); if equal, multiply and add to the accumulator (teal link), then advance both. The four comparisons are $(0,1),(2,1),(2,2),(5,5)$. Only indices 2 and 5 contribute, so the accumulator moves from 0 to 18 to 50. A dense loop would attempt six products; this particular merge evaluates two nonzero products but also needs index comparisons and metadata. This is an abstract example of avoiding zero products, not a cycle-accurate reconstruction of Eyeriss v2's compressed-sparse-column processing element (Chen et al., 2018). The counts and values are illustrative, not measured throughput or energy.
 
 ## Key methods
 

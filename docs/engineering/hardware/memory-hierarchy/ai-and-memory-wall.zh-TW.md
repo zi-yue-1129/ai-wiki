@@ -42,6 +42,14 @@ Gholami 與同事（2024）主張，大型 AI 模型的主要效能瓶頸正從�
 
 這份剖析假設使用 8 位元精度與批次大小為 1。作者指出，結論未必適用於所有解碼器應用，例如很長的輸入提示或大批次推論（註腳 5 與 6）。
 
+### 動態解說：不同請求之間的權重重用
+
+<img data-source-asset-urls src="../../../assets/concept-animations/memory-wall-weight-reuse-still.svg" data-motion-src="../../../assets/concept-animations/memory-wall-weight-reuse-motion.svg" data-still-src="../../../assets/concept-animations/memory-wall-weight-reuse-still.svg" width="360" height="262" style="display:block;width:100%;max-width:540px;height:auto" alt="四個請求依序完成；序列排程每次重新載入四個權重，批次排程則保留同一區塊並重用四次。兩者皆執行十六次乘加。">
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態預覽](../../../assets/concept-animations/memory-wall-weight-reuse-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/memory-wall-weight-reuse-motion.svg)。網站提供鍵盤可操作的播放／暫停；暫停時回到代表性靜態圖，系統偏好減少動態效果時預設使用靜態圖。
+
+考慮四個獨立請求，各自以相同的 $2\times2$ 權重矩陣乘上自己的二元素向量。橘色區塊代表請求間不保留權重區塊的序列排程，紫色區塊則代表整個批次共用的單次理想載入。每個新填滿的輸出圓點代表四次乘加運算（MAC）。完成 $k$ 個請求後，兩種排程分別讀取 $4k$ 與 $4$ 個權重元素，但皆執行 $4k$ 次 MAC。當 $k=4$，權重讀取量為 16 對 4，運算量皆為 16。此例隔離出批次矩陣乘法提高算術強度的權重重用機制（Gholami 等人，2024，第 II-B 節）。這不是把同一自迴歸序列中相依的後續 token 一起計算。示例僅計算穿越指定記憶體邊界的權重元素，不包含激活值、輸出或 KV cache 的位元組數，且假設批次完全保留權重區塊，序列請求間則不保留。實際快取重用與延遲取決於實作；數值為示意，並非實測。
+
 ## 提出的因應方式
 
 論文第 III 節討論了數種因應方式，並主張架構本身也需要重新思考，因為許多大型 Transformer 只是近似相同基礎架構的放大版本：
