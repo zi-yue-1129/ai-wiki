@@ -53,6 +53,26 @@ where \(N\) is the number of chips, \(S\) the size of the data on each chip and 
 
 Parallelism strategies differ in what they send. Data parallelism all-reduces gradients once per step. Tensor parallelism all-reduces activations inside each layer, which is frequent and needs fast links. Pipeline parallelism sends activations only between neighbouring stages, which is much less data. Sharded data parallelism, as in ZeRO and FSDP, all-gathers parameters before use and reduce-scatters gradients after it.
 
+### Animated explanation: ring reduction and replication
+
+<img data-source-asset-urls src="../../../assets/concept-animations/interconnect-ring-reduction-still.svg" data-motion-src="../../../assets/concept-animations/interconnect-ring-reduction-motion.svg" data-still-src="../../../assets/concept-animations/interconnect-ring-reduction-still.svg" width="360" height="300" style="display:block;width:100%;max-width:540px;height:auto" alt="Three ranks send partial sums to their next neighbour, leaving one complete shard per rank after two rounds; two further rounds copy shards until every rank holds 12, 15, 18.">
+
+*Original educational animation, CC BY-SA 4.0.* [GitHub-readable still](../../../assets/concept-animations/interconnect-ring-reduction-still.svg) · [Full SVG animation](../../../assets/concept-animations/interconnect-ring-reduction-motion.svg).
+
+Rank 0 starts with (1, 2, 3), rank 1 with (4, 5, 6) and rank 2 with (7, 8, 9). Each sends one chunk to its successor (0 → 1 → 2 → 0) in each synchronous round. In the two reduce-scatter rounds, the receiver adds the arriving partial sum to its local chunk; the diagram hides sent, no-longer-live partials rather than depicting a physical buffer deallocation. The resulting owners are rank 0 for B=15, rank 1 for C=18 and rank 2 for A=12. In the next two all-gather rounds, ranks copy the already reduced chunks without adding again. The final vector on every rank is (12, 15, 18). The moving dots depict packets in flight, with the cards showing the live state before each round. Each illustrative round lasts two animation seconds: packets travel for 1.8 seconds, pause briefly at the destination, and only then do the cards advance to the next state. These playback durations are not network latency measurements.
+
+Each rank sends four chunks in total, or $4S/3$ bytes for equal-sized chunks of a vector of size $S$, and receives the same amount. This is the per-direction traffic for the three-rank case of the bandwidth term above, not a measurement of NIC throughput. The four rounds incur startup latency in addition to transfer time.
+
+### Animated explanation: communication overlap
+
+<img data-source-asset-urls src="../../../assets/concept-animations/interconnect-bucket-overlap-still.svg" data-motion-src="../../../assets/concept-animations/interconnect-bucket-overlap-motion.svg" data-still-src="../../../assets/concept-animations/interconnect-bucket-overlap-still.svg" width="360" height="300" style="display:block;width:100%;max-width:540px;height:auto" alt="A shared time cursor compares serial and overlapped schedules of two compute and two communication buckets, completing at times ten and eight respectively.">
+
+*Original educational animation, CC BY-SA 4.0.* [GitHub-readable still](../../../assets/concept-animations/interconnect-bucket-overlap-still.svg) · [Full SVG animation](../../../assets/concept-animations/interconnect-bucket-overlap-motion.svg).
+
+Let C1 and C2 each require three time units on a compute stream, and N1 and N2 each require two units on a separate communication stream. Each N bucket depends on its corresponding C bucket. The serial schedule computes both buckets first and then communicates them (10 units). In the overlapping schedule N1 begins as soon as C1 completes at time 3, overlapping C2 until time 5; N2 starts only after C2 completes at time 6, so the step ends at time 8. The orange cursor sweeps both schedules at the same rate; brighter blocks are active, darker blocks are pending or completed depending on the cursor. The final communication tail is exposed and cannot be hidden by this schedule.
+
+These are schematic values, not hardware measurements. The example assumes separate resources and no contention or extra launch overhead; actual compute/communication overlap can be smaller. Both animations use the website's keyboard-accessible Play/Pause control. Pause restores the representative still; reduced-motion preference defaults to the still.
+
 ## Results
 
 Jouppi et al. (2023) describe the TPU v4 pod, which uses optical circuit switches to reconfigure its interconnect topology. They report that the switches and their optical components are under 5% of system cost and under 3% of system power. For similar-sized systems, TPU v4 is 1.2 to 1.7 times faster and uses 1.3 to 1.9 times less power than the Nvidia A100.
