@@ -90,6 +90,25 @@ class PipelineSchedule(unittest.TestCase):
                     samples = [(int(x), int(y)) for x,y in re.findall(r'H(\d+)V(\d+)', path)]
                     self.assertEqual(samples, [(106+42*t, base-14*histories[stage][t]) for t in range(1,13)])
 
+    def test_weighted_microbatch_gradient_is_schedule_independent(self):
+        from fractions import Fraction
+        sizes, means = (2, 2, 1, 1), (1, 3, 5, 7)
+        full = Fraction(sum(n * g for n, g in zip(sizes, means)), sum(sizes))
+        self.assertEqual(full, Fraction(10, 3))
+        self.assertNotEqual(full, Fraction(sum(means), len(means)))
+        for kind in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'gpipe-1f1b-schedule-{kind}.svg').getroot()
+            by_id = {e.get('id'): e for e in root.iter() if e.get('id')}
+            for policy in range(2):
+                for stage in range(3):
+                    order = []
+                    for t in range(12):
+                        label = by_id[f'op-{policy}-{stage}-{t}'].find(NS+'text').text
+                        if label.startswith('B'):
+                            order.append(int(label[1:]) - 1)
+                    self.assertEqual(order, [3, 2, 1, 0] if policy == 0 else [0, 1, 2, 3])
+                    self.assertEqual(sum(Fraction(sizes[i] * means[i], sum(sizes)) for i in order), full)
+
     def test_reveal_boundaries(self):
         schedule = ET.parse(ASSETS / 'gpipe-1f1b-schedule-motion.svg').getroot()
         trace = ET.parse(ASSETS / 'gpipe-activation-liveness-motion.svg').getroot()

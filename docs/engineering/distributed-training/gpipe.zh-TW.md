@@ -58,6 +58,8 @@ GPipe 把網路切成依序執行的階段，分別放在不同裝置上，再�
 
 在 MkDocs 使用播放／暫停、上一／下一時槽、時間軸滑桿及速度選擇器，可在相同時間點比較兩種排程。窄螢幕的水平捲動區域可透過鍵盤聚焦操作；減少動態效果設定預設顯示完整靜態排程。
 
+**除了抵達次數，也要檢查梯度值。** 對可依樣本加總的平均損失，若微批次 $b$ 包含 $n_b$ 個樣本，其平均損失梯度為 $g_b$，完整小批次的梯度為 $g=\sum_b n_b g_b/\sum_b n_b$。微批次等大時可直接取梯度平均，但大小不同時通常不可如此處理。例如四個微批次的樣本數為 $(2,2,1,1)$，示意的純量平均梯度為 $(1,3,5,7)$，正確結果為 $20/6=10/3$，而非未加權平均 $4$。沿著任一排程的 B 方格追蹤：即使抵達順序不同，四組加權貢獻都會在更新前抵達。此處假設權重固定且每個樣本的運算相同；依賴批次的層或不同的隨機實現可能改變梯度，浮點數加總順序也可能造成捨入差異。此例為算術示意，非訓練實測紀錄。
+
 ### 保存激活值的存活區間
 
 <img data-source-asset-urls src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" data-motion-src="../../assets/concept-animations/gpipe-activation-liveness-motion.svg" data-still-src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" alt="階梯曲線顯示每個時槽完成後保存的激活值集合數。GPipe 各階段峰值皆為四；非交錯式 1F1B 第一至第三階段峰值分別為三、二、一。" width="640" height="360">

@@ -57,6 +57,8 @@ Non-interleaved one-forward-one-backward (1F1B, as in PipeDream-Flush) starts ba
 
 On MkDocs, use Play/Pause, the previous/next-slot buttons, timeline slider or speed selector to compare both schedules at the same time. The horizontal region is keyboard-focusable on narrow screens. Reduced motion initially shows the completed static schedule.
 
+**Check the gradient, not just the arrival count.** For an additive per-example mean loss, if micro-batch $b$ has $n_b$ examples and its mean-loss gradient is $g_b$, the full mini-batch gradient is $g=\sum_b n_b g_b/\sum_b n_b$. Equal-sized micro-batches can use the simple mean of their gradients; unequal sizes generally cannot. For example, with four micro-batches of sizes $(2,2,1,1)$ and illustrative scalar mean gradients $(1,3,5,7)$, the correct result is $20/6=10/3$, not the unweighted mean $4$. Follow the B cells in either schedule: all four weighted contributions arrive before the update, even though their order differs. This assumes fixed weights and the same per-example computations; batch-dependent layers or different random realizations can change the gradients, and floating-point accumulation order can change rounding. The example is arithmetic, not a measured training trace.
+
 ### Saved activation lifetime
 
 <img data-source-asset-urls src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" data-motion-src="../../assets/concept-animations/gpipe-activation-liveness-motion.svg" data-still-src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" alt="Step curves show saved activation sets after each slot. GPipe peaks at four on each stage; non-interleaved 1F1B peaks at three, two and one on stages one through three." width="640" height="360">
