@@ -17,6 +17,12 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     'xla-buffer-lifetime-reuse': 'engineering/frameworks/compilers-and-kernels/xla',
     'xla-rematerialization-liveness': 'engineering/frameworks/compilers-and-kernels/xla',
+    'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
+    'dynamo-graph-break-resume': 'engineering/frameworks/compilers-and-kernels/torch-compile',
+    "tpu-systolic-wavefront": "engineering/hardware/accelerators/tpu/index",
+    "analog-crossbar-current-sum": "engineering/hardware/in-memory-computing/index",
+    "interconnect-ring-reduction": "engineering/hardware/interconnects/index",
+    "interconnect-bucket-overlap": "engineering/hardware/interconnects/index",
     'dnn-output-stationary-traffic': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'dnn-sliding-window-reuse': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'kernel-fusion-intermediate-traffic': 'engineering/inference-optimization/fused-kernels',
@@ -228,10 +234,26 @@ TOPICS = {
     "graphsage-sample-aggregate": "theory/models/gnn/message-passing/graphsage/index",
     "qk-norm-scale-sweep": "theory/models/transformer/qk-norm",
     "sigma-reparam-spectral-gain": "theory/models/transformer/sigma-reparam",
+    "roc-fpr-dependence": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-fpr-mix-coverage": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-fpr-shared-bound": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-fpr-batch": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-fpr-retries": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-fpr-certificate-power": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-fpr-zero-alarms": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-fpr-budget-mix": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-pr-shift": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-prior-policy": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-youden-cost": "theory/evaluation/metrics/classification/roc-auc",
     "roc-cost-operating-point": "theory/evaluation/metrics/classification/roc-auc",
     "pr-random-ap-expectation": "theory/evaluation/metrics/classification/pr-auc",
+    "roc-score-quantization": "theory/evaluation/metrics/classification/roc-auc",
+    "roc-tie-group-step": "theory/evaluation/metrics/classification/roc-auc",
     "roc-tie-half-credit": "theory/evaluation/metrics/classification/roc-auc",
     "f1-threshold-topk": "theory/evaluation/metrics/classification/f1",
+    "f1-multilabel-aggregation": "theory/evaluation/metrics/classification/f1",
+    "confusion-condition-direction": "theory/evaluation/metrics/classification/index",
+    "f1-averaging-rules": "theory/evaluation/metrics/classification/f1",
     "roc-randomized-operating-mix": "theory/evaluation/metrics/classification/roc-auc",
     "pr-ap-tied-threshold": "theory/evaluation/metrics/classification/pr-auc",
     "roc-pairwise-auc": "theory/evaluation/metrics/classification/roc-auc",
@@ -239,6 +261,12 @@ TOPICS = {
     "precision-recall-threshold": "theory/evaluation/metrics/classification/precision",
     "f1-harmonic-gap": "theory/evaluation/metrics/classification/f1",
     "accuracy-prevalence": "theory/evaluation/metrics/classification/accuracy",
+    "accuracy-topk-window": "theory/evaluation/metrics/classification/accuracy",
+    "accuracy-topk-tie-policy": "theory/evaluation/metrics/classification/accuracy",
+    "accuracy-multilabel-error-placement": "theory/evaluation/metrics/classification/accuracy",
+    "accuracy-sample-weight-ranking": "theory/evaluation/metrics/classification/accuracy",
+    "accuracy-selective-class-coverage": "theory/evaluation/metrics/classification/accuracy",
+    "accuracy-selective-coverage": "theory/evaluation/metrics/classification/accuracy",
     "fbeta-recall-emphasis": "theory/evaluation/metrics/classification/f1",
     "precision-base-rate": "theory/evaluation/metrics/classification/precision",
     "f1-macro-micro-imbalance": "theory/evaluation/metrics/classification/f1",
@@ -255,6 +283,10 @@ TOPICS = {
     "effective-number-growth": "theory/paradigms/supervised/loss-functions-and-optimization/class-balanced-loss",
     "logit-prior-decision": "theory/paradigms/supervised/loss-functions-and-optimization/logit-adjustment",
     "roofline-ridge-sweep": "engineering/hardware/memory-hierarchy/roofline",
+    "memory-wall-weight-reuse": "engineering/hardware/memory-hierarchy/ai-and-memory-wall",
+    "sparse-index-intersection": "engineering/hardware/accelerators/eyeriss-v2/index",
+    "memory-tiled-input-reuse": "engineering/hardware/memory-hierarchy/index",
+    "roofline-hierarchy-bottleneck": "engineering/hardware/memory-hierarchy/roofline",
     "fp8-scale-range": "engineering/hardware/co-design/fp8",
     "roc-threshold-sweep": "theory/evaluation/metrics/classification/roc-auc",
     "pr-threshold-sweep": "theory/evaluation/metrics/classification/pr-auc",
@@ -454,11 +486,21 @@ TOPICS = {
     "ddpm-progressive-noising": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm",
     "ddim-strided-sampling": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
     "ddim-eta-coefficients": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
+    "bernoulli-kl-direction": "theory/information-theory/index",
+    "binary-channel-information": "theory/information-theory/index",
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
 CANONICAL_VIEWBOXES = {'xla-buffer-lifetime-reuse': '0 0 640 360',
  'xla-rematerialization-liveness': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
+ 'bernoulli-kl-direction': '0 0 720 400',
+ 'binary-channel-information': '0 0 720 400',
+ 'dnn-output-stationary-traffic': '0 0 640 360',
+ 'dynamo-shape-guard-cache': '0 0 640 360',
+ 'dynamo-graph-break-resume': '0 0 640 360',
+ 'interconnect-ring-reduction': '0 0 360 300',
+ 'interconnect-bucket-overlap': '0 0 360 300',
  'dnn-output-stationary-traffic': '0 0 640 360',
  'dnn-sliding-window-reuse': '0 0 640 360',
  'kernel-fusion-intermediate-traffic': '0 0 640 360',
@@ -474,6 +516,12 @@ CANONICAL_VIEWBOXES = {'xla-buffer-lifetime-reuse': '0 0 640 360',
  'a3c-async-gradient': '0 0 640 360',
  'a3c-nstep-return': '0 0 640 360',
  'accuracy-prevalence': '0 0 640 360',
+ 'accuracy-topk-window': '0 0 640 360',
+ 'accuracy-topk-tie-policy': '0 0 640 360',
+ 'accuracy-multilabel-error-placement': '0 0 640 360',
+ 'accuracy-sample-weight-ranking': '0 0 640 360',
+ 'accuracy-selective-class-coverage': '0 0 640 360',
+ 'accuracy-selective-coverage': '0 0 640 360',
  'act-cvae-train-deploy': '0 0 640 360',
  'act-temporal-ensemble': '0 0 640 360',
  'activity-silent-trace': '0 0 640 360',
@@ -586,6 +634,9 @@ CANONICAL_VIEWBOXES = {'xla-buffer-lifetime-reuse': '0 0 640 360',
  'f1-harmonic-gap': '0 0 640 360',
  'f1-macro-micro-imbalance': '0 0 640 360',
  'f1-threshold-topk': '0 0 640 360',
+ 'f1-multilabel-aggregation': '0 0 640 360',
+ 'confusion-condition-direction': '0 0 640 360',
+ 'f1-averaging-rules': '0 0 640 360',
  'fbeta-recall-emphasis': '0 0 640 360',
  'fedavg-weighted-round': '0 0 640 360',
  'fgsm-sign-step': '0 0 640 360',
@@ -807,15 +858,34 @@ CANONICAL_VIEWBOXES = {'xla-buffer-lifetime-reuse': '0 0 640 360',
  'rmsprop-adaptive-memory': '0 0 640 360',
  'rnd-prediction-error': '0 0 680 370',
  'rnd-state-novelty': '0 0 680 370',
+ 'roc-fpr-dependence': '0 0 640 360',
+ 'roc-fpr-mix-coverage': '0 0 640 360',
+ 'roc-fpr-shared-bound': '0 0 640 360',
+ 'roc-fpr-batch': '0 0 640 360',
+ 'roc-fpr-retries': '0 0 640 360',
+ 'roc-fpr-certificate-power': '0 0 640 360',
+ 'roc-fpr-zero-alarms': '0 0 640 360',
+ 'roc-fpr-budget-mix': '0 0 640 360',
+ 'roc-pr-shift': '0 0 640 360',
+ 'roc-prior-policy': '0 0 640 360',
+ 'roc-youden-cost': '0 0 640 360',
  'roc-cost-operating-point': '0 0 640 360',
  'roc-pairwise-auc': '0 0 640 360',
  'roc-partial-area': '0 0 640 360',
  'roc-randomized-operating-mix': '0 0 640 360',
  'roc-rank-transform': '0 0 640 360',
  'roc-threshold-sweep': '0 0 640 360',
+ 'roc-score-quantization': '0 0 640 360',
+ 'roc-tie-group-step': '0 0 640 360',
  'roc-tie-half-credit': '0 0 640 360',
  'roi-align-sampling': '0 0 800 460',
  'roofline-ridge-sweep': '0 0 640 360',
+ 'tpu-systolic-wavefront': '0 0 360 300',
+ 'analog-crossbar-current-sum': '0 0 360 300',
+ 'memory-wall-weight-reuse': '0 0 360 262',
+ 'sparse-index-intersection': '0 0 360 254',
+ 'memory-tiled-input-reuse': '0 0 640 360',
+ 'roofline-hierarchy-bottleneck': '0 0 640 360',
  'rope-axial-2d': '0 0 640 360',
  'rope-cache-reindex': '0 0 640 360',
  'rope-frequency-bands': '0 0 640 360',
@@ -891,7 +961,12 @@ CANONICAL_VIEWBOXES = {'xla-buffer-lifetime-reuse': '0 0 640 360',
  'yarn-attention-temperature': '0 0 640 360',
  'yarn-frequency-ramp': '0 0 640 360'}
 # Explicit non-TOPICS assets validated by main(), not generic name allowances.
-EXTRA_CANONICAL_FILENAMES = {'brier-expected-risk-motion.svg': '0 0 640 360',
+EXTRA_CANONICAL_FILENAMES = {
+ 'fp8-rounding-grid-motion.svg': '0 0 360 254',
+ 'fp8-rounding-grid-still.svg': '0 0 360 254',
+ 'fp8-delayed-amax-motion.svg': '0 0 360 254',
+ 'fp8-delayed-amax-still.svg': '0 0 360 254',
+ 'brier-expected-risk-motion.svg': '0 0 640 360',
  'brier-expected-risk-still.svg': '0 0 640 360',
  'icm-predictable-stochastic-mobile-motion.svg': '0 0 380 770',
  'icm-predictable-stochastic-mobile-still.svg': '0 0 380 770',
@@ -1300,6 +1375,17 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"tpu-systolic-wavefront", "analog-crossbar-current-sum"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing GitHub-readable static preview for {stem}")
+            elif stem in {"interconnect-ring-reduction", "interconnect-bucket-overlap"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)}:
+                    errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
+            elif stem in {"memory-wall-weight-reuse", "sparse-index-intersection", "memory-tiled-input-reuse", "roofline-hierarchy-bottleneck"}:
+                errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
                 # GitHub gets the static image; MkDocs enhances it via data-motion-src.
                 match = re.search(r'<img\s+data-source-asset-urls\s+[^>]*src="([^"]+)"\s+data-motion-src="([^"]+)"', text)
@@ -1313,7 +1399,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {'a3c-async-gradient', 'a3c-nstep-return', 'alibi-content-recency', 'alibi-distance-softmax', 'alibi-head-prefix', 'cfm-conditional-bridge', 'deep-ensemble-spread', 'dreamer-lambda-bootstrap', 'dreamer-posterior-prior', 'ece-binned-calibration', 'fitnets-hint-then-output', 'hmm-baum-welch-transition', 'hmm-filter-smooth', 'hmm-forward-sum-product', 'hmm-pairwise-posterior', 'kd-soft-target-alignment', 'lion-sign-momentum', 'mbpo-horizon-error', 'mbpo-short-branches', 'muon-spectral-balancing', 'pets-cem-refit', 'pets-ensemble-particles', 'qk-norm-scale-sweep', 'rectified-reflow-coupling', 'rlhf-dpo-margin', 'rlhf-reward-sums', 'rope-axial-2d', 'rope-cache-reindex', 'rope-frequency-bands', 'rope-interpolation-angle', 'shaw-relative-clipping', 'shaw-relative-value', 'sigma-reparam-spectral-gain', 'sinusoidal-multiscale', 'trpo-kl-backtracking', 'trpo-ratio-surrogate', 'tsne-kl-embedding', 'umap-fuzzy-union', 'yarn-attention-temperature', 'yarn-frequency-ramp'}:
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
+            elif stem in {"bernoulli-kl-direction", "binary-channel-information", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap", "confusion-condition-direction", "f1-averaging-rules", "roc-score-quantization", "roc-tie-group-step"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
@@ -1388,7 +1474,7 @@ def main() -> int:
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
                     errors.append(f"{page}: missing independent static preview for {stem}")
-            elif stem in {"xla-buffer-lifetime-reuse", "xla-rematerialization-liveness", "kernel-fusion-intermediate-traffic", "triton-tail-mask"}:
+            elif stem in {"dynamo-shape-guard-cache", "dynamo-graph-break-resume", "kernel-fusion-intermediate-traffic", "triton-tail-mask", "xla-buffer-lifetime-reuse", "xla-rematerialization-liveness"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
@@ -1492,6 +1578,10 @@ def main() -> int:
     # expose the animated variant to the MkDocs player through data-motion-src.
     # Check both paths rather than accepting the data attribute as the fallback.
     html_motion_topics = {
+        "bernoulli-kl-direction": "theory/information-theory/index",
+        "binary-channel-information": "theory/information-theory/index",
+        "fp8-rounding-grid": "engineering/hardware/co-design/fp8",
+        "fp8-delayed-amax": "engineering/hardware/co-design/fp8",
         "odin-gradient-perturbation": "theory/machine-learning/ood-detection/odin",
         "mahalanobis-ellipse-threshold": "theory/machine-learning/ood-detection/mahalanobis-distance",
     }

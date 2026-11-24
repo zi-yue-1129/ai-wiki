@@ -18,6 +18,14 @@ translation_reviewed: 2026-10-28
 
 核心運算是矩陣乘積 \(Y = XW\)。在大小為 \(n \times n\) 的脈動陣列中，每個單元把其儲存的權重乘上進入的激活值，並把結果加到傳給鄰居的部分和上。第一代晶片包含一個 256 × 256 的乘加單元陣列，可對帶號或無號整數執行 8 位元乘加運算，這是論文架構一節的描述。因此，大小為 \(m \times k\) 乘以 \(k \times n\) 的層能讓陣列保持忙碌，而記憶體流量很少。這個晶片以數值精度換取吞吐量。
 
+### 動畫解說：權重固定的波前
+
+<img data-source-asset-urls src="../../../../assets/concept-animations/tpu-systolic-wavefront-still.svg" data-motion-src="../../../../assets/concept-animations/tpu-systolic-wavefront-motion.svg" data-still-src="../../../../assets/concept-animations/tpu-systolic-wavefront-still.svg" width="360" height="300" style="display:block;width:100%;max-width:540px;height:auto" alt="四個處理單元保留權重，兩個輸入向量向右流動、部分和向下流動，於交錯週期輸出 (8, 9) 與 (9, 7) 的分量。">
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態預覽](../../../../assets/concept-animations/tpu-systolic-wavefront-still.svg) · [完整 SVG 動畫](../../../../assets/concept-animations/tpu-systolic-wavefront-motion.svg)。網站提供可用鍵盤操作的播放／暫停；暫停會回到代表性靜態圖，減少動態效果偏好預設顯示靜態圖。
+
+使用示意的 $2\times2$ 權重區塊，兩列分別為 $(2,1)$、$(3,4)$，輸入為 $x_1=(1,2)$ 與 $x_2=(3,1)$。各單元保留紫色權重；藍綠色箭頭表示激活值向右傳遞，橘色箭頭表示部分和向下傳遞，亮框單元執行當下顯示的乘加。第二列比第一列晚一個週期接收輸入，每往右一欄再延遲一個週期。以從零起算的列 $r$、欄 $j$ 與輸入索引 $m$ 表示，單元於週期 $t=m+r+j$ 運作（圖中週期從一開始）。底列在第 2–4 週期依序輸出 $x_1W=(8,9)$ 與 $x_2W=(9,7)$ 的各分量；第 5 週期僅保留完整輸出供閱讀，不代表額外運算週期。此理想化排程假設權重已載入且無停滯，用於說明權重固定原理（Jouppi 等人，2017），而非週期精確的 TPU 模擬或使用率實測。
+
 ## 關鍵方法
 
 兩個具代表性的設計，展示了固定稠密資料流與較有彈性的設計之間的取捨。

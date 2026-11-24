@@ -1,5 +1,6 @@
 """Execute SVG guard positives/mutations; never infer expected geometry from input."""
 from copy import deepcopy
+import hashlib
 from pathlib import Path
 import tempfile
 import json
@@ -15,7 +16,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 433 and len(EXPECTED_EXTRAS) == 9 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 467 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -127,6 +128,112 @@ class ScopedCanvas(unittest.TestCase):
                     root.set('viewBox', '0 0 1 1'); path.write_bytes(ET.tostring(root))
                     self.assertTrue(any('viewBox' in e for e in v.verify_svg(path, kind == 'motion')))
 
+
+    def assert_fp8_track(self, motion, still, tag, selector, attr, expected, duration):
+        """Check actual SMIL values and the representative third-state fallback."""
+        def select(root):
+            matches = [node for node in root.iter(v.NS + tag)
+                       if all(node.get(key) == value for key, value in selector.items())]
+            self.assertEqual(len(matches), 1, (tag, selector))
+            return matches[0]
+
+        node = select(motion)
+        tracks = [a for a in node.findall(v.NS + 'animate') if a.get('attributeName') == attr]
+        self.assertEqual(len(tracks), 1, (selector, attr))
+        track = tracks[0]
+        self.assertEqual((track.get('dur'), track.get('calcMode'), track.get('repeatCount')),
+                         (duration, 'discrete', 'indefinite'))
+        self.assertIsNone(track.get('keyTimes'), 'These examples use equally spaced states')
+        self.assertEqual([float(x) for x in track.get('values').split(';')], expected)
+        self.assertEqual(float(select(still).get(attr)), expected[2])
+
+    def test_fp8_rounding_tracks_follow_nearest_even_on_both_grids(self):
+        stem = 'fp8-rounding-grid'
+        motion, still = [ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+                         for kind in ('motion', 'still')]
+        inputs = [70 + 16 * i for i in range(17)]
+        # i is an exact sixteenth; stride is the FP8 grid in sixteenths.
+        # Python round uses ties-to-even and these binary fractions are exact.
+        q4, q5 = [[70 + 16 * stride * round(i / stride) for i in range(17)]
+                  for stride in (2, 4)]
+        for y, expected in [(67, inputs), (131, q4), (195, q5)]:
+            self.assert_fp8_track(motion, still, 'circle', {'cy': str(y)},
+                                  'cx', expected, '8.5s')
+        for y, output in [(117, q4), (181, q5)]:
+            selector = {'y1': str(y), 'y2': str(y), 'stroke': '#ffbd6a'}
+            self.assert_fp8_track(motion, still, 'line', selector, 'x1', inputs, '8.5s')
+            self.assert_fp8_track(motion, still, 'line', selector, 'x2', output, '8.5s')
+        guide = {'y1': '48', 'y2': '207', 'stroke-dasharray': '3 4'}
+        for attr in ('x1', 'x2'):
+            self.assert_fp8_track(motion, still, 'line', guide, attr, inputs, '8.5s')
+        self.assertEqual([max(abs(x - y) for x, y in zip(inputs, q)) / 256
+                          for q in (q4, q5)], [1/16, 1/8])
+
+    def test_fp8_rounding_tie_candidates_follow_exact_midpoints(self):
+        motion, still = [ET.parse(ASSETS / f'fp8-rounding-grid-{kind}.svg').getroot()
+                         for kind in ('motion', 'still')]
+        for stride, y in ((2, 131), (4, 195)):
+            # Samples are exact sixteenths. Only half a grid step is a tie.
+            visible = [int(i % stride == stride // 2) for i in range(17)]
+            for side in (0, 1):
+                selector = {'data-tie-grid': str(stride),
+                            'data-tie-candidate': str(side)}
+                candidates = [70 + 16 * min(16, stride * (i // stride + side)) - 9
+                              for i in range(17)]
+                self.assert_fp8_track(motion, still, 'rect', selector,
+                                      'x', candidates, '8.5s')
+                self.assert_fp8_track(motion, still, 'rect', selector,
+                                      'opacity', visible, '8.5s')
+                for root in (motion, still):
+                    ring = next(n for n in root.iter(v.NS + 'rect')
+                                if all(n.get(k) == val for k, val in selector.items()))
+                    self.assertEqual((ring.get('y'), ring.get('width'), ring.get('height'),
+                                      ring.get('fill'), ring.get('stroke-dasharray')),
+                                     (str(y - 9), '18', '18', 'none', '3 2'))
+            self.assert_fp8_track(motion, still, 'text', {'data-tie-label': str(stride)},
+                                  'opacity', visible, '8.5s')
+
+    def test_fp8_delayed_scaling_tracks_follow_the_previous_two_maxima(self):
+        stem = 'fp8-delayed-amax'
+        motion, still = [ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+                         for kind in ('motion', 'still')]
+        maxima = [1, 1, 4, 1, 1, 1]
+        history = [1, 1] + maxima
+        limits = [max(history[i:i+2]) for i in range(len(maxima))]
+        self.assertEqual(limits, [1, 1, 1, 4, 4, 1])
+        tracks = [
+            ('rect', {'y': '43', 'stroke': '#fff'}, 'x',
+             [58 + 47*i for i in range(len(maxima))]),
+            ('rect', {'y': '129', 'fill': '#45ddc4'}, 'width', [60*a for a in maxima]),
+            ('rect', {'y': '185', 'fill': '#45ddc4'}, 'width',
+             [60*min(a, h) for a, h in zip(maxima, limits)]),
+            ('rect', {'y': '185', 'fill': '#ffbd6a'}, 'width',
+             [60*max(0, a-h) for a, h in zip(maxima, limits)]),
+        ]
+        for y, values in [(123, maxima), (179, limits)]:
+            for attr in ('x1', 'x2'):
+                tracks.append(('line', {'y1': str(y), 'stroke': '#fff'}, attr,
+                               [82+60*a for a in values]))
+        for tag, selector, attr, expected in tracks:
+            self.assert_fp8_track(motion, still, tag, selector, attr, expected, '9s')
+
+        # The purple history underlines must refer to the preceding two samples,
+        # never the white-outlined current step. The first two bars are seeds.
+        centers = [25, 43] + [74 + 47*i for i in range(len(maxima))]
+        for offset in (0, 1):
+            selected = centers[offset:offset+len(maxima)]
+            selector = {'y1': '105', 'y2': '105', 'stroke': '#a993f9',
+                        'x1': str(selected[2] - 6)}
+            for attr, delta in [('x1', -6), ('x2', 6)]:
+                self.assert_fp8_track(motion, still, 'line', selector, attr,
+                                      [x+delta for x in selected], '9s')
+        for root in (motion, still):
+            for center in centers[:2]:
+                seeds = [node for node in root.iter(v.NS + 'rect')
+                         if node.get('x') == str(center-6) and node.get('y') == '71.5']
+                self.assertEqual(len(seeds), 1)
+                self.assertEqual((seeds[0].get('width'), seeds[0].get('height')), ('12', '7.5'))
+
     def test_original_prefix_exclusions_are_not_broadened(self):
         for prefix, excluded in EXPECTED_EXCLUSIONS.items():
             with patch.object(v, 'PREFIX_EXCLUSIONS', {}):
@@ -170,6 +277,270 @@ class ScopedCanvas(unittest.TestCase):
             path.write_text('<svg>')
             self.assertTrue(any('invalid XML' in e for e in v.verify_svg(path, True)))
 
+    def test_new_roc_assets_match_independently_reviewed_git_blob_origins(self):
+        for stem in ("accuracy-multilabel-error-placement", "accuracy-sample-weight-ranking", "accuracy-selective-coverage", "accuracy-selective-class-coverage", "roc-pr-shift", "roc-youden-cost", "roc-prior-policy", "roc-fpr-budget-mix", "roc-fpr-batch", "roc-fpr-zero-alarms", "roc-fpr-dependence", "roc-fpr-shared-bound", "roc-fpr-mix-coverage"):
+            origin = CONTRACTS["canonical"][stem]
+            self.assertEqual(origin["viewBox"], "0 0 640 360")
+            self.assertEqual(len(origin["origins"]), 2)
+            for record in origin["origins"]:
+                source = ROOT / record["path"]
+                data = source.read_bytes()
+                git_blob_sha = hashlib.sha1(
+                    f"blob {len(data)}".encode("utf-8") + bytes([0]) + data
+                ).hexdigest()
+                with self.subTest(asset=source.name):
+                    self.assertEqual(git_blob_sha, record["origin_blob"])
+    def test_hardware_weight_reuse_and_sparse_merge_states(self):
+        def tracks(stem):
+            root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
+            groups = root.findall(v.NS + 'g')
+            for i, group in enumerate(groups):
+                anim = group.find(v.NS + 'animate')
+                self.assertEqual(anim.get('attributeName'), 'opacity')
+                self.assertEqual(anim.get('values').split(';'),
+                                 [str(int(j == i)) for j in range(len(groups))])
+                self.assertEqual(anim.get('repeatCount'), 'indefinite')
+            return [[t.text for t in group.findall(v.NS + 'text')] for group in groups]
+
+        reuse = tracks('memory-wall-weight-reuse')
+        self.assertEqual(len(reuse), 4)
+        for k, labels in enumerate(reuse, 1):
+            self.assertEqual(labels[-4:], [str(4*k), '4', f'{4*k} vs 4', str(4*k)])
+
+        a, b = {0:2, 2:3, 5:4}, {1:7, 2:6, 5:8}
+        i = j = total = 0
+        aa, bb = sorted(a), sorted(b)
+        expected = []
+        while i < len(aa) and j < len(bb):
+            x, y = aa[i], bb[j]
+            if x < y:
+                op = 'Skip A'; i += 1
+            elif x > y:
+                op = 'Skip B'; j += 1
+            else:
+                op = f'{a[x]} × {b[y]}'
+                total += a[x] * b[y]; i += 1; j += 1
+            expected.append([op, str(total)])
+        expected.append(['Done', str(total)])
+        self.assertEqual(tracks('sparse-index-intersection'), expected)
+        self.assertEqual(total, 50)
+
+class ArrayMotionSemantics(unittest.TestCase):
+    @staticmethod
+    def states(stem):
+        root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
+        return [node for node in root.iter(v.NS + 'g') if node.get('id', '').startswith('state-')]
+
+    @staticmethod
+    def labels(node):
+        return {(int(label.get('x')), int(label.get('y'))): label.text for label in node.iter(v.NS + 'text')}
+
+    def test_systolic_wavefront(self):
+        states = self.states('tpu-systolic-wavefront')
+        self.assertEqual(len(states), 5)
+        inputs, weights = ((1, 2), (3, 1)), ((2, 1), (3, 4))
+        output = [[sum(x[k]*weights[k][j] for k in range(2)) for j in range(2)] for x in inputs]
+        for t, state in enumerate(states[:4]):
+            labels = self.labels(state)
+            for r, cy in enumerate((90, 177)):
+                for j, cx in enumerate((140, 255)):
+                    m = t-r-j
+                    if 0 <= m < len(inputs):
+                        psum = sum(inputs[m][k]*weights[k][j] for k in range(r+1))
+                        self.assertEqual(labels[(cx, cy+24)], f'= {psum}')
+                    else:
+                        self.assertNotIn((cx, cy+24), labels)
+            for j, cx in enumerate((140, 255)):
+                m = t-1-j
+                expected = f'y{m+1} = {output[m][j]}' if 0 <= m < 2 else '—'
+                self.assertEqual(labels[(cx, 252)], expected)
+        self.assertEqual(self.labels(states[-1])[(180, 252)], 'y1 = (8, 9)     y2 = (9, 7)')
+
+    def test_crossbar_current_sum(self):
+        states = self.states('analog-crossbar-current-sum')
+        voltages = (0, 1, 2, 3, 4, 3, 2, 1)
+        self.assertEqual(len(states), len(voltages))
+        conductance = ((2, 1), (3, 4))
+        for state, first in zip(states, voltages):
+            labels = self.labels(state)
+            for j, cx in enumerate((145, 258)):
+                products = [value*conductance[r][j] for r, value in enumerate((first, 2))]
+                for r, cy in enumerate((88, 158)):
+                    self.assertEqual(labels[(cx+15, cy+40)], str(products[r]))
+                self.assertEqual(labels[(cx+35, 261)], str(sum(products)))
+class InterconnectTiming(unittest.TestCase):
+    def test_ring_delivery_before_state_transition(self):
+        from fractions import Fraction
+        root = ET.parse(ASSETS / 'interconnect-ring-reduction-motion.svg').getroot()
+        n = 3
+        rounds = 2 * (n - 1)
+        duration = 2 * (rounds + 1)
+        ns = v.NS
+        groups = {g.get('id'): g for g in root.iter(ns + 'g') if (g.get('id') or '').startswith('round-')}
+        self.assertEqual(len(groups), rounds + 1)
+        state = [list(range(1 + n*r, 1 + n*(r+1))) for r in range(n)]
+        for step in range(rounds + 1):
+            group = groups[f'round-{step}']
+            track = group.find(ns + 'animate')
+            self.assertEqual(track.get('calcMode'), 'discrete')
+            self.assertEqual(track.get('dur'), f'{duration}s')
+            times = list(map(Fraction, track.get('keyTimes').split(';')))
+            self.assertEqual(times, [Fraction(i, rounds + 1) for i in range(rounds + 2)])
+            values = list(map(int, track.get('values').split(';')))
+            self.assertEqual(values, [int(min(i, rounds) == step) for i in range(rounds + 2)])
+            labels = [t.text for t in group.iter(ns + 'text') if t.get('y') == '150']
+            self.assertEqual(labels, [str(x) if x is not None else '–' for row in state for x in row])
+            if step == rounds:
+                self.assertEqual(state, [[sum(range(c+1, n*n+1, n)) for c in range(n)]] * n)
+                self.assertEqual(list(group.iter(ns + 'circle')), [])
+                break
+            chunks = [(rank - step) % n for rank in range(n)]
+            expected_packets = [f'{chr(65+c)}: {state[r][c]}' for r, c in enumerate(chunks)]
+            self.assertEqual([t.text for t in group.iter(ns + 'text') if t.get('y') == '235'], expected_packets)
+            circles = list(group.iter(ns + 'circle'))
+            self.assertEqual(len(circles), n)
+            for rank, circle in enumerate(circles):
+                packet = circle.find(ns + 'animate')
+                self.assertEqual(packet.get('dur'), f'{duration}s')
+                self.assertEqual(packet.get('attributeName'), 'cx')
+                begin, arrival = Fraction(2*step, duration), Fraction(20*step+18, 10*duration)
+                times = list(map(Fraction, packet.get('keyTimes').split(';')))
+                self.assertEqual(times, [Fraction(0)] + ([begin] if step else []) + [arrival, Fraction(1)])
+                x0 = 22 + 120*rank
+                self.assertEqual(list(map(int, packet.get('values').split(';'))), [x0] + ([x0] if step else []) + [x0+76, x0+76])
+                self.assertLess(arrival, Fraction(2*(step+1), duration))
+            previous = [row[:] for row in state]
+            if step < n-1:
+                for r, c in enumerate(chunks):
+                    state[r][c] = None
+                for r, c in enumerate(chunks):
+                    receiver = (r+1) % n
+                    state[receiver][c] = previous[receiver][c] + previous[r][c]
+            else:
+                for r, c in enumerate(chunks):
+                    state[(r+1) % n][c] = previous[r][c]
+
+    def test_overlap_activity_matches_common_cursor(self):
+        from fractions import Fraction
+        ns = v.NS
+        root = ET.parse(ASSETS / 'interconnect-bucket-overlap-motion.svg').getroot()
+        cursor = next(root.iter(ns + 'animateTransform'))
+        end = Fraction(cursor.get('keyTimes').split(';')[1])
+        # C1, C2 serial; N1, N2 serial; C1, C2 overlap; N1, N2 overlap.
+        schedules = [(0,3), (3,6), (6,8), (8,10), (0,3), (3,6), (3,5), (6,8)]
+        tracks = [a for a in root.iter(ns + 'animate') if a.get('attributeName') == 'fill-opacity']
+        self.assertEqual(len(tracks), len(schedules))
+        for a, (start, stop) in zip(tracks, schedules):
+            self.assertEqual(a.get('dur'), cursor.get('dur'))
+            times = list(map(Fraction, a.get('keyTimes').split(';')))
+            values = list(map(Fraction, a.get('values').split(';')))
+            self.assertEqual(times, [Fraction(0)] + ([end*start/10] if start else []) + [end*stop/10, Fraction(1)])
+            self.assertEqual(values, ([Fraction(28,100)] if start else []) + [Fraction(1), Fraction(65,100), Fraction(65,100)])
+class MemoryHierarchyMotion(unittest.TestCase):
+    ns = {'s': 'http://www.w3.org/2000/svg'}
+
+    def states(self, stem, suffix='motion'):
+        root = ET.parse(ASSETS / f'{stem}-{suffix}.svg').getroot()
+        return root.findall('.//s:g[@id]', self.ns)
+
+    def text_at(self, state, x, y):
+        return state.find(f"s:text[@x='{x}'][@y='{y}']", self.ns).text
+
+    def test_tiling_partial_sums_and_read_counts(self):
+        stem = 'memory-tiled-input-reuse'
+        states = self.states(stem)
+        self.assertEqual(len(states), 9)
+        a, b = ((1, 2), (3, 4)), ((5, 6), (7, 8))
+        for m, state in enumerate(states):
+            executed = [(i, j, k) for k in range(2) for i in range(2) for j in range(2)][:m]
+            expected = [[sum(a[i][k] * b[k][j] for ii, jj, k in executed if (ii, jj) == (i, j)) for j in range(2)] for i in range(2)]
+            actual = [[int(self.text_at(state, 477 + 62*j, 114 + 62*i)) for j in range(2)] for i in range(2)]
+            self.assertEqual(actual, expected)
+            self.assertEqual(int(self.text_at(state, 616, 290)), 2*m)
+            self.assertEqual(int(self.text_at(state, 616, 332)), 4*len({k for _, _, k in executed}))
+            for y, count in ((269, 2*m), (311, 4*len({k for _, _, k in executed}))):
+                bars = state.findall(f"s:rect[@x='204'][@y='{y}']", self.ns)
+                self.assertEqual(len(bars), 1 + bool(count))
+                if count:
+                    self.assertEqual(int(bars[-1].get('width')), 23*count-4)
+        self.assertEqual([self.text_at(self.states(stem, 'still')[0], 477 + 62*j, 114 + 62*i) for i in range(2) for j in range(2)], ['19','22','43','50'])
+
+    def test_hierarchy_bound_and_ties(self):
+        stem = 'roofline-hierarchy-bottleneck'
+        states = self.states(stem)
+        self.assertEqual(len(states), 5)
+        for q, state in zip((32, 16, 8, 4, 2), states):
+            caps = [4*32/q, 16*32/32, 32]
+            expected = [*caps, min(caps)]
+            self.assertEqual(self.text_at(state, 616, 34), f'{q} B')
+            self.assertEqual([float(self.text_at(state, 616, 148 + 45*i)) for i in range(4)], expected)
+            for i, value in enumerate(expected):
+                bars = state.findall(f"s:rect[@x='170'][@y='{124+45*i}']", self.ns)
+                self.assertEqual(int(bars[-1].get('width')), round(value*6.25))
+                self.assertEqual(bars[-1].get('stroke') == '#ffbf70', i < 3 and value == min(caps))
+        still = self.states(stem, 'still')[0]
+        self.assertEqual(self.text_at(still, 616, 34), '4 B')
+        self.assertEqual(self.text_at(still, 616, 283), '16')
+
+
+    def test_discrete_timeline_is_one_hot_and_holds_final_state(self):
+        # Independent playback schedule: each operation is visible until the
+        # next one, with a longer final hold and a clean restart.
+        for stem, boundaries in (
+            ('memory-tiled-input-reuse', [i / 10 for i in range(9)] + [1]),
+            ('roofline-hierarchy-bottleneck', [i / 6 for i in range(5)] + [1]),
+        ):
+            states = self.states(stem)
+            self.assertEqual(len(states), len(boundaries) - 1)
+            tracks = []
+            for index, state in enumerate(states):
+                self.assertEqual(state.get('id'), f'state-{index}')
+                self.assertEqual(state.get('opacity'), str(int(index == 0)))
+                animations = state.findall('s:animate', self.ns)
+                self.assertEqual(len(animations), 1)
+                track = animations[0]
+                for attr, value in (('attributeName', 'opacity'), ('calcMode', 'discrete'),
+                                    ('dur', '12s'), ('repeatCount', 'indefinite')):
+                    self.assertEqual(track.get(attr), value)
+                times = [float(x) for x in track.get('keyTimes').split(';')]
+                self.assertEqual(len(times), len(boundaries))
+                for actual, expected in zip(times, boundaries):
+                    self.assertAlmostEqual(actual, expected, places=6)
+                tracks.append(track.get('values').split(';'))
+            for slot in range(len(boundaries)):
+                expected = slot if slot < len(states) else 0
+                self.assertEqual([t[slot] for t in tracks],
+                                 [str(int(i == expected)) for i in range(len(states))])
+
+    def test_tiling_highlights_and_displayed_mac_match_operand_dependencies(self):
+        a, b = ((1, 2), (3, 4)), ((5, 6), (7, 8))
+        partial = [[0, 0], [0, 0]]
+        states = self.states('memory-tiled-input-reuse')
+        self.assertEqual(len(states), 9)
+        def positions(state, attribute, value):
+            return {(int(r.get('x')), int(r.get('y')))
+                    for r in state.findall('s:rect', self.ns)
+                    if r.get(attribute) == value}
+        self.assertEqual(self.text_at(states[0], 320, 228), 'C = 0')
+        for m, (k, i, j) in enumerate(
+            ((k, i, j) for k in range(2) for i in range(2) for j in range(2)), 1
+        ):
+            state = states[m]
+            with self.subTest(mac=m):
+                a_pos = (32 + 62*k, 77 + 62*i)
+                b_pos = (240 + 62*j, 77 + 62*k)
+                c_pos = (448 + 62*j, 77 + 62*i)
+                tile = {(32 + 62*k, 77 + 62*r) for r in range(2)}
+                tile |= {(240 + 62*c, 77 + 62*k) for c in range(2)}
+                self.assertEqual(positions(state, 'fill', '#37335e'), tile)
+                self.assertEqual(positions(state, 'stroke', '#4adeca'), {a_pos, b_pos})
+                self.assertEqual(positions(state, 'stroke', '#ffbf70'), {c_pos})
+                previous = partial[i][j]
+                partial[i][j] += a[i][k] * b[k][j]
+                self.assertEqual(self.text_at(state, 320, 228),
+                                 f'{previous} + {a[i][k]} × {b[k][j]} = {partial[i][j]}')
+                self.assertEqual(self.text_at(state, 24, 34), f'MAC {m}/8')
+                self.assertEqual(self.text_at(state, 616, 34), f'k = {k}')
 # Independent arithmetic and state checks for DNN dataflow illustrations.
 def dnn_dataflow_states(stem):
     root = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
