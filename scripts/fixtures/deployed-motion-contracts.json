@@ -9498,6 +9498,36 @@
         }
       ],
       "viewBox": "0 0 360 254"
+    },
+    "tpu-systolic-wavefront": {
+      "origins": [
+        {
+          "origin_blob": "2d3175ed93f23d4a4f72ee0b9595f8128a9db7a4",
+          "origin_commit": "1233f9079b1b18be06dc7c56fcb8cee1601ddace",
+          "path": "docs/assets/concept-animations/tpu-systolic-wavefront-motion.svg"
+        },
+        {
+          "origin_blob": "c2cbc08e7da2f20d6ed1fc4dd96600a665878994",
+          "origin_commit": "1233f9079b1b18be06dc7c56fcb8cee1601ddace",
+          "path": "docs/assets/concept-animations/tpu-systolic-wavefront-still.svg"
+        }
+      ],
+      "viewBox": "0 0 360 300"
+    },
+    "analog-crossbar-current-sum": {
+      "origins": [
+        {
+          "origin_blob": "18da87b8fb9484b913f461ae329441ed99e79d52",
+          "origin_commit": "1233f9079b1b18be06dc7c56fcb8cee1601ddace",
+          "path": "docs/assets/concept-animations/analog-crossbar-current-sum-motion.svg"
+        },
+        {
+          "origin_blob": "5c5dd065e1ad4c6f742ad21974cb1f57c298dd9f",
+          "origin_commit": "1233f9079b1b18be06dc7c56fcb8cee1601ddace",
+          "path": "docs/assets/concept-animations/analog-crossbar-current-sum-still.svg"
+        }
+      ],
+      "viewBox": "0 0 360 300"
     }
   },
   "extra": {

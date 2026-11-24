@@ -30,6 +30,14 @@ Build a chip around a large matrix unit in which data flows through a grid of mu
 
 The core operation is a matrix product \(Y = XW\). In a systolic array of size \(n \times n\), each cell multiplies its stored weight by the incoming activation and adds the result to a partial sum passed to its neighbour. The first-generation chip contains a 256 × 256 array of multiply-accumulate units that perform 8-bit multiply-and-adds on signed or unsigned integers, as the paper's architecture section describes. A layer of size \(m \times k\) by \(k \times n\) therefore keeps the array busy with little traffic to memory. The chip trades numerical precision for throughput.
 
+### Animated explanation: a weight-stationary wavefront
+
+<img data-source-asset-urls src="../../../../assets/concept-animations/tpu-systolic-wavefront-still.svg" data-motion-src="../../../../assets/concept-animations/tpu-systolic-wavefront-motion.svg" data-still-src="../../../../assets/concept-animations/tpu-systolic-wavefront-still.svg" width="360" height="300" style="display:block;width:100%;max-width:540px;height:auto" alt="Four processing elements retain their weights while two input vectors move right and partial sums move down, emitting components of (8, 9) and (9, 7) on staggered cycles.">
+
+*Original educational animation, CC BY-SA 4.0.* [GitHub-readable still](../../../../assets/concept-animations/tpu-systolic-wavefront-still.svg) · [Full SVG animation](../../../../assets/concept-animations/tpu-systolic-wavefront-motion.svg). The website offers keyboard-accessible Play/Pause; Pause restores the representative still, and reduced-motion preference defaults to the still.
+
+Use a schematic $2\times2$ weight tile with rows $(2,1)$ and $(3,4)$ and two input vectors $x_1=(1,2)$ and $x_2=(3,1)$. Each cell keeps its purple weight. Teal arrows show activations moving right, orange arrows show partial sums moving down, and outlined cells perform the multiply-add displayed for that cycle. Row 2 receives its input one cycle later than row 1; each column adds a further one-cycle delay. For zero-based row $r$, column $j$, and input index $m$, the cell acts at cycle $t=m+r+j$ (the diagram numbers cycles from one). The lower row emits components of $x_1W=(8,9)$ and $x_2W=(9,7)$ over cycles 2–4; cycle 5 holds the assembled outputs for reading, rather than counting an extra compute cycle. This idealized schedule assumes preloaded weights and no stalls; it illustrates the weight-stationary principle (Jouppi et al., 2017), not a cycle-accurate TPU or measured utilization.
+
 ## Key methods
 
 Two landmark designs show the trade-off between a fixed dense dataflow and a more flexible one.
