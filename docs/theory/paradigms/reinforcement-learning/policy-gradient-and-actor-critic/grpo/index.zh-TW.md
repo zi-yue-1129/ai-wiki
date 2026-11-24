@@ -28,6 +28,31 @@ GRPO 的目標是：在組內與每個輸出的詞元上取平均，對加權後
 
 論文也描述了結果監督（outcome supervision）與過程監督（process supervision）兩種版本。結果版本如上，每個輸出只得到一個獎勵。
 
+### 視覺化解讀：組內相對獎勵
+
+<div role="region" tabindex="0" aria-label="水平捲動以檢視完整概念圖" style="max-width:100%;overflow-x:auto">
+  <img data-source-asset-urls style="width:760px;max-width:none;height:auto" src="../../../../../assets/concept-animations/grpo-group-advantages-still.svg" data-motion-src="../../../../../assets/concept-animations/grpo-group-advantages-motion.svg" data-still-src="../../../../../assets/concept-animations/grpo-group-advantages-still.svg" alt="GRPO 同一提示下四個輸出的人工獎勵、共享平均值，以及正負標準化優勢。">
+</div>
+
+*原創連續教學動畫（CC BY-SA 4.0）。* 針對**同一個提示**取樣四個人工輸出，假設獎勵為 `r = (1, 2, 4, 5)`，組內平均 `μ = 3`，示意計算採用**母體標準差** `σ = √2.5 ≈ 1.581`。標準化優勢 `(rᵢ − μ)/σ` 約為 `(−1.26, −0.63, +0.63, +1.26)`。藍色長條表示原始獎勵，橘色虛線表示共享基線，下方的正負長條展示扣除基線後的相對優劣。此圖只呈現**結果監督版本的組內標準化步驟**，**未**呈現 PPO 式機率比截斷、參考策略 KL 懲罰、詞元層級更新或真實模型輸出。不同實作對標準差的定義可能不同。在 MkDocs 可透過播放／暫停或鍵盤操作；另有 [GitHub 靜態預覽](../../../../../assets/concept-animations/grpo-group-advantages-still.svg)。參見 [Shao 等人（2024）](https://arxiv.org/abs/2402.03300)。
+
+
+### 互動實驗：群組基線與零變異邊界
+
+<div data-policy-lab="grpo" data-lang="zh">
+  <p>GitHub 與未啟用 JavaScript 的讀者仍可使用上方原創 SVG 靜態回退。</p>
+</div>
+
+使用同一題目下四個人工輸出的獎勵 \(r=(r_A,r_B,r_C,r_D)\)，分別調整 A、B、C、D 的獎勵，依序檢視**原始獎勵、組內平均** \(\mu=\frac14\sum_i r_i\)、**中心化獎勵** \(r_i-\mu\)、**標準化優勢** \(A_i=(r_i-\mu)/\sigma\)。此處明確採用**母體標準差** \(\sigma=\sqrt{\frac14\sum_i(r_i-\mu)^2}\)。預設 \(r=(1,2,4,5)\)，\(\mu=3\)、\(\sigma\approx1.581\)、\(A\approx(-1.265,-0.632,0.632,1.265)\)。即使其他獎勵不動，改變其中一筆也會改變整個群組的基線與**所有輸出的優勢**。
+
+勾選**全部獎勵相同**可觀察 \(\sigma=0\) 的特殊情況：此時標準化在數學上**沒有定義**，畫面僅為避免除以零而顯示零，**不代表標準 GRPO 的更新規則**。本實驗只展示結果監督版本的群組優勢，不包括 PPO 截斷、KL 正則、詞元層級最佳化，也不是模型實測輸出。支援上一步／下一步、進度滑桿、播放速度、鍵盤與減少動態效果設定。見 References 中的 Shao 等人（2024）。
+
+
+四個獎勵皆可調整。第二組預設保留先前範例 $(1,3,0,2)$：$\mu=1.5$、$\sigma=\sqrt{1.25}$，$A\approx(-0.447,1.342,-1.342,0.447)$。每階段標示顯示比例，兩組預設使用同一標準化規則。
+
+
+SVG 數值標籤表示長條最終目標值，不是插值中的當下高度；互動實驗則重新計算目前的數值狀態。
+
 ## 結果
 
 論文報告一個 7B 模型經 GRPO 訓練後的結果，即 DeepSeekMath-RL，並與其起點 DeepSeekMath-Instruct 7B 比較，兩者都使用思維鏈提示：

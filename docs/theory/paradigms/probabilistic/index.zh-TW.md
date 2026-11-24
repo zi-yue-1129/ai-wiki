@@ -29,7 +29,7 @@
 | 卡爾曼濾波 | 線性高斯狀態空間 | 追蹤、導航 |
 | 主題模型 LDA | 階層式 | 文件主題分析 |
 
-詳細頁面：[機率圖模型](graphical-models/index.md)，包含[信念傳播](graphical-models/belief-propagation.md)與[隱馬可夫模型](graphical-models/hidden-markov-models.md)。
+詳細頁面：[機率圖模型](graphical-models/index.md)，包含[信念傳播](graphical-models/belief-propagation.md)、[隱馬可夫模型](graphical-models/hidden-markov-models.md)、[卡爾曼濾波](graphical-models/kalman-filter.md)及[粒子濾波](graphical-models/particle-filter.md)。
 
 ## 推論方法
 

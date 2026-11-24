@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 ---
 
 # 保守 Q 學習（Kumar 等人，2020）
@@ -14,7 +14,7 @@ translation_reviewed: 2026-10-28
 
 ## 核心想法
 
-CQL 在標準的貝爾曼誤差之外加入一個正則項：一方面把策略取樣的動作的 Q 值壓低，另一方面把資料集中動作的 Q 值推高。結果是一個對分布外動作給出比分布內動作更低價值的 Q 函數，使策略保持接近資料。作者證明，策略在學到的 Q 函數下的期望值，是其真實價值的下界，而且這個界可用於具有改進保證的策略學習程序。
+CQL 在標準的貝爾曼誤差之外加入一個正則項：一方面壓低比較動作分布下的 Q 值（離散 CQL(H) 使用 softmax Q），另一方面把資料集中動作的 Q 值推高。這會抑制未受資料支持的高估，但不保證每個分布外動作的 Q 都低於每個資料內動作。在論文假設及足夠正則化下，作者證明，策略在學到的 Q 函數下的期望值，是其真實價值的下界，而且這個界可用於具有改進保證的策略學習程序。
 
 這個正則項很容易加到既有的深度 Q 學習或演員–評論家實作中，這也是此方法廣泛被使用的原因之一。
 
@@ -23,10 +23,31 @@ CQL 在標準的貝爾曼誤差之外加入一個正則項：一方面把策略�
 Q 函數的更新最小化貝爾曼誤差加上保守懲罰，形式如下：
 
 \[
-\min_Q \; \alpha\, \mathbb{E}_{s \sim \mathcal{D}}\left[\log \sum_a \exp Q(s,a) - \mathbb{E}_{a \sim \hat{\pi}_\beta(a\mid s)}[Q(s,a)]\right] + \tfrac{1}{2}\mathbb{E}_{(s,a,s') \sim \mathcal{D}}\left[(Q(s,a) - \hat{\mathcal{B}}^\pi Q(s,a))^2\right] ,
+\begin{aligned}\min_Q\;&\alpha\, \mathbb{E}_{s \sim \mathcal{D}}\left[\log \sum_a \exp Q(s,a) - \mathbb{E}_{a \sim \hat{\pi}_\beta(a\mid s)}[Q(s,a)]\right]\\ &+\tfrac{1}{2}\mathbb{E}_{(s,a,s') \sim \mathcal{D}}\left[(Q(s,a) - \hat{\mathcal{B}}^\pi Q(s,a))^2\right].\end{aligned}
 \]
 
 其中 \(\alpha\) 控制懲罰的強度，\(\hat{\pi}_\beta\) 是由資料估計的行為策略，\(\hat{\mathcal{B}}^\pi\) 是目前策略的貝爾曼運算子。第一項降低資料不偏好之動作的價值，第二項使 Q 函數與資料保持一致。
+
+## 動態計算示例：保守式動作價值更新
+
+在同一個固定狀態下，資料集只觀測到動作 A，動作 B 則是**未見過的動作**。這個刻意簡化的雙動作示例以 $Q_A=2$、$Q_B=5$ 起始；虛線輪廓代表更新前的值。動畫展示保守式 log-sum-exp 懲罰如何抑制未受資料支持的高 $Q_B$，同時以資料內動作的貝爾曼擬合約束 $Q_A$。[^cql-motion]
+
+<div class="offline-source-scroll" tabindex="0" role="region" aria-label="CQL 動態示範：資料內動作 A 的初始 Q 值為 2、資料外動作 B 為 5；保守正則化使兩者示意值變為約 2.73、3.32，虛線框保留原始比較。" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls width="640" height="797" style="width:640px;min-width:640px;max-width:none;height:auto" alt="CQL 動態示範：資料內動作 A 的初始 Q 值為 2、資料外動作 B 為 5；保守正則化使兩者示意值變為約 2.73、3.32，虛線框保留原始比較。" src="../../../../../assets/concept-animations/offline-cql-conservative-still.svg" data-motion-src="../../../../../assets/concept-animations/offline-cql-conservative-motion.svg" data-still-src="../../../../../assets/concept-animations/offline-cql-conservative-still.svg">
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 示意目標為
+
+\[
+\begin{aligned}L(Q_A,Q_B)&=\log(e^{Q_A}+e^{Q_B})-Q_A\\
+&+\tfrac12(Q_A-2)^2.\end{aligned}
+\]
+
+，設保守係數 $\alpha=1$、貝爾曼目標值為 $2$、學習率為 $0.5$。從 $(2,5)$ 同步執行四次梯度下降，得到約 $(2.73,3.32)$，保守懲罰由約 $3.05$ 降至 $1.03$。畫面在人工選定的狀態之間**平滑插值**，中間影格不代表精確的最佳化器迭代；也不表示已訓練模型的實測結果、所有分布外動作皆會被壓低，或完整的連續動作 CQL。MkDocs 網站支援播放／暫停，聚焦按鈕後可用 Enter／空白鍵操作；GitHub 顯示靜態對照圖，偏好減少動態效果的使用者預設顯示靜態圖。
+
+此處是離散動作 CQL(H)：log-sum-exp 涵蓋所有列出的動作，減去的項則是資料動作分布下的平均 Q，並非只對「未見」動作求和。本例資料分布全在 A；正則項對 B 的梯度為 softmax(Q)_B，對 A 為 softmax(Q)_A−1。最終 Q_B 仍高於 Q_A，說明保守性不是逐動作排序保證。
+
+圖框保留 640 像素，可聚焦後橫向捲動；數字標籤只在對應數值停留時顯示，重播回程不顯示終值。
 
 ## 結果
 
@@ -54,6 +75,8 @@ Q 函數的更新最小化貝爾曼誤差加上保守懲罰，形式如下：
 
 - 如何在沒有線上評估的情況下選擇懲罰權重。
 - 如何在保持悲觀的同時，超越資料所能支持的表現。
+
+[^cql-motion]: Kumar、Zhou、Tucker 與 Levine（2020），[*Conservative Q-Learning for Offline Reinforcement Learning*](https://arxiv.org/abs/2006.04779)，提出保守 Q 正則項及其離線強化學習動機。
 
 ## 參考文獻
 

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 700" role="img" aria-labelledby="rnd-title rnd-desc">
+<title id="rnd-title">RND unseen observation B: different hypothetical predictor transfer strengths</title>
+<desc id="rnd-desc">Three counterfactual predictions for the same unseen B with fixed target output. At zero, half, and full transfer, the illustrative squared error is 19.13, 4.78, and 0.00 respectively. This is not trained-model data.</desc>
+<rect x="2" y="2" width="556" height="696" rx="22" fill="#f5f9fc" stroke="#bbccda" stroke-width="2"/>
+<text x="28" y="51" font-family="Arial,sans-serif" font-size="29" font-weight="700" fill="#203b50">RND · Unseen B</text>
+<text x="532" y="47" text-anchor="end" font-family="Arial,sans-serif" font-size="17" fill="#526b7b">Toy example</text>
+<g>
+<rect x="21" y="76" width="518" height="179" rx="18" fill="#fff" stroke="#d5e1e9" stroke-width="1.5"/>
+<rect x="35" y="91" width="191" height="40" rx="12" fill="#e8eff7"/>
+<text x="48" y="118" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#233f57">Transfer 0%</text>
+<path d="M44 145H305M44 145V235" stroke="#d8e2e8" fill="none" stroke-width="2"/>
+<path d="M159.40 233.80L235 169" stroke="#bb7d38" stroke-width="3" stroke-dasharray="7 6"/>
+<circle cx="159.40" cy="233.80" r="11" fill="#e19748" stroke="white" stroke-width="3"/>
+
+<circle cx="235" cy="169" r="11" fill="#27926e" stroke="white" stroke-width="3"/>
+<text x="334" y="130" font-family="Arial,sans-serif" font-size="17" fill="#526879">Squared gap</text>
+<rect x="335" y="146" width="171" height="18" rx="9" fill="#e4edf3"/>
+<rect x="335" y="146" width="171.00" height="18" rx="9" fill="#d28a3e"/>
+<text x="335" y="215" font-family="Arial,sans-serif" font-size="31" font-weight="700" fill="#9a5c21">19.13</text>
+<text x="334" y="238" font-family="Arial,sans-serif" font-size="15" fill="#627b89">arbitrary units</text>
+</g>
+<g>
+<rect x="21" y="266" width="518" height="179" rx="18" fill="#fff" stroke="#d5e1e9" stroke-width="1.5"/>
+<rect x="35" y="281" width="191" height="40" rx="12" fill="#e8eff7"/>
+<text x="48" y="308" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#233f57">Transfer 50%</text>
+<path d="M44 335H305M44 335V425" stroke="#d8e2e8" fill="none" stroke-width="2"/>
+<path d="M197.20 391.40L235 359" stroke="#bb7d38" stroke-width="3" stroke-dasharray="7 6"/>
+<circle cx="197.20" cy="391.40" r="11" fill="#e19748" stroke="white" stroke-width="3"/>
+
+<circle cx="235" cy="359" r="11" fill="#27926e" stroke="white" stroke-width="3"/>
+<text x="334" y="320" font-family="Arial,sans-serif" font-size="17" fill="#526879">Squared gap</text>
+<rect x="335" y="336" width="171" height="18" rx="9" fill="#e4edf3"/>
+<rect x="335" y="336" width="42.75" height="18" rx="9" fill="#d28a3e"/>
+<text x="335" y="405" font-family="Arial,sans-serif" font-size="31" font-weight="700" fill="#9a5c21">4.78</text>
+<text x="334" y="428" font-family="Arial,sans-serif" font-size="15" fill="#627b89">arbitrary units</text>
+</g>
+<g>
+<rect x="21" y="456" width="518" height="179" rx="18" fill="#fff" stroke="#d5e1e9" stroke-width="1.5"/>
+<rect x="35" y="471" width="191" height="40" rx="12" fill="#e8eff7"/>
+<text x="48" y="498" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#233f57">Transfer 100%</text>
+<path d="M44 525H305M44 525V615" stroke="#d8e2e8" fill="none" stroke-width="2"/>
+<path d="M235.00 549.00L235 549" stroke="#bb7d38" stroke-width="3" stroke-dasharray="7 6"/>
+<circle cx="235.00" cy="549.00" r="11" fill="#e19748" stroke="white" stroke-width="3"/>
+<circle cx="235" cy="549" r="17" fill="none" stroke="#e19748" stroke-width="3"/>
+<circle cx="235" cy="549" r="11" fill="#27926e" stroke="white" stroke-width="3"/>
+<text x="334" y="510" font-family="Arial,sans-serif" font-size="17" fill="#526879">Squared gap</text>
+<rect x="335" y="526" width="171" height="18" rx="9" fill="#e4edf3"/>
+<rect x="335" y="526" width="0.00" height="18" rx="9" fill="#d28a3e"/>
+<text x="335" y="595" font-family="Arial,sans-serif" font-size="31" font-weight="700" fill="#9a5c21">0.00</text>
+<text x="334" y="618" font-family="Arial,sans-serif" font-size="15" fill="#627b89">arbitrary units</text>
+</g>
+<circle cx="36" cy="666" r="6" fill="#e19748"/>
+<text x="49" y="671" font-family="Arial,sans-serif" font-size="16" fill="#435d70">Prediction</text>
+<circle cx="196" cy="666" r="6" fill="#27926e"/>
+<text x="209" y="671" font-family="Arial,sans-serif" font-size="16" fill="#435d70">Fixed target</text>
+<text x="530" y="671" text-anchor="end" font-family="Arial,sans-serif" font-size="14" fill="#627b89">Not measured</text>
+</svg>

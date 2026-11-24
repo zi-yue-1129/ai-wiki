@@ -50,10 +50,12 @@ Attribution methods fall into two broad families.
 - **[Integrated gradients](integrated-gradients.md) (Sundararajan et al., 2017).** The attribution is the input-minus-baseline difference multiplied by the average gradient along the path. It satisfies sensitivity and implementation invariance, and depends on the choice of baseline.
 - **[LIME](lime.md) (Ribeiro et al., 2016).** Samples perturbed versions of the input, weights them by proximity, and fits a sparse linear model. The explanation is local and model-agnostic, but its stability depends on sampling and kernel choices.
 - **[SHAP](shap.md) (Lundberg & Lee, 2017).** The Shapley value of feature \(i\) is
-  \[
-  \phi_i = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!\,(|N|-|S|-1)!}{|N|!}\,\bigl[v(S \cup \{i\}) - v(S)\bigr],
-  \]
-  where \(N\) is the set of features and \(v(S)\) is the model's expected output when only the features in \(S\) are known. Lundberg and Lee unify six existing methods under this additive form and propose estimators for it. Shapley-based attribution was used for predictions earlier by Štrumbelj and Kononenko (2014).
+
+    \[
+    \phi_i = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!\,(|N|-|S|-1)!}{|N|!}\,\bigl[v(S \cup \{i\}) - v(S)\bigr],
+    \]
+
+    where \(N\) is the set of features and \(v(S)\) is the model's expected output when only the features in \(S\) are known. Lundberg and Lee unify six existing methods under this additive form and propose estimators for it. Shapley-based attribution was used for predictions earlier by Štrumbelj and Kononenko (2014).
 
 ## Results
 

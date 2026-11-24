@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-11
 related:
 - theory/models/rnn
 tags:
@@ -38,13 +38,28 @@ aliases:
 
 ## 方程式或演算法
 
-權重更新是把學習訊號與資格跡的乘積沿時間加總：
+採用梯度下降慣例：學習訊號帶有損失導數的符號，乘積之和是近似梯度，而非已乘上學習率的權重更新：
 
 \[
-\Delta W_{ji} = \sum_t L_j(t)\, e_{ji}(t)
+\begin{aligned}
+\widehat g_{ji} &= \sum_t L_j(t)\, e_{ji}(t), \\
+\Delta W_{ji} &= -\eta\,\widehat g_{ji},\qquad \eta>0.
+\end{aligned}
 \]
 
 其中 \(L_j(t)\) 為神經元 j 的學習訊號，\(e_{ji}(t)\) 為從神經元 i 到神經元 j 之突觸的資格跡。資格跡在每個時間步由局部量更新，因此此規則不需要儲存歷史。
+
+## 動態解讀：局部資格跡與學習訊號相乘
+
+<div class="snn-motion-scroll" tabindex="0" role="region" aria-label="可水平捲動的教學動畫" style="max-width:100%;overflow-x:auto"><div style="width:640px;min-width:640px"><img src="../../../assets/concept-animations/eprop-local-credit-still.svg" data-motion-src="../../../assets/concept-animations/eprop-local-credit-motion.svg" data-still-src="../../../assets/concept-animations/eprop-local-credit-still.svg" data-source-asset-urls style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="資格跡隨時間向前累積並衰減，遇到正負學習訊號後產生突觸的正負梯度貢獻" width="640" height="360"></div></div>
+
+以 Tab 聚焦圖區，使用左右方向鍵捲動；播放按鈕可用 Enter 或空白鍵操作。
+
+[GitHub 與減少動態效果模式使用的靜態資格跡預覽](../../../assets/concept-animations/eprop-local-credit-still.svg)。MkDocs 網站提供**播放動畫／暫停動畫**，可使用 Tab、Enter 或空白鍵操作。藍色線條表示沿時間向前計算的局部資格跡；橘色與紫色為神經元收到的正負學習訊號，其乘積產生綠色的正梯度貢獻與紫色的負梯度貢獻。為便於教學，使用**簡化漏洩跡示例** \(e_t=0.7e_{t-1}+x_t\)，令 \(e_0=0\)、\(x_1=x_4=1\)，其餘輸入為零，可得到 \(e_3=0.49\)、\(e_5=0.9401\)。若 \(L_3=+1.2\)、\(L_5=-0.4\)，兩次乘積分別為 \(+0.588\) 與 \(-0.37604\)，帶號總和約 \(+0.212\)。以上為**人工教學示意，並非模型實測，也不是完整的 e-prop 資格跡遞迴式**；真正的 e-prop 涉及循環神經元狀態及代理導數，本頁固定使用梯度下降，故正的總和對應負的權重更新。完整理想學習訊號可給出梯度的資格跡分解，但包含未來的間接影響，一般無法在線上取得；實用 e-prop 近似此訊號，並非精確 BPTT。原始研究見下方 Bellec 等人（2020）。
+
+圖中的折線只連接離散時間樣本，不代表樣本之間有額外輸入；掃描到時間 3 或 5 才顯示當時的訊號與梯度乘積。每一列長條使用共同的正負比例尺。
+
+*原創教學動畫與 GitHub 回退圖：CC BY-SA 4.0。*
 
 ## 結果
 

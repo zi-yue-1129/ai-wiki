@@ -61,6 +61,7 @@ The paper writes these per component and omits bias terms. Its experiments secti
 \[
 r_t = \sigma(W_r x_t + U_r h_{t-1}), \quad z_t = \sigma(W_z x_t + U_z h_{t-1}),
 \]
+
 \[
 \tilde{h}_t = \tanh\big(W x_t + U (r_t \odot h_{t-1})\big), \quad h_t = z_t \odot h_{t-1} + (1 - z_t) \odot \tilde{h}_t.
 \]

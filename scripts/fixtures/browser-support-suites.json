@@ -1,0 +1,1265 @@
+{
+  "schema": 1,
+  "suites": [
+    {
+      "id": "keyboard-scroll-preflight",
+      "type": "motion-preflight",
+      "command": [
+        "scripts/test_built_motion_browser.py",
+        "--keyboard-preflight",
+        "--output",
+        "artifacts/keyboard-scroll-preflight"
+      ],
+      "topics": [
+        "t-sne",
+        "umap",
+        "minhash-deduplication",
+        "data-programming",
+        "regularized-evolution",
+        "asam",
+        "shampoo"
+      ],
+      "expected_source_count": 14,
+      "maximum_viewport_width": 599,
+      "report_trailing_newline": true
+    },
+    {
+      "id": "vi-prose",
+      "type": "prose",
+      "command": [
+        "scripts/test_built_prose_browser.py",
+        "--sources",
+        "docs/theory/paradigms/probabilistic/variational-inference/index.md",
+        "docs/theory/paradigms/probabilistic/variational-inference/index.zh-TW.md",
+        "--output",
+        "artifacts/vi-prose"
+      ],
+      "sources": [
+        "docs/theory/paradigms/probabilistic/variational-inference/index.md",
+        "docs/theory/paradigms/probabilistic/variational-inference/index.zh-TW.md"
+      ],
+      "widths": [
+        390,
+        1280
+      ],
+      "report_trailing_newline": false
+    },
+    {
+      "id": "embedding-pages",
+      "type": "prose",
+      "command": [
+        "scripts/test_built_prose_browser.py",
+        "--manifest",
+        "scripts/fixtures/embedding-prose-pages.json",
+        "--output",
+        "artifacts/embedding-pages"
+      ],
+      "sources_manifest": "scripts/fixtures/embedding-prose-pages.json",
+      "widths": [
+        390,
+        1280
+      ],
+      "report_trailing_newline": false
+    },
+    {
+      "id": "sharpness-labs",
+      "type": "legacy-lab",
+      "command": [
+        "scripts/test_sharpness_geometry_labs_browser.py"
+      ],
+      "env": {
+        "SHARPNESS_SITE_DIR": "site"
+      },
+      "expected_pngs": [
+        "en-320.png",
+        "en-1024.png",
+        "zh-320.png",
+        "zh-1024.png",
+        "built-en-390.png",
+        "built-en-1280.png",
+        "built-zh-TW-390.png",
+        "built-zh-TW-1280.png"
+      ]
+    },
+    {
+      "id": "adaptive-optimiser-labs",
+      "type": "legacy-lab",
+      "command": [
+        "scripts/test_adaptive_optimiser_labs_browser.py"
+      ],
+      "env": {
+        "ADAPTIVE_SITE_DIR": "site"
+      },
+      "expected_pngs": [
+        "adagrad-en-320.png",
+        "adagrad-en-720.png",
+        "adagrad-zh-320.png",
+        "adagrad-zh-720.png",
+        "adafactor-en-320.png",
+        "adafactor-en-720.png",
+        "adafactor-zh-320.png",
+        "adafactor-zh-720.png",
+        "built-adagrad-en-390.png",
+        "built-adagrad-en-1280.png",
+        "built-adagrad-zh-TW-390.png",
+        "built-adagrad-zh-TW-1280.png",
+        "built-adafactor-en-390.png",
+        "built-adafactor-en-1280.png",
+        "built-adafactor-zh-TW-390.png",
+        "built-adafactor-zh-TW-1280.png"
+      ]
+    },
+    {
+      "id": "policy-credit-labs",
+      "type": "report-cases",
+      "command": [
+        "scripts/test_policy_credit_labs_browser.py"
+      ],
+      "env": {
+        "POLICY_CREDIT_SITE_DIR": "site"
+      },
+      "case_fields": [
+        "topic",
+        "lang",
+        "width",
+        "reduced"
+      ],
+      "expected_cases": [
+        [
+          "reinforce",
+          "en",
+          320,
+          false
+        ],
+        [
+          "reinforce",
+          "en",
+          320,
+          true
+        ],
+        [
+          "reinforce",
+          "en",
+          360,
+          false
+        ],
+        [
+          "reinforce",
+          "en",
+          360,
+          true
+        ],
+        [
+          "reinforce",
+          "en",
+          390,
+          false
+        ],
+        [
+          "reinforce",
+          "en",
+          390,
+          true
+        ],
+        [
+          "reinforce",
+          "en",
+          720,
+          false
+        ],
+        [
+          "reinforce",
+          "en",
+          720,
+          true
+        ],
+        [
+          "reinforce",
+          "en",
+          1024,
+          false
+        ],
+        [
+          "reinforce",
+          "en",
+          1024,
+          true
+        ],
+        [
+          "reinforce",
+          "en",
+          1280,
+          false
+        ],
+        [
+          "reinforce",
+          "en",
+          1280,
+          true
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          320,
+          false
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          320,
+          true
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          360,
+          false
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          360,
+          true
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          390,
+          false
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          390,
+          true
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          720,
+          false
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          720,
+          true
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          1024,
+          false
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          1024,
+          true
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          1280,
+          false
+        ],
+        [
+          "reinforce",
+          "zh-TW",
+          1280,
+          true
+        ],
+        [
+          "grpo",
+          "en",
+          320,
+          false
+        ],
+        [
+          "grpo",
+          "en",
+          320,
+          true
+        ],
+        [
+          "grpo",
+          "en",
+          360,
+          false
+        ],
+        [
+          "grpo",
+          "en",
+          360,
+          true
+        ],
+        [
+          "grpo",
+          "en",
+          390,
+          false
+        ],
+        [
+          "grpo",
+          "en",
+          390,
+          true
+        ],
+        [
+          "grpo",
+          "en",
+          720,
+          false
+        ],
+        [
+          "grpo",
+          "en",
+          720,
+          true
+        ],
+        [
+          "grpo",
+          "en",
+          1024,
+          false
+        ],
+        [
+          "grpo",
+          "en",
+          1024,
+          true
+        ],
+        [
+          "grpo",
+          "en",
+          1280,
+          false
+        ],
+        [
+          "grpo",
+          "en",
+          1280,
+          true
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          320,
+          false
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          320,
+          true
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          360,
+          false
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          360,
+          true
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          390,
+          false
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          390,
+          true
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          720,
+          false
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          720,
+          true
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          1024,
+          false
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          1024,
+          true
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          1280,
+          false
+        ],
+        [
+          "grpo",
+          "zh-TW",
+          1280,
+          true
+        ]
+      ],
+      "expected_pngs": [
+        "reinforce-en-320-False/boundary.png",
+        "reinforce-en-320-True/boundary.png",
+        "reinforce-en-360-False/boundary.png",
+        "reinforce-en-360-True/boundary.png",
+        "reinforce-en-390-False/boundary.png",
+        "reinforce-en-390-True/boundary.png",
+        "reinforce-en-720-False/boundary.png",
+        "reinforce-en-720-True/boundary.png",
+        "reinforce-en-1024-False/boundary.png",
+        "reinforce-en-1024-True/boundary.png",
+        "reinforce-en-1280-False/boundary.png",
+        "reinforce-en-1280-True/boundary.png",
+        "reinforce-zh-TW-320-False/boundary.png",
+        "reinforce-zh-TW-320-True/boundary.png",
+        "reinforce-zh-TW-360-False/boundary.png",
+        "reinforce-zh-TW-360-True/boundary.png",
+        "reinforce-zh-TW-390-False/boundary.png",
+        "reinforce-zh-TW-390-True/boundary.png",
+        "reinforce-zh-TW-720-False/boundary.png",
+        "reinforce-zh-TW-720-True/boundary.png",
+        "reinforce-zh-TW-1024-False/boundary.png",
+        "reinforce-zh-TW-1024-True/boundary.png",
+        "reinforce-zh-TW-1280-False/boundary.png",
+        "reinforce-zh-TW-1280-True/boundary.png",
+        "grpo-en-320-False/boundary.png",
+        "grpo-en-320-True/boundary.png",
+        "grpo-en-360-False/boundary.png",
+        "grpo-en-360-True/boundary.png",
+        "grpo-en-390-False/boundary.png",
+        "grpo-en-390-True/boundary.png",
+        "grpo-en-720-False/boundary.png",
+        "grpo-en-720-True/boundary.png",
+        "grpo-en-1024-False/boundary.png",
+        "grpo-en-1024-True/boundary.png",
+        "grpo-en-1280-False/boundary.png",
+        "grpo-en-1280-True/boundary.png",
+        "grpo-zh-TW-320-False/boundary.png",
+        "grpo-zh-TW-320-True/boundary.png",
+        "grpo-zh-TW-360-False/boundary.png",
+        "grpo-zh-TW-360-True/boundary.png",
+        "grpo-zh-TW-390-False/boundary.png",
+        "grpo-zh-TW-390-True/boundary.png",
+        "grpo-zh-TW-720-False/boundary.png",
+        "grpo-zh-TW-720-True/boundary.png",
+        "grpo-zh-TW-1024-False/boundary.png",
+        "grpo-zh-TW-1024-True/boundary.png",
+        "grpo-zh-TW-1280-False/boundary.png",
+        "grpo-zh-TW-1280-True/boundary.png"
+      ],
+      "require_identity": false,
+      "report_trailing_newline": false
+    },
+    {
+      "id": "built-planning-evolution-labs",
+      "type": "report-cases",
+      "command": [
+        "scripts/test_built_planning_evolution_labs_browser.py"
+      ],
+      "env": {
+        "PLANNING_EVOLUTION_SITE_DIR": "site"
+      },
+      "case_fields": [
+        "topic",
+        "lang",
+        "width",
+        "reduced"
+      ],
+      "expected_cases": [
+        [
+          "strips",
+          "en",
+          320,
+          false
+        ],
+        [
+          "strips",
+          "en",
+          320,
+          true
+        ],
+        [
+          "strips",
+          "en",
+          1280,
+          false
+        ],
+        [
+          "strips",
+          "en",
+          1280,
+          true
+        ],
+        [
+          "strips",
+          "zh-TW",
+          320,
+          false
+        ],
+        [
+          "strips",
+          "zh-TW",
+          320,
+          true
+        ],
+        [
+          "strips",
+          "zh-TW",
+          1280,
+          false
+        ],
+        [
+          "strips",
+          "zh-TW",
+          1280,
+          true
+        ],
+        [
+          "graphplan",
+          "en",
+          320,
+          false
+        ],
+        [
+          "graphplan",
+          "en",
+          320,
+          true
+        ],
+        [
+          "graphplan",
+          "en",
+          1280,
+          false
+        ],
+        [
+          "graphplan",
+          "en",
+          1280,
+          true
+        ],
+        [
+          "graphplan",
+          "zh-TW",
+          320,
+          false
+        ],
+        [
+          "graphplan",
+          "zh-TW",
+          320,
+          true
+        ],
+        [
+          "graphplan",
+          "zh-TW",
+          1280,
+          false
+        ],
+        [
+          "graphplan",
+          "zh-TW",
+          1280,
+          true
+        ],
+        [
+          "ga",
+          "en",
+          320,
+          false
+        ],
+        [
+          "ga",
+          "en",
+          320,
+          true
+        ],
+        [
+          "ga",
+          "en",
+          1280,
+          false
+        ],
+        [
+          "ga",
+          "en",
+          1280,
+          true
+        ],
+        [
+          "ga",
+          "zh-TW",
+          320,
+          false
+        ],
+        [
+          "ga",
+          "zh-TW",
+          320,
+          true
+        ],
+        [
+          "ga",
+          "zh-TW",
+          1280,
+          false
+        ],
+        [
+          "ga",
+          "zh-TW",
+          1280,
+          true
+        ],
+        [
+          "map",
+          "en",
+          320,
+          false
+        ],
+        [
+          "map",
+          "en",
+          320,
+          true
+        ],
+        [
+          "map",
+          "en",
+          1280,
+          false
+        ],
+        [
+          "map",
+          "en",
+          1280,
+          true
+        ],
+        [
+          "map",
+          "zh-TW",
+          320,
+          false
+        ],
+        [
+          "map",
+          "zh-TW",
+          320,
+          true
+        ],
+        [
+          "map",
+          "zh-TW",
+          1280,
+          false
+        ],
+        [
+          "map",
+          "zh-TW",
+          1280,
+          true
+        ]
+      ],
+      "expected_pngs": [
+        "strips-en-320-False/initial.png",
+        "strips-en-320-False/numeric-final.png",
+        "strips-en-320-True/initial.png",
+        "strips-en-320-True/numeric-final.png",
+        "strips-en-1280-False/initial.png",
+        "strips-en-1280-False/numeric-final.png",
+        "strips-en-1280-True/initial.png",
+        "strips-en-1280-True/numeric-final.png",
+        "strips-zh-TW-320-False/initial.png",
+        "strips-zh-TW-320-False/numeric-final.png",
+        "strips-zh-TW-320-True/initial.png",
+        "strips-zh-TW-320-True/numeric-final.png",
+        "strips-zh-TW-1280-False/initial.png",
+        "strips-zh-TW-1280-False/numeric-final.png",
+        "strips-zh-TW-1280-True/initial.png",
+        "strips-zh-TW-1280-True/numeric-final.png",
+        "graphplan-en-320-False/initial.png",
+        "graphplan-en-320-False/numeric-final.png",
+        "graphplan-en-320-True/initial.png",
+        "graphplan-en-320-True/numeric-final.png",
+        "graphplan-en-1280-False/initial.png",
+        "graphplan-en-1280-False/numeric-final.png",
+        "graphplan-en-1280-True/initial.png",
+        "graphplan-en-1280-True/numeric-final.png",
+        "graphplan-zh-TW-320-False/initial.png",
+        "graphplan-zh-TW-320-False/numeric-final.png",
+        "graphplan-zh-TW-320-True/initial.png",
+        "graphplan-zh-TW-320-True/numeric-final.png",
+        "graphplan-zh-TW-1280-False/initial.png",
+        "graphplan-zh-TW-1280-False/numeric-final.png",
+        "graphplan-zh-TW-1280-True/initial.png",
+        "graphplan-zh-TW-1280-True/numeric-final.png",
+        "ga-en-320-False/initial.png",
+        "ga-en-320-False/numeric-final.png",
+        "ga-en-320-True/initial.png",
+        "ga-en-320-True/numeric-final.png",
+        "ga-en-1280-False/initial.png",
+        "ga-en-1280-False/numeric-final.png",
+        "ga-en-1280-True/initial.png",
+        "ga-en-1280-True/numeric-final.png",
+        "ga-zh-TW-320-False/initial.png",
+        "ga-zh-TW-320-False/numeric-final.png",
+        "ga-zh-TW-320-True/initial.png",
+        "ga-zh-TW-320-True/numeric-final.png",
+        "ga-zh-TW-1280-False/initial.png",
+        "ga-zh-TW-1280-False/numeric-final.png",
+        "ga-zh-TW-1280-True/initial.png",
+        "ga-zh-TW-1280-True/numeric-final.png",
+        "map-en-320-False/initial.png",
+        "map-en-320-False/numeric-final.png",
+        "map-en-320-True/initial.png",
+        "map-en-320-True/numeric-final.png",
+        "map-en-1280-False/initial.png",
+        "map-en-1280-False/numeric-final.png",
+        "map-en-1280-True/initial.png",
+        "map-en-1280-True/numeric-final.png",
+        "map-zh-TW-320-False/initial.png",
+        "map-zh-TW-320-False/numeric-final.png",
+        "map-zh-TW-320-True/initial.png",
+        "map-zh-TW-320-True/numeric-final.png",
+        "map-zh-TW-1280-False/initial.png",
+        "map-zh-TW-1280-False/numeric-final.png",
+        "map-zh-TW-1280-True/initial.png",
+        "map-zh-TW-1280-True/numeric-final.png"
+      ],
+      "require_identity": false,
+      "report_trailing_newline": false
+    },
+    {
+      "id": "ddim-prose",
+      "type": "prose",
+      "command": [
+        "scripts/test_built_prose_browser.py",
+        "--manifest",
+        "scripts/fixtures/ddim-prose-pages.json",
+        "--output",
+        "artifacts/ddim-prose"
+      ],
+      "sources_manifest": "scripts/fixtures/ddim-prose-pages.json",
+      "widths": [
+        390,
+        1280
+      ],
+      "required_case_pngs": [
+        "schedule.png"
+      ],
+      "report_trailing_newline": false
+    },
+    {
+      "id": "time-series-prose",
+      "type": "prose",
+      "command": [
+        "scripts/test_time_series_prose_browser.py"
+      ],
+      "sources_manifest": "scripts/fixtures/time-series-prose-pages.json",
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "require_case_language": true,
+      "require_reported_screenshots": true,
+      "report_trailing_newline": false
+    },
+    {
+      "id": "causal-prose",
+      "type": "prose",
+      "command": [
+        "scripts/test_causal_inference_prose_browser.py"
+      ],
+      "sources_manifest": "scripts/fixtures/causal-prose-pages.json",
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "require_case_language": true,
+      "require_reported_screenshots": true,
+      "report_trailing_newline": false
+    },
+    {
+      "id": "policy-gradient-motion",
+      "type": "report-cases",
+      "command": [
+        "scripts/test_policy_gradient_motion_browser.py"
+      ],
+      "case_fields": [
+        "id",
+        "stem",
+        "test"
+      ],
+      "expected_cases": [
+        [
+          "case-01",
+          "reinforce-return-credit",
+          "svg"
+        ],
+        [
+          "case-02",
+          "reinforce-return-credit",
+          "svg"
+        ],
+        [
+          "case-03",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-04",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-05",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-06",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-07",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-08",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-09",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-10",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-11",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-12",
+          "reinforce-return-credit",
+          "player"
+        ],
+        [
+          "case-13",
+          "grpo-group-advantages",
+          "svg"
+        ],
+        [
+          "case-14",
+          "grpo-group-advantages",
+          "svg"
+        ],
+        [
+          "case-15",
+          "grpo-group-advantages",
+          "player"
+        ],
+        [
+          "case-16",
+          "grpo-group-advantages",
+          "player"
+        ],
+        [
+          "case-17",
+          "grpo-group-advantages",
+          "player"
+        ],
+        [
+          "case-18",
+          "grpo-group-advantages",
+          "player"
+        ],
+        [
+          "case-19",
+          "grpo-group-advantages",
+          "player"
+        ],
+        [
+          "case-20",
+          "grpo-group-advantages",
+          "player"
+        ],
+        [
+          "case-21",
+          "grpo-group-advantages",
+          "player"
+        ],
+        [
+          "case-22",
+          "grpo-group-advantages",
+          "player"
+        ],
+        [
+          "case-23",
+          "grpo-group-advantages",
+          "player"
+        ],
+        [
+          "case-24",
+          "grpo-group-advantages",
+          "player"
+        ]
+      ],
+      "expected_case_specs": [
+        {
+          "id": "case-01",
+          "stem": "reinforce-return-credit",
+          "kind": "motion",
+          "test": "svg",
+          "times": [
+            0,
+            2,
+            4,
+            6,
+            9,
+            11
+          ]
+        },
+        {
+          "id": "case-02",
+          "stem": "reinforce-return-credit",
+          "kind": "still",
+          "test": "svg",
+          "times": [
+            0
+          ]
+        },
+        {
+          "id": "case-03",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "en",
+          "width": 320,
+          "reduced": false
+        },
+        {
+          "id": "case-04",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "en",
+          "width": 360,
+          "reduced": false
+        },
+        {
+          "id": "case-05",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "en",
+          "width": 720,
+          "reduced": false
+        },
+        {
+          "id": "case-06",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "en",
+          "width": 1024,
+          "reduced": false
+        },
+        {
+          "id": "case-07",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "en",
+          "width": 320,
+          "reduced": true
+        },
+        {
+          "id": "case-08",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "zh",
+          "width": 320,
+          "reduced": false
+        },
+        {
+          "id": "case-09",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "zh",
+          "width": 360,
+          "reduced": false
+        },
+        {
+          "id": "case-10",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "zh",
+          "width": 720,
+          "reduced": false
+        },
+        {
+          "id": "case-11",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "zh",
+          "width": 1024,
+          "reduced": false
+        },
+        {
+          "id": "case-12",
+          "stem": "reinforce-return-credit",
+          "test": "player",
+          "lang": "zh",
+          "width": 320,
+          "reduced": true
+        },
+        {
+          "id": "case-13",
+          "stem": "grpo-group-advantages",
+          "kind": "motion",
+          "test": "svg",
+          "times": [
+            0,
+            2,
+            4,
+            6,
+            9,
+            11
+          ]
+        },
+        {
+          "id": "case-14",
+          "stem": "grpo-group-advantages",
+          "kind": "still",
+          "test": "svg",
+          "times": [
+            0
+          ]
+        },
+        {
+          "id": "case-15",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "en",
+          "width": 320,
+          "reduced": false
+        },
+        {
+          "id": "case-16",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "en",
+          "width": 360,
+          "reduced": false
+        },
+        {
+          "id": "case-17",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "en",
+          "width": 720,
+          "reduced": false
+        },
+        {
+          "id": "case-18",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "en",
+          "width": 1024,
+          "reduced": false
+        },
+        {
+          "id": "case-19",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "en",
+          "width": 320,
+          "reduced": true
+        },
+        {
+          "id": "case-20",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "zh",
+          "width": 320,
+          "reduced": false
+        },
+        {
+          "id": "case-21",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "zh",
+          "width": 360,
+          "reduced": false
+        },
+        {
+          "id": "case-22",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "zh",
+          "width": 720,
+          "reduced": false
+        },
+        {
+          "id": "case-23",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "zh",
+          "width": 1024,
+          "reduced": false
+        },
+        {
+          "id": "case-24",
+          "stem": "grpo-group-advantages",
+          "test": "player",
+          "lang": "zh",
+          "width": 320,
+          "reduced": true
+        }
+      ],
+      "expected_pngs": [
+        "case-01/time-0.png",
+        "case-01/time-2.png",
+        "case-01/time-4.png",
+        "case-01/time-6.png",
+        "case-01/time-9.png",
+        "case-01/time-11.png",
+        "case-02/time-0.png",
+        "case-03/initial.png",
+        "case-03/clicked.png",
+        "case-03/entered.png",
+        "case-03/spaced.png",
+        "case-03/final-still.png",
+        "case-04/initial.png",
+        "case-04/clicked.png",
+        "case-04/entered.png",
+        "case-04/spaced.png",
+        "case-04/final-still.png",
+        "case-05/initial.png",
+        "case-05/clicked.png",
+        "case-05/entered.png",
+        "case-05/spaced.png",
+        "case-05/final-still.png",
+        "case-06/initial.png",
+        "case-06/clicked.png",
+        "case-06/entered.png",
+        "case-06/spaced.png",
+        "case-06/final-still.png",
+        "case-07/initial.png",
+        "case-07/clicked.png",
+        "case-07/entered.png",
+        "case-07/spaced.png",
+        "case-07/final-still.png",
+        "case-08/initial.png",
+        "case-08/clicked.png",
+        "case-08/entered.png",
+        "case-08/spaced.png",
+        "case-08/final-still.png",
+        "case-09/initial.png",
+        "case-09/clicked.png",
+        "case-09/entered.png",
+        "case-09/spaced.png",
+        "case-09/final-still.png",
+        "case-10/initial.png",
+        "case-10/clicked.png",
+        "case-10/entered.png",
+        "case-10/spaced.png",
+        "case-10/final-still.png",
+        "case-11/initial.png",
+        "case-11/clicked.png",
+        "case-11/entered.png",
+        "case-11/spaced.png",
+        "case-11/final-still.png",
+        "case-12/initial.png",
+        "case-12/clicked.png",
+        "case-12/entered.png",
+        "case-12/spaced.png",
+        "case-12/final-still.png",
+        "case-13/time-0.png",
+        "case-13/time-2.png",
+        "case-13/time-4.png",
+        "case-13/time-6.png",
+        "case-13/time-9.png",
+        "case-13/time-11.png",
+        "case-14/time-0.png",
+        "case-15/initial.png",
+        "case-15/clicked.png",
+        "case-15/entered.png",
+        "case-15/spaced.png",
+        "case-15/final-still.png",
+        "case-16/initial.png",
+        "case-16/clicked.png",
+        "case-16/entered.png",
+        "case-16/spaced.png",
+        "case-16/final-still.png",
+        "case-17/initial.png",
+        "case-17/clicked.png",
+        "case-17/entered.png",
+        "case-17/spaced.png",
+        "case-17/final-still.png",
+        "case-18/initial.png",
+        "case-18/clicked.png",
+        "case-18/entered.png",
+        "case-18/spaced.png",
+        "case-18/final-still.png",
+        "case-19/initial.png",
+        "case-19/clicked.png",
+        "case-19/entered.png",
+        "case-19/spaced.png",
+        "case-19/final-still.png",
+        "case-20/initial.png",
+        "case-20/clicked.png",
+        "case-20/entered.png",
+        "case-20/spaced.png",
+        "case-20/final-still.png",
+        "case-21/initial.png",
+        "case-21/clicked.png",
+        "case-21/entered.png",
+        "case-21/spaced.png",
+        "case-21/final-still.png",
+        "case-22/initial.png",
+        "case-22/clicked.png",
+        "case-22/entered.png",
+        "case-22/spaced.png",
+        "case-22/final-still.png",
+        "case-23/initial.png",
+        "case-23/clicked.png",
+        "case-23/entered.png",
+        "case-23/spaced.png",
+        "case-23/final-still.png",
+        "case-24/initial.png",
+        "case-24/clicked.png",
+        "case-24/entered.png",
+        "case-24/spaced.png",
+        "case-24/final-still.png"
+      ],
+      "require_identity": false,
+      "report_trailing_newline": false,
+      "source_dependencies": [
+        "scripts/policy_glyph_contract.py",
+        "scripts/policy_line_clearance.py"
+      ]
+    }
+  ]
+}

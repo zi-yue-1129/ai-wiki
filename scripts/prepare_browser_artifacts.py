@@ -15,7 +15,8 @@ import stat
 import tempfile
 
 DEFAULT_ROOTS = ('keyboard-scroll-preflight', 'built-motion-browser',
-                 'sharpness-labs', 'adaptive-optimiser-labs', 'vi-prose', 'embedding-pages')
+                 'sharpness-labs', 'adaptive-optimiser-labs', 'vi-prose', 'embedding-pages',
+                 'policy-credit-labs', 'built-planning-evolution-labs', 'ddim-prose', 'time-series-prose', 'causal-prose', 'policy-gradient-motion')
 LIMIT = 100 * 1024 * 1024
 MAX_GROUPS = 24
 
@@ -116,7 +117,7 @@ def verify_outputs(directory, files, groups):
 
 
 def prepare(source, output, roots=DEFAULT_ROOTS, limit=LIMIT, max_groups=MAX_GROUPS,
-            allow_missing=False, copy_file=shutil.copyfile):
+            allow_missing=False, copy_file=shutil.copyfile, artifact_prefix="built-motion-browser-review"):
     source = Path(source).absolute(); output = Path(output).absolute()
     if output.exists():
         raise ValueError('Output directory already exists; refusing to mix runs')
@@ -125,7 +126,7 @@ def prepare(source, output, roots=DEFAULT_ROOTS, limit=LIMIT, max_groups=MAX_GRO
     output.mkdir(parents=True)
     manifest = {'schema': 1, 'status': 'preparing', 'source_roots': list(roots),
                 'max_group_bytes': limit, 'max_groups': max_groups,
-                'artifact_prefix': 'built-motion-browser-review', 'groups': [], 'files': []}
+                'artifact_prefix': artifact_prefix, 'groups': [], 'files': []}
     try:
         files, missing = inventory(source, roots, allow_missing)
         groups = plan(files, limit, max_groups)
@@ -144,7 +145,7 @@ def prepare(source, output, roots=DEFAULT_ROOTS, limit=LIMIT, max_groups=MAX_GRO
                 raise ValueError('Source inventory or bytes changed during packaging')
             for index, paths in enumerate(groups, 1):
                 name = f'group-{index:02d}'
-                artifact = f'built-motion-browser-review-{index:02d}'
+                artifact = f'{artifact_prefix}-{index:02d}'
                 (staging / name).rename(output / name)
                 manifest['groups'].append({'directory': name, 'artifact': artifact,
                     'raw_bytes': sum(files[p]['size'] for p in paths), 'file_count': len(paths)})
@@ -163,6 +164,7 @@ def prepare(source, output, roots=DEFAULT_ROOTS, limit=LIMIT, max_groups=MAX_GRO
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--artifact-prefix', default='built-motion-browser-review')
     parser.add_argument('--source', type=Path, default=Path('artifacts'))
     parser.add_argument('--output', type=Path, default=Path('browser-artifact-parts'))
     parser.add_argument('--roots', nargs='+', default=list(DEFAULT_ROOTS))
@@ -172,7 +174,7 @@ def main():
     parser.add_argument('--max-groups', type=int, default=MAX_GROUPS)
     args = parser.parse_args()
     report = prepare(args.source, args.output, args.roots, args.group_bytes,
-                     args.max_groups, args.allow_missing_roots)
+                     args.max_groups, args.allow_missing_roots, artifact_prefix=args.artifact_prefix)
     print(f"Verified {report['file_count']} files in {len(report['groups'])} lossless artifact groups")
 
 

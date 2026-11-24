@@ -17,6 +17,23 @@ Federated learning keeps raw data on devices, but model updates can still leak i
 
 Two threats matter. An honest but curious server may try to recover a client's update, and a participant may infer whether a particular example was in another client's data. Secure aggregation defends against the first with cryptography, and differentially private training defends against the second by clipping and adding noise to updates. Both add cost, and the two protections combine with a trade-off in accuracy.
 
+## Animated walkthrough: additive mask cancellation
+
+<div class="federated-source-scroll" tabindex="0" role="region" aria-label="Secure aggregation teaching animation: three clients mask updates, submit masked values and produce an unmasked aggregate without exposing the private individual values to the server." style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../assets/concept-animations/secagg-mask-cancellation-still.svg" data-motion-src="../../../../assets/concept-animations/secagg-mask-cancellation-motion.svg" data-still-src="../../../../assets/concept-animations/secagg-mask-cancellation-still.svg" alt="Secure aggregation teaching animation: three clients mask updates, submit masked values and produce an unmasked aggregate without exposing the private individual values to the server." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto">
+</div>
+
+*Original process animation, CC BY-SA 4.0.* Three **private client updates** `(+4, −1, +2)` have total `5`. For a simple integer demonstration, pairwise shares `m_AB = +3`, `m_AC = −2`, `m_BC = +1` yield per-client net masks `(+1, −2, +1)`: client A adds `m_AB + m_AC`, B adds `−m_AB + m_BC`, and C adds `−m_AC − m_BC`. The server receives `(+5, −3, +3)`, whose sum still equals `5` because masks cancel:
+
+\[
+\sum_i(u_i+m_i)=5-3+3=5=\sum_i u_i,\qquad \sum_i m_i=0.
+\]
+
+**All integers and transfers are invented teaching examples**, not a running cryptographic protocol. Only the cancellation invariant is illustrated: finite-field arithmetic, key exchange, secret sharing, collusion assumptions and dropout recovery from [Bonawitz et al. (2017)](https://doi.org/10.1145/3133956.3133982) are **not shown**. Secure aggregation does not itself provide differential privacy or conceal the final aggregate. The MkDocs site adds Play/Pause; the [static GitHub fallback](../../../../assets/concept-animations/secagg-mask-cancellation-still.svg) remains readable without animation.
+
+
+The server receives individual masked values, but under the protocol assumptions it recovers only the unmasked aggregate, not individual updates. The displayed plaintext updates and masks are for the teaching observer, not server-visible disclosures. On mobile, scroll within the keyboard-focusable figure.
+
 ## Main techniques
 
 - **Secure aggregation**: clients mask their updates with cryptographic shares so that the server learns only their sum, and it tolerates clients dropping out.

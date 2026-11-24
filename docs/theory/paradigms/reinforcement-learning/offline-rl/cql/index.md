@@ -16,7 +16,7 @@ In offline reinforcement learning, the agent learns only from a fixed dataset co
 
 ## Core idea
 
-CQL augments the standard Bellman error with a regulariser that pushes Q-values down on actions sampled from the learned policy, and pushes Q-values up on actions in the dataset. The result is a Q-function that assigns lower values to out-of-distribution actions than to in-distribution ones, so the policy stays close to the data. The authors prove that the expected value of the policy under the learned Q-function lower-bounds its true value, and that the bound can be used in a policy learning procedure with improvement guarantees.
+CQL augments the standard Bellman error with a regulariser that pushes Q-values down under a comparison action distribution (softmax Q in discrete CQL(H)), and pushes Q-values up on actions in the dataset. This discourages unsupported overestimation, but does not guarantee that every out-of-data action has lower Q than every data action. Under the paper’s assumptions and sufficient regularization, the authors prove that the expected value of the policy under the learned Q-function lower-bounds its true value, and that the bound can be used in a policy learning procedure with improvement guarantees.
 
 The regulariser is simple to add to existing deep Q-learning or actor-critic implementations, which is one reason the method is widely used.
 
@@ -25,10 +25,31 @@ The regulariser is simple to add to existing deep Q-learning or actor-critic imp
 The Q-function update minimises the Bellman error plus a conservative penalty, of the form
 
 \[
-\min_Q \; \alpha\, \mathbb{E}_{s \sim \mathcal{D}}\left[\log \sum_a \exp Q(s,a) - \mathbb{E}_{a \sim \hat{\pi}_\beta(a\mid s)}[Q(s,a)]\right] + \tfrac{1}{2}\mathbb{E}_{(s,a,s') \sim \mathcal{D}}\left[(Q(s,a) - \hat{\mathcal{B}}^\pi Q(s,a))^2\right] ,
+\begin{aligned}\min_Q\;&\alpha\, \mathbb{E}_{s \sim \mathcal{D}}\left[\log \sum_a \exp Q(s,a) - \mathbb{E}_{a \sim \hat{\pi}_\beta(a\mid s)}[Q(s,a)]\right]\\ &+\tfrac{1}{2}\mathbb{E}_{(s,a,s') \sim \mathcal{D}}\left[(Q(s,a) - \hat{\mathcal{B}}^\pi Q(s,a))^2\right].\end{aligned}
 \]
 
 where \(\alpha\) controls the strength of the penalty, \(\hat{\pi}_\beta\) is the behaviour policy estimated from the data, and \(\hat{\mathcal{B}}^\pi\) is the Bellman operator for the current policy. The first term lowers the values of actions the dataset does not favour, and the second term keeps the Q-function consistent with the data.
+
+## Animated computation: conservative action values
+
+At one fixed state, action A was observed in the dataset and action B was **not**. In this deliberately simplified two-action example, their initial estimated values are $Q_A=2$ and $Q_B=5$. Dashed outlines record the initial values. The changing bars demonstrate how the conservative log-sum-exp penalty pushes against an unsupported high $Q_B$; the observed-action Bellman fit simultaneously anchors $Q_A$.[^cql-motion]
+
+<div class="offline-source-scroll" tabindex="0" role="region" aria-label="CQL animated toy example: a dataset action begins with Q 2 and an unseen action with Q 5; conservative regularization lowers the unseen value to about 3.32 and adjusts the observed value to about 2.73, compared with dashed original bars." style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls width="640" height="797" style="width:640px;min-width:640px;max-width:none;height:auto" alt="CQL animated toy example: a dataset action begins with Q 2 and an unseen action with Q 5; conservative regularization lowers the unseen value to about 3.32 and adjusts the observed value to about 2.73, compared with dashed original bars." src="../../../../../assets/concept-animations/offline-cql-conservative-still.svg" data-motion-src="../../../../../assets/concept-animations/offline-cql-conservative-motion.svg" data-still-src="../../../../../assets/concept-animations/offline-cql-conservative-still.svg">
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* The constructed objective is
+
+\[
+\begin{aligned}L(Q_A,Q_B)&=\log(e^{Q_A}+e^{Q_B})-Q_A\\
+&+\tfrac12(Q_A-2)^2.\end{aligned}
+\]
+
+, with conservative weight $\alpha=1$, Bellman target $2$, and step size $0.5$. Four simultaneous gradient-descent steps starting at $(2,5)$ give approximately $(2.73,3.32)$; the conservative penalty decreases from about $3.05$ to $1.03$. The moving graphic **interpolates between illustrative snapshots**; its intermediate frames are not exact optimiser iterates. This is not a trained critic, a guarantee about every unseen action, or the full continuous-action CQL algorithm. On MkDocs use Play/Pause (Enter or Space on the focused button); GitHub shows the static comparison and reduced-motion users receive the still by default.
+
+This is discrete-action CQL(H): log-sum-exp covers all listed actions, whereas the subtracted term averages Q under the data-action distribution, not a sum over only unseen actions. Here the data distribution is concentrated on A; regularizer gradients are softmax(Q)_B for B and softmax(Q)_A−1 for A. Final Q_B remains above Q_A: conservatism is not an action-ranking guarantee.
+
+The figure remains 640 pixels wide in a focusable horizontal scroller. Numeric labels appear only while the corresponding values are stationary, not during the replay return.
 
 ## Results
 
@@ -56,6 +77,8 @@ The paper evaluates CQL on offline benchmarks with both discrete and continuous 
 
 - How to choose the penalty weight without online evaluation.
 - How to combine pessimism with the need to improve beyond the data.
+
+[^cql-motion]: Kumar, Zhou, Tucker & Levine (2020), [*Conservative Q-Learning for Offline Reinforcement Learning*](https://arxiv.org/abs/2006.04779), develop the conservative Q regulariser and its offline-RL motivation.
 
 ## References
 

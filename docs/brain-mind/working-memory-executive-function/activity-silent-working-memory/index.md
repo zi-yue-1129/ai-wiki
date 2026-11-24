@@ -50,6 +50,28 @@ No single equation summarises the framework, and the mechanism is written here a
 
 The steps describe a simplified model. Other hidden-state mechanisms are possible, and Stokes (2015) discusses activity-silent states more generally.
 
+### Teaching animation: spiking, silent delay and synaptic refresh
+
+<div class="wm-motion-pan concept-motion-scroll" tabindex="0" role="region" aria-label="Activity-silent memory: compare spiking and a hidden synaptic trace">
+<img data-source-asset-urls src="../../../assets/concept-animations/activity-silent-trace-still.svg" data-motion-src="../../../assets/concept-animations/activity-silent-trace-motion.svg" data-still-src="../../../assets/concept-animations/activity-silent-trace-still.svg" width="640" alt="Schematic temporal traces: an initial burst of spikes loads a transient synaptic trace, the trace decays slowly while spiking is quiet, and a later refresh burst increases it again.">
+</div>
+
+Each animation loop resets. The shared cursor reveals spikes and trace in order, without a trace rise before the loading or refresh burst. Lines in the interactive lab connect discrete samples; they are not a continuous-time neural model.
+
+The top track displays **brief spiking bursts**, separated by a **quiet delay**. The lower track shows a **hidden, decaying synaptic facilitation trace** that remains above its initial level during that delay, before a later burst refreshes it. The moving cursor reveals the two signals along a shared illustrative timeline. The key distinction is *maintenance without continuous visible spiking*, not complete absence of neural activity. The waveform, decay profile and times are **schematic and not measured calcium, synaptic efficacy or firing data**, nor a numerical reproduction of Mongillo et al. (2008). Activity-silent memory is one account, not a claim that all working-memory tasks suppress persistent firing (see Stokes, 2015).
+
+On the MkDocs site, use **Play/Pause** or **Enter/Space** when the button is focused; reduced-motion preferences show the still figure. The diagram region can be focused and scrolled on narrow screens. GitHub displays the complete static sequence. Both visuals are original **CC BY-SA 4.0** teaching illustrations.
+
+
+### Interactive lab: decay through a silent delay and a refresh burst
+
+<div data-wm-lab="silent" data-lang="en"></div>
+
+Adjust the **trace time constant** $\tau$ and toggle the optional **refresh burst** at step 4. The illustrative dimensionless state follows $s_0=1$ and $s_t=e^{-1/\tau}s_{t-1}+b_t$, where $b_4=0.55$ when the refresh is enabled and all other $b_t=0$. For example, at $\tau=4$, step 4 gives $s_4=e^{-1}+0.55\approx0.918$ with refresh versus $e^{-1}\approx0.368$ without it. The trace can persist while no spike marker appears.
+
+This is an **invented scalar exponential-decay demonstration**, not a quantitative implementation of Mongillo et al.'s calcium-mediated synaptic model, a neural measurement or evidence that all working memory becomes silent. The time steps and refresh amplitude are arbitrary. The GitHub-safe static figure above remains readable with JavaScript disabled; all interactive controls also work with a keyboard.
+
+
 ## Results
 
 - **Synaptic model.** Mongillo et al. (2008) propose that a memory can be sustained by calcium-mediated synaptic facilitation, refreshed by spiking. This page does not summarise the paper's quantitative results, which should be read from the paper.

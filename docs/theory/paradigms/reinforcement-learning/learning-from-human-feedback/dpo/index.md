@@ -16,14 +16,36 @@ Reinforcement learning from human feedback first trains a reward model on compar
 
 ## Core idea
 
-The KL-constrained objective has a known optimal policy. For a reference policy \(\pi_{\text{ref}}\), a coefficient \(\beta\) and a reward \(r\), the optimum is \(\pi_r(y \mid x) \propto \pi_{\text{ref}}(y \mid x)\exp(r(x, y)/\beta)\). Rearranging this gives the reward in terms of the policy, \(r(x, y) = \beta \log(\pi_r(y \mid x)/\pi_{\text{ref}}(y \mid x)) + \beta \log Z(x)\). Substituting this into the Bradley–Terry preference model makes the partition term cancel, and the reward model disappears. What remains is a loss on the policy and the reference model alone.
+The KL-constrained objective has a known optimal policy. For a reference policy \(\pi_{\text{ref}}\), a coefficient \(\beta\) and a reward \(r\), the optimum is
+
+\[
+\pi_r(y\mid x)\propto\pi_{\text{ref}}(y\mid x)e^{r(x,y)/\beta}.
+\]
+
+Rearranging this gives the reward in terms of the policy,
+
+$$
+\begin{aligned}
+r(x,y)&=\beta\log\frac{\pi_r(y\mid x)}{\pi_{\mathrm{ref}}(y\mid x)}\\
+&\quad+\beta\log Z(x).
+\end{aligned}
+$$
+
+Substituting this into the Bradley–Terry preference model makes the partition term cancel, and the reward model disappears. What remains is a loss on the policy and the reference model alone.
 
 ## Equation or algorithm
 
 The DPO loss over preference triples \((x, y_w, y_l)\) is
 
 \[
-\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l)} \left[\log \sigma\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right)\right]
+\begin{aligned}
+\Delta_\theta(x,y_w,y_l)
+ &=\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)}\\
+ &\quad-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)},\\
+\mathcal L_{\mathrm{DPO}}
+ &=-\mathbb E_{(x,y_w,y_l)}\\
+ &\quad[\log\sigma(\beta\Delta_\theta(x,y_w,y_l))].
+\end{aligned}
 \]
 
 where \(y_w\) is the preferred completion, \(y_l\) the dispreferred one, and \(\beta\) controls the strength of the KL constraint. The procedure:
@@ -32,6 +54,66 @@ where \(y_w\) is the preferred completion, \(y_l\) the dispreferred one, and \(\
 2. Compute the log-probability of each completion under the policy and under the frozen reference model.
 3. Take a gradient step on the loss above.
 4. Repeat until the policy converges. No sampling from the policy during training is needed.
+
+### Animated concept: a reference-relative preference margin
+
+<div class="concept-motion-scroll sac-dpo-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="DPO preference margin diagram; scroll horizontally on narrow screens">
+<div class="sac-dpo-motion-frame" style="min-width:760px"><img data-source-asset-urls="true" src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" data-still-src="../../../../../assets/concept-animations/dpo-preference-margin-still.svg" style="width:760px;min-width:760px;max-width:none;height:auto" data-motion-src="../../../../../assets/concept-animations/dpo-preference-margin-motion.svg" alt="Preferred and rejected policy probabilities change against a fixed reference, while a point travels along the DPO logistic-loss curve as the preference margin increases." loading="lazy"></div>
+</div>
+
+*Original vector teaching animation (CC BY-SA 4.0).* In a **two-completion schematic** with \(\pi_{\mathrm{ref}}(y_w\mid x)=\pi_{\mathrm{ref}}(y_l\mid x)=0.5\), define the reference-adjusted margin
+
+$$
+\begin{aligned}
+\Delta&=\log\frac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)} \\
+&\quad-\log\frac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)},\\
+\ell_{\mathrm{DPO}}=-\log\sigma(\beta\Delta).
+\end{aligned}
+$$
+
+With \(\beta=1\), sweeping the **constructed** margin from \(-1.6\) to \(+1.6\) raises the preferred policy probability from \(0.168\) to \(0.832\) and lowers the loss from \(1.784\) to \(0.184\). Dashed bars show the fixed reference; the orange cursor tracks the exact logistic-loss curve. **The continuous sweep is visual interpolation across hypothetical policies, not gradient descent, reward-model predictions, or measured training data.** On the MkDocs website use **Play/Pause** or Enter/Space; static and reduced-motion views retain the positive-margin endpoint. See [Rafailov et al. (2023)](https://arxiv.org/abs/2305.18290).
+
+### Interactive laboratory: reference-relative odds
+
+<div data-sac-dpo-lab="dpo" data-lang="en">
+  <p>The static SVG above remains readable without JavaScript.</p>
+</div>
+
+In this **artificial two-completion model**, adjust the preferred policy probability \(p\), the frozen preferred reference probability \(r\), and \(\beta\). The rejected probabilities are \(1-p\) and \(1-r\). The computed margin and pairwise logistic loss are
+
+$$
+\begin{aligned}
+\Delta=\operatorname{logit}(p)-\operatorname{logit}(r),\\
+\ell=\log(1+\exp(-\beta\Delta)).
+\end{aligned}
+$$
+
+When \(p=r\), the margin is zero and the loss is \(\ln 2\approx0.693\), even if the probabilities are not 0.5. If \(p<r\), the margin is negative **even when \(p>0.5\)**. The bars compare policy to reference; the curve is recomputed when \(r\) or \(\beta\) changes. Controls provide Previous/Next, Play/Pause, Seek, 0.5×/1×/2× speed and Reset, with native keyboard support, mobile horizontal scrolling, and reduced-motion manual stepping. The original static SVG remains the GitHub/no-JS fallback.
+
+These values are **constructed and analytically calculated**, not measured LLM probabilities, a DPO optimisation trajectory, or training results.
+
+### Animated example: reference-adjusted preference margin
+
+<div class="concept-motion-scroll" tabindex="0" role="region" aria-label="On narrow screens, focus the figure and use arrow keys or swipe to scroll at its natural size." style="overflow-x:auto;max-width:100%">
+<div style="width:640px;min-width:640px" markdown="1">
+
+<img data-source-asset-urls src="../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg" data-motion-src="../../../../../assets/concept-animations/rlhf-dpo-margin-motion.svg" data-still-src="../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg" alt="DPO animation showing fixed reference probabilities, changing chosen and rejected policy probabilities, and the resulting preference probability" width="640" height="360">
+
+</div>
+</div>
+
+On narrow screens, focus the figure and use arrow keys or swipe to scroll at its natural size.
+
+*Original teaching animation (CC BY-SA 4.0).* In this **illustrative two-completion example**, the frozen reference assigns probability 0.50 to each completion. The policy moves from equal 0.50 probabilities to 0.75 for the chosen completion and 0.25 for the rejected completion. With \(\beta=1\), the reference-adjusted margin moves from zero to
+
+\[
+\begin{aligned}
+\Delta&=\log(0.75/0.50)\\
+&\quad-\log(0.25/0.50)=\log3.
+\end{aligned}
+\]
+
+The implied Bradley–Terry preference likelihood \(\sigma(\log 3)\) rises from 0.50 to **0.75** while the per-pair DPO loss falls from \(\log 2\approx0.693\) to \(-\log 0.75\approx0.288\). The moving bars are **schematic interpolation, not measured optimisation dynamics** or a calibrated prediction of a specific human's preference. Use MkDocs **Play/Pause**, or view the [GitHub-readable static summary](../../../../../assets/concept-animations/rlhf-dpo-margin-still.svg). The derivation follows [Rafailov et al. (2023)](https://arxiv.org/abs/2305.18290).
 
 ## Results
 

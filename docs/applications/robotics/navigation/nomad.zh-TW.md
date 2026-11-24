@@ -42,6 +42,16 @@ NoMaD 是一個條件式去噪擴散策略：
 
 模型約有 1,900 萬個參數，如論文的比較表所列。
 
+## 動畫解讀：目標遮罩切換
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="完整導航教學圖；聚焦後用方向鍵水平捲動" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls style="width:640px;max-width:none;height:auto" src="../../../assets/concept-animations/nomad-goal-mask-routing-still.svg" data-motion-src="../../../assets/concept-animations/nomad-goal-mask-routing-motion.svg" data-still-src="../../../assets/concept-animations/nomad-goal-mask-routing-still.svg" alt="NoMaD 的 m 等於一時遮蔽目標並探索，m 等於零時納入目標資訊進行導航">
+</div>
+
+遮罩阻擋對融合觀測與目標的 token 的注意力，不是在兩個分開訓練的策略之間切換。兩條路線只示意不同條件，不代表去噪的中間迭代。 圖框保留 640px 可讀文字，手機可聚焦後用方向鍵水平捲動。這裡呈現視覺目標導航，不是語言條件動作生成。
+
+*原創教學動畫（CC BY-SA 4.0）。* 兩個對照場景共用**同一組編碼器、策略與條件式擴散動作解碼器**，並非分別訓練兩個模型。當 `m = 1` 時，目標權杖被 Attention Mask 遮蔽，示意路徑朝探索邊界前進；當 `m = 0` 時，目標權杖可被使用，示意候選路徑便朝目標延伸。這些路徑**並非模型實際取樣結果，也不保證避障安全或代表實測績效**。遮罩切換的是模型的條件資訊，不是直接的轉向指令；原論文探索系統另外使用線上拓撲圖與邊界選擇。可透過網站播放／暫停觀察過程，或觀看[GitHub 可閱讀的靜態預覽](../../../assets/concept-animations/nomad-goal-mask-routing-still.svg)。原始研究為參考文獻中的 Sridhar 等人（2023）。
+
 ## 結果
 
 論文報告兩類評估。探索以成功的比例與碰撞次數評分。論文的表 I 給出 NoMaD 與比較方法的數值：

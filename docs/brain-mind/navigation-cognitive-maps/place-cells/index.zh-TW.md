@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-18
 status: complete
 last_reviewed: 2026-10-28
 tags:
@@ -42,9 +42,20 @@ aliases:
 
 一個常見的簡化模型，把位置細胞的放電率描述為以偏好位置 \(c\) 為中心的高斯峰：
 
-\(f(x) = r_{\max} \exp\left(-\frac{\lVert x - c \rVert^{2}}{2\sigma^{2}}\right)\)
+$$
+f(x) = r_{\max} \exp\left(-\frac{\lVert x - c \rVert^{2}}{2\sigma^{2}}\right)
+$$
 
 其中 \(x\) 為動物的位置，\(r_{\max}\) 為峰值放電率，\(\sigma\) 決定位置場的寬度。這是建模中使用的簡化描述。真實的位置場形狀與大小各不相同，而原始觀察應以論文本身為準。
+
+
+### 位置場動態示範
+
+<img data-source-asset-urls src="../../../assets/concept-animations/place-cell-firing-still.svg" data-motion-src="../../../assets/concept-animations/place-cell-firing-motion.svg" data-still-src="../../../assets/concept-animations/place-cell-firing-still.svg" alt="橘色位置標記沿環形路徑移動，三個高斯位置場對應的正規化放電率長條隨距離連續改變">
+
+*原創教學動畫（CC BY-SA 4.0）。* 橘色標記沿連續路徑移動；藍色、青綠色與紫色長條呈現三個模型位置細胞在當下位置的**正規化高斯調諧值**，使用 $r_i(x)/r_{\max}=\exp(-\lVert x-c_i\rVert^2/(2\sigma^2))$，其中 $\sigma=49$ 為圖上的任意距離單位。這是位置調諧的解析示意，**不是觀測到的動作電位、放電率紀錄、重映射或導航實驗結果**。在 MkDocs 網站可使用播放／暫停；關閉動態效果時可查看 [GitHub 靜態預覽](../../../assets/concept-animations/place-cell-firing-still.svg)。
+
+以 Tab 聚焦圖表區，再按左右方向鍵捲動；播放控制會留在可見範圍內。
 
 ## 結果
 

@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-18
 related:
   - brain-mind/neuroai
 ---
@@ -23,24 +23,74 @@ related:
 - **條件平均治療效應（CATE）**：由共變量定義的子群體的效應，可能因人而異。
 - **工具變數（instrumental variable）**：只透過治療影響結果的變數。當混淆無法完全測量時，可以用它來估計效應。
 
+## 因果路徑動態示意
+
+### 後門調整：將混淆因子的分布標準化
+
+<div class="causal-motion concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="後門調整動畫；窄螢幕可水平捲動">
+<div class="causal-motion-inner" style="width:800px;min-width:800px">
+<img data-source-asset-urls data-still-src="../../assets/concept-animations/backdoor-standardisation-still.svg" src="../../assets/concept-animations/backdoor-standardisation-still.svg" data-motion-src="../../assets/concept-animations/backdoor-standardisation-motion.svg" alt="兩個處理組別的 U=1 比例原為 0.20 與 0.80，結果風險為 0.18 與 0.82；將兩組的 U=1 權重統一為 0.50 後，結果風險變為 0.30 與 0.70。" width="800" height="430">
+</div>
+</div>
+
+<div class="causal-lab" data-causal-lab="backdoor" data-lang="zh"></div>
+
+**互動數值驗算：** 調整共同目標母體的 $q=P^*(U=1)$。此人工設定的固定處理效果模型，標準化風險分別為 $0.1+0.4q$ 與 $0.5+0.4q$，因此風險差維持 $0.40$。**只有 $q=0.50$ 對應原始母體的因果對比**；其他滑桿設定代表不同的假想目標母體。可使用方向鍵調整滑桿、按「重設示例」復原。GitHub 與停用 JavaScript 時仍能閱讀上方靜態 SVG。
+
+假設已完整觀測混淆因子，且因果圖為 $U\to X$、$U\to Y$、$X\to Y$，對 $U$ 進行標準化可以阻斷後門路徑。[^causal-motion-pearl] 動畫使用**人工構造的二元母體**，並非模型實測資料：$P(U=1)=0.5$、$P(X=1\mid U=0)=0.2$、$P(X=1\mid U=1)=0.8$，以及
+
+$$
+\begin{aligned}P(Y=1\mid X=x,U=u)\\=0.1+0.4x+0.4u.\end{aligned}
+$$
+
+未調整的觀察差為 $0.82-0.18=0.64$；將兩種處理狀態的 $U$ **統一加權至同一個邊際分布**後，因果風險差是 $0.70-0.30=0.40$：
+
+$$
+\begin{aligned}R(x)&=P(Y=1\mid\operatorname{do}(X=x)),\\R(x)&=\sum_{u=0}^{1}m(x,u)P(U=u),\\m(x,u)&=P(Y=1\mid X=x,U=u).\end{aligned}
+$$
+
+青綠色長條代表標準化中的混淆因子權重，珊瑚色長條代表相應結果風險。圖中連續變化僅是**教學插值**，並非最佳化或實際介入的時間軌跡；因果識別仍取決於圖形假設、正值性，以及沒有其他未被阻斷的混淆路徑。
+
+### 碰撞點選擇偏誤：條件化反而引入關聯
+
+<div class="causal-motion concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="碰撞點選擇偏誤動畫；窄螢幕可水平捲動">
+<div class="causal-motion-inner" style="width:800px;min-width:800px">
+<img data-source-asset-urls data-still-src="../../assets/concept-animations/collider-selection-still.svg" src="../../assets/concept-animations/collider-selection-still.svg" data-motion-src="../../assets/concept-animations/collider-selection-motion.svg" alt="四組等機率的 X、Y 二元組合；選取 S=1（X 或 Y 至少一個為 1）時，0,0 組合被排除，X=0 時 Y=1 的條件機率由 0.5 變成 1，而 X=1 時仍為 0.5。" width="800" height="430">
+</div>
+</div>
+
+<div class="causal-lab" data-causal-lab="collider" data-lang="zh"></div>
+
+**互動選取實驗：** 設 $r=P(S=1\mid X=0,Y=0)$，其餘三種組合一律入選。在已選取樣本中，$P(Y=1\mid X=0,S=1)=1/(1+r)$，而 $P(Y=1\mid X=1,S=1)=1/2$。$r=1$ 時恢復獨立，$r=0$ 時對應上方確定性的碰撞點範例。中間數值是**額外構造的機率式選取機制**，不是原先的 OR 規則；所有數值皆非實測。按「重設示例」恢復 $r=0$。
+
+另一個**人工構造範例**令 $X$ 與 $Y$ 為相互獨立、機率各半的二元變數，並定義 $S=1$ 當且僅當 $X=1$ **或** $Y=1$。未進行選取時，$P(Y=1\mid X=0)=0.5$、$P(Y=1\mid X=1)=0.5$。若只保留 $S=1$ 的樣本，$(X,Y)=(0,0)$ 會被排除，因此 $P(Y=1\mid X=0,S=1)=1$，但 $P(Y=1\mid X=1,S=1)=0.5$。這項關聯來自對共同結果（碰撞點）進行**條件化**，不表示存在 $X\to Y$ 的因果效果。[^causal-motion-pearl]
+
+**動畫與實驗操作：** MkDocs 網站可使用 SVG 的 Play／Pause 按鈕（Enter 或空白鍵），也可以用互動滑桿、方向鍵與「重設示例」操作兩組數值實驗。GitHub 或偏好減少動態效果時會顯示靜態回退圖；窄螢幕可聚焦圖框並水平捲動。所有數值皆為示意，非實測資料。
+
+SVG 在轉換時隱藏端點數字，避免將中間長條誤標為端點值。背門權重與風險使用相同插值；碰撞點轉換以保留率 r 從 1 降至 0，對應風險 1/(1+r)。卡片標籤指最終的 OR 規則。(0,0) 卡片淡出僅為視覺提示，並非機率刻度。中間保留率代表假設的隨機選取規則，不是確定性的 OR 機制。每輪循環皆重設，不是逆轉因果過程。標準化改變的是權重，不是個別結果或因果圖。識別原母體的介入效應依賴一致性、正值性及指定的無隱藏混淆圖；解釋其他目標母體時亦維持條件結果機制不變。
+
+*Original instructional artwork, CC BY-SA 4.0.*
+
+[^causal-motion-pearl]: Pearl, J.（1995），*Causal diagrams for empirical research*，[Biometrika](https://doi.org/10.1093/biomet/82.4.669)，提出以因果圖判斷識別條件及條件化影響的方法。
+
 ## 運作方式
 
-**可識別性。** 在估計之前，先問目標效應是否根本由觀察到的分布所決定。Pearl（1995）展示了因果圖如何回答這個問題。論文給出圖形化準則，用來選擇應調整的變數集合，使介入的效應能從觀察性資料計算出來。若不存在這樣的集合，該效應就是不可識別的，在該圖形下再多的資料也無法解決。
+**可識別性。** 在估計之前，先問目標效應是否根本由觀察到的分布所決定。Pearl（1995）展示了因果圖如何回答這個問題。論文給出圖形化準則，用來選擇應調整的變數集合，使介入的效應能從觀察性資料計算出來。找不到調整集合本身不代表不可識別：前門準則或其他 do 演算仍可能識別效應。只有在給定因果假設下確實不可識別時，觀察資料才不足以決定效應。Pearl（2009）把這個框架發展為完整的介入演算。
 
 **以機器學習估計。** 靈活的學習器能很好地建模混淆關係，但若直接使用，會使效應估計產生偏差。Chernozhukov 等人（2016）在雙重／去偏機器學習框架中說明如何修正。摘要指出，正則化偏差「可以透過以機器學習工具求解輔助預測問題而移除」，因此效應的估計是由同樣以機器學習擬合的預測所建構。
 
-**異質效應。** 個體效應可能因人而異，而最能受益的子群體往往正是決策者所需要的資訊。Wager 與 Athey（2015）提出用隨機森林估計治療效應的方法，稱為因果森林。摘要報告，這些估計量的抽樣分布是漸近高斯且以真值為中心的，因此可以在某一點上建立效應的漸近信賴區間。
+**異質效應。** 個體效應可能因人而異，而最能受益的子群體往往正是決策者所需要的資訊。Wager 與 Athey（2018）提出用隨機森林估計治療效應的方法，稱為因果森林。摘要報告，這些估計量的抽樣分布是漸近高斯且以真值為中心的，因此可以在某一點上建立效應的漸近信賴區間。
 
 **因果表徵學習。** 多數因果方法假設圖中的變數已經給定。Schölkopf 等人（2021）把因果表徵學習定義為：從低階觀察（例如像素）中發現高階的因果變數，並主張這是 AI 的核心開放問題。
 
 ## 關鍵方法
 
-簡要比較。上面提到的每種方法都可以有自己的方法頁面；這些頁面尚未撰寫，因此目前在本節提供細節。
+這裡比較兩個具代表性的估計方法，每個方法各有自己的頁面，可以看到細節。兩者都能把靈活的機器學習轉化為因果估計，但回答的問題不同。
 
-- **因果圖與調整（Pearl）**：明確的圖形，附帶可識別性準則。假設透明，但需要已知的圖。
-- **雙重／去偏機器學習**：靈活的干擾模型加上對低維效應的去偏估計。設計用於單一平均效應。
-- **因果森林**：用於 CATE 的隨機森林，在論文條件下具有有效的信賴區間。
-- **因果表徵學習**：學習變數本身，而非把變數視為給定。仍然主要是研究中的方向。
+- [雙重／去偏機器學習](double-machine-learning.md)：從靈活的干擾模型與去偏分數，估計一個低維效應，例如平均治療效應。估計目標取決於所選的分數函數。
+- [因果森林](causal-forests.md)：調整後的隨機森林，用來估計效應如何隨共變量值變化，並在論文條件下於某一點上提供信賴區間。
+
+因果圖與因果表徵學習是框架而非估計量，因此在「運作方式」一節中討論。
 
 ## 關聯
 
@@ -65,12 +115,15 @@ related:
 
 ### 開創性論文
 
-- Pearl, J. (1995). Causal diagrams for empirical research. *Biometrika*, 82(4), 669–688. https://doi.org/10.1093/biomet/82.4.669 — 展示因果圖如何回答可識別性問題，並提供選擇調整變數的圖形準則。
+- Pearl, J. (1995). Causal diagrams for empirical research. *Biometrika*, 82(4), 669–688. doi:[10.1093/biomet/82.4.669](https://doi.org/10.1093/biomet/82.4.669) — 展示因果圖如何回答可識別性問題，並提供選擇調整變數的圖形準則。
 - Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey, W. & Robins, J. (2016). *Double/Debiased Machine Learning for Treatment and Causal Parameters*. arXiv. https://arxiv.org/abs/1608.00060 — 提出以靈活干擾模型估計治療效應的雙重／去偏機器學習框架。
-- Wager, S. & Athey, S. (2015). *Estimation and Inference of Heterogeneous Treatment Effects using Random Forests*. arXiv. https://arxiv.org/abs/1510.04342 — 因果森林，其抽樣分布為漸近高斯。
+- Wager, S. & Athey, S. (2018). Estimation and Inference of Heterogeneous Treatment Effects using Random Forests. *Journal of the American Statistical Association*, 113(523), 1228–1242. doi:[10.1080/01621459.2017.1319839](https://doi.org/10.1080/01621459.2017.1319839) — 因果森林，其估計誤差具有漸近置中的高斯分布，據此可建立以估計值為中心的點態信賴區間。
 - Schölkopf, B., Locatello, F., Bauer, S., Ke, N. R., Kalchbrenner, N., Goyal, A. & Bengio, Y. (2021). *Towards Causal Representation Learning*. arXiv. https://arxiv.org/abs/2102.11107 — 把因果表徵學習定義為從低階觀察中發現高階的因果變數。
 
 ### 綜述與教科書
 
-- Peters, J., Janzing, D. & Schölkopf, B. (2017). *Elements of Causal Inference: Foundations and Learning Algorithms*. MIT Press. https://library.oapen.org/handle/20.500.12657/26040 — 關於結構因果模型與因果發現的教科書，OAPEN 圖書館列出了開放取用的版本。
+- Peters, J., Janzing, D. & Schölkopf, B. (2017). *Elements of Causal Inference: Foundations and Learning Algorithms*. MIT Press. https://library.oapen.org/handle/20.500.12657/26040 — 結構因果模型與因果發現教科書；此處連至書目紀錄。
+
+- Pearl, J. (2009). *Causality*, 2nd edition. Cambridge University Press. doi:[10.1017/CBO9780511803161](https://doi.org/10.1017/CBO9780511803161) — 結構因果模型、do 演算與反事實的標準專書。
+- Chernozhukov, V., Hansen, C., Kallus, N., Spindler, M. & Syrgkanis, V. (2024). *Applied Causal Inference Powered by ML and AI*. arXiv. https://arxiv.org/abs/2403.02467 — 結合機器學習與因果推論的入門書，包含雙重／去偏機器學習。
 - Hernán, M. A. & Robins, J. M. (2020). *Causal Inference: What If*. Chapman & Hall/CRC. https://miguelhernan.org/whatifbook — 針對觀察性資料之因果推論的入門教科書，作者網頁提供免費下載。

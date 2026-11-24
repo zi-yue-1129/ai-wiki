@@ -24,7 +24,13 @@ van den Oord, Vinyals and Kavukcuoglu (2017) show that a VAE whose latent is a s
 ## Key concepts
 
 - **Codebook**: a set of embedding vectors \(e_1, \dots, e_K\). Each encoder output is mapped to the nearest one.
-- **Nearest-neighbour quantisation**: the code index is \(k = \arg\min_j \lVert z_e(x) - e_j \rVert_2\), and the decoder receives \(e_k\).
+- **Nearest-neighbour quantisation**: the code index is
+
+\[
+k = \arg\min_j \lVert z_e(x) - e_j \rVert_2
+\]
+
+, and the decoder receives \(e_k\).
 - **Straight-through gradient**: quantisation has no gradient, so the gradient at the decoder input is copied to the encoder output.
 - **Commitment loss**: keeps encoder outputs close to their chosen codes, weighted by \(\beta\).
 - **Two-stage training**: the autoencoder is trained first, and the prior is fitted afterwards on the discrete codes.
@@ -40,6 +46,26 @@ L = \log p(x \mid z_q(x)) + \lVert \operatorname{sg}[z_e(x)] - e \rVert_2^2 + \b
 where \(\operatorname{sg}\) is the stop-gradient operator. The first term is reconstruction, the second moves codebook vectors toward encoder outputs, and the third keeps encoder outputs from drifting. The paper uses \(\beta = 0.25\) in all its experiments.
 
 For ImageNet at 128 by 128 by 3, the paper compresses each image into a 32 by 32 by 1 discrete latent with \(K = 512\) codes. A PixelCNN then models that latent grid autoregressively, so sampling produces latents that are decoded to images.
+
+### Visual walkthrough: hard codebook assignment
+
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Teaching diagram, scroll with left/right arrow keys"><div style="width:640px"><img style="width:640px;min-width:640px;max-width:none;height:auto;display:block" data-source-asset-urls src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-still-src="../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg" data-motion-src="../../../../../assets/concept-animations/vqvae-codebook-snap-motion.svg" alt="Animated VQ-VAE codebook: a moving encoder vector switches between nearest discrete entries as it crosses a selection boundary."></div></div>
+
+[Static VQ-VAE codebook overview for GitHub](../../../../../assets/concept-animations/vqvae-codebook-snap-still.svg)
+
+The moving outlined dot is a continuous encoder output \(z_e\); the coloured dots are three fixed codebook embeddings. Its nearest-neighbour assignment \(z_q=e_{k^*}\) changes **discontinuously** from \(e_1\) to \(e_2\) on crossing the dividing boundary, rather than blending their embeddings. This shows the **forward quantisation step**, not a codebook-training trajectory: the straight-through estimator copies the decoder gradient to the encoder, whereas separate codebook and commitment losses update their respective quantities.
+
+The two-dimensional vectors, path and boundary are **schematic, not trained representations or measured output**. In MkDocs, the keyboard-operable **Play/Pause** button controls the 12-second loop; the linked static diagram remains readable on GitHub. Original diagram, **CC BY-SA 4.0**, based on van den Oord et al. (2017) in References.
+
+### Interactive codebook-distance lab (MkDocs)
+
+<div data-vq-splat-lab="vq" data-lang="en">
+  <p>The static SVG above explains the same nearest-code transition on GitHub and when JavaScript is disabled.</p>
+</div>
+
+Move the **Encoder x / y** controls to change a synthetic continuous latent point, then use **Previous / Next**, **Play / Pause**, the seek slider, **0.5× / 1× / 2×**, or **Reset**. The intermediate positions follow a straight line from (0.10, 0.35) to your selected point. Each step recalculates all three squared Euclidean distances, the selected code, and its quantisation error. The input moves continuously but **the chosen code jumps**, illustrating a discrete forward bottleneck. Codebook vectors are fixed at (0.20, 0.35), (0.75, 0.35), and (0.48, 0.82). These are synthetic examples, not learned vectors, straight-through gradients, or codebook training.
+
+Focus the diagram region and use left/right arrow keys, or swipe horizontally.  The SVG and lab use different illustrative codebooks. The lab axes have equal scale, so plotted distances are Euclidean; ties choose the lowest index. Its six steps sample a continuous segment rather than evaluating every intermediate position during playback. The straight-through estimator affects backward gradients, not the hard forward assignment.
 
 ## Key methods
 

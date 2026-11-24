@@ -19,10 +19,12 @@ Informer 是用於長序列時間序列預測的 Transformer，這項任務是�
 **ProbSparse 注意力。** 對維度為 $d$ 的查詢 $\mathbf{q}_i$ 與鍵 $K$，論文以最大－平均度量衡量某個查詢的注意力分布偏離均勻分布的程度：
 
 $$
-M(\mathbf{q}_i, K) = \max_j \frac{\mathbf{q}_i \mathbf{k}_j^\top}{\sqrt{d}} - \frac{1}{L_K}\sum_{j=1}^{L_K}\frac{\mathbf{q}_i \mathbf{k}_j^\top}{\sqrt{d}}
+\overline M(\mathbf{q}_i, K) = \max_j \frac{\mathbf{q}_i \mathbf{k}_j^\top}{\sqrt{d}} - \frac{1}{L_K}\sum_{j=1}^{L_K}\frac{\mathbf{q}_i \mathbf{k}_j^\top}{\sqrt{d}}
 $$
 
 論文不精確計算此值，而是從約 $L_K \ln L_Q$ 個隨機抽樣的鍵內積估計分數，保留前 $u = c \ln L_Q$ 個查詢並給予完整注意力，其中 $c$ 在實務中取 5。其餘查詢則取值的平均。作者將成本表示為時間與記憶體的 $O(L \ln L)$。
+
+上述 $\overline M$ 是最大－平均近似，不是原始 KL 度量本身。令 $s_j=\mathbf q_i\mathbf k_j^\top/\sqrt d$，原始分數為 $M=\log\sum_j e^{s_j}-\operatorname{mean}_j s_j$，即 $D_{\mathrm{KL}}(U\Vert p)+\log L_K$，其中 $p=\mathrm{softmax}(s)$、$U$ 為均勻分布。未遮罩編碼器中未選取的查詢以值平均初始化；不能把這個描述直接套到因果遮罩的解碼器。
 
 **自注意力蒸餾。** 在注意力區塊之間，一個核寬為 3 的一維卷積、ELU 激活函數，以及步幅為 2 的最大池化會把時間維度減半。多個堆疊接收逐步縮短的輸入，其輸出再串接起來，因此編碼器的記憶體用量得以降低。
 

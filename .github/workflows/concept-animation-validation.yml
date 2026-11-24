@@ -3,18 +3,198 @@ name: Validate concept animations
 on:
   pull_request:
     paths:
+      - "scripts/test_existing_math_followup.py"
+      - "scripts/fixtures/existing-math-followup.json"
+      - "docs/theory/paradigms/probabilistic/mcmc/gibbs-sampling.zh-TW.md"
+      - "docs/theory/paradigms/probabilistic/mcmc/gibbs-sampling.md"
+      - "docs/theory/models/rnn/gated-cells/gru/index.zh-TW.md"
+      - "docs/theory/models/rnn/gated-cells/gru/index.md"
+      - "docs/theory/models/cnn/unet/3d-unet.zh-TW.md"
+      - "docs/theory/models/cnn/unet/3d-unet.md"
+      - "docs/society/interpretability/feature-attribution.zh-TW.md"
+      - "docs/society/interpretability/feature-attribution.md"
+      - "scripts/motion_shard_contract.py"
+      - "scripts/test_deployed_math_contract.py"
+      - "scripts/test_deployed_math_browser.py"
+      - "scripts/test_causal_prose_runner_motion_semantics.py"
+      - "scripts/test_time_series_fixture_dependency_motion_semantics.py"
+      - "scripts/test_curiosity_player.cjs"
+      - "scripts/test_alphazero_player.cjs"
+      - "scripts/test_forward_math_markup.py"
+      - "docs/theory/math/automatic-differentiation/forward-mode.md"
+      - "docs/theory/math/automatic-differentiation/forward-mode.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md"
+      - "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md"
+      - "docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/exploration/icm/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/exploration/icm/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/offline-rl/decision-transformer/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/q-learning/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/sarsa/index.zh-TW.md"
+      - "docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md"
+      - "docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md"
+      - "docs/theory/causal-inference/double-machine-learning.md"
+      - "docs/theory/causal-inference/double-machine-learning.zh-TW.md"
+      - "scripts/verify_icm_mathjax_structure.py"
+      - "scripts/render_mathjax_structure.cjs"
+      - "scripts/test_distillation_player.cjs"
+      - "scripts/test_diffusion_policy_player.cjs"
+      - "scripts/test_fixture_dependency_motion_semantics.py"
+      - "scripts/test_reviewed_scroll_player.cjs"
+      - "docs/theory/models/time-series/**"
+      - "scripts/test_time_series_motion_semantics.py"
+      - "scripts/test_time_series_prose_browser.py"
+      - "scripts/test_time_series_prose_contract.py"
+      - "docs/theory/causal-inference/**"
+      - "scripts/test_causal_inference_prose_browser.py"
+      - "scripts/test_causal_inference_motion_semantics.py"
+      - "scripts/test_built_prose_browser.py"
+      - "scripts/test_built_motion_browser.py"
+      - "docs/javascripts/mathjax.js"
+      - "requirements.txt"
+      - ".github/actions/install-cjk-font/**"
+      - "scripts/ci_font_archive.py"
+      - "scripts/test_td_source_semantics.py"
+      - "scripts/test_td_fixture_motion_semantics.py"
+      - "scripts/test_td_source_player.cjs"
+      - "scripts/test_td_source_browser.py"
+      - "scripts/test_offline_source_semantics.py"
+      - "scripts/test_offline_fixture_motion_semantics.py"
+      - "scripts/test_offline_source_player.cjs"
+      - "scripts/test_offline_source_browser.py"
+      - "scripts/test_comm_source_semantics.py"
+      - "scripts/test_comm_fixture_motion_semantics.py"
+      - "scripts/test_comm_source_player.cjs"
+      - "scripts/test_comm_source_browser.py"
+      - "scripts/test_population_actual_motion_semantics.py"
+      - "scripts/test_population_fixture_motion_semantics.py"
+      - "scripts/test_population_source_player.cjs"
+      - "scripts/test_population_source_browser.py"
+      - "scripts/test_marl_source_semantics.py"
+      - "scripts/test_marl_fixture_motion_semantics.py"
+      - "scripts/test_marl_source_player.cjs"
+      - "scripts/test_marl_source_browser.py"
+      - "scripts/concept_motion_fixture_selector.cjs"
+      - "scripts/test_concept_motion_fixture_selector.cjs"
+      - "scripts/test_gqa_source_browser.py"
+      - "scripts/test_gqa_player.cjs"
+      - "scripts/test_gqa_source_semantics.py"
+      - "scripts/test_gradient_source_browser.py"
+      - "scripts/test_gradient_source_player.cjs"
+      - "scripts/test_gradient_actual_motion_semantics.py"
+      - "scripts/test_diffusion_source_browser.py"
+      - "scripts/test_diffusion_source_semantics.py"
+      - "scripts/test_batch10_fixture_motion_semantics.py"
+      - "scripts/test_federated_source_browser.py"
+      - "scripts/test_federated_source_player.cjs"
+      - "scripts/test_grounded_action_source_browser.py"
+      - "scripts/test_grounded_action_source_player.cjs"
+      - "scripts/test_openvla_source_browser.py"
+      - "scripts/test_openvla_source_player.cjs"
+      - "scripts/fixtures/deployed-motion-contracts.json"
       - "docs/assets/concept-animations/**"
       - "scripts/verify_concept_animations.py"
       - "scripts/verify_concept_motion.py"
+      - "scripts/verify_ssm_motion.py"
+      - "scripts/test_ssm_motion_browser.py"
+      - "scripts/test_ssm_duality_labs_browser.py"
+      - "docs/javascripts/ssm-duality-labs.js"
+      - "docs/stylesheets/ssm-duality-labs.css"
+      - "scripts/verify_norm_seq_motion.py"
+      - "scripts/test_norm_seq_actual_motion_semantics.py"
+      - "scripts/test_norm_seq_actual_math.cjs"
+      - "scripts/test_norm_seq_actual_ui.cjs"
+      - "scripts/test_norm_seq_motion_browser.py"
+      - "scripts/test_norm_seq_labs_browser.py"
+      - "docs/javascripts/norm-seq-labs.js"
+      - "docs/stylesheets/norm-seq-labs.css"
+      - "docs/theory/models/mlp/layer-normalisation/**"
+      - "docs/theory/models/rnn/sequence-modes/sequence-to-sequence/**"
       - "scripts/verify_concept_svgs.py"
+      - "scripts/verify_video_motion.py"
+      - "scripts/test_video_motion_semantics.py"
+      - "scripts/test_video_architecture_labs.cjs"
+      - "scripts/test_video_motion_browser.py"
+      - "scripts/test_video_architecture_labs_browser.py"
+      - "docs/javascripts/video-architecture-labs.js"
+      - "docs/stylesheets/video-architecture-labs.css"
       - "scripts/test_uncertainty_motion_semantics.py"
       - "scripts/test_information_motion_semantics.py"
+      - "scripts/test_predictive_coding_motion_browser.py"
+      - "scripts/test_predictive_coding_motion_semantics.py"
+      - "scripts/test_predictive_coding_labs.cjs"
+      - "scripts/test_predictive_coding_labs_browser.py"
+      - "docs/javascripts/predictive-coding-labs.js"
+      - "docs/stylesheets/predictive-coding-labs.css"
+      - "scripts/test_diffusion_motion_browser.py"
+      - "scripts/test_diffusion_motion_semantics.py"
+      - "scripts/test_diffusion_player.cjs"
+      - "scripts/test_diffusion_schedule_player.cjs"
+      - "docs/javascripts/ewc-neat-labs.js"
+      - "docs/stylesheets/ewc-neat-labs.css"
+      - "scripts/test_ewc_neat_labs_browser.py"
+      - "scripts/test_ewc_neat_labs.cjs"
+      - "scripts/test_ewc_neat_actual_motion_semantics.py"
+      - "scripts/test_diffusion_process_motion_semantics.py"
+      - "scripts/test_video_latent_motion_browser.py"
+      - "scripts/test_diffusion_process_labs_browser.py"
+      - "docs/javascripts/diffusion-process-labs.js"
+      - "docs/stylesheets/diffusion-process-labs.css"
+      - "scripts/test_causal_motion_semantics.py"
+      - "scripts/test_causal_math.cjs"
+      - "scripts/test_causal_motion_browser.py"
+      - "scripts/test_causal_labs_browser.py"
+      - "docs/javascripts/causal-labs.js"
+      - "docs/stylesheets/causal-labs.css"
+      - "scripts/test_rnd_icm_motion_browser.py"
+      - "scripts/test_rnd_dual_value_browser.py"
+      - "scripts/test_rnd_stochastic_distractor_browser.py"
+      - "scripts/test_icm_inverse_feature_browser.py"
+      - "scripts/test_icm_action_aliasing_browser.py"
+      - "scripts/test_rnd_icm_gradient_routes_browser.py"
+      - "scripts/test_rnd_icm_balance_motion_browser.py"
+      - "scripts/test_curiosity_labs_browser.py"
+      - "scripts/test_curiosity_sampling_browser.py"
+      - "docs/javascripts/concept-motion.js"
+      - "docs/javascripts/curiosity-labs.js"
+      - "docs/stylesheets/curiosity-labs.css"
+      - "scripts/test_scoped_viewbox_motion_semantics.py"
+      - "scripts/test_scoped_canvas_motion_semantics.py"
+      - "scripts/test_alt_accessibility_motion_semantics.py"
+      - "scripts/test_source_contract_retention_motion_semantics.py"
       - "scripts/test_linear_algebra_motion_semantics.py"
       - "scripts/render_linear_algebra_keyframes.py"
-      - "docs/javascripts/concept-motion.js"
+      - "scripts/test_bayesian_filter_motion_browser.py"
+      - "scripts/test_bayesian_filter_labs_browser.py"
+      - "docs/javascripts/bayesian-filter-labs.js"
+      - "docs/javascripts/bayesian-filter-insights.js"
+      - "docs/javascripts/bayesian-filter-invariants.js"
+      - "docs/javascripts/bayesian-filter-information.js"
+      - "docs/javascripts/bayesian-filter-comparisons.js"
+      - "docs/stylesheets/bayesian-filter-insights.css"
+      - "docs/stylesheets/bayesian-filter-labs.css"
+      - "scripts/test_ddpg_motion_browser.py"
+      - "scripts/test_ddpg_motion_semantics.py"
+      - "scripts/test_sac_motion_browser.py"
+      - "scripts/test_sac_source_motion_semantics.py"
+      - "scripts/test_sac_source_browser.py"
+      - "scripts/test_sac_source_player.cjs"
       - "docs/javascripts/adaptive-optimiser-labs.js"
       - "docs/stylesheets/adaptive-optimiser-labs.css"
       - "scripts/test_adaptive_optimiser_labs_browser.py"
+      - "scripts/test_synthetic_motion_browser.py"
+      - "scripts/test_oscillation_motion_browser.py"
+      - "docs/javascripts/attention-variant-labs.js"
+      - "docs/stylesheets/attention-variant-labs.css"
+      - "scripts/test_attention_labs_browser.py"
+      - "scripts/test_attention_variants_browser.py"
+      - "scripts/test_flashattention_online_browser.py"
       - "docs/stylesheets/concept-motion.css"
       - "docs/javascripts/concept-motion-detailed.js"
       - "docs/javascripts/self-supervised-labs.js"
@@ -34,23 +214,119 @@ on:
       - "scripts/test_ssl_ema_trajectory_browser.py"
       - "scripts/test_ssl_temporal_provenance_browser.py"
       - "scripts/test_inference_concept_motion_browser.py"
+      - "scripts/test_planning_motion_browser.py"
+      - "scripts/test_planning_labs_browser.py"
+      - "docs/javascripts/planning-labs.js"
+      - "docs/stylesheets/planning-labs.css"
+      - "scripts/test_simclr_bahdanau_motion_browser.py"
+      - "scripts/test_contrastive_alignment_labs_browser.py"
+      - "scripts/test_contrastive_alignment_labs.cjs"
+      - "docs/javascripts/contrastive-alignment-labs.js"
+      - "docs/stylesheets/contrastive-alignment-labs.css"
+      - "scripts/test_svi_soap_motion_browser.py"
+      - "scripts/test_working_memory_motion_semantics.py"
+      - "scripts/test_working_memory_motion_browser.py"
+      - "scripts/test_working_memory_labs_browser.py"
+      - "docs/javascripts/working-memory-labs.js"
+      - "docs/stylesheets/working-memory-labs.css"
+      - "scripts/test_segmentation_motion_semantics.py"
+      - "scripts/test_segmentation_motion_browser.py"
+      - "scripts/test_segmentation_labs_browser.py"
+      - "docs/javascripts/segmentation-labs.js"
+      - "docs/stylesheets/segmentation-labs.css"
+      - "scripts/test_dreamer_motion_browser.py"
+      - "scripts/test_dreamer_motion_semantics.py"
+      - "docs/theory/models/world-models/dreamer*.md"
+      - "scripts/test_rainbow_motion_browser.py"
+      - "scripts/test_rainbow_motion_semantics.py"
+      - "docs/theory/paradigms/reinforcement-learning/value-based-methods/rainbow/**"
+      - "scripts/test_dt_motion_browser.py"
       - "scripts/test_concept_motion_chapters.cjs"
+      - "scripts/test_evolution_motion_browser.py"
+      - "scripts/test_evolution_labs_browser.py"
+      - "scripts/test_evolution_labs.cjs"
+      - "docs/javascripts/evolution-labs.js"
+      - "docs/stylesheets/evolution-labs.css"
+      - "scripts/test_security_motion_browser.py"
+      - "scripts/test_vq_splat_motion_browser.py"
+      - "scripts/test_vq_splat_labs_browser.py"
+      - "scripts/test_vq_splat_labs.cjs"
+      - "docs/javascripts/vq-splat-labs.js"
+      - "docs/stylesheets/vq-splat-labs.css"
+      - "docs/theory/models/computer-vision/3d-and-neural-rendering/gaussian-splatting*"
+      - "docs/theory/paradigms/unsupervised/density-and-generative-models/vae/vq-vae*"
+      - "scripts/test_sac_dpo_motion_browser.py"
+      - "scripts/test_sac_dpo_motion_semantics.py"
+      - "scripts/test_sac_dpo_labs.cjs"
+      - "scripts/test_sac_dpo_labs_browser.py"
+      - "docs/javascripts/sac-dpo-labs.js"
+      - "docs/stylesheets/sac-dpo-labs.css"
+      - "scripts/test_kivi_h2o_motion_browser.py"
+      - "scripts/test_diffusion_policy_motion_browser.py"
+      - "scripts/test_act_source_player.cjs"
+      - "scripts/test_act_source_browser.py"
+      - "scripts/test_emergent_comm_motion_browser.py"
+      - "scripts/test_alphazero_motion_browser.py"
+      - "scripts/test_model_based_motion_browser.py"
+      - "scripts/test_model_based_source_browser.py"
+      - "scripts/test_model_based_image_contract.py"
+      - "scripts/test_model_based_source_motion_semantics.py"
+      - "scripts/test_model_based_source_player.cjs"
+      - "scripts/test_q_sarsa_motion_browser.py"
+      - "scripts/test_q_sarsa_epsilon_browser.py"
+      - "scripts/test_double_dqn_selector_browser.py"
+      - "scripts/test_td_terminal_truncation_browser.py"
+      - "scripts/test_cliff_walking_browser.py"
+      - "scripts/test_eligibility_trace_cut_browser.py"
+      - "scripts/test_nstep_lambda_forward_browser.py"
       - "scripts/test_self_supervised_labs.cjs"
       - "docs/javascripts/symbolic-proof-labs.js"
       - "docs/stylesheets/symbolic-proof-labs.css"
       - "scripts/test_symbolic_proof_labs_browser.py"
       - "scripts/test_resolution_lab.cjs"
       - "scripts/test_inference_player.cjs"
+      - "scripts/test_navigation_player.cjs"
+      - "scripts/test_motor_player.cjs"
+      - "scripts/test_motor_motion_browser.py"
+      - "scripts/test_planning_lab_semantics.cjs"
+      - "scripts/test_causal_imitation_browser.py"
+      - "scripts/verify_causal_imitation_motion.py"
+      - "scripts/test_peft_motion_browser.py"
+      - "scripts/test_t5_deit_motion_browser.py"
+      - "scripts/test_t5_deit_labs_browser.py"
+      - "scripts/test_t5_manual_pause_motion_semantics.py"
+      - "scripts/test_t5_deit_labs.cjs"
+      - "docs/javascripts/t5-deit-labs.js"
+      - "docs/stylesheets/t5-deit-labs.css"
+      - "scripts/test_explanation_motion_semantics.py"
+      - "scripts/test_explanation_math.cjs"
+      - "scripts/test_lime_shap_motion_browser.py"
+      - "scripts/test_explanation_labs_browser.py"
+      - "docs/javascripts/explanation-labs.js"
+      - "docs/stylesheets/explanation-labs.css"
       - "docs/javascripts/regression-metric-labs.js"
       - "docs/stylesheets/regression-metric-labs.css"
       - "scripts/test_regression_metric_labs_browser.py"
+      - "scripts/test_bandit_motion_browser.py"
+      - "scripts/test_bandit_labs_browser.py"
+      - "docs/javascripts/bandit-labs.js"
+      - "docs/stylesheets/bandit-labs.css"
+      - "scripts/verify_bandit_motion.py"
+      - "scripts/test_positional_motion_browser.py"
+      - "scripts/test_positional_motion_semantics.py"
       - "docs/javascripts/gibbs-labs.js"
       - "docs/stylesheets/gibbs-labs.css"
       - "scripts/test_gibbs_labs_browser.py"
       - "docs/javascripts/sharpness-geometry-labs.js"
       - "docs/stylesheets/sharpness-geometry-labs.css"
       - "scripts/test_sharpness_geometry_labs_browser.py"
+      - "scripts/test_rlhf_motion_browser.py"
+      - "scripts/test_rlhf_preference_motion_semantics.py"
+      - "docs/theory/paradigms/reinforcement-learning/learning-from-human-feedback/**"
+      - "scripts/test_offline_rl_motion_browser.py"
       - "mkdocs.yml"
+      - "scripts/test_seventh_retained_interaction_motion_semantics.py"
+      - "scripts/test_eighth_retained_interaction_motion_semantics.py"
       - ".github/workflows/concept-animation-validation.yml"
   workflow_dispatch:
 
@@ -71,6 +347,7 @@ jobs:
         run: python scripts/verify_concept_animations.py
 
   validate-motion:
+    # Playwright 1.55.0 bundles Chromium for supported Ubuntu 24.04.
     # Playwright 1.55 supports Ubuntu 24.04, not the latest 26.04 image.
     runs-on: ubuntu-24.04
     steps:
@@ -78,12 +355,61 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install source fixture import dependencies before all semantic consumers
+        run: |
+          python -m pip install "playwright==1.55.0"
+          python -m pip install "PyYAML==6.0.3"
+          python scripts/test_fixture_dependency_motion_semantics.py
+      - name: Check predictive coding math and causal timelines
+        run: |
+          python scripts/test_predictive_coding_motion_semantics.py
+          node scripts/test_predictive_coding_labs.cjs
+      - name: Check Diffusion Policy actual SVG timeline and numerical contracts
+        run: |
+          python scripts/test_diffusion_policy_motion_semantics.py
+          node scripts/test_diffusion_policy_player.cjs
       - name: Validate looping SVGs, fallbacks and Markdown paths
         run: python scripts/verify_concept_motion.py
       - name: Check information-theory motion analytical timelines
         run: python scripts/test_information_motion_semantics.py
+      - name: Validate bilingual causal-imitation motion pairs
+        run: python scripts/verify_causal_imitation_motion.py
+      - name: Check working-memory causal timing and computed states
+        run: python scripts/test_working_memory_motion_semantics.py
+      - name: Check segmentation numerical semantics and causal timing
+        run: python scripts/test_segmentation_motion_semantics.py
+      - name: Verify video SVG structure and bilingual static-first fallback
+        run: python scripts/verify_video_motion.py
+      - name: Check diffusion toy arithmetic and decode timing
+        run: python scripts/test_diffusion_process_motion_semantics.py
+      - name: SSM arithmetic and animation regressions
+        run: |
+          node scripts/test_ssm_actual_math.cjs
+          python -m unittest discover -s scripts -p test_ssm_actual_motion_semantics.py
+      - name: Validate S4D and Mamba-2 SSM visual semantics and bilingual stills
+        run: python scripts/verify_ssm_motion.py
+      - name: Check LayerNorm and Seq2Seq SVG, fallback and maths
+        run: |
+          python scripts/verify_norm_seq_motion.py
+          python scripts/test_norm_seq_actual_motion_semantics.py
+          node scripts/test_norm_seq_actual_math.cjs
+          node scripts/test_norm_seq_actual_ui.cjs
+      - name: Check positional SVG phase and probability semantics
+        run: python scripts/test_positional_motion_semantics.py
+      - name: Check conformal coverage, calibration and actual SVG timelines
+        run: |
+          python scripts/test_conformal_motion_semantics.py
+          python scripts/test_conformal_coverage_motion_semantics.py
+      - name: Reject cross-topic canvas regressions with actual SVG mutations
+        run: |
+          python scripts/test_scoped_viewbox_motion_semantics.py
+          python scripts/test_scoped_canvas_motion_semantics.py
+          python scripts/test_alt_accessibility_motion_semantics.py
+          python scripts/test_source_contract_retention_motion_semantics.py
       - name: Check uncertainty motion numerical semantics
         run: python scripts/test_uncertainty_motion_semantics.py
+      - name: Validate co-design memory and loss-scale motion arithmetic
+        run: python scripts/test_co_design_tradeoff_motion.py
       - name: Check SVD geometry and power-iteration numerical timelines
         run: python scripts/test_linear_algebra_motion_semantics.py
       - name: Exercise bilingual guided motion controls and fallback
@@ -94,60 +420,482 @@ jobs:
         run: |
           node scripts/test_resolution_lab.cjs
           node scripts/test_inference_player.cjs
+          node scripts/test_navigation_player.cjs
+          node scripts/test_motor_player.cjs
+          node scripts/test_planning_lab_semantics.cjs
+      - name: T5 and DeiT actual JavaScript and SVG semantics
+        run: |
+          node scripts/test_t5_deit_labs.cjs
+          python scripts/test_t5_deit_actual_motion_semantics.py
+      - name: Verify actual EWC and NEAT calculations and timelines
+        run: |
+          node scripts/test_ewc_neat_labs.cjs
+          python scripts/test_ewc_neat_actual_motion_semantics.py
+      - name: Validate actual gradient clipping source schedules and player
+        run: |
+          python scripts/test_gradient_clipping_motion_semantics.py
+          python scripts/test_gradient_actual_motion_semantics.py
+          node scripts/test_gradient_source_player.cjs
+      - name: Validate federated source geometry and player
+        run: |
+          python scripts/test_federated_actual_motion_semantics.py
+          node scripts/test_federated_source_player.cjs
+      - name: Validate OpenVLA source geometry and player
+        run: |
+          python -m pip install "numpy==2.5.5"
+          python scripts/test_openvla_actual_motion_semantics.py
+          node scripts/test_openvla_source_player.cjs
+      - name: Validate grounded action source geometry and player
+        run: |
+          python scripts/test_grounded_action_actual_motion_semantics.py
+          node scripts/test_grounded_action_source_player.cjs
+      - name: Validate population source schedules and player
+        run: |
+          python scripts/test_population_actual_motion_semantics.py
+          node scripts/test_population_source_player.cjs
+      - name: Validate MARL source semantics and player
+        run: |
+          python scripts/test_marl_source_semantics.py
+          node scripts/test_marl_source_player.cjs
+      - name: Actual emergent communication numerical, causal and player regressions
+        run: |
+          python scripts/test_comm_source_semantics.py
+          node scripts/test_comm_source_player.cjs
+      - name: Actual offline RL geometry, numerical labels and player regressions
+        run: |
+          python scripts/test_offline_source_semantics.py
+          node scripts/test_offline_source_player.cjs
       - name: Install Chromium and Traditional Chinese fonts for visual tests
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends fonts-noto-cjk
           fc-match -f '%{family}\n' 'sans:lang=zh-tw' | grep -q 'Noto Sans CJK'
           python -m pip install "playwright==1.55.0"
+          python -m pip install "PyYAML==6.0.3"
           python -m playwright install chromium
+      - name: Chromium RND/ICM motion, keyboard controls and reduced-motion fallback
+        run: python scripts/test_rnd_icm_motion_browser.py
+      - name: Chromium GitHub-safe RND/ICM chapter fallback and keyboard player
+        run: python scripts/test_curiosity_chapter_fallback_browser.py
+      - name: Chromium RND separate reward-stream and value-head regression
+        run: python scripts/test_rnd_dual_value_browser.py
+      - name: Chromium RND stochastic-observation failure-mode motion
+        run: python scripts/test_rnd_stochastic_distractor_browser.py
+      - name: Chromium ICM inverse-dynamics feature-selection motion
+        run: python scripts/test_icm_inverse_feature_browser.py
+      - name: Chromium ICM action-aliasing and inverse ambiguity
+        run: python scripts/test_icm_action_aliasing_browser.py
+      - name: Chromium RND/ICM training-signal and shared-encoder routes
+        run: python scripts/test_rnd_icm_gradient_routes_browser.py
+      - name: Chromium RND intrinsic-return scaling and ICM gradient balance
+        run: python scripts/test_rnd_icm_balance_motion_browser.py
+      - name: Chromium RND/ICM timeline probes, bilingual controls and reduced motion
+        run: python scripts/test_curiosity_labs_browser.py
+      - name: Chromium ICM repeated sampling, bilingual expectations and reduced motion
+        run: python scripts/test_curiosity_sampling_browser.py
       - name: "Chromium symbolic proof labs: DFS state, resolution, keyboard and fallback"
         run: python scripts/test_symbolic_proof_labs_browser.py --screenshots artifacts/symbolic-proof-labs
       - name: Chromium OOD bilingual playback, keyboard and reduced motion
         run: python scripts/test_ood_motion_browser.py
       - name: Chromium bilingual inference diagrams, keyboard pause and mobile scroll
         run: python scripts/test_inference_concept_motion_browser.py
+      - name: Chromium bilingual synthetic-data local-scroll playback
+        run: python scripts/test_synthetic_motion_browser.py
+      - name: Chromium bilingual oscillation playback and keyboard scrolling
+        run: python scripts/test_oscillation_motion_browser.py
+      - name: Chromium PEFT diagrams, bilingual controls and mobile fallback
+        run: python scripts/test_peft_motion_browser.py
+      - name: Browser-check latent and video diffusion SVG playback, keyboard and fallback
+        run: python scripts/test_video_latent_motion_browser.py
+      - name: Browser-check interactive video and latent diffusion arithmetic
+        run: DIFFUSION_LAB_ARTIFACTS=artifacts/diffusion-process-labs python scripts/test_diffusion_process_labs_browser.py
+      - name: Verify gradient clipping source keyboard layout
+        run: python scripts/test_gradient_source_browser.py
+      - name: Verify batch10 real fixture selector and failure contracts
+        run: |
+          node scripts/test_concept_motion_fixture_selector.cjs
+          python scripts/test_batch10_fixture_motion_semantics.py
+      - name: Verify federated source keyboard layout
+        run: python scripts/test_federated_source_browser.py
+      - name: Verify OpenVLA source keyboard layout
+        run: python scripts/test_openvla_source_browser.py
+      - name: Verify grounded action source keyboard layout
+        run: python scripts/test_grounded_action_source_browser.py
+      - name: Verify population source keyboard layout
+        run: |
+          python scripts/test_population_fixture_motion_semantics.py
+          python scripts/test_population_source_browser.py
+      - name: Verify MARL source keyboard layout
+        run: |
+          python scripts/test_marl_fixture_motion_semantics.py
+          python scripts/test_marl_source_browser.py
       - name: Chromium interactive AdaGrad and Adafactor numerical labs
         run: python scripts/test_adaptive_optimiser_labs_browser.py
       - name: Render deterministic SVD and power-iteration SVG keyframes
         run: python scripts/render_linear_algebra_keyframes.py
+      - name: Chromium navigation motion, revaluation and responsive bilingual controls
+        run: python scripts/test_navigation_motion_browser.py
+      - name: Motor-control bilingual responsive playback, keyboard and fallback
+        run: python scripts/test_motor_motion_browser.py
+      - name: Semi-supervised SVG production-player checks
+        run: python scripts/test_semi_supervised_motion_browser.py
+      - name: Semi-supervised interactive numerical labs
+        run: python scripts/test_semi_process_labs_browser.py
+      - name: Check diffusion motion fallback and controls in Chromium
+        run: python scripts/test_diffusion_motion_browser.py
+      - name: Chromium RLHF preference animations and bilingual keyboard controls
+        run: python scripts/test_rlhf_motion_browser.py
+      - name: Chromium offline IQL/CQL numerical semantics and keyboard/reduced-motion playback
+        run: python scripts/test_offline_rl_motion_browser.py
       - name: Chromium mobile/desktop playback, pause and geometry
         run: python scripts/test_self_supervised_browser.py
+      - name: Chromium VQ-VAE and Gaussian splatting SVG motion
+        run: python scripts/test_vq_splat_motion_browser.py
+      - name: VQ and alpha colour numerical and DOM regression
+        run: node scripts/test_vq_splat_labs.cjs
+      - name: Chromium VQ-VAE and Gaussian compositing numerical labs
+        run: python scripts/test_vq_splat_labs_browser.py
+      - name: Predictive-coding SVG, bilingual controls and reduced motion in Chromium
+        run: python scripts/test_predictive_coding_motion_browser.py
+      - name: Chromium predictive coding numerical laboratories
+        run: python scripts/test_predictive_coding_labs_browser.py
+      - name: Chromium Bayesian filters, bilingual controls and static fallbacks
+        run: python scripts/test_bayesian_filter_motion_browser.py
+      - name: Chromium Kalman and particle numerical labs
+        run: python scripts/test_bayesian_filter_labs_browser.py
+      - name: DDPG actual SVG mathematics and causal timing
+        run: python scripts/test_ddpg_motion_semantics.py
+      - name: Chromium DDPG gradient, target tracking, replay/bootstrap and OU noise
+        run: python scripts/test_ddpg_motion_browser.py
+      - name: TD source semantic and actual player regression
+        run: |
+          python scripts/test_td_source_semantics.py
+          node scripts/test_td_source_player.cjs
+          python scripts/test_td_fixture_motion_semantics.py
+          python scripts/test_td_source_browser.py
+      - name: Chromium Q-learning vs SARSA backup, controls and reduced motion
+        run: python scripts/test_q_sarsa_motion_browser.py
+      - name: Chromium Q/SARSA noisy max vs sampled backup
+        run: python scripts/test_q_sarsa_noisy_backups_browser.py
+      - name: Chromium epsilon-greedy SARSA targets and accessibility
+        run: python scripts/test_q_sarsa_epsilon_browser.py
+      - name: Chromium Double DQN selection versus evaluation and fallback
+        run: python scripts/test_double_dqn_selector_browser.py
+      - name: Chromium terminated versus time-limit truncated TD targets
+        run: python scripts/test_td_terminal_truncation_browser.py
+      - name: Chromium cliff walking policy risk, geometry and accessible controls
+        run: python scripts/test_cliff_walking_browser.py
+      - name: Chromium eligibility trace decay and Watkins cutoff
+        run: python scripts/test_eligibility_trace_cut_browser.py
+      - name: Chromium forward n-step SARSA and lambda-return arithmetic
+        run: python scripts/test_nstep_lambda_forward_browser.py
       - name: Chromium causal counterfactuals, bilingual responsive layout
         run: python scripts/test_ssl_causal_comparisons_browser.py
       - name: Chromium counterfactual SVG previews, focus pause and reduced motion
         run: python scripts/test_ssl_causal_previews_browser.py
+      - name: Chromium EWC gradient steps and NEAT mutation semantics
+        run: python scripts/test_ewc_neat_labs_browser.py
       - name: Chromium gradient sensitivity, bilingual responsive layout
         run: python scripts/test_ssl_gradient_browser.py
+      - name: Chromium working-memory original SVG playback and mobile layout
+        run: python scripts/test_working_memory_motion_browser.py
+      - name: Chromium computed PBWM gate and hidden-trace labs
+        run: python scripts/test_working_memory_labs_browser.py
       - name: Chromium discrete EMA trajectory integration
         run: python scripts/test_ssl_ema_trajectory_browser.py
       - name: Chromium FIFO lifetime and EMA historical attribution
         run: python scripts/test_ssl_temporal_provenance_browser.py
+      - name: Chromium planning SVG keyframes and bilingual playback
+        run: python scripts/test_planning_motion_browser.py
+      - name: Chromium STRIPS and Graphplan numerical teaching labs
+        run: python scripts/test_planning_labs_browser.py
+      - name: Chromium GA and MAP-Elites bilingual playback and mobile scroll
+        run: python scripts/test_evolution_motion_browser.py
+      - name: Evolution lab exhaustive operator and archive state tests
+        run: node scripts/test_evolution_labs.cjs
+      - name: Chromium GA and MAP-Elites numerical interaction labs
+        run: python scripts/test_evolution_labs_browser.py
+      - name: Test causal imitation player in Chromium (mobile, bilingual, reduced motion)
+        run: python scripts/test_causal_imitation_browser.py
+      - name: Chromium security concepts, bilingual player, keyboard and reduced-motion
+        run: python scripts/test_security_motion_browser.py
+      - name: Chromium SimCLR and Bahdanau bilingual motion, controls and fallback
+        run: python scripts/test_simclr_bahdanau_motion_browser.py
+      - name: Test exact NT-Xent and alignment arithmetic
+        run: node scripts/test_contrastive_alignment_labs.cjs
+      - name: Chromium interactive NT-Xent and decoder attention arithmetic
+        run: python scripts/test_contrastive_alignment_labs_browser.py
+      - name: Chromium SVI/SOAP animations, bilingual pause and fallback
+        run: python scripts/test_svi_soap_motion_browser.py
+      - name: Chromium T5/DeiT bilingual motion, fallbacks and keyboard controls
+        run: python scripts/test_t5_deit_motion_browser.py
+      - name: Reject lost T5 manual pause and future CI routes
+        run: python scripts/test_t5_manual_pause_motion_semantics.py
+      - name: Chromium bilingual T5 span and DeiT dual-head numerical laboratories
+        run: python scripts/test_t5_deit_labs_browser.py
+      - name: Chromium SAC and DPO bilingual motion and static fallback
+        run: python scripts/test_sac_dpo_motion_browser.py
+      - name: Check exact SAC DPO mathematics and SVG timelines
+        run: |
+          python scripts/test_sac_dpo_motion_semantics.py
+          node scripts/test_sac_dpo_labs.cjs
+      - name: Chromium SAC and DPO analytical interactive labs
+        run: python scripts/test_sac_dpo_labs_browser.py
+      - name: Test bilingual segmentation SVGs, keyboard pause and reduced motion
+        run: python scripts/test_segmentation_motion_browser.py
+      - name: Test interactive RoIAlign and SAM segmentation labs
+        run: python scripts/test_segmentation_labs_browser.py
+      - name: Check actual video arithmetic and causal timelines
+        run: |
+          python scripts/test_video_motion_semantics.py
+          node scripts/test_video_architecture_labs.cjs
+      - name: Chromium video motion, keyboard and reduced-motion
+        run: python scripts/test_video_motion_browser.py
+      - name: Chromium interactive ViViT and I3D numerical demonstrations
+        run: python scripts/test_video_architecture_labs_browser.py
+      - name: Keep diffusion lab screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diffusion-process-labs-browser-review
+          path: artifacts/diffusion-process-labs/*.png
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Preserve original keyboard and visible-state regression contracts
+        run: python scripts/test_eighth_retained_interaction_motion_semantics.py
+      - name: Test LayerNorm and Seq2Seq site enhancement in Chromium
+        run: python scripts/test_norm_seq_motion_browser.py
+      - name: Test interactive LayerNorm and Seq2Seq numerical labs
+        run: python scripts/test_norm_seq_labs_browser.py
+      - name: Chromium LIME/SHAP bilingual and reduced-motion regression
+        run: python scripts/test_lime_shap_motion_browser.py
+      - name: Chromium LIME/SHAP interactive numerics, controls and fallback
+        run: python scripts/test_explanation_labs_browser.py
+      - name: Verify attention numerical source and actual JS lifecycle
+        run: |
+          python -m unittest discover -s scripts -p "test_attention_review_semantics.py"
+          node scripts/test_attention_actual_ui.cjs
+      - name: Chromium interactive attention-window and recurrence labs
+        run: python scripts/test_attention_labs_browser.py
+      - name: Chromium sliding-window and recurrent linear-attention states
+        run: python scripts/test_attention_variants_browser.py
+      - name: Chromium FlashAttention online softmax, no-script and keyboard controls
+        run: python scripts/test_flashattention_online_browser.py
+      - name: Chromium back-door and collider motion, bilingual fallback and keyboard controls
+        run: python scripts/test_causal_motion_browser.py
+      - name: Chromium causal standardisation and collider selection quantitative labs
+        run: python scripts/test_causal_labs_browser.py
+      - name: Chromium Diffusion Policy diagrams and bilingual keyboard player
+        run: python scripts/test_diffusion_policy_motion_browser.py
+      - name: Check Dreamer numerical and temporal causal semantics
+        run: python scripts/test_dreamer_motion_semantics.py
+      - name: Chromium Dreamer visual stages, playback and reduced-motion fallback
+        run: python scripts/test_dreamer_motion_browser.py
+      - name: Chromium AlphaZero responsive animation and bilingual player controls
+        run: python scripts/test_alphazero_motion_browser.py
       - name: Test regression metric lab arithmetic, controls and bilingual responsive layout
         run: python scripts/test_regression_metric_labs_browser.py
+      - name: Execute actual bandit numeric and lifecycle regression
+        run: node scripts/test_bandit_actual_labs.cjs
+      - name: Validate bilingual bandit motion and numerical semantics
+        run: python scripts/verify_bandit_motion.py
+      - name: Chromium bandit controls, reduced-motion and native-size mobile scroll
+        run: python scripts/test_bandit_motion_browser.py
+      - name: Chromium interactive UCB1 and Thompson counterfactual computations
+        run: python scripts/test_bandit_labs_browser.py
+      - name: Render ALiBi/RoPE timelines and test bilingual accessible controls
+        run: python scripts/test_positional_motion_browser.py
       - name: Test bilingual sharpness geometry numerical labs, controls and responsive layout
         run: python scripts/test_sharpness_geometry_labs_browser.py
       - name: Test bilingual Gibbs Gaussian and disconnected mixing controls
         run: python scripts/test_gibbs_labs_browser.py
+      - name: Verify actual Bayesian module arithmetic and lifecycle
+        run: node scripts/test_bayesian_filter_actual_labs.cjs
+      - name: Preserve original keyboard and visible-state regression contracts
+        run: python scripts/test_seventh_retained_interaction_motion_semantics.py
+      - name: Test SSM bilingual playback, mobile panning and reduced-motion fallback
+        run: python scripts/test_ssm_motion_browser.py
+      - name: Chromium numerical S4D kernel and SSD matrix equivalence labs
+        run: python scripts/test_ssm_duality_labs_browser.py
+      - name: Verify GQA source arithmetic, player and real browser
+        run: |
+          python -m unittest discover -s scripts -p "test_gqa_source_semantics.py"
+          node scripts/test_concept_motion_fixture_selector.cjs
+          node scripts/test_gqa_player.cjs
+          python scripts/test_gqa_source_browser.py
+      - name: Verify eighth-batch executable suite and player scope contracts
+        run: |
+          python scripts/test_eighth_integration_motion_semantics.py
+          node scripts/test_explanation_math.cjs
+      - name: Chromium KIVI/H2O mobile, bilingual keyboard and reduced-motion regression
+        run: python scripts/test_kivi_h2o_motion_browser.py
+      - name: Verify diffusion schedule, source visuals and browser
+        run: |
+          python -m unittest discover -s scripts -p "test_*diffusion*semantics.py"
+          python -m unittest discover -s scripts -p "test_ddim_schedule_motion_semantics.py"
+          node scripts/test_diffusion_player.cjs
+          node scripts/test_diffusion_schedule_player.cjs
+          python scripts/test_diffusion_source_browser.py
+      - name: Verify ACT actual shared player and native local scroll
+        run: |
+          node scripts/test_act_source_player.cjs
+          python scripts/test_act_source_browser.py
+      - name: Check actual SAC source geometry and causal timing
+        run: python scripts/test_sac_source_motion_semantics.py
+      - name: Actual SAC player and source-owned scroll regression
+        run: |
+          node scripts/test_sac_source_player.cjs
+          python scripts/test_sac_source_browser.py
+      - name: Chromium SAC soft-target and temperature motion / accessible controls
+        run: python scripts/test_sac_motion_browser.py
+      - name: Chromium emergent communication motion and bilingual playback
+        run: python scripts/test_emergent_comm_motion_browser.py
+      - name: Test bilingual communication source scrollers and keyboard playback
+        run: |
+          python scripts/test_comm_fixture_motion_semantics.py
+          python scripts/test_comm_source_browser.py
+      - name: Test bilingual offline RL source scrollers and keyboard playback
+        run: |
+          python scripts/test_offline_fixture_motion_semantics.py
+          python scripts/test_offline_source_browser.py
+      - name: Chromium Rainbow C51, dueling, n-step and NoisyNet geometry, keyboard and reduced motion
+        run: python scripts/test_rainbow_motion_browser.py
+      - name: Chromium PETS/MBPO mobile, desktop, keyboard and reduced motion
+        run: python scripts/test_model_based_motion_browser.py
+      - name: Model based actual SVG causality and bilingual source controls
+        run: |
+          python scripts/test_model_based_source_motion_semantics.py
+          node scripts/test_model_based_source_player.cjs
+          python scripts/test_model_based_image_contract.py
+          python scripts/test_model_based_source_browser.py
+      - name: Chromium Decision Transformer causal mask and return-to-go tests
+        run: python scripts/test_dt_motion_browser.py
+      - name: Install same-job time-series prose builder imports
+        run: |
+          python -m pip install -r requirements.txt
+          python scripts/test_time_series_fixture_dependency_motion_semantics.py
+      - name: Time series numerical source regressions and real bilingual prose
+        run: |
+          python scripts/test_time_series_motion_semantics.py
+          python scripts/test_time_series_prose_contract.py
+          mkdocs build --strict
+          python scripts/test_time_series_prose_browser.py
       - name: Keep rendered review screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: self-supervised-lab-browser-review
           path: |
+            artifacts/predictive-coding-motion/*.png
+            artifacts/predictive-coding-labs/*.png
+            artifacts/diffusion-motion/*.png
+            artifacts/gradient-source/
+            artifacts/federated-source/
+            artifacts/openvla-source/
+            artifacts/grounded-action-source/
+            artifacts/population-source/
+            artifacts/marl-source/
+            artifacts/model-based-source-browser/*.png
+            artifacts/time-series-prose/**
+            artifacts/model-based-source-browser/*-failure.html
+            artifacts/model-based-source-browser/*.json
             artifacts/self-supervised-labs/*.png
+            artifacts/td-source/*.png
+            artifacts/td-source/report.json
+            artifacts/td-source/*-failure.html
+            artifacts/q-sarsa-backup/*.png
+            artifacts/q-sarsa-noisy-backups/*.png
+            artifacts/q-sarsa-epsilon/*.png
+            artifacts/double-dqn-selector/*.png
+            artifacts/td-terminal-truncation/*.png
+            artifacts/cliff-walking/*.png
+            artifacts/eligibility-trace-cut/*.png
+            artifacts/nstep-lambda-forward/*.png
             artifacts/ssl-causal-comparisons/*.png
             artifacts/ssl-causal-previews/*.png
+            artifacts/navigation-motion/*.png
+            artifacts/motor-motion/*.png
+            artifacts/semi-supervised-process-labs/*.png
+            artifacts/ewc-neat-labs/*.png
             artifacts/ssl-gradient/*.png
             artifacts/ssl-ema-trajectory/*.png
             artifacts/ssl-temporal-provenance/*.png
             artifacts/symbolic-proof-labs/*.png
             artifacts/ood-motion/*.png
+            artifacts/evolution-motion/*.png
+            artifacts/evolution-labs/*.png
+            artifacts/vq-splat-labs/*.png
+            artifacts/vq-splat-motion/*.png
+            artifacts/simclr-bahdanau-motion/*.png
+            artifacts/contrastive-alignment-labs/*.png
+            artifacts/working-memory-labs/*.png
+            artifacts/sac-dpo-labs/*.png
+            artifacts/sac-dpo-motion/
+            artifacts/segmentation-labs/*.png
+            artifacts/video-motion/*.png
+            artifacts/video-architecture-labs/*.png
+            artifacts/norm-seq-motion/*.png
+            artifacts/norm-seq-labs/*.png
+            artifacts/explanation-labs/*.png
+            artifacts/causal-labs/*.png
+            artifacts/gqa-source/
+            artifacts/kivi-h2o-browser/*.png
+            artifacts/diffusion-source/
+            artifacts/diffusion-policy-motion/*.png
+            artifacts/act-source-browser/*.png
+            artifacts/dreamer-motion/**
+            artifacts/alphazero-motion/*.png
             artifacts/linear-algebra-motion/
+            artifacts/planning-labs/*.png
+            artifacts/t5-deit-motion/*.png
+            artifacts/t5-deit-labs/*.png
+            artifacts/bandit-labs/*.png
             artifacts/regression-metric-labs/*.png
+            artifacts/linear-algebra-motion/
+            artifacts/bayesian-filter-labs/*.png
+            artifacts/positional-motion/*.png
             artifacts/sharpness-labs/*.png
             artifacts/adaptive-optimiser-labs/*.png
             artifacts/gibbs-labs/*.png
+            artifacts/causal-imitation/*.png
+            artifacts/peft-motion/*.png
+            artifacts/ssm-motion/*.png
+            artifacts/ssm-duality-labs/*.png
+            artifacts/attention-variant-labs/*.png
+            artifacts/flashattention-online/*.png
+            artifacts/ddpg-motion/*.png
+            artifacts/sac-motion/*.png
+            artifacts/sac-source-browser/*.png
+            artifacts/emergent-communication/*.png
+            artifacts/comm-source/*.png
+            artifacts/comm-source/report.json
+            artifacts/comm-source/*-failure.html
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Keep RLHF concept-motion screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rlhf-motion-browser-review
+          path: |
+            artifacts/rlhf-motion/*.png
+            artifacts/offline-rl-motion/*.png
+            artifacts/offline-source/*.png
+            artifacts/offline-source/report.json
+            artifacts/offline-source/*-failure.html
+            artifacts/rainbow-motion/*.png
+            artifacts/model-based-motion/*.png
+            artifacts/dt-motion/*.png
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Keep RND/ICM motion frames for actual visual inspection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnd-icm-motion-browser-review
+          path: artifacts/rnd-icm-motion/*.png
           if-no-files-found: ignore
           retention-days: 7
 
@@ -162,7 +910,7 @@ jobs:
         run: python scripts/verify_concept_svgs.py
 
   build-docs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -173,5 +921,62 @@ jobs:
           cache: pip
       - name: Install wiki dependencies
         run: pip install -r requirements.txt
+      - name: Verify supported causal prose browser runner contract
+        run: python scripts/test_causal_prose_runner_motion_semantics.py
+      - name: Install built article browser package
+        run: pip install playwright==1.55.0 Pillow==13.0.0
+      - name: Install built article Chromium dependencies
+        run: python -m playwright install --with-deps chromium
+      - name: Check built article native coverage contract
+        run: python scripts/test_deployed_math_contract.py
+      - name: Check forward AD production Markdown math containers
+        run: python scripts/test_forward_math_markup.py
+      - name: Check retained existing-page math boundaries and source coverage
+        run: python scripts/test_existing_math_followup.py
+      - name: Verify ICM formula structure with site-version MathJax
+        run: |
+          npm install --prefix "$RUNNER_TEMP/wiki-mathjax" --no-audit --no-fund --ignore-scripts mathjax-full@3.2.2
+          NODE_PATH="$RUNNER_TEMP/wiki-mathjax/node_modules" python scripts/verify_icm_mathjax_structure.py
+      - name: Check actual STDP and e-prop geometry, timing and bilingual hooks
+        run: python scripts/test_snn_credit_motion_semantics.py
+      - name: Upload ICM real MathJax structure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: icm-mathjax-structure
+          path: artifacts/icm-mathjax-structure/*.json
+          if-no-files-found: ignore
       - name: Strict MkDocs build
         run: mkdocs build --strict
+      - name: Check exact explanation math and timeline
+        run: python scripts/test_explanation_motion_semantics.py
+      - name: Check causal mechanism math and timeline
+        run: python scripts/test_causal_motion_semantics.py
+      - name: Validate causal estimand arithmetic and counterexamples
+        run: python scripts/test_causal_inference_motion_semantics.py
+      - name: Install causal prose browser
+        run: |
+          python -m pip install "playwright==1.55.0"
+          python -m playwright install --with-deps chromium
+      - name: Install verified Traditional Chinese font for causal prose
+        uses: ./.github/actions/install-cjk-font
+      - name: Check all bilingual causal prose pages and formulas
+        run: python scripts/test_causal_inference_prose_browser.py --site-dir site
+      - name: Keep causal prose browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: causal-prose-browser
+          path: artifacts/causal-prose/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Capture every repaired article display at three widths
+        run: python scripts/test_deployed_math_browser.py
+      - name: Upload built article math evidence including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployed-math-browser
+          path: artifacts/deployed-math/
+          if-no-files-found: error
+          retention-days: 7

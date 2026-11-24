@@ -11,7 +11,7 @@ from unittest.mock import Mock, patch
 from test_built_motion_browser import (
     Images, MotionPage, assert_document_fits, check_built_page, check_math_rendering, discover_pages,
     record_failure_diagnostics, source_asset_url, check_keyboard_scrollers,
-    check_math_renderer_canary, MOBILE_PREFLIGHT_NAMES,
+    check_math_renderer_canary, MOBILE_PREFLIGHT_NAMES, check_image,
 )
 
 BASE = "https://example.test/ai-wiki/"
@@ -19,7 +19,67 @@ IMAGE = ('<img data-source-asset-urls src="../assets/plot-still.svg" '
          'data-motion-src="../assets/plot-motion.svg" alt="Example plot">')
 
 
+class ResponsiveAssetTests(unittest.TestCase):
+    def test_exact_variants_boundaries_and_wrong_variants(self):
+        from test_built_motion_browser import responsive_asset_url
+        for stem in ['icm-predictable-stochastic','rnd-state-novelty']:
+            for state in ['motion','still']:
+                for suffix in ['', '?v=1','#sample']:
+                    url=BASE+'assets/concept-animations/'+stem+'-'+state+'.svg'+suffix
+                    for width in [390,640,641,1280]:
+                        expected=url.replace('-'+state+'.svg','-mobile-'+state+'.svg') if width<=640 else url
+                        self.assertEqual(responsive_asset_url(url,{'width':width}),expected)
+                        self.assertNotEqual(expected,expected.replace('-'+state+'.svg','-wrong-'+state+'.svg'))
+        for name in ['other-motion.svg','prefix-icm-predictable-stochastic-motion.svg','rnd-state-novelty-motion.svg.bak']:
+            url=BASE+name;self.assertEqual(responsive_asset_url(url,{'width':390}),url)
+    def test_resolver_matches_real_player_execution(self):
+        import os
+        from test_built_motion_browser import responsive_asset_url
+        root=Path(__file__).resolve().parents[1]
+        result=subprocess.check_output(['node','scripts/test_curiosity_player.cjs'],cwd=root,env={**os.environ,'REPORT_RESPONSIVE':'1'},text=True)
+        records=json.loads(result.splitlines()[0]);self.assertEqual(len(records),864)
+        for record in records:
+            self.assertEqual(responsive_asset_url(record['base'],{'width':record['width']}),record['actual'])
+        def check(resolve):
+            for r in records: assert resolve(r['base'],{'width':r['width']})==r['actual']
+        check(responsive_asset_url)
+        for bad in [lambda u,v:u,
+                    lambda u,v:responsive_asset_url(u,{'width':390}),
+                    lambda u,v:responsive_asset_url(u,v).replace('-mobile-','-wrong-')]:
+            with self.assertRaises(AssertionError):check(bad)
+        # Mutate the actual player boundary, not a copied implementation.
+        import shutil
+        with tempfile.TemporaryDirectory() as directory:
+            tmp=Path(directory)
+            paths=['scripts/test_curiosity_player.cjs','scripts/concept_motion_fixture_selector.cjs','docs/javascripts/concept-motion.js']
+            paths += ['docs/theory/paradigms/reinforcement-learning/exploration/'+topic+'/index'+lang+'.md' for topic in ['icm','rnd'] for lang in ['', '.zh-TW']]
+            for path in paths:
+                dest=tmp/path;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(root/path,dest)
+            player=tmp/'docs/javascripts/concept-motion.js';text=player.read_text();assert '(max-width: 640px)' in text
+            player.write_text(text.replace('(max-width: 640px)','(max-width: 639px)'))
+            mutated=subprocess.run(['node','scripts/test_curiosity_player.cjs'],cwd=tmp,capture_output=True,text=True)
+            self.assertNotEqual(mutated.returncode,0);self.assertIn('639px',mutated.stderr)
+
 class DiscoveryTests(unittest.TestCase):
+    def test_real_parser_rejects_blank_alt_in_source_and_built_page(self):
+        # Source and built values are obtained through actual HTML parsers.
+        # Whitespace is not trimmed for matching valid accessible names.
+        from markdown import Markdown
+        for alt in (None, "", "   ", "\t", "&#32;&#9;", "&nbsp;"):
+            with self.subTest(alt=alt):
+                attr = "" if alt is None else f' alt="{alt}"'
+                html = '<img data-source-asset-urls src="../assets/plot-still.svg" data-motion-src="../assets/plot-motion.svg"' + attr + '>'
+                rendered = Markdown().convert(html)
+                target = MotionPage("topic/page.md", "en", "topic/page/", "page.html", Images(rendered).images)
+                (self.site / "page.html").write_text(rendered.replace("data-source-asset-urls", "").replace('../assets/', '/ai-wiki/assets/'))
+                with self.assertRaisesRegex(AssertionError, "non-whitespace alt"):
+                    check_built_page(self.site, target, BASE)
+        for alt in ("Descriptive name", "  保留完整名稱  "):
+            html = f'<img data-source-asset-urls src="../assets/plot-still.svg" data-motion-src="../assets/plot-motion.svg" alt="{alt}">'
+            target = MotionPage("topic/page.md", "en", "topic/page/", "page.html", Images(Markdown().convert(html)).images)
+            (self.site / "page.html").write_text(html.replace("data-source-asset-urls", "").replace('../assets/', '/ai-wiki/assets/'))
+            self.assertEqual(check_built_page(self.site, target, BASE)[0]["alt"], alt)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
@@ -233,6 +293,41 @@ class DiscoveryTests(unittest.TestCase):
                                   "overflow_diagnostics_error": "page unavailable"})
 
 
+class LazyImageTests(unittest.TestCase):
+    def test_scroll_precedes_decode_wait_and_preserves_image_checks(self):
+        events = []
+        image = Mock()
+        image.scroll_into_view_if_needed.side_effect = lambda: events.append('scroll')
+        image.get_attribute.return_value = 'Later lazy image'
+        image.is_visible.return_value = True
+        image.evaluate.return_value = {'complete': True, 'naturalWidth': 640, 'naturalHeight': 360}
+        page = Mock()
+        def decoded(js, *, arg):
+            self.assertEqual(events, ['scroll'])
+            for condition in ('img.src === url', 'img.complete', 'img.naturalWidth > 0', 'img.naturalHeight > 0'):
+                self.assertIn(condition, js)
+            self.assertEqual(arg, {'alt': 'Later lazy image', 'url': 'https://example.test/later.svg'})
+            events.append('decoded')
+        page.wait_for_function.side_effect = decoded
+        self.assertEqual(check_image(page, image, 'https://example.test/later.svg')['naturalWidth'], 640)
+        self.assertEqual(events, ['scroll', 'decoded'])
+        image.is_visible.assert_called_once()
+
+    def test_broken_lazy_image_timeout_is_not_swallowed(self):
+        page, image = Mock(), Mock()
+        page.wait_for_function.side_effect = TimeoutError('image failed to decode')
+        with self.assertRaisesRegex(TimeoutError, 'failed to decode'):
+            check_image(page, image, 'https://example.test/broken.svg')
+        image.scroll_into_view_if_needed.assert_called_once()
+        image.evaluate.assert_not_called()
+
+    def test_hidden_image_still_rejected(self):
+        page, image = Mock(), Mock()
+        image.is_visible.return_value = False
+        with self.assertRaisesRegex(AssertionError, 'image hidden'):
+            check_image(page, image, 'https://example.test/hidden.svg')
+
+
 class KeyboardScrollTests(unittest.TestCase):
     def fixture(self, width=640):
         region = Mock()
@@ -303,6 +398,54 @@ class KeyboardScrollTests(unittest.TestCase):
         page.wait_for_function.side_effect = TimeoutError('No native scrolling')
         with self.assertRaisesRegex(TimeoutError, 'No native scrolling'):
             check_keyboard_scrollers(page)
+
+
+class DpoExactRewardSelectorTests(unittest.TestCase):
+    def run_selector(self, roots):
+        from test_built_motion_browser import DPO_REWARD_SELECTOR_JS
+        from motion_shard_contract import DPO_REWARD_TEX
+        # Execute the production JS, with only DOM/MathJax retrieval mocked.
+        program="""const roots=JSON.parse(process.argv[1]);
+        global.MathJax={startup:{document:{getMathItemsWithin:root=>root.items}}};
+        const elements=roots.map(root=>({closest:()=>root}));
+        const select=(%s);
+        try { process.stdout.write(JSON.stringify({index:select(elements,%s)})); }
+        catch(error) { process.stdout.write(JSON.stringify({error:String(error)})); }
+        """ % (DPO_REWARD_SELECTOR_JS,json.dumps(DPO_REWARD_TEX))
+        result=subprocess.run(['node','-e',program,json.dumps(roots)],check=True,text=True,capture_output=True)
+        return json.loads(result.stdout)
+    def test_actual_js_reordered_displays_and_zero_multiple_matches(self):
+        from motion_shard_contract import DPO_REWARD_TEX
+        reward={'items':[{'math':DPO_REWARD_TEX}]};policy={'items':[{'math':r'\pi_r(y|x)=p'}]}
+        self.assertEqual(self.run_selector([policy,reward]),{'index':1})
+        self.assertEqual(self.run_selector([reward,policy]),{'index':0})
+        self.assertEqual(self.run_selector([policy,{'items':[{'math':' \n'+DPO_REWARD_TEX+' \n'}]}]),{'index':1})
+        for roots in ([],[policy],[reward,reward],[policy,{'items':reward['items']*2}],[{'items':[{'math':None}]}],[None]):
+            with self.subTest(roots=roots):self.assertIn('error',self.run_selector(roots))
+    def test_real_producer_uses_unique_tex_selection_not_first_display(self):
+        from test_built_motion_browser import check_dpo_reward_identity,DPO_REWARD_SELECTOR_JS
+        from motion_shard_contract import DPO_REWARD_TEX
+        reward={'items':[{'math':DPO_REWARD_TEX}]};policy={'items':[{'math':'policy'}]}
+        for roots in ([policy,reward],[reward,policy],[policy],[reward,reward]):
+            page=Mock();displays=page.locator.return_value;formula=displays.nth.return_value
+            def evaluate(js,expected):
+                self.assertEqual(js,DPO_REWARD_SELECTOR_JS);self.assertEqual(expected,DPO_REWARD_TEX)
+                result=self.run_selector(roots)
+                if 'error' in result:raise ValueError(result['error'])
+                return result['index']
+            displays.evaluate_all.side_effect=evaluate;formula.count.return_value=1
+            # Stop only after real producer selects its target, before native geometry.
+            formula.scroll_into_view_if_needed.side_effect=RuntimeError('SELECTED_REWARD')
+            with self.subTest(roots=roots):
+                if len(roots)==2 and roots[0]!=roots[1]:
+                    with self.assertRaisesRegex(RuntimeError,'SELECTED_REWARD'):
+                        check_dpo_reward_identity(Mock(),page,'url',{'width':390,'height':844},False,Path('.'),{})
+                    displays.nth.assert_called_once_with(roots.index(reward))
+                else:
+                    with self.assertRaises(ValueError):
+                        check_dpo_reward_identity(Mock(),page,'url',{'width':390,'height':844},False,Path('.'),{})
+                    displays.nth.assert_not_called()
+                self.assertFalse(displays.first.called)
 
 
 if __name__ == "__main__":

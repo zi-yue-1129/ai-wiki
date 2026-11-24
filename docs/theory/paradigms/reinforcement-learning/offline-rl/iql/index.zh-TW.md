@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-10
 ---
 
 # 隱式 Q 學習（Kostrikov 等人，2021）
@@ -23,10 +23,28 @@ IQL 學習三個函數：Q 函數、狀態價值函數 \(V\) 與策略。關鍵�
 價值函數以不對稱最小平方擬合，期望分位數 \(\tau\) 接近一：
 
 \[
-L_V(\psi) = \mathbb{E}_{(s,a) \sim \mathcal{D}}\left[ L_2^\tau\big(Q_{\hat\theta}(s,a) - V_\psi(s)\big) \right], \qquad L_2^\tau(u) = |\tau - \mathbb{1}(u < 0)|\, u^2 .
+L_V(\psi) = \mathbb{E}_{(s,a) \sim \mathcal{D}}\left[ L_2^\tau\big(Q_{\hat\theta}(s,a) - V_\psi(s)\big) \right].
+\]
+
+\[
+L_2^\tau(u) = |\tau - \mathbb{1}(u < 0)|\, u^2 .
 \]
 
 Q 函數以貝爾曼目標 \(r + \gamma V_\psi(s')\) 訓練，只使用資料中的動作。策略隨後以加權行為複製擬合，資料轉移的權重為 \(\exp(\beta(Q(s,a) - V(s)))\)。
+
+## 動態計算示例：上期望分位數與策略擷取
+
+三個長條代表**同一個狀態下資料集已觀測的動作**，以人工設定的 $Q(s,A)=1$、$Q(s,B)=2$ 和 $Q(s,C)=4$ 為例。橘色參考線從算術平均 $7/3\approx2.33$ 移至 $\tau=0.8$ 的上期望分位數。此不對稱最小平方法的示意最優值滿足 $0.8(4-V)=0.2(V-1)+0.2(V-2)$，故 $V=19/6\approx3.17$。接著下方的長條對**相同的資料內動作**重新加權，以擷取策略；整個過程不需要評估未見動作的 Q 值。[^iql-motion]
+
+<div class="offline-source-scroll" tabindex="0" role="region" aria-label="IQL 動態示範：資料內三個動作價值為 1、2、4；上期望分位數參考線從平均值 2.33 移至 3.17；優勢加權行為複製更偏好動作 C。" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls width="640" height="797" style="width:640px;min-width:640px;max-width:none;height:auto" alt="IQL 動態示範：資料內三個動作價值為 1、2、4；上期望分位數參考線從平均值 2.33 移至 3.17；優勢加權行為複製更偏好動作 C。" src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg" data-motion-src="../../../../../assets/concept-animations/offline-iql-expectile-motion.svg" data-still-src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg">
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* 設 $\beta=0.5$，且三種資料內動作各出現一次。將 $\exp[\beta(Q(s,a)-V(s))]$ 正規化，得到約 **14%、23%、63%** 的示意權重。這些值是人工構造的分類權重，不是模型量測的策略機率或資料頻率；動畫中的連續變化也不是實際訓練歷程。MkDocs 網站可播放／暫停，聚焦控制按鈕後可使用 Enter 或空白鍵；GitHub 提供完整的靜態比較，偏好減少動態效果的讀者預設觀看靜態圖。
+
+以殘差 u=Q−V 為準：正殘差的平方誤差乘 τ，負殘差乘 1−τ；τ=.8 因此偏向較高的資料內 Q。這不是第 80 百分位數。正規化後同一狀態的共同 V 因子會消去，但 V 仍決定價值學習。
+
+圖框保留 640 像素，可聚焦後橫向捲動；數字標籤只在對應數值停留時顯示，重播回程不顯示終值。
 
 ## 結果
 
@@ -54,6 +72,8 @@ Q 函數以貝爾曼目標 \(r + \gamma V_\psi(s')\) 訓練，只使用資料中
 
 - 如何在不做線上調整的情況下設定期望分位數與溫度。
 - 如何把此方法延伸到資料集非常狹窄的設定。
+
+[^iql-motion]: Kostrikov、Nair 與 Levine（2021），[*Offline Reinforcement Learning with Implicit Q-Learning*](https://arxiv.org/abs/2110.06169)，提出上期望分位數回歸與優勢加權行為複製。
 
 ## 參考文獻
 

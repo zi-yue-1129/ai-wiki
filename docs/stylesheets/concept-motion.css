@@ -18,5 +18,168 @@
 .md-typeset .concept-motion-player:has(img.concept-motion-wide) { width: 640px; min-width: 640px; max-width: none; }
 .md-typeset img.concept-motion-wide:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
 
+/* Scope native-width scrolling to the planning player at any article width. */
+.concept-motion-player.concept-motion-wide { width:640px; max-width:100%; overflow-x:auto; overscroll-behavior-x:contain; }
+.concept-motion-player.concept-motion-wide img { width:640px; min-width:640px; max-width:none; height:auto; }
+.concept-motion-player.concept-motion-wide .concept-motion-controls { position:sticky; left:0; width:max-content; max-width:100%; }
+/* Navigation diagrams keep readable labels without changing other players. */
+.concept-motion-navigation .concept-motion-viewport { display:block; overflow-x:auto; max-width:100%; scroll-behavior:auto; }
+.concept-motion-player.concept-motion-navigation img { width:640px; min-width:640px; max-width:none; height:auto; }
+.concept-motion-navigation .concept-motion-viewport:focus-visible { outline:3px solid var(--md-accent-fg-color, #387e99); outline-offset:2px; }
+/* Keep security-diagram controls reachable while panning their local wrapper. */
+.security-motion-scroll .concept-motion-controls { position: sticky; left: 0; width: max-content; max-width: 100%; }
+/* Motor diagrams retain readable labels and separately visible controls. */
+.concept-motion-motor .concept-motion-viewport { display:block; overflow-x:auto; max-width:100%; }
+.concept-motion-player.concept-motion-motor img { width:640px; min-width:640px; max-width:none; height:auto; }
+.concept-motion-motor .concept-motion-viewport:focus-visible { outline:3px solid var(--md-accent-fg-color, #387e99); outline-offset:2px; }
+/* Only the two 800px diffusion schematics: controls never move with the viewport. */
+.concept-motion-diffusion { max-width: 100%; }
+.concept-motion-diffusion .concept-motion-viewport { display: block; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.concept-motion-diffusion .concept-motion-viewport img { width: 800px; min-width: 800px; max-width: none; height: auto; }
+.concept-motion-diffusion .concept-motion-viewport:focus-visible { outline: 3px solid #387e99; outline-offset: 2px; }
+/* Static-first working-memory visuals: preserve readable 640px labels on phones. */
+.wm-motion-pan { display: block; max-width: 640px; margin: .5rem auto 1rem; overflow-x: auto; overscroll-behavior-inline: contain; border-radius: .55rem; }
+.wm-motion-pan > .concept-motion-player { width: 640px; max-width: none; margin: 0; }
+.wm-motion-pan .concept-motion-player img, .wm-motion-pan > img { display: block; width: 640px; min-width: 640px; max-width: none; height: 360px; }
+.wm-motion-pan:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 3px; }
+/* Scope fixed-width diffusion figures without changing other motion topics. */
+.diffusion-motion-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;margin:.5rem auto 1rem}
+.diffusion-motion-scroll .concept-motion-player{width:800px;max-width:none;margin:0}
+.diffusion-motion-scroll img,.diffusion-motion-scroll .concept-motion-player img{display:block;width:800px;min-width:800px;max-width:none;height:auto}
+.diffusion-motion-scroll:focus-visible{outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:3px}
+/* Topic-scoped, focusable LIME/SHAP native-resolution diagrams. */
+.explanation-motion { max-width:100%;overflow-x:auto;overscroll-behavior-x:contain; }
+.explanation-motion .concept-motion-fixed { width:640px;min-width:640px; }
+.explanation-motion:focus-visible { outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:-3px; }
+/* Keep wide causal-attention teaching diagrams legible at mobile widths. */
+.md-typeset .concept-motion-player.attention-motion-wide {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+.md-typeset .concept-motion-player.attention-motion-wide > img {
+  display: block;
+  width: 860px;
+  min-width: 860px;
+  max-width: none;
+  height: auto;
+}
+.md-typeset .concept-motion-player.attention-motion-wide:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 2px;
+}
+.md-typeset p:has(> img[src*="gqa-cache-growth-still.svg"]),
+.md-typeset p:has(> img[src*="global-local-pair-count-still.svg"]),
+.md-typeset p:has(> img[src*="sliding-window-mask-still.svg"]),
+.md-typeset p:has(> img[src*="linear-attention-recurrence-still.svg"]),
+.md-typeset p:has(> img[src*="sliding-window-depth-reach-still.svg"]),
+.md-typeset p:has(> img[src*="linear-attention-work-growth-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="gqa-cache-growth-still.svg"],
+.md-typeset p > img[src*="global-local-pair-count-still.svg"],
+.md-typeset p > img[src*="sliding-window-mask-still.svg"],
+.md-typeset p > img[src*="linear-attention-recurrence-still.svg"],
+.md-typeset p > img[src*="sliding-window-depth-reach-still.svg"],
+.md-typeset p > img[src*="linear-attention-work-growth-still.svg"] {
+  display: block;
+  width: 860px;
+  min-width: 860px;
+  max-width: none;
+  height: auto;
+}
+
+/* 640px FlashAttention numerical walkthroughs: legible without JavaScript too. */
+.md-typeset p:has(> img[src*="flashattention-online-rescale-still.svg"]),
+.md-typeset p:has(> img[src*="flashattention-exact-merge-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="flashattention-online-rescale-still.svg"],
+.md-typeset p > img[src*="flashattention-exact-merge-still.svg"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention-online-rescale-"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention-exact-merge-"] {
+  display: block;
+  width: 640px;
+  min-width: 640px;
+  max-width: none;
+  height: auto;
+}
+
+/* Additional FlashAttention causal and backward teaching diagrams. */
+.md-typeset p:has(> img[src*="flashattention-causal-tiles-still.svg"]),
+.md-typeset p:has(> img[src*="flashattention-backward-remat-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="flashattention-causal-tiles-still.svg"],
+.md-typeset p > img[src*="flashattention-backward-remat-still.svg"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention-causal-tiles-"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention-backward-remat-"] {
+  display: block;
+  width: 640px;
+  min-width: 640px;
+  max-width: none;
+  height: auto;
+}
+
+/* FlashAttention-2/3 GitHub-safe previews and local 640px controls. */
+.md-typeset p:has(> img[src*="flashattention2-query-parallel-still.svg"]),
+.md-typeset p:has(> img[src*="flashattention3-load-compute-pipeline-still.svg"]) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.md-typeset p > img[src*="flashattention2-query-parallel-still.svg"],
+.md-typeset p > img[src*="flashattention3-load-compute-pipeline-still.svg"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention2-query-parallel-"],
+.md-typeset .concept-motion-player.attention-motion-wide > img[src*="flashattention3-load-compute-pipeline-"] {
+  display: block;
+  width: 640px;
+  min-width: 640px;
+  max-width: none;
+  height: auto;
+}
+/* Only the shared-KV / mean-pooling source diagrams: preserve readable 640px art. */
+.md-typeset .gqa-source-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+.md-typeset .gqa-source-scroll img{display:block;width:640px;min-width:640px;max-width:none;height:auto}
+.md-typeset .gqa-source-scroll:focus-visible{outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:2px}
 /* Explicit source-owned scroll regions, focusable before and after enhancement. */
 .md-typeset .reviewed-motion-scroll:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }
+/* Gradient-clipping source diagrams retain their authored 800px coordinates. */
+.md-typeset .gradient-source-frame .concept-motion-player { width:800px;min-width:800px;max-width:none; }
+.md-typeset .gradient-source-scroll:focus-visible { outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:2px; }
+/* Diffusion-source figures alone retain legible intrinsic widths. */
+.md-typeset .diffusion-source-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+.md-typeset .diffusion-source-scroll:focus-visible{outline:3px solid var(--md-accent-fg-color,#387e99);outline-offset:2px}
+/* Preserve the two federated teaching diagrams without changing other topics. */
+.federated-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
+.federated-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* OpenVLA source figures retain their native readable width. */
+.openvla-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
+.openvla-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* Preserve native SayCan and RT-2 source figures only. */
+.grounded-action-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
+.grounded-action-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* Native readable PBT and FTW source figures only. */
+.population-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
+.population-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* Scoped MADDPG / MAPPO original source figures. */
+.marl-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
+.marl-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* Scoped original emergent communication figures. */
+.comm-source-scroll .concept-motion-player { width:640px; min-width:640px; max-width:none; }
+.comm-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color); outline-offset:2px; }
+/* Scoped offline IQL/CQL source figures. */
+.offline-source-scroll .concept-motion-player { width:640px;min-width:640px;max-width:none; }
+.offline-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color);outline-offset:2px; }
+
+/* Scoped tabular TD and Double DQN source figures. */
+.td-source-scroll .concept-motion-player { width:640px;min-width:640px;max-width:none; }
+.td-source-scroll:focus-visible { outline:2px solid var(--md-accent-fg-color);outline-offset:2px; }
+
+/* Only SAC/DPO native 760px figures: no generic 640px centered-host overhang. */
+.sac-dpo-motion-scroll > .sac-dpo-motion-frame { width:760px; min-width:760px; max-width:none; margin:0 auto; }
+.sac-dpo-motion-frame > .concept-motion-player { width:760px; max-width:none; margin:.5rem 0 1rem; }

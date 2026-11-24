@@ -139,30 +139,48 @@ class Packaging(unittest.TestCase):
 
     def test_workflow_preserves_coverage_and_uploads(self):
         import yaml
-        workflow=Path(__file__).resolve().parents[1]/'.github/workflows/built-motion-browser.yml'
-        data=yaml.safe_load(workflow.read_text());job=data['jobs']['built-motion-browser']
-        self.assertEqual(job['timeout-minutes'],50)
-        steps=job['steps'];names=[s.get('name') for s in steps]
-        for name in ('Preflight native keyboard scroll settling on bilingual mobile pages',
-                     'Exercise built desktop, mobile and reduced-motion pages',
-                     'Check bilingual embedding prose, navigation and mathematical layout',
-                     'Exercise built adaptive optimiser calculators'):
-            self.assertIn(name,names)
-        uploads=[s for s in steps if s.get('uses')=='actions/upload-artifact@v4' and
-                 s.get('with',{}).get('name','').startswith('built-motion-browser-review-')]
-        self.assertEqual(len(uploads),pack.MAX_GROUPS+1)
+        self.assertIn('policy-credit-labs',pack.DEFAULT_ROOTS)
+        self.assertIn('built-planning-evolution-labs',pack.DEFAULT_ROOTS)
+        self.assertEqual(len(pack.DEFAULT_ROOTS),12)
+        root=Path(__file__).resolve().parents[1]
+        data=yaml.safe_load((root/'.github/workflows/built-motion-browser.yml').read_text())
+        for key in ('full-motion','support-browser'):
+            job=data['jobs'][key];self.assertIsInstance(job['timeout-minutes'],int);self.assertGreaterEqual(job['timeout-minutes'],50)
+            steps=job['steps']
+            if key == 'support-browser':
+                # Keep all required numerical motion tests. A 50-min cancellation
+                # previously truncated browser support and its evidence manifest.
+                self.assertGreaterEqual(job['timeout-minutes'], 90)
+                self.assertNotIn('continue-on-error', job)
+                numerical=next(s for s in steps if s.get('name') ==
+                               'Check available motion numerical semantics')
+                self.assertIn('test_*motion_semantics.py', numerical['run'])
+            prep=next(s for s in steps if s.get('name')=='Package bounded lossless evidence, including failed cases')
+            self.assertEqual(prep['if'],'always()');self.assertNotIn('continue-on-error',prep)
+            self.assertIn('--allow-missing-roots',prep['run']);self.assertIn('--artifact-prefix',prep['run'])
+            upload=next(s for s in steps if s.get('uses')=='./.github/actions/upload-browser-parts')
+            self.assertEqual(upload['if'],'always()')
+            receipt=next(s for s in steps if s.get('name')=='Upload small exact-attempt receipt')
+            self.assertEqual(receipt['if'],'always()');self.assertEqual(receipt['with']['if-no-files-found'],'error')
+        uploads=yaml.safe_load((root/'.github/actions/upload-browser-parts/action.yml').read_text())['runs']['steps']
+        self.assertEqual(len(uploads),pack.MAX_GROUPS)
         self.assertEqual(len({s['with']['name'] for s in uploads}),len(uploads))
-        for s in uploads:
+        for index,s in enumerate(uploads,1):
             self.assertIn('always()',s['if']);self.assertIn('hashFiles(',s['if'])
             self.assertEqual(s['with']['if-no-files-found'],'error')
-            self.assertTrue(s['with']['include-hidden-files'])
-            self.assertNotIn('continue-on-error',s)
-        for index in range(1,25):
-            upload=next(s for s in uploads if s['with']['name']==f'built-motion-browser-review-{index:02d}')
-            self.assertEqual(upload['with']['path'],f'browser-artifact-parts/group-{index:02d}/')
-        prep=next(s for s in steps if s.get('id')=='package_browser_artifacts')
-        self.assertEqual(prep['if'],'always()');self.assertNotIn('continue-on-error',prep)
-        self.assertIn('--allow-missing-roots',prep['run'])
+            self.assertTrue(s['with']['include-hidden-files']);self.assertNotIn('continue-on-error',s)
+            self.assertEqual(s['with']['path'],f'browser-artifact-parts/group-{index:02d}/')
+        from run_motion_shard_support import commands
+        from motion_shard_contract import SUPPORT_SUITES
+        self.assertEqual([s for s,_ in commands()],list(SUPPORT_SUITES))
+        self.assertIn('--shard-count 4',str(data['jobs']['full-motion']))
+
+    def test_custom_attempt_prefix_is_lossless(self):
+        self.file('suite/a')
+        result=pack.prepare(self.source,self.output,['suite'],artifact_prefix='motion-123-2-shard-0')
+        self.assertEqual(result['artifact_prefix'],'motion-123-2-shard-0')
+        self.assertEqual(result['groups'][0]['artifact'],'motion-123-2-shard-0-01')
+        self.assertEqual(result['files'][0]['artifact'],'motion-123-2-shard-0-01')
 
 
 if __name__=='__main__':unittest.main()

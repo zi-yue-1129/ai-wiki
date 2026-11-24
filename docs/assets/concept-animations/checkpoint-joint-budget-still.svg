@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="270" viewBox="0 0 360 270" role="img" aria-labelledby="title desc">
+<title id="title">Two checkpoint costs, two simultaneous limits</title>
+<desc id="desc">For a synthetic sixteen-layer chain, memory cap eight and total rebuilt cap eight have no jointly feasible sampled checkpoint spacing. Spacing four satisfies memory only; spacing two satisfies replay only. Five sampled states plotted.</desc>
+<rect width="360" height="270" rx="12" fill="#f8fbfd"/>
+<text x="18" y="23" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#273849">JOINT CONSTRAINTS</text>
+<text x="18" y="40" font-family="Arial,sans-serif" font-size="9" fill="#53687a">SYNTHETIC 16-LAYER CHAIN</text>
+<rect x="58" y="56" width="220" height="156" fill="#fff" stroke="#a9bec9"/>
+<path d="M58 173H278 M58 132H278 M113 56V212 M168 56V212 M223 56V212" stroke="#dce5ec" stroke-width="1" stroke-dasharray="3 4"/>
+<rect x="58" y="132" width="98.8" height="80" fill="#d9caf0" opacity=".48"/>
+<line x1="156.8" y1="56" x2="156.8" y2="212" stroke="#8136b1" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="58" y1="132" x2="278" y2="132" stroke="#256f9f" stroke-width="2" stroke-dasharray="5 4"/>
+<g font-family="Arial,sans-serif" font-size="9" font-weight="700">
+<text x="123" y="52" fill="#8136b1">M ≤ 8</text>
+<text x="280" y="135" fill="#256f9f">R ≤ 8</text>
+<text x="174" y="226" fill="#435b6b">PEAK →</text>
+<text x="16" y="124" fill="#435b6b" transform="rotate(-90 16 124)">REBUILT →</text>
+</g>
+<g font-family="Arial,sans-serif" font-size="10" font-weight="700" text-anchor="middle">
+<circle cx="268" cy="212" r="10" fill="#e2f4ee" stroke="#087d87" stroke-width="2"/><text x="268" y="215.5" fill="#145761">1</text>
+<circle cx="181.5" cy="132" r="10" fill="#e2f4ee" stroke="#087d87" stroke-width="2"/><text x="181.5" y="135.5" fill="#145761">2</text>
+<circle cx="156.8" cy="92" r="10" fill="#f9e0af" stroke="#af6f22" stroke-width="2"/><text x="156.8" y="95.5" fill="#73470e">4</text>
+<circle cx="181.5" cy="72" r="10" fill="#e8edf0" stroke="#6c7d8b" stroke-width="2" stroke-dasharray="2 2"/><text x="181.5" y="75.5" fill="#43515c">8</text>
+<circle cx="268" cy="62" r="10" fill="#e8edf0" stroke="#6c7d8b" stroke-width="2" stroke-dasharray="2 2"/><text x="268" y="65.5" fill="#43515c">16</text>
+</g>
+<text x="18" y="247" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#26374a">NO FEASIBLE CHOICE</text>
+<text x="18" y="261" font-family="Arial,sans-serif" font-size="9" fill="#53687a">M cap 8 · Replay cap 8 · 5 sampled spacings</text>
+</svg>

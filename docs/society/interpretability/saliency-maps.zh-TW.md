@@ -1,7 +1,7 @@
 ---
 status: complete
 last_reviewed: 2026-10-28
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-18
 related:
   - society/interpretability
 tags:
@@ -33,6 +33,15 @@ aliases:
 $$
 M_c(I)_{ij} = \left|\frac{\partial S_c}{\partial I_{ij}}\right|.
 $$
+
+
+### 動態示意
+
+<div role="region" tabindex="0" aria-label="可水平捲動的顯著性梯度動畫" style="overflow-x:auto;max-width:100%"><div style="width:640px;min-width:640px"><img data-source-asset-urls src="../../assets/concept-animations/saliency-local-gradient-still.svg" data-motion-src="../../assets/concept-animations/saliency-local-gradient-motion.svg" data-still-src="../../assets/concept-animations/saliency-local-gradient-still.svg" width="640" height="360" style="display:block;width:640px;min-width:640px;max-width:none;height:auto" alt="一維飽和分數函數：橘色切線隨輸入移動，右側對應位置的局部梯度逐漸縮小，尤其在 x 等於 1 附近。"></div></div>
+
+以 Tab 聚焦圖表區，再按左右方向鍵捲動。
+
+*原創連續教學動畫，CC BY-SA 4.0。* 橘色切線跟隨藍色分數曲線上的輸入位置，其斜率對應右側綠色導數曲線上的標記。這是**一維解析式示意**，不是影像分類器或實測的顯著性圖。對 $F(x)=1-e^{-4x}$ 而言，導數在 $x=0.1$ 約為 $2.68$，到了 $x=1$ 則約為 $0.073$；儘管輸出明顯改變，終點的局部斜率仍很小。此圖說明的是*局部敏感度*，不能推論為因果重要性。MkDocs 提供播放／暫停控制，並遵循減少動態效果的偏好；窄螢幕可用觸控或鍵盤左右捲動。[GitHub 可閱讀的靜態預覽](../../assets/concept-animations/saliency-local-gradient-still.svg)。
 
 ## 結果
 

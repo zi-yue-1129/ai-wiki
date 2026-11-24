@@ -25,10 +25,28 @@ The method thus improves over the behaviour through generalisation, rather than 
 The value function is fitted by asymmetric least squares, with an expectile \(\tau\) close to one:
 
 \[
-L_V(\psi) = \mathbb{E}_{(s,a) \sim \mathcal{D}}\left[ L_2^\tau\big(Q_{\hat\theta}(s,a) - V_\psi(s)\big) \right], \qquad L_2^\tau(u) = |\tau - \mathbb{1}(u < 0)|\, u^2 .
+L_V(\psi) = \mathbb{E}_{(s,a) \sim \mathcal{D}}\left[ L_2^\tau\big(Q_{\hat\theta}(s,a) - V_\psi(s)\big) \right].
+\]
+
+\[
+L_2^\tau(u) = |\tau - \mathbb{1}(u < 0)|\, u^2 .
 \]
 
 The Q-function is trained with the Bellman target \(r + \gamma V_\psi(s')\), which uses only dataset actions. The policy is then fitted by weighted behaviour cloning, with weights \(\exp(\beta(Q(s,a) - V(s)))\) on dataset transitions.
+
+## Animated computation: upper expectile and policy extraction
+
+The three bars show **only dataset actions at the same state**, with illustrative values $Q(s,A)=1$, $Q(s,B)=2$, and $Q(s,C)=4$. The orange guide moves from their arithmetic mean $7/3\approx2.33$ to the upper expectile at $\tau=0.8$. In this toy example the asymmetric least-squares optimum solves $0.8(4-V)=0.2(V-1)+0.2(V-2)$, hence $V=19/6\approx3.17$. The lower bars then reweight these **same observed actions** for policy extraction, without evaluating an unseen action.[^iql-motion]
+
+<div class="offline-source-scroll" tabindex="0" role="region" aria-label="Animated IQL example: three observed action values 1, 2 and 4; an upper-expectile guide moves from mean 2.33 to value 3.17; advantage-weighted cloning increasingly favours action C." style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls width="640" height="797" style="width:640px;min-width:640px;max-width:none;height:auto" alt="Animated IQL example: three observed action values 1, 2 and 4; an upper-expectile guide moves from mean 2.33 to value 3.17; advantage-weighted cloning increasingly favours action C." src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg" data-motion-src="../../../../../assets/concept-animations/offline-iql-expectile-motion.svg" data-still-src="../../../../../assets/concept-animations/offline-iql-expectile-still.svg">
+</div>
+
+*Original instructional animation (CC BY-SA 4.0).* With $\beta=0.5$, normalising $\exp[\beta(Q(s,a)-V(s))]$ over the three equally represented dataset actions gives approximately **14%, 23%, and 63%**. These are constructed categorical weights, not measured action frequencies or empirical policy outputs. The moving values are pedagogic interpolations, not a record of training steps. On MkDocs use Play/Pause (Enter or Space on the focused button); GitHub renders a complete static comparison, and reduced-motion users receive the still by default.
+
+For residual u=Q−V, positive squared residuals receive weight τ and negative ones 1−τ. Thus τ=.8 favors higher in-data Q values; it is not the 80th percentile. Normalizing at one state cancels the common V factor, although V remains essential to value learning.
+
+The figure remains 640 pixels wide in a focusable horizontal scroller. Numeric labels appear only while the corresponding values are stationary, not during the replay return.
 
 ## Results
 
@@ -56,6 +74,8 @@ The paper evaluates IQL on the D4RL offline benchmarks, which include the AntMaz
 
 - How to set the expectile and temperature without online tuning.
 - How to extend the method to settings where the dataset is very narrow.
+
+[^iql-motion]: Kostrikov, Nair & Levine (2021), [*Offline Reinforcement Learning with Implicit Q-Learning*](https://arxiv.org/abs/2110.06169), describe upper expectile regression and advantage-weighted behavioural cloning.
 
 ## References
 

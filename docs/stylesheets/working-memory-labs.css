@@ -1,0 +1,12 @@
+[data-wm-lab]{margin:1rem 0 1.5rem;padding:1rem;border:1px solid var(--md-default-fg-color--lightest,#cbd5e1);border-radius:12px;background:var(--md-default-bg-color,#fff);color:var(--md-default-fg-color,#1e293b)}
+.wm-lab-settings,.wm-lab-controls{display:flex;gap:.7rem 1.2rem;align-items:center;flex-wrap:wrap;margin:.4rem 0 .8rem}
+.wm-setting,.wm-lab-seek,.wm-lab-speed{display:inline-flex;gap:.45rem;align-items:center;flex-wrap:wrap;font-size:.85rem}
+.wm-setting input[type=range]{width:9rem}.wm-value{font-variant-numeric:tabular-nums;min-width:2rem}
+.wm-lab-pan{overflow-x:auto;max-width:100%;border:1px solid #cbd5e1;border-radius:9px;scrollbar-width:thin}
+.wm-lab-pan svg{display:block;width:720px;max-width:none;height:auto}
+.wm-lab-controls button,.wm-lab-controls select{border:1px solid #94a3b8;border-radius:6px;padding:.35rem .55rem;background:var(--md-default-bg-color,#fff);color:inherit;cursor:pointer}
+.wm-lab-controls button:disabled{opacity:.48;cursor:not-allowed}
+.wm-lab-seek{flex:1 1 12rem}.wm-lab-seek input{flex:1;min-width:7rem}
+.wm-lab-status{margin:.55rem 0 0;font-size:.88rem;font-variant-numeric:tabular-nums;min-height:1.8rem}
+[data-wm-lab] :is(button,input,select,.wm-lab-pan):focus-visible{outline:3px solid #2563eb;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){[data-wm-lab] *{animation:none!important;transition:none!important}}

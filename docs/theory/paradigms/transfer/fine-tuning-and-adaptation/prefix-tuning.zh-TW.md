@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-13
 ---
 
 # 前綴微調
@@ -19,6 +19,27 @@ translation_reviewed: 2026-10-28
 ## 運作方式
 
 對每個任務，前綴以梯度下降在該任務的目標上訓練，語言模型的參數保持固定。論文在表格轉文字的主要設定中，使用前綴長度 10。訓練完成後，該任務的前綴被儲存，一個凍結的模型透過換入對應的前綴服務所有任務。只微調輸入嵌入層的效果，明顯差於在每一層都微調前綴。
+
+
+### 虛擬前綴注意力過程動畫
+
+<div style="width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="參數調校示意圖，可用左右方向鍵捲動"><div style="width:640px"><img data-source-asset-urls="true" src="../../../../assets/concept-animations/prefix-kv-attention-still.svg" data-motion-src="../../../../assets/concept-animations/prefix-kv-attention-motion.svg" data-still-src="../../../../assets/concept-animations/prefix-kv-attention-still.svg" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="當前綴分數變動而固定查詢與一般詞元分數不變時，注意力權重持續在四個位置間重新分配" loading="lazy"></div></div>
+
+*原創教學動畫，CC BY-SA 4.0。* 橘色虛線框是**可學習的虛擬前綴鍵／值位置**，藍色框為一般輸入詞元；固定的查詢同時注意兩者。以**人工示意**分數
+
+\[
+s(t)=(-1.8+4.8t,-1.4+2.6t,1.2,0.4)
+\]
+
+ 示範，長條表示
+
+\[
+a_i(t)=\exp(s_i(t))/\sum_j\exp(s_j(t))
+\]
+
+。當 \(t\) 從 0 變到 1 再返回時，第一個虛擬位置的注意力權重約由 0.032 增至 0.712，而一般詞元原始分數不變。此變化是**受控 logit 插值**，並非模型實測注意力或梯度下降歷程。真實的前綴微調是在各層學習鍵／值激活，且不修改凍結的基礎模型。MkDocs 提供播放／暫停及減少動態效果；GitHub 可開啟[最終狀態靜態預覽](../../../../assets/concept-animations/prefix-kv-attention-still.svg)。
+
+聚焦圖表外框後可用左右方向鍵捲動，或在手機左右滑動。 這是單一注意力頭的條件式切片：為了隔離前綴鍵的作用而固定 Q 與一般詞元 K/V，並非宣稱它們在深層模型中不隨前綴而變。圖只畫注意力權重，沒有畫值向量加權和。長條刻度 0 到 0.75；連線粗細與透明度只是相同權重的視覺編碼。
 
 ## 結果
 

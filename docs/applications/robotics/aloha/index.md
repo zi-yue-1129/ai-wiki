@@ -33,6 +33,44 @@ ACT predicts a chunk of future actions at once rather than one action per step, 
 
 Each camera image passes through a ResNet-18 backbone, and the resulting features are flattened into tokens for a transformer. The model has about 80M parameters, trains in about 5 hours on one 11 GB GPU, and runs inference in about 0.01 s (Sec. IV-C).
 
+## Visual walkthrough: overlapping chunks and temporal ensembling
+
+<div tabindex="0" role="region" aria-label="Horizontally scrollable ACT diagram" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/act-temporal-ensemble-still.svg" data-motion-src="../../../assets/concept-animations/act-temporal-ensemble-motion.svg" data-still-src="../../../assets/concept-animations/act-temporal-ensemble-still.svg" alt="Four overlapping ACT action chunks, with four same-timestep predictions and sequentially applied exponential weights" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static preview](../../../assets/concept-animations/act-temporal-ensemble-still.svg) · On the MkDocs site, use the accessible Play/Pause button to inspect the changing queries and the weights before the final action is emitted.
+
+Each row is a policy query; each column is an **execution timestep**. When the robot is about to execute action $a_4$, the predictions from queries $q_0$ through $q_3$ overlap at that same timestep. ACT forms a *temporal ensemble* of those **same-time** predictions, not a smoothing average over actions from adjacent timesteps.[^act-motion]
+
+\[
+\begin{gathered}
+\bar a_4 = \frac{\sum_{i=0}^{3} e^{-mi}\,\hat a_4^{(i)}}{\sum_{i=0}^{3}e^{-mi}},
+\\
+i=0\text{ denotes the oldest query.}
+\end{gathered}
+\]
+
+The animation uses a reduced **illustrative** chunk size $k=5$, $m=0.5$, and four synthetic scalar predictions $(0.70,1.00,0.80,1.20)$. These produce a weighted value of approximately **0.850**, not a measured robot joint command. ACT's paper uses a chunk size of 100 in its reported setup. The oldest-prediction-first indexing and exponential weights are deliberate: a smaller $m$ gives newer predictions greater relative influence; it does not make the most recent prediction carry the largest weight for every positive $m$.
+
+For clarity, only four already available queries are shown; the online loop can also include a newly queried chunk at the current step. Oldest-first indexing follows the [official chronological action buffer and exponential weights](https://github.com/tonyzhaozh/act/blob/main/imitate_episodes.py); these four rows are not a complete query schedule.
+
+## Visual walkthrough: CVAE training versus deployment
+
+<div tabindex="0" role="region" aria-label="Horizontally scrollable ACT diagram" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../assets/concept-animations/act-cvae-train-deploy-still.svg" data-motion-src="../../../assets/concept-animations/act-cvae-train-deploy-motion.svg" data-still-src="../../../assets/concept-animations/act-cvae-train-deploy-still.svg" alt="ACT CVAE demonstration-action encoder and observation-conditioned decoder at training, with encoder-free inference using a zero style vector" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-safe static preview](../../../assets/concept-animations/act-cvae-train-deploy-still.svg) · On the MkDocs site, pause the moving input and latent markers to trace which paths exist in each phase.
+
+During **training**, the CVAE encoder takes a demonstration action sequence and the robot's joint state to infer a latent style variable $z$. The observation-conditioned policy decoder reconstructs a *whole action chunk*. Training combines an action reconstruction term and a KL regulariser against a standard normal prior. At **inference**, the encoder is removed and $z$ is set to zero; the same decoder still receives the current observation to predict a chunk.[^act-motion] The side-by-side illustration represents architectural information flow, not the numerical values of a trained model.
+
+Both diagrams are original CC BY-SA 4.0 instructional illustrations. Static SVG fallbacks are provided for browsers or GitHub renderers that suppress SVG motion.
+
+Obs includes camera observations and joint positions q; only the joint-position component enters the encoder branch. Moving markers reveal dependency order, not measured processing latency.
+
+[^act-motion]: Zhao, T. Z. et al. (2023), *Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware*, Sections IV-A and IV-B. https://arxiv.org/abs/2304.13705
+
 ## Results
 
 The paper evaluates six real-world bimanual tasks, with one seed and 25 trials per task. Final-stage success rates for ACT are 88% on Slide Ziploc, 96% on Slot Battery, 84% on Open Cup, 20% on Thread Velcro, 64% on Prep Tape and 92% on Put On Shoe (Tables I–II). Every baseline reaches 0% at the final stage on Slide Ziploc and Slot Battery. On the other four tasks, the best baseline, BeT, also reaches 0%. Baselines do reach nonzero success on early subtasks, such as 28% grasp success for VINN on Slide Ziploc.
