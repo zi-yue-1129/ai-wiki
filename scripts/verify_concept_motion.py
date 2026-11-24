@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
     'dynamo-graph-break-resume': 'engineering/frameworks/compilers-and-kernels/torch-compile',
+    'kernel-fusion-intermediate-traffic': 'engineering/inference-optimization/fused-kernels',
+    'triton-tail-mask': 'engineering/frameworks/compilers-and-kernels/triton',
     'alibi-content-recency': 'theory/models/transformer/positional-encodings/index',
     'alibi-distance-softmax': 'theory/models/transformer/positional-encodings/index',
     'alibi-head-prefix': 'theory/models/transformer/positional-encodings/index',
@@ -455,6 +457,8 @@ TOPICS = {
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
 CANONICAL_VIEWBOXES = {'dynamo-shape-guard-cache': '0 0 640 360',
  'dynamo-graph-break-resume': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
+ 'triton-tail-mask': '0 0 640 360',
  '3d-unet-context-tiling': '0 0 800 420',
  '3d-unet-depth-kernel': '0 0 800 420',
  '3d-unet-evaluation-holdout': '0 0 800 420',
@@ -1375,7 +1379,7 @@ def main() -> int:
             elif stem in {"layernorm-feature-shift", "seq2seq-context-handoff", "flashattention-online-rescale", "flashattention-exact-merge", "flashattention-causal-tiles", "flashattention-backward-remat", "flashattention2-query-parallel", "flashattention3-load-compute-pipeline"}:
 
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"dynamo-shape-guard-cache", "dynamo-graph-break-resume"}:
+            elif stem in {"dynamo-shape-guard-cache", "dynamo-graph-break-resume", "kernel-fusion-intermediate-traffic", "triton-tail-mask"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:

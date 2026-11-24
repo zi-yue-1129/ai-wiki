@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="281" viewBox="0 0 360 281" role="img" aria-labelledby="title desc">
+<title id="title">Five checkpoint spacings and a Pareto-dominance witness</title>
+<desc id="desc">Five synthetic checkpoint choices. The selected spacing eight (dark ring B) is dominated by pinned spacing two (amber halo A): equal peak activation slots but fewer reconstructed activations. A straight amber witness arrow shows dominance; a separately curved violet dotted link denotes only the pinned A/B comparison. The sampled frontier comprises one, two, and four.</desc>
+<defs>
+ <marker id="head" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0 0 6 3 0 6" fill="none" stroke="#ac6731" stroke-width="1.7" stroke-linejoin="round"/></marker>
+</defs>
+<rect x="1" y="1" width="358" height="279" rx="14" fill="#f8fbfd" stroke="#a3bbc8"/>
+<text x="18" y="21" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#26455a" letter-spacing=".65">CHECKPOINT COSTS</text>
+<g stroke="#dce7eb" stroke-width="1" stroke-dasharray="3 5">
+ <path d="M74 34V209M128 34V209M316 34V209M49 42H331M49 80H331M49 123H331M49 205H331"/>
+</g>
+<g stroke="#788f9b" stroke-width="1.6" fill="none"><path d="M49 30V209H330"/><path d="m45 36 4-7 4 7M323 205l7 4-7 4"/></g>
+<!-- Samples on the synthetic PEAK/REBUILT cost plane. -->
+<path d="M74 80 128 123 316 205" fill="none" stroke="#008589" stroke-width="2.5" stroke-dasharray="5 4" stroke-linecap="round"/>
+<!-- Violet curved A/B association, not an optimisation trajectory. -->
+<path d="M128 123Q150 91 128 60" fill="none" stroke="#8b46bf" stroke-width="2.5" stroke-dasharray="2 5" stroke-linecap="round"/>
+<!-- One visible witness for the selected dominated state s=8. -->
+<path d="M128 76V104" fill="none" stroke="#ac6731" stroke-width="3" stroke-linecap="round" marker-end="url(#head)"/>
+<g font-family="Arial, sans-serif" font-weight="700" font-size="12" text-anchor="middle" dominant-baseline="middle">
+ <circle cx="316" cy="205" r="12" fill="#e3f5f4" stroke="#007c83" stroke-width="2"/><text x="316" y="205" fill="#14535b">1</text>
+ <circle cx="128" cy="123" r="17" fill="none" stroke="#ffbc72" stroke-width="4"/>
+ <circle cx="128" cy="123" r="12" fill="#e3f5f4" stroke="#007c83" stroke-width="2"/><text x="128" y="123" fill="#14535b">2</text>
+ <circle cx="74" cy="80" r="12" fill="#e3f5f4" stroke="#007c83" stroke-width="2"/><text x="74" y="80" fill="#14535b">4</text>
+ <circle cx="128" cy="60" r="16" fill="none" stroke="#1b2a39" stroke-width="3"/>
+ <circle cx="128" cy="60" r="12" fill="#fff3e2" stroke="#586b79" stroke-dasharray="3 2" stroke-width="2"/><text x="128" y="60" fill="#57412d">8</text>
+ <circle cx="316" cy="42" r="12" fill="#eef0f3" stroke="#667585" stroke-dasharray="3 2" stroke-width="2"/><text x="316" y="42" fill="#425160">16</text>
+</g>
+<g font-family="Arial, sans-serif" font-weight="700" font-size="10" fill="#375163">
+ <text x="192" y="226">PEAK →</text>
+ <text x="21" y="146" transform="rotate(-90 21 146)">REBUILT ↑</text>
+</g>
+<g font-family="Arial, sans-serif" font-size="10.2" fill="#375163">
+ <circle cx="24" cy="245" r="4" fill="#e3f5f4" stroke="#007c83"/>
+ <text x="33" y="248">Frontier</text>
+ <circle cx="117" cy="245" r="4" fill="#eef0f3" stroke="#667585" stroke-dasharray="2 1"/>
+ <text x="126" y="248">Dominated</text>
+ <path d="M213 245h21" stroke="#ac6731" stroke-width="2" marker-end="url(#head)"/>
+ <text x="241" y="248">Witness</text>
+</g>
+<g font-family="Arial, sans-serif" font-size="10.1" fill="#375163">
+ <path d="M22 265h21" stroke="#8b46bf" stroke-width="2.3" stroke-dasharray="2 4"/>
+ <text x="47" y="268">A/B link</text>
+ <circle cx="138" cy="263" r="6" fill="#e3f5f4" stroke="#ffbc72" stroke-width="3"/>
+ <text x="150" y="268">Pinned A</text>
+ <circle cx="243" cy="263" r="6" fill="#e3f5f4" stroke="#1b2a39" stroke-width="2"/>
+ <text x="255" y="268">Current B</text>
+</g>
+</svg>
