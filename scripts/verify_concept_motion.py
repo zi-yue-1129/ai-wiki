@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    "tpu-systolic-wavefront": "engineering/hardware/accelerators/tpu/index",
+    "analog-crossbar-current-sum": "engineering/hardware/in-memory-computing/index",
     "interconnect-ring-reduction": "engineering/hardware/interconnects/index",
     "interconnect-bucket-overlap": "engineering/hardware/interconnects/index",
     'dnn-output-stationary-traffic': 'engineering/hardware/accelerators/efficient-dnn-processing',
@@ -825,6 +827,8 @@ CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'roc-tie-half-credit': '0 0 640 360',
  'roi-align-sampling': '0 0 800 460',
  'roofline-ridge-sweep': '0 0 640 360',
+ 'tpu-systolic-wavefront': '0 0 360 300',
+ 'analog-crossbar-current-sum': '0 0 360 300',
  'memory-wall-weight-reuse': '0 0 360 262',
  'sparse-index-intersection': '0 0 360 254',
  'memory-tiled-input-reuse': '0 0 640 360',
@@ -1318,6 +1322,11 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
+            elif stem in {"tpu-systolic-wavefront", "analog-crossbar-current-sum"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing GitHub-readable static preview for {stem}")
             elif stem in {"interconnect-ring-reduction", "interconnect-bucket-overlap"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)}:
