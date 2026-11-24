@@ -63,5 +63,20 @@ class XlaLifetime(unittest.TestCase):
             self.assertEqual(y,k(f(x),c))
 
 
+    def test_weighted_peak_and_slot_capacity(self):
+        from itertools import product
+
+        for a, b, c, d in product((1, 4, 10), repeat=4):
+            sizes = dict(a=a, b=b, c=c, d=d)
+            for kind in ('motion', 'still'):
+                slots = columns('xla-buffer-lifetime-reuse', kind)
+                capacity = sum(max(sizes[v] for row in slots for v in row[j]) for j in (0, 1))
+                self.assertEqual(capacity, max(a, c) + max(b, d))
+                states = columns('xla-rematerialization-liveness', kind)
+                peaks = [max(sum(sizes[v] for v in row[j]) for row in states) for j in (0, 1)]
+                self.assertEqual(peaks, [a+b+c, max(a+b, b+c, a+c)])
+                self.assertEqual(peaks[0]-peaks[1], min(a, b, c))
+
+
 if __name__=='__main__':
     unittest.main()

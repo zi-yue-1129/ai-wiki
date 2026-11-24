@@ -41,9 +41,9 @@ XLA（Accelerated Linear Algebra，加速線性代數）是一個開源的機器
 
 完成排程後，存活區間不重疊的邏輯值可以共用實體緩衝區切片；XLA 的緩衝區配置會利用存活區間與別名資訊，避免覆寫仍需使用的值。[^xla-buffers] 考慮四個大小相同的陣列，固定運算順序為 $a=f(x), b=g(a), c=h(b), d=k(c)$。假設運算沒有副作用、不進行原地別名重用，輸入 $x$ 由外部持有，且運算期間輸入與輸出必須同時存在。
 
-<img data-source-asset-urls src="../../../assets/concept-animations/xla-buffer-lifetime-reuse-still.svg" data-motion-src="../../../assets/concept-animations/xla-buffer-lifetime-reuse-motion.svg" data-still-src="../../../assets/concept-animations/xla-buffer-lifetime-reuse-still.svg" alt="四個運算依序揭露緩衝區 A 與 B 的狀態。A 依序存放 a、a、c、c；B 依序為空、b、b、d。四個邏輯值共用兩個實體緩衝區。">
+<img data-source-asset-urls width="640" height="360" src="../../../assets/concept-animations/xla-buffer-lifetime-reuse-still.svg" data-motion-src="../../../assets/concept-animations/xla-buffer-lifetime-reuse-motion.svg" data-still-src="../../../assets/concept-animations/xla-buffer-lifetime-reuse-still.svg" alt="四個運算依序揭露緩衝區 A 與 B 的狀態。A 依序存放 a、a、c、c；B 依序為空、b、b、d。四個邏輯值共用兩個實體緩衝區。">
 
-*原創教學動畫，CC BY-SA 4.0。* 橘框標示目前運算，先前欄位保留為歷史紀錄。在 MkDocs 使用支援鍵盤的 **播放／暫停** 控制；偏好減少動態效果時，初始顯示靜態圖。 [GitHub 靜態預覽](../../../assets/concept-animations/xla-buffer-lifetime-reuse-still.svg).
+*原創教學動畫，CC BY-SA 4.0。* 橘框標示目前運算，先前欄位保留為歷史紀錄。在 MkDocs 使用支援鍵盤的 **播放／暫停** 控制；偏好減少動態效果時，初始顯示靜態圖。 [GitHub 靜態預覽](../../../assets/concept-animations/xla-buffer-lifetime-reuse-still.svg) · [完整動畫](../../../assets/concept-animations/xla-buffer-lifetime-reuse-motion.svg)。
 
 | 運算 | 緩衝區 A 的存活值 | 緩衝區 B 的存活值 |
 |---|---|---|
@@ -54,13 +54,15 @@ XLA（Accelerated Linear Algebra，加速線性代數）是一個開源的機器
 
 $a$ 最後一次使用發生於第二個運算，因此第三個運算可讓 $c$ 重用其空間。同理，第三個運算結束後，$d$ 可以重用 $b$ 的空間。表格包含輸出 $d$，但不包含外部輸入 $x$。在此排程中，四個不同的邏輯值只需要兩個等大的實體緩衝區。這是配置示意，並非 XLA 實際輸出紀錄或 GPU 記憶體實測值。
 
+每欄表示運算**期間**同時存在的值，不是運算結束後仍保留的值。若各陣列大小不同，以 $A,B,C,D$（bytes）表示，圖中的固定雙緩衝區配置需要 $\max(A,C)+\max(B,D)$ 的容量，暫不考慮對齊與配置器額外成本。兩個緩衝區不代表所需位元組數恰為四個獨立緩衝區的一半，因為每個緩衝區必須容納分配給它的最大值。
+
 ### 重新計算（Rematerialization）：以額外運算縮短存活區間
 
 XLA 也提供重新計算的最佳化遍歷，以額外運算換取較低的記憶體壓力。[^xla-remat] 修改前例，令 $y=k(a,c)$ 在 $b=g(a)$ 與 $c=h(b)$ 完成後再次需要 $a$。若一直保留 $a$，第三個運算期間就需要三個同時存活的內部陣列。另一種方式是在計算 $b$ 後釋放 $a$，產生 $c$ 後再計算 $a=f(x)$。
 
-<img data-source-asset-urls src="../../../assets/concept-animations/xla-rematerialization-liveness-still.svg" data-motion-src="../../../assets/concept-animations/xla-rematerialization-liveness-motion.svg" data-still-src="../../../assets/concept-animations/xla-rematerialization-liveness-still.svg" alt="保留與重新計算兩種排程依序揭露五欄。在 c 等於 h(b) 時，保留排程持有 a、b、c；重新計算排程只持有 b、c。最終運算前重新計算 a，內部陣列峰值由三降至二。">
+<img data-source-asset-urls width="640" height="360" src="../../../assets/concept-animations/xla-rematerialization-liveness-still.svg" data-motion-src="../../../assets/concept-animations/xla-rematerialization-liveness-motion.svg" data-still-src="../../../assets/concept-animations/xla-rematerialization-liveness-still.svg" alt="保留與重新計算兩種排程依序揭露五欄。在 c 等於 h(b) 時，保留排程持有 a、b、c；重新計算排程只持有 b、c。最終運算前重新計算 a，內部陣列峰值由三降至二。">
 
-*原創教學動畫，CC BY-SA 4.0。* 每個色塊是一個存活的內部陣列；第四欄中 Keep 閒置，只有 Remat 重新計算 a。在 MkDocs 使用 **播放／暫停**，偏好減少動態效果時初始顯示靜態圖。 [GitHub 靜態預覽](../../../assets/concept-animations/xla-rematerialization-liveness-still.svg).
+*原創教學動畫，CC BY-SA 4.0。* 每個色塊是一個存活的內部陣列；第四欄中 Keep 閒置，只有 Remat 重新計算 a。在 MkDocs 使用 **播放／暫停**，偏好減少動態效果時初始顯示靜態圖。 [GitHub 靜態預覽](../../../assets/concept-animations/xla-rematerialization-liveness-still.svg) · [完整動畫](../../../assets/concept-animations/xla-rematerialization-liveness-motion.svg)。
 
 | 階段 | 保留 | 重新計算 |
 |---|---|---|
@@ -71,6 +73,8 @@ XLA 也提供重新計算的最佳化遍歷，以額外運算換取較低的記�
 | 計算 y | a、c | a、c |
 
 若每個暫存陣列占 $M$ bytes，內部暫存空間峰值由 $3M$ 降至 $2M$，而 $f$ 的呼叫次數由一次增至兩次。兩種排程皆不計外部持有的輸入 $x$、最終輸出 $y$ 及運算工作空間；運算期間輸入與輸出的暫存值同時存在。因為 $f$ 無副作用且 $x$ 保持不變並可存取，此例可以重新計算。這是固定的示意排程，並非 XLA 實際選擇的排程或記憶體實測值。真實決策取決於運算圖、緩衝區大小、別名、執行排程及成本模型。
+
+若暫存陣列大小不同，以 $A,B,C>0$ 表示，保留排程的峰值為 $A+B+C$，重新計算排程的峰值為 $\max(A+B,B+C,A+C)$。差值為 $\min(A,B,C)$，不一定是 $A$。例如三者大小分別為 10、4、1 MiB，峰值由 15 降至 14 MiB，即使重新計算讓第三個運算不必保留 10 MiB 的 $a$，整體峰值仍會轉移至第二個運算。這是由動畫相同的固定存活集合推導而得；其他排程、對齊、工作空間或額外保留的運算元都可能改變結果。
 
 ## 結果
 

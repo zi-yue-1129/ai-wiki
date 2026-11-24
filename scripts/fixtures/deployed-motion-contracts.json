@@ -488,32 +488,32 @@
       ],
       "viewBox": "0 0 640 360"
     },
-    "kernel-fusion-intermediate-traffic": {
+    "dnn-output-stationary-traffic": {
       "origins": [
         {
-          "origin_blob": "5eef9901d0281b2e491b85c0bf454231f1535bd7",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-motion.svg"
+          "origin_blob": "0d296be4fbd6ac81b9391f88c443e54362048b78",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-output-stationary-traffic-motion.svg"
         },
         {
-          "origin_blob": "b6cae036ffab182d60a635a5fe75bf11df7a4f27",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg"
+          "origin_blob": "9961ce3de6f1353b307c911f70a91b3c66c64c36",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-output-stationary-traffic-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
     },
-    "triton-tail-mask": {
+    "dnn-sliding-window-reuse": {
       "origins": [
         {
-          "origin_blob": "93f9c51b2dc0c8609c0db30dd491dee0edb5b488",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/triton-tail-mask-motion.svg"
+          "origin_blob": "389cd72f2d58641038f7cac986d0b8dceb241ab6",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-sliding-window-reuse-motion.svg"
         },
         {
-          "origin_blob": "ede6e22bd208e676197877b8fc86e9c4f57feb9e",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/triton-tail-mask-still.svg"
+          "origin_blob": "4ac9993874e953f185e9f441004c16cae6b447b7",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-sliding-window-reuse-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
@@ -9078,6 +9078,36 @@
           "blob": "4928cb237538163fbf43b346c0b975cb5e0aa17d"
         }
       ]
+    },
+    "kernel-fusion-intermediate-traffic": {
+      "origins": [
+        {
+          "origin_blob": "5eef9901d0281b2e491b85c0bf454231f1535bd7",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-motion.svg"
+        },
+        {
+          "origin_blob": "b6cae036ffab182d60a635a5fe75bf11df7a4f27",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "triton-tail-mask": {
+      "origins": [
+        {
+          "origin_blob": "93f9c51b2dc0c8609c0db30dd491dee0edb5b488",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/triton-tail-mask-motion.svg"
+        },
+        {
+          "origin_blob": "ede6e22bd208e676197877b8fc86e9c4f57feb9e",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/triton-tail-mask-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {
