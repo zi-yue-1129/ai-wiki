@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "xla-buffer-lifetime-reuse": {
+      "origins": [
+        {
+          "origin_blob": "a44ee4b2ffeb0231baad1ab0e90e5a422b67d8bf",
+          "origin_commit": "9d14729b51599affc3e8305708d9f85bedf958b6",
+          "path": "docs/assets/concept-animations/xla-buffer-lifetime-reuse-motion.svg"
+        },
+        {
+          "origin_blob": "5e74f80d2923a2af7f6c1dc00930f3941e0f3f3c",
+          "origin_commit": "9d14729b51599affc3e8305708d9f85bedf958b6",
+          "path": "docs/assets/concept-animations/xla-buffer-lifetime-reuse-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "xla-rematerialization-liveness": {
+      "origins": [
+        {
+          "origin_blob": "f33070c500f42cde927678d9b7eb6cb5db2814ef",
+          "origin_commit": "9d14729b51599affc3e8305708d9f85bedf958b6",
+          "path": "docs/assets/concept-animations/xla-rematerialization-liveness-motion.svg"
+        },
+        {
+          "origin_blob": "c099ec7bdef2d6dc7063922f839d561825034fdc",
+          "origin_commit": "9d14729b51599affc3e8305708d9f85bedf958b6",
+          "path": "docs/assets/concept-animations/xla-rematerialization-liveness-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "kernel-fusion-intermediate-traffic": {
       "origins": [
         {
