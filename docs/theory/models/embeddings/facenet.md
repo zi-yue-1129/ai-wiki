@@ -22,21 +22,70 @@ Face recognition systems of the time often trained a classifier over a fixed set
 
 ## Core idea
 
-The network `f` maps each image to a vector normalised to unit length, `‖f(x)‖₂ = 1`, so that all embeddings lie on a hypersphere. Training uses triplets: an anchor image `x^a`, a positive image `x^p` of the same person, and a negative image `x^n` of a different person. The objective requires the anchor to be closer to the positive than to the negative by a margin `α`.
+The network $f$ maps each image to a vector normalised to unit length, $\lVert f(x)\rVert_2=1$, so that all embeddings lie on a hypersphere. Training uses triplets with an anchor image $x^a$, a positive image $x^p$ of the same person, and a negative image $x^n$ of a different person. The objective requires the anchor–positive **squared** distance to be smaller than the anchor–negative squared distance by a margin $\alpha$.[^geometry]
 
 Because the target is a distance comparison, the embedding is trained for the task itself. The same vectors can then be compared directly, with no separate classifier.
 
 ## Equation and algorithm
 
-The loss over \(N\) triplets is
+### Unit-sphere geometry
 
-\[
+For unit embeddings $u$ and $v$, define the squared Euclidean distance
+
+$$
+D(u,v)=\lVert u-v\rVert_2^2=2-2u^\top v,\qquad 0\le D(u,v)\le4.
+$$
+
+Here $u^\top v$ is their cosine similarity. This identity follows by expanding the squared norm using $\lVert u\rVert_2=\lVert v\rVert_2=1$. It applies to the normalised embeddings, so distances and thresholds must use the same normalisation convention.
+
+### Triplet objective
+
+The loss over $N$ triplets is
+
+$$
 L=\sum_{i=1}^N\left[\lVert f(x_i^a)-f(x_i^p)\rVert_2^2-\lVert f(x_i^a)-f(x_i^n)\rVert_2^2+\alpha\right]_+.
-\]
+$$
 
-where `[·]₊` is the hinge, which is zero when the constraint is satisfied. The paper sets the margin to `α = 0.2`.
+Here $[z]_+=\max(z,0)$ is the hinge, which is zero when the margin constraint is satisfied. The paper sets $\alpha=0.2$.[^mining] Write $a=f(x^a)$, $p=f(x^p)$ and $n=f(x^n)$. On the unit sphere, zero triplet loss requires
 
-Choosing which triplets to train on matters. The paper mines triplets online, inside each mini-batch of a few thousand face images, so that the network sees about 40 images per identity. Every anchor–positive pair in the batch is used, and the negatives are chosen among the hard ones. The authors use *semi-hard* negatives: those farther from the anchor than the positive, but still inside the margin. They report that always choosing the hardest negatives can lead to poor local minima early in training, including collapse of the learned representation.
+$$
+D(a,p)+\alpha\le D(a,n)
+\quad\Longleftrightarrow\quad
+a^\top p-a^\top n\ge\alpha/2.
+$$
+
+Thus the paper's squared-distance margin corresponds to a cosine gap of $0.1$. Replacing squared distances in the loss with unsquared distances changes the objective and the interpretation of its numerical margin.
+
+### Mining and a calculated example
+
+Choosing which triplets to train on matters. The paper mines triplets online, inside each mini-batch of a few thousand face images, so that the network sees about 40 images per identity. Every anchor–positive pair in the batch is used. The authors use *semi-hard* negatives: those farther from the anchor than the positive, but still inside the margin. They report that always choosing the hardest negatives can lead to poor local minima early in training, including collapse of the learned representation.[^mining]
+
+Let $D_{ap}=D(a,p)$ and $D_{an}=D(a,n)$. A hard negative satisfies $D_{an}\le D_{ap}$. A semi-hard negative satisfies $D_{ap}<D_{an}<D_{ap}+\alpha$. At or beyond the upper boundary, the triplet's hinge loss is zero. A negative farther away than the positive can therefore still contribute a positive loss.[^mining]
+
+For a constructed example, take $a=(1,0)$ and $p=(0.8,0.6)$, so $D_{ap}=0.4$. For each row, choose the unit negative $n=(c,\sqrt{1-c^2})$, where $c=a^\top n$. With $\alpha=0.2$, the loss contribution is $\max(0.6-D_{an},0)$.
+
+| Negative case | Cosine $c$ | Squared distance $D_{an}$ | Triplet loss |
+|---|---|---|---|
+| Hard | 0.90 | 0.20 | 0.40 |
+| Semi-hard | 0.75 | 0.50 | 0.10 |
+| At the margin boundary | 0.70 | 0.60 | 0 |
+| Easy, beyond the margin | 0.60 | 0.80 | 0 |
+
+These two-dimensional vectors can be extended to 128 dimensions by appending zeros. The values illustrate the geometry and mining conditions, not measured performance. The semi-hard row already ranks the positive closer, yet still incurs a loss because it misses the required gap.
+
+## Verification thresholds
+
+Verification compares a single pair against a decision threshold $\delta$. Using the paper's convention of accepting a pair at the threshold, the rule for unit embeddings is[^verification]
+
+$$
+D(u,v)\le\delta
+\quad\Longleftrightarrow\quad
+u^\top v\ge1-\delta/2.
+$$
+
+For $0\le\delta\le4$, the equivalent unsquared Euclidean threshold is $\sqrt{\delta}$. The training margin $\alpha$ compares two distances within a triplet. It does not set the verification threshold for a single pair.
+
+The paper's LFW evaluation selects a threshold on nine splits and tests it on the remaining split.[^verification] Report the threshold-selection protocol and distance convention with the result. Section 4 separately defines the true-acceptance rate among same-identity pairs and the false-acceptance rate among different-identity pairs. These rates at a chosen threshold describe a different aspect of performance from a single overall accuracy. See [ROC-AUC](../../evaluation/metrics/classification/roc-auc.md) for threshold trade-offs.
 
 ## Results
 
@@ -56,6 +105,10 @@ The main evaluations use 128-dimensional vectors; Section 5.4 reports that quant
 - **Image quality.** Accuracy falls for small thumbnails, and the main model was trained at 220 by 220 pixels.
 - **Mining evidence.** The offline triplet-generation experiments were inconclusive, and the paper does not directly compare hard with all anchor–positive selection.
 - **Unfinished evaluation.** The authors list better understanding of the error cases and smaller models as future work.
+
+[^geometry]: Schroff, Kalenichenko and Philbin (2015), Section 3.1, defines the unit-length embedding and squared-distance triplet constraint. The distance–cosine identities on this page follow algebraically from that normalisation.
+[^mining]: Schroff et al. (2015), Sections 3.1–3.3, describe the hinge objective, online selection of semi-hard negatives and margin $0.2$. The table is calculated from the stated objective and unit vectors.
+[^verification]: Schroff et al. (2015), Section 4, Equations (5)–(7), defines thresholded accepts and acceptance rates. Section 5.6 describes threshold selection for LFW.
 
 ## References
 
