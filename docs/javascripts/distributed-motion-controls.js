@@ -40,6 +40,14 @@
         host.classList.add('co-design-motion-timeline');
       }
       const zh = /[\u3400-\u9fff]/.test(img.alt || '');
+      // The new GPipe diagrams retain native-width labels on narrow screens.
+      // Their actual overflow owner must be keyboard-focusable in either motion mode.
+      if (/^gpipe-(1f1b-schedule|activation-liveness)$/.test(match[1])) {
+        host.classList.add('gpipe-comparison-timeline');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', zh ? '可水平捲動的管線排程圖，使用左右方向鍵' : 'Scrollable pipeline diagram; use Left and Right arrow keys');
+      }
       const label = (en, tw) => zh ? tw : en;
       const previousControls = host.querySelector('.concept-motion-controls');
       let frame = document.createElement('object');
