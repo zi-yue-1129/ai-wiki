@@ -17,6 +17,7 @@ class ValidatorPreservation(unittest.TestCase):
         exceptions['0 0 440 548'].append('cliff-walking')
         exceptions.update({'0 0 440 644':['q-sarsa-noisy-backups'],'0 0 440 630':['q-sarsa-epsilon'],'0 0 440 634':['double-dqn-selector'],'0 0 440 602':['td-terminal-truncation'],'0 0 440 598':['eligibility-trace-cut'],'0 0 520 626':['nstep-lambda-forward'],'0 0 680 370':['rnd-prediction-error','rnd-state-novelty','icm-forward-inverse'],'0 0 760 390':['icm-predictable-stochastic']})
         exceptions['0 0 360 300'] = ['tpu-systolic-wavefront', 'analog-crossbar-current-sum']
+        exceptions['0 0 360 300'] = ['interconnect-ring-reduction', 'interconnect-bucket-overlap']
         expected = {stem: box for box, stems in exceptions.items() for stem in stems}
         with tempfile.TemporaryDirectory() as directory:
             for stem in TOPICS:
@@ -33,7 +34,7 @@ class ValidatorPreservation(unittest.TestCase):
                         self.assertTrue(any("invalid SVG root/viewBox" in e
                                             for e in verify_svg(wrong, animated)))
             # Special families must not accidentally accept a globally legal default size.
-            for stem in ("sac-entropy-temperature", "dpo-preference-margin",
+            for stem in ("interconnect-ring-reduction", "interconnect-bucket-overlap", "sac-entropy-temperature", "dpo-preference-margin",
                          "vivit-factorised-attention", "i3d-filter-inflation",
                          "s4d-diagonal-modes", "mamba2-ssd-causal-map", "forward-ad-dual-chain", "offline-iql-expectile", "offline-cql-conservative", "rainbow-c51-projection", "q-sarsa-epsilon", "nstep-lambda-forward", "rnd-state-novelty", "icm-predictable-stochastic", "tpu-systolic-wavefront", "analog-crossbar-current-sum"):
                 root = ET.parse(ROOT / ASSETS / f"{stem}-still.svg").getroot()

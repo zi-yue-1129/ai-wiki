@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     "tpu-systolic-wavefront": "engineering/hardware/accelerators/tpu/index",
     "analog-crossbar-current-sum": "engineering/hardware/in-memory-computing/index",
+    "interconnect-ring-reduction": "engineering/hardware/interconnects/index",
+    "interconnect-bucket-overlap": "engineering/hardware/interconnects/index",
     'dnn-output-stationary-traffic': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'dnn-sliding-window-reuse': 'engineering/hardware/accelerators/efficient-dnn-processing',
     'kernel-fusion-intermediate-traffic': 'engineering/inference-optimization/fused-kernels',
@@ -459,7 +461,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'dnn-output-stationary-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'interconnect-ring-reduction': '0 0 360 300',
+ 'interconnect-bucket-overlap': '0 0 360 300',
+ 'dnn-output-stationary-traffic': '0 0 640 360',
  'dnn-sliding-window-reuse': '0 0 640 360',
  'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'triton-tail-mask': '0 0 640 360',
@@ -1309,6 +1313,10 @@ def main() -> int:
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
                     errors.append(f"{page}: missing GitHub-readable static preview for {stem}")
+            elif stem in {"interconnect-ring-reduction", "interconnect-bucket-overlap"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)}:
+                    errors.append(f"{page}: missing GitHub-readable fallback link for {stem}")
             elif stem in {"memory-tiled-input-reuse", "roofline-hierarchy-bottleneck"}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"iou-overlap-sweep", "dice-overlap-response"}:
