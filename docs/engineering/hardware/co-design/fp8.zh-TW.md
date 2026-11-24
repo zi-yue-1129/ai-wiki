@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-10-28
+translation_reviewed: 2026-11-24
 ---
 
 # 深度學習的 FP8 格式
@@ -45,6 +45,27 @@ FP8 是一種用於深度學習的 8 位元浮點格式。Micikevicius 等人（
 色帶界定經過 $s\lvert x\rvert$ 縮放後，**正量值**中可表示的非零有限數之上下界，再換算回原始輸入單位。假設支援次正規數（subnormal），E4M3 的區間為 $[2^{-9}/s,448/s]$，E5M2 為 $[2^{-16}/s,57344/s]$。當**人工設定**的 $s$ 由 1 連續升至 16 再返回時，兩個區間沿對數軸向左移；縮放滑桿亦採對數刻度，中點為 $s=4$。實心色帶僅是範圍包絡，不表示其中每個實數皆可精確表示。兩個固定示意輸入是 $\lvert x_{\mathrm{low}}\rvert=5\times10^{-4}$ 與 $\lvert x_{\mathrm{high}}\rvert=10^3$。增加 $s$ 能讓較小的輸入落入 E4M3 非零範圍，但更多大值也會超出其有限上限。E5M2 色帶較寬僅比較**動態範圍**，並未表示量化格點、捨入誤差或模型準確率；實際下溢及溢位行為亦取決於轉換規則。
 
 
+### 動態解說：兩種 FP8 格點的捨入差異
+
+<img data-source-asset-urls src="../../../assets/concept-animations/fp8-rounding-grid-still.svg" data-motion-src="../../../assets/concept-animations/fp8-rounding-grid-motion.svg" data-still-src="../../../assets/concept-animations/fp8-rounding-grid-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="從 1 到 2 的十七個輸入樣本，E4M3 的格點比 E5M2 密集；橘色水平線段表示捨入誤差；只有在平手時，兩個白色虛線環才標示等距的候選格點。">
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態圖](../../../assets/concept-animations/fp8-rounding-grid-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/fp8-rounding-grid-motion.svg)。網站可播放／暫停；暫停會回到代表性靜態圖，而非凍結當前影格。
+
+這個例子只考慮單一正規指數區間，縮放係數為 1，並明確採用最接近值捨入、平手取偶數（round-to-nearest, ties-to-even）。依照有效數位的配置，E4M3 在 $[1,2]$ 的間距為 $2^{-3}=1/8$，E5M2 則為 $2^{-2}=1/4$。[^fp8-grid] 輸入樣本為 $x=1+i/16$，$i=0,\ldots,16$。輸出標記跳至對應格點；橘線長度代表 $|Q(x)-x|$。在精確中點時，兩個白色虛線環標示等距的候選格點；實心輸出標記選取有效數最低位元為偶數（0）的候選值，而非一律向下捨入。例如 E5M2 將 $1.125$ 向下捨入至 1，卻將 $1.375$ 向上捨入至 1.5。非平手時虛線環消失。當 $x=1.125$ 時，E4M3 能精確保留該值，E5M2 則將中點捨入至 1；當 $x=1.0625$ 時，兩者皆捨入至 1。在這個取樣指數區間內，兩種格式的最大絕對捨入誤差分別為 $1/16$ 與 $1/8$。這些是數學示意值，不是硬體或模型實測；不同指數區間、次正規數與其他轉換規則會有不同結果。
+
+[^fp8-grid]: Micikevicius 等人（2022），第 3 節，[FP8 Formats for Deep Learning](https://arxiv.org/abs/2209.05433)。格點範例與捨入規則為本圖的示意設定。
+
+### 動態解說：即時縮放與延遲縮放
+
+<img data-source-asset-urls src="../../../assets/concept-animations/fp8-delayed-amax-still.svg" data-motion-src="../../../assets/concept-animations/fp8-delayed-amax-motion.svg" data-still-src="../../../assets/concept-animations/fp8-delayed-amax-still.svg" width="360" height="254" style="display:block;width:100%;max-width:540px;height:auto" alt="六次張量最大量值在第三步突增；紫色底線標示先前兩筆量值，白框標示目前迭代。延遲縮放截斷突增值，直到該值離開歷史視窗前都保留較大的上限。">
+
+*原創教學動畫，CC BY-SA 4.0。* [GitHub 靜態圖](../../../assets/concept-animations/fp8-delayed-amax-still.svg) · [完整 SVG 動畫](../../../assets/concept-animations/fp8-delayed-amax-motion.svg)。播放／暫停與減少動態效果的回退顯示沿用網站共用播放器。
+
+實務上的縮放策略可使用當前張量的最大量值，或以先前記錄的最大量值估計縮放係數。[^fp8-delayed] 在此人工例子中，令 $a_t=\max|x_t|$ 依序為 $(1,1,4,1,1,1)$，並令 $H_t=\max(a_{t-2},a_{t-1})$，初始兩筆歷史值均為 1。Init 的兩個短條代表這兩筆初始值；紫色底線隨著計算 $H_t$ 所使用的兩筆歷史樣本移動，白框則標示目前迭代。第 3 步的突增值尚未進入歷史視窗，第 4、5 步仍包含該值，而第 6 步的兩筆歷史樣本已不包含突增值。對格式最大值 $F$，理想化即時縮放係數為 $F/a_t$，延遲縮放則為 $F/H_t$。因此，換算回原始輸入單位的量值上限（白線）分別是 $a_t$ 與 $H_t$。第 3 步的延遲上限為 1，但觀察到的最大量值為 4；若採飽和轉換，量值大於 1 的元素會被截斷至上限。第 4、5 步的延遲上限仍為 4，當前量值僅需要上限的四分之一；第 6 步突增值移出歷史視窗。橘色長度表示超過上限的量值區間，不代表被截斷的元素比例。此例假設最大量值為正、縮放運算精確、無安全餘裕，且歷史只保留兩筆以利教學；並非效能測試、模型準確率結論或特定函式庫更新時序的精確重現。
+
+[^fp8-delayed]: NVIDIA，[FP8 Delayed Scaling](https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/fp8_delayed_scaling/fp8_delayed_scaling.html)。說明依據歷史量值選擇縮放係數，以及量化與張量讀取的取捨。
+
+
 ## 結果
 
 論文報告，在多種影像與語言任務上，FP8 訓練的結果實質上與 16 位元訓練相當，且超參數不變。涵蓋的模型包括卷積網路、循環網路與 Transformer，其中語言模型最大達 1750 億參數。
@@ -82,6 +103,8 @@ FP8 延伸了[混合精度訓練](mixed-precision.zh-TW.md)的想法，後者在
 - Sze, V., Chen, Y.-H., Yang, T.-J., Emer, J. S. (2017). *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*. arXiv:1703.09039. https://arxiv.org/abs/1703.09039 — 綜述 DNN 硬體的能量效率與吞吐量，並涵蓋硬體與演算法的共同設計。
 
 ### 文章與文件
+
+- NVIDIA. *FP8 Delayed Scaling*. https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/fp8_delayed_scaling/fp8_delayed_scaling.html — 說明依據歷史量值選擇縮放係數、張量讀取及截斷。
 
 - Krishnamoorthi, R. (2018). *Quantizing deep convolutional networks for efficient inference: A whitepaper*. arXiv:1806.08342. https://arxiv.org/abs/1806.08342 — 顯示推論端的整數對應做法：逐通道的 8 位元量化能讓許多 CNN 維持在浮點數 2% 以內的準確度。
 - Gholami, A., 等人 (2024). *AI and Memory Wall*. arXiv:2403.14123. https://arxiv.org/abs/2403.14123 — 主張記憶體而非運算已成為 AI 應用（尤其是服務）的主要瓶頸，而低位元格式正是為了緩解這項壓力。
