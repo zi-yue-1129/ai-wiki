@@ -484,12 +484,16 @@ TOPICS = {
     "ddpm-progressive-noising": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm",
     "ddim-strided-sampling": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
     "ddim-eta-coefficients": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
+    "brier-murphy-decomposition": "theory/evaluation/metrics/probabilistic/brier-score",
+    "ece-bin-merging": "theory/evaluation/metrics/probabilistic/calibration-error",
     "bernoulli-kl-direction": "theory/information-theory/index",
     "binary-channel-information": "theory/information-theory/index",
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
 CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+ 'brier-murphy-decomposition': '0 0 640 360',
+ 'ece-bin-merging': '0 0 640 360',
  'bernoulli-kl-direction': '0 0 720 400',
  'binary-channel-information': '0 0 720 400',
  'dnn-output-stationary-traffic': '0 0 640 360',
@@ -1537,6 +1541,8 @@ def main() -> int:
     for stem, page in {
         "brier-expected-risk": "brier-score",
         "log-loss-tail-penalty": "log-loss",
+        "brier-murphy-decomposition": "brier-score",
+        "ece-bin-merging": "calibration-error",
     }.items():
         moving = ASSETS / f"{stem}-motion.svg"
         still = ASSETS / f"{stem}-still.svg"

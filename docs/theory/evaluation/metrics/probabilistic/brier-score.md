@@ -41,6 +41,28 @@ $$
 
 The moving forecast $p$ changes both possible losses at once. The minimum at $p=q=0.70$ is **0.21**, not zero: the residual $q(1-q)$ is the irreducible variability of the binary outcome. No model was trained or evaluated to produce these numbers.
 
+## Animated explanation: reliability, resolution and uncertainty
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Brier decomposition animation; focus and scroll horizontally on narrow screens">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/brier-murphy-decomposition-still.svg" data-motion-src="../../../../assets/concept-animations/brier-murphy-decomposition-motion.svg" data-still-src="../../../../assets/concept-animations/brier-murphy-decomposition-still.svg" alt="Brier score decomposition: uncertainty 0.25 plus reliability penalty 0.04 minus resolution 0.01 gives 0.28; a moving cursor highlights each term.">
+</div>
+</div>
+
+*Original instructional animation, CC BY-SA 4.0. Play/Pause is available on MkDocs; keyboard-focus the image to pan on narrow screens. GitHub displays a complete static fallback.* [Open full SVG animation](../../../../assets/concept-animations/brier-murphy-decomposition-motion.svg).
+
+For a **constructed sample** of ten binary outcomes, five have forecast $p=0.2$ and an observed event rate of $0.4$; the other five have $p=0.8$ and an observed rate of $0.6$. There are five positives in total. Because all predictions within a group are identical, the **exact finite-sample** Murphy decomposition applies:
+
+$$
+\mathrm{BS}=\mathrm{UNC}+\mathrm{REL}-\mathrm{RES}
+$$
+
+$$
+=0.25+0.04-0.01=0.28.
+$$
+
+The diagram first identifies the base-rate uncertainty $\bar y(1-\bar y)=0.25$, then adds the squared forecast-versus-bin-frequency penalty $0.04$, and subtracts $0.01$ for the bin frequencies' separation from the overall rate. Directly averaging the ten casewise squared errors also gives $0.28$. **Lower reliability error and higher resolution improve the Brier score**; the negative sign on resolution is intentional. These are illustrative counts, not observed model performance. The exact identity here depends on grouping *identical* forecasts; arbitrary coarse bins can introduce a within-bin approximation.
+
 ## Interpretation
 
 Because the squared error is bounded, a confident mistake costs at most 1 for that sample, while log-loss has no upper limit. The Brier score is a proper scoring rule, so it is minimised by reporting true probabilities.
@@ -70,6 +92,10 @@ Using the same predictions, the squared errors are $0.01$, $0.64$, $0.09$ and $0
 [Log-loss](log-loss.md) penalises confident errors more strongly. [Calibration error](calibration-error.md) isolates the calibration part. The family overview is [Probabilistic Metrics](index.md).
 
 ## References
+
+### Seminal papers
+
+- Murphy, A. H. (1973). *A New Vector Partition of the Probability Score*. *Journal of Applied Meteorology*, 12(4), 595–600. https://doi.org/10.1175/1520-0450(1973)012%3C0595:ANVPOT%3E2.0.CO;2 — Original reliability–resolution–uncertainty decomposition of probability scores.
 
 ### Articles and documentation
 

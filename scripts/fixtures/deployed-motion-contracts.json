@@ -9049,35 +9049,35 @@
         }
       ]
     },
-    "bernoulli-kl-direction": {
+    "brier-murphy-decomposition": {
       "origins": [
         {
-          "origin_blob": "85429fb6bea6107a32b8f21e8327dd8127016aab",
-          "origin_commit": "7ea182185f0e91756accb6e1491099d807600b80",
-          "path": "docs/assets/concept-animations/bernoulli-kl-direction-motion.svg"
+          "origin_blob": "8621520b6ec23585fec1f6b5c2219e254c9701da",
+          "origin_commit": "7348bc16fd8b9104052fdd2445bf2aefddf36c01",
+          "path": "docs/assets/concept-animations/brier-murphy-decomposition-motion.svg"
         },
         {
-          "origin_blob": "1a6a5887adec3cd4c531b5466c6060be2b984f1d",
-          "origin_commit": "30a260cd5733bf20eb26108f23ea9c7bb122912a",
-          "path": "docs/assets/concept-animations/bernoulli-kl-direction-still.svg"
+          "origin_blob": "a72fdacf1b7d96fd9726b41c3d7ce97619fc0d2f",
+          "origin_commit": "7348bc16fd8b9104052fdd2445bf2aefddf36c01",
+          "path": "docs/assets/concept-animations/brier-murphy-decomposition-still.svg"
         }
       ],
-      "viewBox": "0 0 720 400"
+      "viewBox": "0 0 640 360"
     },
-    "binary-channel-information": {
+    "ece-bin-merging": {
       "origins": [
         {
-          "origin_blob": "ae654755ce79eeb5d08bc83994e76f21a554f73a",
-          "origin_commit": "bd7c35d7d37a67c01385a2c1efef0cc40b63ce75",
-          "path": "docs/assets/concept-animations/binary-channel-information-motion.svg"
+          "origin_blob": "8865f4bf1910779be7dbdcd9a79317071a975967",
+          "origin_commit": "7348bc16fd8b9104052fdd2445bf2aefddf36c01",
+          "path": "docs/assets/concept-animations/ece-bin-merging-motion.svg"
         },
         {
-          "origin_blob": "ed6e4c1ce93fd1db92c5b37435809d1701b29d5c",
-          "origin_commit": "211a75238b240b7f6b29f81d5e3bb20637659814",
-          "path": "docs/assets/concept-animations/binary-channel-information-still.svg"
+          "origin_blob": "a76d08735281f4185462b5ddc486bdedf67c869e",
+          "origin_commit": "7348bc16fd8b9104052fdd2445bf2aefddf36c01",
+          "path": "docs/assets/concept-animations/ece-bin-merging-still.svg"
         }
       ],
-      "viewBox": "0 0 720 400"
+      "viewBox": "0 0 640 360"
     },
     "dnn-output-stationary-traffic": {
       "origins": [
@@ -9588,6 +9588,36 @@
         }
       ],
       "viewBox": "0 0 640 360"
+    },
+    "bernoulli-kl-direction": {
+      "origins": [
+        {
+          "origin_blob": "85429fb6bea6107a32b8f21e8327dd8127016aab",
+          "origin_commit": "7ea182185f0e91756accb6e1491099d807600b80",
+          "path": "docs/assets/concept-animations/bernoulli-kl-direction-motion.svg"
+        },
+        {
+          "origin_blob": "1a6a5887adec3cd4c531b5466c6060be2b984f1d",
+          "origin_commit": "30a260cd5733bf20eb26108f23ea9c7bb122912a",
+          "path": "docs/assets/concept-animations/bernoulli-kl-direction-still.svg"
+        }
+      ],
+      "viewBox": "0 0 720 400"
+    },
+    "binary-channel-information": {
+      "origins": [
+        {
+          "origin_blob": "ae654755ce79eeb5d08bc83994e76f21a554f73a",
+          "origin_commit": "bd7c35d7d37a67c01385a2c1efef0cc40b63ce75",
+          "path": "docs/assets/concept-animations/binary-channel-information-motion.svg"
+        },
+        {
+          "origin_blob": "ed6e4c1ce93fd1db92c5b37435809d1701b29d5c",
+          "origin_commit": "211a75238b240b7f6b29f81d5e3bb20637659814",
+          "path": "docs/assets/concept-animations/binary-channel-information-still.svg"
+        }
+      ],
+      "viewBox": "0 0 720 400"
     }
   },
   "extra": {
