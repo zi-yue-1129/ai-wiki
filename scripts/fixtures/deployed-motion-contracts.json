@@ -488,32 +488,32 @@
       ],
       "viewBox": "0 0 640 360"
     },
-    "dnn-output-stationary-traffic": {
+    "kernel-fusion-intermediate-traffic": {
       "origins": [
         {
-          "origin_blob": "0d296be4fbd6ac81b9391f88c443e54362048b78",
-          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
-          "path": "docs/assets/concept-animations/dnn-output-stationary-traffic-motion.svg"
+          "origin_blob": "5eef9901d0281b2e491b85c0bf454231f1535bd7",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-motion.svg"
         },
         {
-          "origin_blob": "9961ce3de6f1353b307c911f70a91b3c66c64c36",
-          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
-          "path": "docs/assets/concept-animations/dnn-output-stationary-traffic-still.svg"
+          "origin_blob": "b6cae036ffab182d60a635a5fe75bf11df7a4f27",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
     },
-    "dnn-sliding-window-reuse": {
+    "triton-tail-mask": {
       "origins": [
         {
-          "origin_blob": "389cd72f2d58641038f7cac986d0b8dceb241ab6",
-          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
-          "path": "docs/assets/concept-animations/dnn-sliding-window-reuse-motion.svg"
+          "origin_blob": "93f9c51b2dc0c8609c0db30dd491dee0edb5b488",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/triton-tail-mask-motion.svg"
         },
         {
-          "origin_blob": "4ac9993874e953f185e9f441004c16cae6b447b7",
-          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
-          "path": "docs/assets/concept-animations/dnn-sliding-window-reuse-still.svg"
+          "origin_blob": "ede6e22bd208e676197877b8fc86e9c4f57feb9e",
+          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
+          "path": "docs/assets/concept-animations/triton-tail-mask-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
@@ -3499,36 +3499,6 @@
           "origin_blob": "d9cd12b96574a8fa9152bfd740635fa03a0e2c4b",
           "origin_commit": "15c481b6e404a995701352554969476d4bf66fc8",
           "path": "docs/assets/concept-animations/roc-tie-half-credit-still.svg"
-        }
-      ],
-      "viewBox": "0 0 640 360"
-    },
-    "memory-tiled-input-reuse": {
-      "origins": [
-        {
-          "origin_blob": "e10dd17b078e0517a7c9a2919c6705422c6b6e21",
-          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
-          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-motion.svg"
-        },
-        {
-          "origin_blob": "8cb2336d523f923a3daf40966e4c80a43ea3ca32",
-          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
-          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-still.svg"
-        }
-      ],
-      "viewBox": "0 0 640 360"
-    },
-    "roofline-hierarchy-bottleneck": {
-      "origins": [
-        {
-          "origin_blob": "46c4b23bbfeb01ca4e6f945053d18b05255844e8",
-          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
-          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-motion.svg"
-        },
-        {
-          "origin_blob": "7eeec6c060bb38bce367bbfc95cb07cfbee3fb0c",
-          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
-          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
@@ -9109,62 +9079,92 @@
         }
       ]
     },
-    "kernel-fusion-intermediate-traffic": {
+    "bernoulli-kl-direction": {
       "origins": [
         {
-          "origin_blob": "5eef9901d0281b2e491b85c0bf454231f1535bd7",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-motion.svg"
+          "origin_blob": "85429fb6bea6107a32b8f21e8327dd8127016aab",
+          "origin_commit": "7ea182185f0e91756accb6e1491099d807600b80",
+          "path": "docs/assets/concept-animations/bernoulli-kl-direction-motion.svg"
         },
         {
-          "origin_blob": "b6cae036ffab182d60a635a5fe75bf11df7a4f27",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/kernel-fusion-intermediate-traffic-still.svg"
+          "origin_blob": "1a6a5887adec3cd4c531b5466c6060be2b984f1d",
+          "origin_commit": "30a260cd5733bf20eb26108f23ea9c7bb122912a",
+          "path": "docs/assets/concept-animations/bernoulli-kl-direction-still.svg"
+        }
+      ],
+      "viewBox": "0 0 720 400"
+    },
+    "binary-channel-information": {
+      "origins": [
+        {
+          "origin_blob": "ae654755ce79eeb5d08bc83994e76f21a554f73a",
+          "origin_commit": "bd7c35d7d37a67c01385a2c1efef0cc40b63ce75",
+          "path": "docs/assets/concept-animations/binary-channel-information-motion.svg"
+        },
+        {
+          "origin_blob": "ed6e4c1ce93fd1db92c5b37435809d1701b29d5c",
+          "origin_commit": "211a75238b240b7f6b29f81d5e3bb20637659814",
+          "path": "docs/assets/concept-animations/binary-channel-information-still.svg"
+        }
+      ],
+      "viewBox": "0 0 720 400"
+    },
+    "dnn-output-stationary-traffic": {
+      "origins": [
+        {
+          "origin_blob": "0d296be4fbd6ac81b9391f88c443e54362048b78",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-output-stationary-traffic-motion.svg"
+        },
+        {
+          "origin_blob": "9961ce3de6f1353b307c911f70a91b3c66c64c36",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-output-stationary-traffic-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
     },
-    "triton-tail-mask": {
+    "dnn-sliding-window-reuse": {
       "origins": [
         {
-          "origin_blob": "93f9c51b2dc0c8609c0db30dd491dee0edb5b488",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/triton-tail-mask-motion.svg"
+          "origin_blob": "389cd72f2d58641038f7cac986d0b8dceb241ab6",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-sliding-window-reuse-motion.svg"
         },
         {
-          "origin_blob": "ede6e22bd208e676197877b8fc86e9c4f57feb9e",
-          "origin_commit": "1f4c46a42bf35bb5806f4bd521d48c71a5b2513a",
-          "path": "docs/assets/concept-animations/triton-tail-mask-still.svg"
+          "origin_blob": "4ac9993874e953f185e9f441004c16cae6b447b7",
+          "origin_commit": "737acdd0d94d976f7f8054fdc60f6714d9ea15d1",
+          "path": "docs/assets/concept-animations/dnn-sliding-window-reuse-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
     },
-    "dynamo-shape-guard-cache": {
+    "memory-tiled-input-reuse": {
       "origins": [
         {
-          "origin_blob": "447b73ccc016135e0341a75e3230dd62a18984c6",
-          "origin_commit": "351276ea6d68a464acb87f92a87f5630e1ab2a8b",
-          "path": "docs/assets/concept-animations/dynamo-shape-guard-cache-motion.svg"
+          "origin_blob": "e10dd17b078e0517a7c9a2919c6705422c6b6e21",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-motion.svg"
         },
         {
-          "origin_blob": "e8c0e1eb16ffbc15204f6abdc2b42c1b34f91fba",
-          "origin_commit": "351276ea6d68a464acb87f92a87f5630e1ab2a8b",
-          "path": "docs/assets/concept-animations/dynamo-shape-guard-cache-still.svg"
+          "origin_blob": "8cb2336d523f923a3daf40966e4c80a43ea3ca32",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/memory-tiled-input-reuse-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
     },
-    "dynamo-graph-break-resume": {
+    "roofline-hierarchy-bottleneck": {
       "origins": [
         {
-          "origin_blob": "e59e85723bbae79ebe4f16635722b94b14e0f0b6",
-          "origin_commit": "351276ea6d68a464acb87f92a87f5630e1ab2a8b",
-          "path": "docs/assets/concept-animations/dynamo-graph-break-resume-motion.svg"
+          "origin_blob": "46c4b23bbfeb01ca4e6f945053d18b05255844e8",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-motion.svg"
         },
         {
-          "origin_blob": "f93d5a77cdd1d6d4f415994043770707d046f581",
-          "origin_commit": "351276ea6d68a464acb87f92a87f5630e1ab2a8b",
-          "path": "docs/assets/concept-animations/dynamo-graph-break-resume-still.svg"
+          "origin_blob": "7eeec6c060bb38bce367bbfc95cb07cfbee3fb0c",
+          "origin_commit": "6a1c7985e496a5d2e1573aa645a2ad353402bc65",
+          "path": "docs/assets/concept-animations/roofline-hierarchy-bottleneck-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"
@@ -9585,6 +9585,36 @@
           "origin_blob": "35e36b5268e239e90b7d574ce5c4ff089b479e9b",
           "origin_commit": "f4a8534644c6af35bab70d722c1595190f58b9b2",
           "path": "docs/assets/concept-animations/roc-youden-cost-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "dynamo-shape-guard-cache": {
+      "origins": [
+        {
+          "origin_blob": "447b73ccc016135e0341a75e3230dd62a18984c6",
+          "origin_commit": "351276ea6d68a464acb87f92a87f5630e1ab2a8b",
+          "path": "docs/assets/concept-animations/dynamo-shape-guard-cache-motion.svg"
+        },
+        {
+          "origin_blob": "e8c0e1eb16ffbc15204f6abdc2b42c1b34f91fba",
+          "origin_commit": "351276ea6d68a464acb87f92a87f5630e1ab2a8b",
+          "path": "docs/assets/concept-animations/dynamo-shape-guard-cache-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "dynamo-graph-break-resume": {
+      "origins": [
+        {
+          "origin_blob": "e59e85723bbae79ebe4f16635722b94b14e0f0b6",
+          "origin_commit": "351276ea6d68a464acb87f92a87f5630e1ab2a8b",
+          "path": "docs/assets/concept-animations/dynamo-graph-break-resume-motion.svg"
+        },
+        {
+          "origin_blob": "f93d5a77cdd1d6d4f415994043770707d046f581",
+          "origin_commit": "351276ea6d68a464acb87f92a87f5630e1ab2a8b",
+          "path": "docs/assets/concept-animations/dynamo-graph-break-resume-still.svg"
         }
       ],
       "viewBox": "0 0 640 360"

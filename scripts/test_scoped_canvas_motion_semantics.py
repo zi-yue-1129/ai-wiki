@@ -1,5 +1,6 @@
 """Execute SVG guard positives/mutations; never infer expected geometry from input."""
 from copy import deepcopy
+import ast
 import hashlib
 from pathlib import Path
 import tempfile
@@ -16,7 +17,7 @@ CONTRACTS = json.loads((ROOT / 'scripts/fixtures/deployed-motion-contracts.json'
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 465 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 467 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -34,6 +35,22 @@ class ScopedCanvas(unittest.TestCase):
         self.assertEqual(v.PREFIX_VIEWBOXES, EXPECTED_PREFIXES)
         self.assertEqual(v.PREFIX_EXCLUSIONS, EXPECTED_EXCLUSIONS)
         self.assertEqual(set(v.TOPICS), set(EXPECTED_CANVASES))
+
+    def test_registry_source_has_no_shadowed_literal_keys(self):
+        # Runtime dict equality cannot detect a duplicate key silently overwritten
+        # during a merge. Inspect the actual source literals before evaluating them.
+        tree = ast.parse((ROOT / 'scripts/verify_concept_motion.py').read_text(encoding='utf-8'))
+        for name in ('TOPICS', 'CANONICAL_VIEWBOXES'):
+            assignments = [node for node in tree.body if isinstance(node, ast.Assign)
+                           and any(isinstance(target, ast.Name) and target.id == name
+                                   for target in node.targets)]
+            with self.subTest(registry=name):
+                self.assertEqual(len(assignments), 1)
+                literal = assignments[0].value
+                self.assertIsInstance(literal, ast.Dict)
+                keys = [ast.literal_eval(key) for key in literal.keys]
+                self.assertEqual(len(keys), len(set(keys)), f'duplicate keys in {name}')
+                self.assertEqual(set(keys), set(EXPECTED_CANVASES))
 
     def test_reviewed_registry_cannot_shrink_clear_or_substitute(self):
         for attribute, expected in [('CANONICAL_VIEWBOXES', EXPECTED_CANVASES), ('EXTRA_CANONICAL_FILENAMES', EXPECTED_EXTRAS), ('PREFIX_VIEWBOXES', EXPECTED_PREFIXES)]:

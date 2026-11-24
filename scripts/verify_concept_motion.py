@@ -486,18 +486,20 @@ TOPICS = {
     "ddpm-progressive-noising": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm",
     "ddim-strided-sampling": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
     "ddim-eta-coefficients": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
+    "bernoulli-kl-direction": "theory/information-theory/index",
+    "binary-channel-information": "theory/information-theory/index",
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'gpipe-1f1b-schedule': '0 0 640 360',
- 'gpipe-activation-liveness': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+ 'bernoulli-kl-direction': '0 0 720 400',
+ 'binary-channel-information': '0 0 720 400',
+ 'dnn-output-stationary-traffic': '0 0 640 360',
  'dynamo-shape-guard-cache': '0 0 640 360',
  'dynamo-graph-break-resume': '0 0 640 360',
  'interconnect-ring-reduction': '0 0 360 300',
  'interconnect-bucket-overlap': '0 0 360 300',
- 'dnn-output-stationary-traffic': '0 0 640 360',
  'dnn-sliding-window-reuse': '0 0 640 360',
- 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'triton-tail-mask': '0 0 640 360',
  '3d-unet-context-tiling': '0 0 800 420',
  '3d-unet-depth-kernel': '0 0 800 420',
@@ -953,7 +955,9 @@ CANONICAL_VIEWBOXES = {'gpipe-1f1b-schedule': '0 0 640 360',
  'wgan-gp-interpolation': '0 0 640 360',
  'wgan-weight-clip': '0 0 640 360',
  'yarn-attention-temperature': '0 0 640 360',
- 'yarn-frequency-ramp': '0 0 640 360'}
+ 'yarn-frequency-ramp': '0 0 640 360',
+ 'gpipe-1f1b-schedule': '0 0 640 360',
+ 'gpipe-activation-liveness': '0 0 640 360'}
 # Explicit non-TOPICS assets validated by main(), not generic name allowances.
 EXTRA_CANONICAL_FILENAMES = {
  'fp8-rounding-grid-motion.svg': '0 0 360 254',
@@ -1393,7 +1397,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {'a3c-async-gradient', 'a3c-nstep-return', 'alibi-content-recency', 'alibi-distance-softmax', 'alibi-head-prefix', 'cfm-conditional-bridge', 'deep-ensemble-spread', 'dreamer-lambda-bootstrap', 'dreamer-posterior-prior', 'ece-binned-calibration', 'fitnets-hint-then-output', 'hmm-baum-welch-transition', 'hmm-filter-smooth', 'hmm-forward-sum-product', 'hmm-pairwise-posterior', 'kd-soft-target-alignment', 'lion-sign-momentum', 'mbpo-horizon-error', 'mbpo-short-branches', 'muon-spectral-balancing', 'pets-cem-refit', 'pets-ensemble-particles', 'qk-norm-scale-sweep', 'rectified-reflow-coupling', 'rlhf-dpo-margin', 'rlhf-reward-sums', 'rope-axial-2d', 'rope-cache-reindex', 'rope-frequency-bands', 'rope-interpolation-angle', 'shaw-relative-clipping', 'shaw-relative-value', 'sigma-reparam-spectral-gain', 'sinusoidal-multiscale', 'trpo-kl-backtracking', 'trpo-ratio-surrogate', 'tsne-kl-embedding', 'umap-fuzzy-union', 'yarn-attention-temperature', 'yarn-frequency-ramp'}:
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"confusion-condition-direction", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "f1-averaging-rules", "roc-randomized-operating-mix", "roc-score-quantization", "roc-tie-group-step", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap"}:
+            elif stem in {"bernoulli-kl-direction", "binary-channel-information", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap", "confusion-condition-direction", "f1-averaging-rules", "roc-score-quantization", "roc-tie-group-step"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:
@@ -1572,6 +1576,8 @@ def main() -> int:
     # expose the animated variant to the MkDocs player through data-motion-src.
     # Check both paths rather than accepting the data attribute as the fallback.
     html_motion_topics = {
+        "bernoulli-kl-direction": "theory/information-theory/index",
+        "binary-channel-information": "theory/information-theory/index",
         "fp8-rounding-grid": "engineering/hardware/co-design/fp8",
         "fp8-delayed-amax": "engineering/hardware/co-design/fp8",
         "odin-gradient-perturbation": "theory/machine-learning/ood-detection/odin",
