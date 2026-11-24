@@ -1121,6 +1121,7 @@ extra_javascript:
   - javascripts/explanation-labs.js
   - javascripts/causal-labs.js
   - javascripts/concept-motion-detailed.js
+  - javascripts/selective-accuracy-player.js
   - javascripts/self-supervised-labs.js
   - javascripts/ssl-causal-comparisons.js
   - javascripts/ssl-gradient-sensitivity.js
