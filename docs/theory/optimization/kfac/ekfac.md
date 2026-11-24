@@ -24,7 +24,7 @@ K-FAC approximates the Fisher with a Kronecker product $A \otimes G$. Its precon
 
 ## Core idea
 
-Take the eigenvectors of the two K-FAC factors, $U_A$ and $U_B$, and use their Kronecker product $U = U_A \otimes U_B$ as the basis. In that basis, track a running estimate of the second moment of each rotated gradient coordinate. Preconditioning rotates the gradient into the basis, divides each coordinate by its tracked value, and rotates back. The diagonal can be updated at every iteration, while the eigenbasis is recomputed only occasionally.
+Take the eigenvectors of the two K-FAC factors, $U_A$ and $U_G$, and use their Kronecker product $U = U_A \otimes U_G$ as the basis. In that basis, track a running estimate of the second moment of each rotated gradient coordinate. Preconditioning rotates the gradient into the basis, divides each coordinate by its tracked value, and rotates back. The diagonal can be updated at every iteration, while the eigenbasis is recomputed only occasionally.
 
 ## Equation or algorithm
 
@@ -35,6 +35,16 @@ With $\nabla\theta$ the gradient and $\epsilon$ a damping constant, each step is
 3. Rotate back: $\Delta\theta = U\,\tilde{g}$.
 
 The paper's key point is in step 2. The scale is the second moment measured along the eigenvectors themselves, not the scale predicted from the factor eigenvalues.
+
+### Worked example: correcting the diagonal
+
+<img data-source-asset-urls src="../../../assets/concept-animations/ekfac-eigenvalue-correction-still.svg" data-still-src="../../../assets/concept-animations/ekfac-eigenvalue-correction-still.svg" data-motion-src="../../../assets/concept-animations/ekfac-eigenvalue-correction-motion.svg" alt="Four coordinates share the same Kronecker eigenbasis. K-FAC uses diagonal entries of two; EKFAC reveals corrected moments one, three, three, one and the resulting damped gradient." width="640" height="360">
+
+*Original CC BY-SA 4.0 illustration of George et al. (2018; see References). [Static preview](../../../assets/concept-animations/ekfac-eigenvalue-correction-still.svg) · [Full animation](../../../assets/concept-animations/ekfac-eigenvalue-correction-motion.svg).*
+
+Fix an eigenbasis and let the K-FAC product diagonal be $(2,2,2,2)$, while the second moments in that basis are $(1,3,3,1)$. For a test gradient with rotated coordinates $(3,3,3,3)$ and scalar damping $\epsilon=1$, the K-FAC direction in the basis is $(1,1,1,1)$, whereas the EKFAC direction is $(1.5,0.75,0.75,1.5)$. Both use the same basis; only the diagonal differs. The example uses scalar damping of the full diagonal, not separately damped factors.
+
+The growing bars reveal the final measured-coordinate moments, not the time course of an actual running estimator. The lower blue and teal rows show the respective preconditioned directions before rotation back. These are constructed numbers, not model measurements. In the MkDocs player, use Play/Pause; reduced-motion mode and GitHub show the complete still.
 
 ## Results
 

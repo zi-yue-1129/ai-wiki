@@ -15,7 +15,7 @@ K-FAC 以克羅內克積 $A \otimes G$ 近似費雪矩陣。其預處理器在�
 
 ## 核心想法
 
-取兩個 K-FAC 因子 $A$、$B$ 的特徵向量 $U_A$、$U_B$，並以它們的克羅內克積 $U = U_A \otimes U_B$ 作為基底。在此基底中，追蹤每個旋轉後梯度座標的二階矩的滾動估計。預處理時，先把梯度旋轉到此基底，再把每個座標除以其追蹤值，最後旋轉回去。對角項可以每次迭代更新，而特徵基底只偶爾重新計算。
+取兩個 K-FAC 因子 $A$、$G$ 的特徵向量 $U_A$、$U_G$，並以它們的克羅內克積 $U = U_A \otimes U_G$ 作為基底。在此基底中，追蹤每個旋轉後梯度座標的二階矩的滾動估計。預處理時，先把梯度旋轉到此基底，再把每個座標除以其追蹤值，最後旋轉回去。對角項可以每次迭代更新，而特徵基底只偶爾重新計算。
 
 ## 公式或演算法
 
@@ -26,6 +26,16 @@ K-FAC 以克羅內克積 $A \otimes G$ 近似費雪矩陣。其預處理器在�
 3. 旋轉回去：$\Delta\theta = U\,\tilde{g}$。
 
 論文的關鍵在第 2 步。縮放值是沿特徵向量本身量得的二階矩，而不是由因子特徵值推算出的縮放。
+
+### 計算範例：修正對角項
+
+<img data-source-asset-urls src="../../../assets/concept-animations/ekfac-eigenvalue-correction-still.svg" data-still-src="../../../assets/concept-animations/ekfac-eigenvalue-correction-still.svg" data-motion-src="../../../assets/concept-animations/ekfac-eigenvalue-correction-motion.svg" alt="四個座標共用克羅內克特徵基底；K-FAC 對角值皆為二，EKFAC 揭露修正後的一、三、三、一及阻尼預處理方向。" width="640" height="360">
+
+*原創 CC BY-SA 4.0 圖解，依據 George 等人（2018；見參考文獻）。 [靜態預覽](../../../assets/concept-animations/ekfac-eigenvalue-correction-still.svg) · [完整動畫](../../../assets/concept-animations/ekfac-eigenvalue-correction-motion.svg).*
+
+固定特徵基底，令 K-FAC 因子特徵值乘積為 $(2,2,2,2)$，而在該基底中的二階矩為 $(1,3,3,1)$。若測試梯度旋轉後為 $(3,3,3,3)$，純量阻尼 $\epsilon=1$，則 K-FAC 在基底中的方向為 $(1,1,1,1)$，EKFAC 則為 $(1.5,0.75,0.75,1.5)$。兩者使用同一基底，差異在於對角項；此例對完整對角項加入純量阻尼，而非對各因子分別加阻尼。
+
+成長的長條逐步揭露最終的座標二階矩，而非實際滾動估計器的時間軌跡。下方藍色與藍綠色兩列分別為旋轉回去以前的預處理方向。數值為教學構造，非模型實測。MkDocs 播放器提供播放／暫停；減少動態效果模式與 GitHub 顯示完整靜態圖。
 
 ## 結果
 
