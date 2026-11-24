@@ -109,6 +109,25 @@ class PipelineSchedule(unittest.TestCase):
                     self.assertEqual(order, [3, 2, 1, 0] if policy == 0 else [0, 1, 2, 3])
                     self.assertEqual(sum(Fraction(sizes[i] * means[i], sum(sizes)) for i in order), full)
 
+    def test_masked_token_gradient_with_empty_microbatch(self):
+        from fractions import Fraction
+        # Sum-reduced token gradients: one micro-batch has no valid targets.
+        counts = (3, 0, 1, 2)
+        numerators = (9, 0, -2, 8)
+        expected = Fraction(15, 6)
+        for kind in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'gpipe-1f1b-schedule-{kind}.svg').getroot()
+            by_id = {e.get('id'): e for e in root.iter() if e.get('id')}
+            for policy in range(2):
+                for stage in range(3):
+                    order = [int(label[1:]) - 1 for t in range(12)
+                             if (label := by_id[f'op-{policy}-{stage}-{t}'].find(NS+'text').text).startswith('B')]
+                    self.assertEqual(sorted(order), list(range(4)))
+                    total = sum(counts[i] for i in order)
+                    self.assertEqual(Fraction(sum(numerators[i] for i in order), total), expected)
+                    self.assertEqual(sum(Fraction(numerators[i], counts[i]) * Fraction(counts[i], total)
+                                         for i in order if counts[i]), expected)
+
     def test_reveal_boundaries(self):
         schedule = ET.parse(ASSETS / 'gpipe-1f1b-schedule-motion.svg').getroot()
         trace = ET.parse(ASSETS / 'gpipe-activation-liveness-motion.svg').getroot()
