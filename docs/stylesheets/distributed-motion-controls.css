@@ -13,3 +13,507 @@
 @media (prefers-reduced-motion: reduce) { .distributed-motion-controls { scroll-behavior: auto; } }
 .concept-motion-player img[hidden] { display: none !important; }
 .concept-motion-player .concept-motion-controls[hidden] { display: none !important; }
+
+/* Co-design pages already provide a focusable horizontal scroll region.
+ * Let that outer region pan the 640px figure instead of introducing an
+ * inaccessible nested horizontal scroller around the controls. */
+@media (max-width: 720px) {
+  .concept-motion-scroll > .concept-motion-player.co-design-motion-timeline {
+    width: 640px;
+    min-width: 640px;
+    max-width: none;
+    overflow-x: visible;
+  }
+}
+
+/* Co-design controls are siblings of the horizontal figure viewport. */
+.co-design-motion-controls {
+  width: 100%;
+  max-width: 640px;
+  min-width: 0;
+}
+.co-design-motion-controls .distributed-motion-seek { min-width: 7rem; }
+
+/* A text interpretation of the synthetic current state, outside the 640px
+ * scrollable drawing. Wrap naturally at mobile widths without side scrolling. */
+.distributed-motion-interpretation {
+  flex: 1 0 100%;
+  min-width: 0;
+  margin: .2rem 0 0;
+  padding: .35rem .5rem;
+  border-inline-start: 3px solid var(--md-accent-fg-color, #387e99);
+  color: var(--md-default-fg-color, #24394c);
+  background: var(--md-code-bg-color, #f4f6f8);
+  font-size: .7rem;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+/* Announce seek and step changes without duplicating the interpretation
+ * visually. The visually hidden live region remains screen-reader accessible. */
+.co-design-motion-controls .concept-motion-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* A/B comparison of reviewed, synthetic animation states. Keep both panels
+ * outside the figure scroller, and preserve single-column mobile reading. */
+.co-design-motion-controls .distributed-motion-pin,
+.co-design-motion-controls .distributed-motion-previous,
+.co-design-motion-controls .distributed-motion-swap,
+.co-design-motion-controls .distributed-motion-sweep,
+.co-design-motion-controls .distributed-motion-clear {
+  border: 1px solid var(--md-default-fg-color--lighter, #9cafbe);
+  border-radius: .4rem;
+  padding: .28rem .5rem;
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #24394c);
+  font: inherit;
+  font-size: .72rem;
+  cursor: pointer;
+}
+.co-design-motion-controls .distributed-motion-pin:focus-visible,
+.co-design-motion-controls .distributed-motion-previous:focus-visible,
+.co-design-motion-controls .distributed-motion-swap:focus-visible,
+.co-design-motion-controls .distributed-motion-sweep:focus-visible,
+.co-design-motion-controls .distributed-motion-clear:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 2px;
+}
+.co-design-motion-controls .distributed-motion-pin:disabled,
+.co-design-motion-controls .distributed-motion-previous:disabled { opacity: .5; cursor: not-allowed; }
+.co-design-motion-controls .distributed-motion-clear[hidden],
+.co-design-motion-controls .distributed-motion-swap[hidden],
+.co-design-motion-controls .distributed-motion-sweep[hidden],
+.co-design-motion-controls .distributed-motion-comparison[hidden] { display: none !important; }
+.distributed-motion-comparison {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .35rem .5rem;
+  font-variant-numeric: tabular-nums;
+  font-size: .7rem;
+  line-height: 1.5;
+}
+.distributed-motion-comparison p {
+  min-width: 0;
+  margin: 0;
+  padding: .4rem .5rem;
+  border-radius: .35rem;
+  background: var(--md-code-bg-color, #f4f6f8);
+  overflow-wrap: anywhere;
+}
+.distributed-motion-comparison .distributed-motion-compare-a { border-left: 3px solid #7196ad; }
+.distributed-motion-comparison .distributed-motion-compare-b { border-left: 3px solid #c67e3c; }
+.distributed-motion-comparison .distributed-motion-compare-delta {
+  grid-column: 1 / -1;
+  background: transparent;
+  border: 1px solid var(--md-default-fg-color--lightest, #d1d8df);
+}
+@media (max-width: 480px) {
+  .distributed-motion-comparison { grid-template-columns: minmax(0, 1fr); }
+  .distributed-motion-comparison .distributed-motion-compare-delta { grid-column: 1; }
+}
+
+/* Live paired gauges share an absolute domain per metric; they are only a
+ * visual encoding of the synthetic values already exposed in A/B text. */
+.distributed-motion-compare-visual {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: .4rem;
+  padding: .45rem .55rem;
+  border: 1px solid var(--md-default-fg-color--lightest, #d1d8df);
+  border-radius: .4rem;
+}
+.distributed-motion-visual-row {
+  display: grid;
+  grid-template-columns: minmax(6.4rem, .8fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: .45rem;
+  align-items: center;
+  min-width: 0;
+}
+.distributed-motion-visual-heading { font-size: .66rem; font-weight: 600; overflow-wrap: anywhere; }
+.distributed-motion-visual-lane { display: flex; align-items: center; gap: .28rem; min-width: 0; }
+.distributed-motion-visual-lane > span:first-child { font-size: .63rem; flex: 0 0 auto; }
+.distributed-motion-visual-track {
+  display: block;
+  height: .55rem;
+  flex: 1;
+  min-width: 0;
+  border-radius: .15rem;
+  background: var(--md-default-fg-color--lightest, #d1d8df);
+  overflow: hidden;
+}
+.distributed-motion-visual-fill { display: block; height: 100%; transition: width 150ms ease-out; }
+.distributed-motion-visual-a { background: #7196ad; }
+.distributed-motion-visual-b { background: #c67e3c; }
+@media (max-width: 480px) {
+  .distributed-motion-compare-visual { grid-column: 1; }
+  .distributed-motion-visual-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .15rem .5rem; }
+  .distributed-motion-visual-heading { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .distributed-motion-visual-fill { transition: none; }
+}
+
+/* Guided comparisons select real, reviewed synthetic states.  Native select
+ * keyboard behaviour and focus outlines are preserved at narrow widths. */
+.co-design-motion-controls .distributed-motion-scenario {
+  flex: 0 1 15rem;
+  max-width: 100%;
+  min-width: 0;
+  border: 1px solid var(--md-default-fg-color--lighter, #9cafbe);
+  border-radius: .45rem;
+  padding: .3rem .35rem;
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #24394c);
+  font: inherit;
+  font-size: .72rem;
+}
+.co-design-motion-controls .distributed-motion-scenario:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 3px;
+}
+
+/* Discrete semantic transition navigator for the three co-design figures.
+ * Native focusable buttons keep major numerical boundaries discoverable,
+ * and the current stage remains legible without colour alone. */
+.co-design-motion-controls .distributed-motion-landmarks {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  gap: .32rem;
+  min-width: 0;
+  padding: .32rem .4rem;
+  border: 1px solid var(--md-default-fg-color--lightest, #d1d8df);
+  border-radius: .45rem;
+}
+.co-design-motion-controls .distributed-motion-landmark {
+  flex: 1 1 4.25rem;
+  min-width: 0;
+  max-width: 100%;
+  padding: .3rem .25rem;
+  border: 1px solid var(--md-default-fg-color--lighter, #9cafbe);
+  border-radius: .3rem;
+  color: var(--md-default-fg-color, #24394c);
+  background: var(--md-default-bg-color, #fff);
+  font: inherit;
+  font-size: .68rem;
+  line-height: 1.3;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.co-design-motion-controls .distributed-motion-landmark.is-current {
+  border: 2px solid var(--md-accent-fg-color, #387e99);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .16rem;
+}
+.co-design-motion-controls .distributed-motion-landmark:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 2px;
+}
+.co-design-motion-controls .distributed-motion-landmark:disabled { opacity: .55; cursor: wait; }
+
+/* Bilingual recovery action outside the mobile SVG scroller. */
+.distributed-motion-retry {
+  display: block;
+  max-width: 100%;
+  margin: .5rem 0;
+  padding: .4rem .65rem;
+  border: 1px solid var(--md-default-fg-color--lighter, #9cafbe);
+  border-radius: .45rem;
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #24394c);
+  font: inherit;
+  font-size: .75rem;
+  cursor: pointer;
+  white-space: normal;
+}
+.distributed-motion-retry[hidden] { display: none !important; }
+.distributed-motion-retry[aria-disabled="true"] { cursor: progress; }
+.distributed-motion-retry:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #387e99);
+  outline-offset: 3px;
+}
+
+/* Six-step temporal low-gradient retention under two illustrative policies.
+ * The real SVG controls own the timeline; no autonomous CSS animation. */
+.co-design-motion-controls .distributed-motion-retention-trace {
+  flex: 1 0 100%;
+  box-sizing: border-box;
+  display: grid;
+  gap: .22rem;
+  min-width: 0;
+  padding: .5rem .6rem;
+  border: 1px solid var(--md-default-fg-color--lightest, #d1d8df);
+  border-radius: .4rem;
+  background: var(--md-code-bg-color, #f4f6f8);
+}
+.distributed-motion-retention-row {
+  display: grid;
+  grid-template-columns: minmax(2.75rem, 3.5rem) repeat(6, minmax(0, 1fr));
+  align-items: center;
+  column-gap: clamp(.18rem, .7vw, .55rem);
+  min-width: 0;
+}
+.distributed-motion-retention-label {
+  font-size: .67rem;
+  font-weight: 700;
+  color: var(--md-default-fg-color, #24394c);
+}
+.distributed-motion-retention-step {
+  font-size: .58rem;
+  text-align: center;
+  color: var(--md-default-fg-color--light, #6b7886);
+  font-variant-numeric: tabular-nums;
+}
+.distributed-motion-retention-cell {
+  display: block;
+  position: relative;
+  height: .85rem;
+  min-width: 0;
+  border-radius: .18rem;
+  background: var(--md-default-fg-color--lightest, #d1d8df);
+  border: 1px solid transparent;
+  opacity: .42;
+}
+.distributed-motion-retention-cell[data-state="retained"] {
+  opacity: 1;
+  background: #247e9d;
+}
+.distributed-motion-retention-cell[data-state="lost"] {
+  opacity: 1;
+  background: #e6b05b;
+  background-image: repeating-linear-gradient(135deg, transparent 0 5px, #8b5115 5px 7px);
+}
+.distributed-motion-retention-cell[data-state="skipped"] {
+  opacity: 1;
+  background: #9aa6b0;
+}
+.distributed-motion-retention-cell[data-state="skipped"]::after {
+  content: '';
+  position: absolute;
+  inset: 45% 3%;
+  height: 1px;
+  background: #344454;
+  transform: rotate(-12deg);
+}
+.distributed-motion-retention-cell[data-current="true"] {
+  outline: 2px solid var(--md-default-fg-color, #24394c);
+  outline-offset: 2px;
+}
+@media (max-width: 480px) {
+  .co-design-motion-controls .distributed-motion-retention-trace { padding: .42rem .38rem; }
+  .distributed-motion-retention-row {
+    grid-template-columns: minmax(2.2rem, 2.75rem) repeat(6, minmax(0, 1fr));
+  }
+}
+/* Co-design: five-choice, schematic Pareto plane. The original animated SVG
+ * remains the primary process explanation and the reviewed GitHub fallback.
+ * No autonomous animation; dots follow the same seek/play/step controller. */
+.distributed-motion-pareto { width: min(100%, 34rem); box-sizing: border-box; margin: .7rem 0; padding: .65rem .8rem .75rem; border: 1px solid #9db3c2; border-radius: .65rem; background: var(--md-code-bg-color, #f7f9fa); color: var(--md-default-fg-color, #273745); }
+.distributed-motion-pareto-title { margin: 0 0 .4rem; font-size: .84rem; font-weight: 650; }
+.distributed-motion-pareto-plot { position: relative; box-sizing: border-box; height: 13rem; margin: .4rem .55rem 1.65rem 1.75rem; border-left: 1.5px solid #7c909e; border-bottom: 1.5px solid #7c909e; background-image: linear-gradient(to right, #bac8d233 1px, transparent 1px), linear-gradient(to top, #bac8d233 1px, transparent 1px); background-size: 25% 25%; }
+.distributed-motion-pareto-line { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.distributed-motion-pareto-line polyline { fill: none; stroke: #007f89; stroke-width: 1.8; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
+.distributed-motion-pareto-witness { stroke: #ac6731; stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.distributed-motion-pareto-dot { position: absolute; transform: translate(-50%, 50%); width: 1.9rem; height: 1.9rem; padding: 0; box-sizing: border-box; border-radius: 50%; border: 2px solid #007f89; background: #def7f3; color: #125059; font-weight: 800; font-size: .71rem; cursor: pointer; z-index: 1; line-height: 1; display: flex; align-items: center; justify-content: center; }
+.distributed-motion-pareto-dot[data-frontier="false"] { border: 2px dashed #667585; background: #eef0f3; color: #455563; }
+.distributed-motion-pareto-dot.is-current { outline: 3px solid #1b2a39; outline-offset: 2px; z-index: 3; }
+.distributed-motion-pareto-dot.is-pinned { box-shadow: 0 0 0 5px #ffbc72; z-index: 2; }
+.distributed-motion-pareto-dot:focus-visible { outline: 3px solid #903ec7; outline-offset: 4px; z-index: 4; }
+.distributed-motion-pareto-dot:disabled { cursor: not-allowed; opacity: .7; }
+.distributed-motion-pareto-axis-x { position: absolute; bottom: -1.45rem; left: 50%; transform: translateX(-50%); font-size: .66rem; font-weight: 650; letter-spacing: .03em; white-space: nowrap; }
+.distributed-motion-pareto-axis-y { position: absolute; top: 42%; left: -1.65rem; writing-mode: vertical-rl; transform: rotate(180deg); font-size: .66rem; font-weight: 650; letter-spacing: .02em; white-space: nowrap; }
+.distributed-motion-pareto-legend { display: flex; gap: .7rem; flex-wrap: wrap; font-size: .69rem; line-height: 1.35; }
+@media (max-width: 420px) { .distributed-motion-pareto { padding: .6rem .55rem; } .distributed-motion-pareto-plot { height: 12rem; margin-left: 1.6rem; margin-right: .25rem; } .distributed-motion-pareto-dot { width: 1.7rem; height: 1.7rem; font-size: .66rem; } .distributed-motion-pareto-axis-y { left: -1.55rem; } }
+@media (prefers-reduced-motion: reduce) { .distributed-motion-pareto-dot { transition: none; } }
+
+/* Exact discrete-scale navigation is separate from the decorative cells.
+   Wrapped native selects remain keyboard operable at 320px. */
+.distributed-motion-policy-jump {
+  box-sizing: border-box; flex: 1 0 100%; width: 100%; min-width: 0;
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: .45rem 1rem; padding: .25rem 0 .1rem;
+}
+.distributed-motion-policy-jump label {
+  display: inline-flex; flex: 0 1 auto; flex-wrap: wrap; align-items: center;
+  gap: .3rem; max-width: 100%; min-width: 0;
+  font-size: .75rem; font-weight: 600;
+}
+.distributed-motion-policy-jump select {
+  box-sizing: border-box; max-width: 100%; min-width: 5.8rem; min-height: 2rem;
+  font: inherit; padding: .2rem .35rem; border: 1px solid var(--md-default-fg-color--lighter, #8a9dac);
+  border-radius: .25rem; color: var(--md-default-fg-color, #24394c);
+  background: var(--md-default-bg-color, #fff);
+}
+.distributed-motion-policy-jump select:focus-visible {
+  outline: 2px solid var(--md-accent-fg-color, #8b46bf);
+  outline-offset: 2px;
+}
+@media (max-width: 420px) {
+  .distributed-motion-policy-jump { gap: .3rem .6rem; }
+  .distributed-motion-policy-jump label { font-size: .7rem; }
+}
+
+/* 13-scale IEEE/FTZ counterfactual; driven by the existing FP16 timeline. */
+.distributed-motion-policy-window { flex: 1 0 100%; min-width: 0; box-sizing: border-box; margin: .4rem 0; padding: .55rem .65rem .6rem; border: 1px solid #9db3c2; border-radius: .55rem; background: var(--md-code-bg-color, #f7f9fa); color: var(--md-default-fg-color, #24394c); }
+.distributed-motion-policy-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .3rem; font-size: .75rem; font-weight: 650; margin-bottom: .35rem; }
+.distributed-motion-policy-direction { font-variant-numeric: tabular-nums; font-weight: 700; }
+.distributed-motion-policy-row { display: grid; grid-template-columns: minmax(2.5rem, 3.2rem) repeat(13, minmax(0, 1fr)); gap: clamp(.12rem, .35vw, .28rem); align-items: center; margin: .2rem 0; min-width: 0; }
+.distributed-motion-policy-label { font-size: .67rem; font-weight: 700; white-space: nowrap; }
+.distributed-motion-policy-tick { font-size: .56rem; font-variant-numeric: tabular-nums; text-align: center; color: var(--md-default-fg-color, #24394c); }
+.distributed-motion-policy-cell { display: block; box-sizing: border-box; height: 1.65rem; border: 1px solid #637785; border-radius: .18rem; min-width: 0; }
+.distributed-motion-policy-cell[data-state="underflow"] { background: repeating-linear-gradient(135deg,#e49e39 0,#e49e39 3px,#ffe8b4 3px,#ffe8b4 6px); }
+.distributed-motion-policy-cell[data-state="valid"] { background: #12858a; }
+.distributed-motion-policy-cell[data-state="overflow"] { background: repeating-linear-gradient(45deg,#374759 0,#374759 4px,#bfccd5 4px,#bfccd5 6px); }
+.distributed-motion-policy-cell[data-current="true"] { outline: 3px solid var(--md-default-fg-color, #15283c); outline-offset: 1px; z-index: 1; }
+@media (max-width: 420px) { .distributed-motion-policy-window { padding: .45rem .45rem .5rem; } .distributed-motion-policy-row { grid-template-columns: minmax(2.3rem, 2.5rem) repeat(13, minmax(0, 1fr)); gap: .12rem; } .distributed-motion-policy-cell { height: 1.3rem; border-radius: .1rem; } }
+
+/* Compact visual key for the two illustrative binary16 quantization paths. */
+.distributed-motion-policy-legend { display: flex; flex-wrap: wrap; gap: .35rem .85rem; margin-top: .5rem; padding-top: .43rem; border-top: 1px solid var(--md-default-fg-color--lightest, #d5dce3); font-size: .64rem; line-height: 1.35; }
+.distributed-motion-policy-legend-item { display: inline-flex; align-items: center; gap: .32rem; white-space: nowrap; }
+.distributed-motion-policy-legend-swatch { display: inline-block; width: 1rem; height: .75rem; flex: none; box-sizing: border-box; border: 1px solid #637785; border-radius: .12rem; }
+.distributed-motion-policy-legend-swatch[data-state="underflow"] { background: repeating-linear-gradient(135deg,#e49e39 0,#e49e39 3px,#ffe8b4 3px,#ffe8b4 6px); }
+.distributed-motion-policy-legend-swatch[data-state="valid"] { background: #12858a; }
+.distributed-motion-policy-legend-swatch[data-state="overflow"] { background: repeating-linear-gradient(45deg,#374759 0,#374759 4px,#bfccd5 4px,#bfccd5 6px); }
+.distributed-motion-policy-legend-swatch[data-state="current"] { background: var(--md-code-bg-color,#f7f9fa); outline: 2px solid var(--md-default-fg-color,#15283c); outline-offset: 1px; margin: 0 .1rem; }
+
+/* A/B pinned-to-current comparison, not the amber Pareto witness. */
+.distributed-motion-pareto-ab {
+  fill: none;
+  stroke: #8b46bf;
+  stroke-width: 2.5;
+  stroke-dasharray: 2 5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+/* A stays visible in both counterfactual precision lanes while B moves. */
+.distributed-motion-policy-cell[data-pinned="true"] {
+  box-shadow: inset 0 -4px #8b46bf;
+}
+.distributed-motion-policy-legend-swatch[data-state="pinned"] {
+  box-shadow: inset 0 -4px #8b46bf;
+}
+
+/* Six keyboard-reachable GradScaler states; all share the existing SVG clock. */
+.distributed-motion-retention-step {
+  appearance: none; min-width: 0; min-height: 1.55rem; padding: .12rem .05rem;
+  font: inherit; font-size: .62rem; font-weight: 650; text-align: center;
+  font-variant-numeric: tabular-nums; color: var(--md-default-fg-color--light,#516575);
+  cursor: pointer; border: 1px solid transparent; border-radius: .25rem; background: transparent;
+}
+.distributed-motion-retention-step.is-current { color: #17364a; background: #e1edf3; border-color: #374f60; }
+.distributed-motion-retention-step.is-pinned { box-shadow: inset 0 -3px #8b46bf; }
+.distributed-motion-retention-step:focus-visible { outline: 3px solid #8b46bf; outline-offset: 2px; }
+.distributed-motion-retention-step:disabled { cursor: not-allowed; }
+.distributed-motion-retention-cell[data-pinned="true"] { box-shadow: inset 0 -4px #8b46bf; }
+.distributed-motion-retention-legend {
+  display: flex; flex-wrap: wrap; gap: .32rem .8rem; margin-top: .3rem; padding-top: .4rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest,#c8d1da);
+  font-size: .63rem; line-height: 1.35;
+}
+.distributed-motion-retention-legend-item { display: inline-flex; align-items: center; gap: .26rem; white-space: nowrap; }
+.distributed-motion-retention-legend-swatch {
+  display: inline-block; box-sizing: border-box; width: .95rem; height: .7rem;
+  border: 1px solid #637785; border-radius: .1rem;
+}
+.distributed-motion-retention-legend-swatch[data-state="retained"] { background: #247e9d; }
+.distributed-motion-retention-legend-swatch[data-state="lost"] { background: repeating-linear-gradient(135deg,#e49e39 0,#e49e39 3px,#ffe8b4 3px,#ffe8b4 6px); }
+.distributed-motion-retention-legend-swatch[data-state="skipped"] { background: repeating-linear-gradient(45deg,#374759 0,#374759 4px,#bfccd5 4px,#bfccd5 6px); }
+.distributed-motion-retention-legend-swatch[data-state="current"] {
+  background: var(--md-code-bg-color,#f4f6f8);
+  outline: 2px solid var(--md-default-fg-color,#24394c); outline-offset: 1px; margin: 0 .1rem;
+}
+.distributed-motion-retention-legend-swatch[data-state="pinned"] {
+  background: var(--md-code-bg-color,#f4f6f8); box-shadow: inset 0 -3px #8b46bf;
+}
+@media (prefers-reduced-motion: reduce) { .distributed-motion-retention-step { transition: none; } }
+
+/* Constrained checkpoint comparison: a memory-cap line filters the sampled
+ * choices; the violet ring is the least-replay *feasible* option, not a GPU
+ * recommendation or a continuously fitted Pareto curve. */
+.distributed-motion-pareto-budget-line {
+  stroke: #8b46bf;
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  vector-effect: non-scaling-stroke;
+}
+.distributed-motion-budget-control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .35rem .6rem;
+  margin: .3rem 0 .7rem;
+  font-size: .77rem;
+  font-weight: 650;
+}
+.distributed-motion-budget-control input {
+  flex: 1 1 9rem;
+  max-width: 17rem;
+  min-width: 6rem;
+  accent-color: #8b46bf;
+}
+.distributed-motion-budget-control input:focus-visible {
+  outline: 3px solid #903ec7;
+  outline-offset: 3px;
+}
+.distributed-motion-budget-control input:disabled { opacity: .5; }
+/* Native constrained A/B action is outside the range label for correct Tab order. */
+.distributed-motion-budget-actions {
+  display: flex; gap: .45rem; flex-wrap: wrap; margin: .1rem 0 .65rem;
+}
+.distributed-motion-budget-compare {
+  box-sizing: border-box; min-height: 2rem; max-width: 100%; padding: .3rem .7rem;
+  border: 1px solid #8b46bf; border-radius: .35rem;
+  font: inherit; font-size: .73rem; font-weight: 650;
+  color: var(--md-default-fg-color, #35264b);
+  background: var(--md-code-bg-color, #f1eafa); cursor: pointer;
+}
+.distributed-motion-budget-compare:focus-visible {
+  outline: 3px solid var(--md-accent-fg-color, #903ec7);
+  outline-offset: 3px;
+}
+.distributed-motion-budget-compare:disabled { opacity: .58; cursor: not-allowed; }
+@media (max-width: 420px) {
+  .distributed-motion-budget-compare { width: 100%; }
+}
+.distributed-motion-budget-readout {
+  margin: .45rem 0 0;
+  font-size: .73rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.distributed-motion-pareto-dot[data-feasible="false"] {
+  opacity: .52;
+  background: repeating-linear-gradient(45deg,
+    #f7f1f1 0, #f7f1f1 4px, #e1d6db 4px, #e1d6db 7px);
+}
+.distributed-motion-pareto-dot[data-best="true"]::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border: 2px solid #8b46bf;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Second independent bound: horizontal, blue total-replay cap in the same
+ * sampled Pareto plane. No animation clock or independent state simulation. */
+.distributed-motion-pareto-replay-line {
+  stroke: #256f9f;
+  stroke-width: 2;
+  stroke-dasharray: 3 5;
+  vector-effect: non-scaling-stroke;
+}
+.distributed-motion-replay-control input { accent-color: #256f9f; }
