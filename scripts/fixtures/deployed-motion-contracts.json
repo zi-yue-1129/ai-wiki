@@ -9138,6 +9138,36 @@
         }
       ],
       "viewBox": "0 0 640 360"
+    },
+    "interconnect-ring-reduction": {
+      "origins": [
+        {
+          "origin_blob": "76ea685ce0ca0d73ac30a2bfbc62585991216d73",
+          "origin_commit": "f30d9f625adb154a5156d544e9e05b7042ed989f",
+          "path": "docs/assets/concept-animations/interconnect-ring-reduction-motion.svg"
+        },
+        {
+          "origin_blob": "de516e67e6933135d3e626b728171c7946c52aa2",
+          "origin_commit": "f30d9f625adb154a5156d544e9e05b7042ed989f",
+          "path": "docs/assets/concept-animations/interconnect-ring-reduction-still.svg"
+        }
+      ],
+      "viewBox": "0 0 360 300"
+    },
+    "interconnect-bucket-overlap": {
+      "origins": [
+        {
+          "origin_blob": "42f8266ff6fdd1576ec0f3f7b184b5dcd6ed57cb",
+          "origin_commit": "f30d9f625adb154a5156d544e9e05b7042ed989f",
+          "path": "docs/assets/concept-animations/interconnect-bucket-overlap-motion.svg"
+        },
+        {
+          "origin_blob": "ff4ee0e47a57016e5e1ea0a1e6a00b112ee3a828",
+          "origin_commit": "f30d9f625adb154a5156d544e9e05b7042ed989f",
+          "path": "docs/assets/concept-animations/interconnect-bucket-overlap-still.svg"
+        }
+      ],
+      "viewBox": "0 0 360 300"
     }
   },
   "extra": {
