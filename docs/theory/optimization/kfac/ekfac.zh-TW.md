@@ -7,7 +7,7 @@ aliases:
 
 # EKFAC
 
-EKFAC（特徵值修正的 Kronecker 分解）保留 [K-FAC](index.zh-TW.md) 的克羅內克分解特徵基底，但在該基底中追蹤對角變異數，而不是使用各因子特徵值的乘積作為縮放。George 等人（2018）提出了此方法。他們主張，它是比 K-FAC 更好的費雪矩陣近似，而且一旦特徵基底可用，每次迭代的成本仍然很低。
+EKFAC（特徵值修正的 Kronecker 分解）保留 [K-FAC](index.zh-TW.md) 的克羅內克分解特徵基底，但在該基底中追蹤對角二階矩，而不是使用各因子特徵值的乘積作為縮放。George 等人（2018）提出了此方法。他們主張，它是比 K-FAC 更好的費雪矩陣近似，而且一旦特徵基底可用，每次迭代的成本仍然很低。
 
 ## 問題
 
@@ -34,6 +34,17 @@ K-FAC 以克羅內克積 $A \otimes G$ 近似費雪矩陣。其預處理器在�
 *原創 CC BY-SA 4.0 圖解，依據 George 等人（2018；見參考文獻）。 [靜態預覽](../../../assets/concept-animations/ekfac-eigenvalue-correction-still.svg) · [完整動畫](../../../assets/concept-animations/ekfac-eigenvalue-correction-motion.svg).*
 
 固定特徵基底，令 K-FAC 因子特徵值乘積為 $(2,2,2,2)$，而在該基底中的二階矩為 $(1,3,3,1)$。若測試梯度旋轉後為 $(3,3,3,3)$，純量阻尼 $\epsilon=1$，則 K-FAC 在基底中的方向為 $(1,1,1,1)$，EKFAC 則為 $(1.5,0.75,0.75,1.5)$。兩者使用同一基底，差異在於對角項；此例對完整對角項加入純量阻尼，而非對各因子分別加阻尼。
+
+圖中的兩組對角項可以由同一組曲率樣本產生。取八組等權重的激活值與導數配對，令 $a=e_i$、$g=\sqrt{8}\,e_j$，其中 $e_1,e_2$ 是座標單位向量。令 $(i,j)=(1,1),(1,2),(2,1),(2,2)$ 的出現次數分別為 $(1,3,3,1)$。此時 $A=\mathbb{E}[aa^\top]=I/2$、$G=\mathbb{E}[gg^\top]=4I$，因此 $A\otimes G=2I_4$；但 $a\otimes g$ 的二階矩為 $\operatorname{diag}(1,3,3,1)$。由於因子具有重複特徵值，座標基底只是此例的一種合法特徵基底。這是人工構造的二階矩，不是模型實測的費雪矩陣；測試梯度是另一個獨立指定的向量。
+
+對稱曲率矩陣 $F$ 與固定正交規一基底 $U$ 下，令 $C=U^\top F U$。平方 Frobenius 誤差可拆為不變的非對角誤差及對角項差異：
+
+$
+\|F-UDU^\top\|_F^2
+=\sum_{i\ne j}C_{ij}^2+\sum_i(C_{ii}-D_{ii})^2.
+$
+
+選擇 $D_{ii}=C_{ii}$ 可最小化固定基底下的此項誤差，但無法恢復非對角項，也不保證最佳化更新一定較好。上述人工樣本的平方誤差由 4 降為 0。
 
 成長的長條逐步揭露最終的座標二階矩，而非實際滾動估計器的時間軌跡。下方藍色與藍綠色兩列分別為旋轉回去以前的預處理方向。數值為教學構造，非模型實測。MkDocs 播放器提供播放／暫停；減少動態效果模式與 GitHub 顯示完整靜態圖。
 
@@ -67,7 +78,7 @@ K-FAC 以克羅內克積 $A \otimes G$ 近似費雪矩陣。其預處理器在�
 
 ### 開創性論文
 
-- George, T., Laurent, C., Bouthillier, X., Ballas, N. & Vincent, P. (2018). *Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis*. arXiv:1806.03884. https://arxiv.org/abs/1806.03884 — 在克羅內克分解特徵基底中追蹤對角變異數，論文主張這是比 K-FAC 更好的費雪近似。
+- George, T., Laurent, C., Bouthillier, X., Ballas, N. & Vincent, P. (2018). *Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis*. arXiv:1806.03884. https://arxiv.org/abs/1806.03884 — 在克羅內克分解特徵基底中追蹤對角二階矩，論文主張這是比 K-FAC 更好的費雪近似。
 - Martens, J. & Grosse, R. (2015). *Optimizing Neural Networks with Kronecker-factored Approximate Curvature*. arXiv:1503.05671. https://arxiv.org/abs/1503.05671 — 提出 EKFAC 所使用之特徵基底的 K-FAC 因子。
 - Grosse, R. & Martens, J. (2016). *A Kronecker-factored approximate Fisher matrix for convolution layers*. ICML, PMLR 48:573–582. https://proceedings.mlr.press/v48/grosse16.html — K-FAC 的卷積擴展，供卷積網路上的比較之用。
 - Amari, S. (1998). *Natural Gradient Works Efficiently in Learning*. Neural Computation, 10(2), 251–276. https://doi.org/10.1162/089976698300017746 — EKFAC 所近似的自然梯度方法。

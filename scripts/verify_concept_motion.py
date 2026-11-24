@@ -408,8 +408,6 @@ TOPICS = {
     "pets-cem-refit": "theory/paradigms/reinforcement-learning/model-based-rl/pets/index",
     "mbpo-horizon-error": "theory/paradigms/reinforcement-learning/model-based-rl/mbpo/index",
     "gru-gate-flow": "theory/models/rnn/gated-cells/gru/index",
-    "ekfac-eigenvalue-correction": "theory/optimization/kfac/ekfac",
-    "kfc-patch-second-moment": "theory/optimization/kfac/kfc",
     "kfac-factor-preconditioning": "theory/optimization/kfac/index",
     "maml-inner-outer-loop": "theory/paradigms/meta-learning/optimisation-based/maml",
     "alpha-beta-cutoff": "theory/paradigms/symbolic-ai/search/alpha-beta-pruning",
@@ -486,12 +484,20 @@ TOPICS = {
     "ddpm-progressive-noising": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddpm",
     "ddim-strided-sampling": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
     "ddim-eta-coefficients": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
+    "brier-murphy-decomposition": "theory/evaluation/metrics/probabilistic/brier-score",
+    "ece-bin-merging": "theory/evaluation/metrics/probabilistic/calibration-error",
+    "ekfac-eigenvalue-correction": "theory/optimization/kfac/ekfac",
+    "kfc-patch-second-moment": "theory/optimization/kfac/kfc",
     "bernoulli-kl-direction": "theory/information-theory/index",
     "binary-channel-information": "theory/information-theory/index",
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
 CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+ 'ekfac-eigenvalue-correction': '0 0 640 360',
+ 'kfc-patch-second-moment': '0 0 640 360',
+ 'brier-murphy-decomposition': '0 0 640 360',
+ 'ece-bin-merging': '0 0 640 360',
  'bernoulli-kl-direction': '0 0 720 400',
  'binary-channel-information': '0 0 720 400',
  'dnn-output-stationary-traffic': '0 0 640 360',
@@ -716,8 +722,6 @@ CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'jumprelu-threshold-jump': '0 0 640 360',
  'kalman-gain-fusion': '0 0 640 360',
  'kd-soft-target-alignment': '0 0 720 400',
- 'ekfac-eigenvalue-correction': '0 0 640 360',
- 'kfc-patch-second-moment': '0 0 640 360',
  'kfac-factor-preconditioning': '0 0 640 360',
  'kivi-quantization-axis': '0 0 640 360',
  'kmeans-elbow-inertia': '0 0 800 420',
@@ -1541,6 +1545,8 @@ def main() -> int:
     for stem, page in {
         "brier-expected-risk": "brier-score",
         "log-loss-tail-penalty": "log-loss",
+        "brier-murphy-decomposition": "brier-score",
+        "ece-bin-merging": "calibration-error",
     }.items():
         moving = ASSETS / f"{stem}-motion.svg"
         still = ASSETS / f"{stem}-still.svg"

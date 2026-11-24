@@ -23,6 +23,22 @@ class CurvatureMotion(unittest.TestCase):
                 for bar in bars:
                     self.assertEqual(int(bar.get('height')), moment*25)
                     self.assertEqual(int(bar.get('y')) + int(bar.get('height')), 191)
+    def test_ekfac_joint_moment_construction(self):
+        # Eight equally weighted pairs a=e_i, g=sqrt(8)*e_j.
+        counts = ((1, 3), (3, 1))
+        n = sum(map(sum, counts))
+        a = [Fraction(sum(row), n) for row in counts]
+        g = [Fraction(8*sum(row[j] for row in counts), n) for j in range(2)]
+        kfac = [x*y for x in a for y in g]
+        corrected = [Fraction(8*c, n) for row in counts for c in row]
+        self.assertEqual(a, [Fraction(1, 2)]*2)
+        self.assertEqual(g, [4, 4])
+        self.assertEqual(kfac, [2]*4)
+        self.assertEqual(corrected, [1, 3, 3, 1])
+        self.assertEqual(sum((x-y)**2 for x, y in zip(kfac, corrected)), 4)
+        self.assertEqual([Fraction(3)/(x+1) for x in corrected],
+                         [Fraction(3, 2), Fraction(3, 4), Fraction(3, 4), Fraction(3, 2)])
+
     def test_kfc(self):
         patches = [(1, 2), (2, 3), (3, 4)]
         sums = [sum(p[j//2]*p[j%2] for p in patches) for j in range(4)]
