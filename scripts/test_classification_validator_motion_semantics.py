@@ -23,7 +23,6 @@ class ValidatorPreservation(unittest.TestCase):
             '0 0 360 262': ['memory-wall-weight-reuse'],
             '0 0 360 254': ['sparse-index-intersection'],
         })
-        exceptions['0 0 360 300'] = ['interconnect-ring-reduction', 'interconnect-bucket-overlap']
         expected = {stem: box for box, stems in exceptions.items() for stem in stems}
         with tempfile.TemporaryDirectory() as directory:
             for stem in TOPICS:
@@ -42,8 +41,8 @@ class ValidatorPreservation(unittest.TestCase):
             # Special families must not accidentally accept a globally legal default size.
             for stem in ("interconnect-ring-reduction", "interconnect-bucket-overlap", "sac-entropy-temperature", "dpo-preference-margin",
                          "vivit-factorised-attention", "i3d-filter-inflation",
-                         "s4d-diagonal-modes", "mamba2-ssd-causal-map", "forward-ad-dual-chain", "offline-iql-expectile", "offline-cql-conservative", "rainbow-c51-projection", "q-sarsa-epsilon", "nstep-lambda-forward", "rnd-state-novelty", "icm-predictable-stochastic", "tpu-systolic-wavefront", "analog-crossbar-current-sum"):
                          "s4d-diagonal-modes", "mamba2-ssd-causal-map", "forward-ad-dual-chain", "offline-iql-expectile", "offline-cql-conservative", "rainbow-c51-projection", "q-sarsa-epsilon", "nstep-lambda-forward", "rnd-state-novelty", "icm-predictable-stochastic",
+                         "tpu-systolic-wavefront", "analog-crossbar-current-sum",
                          "memory-wall-weight-reuse", "sparse-index-intersection"):
                 root = ET.parse(ROOT / ASSETS / f"{stem}-still.svg").getroot()
                 root.set("viewBox", "0 0 640 360")
