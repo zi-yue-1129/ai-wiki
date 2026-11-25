@@ -53,6 +53,17 @@ DeepSpeed-MoE's Pyramid Residual MoE (PR-MoE) combines a depth-dependent expert 
 
 If each payload contains $h$ elements of $b$ bytes each, the two cases carry $4hb$ and $2hb$ logical bytes, respectively. This comparison assumes the dense branch is replicated locally, both original routed experts are remote, equal activation sizes and no other traffic. A selected expert may instead be local, and tensor parallelism, padding, collective algorithms and synchronization can change physical traffic. Two FFN evaluations do not imply equal FLOPs or model quality. The toy comparison is not a measured speedup or a guarantee of halving network bytes.
 
+**Placement-dependent savings.** Keep E0 as the routed expert and replace E1 with the locally replicated dense FFN. Under the same equal-size forward-payload assumptions as the animation, let r0 and r1 each be 1 for a remote expert and 0 for a local expert. Top-2 uses 2(r0 + r1) remote payloads (dispatch plus return), while the residual example uses 2r0.
+
+| E0 | E1 | Top-2 payloads | Residual payloads |
+|---|---|---:|---:|
+| Remote | Remote | 4 | 2 |
+| Remote | Local | 2 | 2 |
+| Local | Remote | 2 | 0 |
+| Local | Local | 0 | 0 |
+
+Replacing a local E1 saves no remote payloads; replacing a remote E1 saves two. Thus the original 50% reduction is conditional, and when the Top-2 count is zero the relative reduction is undefined (not 0%). This is a controlled placement comparison retaining the same E0, not a claim that separately trained Top-2 and PR-MoE models route identically. Replicating the dense branch also consumes memory; the table does not account for replica synchronization or other parallelism.
+
 [^residual-traffic]: Rajbhandari et al., [DeepSpeed-MoE](https://arxiv.org/abs/2201.05596), Section 4.1; the logical payload example is original.
 
 ## Results

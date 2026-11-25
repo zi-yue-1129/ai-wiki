@@ -744,5 +744,41 @@ class MoeDispatchSemantics(unittest.TestCase):
         self.assertEqual(sum(map(crossing, paths[4:])), 2)
         self.assertEqual([n.get('dur') for n in nodes], ['12s'] * 8)
 
+    def test_balanced_expert_load_does_not_fix_remote_traffic(self):
+        layouts = (
+            (((2, 0), (0, 2)), 0),
+            (((1, 1), (1, 1)), 2),
+            (((0, 2), (2, 0)), 4),
+        )
+        for matrix, remote in layouts:
+            with self.subTest(matrix=matrix):
+                self.assertEqual([sum(row) for row in matrix], [2, 2])
+                self.assertEqual([sum(col) for col in zip(*matrix)], [2, 2])
+                self.assertEqual(matrix[0][1] + matrix[1][0], remote)
+                self.assertEqual(sum(matrix[g][e] for g in range(2)
+                                     for e in range(2) if g != e), remote)
+        paths = [node.get('path') for node in self.motions('gshard-dispatch-layout')]
+        self.assertEqual(sum(p in ('M212 151L428 227', 'M212 227L428 151')
+                             for p in paths), layouts[1][1])
+
+    def test_residual_savings_depend_on_replaced_expert_locality(self):
+        cases = ((1, 1, 4, 2), (1, 0, 2, 2),
+                 (0, 1, 2, 0), (0, 0, 0, 0))
+        for r0, r1, top2, residual in cases:
+            with self.subTest(r0=r0, r1=r1):
+                self.assertEqual(2 * (r0 + r1), top2)
+                self.assertEqual(2 * r0, residual)
+                self.assertEqual(top2 - residual, 2 * r1)
+                if top2 == 0:
+                    self.assertEqual(residual, 0)
+                else:
+                    self.assertEqual((top2 - residual) / top2,
+                                     r1 / (r0 + r1))
+        paths = [tuple(map(int, n.get('path').replace('M', '').replace('L', ' ').split()))
+                 for n in self.motions('deepspeed-residual-traffic')]
+        crosses = lambda p: (p[0] < 320) != (p[2] < 320)
+        self.assertEqual((sum(map(crosses, paths[:4])),
+                          sum(map(crosses, paths[4:]))), cases[0][2:])
+
 if __name__ == '__main__':
     unittest.main()

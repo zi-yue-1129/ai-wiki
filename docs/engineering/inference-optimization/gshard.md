@@ -51,6 +51,16 @@ After gating, GShard packs token representations into expert-capacity slots and 
 
 There are two local blocks and two logical remote blocks in the forward dispatch. If every block is one activation vector of $h$ elements with $b$ bytes per element, remote dispatch carries $2hb$ logical bytes across the two devices in total. Returning equally sized expert outputs to their originating groups adds another $2hb$; the combine step then applies the gating weights. The animation isolates the layout exchange, not expert arithmetic, gating, capacity overflow, padding, collective overhead or backward communication. GShard's actual gating can select up to two experts per token; the four occupied slots here are already routed contributions, not a new gating rule. The counts are schematic, not measured traffic or latency.
 
+**Why balanced expert counts do not determine communication.** Let each matrix row represent the originating group (G0 or G1), each column the destination expert (E0 or E1), and each entry the number of occupied slots. Group and expert ownership follow the animation: G0/E0 on D0 and G1/E1 on D1. Allow two slots per group-expert pair for this separate example.
+
+| Occupied slots (G0; G1) | Expert totals (E0, E1) | Remote sends | Remote returns |
+|---|---|---:|---:|
+| (2, 0); (0, 2) | (2, 2) | 0 | 0 |
+| (1, 1); (1, 1) — animation | (2, 2) | 2 | 2 |
+| (0, 2); (2, 0) | (2, 2) | 4 | 4 |
+
+Each device originates two contributions and each expert receives two contributions in all three cases. Only off-diagonal occupied slots cross devices, so the first and last cases have identical expert load but different useful remote payload counts. Empty slots carry no useful activation in this accounting; a padded collective may still transmit their allocated storage. These are hypothetical post-gating layouts, not measured bytes or a claim about the compiler's physical all-to-all implementation.
+
 [^dispatch-layout]: Lepikhin et al., [GShard](https://arxiv.org/abs/2006.16668), describes group-local gating, expert computation and automatic sharding; this two-device example is original.
 
 ## Results
