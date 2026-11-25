@@ -488,6 +488,8 @@ TOPICS = {
     "ddim-eta-coefficients": "theory/paradigms/unsupervised/density-and-generative-models/diffusion/ddim",
     "brier-murphy-decomposition": "theory/evaluation/metrics/probabilistic/brier-score",
     "ece-bin-merging": "theory/evaluation/metrics/probabilistic/calibration-error",
+    "ekfac-eigenvalue-correction": "theory/optimization/kfac/ekfac",
+    "kfc-patch-second-moment": "theory/optimization/kfac/kfc",
     "bernoulli-kl-direction": "theory/information-theory/index",
     "binary-channel-information": "theory/information-theory/index",
 }
@@ -496,6 +498,8 @@ TOPICS = {
 CANONICAL_VIEWBOXES = {'es-antithetic-weighted-update': '0 0 640 360',
  'distributed-kfac-layer-ownership': '0 0 640 360',
  'kernel-fusion-intermediate-traffic': '0 0 640 360',
+ 'ekfac-eigenvalue-correction': '0 0 640 360',
+ 'kfc-patch-second-moment': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
  'ece-bin-merging': '0 0 640 360',
  'bernoulli-kl-direction': '0 0 720 400',
@@ -1403,7 +1407,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid MkDocs motion link")
             elif stem in {'a3c-async-gradient', 'a3c-nstep-return', 'alibi-content-recency', 'alibi-distance-softmax', 'alibi-head-prefix', 'cfm-conditional-bridge', 'deep-ensemble-spread', 'dreamer-lambda-bootstrap', 'dreamer-posterior-prior', 'ece-binned-calibration', 'fitnets-hint-then-output', 'hmm-baum-welch-transition', 'hmm-filter-smooth', 'hmm-forward-sum-product', 'hmm-pairwise-posterior', 'kd-soft-target-alignment', 'lion-sign-momentum', 'mbpo-horizon-error', 'mbpo-short-branches', 'muon-spectral-balancing', 'pets-cem-refit', 'pets-ensemble-particles', 'qk-norm-scale-sweep', 'rectified-reflow-coupling', 'rlhf-dpo-margin', 'rlhf-reward-sums', 'rope-axial-2d', 'rope-cache-reindex', 'rope-frequency-bands', 'rope-interpolation-angle', 'shaw-relative-clipping', 'shaw-relative-value', 'sigma-reparam-spectral-gain', 'sinusoidal-multiscale', 'trpo-kl-backtracking', 'trpo-ratio-surrogate', 'tsne-kl-embedding', 'umap-fuzzy-union', 'yarn-attention-temperature', 'yarn-frequency-ramp'}:
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"bernoulli-kl-direction", "binary-channel-information", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap", "confusion-condition-direction", "f1-averaging-rules", "roc-score-quantization", "roc-tie-group-step"}:
+            elif stem in {"ekfac-eigenvalue-correction", "kfc-patch-second-moment", "bernoulli-kl-direction", "binary-channel-information", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap", "confusion-condition-direction", "f1-averaging-rules", "roc-score-quantization", "roc-tie-group-step"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 static_links = re.findall(r"\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in static_links}:

@@ -48,10 +48,11 @@ Gradient descent uses the gradient alone: \(\theta \leftarrow \theta - \eta\nabl
 
 ## Key methods
 
-Three landmark tools organise the calculus of training. Each has its own page or links to one.
+Four landmark tools organise the calculus of training. Each has its own page or links to one.
 
 - [Newton's method](newtons-method.md): uses the Hessian to take curvature-scaled steps; fast near a minimum, expensive in high dimensions.
 - [Lagrange multipliers](lagrange-multipliers.md): turns a constrained problem into an unconstrained one with extra multipliers; the basis of support vector machines and KKT conditions.
+- [Interior-point methods](interior-point-methods.md): solve inequality-constrained problems by following a central path through the interior of the feasible region; the numerical route to the KKT conditions.
 - Stochastic gradient descent: replaces the full gradient with a noisy estimate from a mini-batch. The convergence theory goes back to Robbins and Monro (1951); see the [optimisation section](../../optimization/index.md) for the methods built on it.
 
 ## Connections

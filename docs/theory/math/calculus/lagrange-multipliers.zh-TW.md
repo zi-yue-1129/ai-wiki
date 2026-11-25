@@ -70,7 +70,7 @@ translation_reviewed: 2026-11-16
 ## 主要方法
 
 - [牛頓法](newtons-method.md)：可用於拉格朗日函數的駐點條件的二階方法，是一階 KKT 方法的替代。
-- 內點法：以障礙項處理不等式約束，與此相關但不同的方法，見 Boyd 與 Vandenberghe（2004）。
+- [內點法](interior-point-methods.md)：以障礙項處理不等式約束，並讓迭代點嚴格可行。其障礙乘數逼近本頁的 KKT 乘數。
 
 ## 與其他頁面的連結
 
@@ -81,8 +81,8 @@ translation_reviewed: 2026-11-16
 ## 應用
 
 - **支持向量機**：透過對偶問題求解的最大間隔分類器（Cortes & Vapnik, 1995）。
-- **有約束的策略更新**：信賴域方法以 KL 散度的約束限制每次更新中策略的移動幅度（見[強化學習](../../paradigms/reinforcement-learning/index.md)）。
-- **公平性與安全約束**：有約束的訓練問題以乘數執行可量測的要求（Boyd & Vandenberghe, 2004）。
+- **有約束的策略更新**：信賴域方法以 KL 散度的約束限制每次更新中策略的移動幅度，例如 TRPO（Schulman et al., 2015；見[強化學習](../../paradigms/reinforcement-learning/index.md)）。
+- **公平性與安全約束**：有約束的訓練問題可以用乘數執行可量測的要求，其構造與上文所述的拉格朗日函數相同。
 
 ## 開放問題
 
@@ -99,8 +99,9 @@ translation_reviewed: 2026-11-16
 ### 綜述與教科書
 
 - Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer. https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf — 在支持向量機的討論中涵蓋有約束最佳化與拉格朗日函數。
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — 免費教科書；涵蓋核方法所用的有約束形式。
+- Nocedal, J. & Wright, S. J. (2006). *Numerical Optimization*, 2nd ed. Springer. https://doi.org/10.1007/978-0-387-40065-5 — 涵蓋有約束問題的拉格朗日乘數與 KKT 條件，以及建立於其上的內點法。
 
 ### 文章與文件
 
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization methods for large-scale machine learning. *SIAM Review*. arXiv:1606.04838. https://arxiv.org/abs/1606.04838 — 綜述學習用的最佳化方法，包括有約束的形式及其實務成本。
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization methods for large-scale machine learning. *SIAM Review*. arXiv:1606.04838. https://arxiv.org/abs/1606.04838 — 綜述機器學習的數值最佳化演算法，重點為隨機梯度方法及其實務成本。
+- Schulman, J. et al. (2015). Trust region policy optimization. *Proceedings of the 32nd International Conference on Machine Learning (ICML)*. arXiv:1502.05477. https://arxiv.org/abs/1502.05477 — 提出 TRPO，以 KL 散度的信賴域限制每次策略更新。

@@ -2048,6 +2048,36 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "ekfac-eigenvalue-correction": {
+      "origins": [
+        {
+          "origin_blob": "58521fc193027b469dc0781c5ee8dd0348adc00c",
+          "origin_commit": "6b0281b9333e4f594ccb39929f582383c364bd56",
+          "path": "docs/assets/concept-animations/ekfac-eigenvalue-correction-motion.svg"
+        },
+        {
+          "origin_blob": "83738794eb48569dc82baf80750696a54f9823d2",
+          "origin_commit": "6b0281b9333e4f594ccb39929f582383c364bd56",
+          "path": "docs/assets/concept-animations/ekfac-eigenvalue-correction-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "kfc-patch-second-moment": {
+      "origins": [
+        {
+          "origin_blob": "403d85a62e4286209b9d23bb71cc35f944a3d583",
+          "origin_commit": "6b0281b9333e4f594ccb39929f582383c364bd56",
+          "path": "docs/assets/concept-animations/kfc-patch-second-moment-motion.svg"
+        },
+        {
+          "origin_blob": "5ab3a6b8c4ae5392b99c7909ae13c45fe4b32dfe",
+          "origin_commit": "6b0281b9333e4f594ccb39929f582383c364bd56",
+          "path": "docs/assets/concept-animations/kfc-patch-second-moment-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "kfac-factor-preconditioning": {
       "origins": [
         {

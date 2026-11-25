@@ -42,5 +42,16 @@ class ParallelOptimizationMotion(unittest.TestCase):
             # Averaging factors and inverting is not averaging local inverses.
             self.assertNotEqual(1 / ((Q(1) + Q(3)) / 2), (1 / Q(1) + 1 / Q(3)) / 2)
 
+    def test_observation_weighted_reduction(self):
+        # Scalar analogue of one factor; counts follow the statistic normalization.
+        counts, means = (1, 3), (Q(1), Q(5))
+        pooled = sum(n * a for n, a in zip(counts, means)) / sum(counts)
+        worker_mean = sum(means) / len(means)
+        self.assertEqual((pooled, worker_mean), (4, 3))
+        self.assertEqual(Q(10) / (pooled + 1), 2)
+        self.assertEqual(Q(10) / (worker_mean + 1), Q(5, 2))
+        # Splitting a worker does not change the observation-weighted moment.
+        self.assertEqual((means[0] + means[1] + 2 * means[1]) / 4, pooled)
+
 if __name__ == "__main__":
     unittest.main()
