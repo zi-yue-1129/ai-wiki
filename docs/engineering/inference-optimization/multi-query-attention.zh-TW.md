@@ -27,6 +27,25 @@ flowchart LR
   V --> C
 ```
 
+### 算例：共用 Value 不代表輸出相同
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/mqa-shared-values-output-still.svg" data-motion-src="../../assets/concept-animations/mqa-shared-values-output-motion.svg" data-still-src="../../assets/concept-animations/mqa-shared-values-output-still.svg" alt="兩個查詢頭以不同權重對共用快取的數值 1、2、4 加權，分別累積出 1.8 與 3.0。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態預覽](../../assets/concept-animations/mqa-shared-values-output-still.svg) · 在 MkDocs 網站使用可鍵盤操作的播放／暫停控制（Enter 或空白鍵）；減少動態效果偏好預設顯示靜態圖。
+
+跨頭共用 K 與 V 並不代表共用查詢或注意力分布。考慮兩個查詢頭及三個快取 token，共用純量 Value $v=(1,2,4)$。假設兩個頭的 Softmax 後權重分別為 $p_1=(0.6,0.2,0.2)$ 與 $p_2=(0.2,0.2,0.6)$。加權貢獻與輸出如下：
+
+| 查詢頭 | Token 1 | Token 2 | Token 3 | 輸出 |
+|---|---:|---:|---:|---:|
+| Q1 | 0.6 | 0.4 | 0.8 | 1.8 |
+| Q2 | 0.2 | 0.4 | 2.4 | 3.0 |
+
+移動的外框標示目前正在累積貢獻的共用 token；兩條輸出長條使用相同尺度。兩個頭的注意力權重總和皆為 1，但加權輸出不同。逐欄累積僅用於解釋規約運算，並非融合注意力運算核心的實際執行順序。這些純量及機率是人工構造的教學數值，並非模型實測啟動值。共用 KV 的設計見 [Shazeer（2019）](https://arxiv.org/abs/1911.02150)，數值算例為原創，與[分組查詢注意力的頭共享及快取成長算例](grouped-query-attention.md)不同。
+
+*原創教學動畫，CC BY-SA 4.0。*
+
 ## 關鍵方法
 
 這個方法是對注意力層投影的修改，而非新的核心。它的證據是：在模型大小相同的情況下，解碼速度提升，代價是些許品質損失。

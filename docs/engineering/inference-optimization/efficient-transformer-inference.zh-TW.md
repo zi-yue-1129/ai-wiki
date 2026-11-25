@@ -38,6 +38,22 @@ Pope 等人（2022）提出一個分析模型，說明在生成過程中，大�
 
 其中 \(B\) 為批次大小，\(L\) 為序列長度，\(E\) 為模型維度。
 
+### 算例：KV 快取讀取何時超過權重讀取
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/decode-weight-kv-crossover-still.svg" data-motion-src="../../assets/concept-animations/decode-weight-kv-crossover-motion.svg" data-still-src="../../assets/concept-animations/decode-weight-kv-crossover-still.svg" alt="固定批次大小下，權重讀取維持八個單位，多頭注意力的快取讀取成長率為多查詢注意力的四倍，分別在上下文長度二及八時交會。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態預覽](../../assets/concept-animations/decode-weight-kv-crossover-still.svg) · 在 MkDocs 網站使用可鍵盤操作的播放／暫停控制（Enter 或空白鍵）；減少動態效果偏好預設顯示靜態圖。
+
+分析模型的記憶體項可用一個受控比較說明。假設固定批次包含 $B$ 個等長序列，使用 $G$ 個維度為 $d$ 的 KV 頭，每個儲存元素占 $b$ 位元組。在理想化的單次讀取模型中，上下文長度為 $S$ 時，每次解碼迭代讀取 $2BSGdb$ 位元組的 KV 快取，另讀取 $W$ 位元組的權重。此模型忽略 KV 寫入、重複載入、快取駐留、通訊、運算及其他流量。
+
+KV 快取讀取量等於權重讀取量的交會點為 $S_* = W/(2BGdb)$。圖中固定 $W=8$ 個任意位元組單位，比較四個 KV 頭與一個 KV 頭，每個上下文長度單位的 KV 讀取成本分別設定為 4 與 1。因此 MHA 在 $S=2$ 交會，MQA 在 $S=8$ 交會。當上下文長度為 4，MHA 讀取 16 個 KV 單位，MQA 讀取 4 個單位，兩者權重讀取仍為 8 個單位。移動游標掃描的是上下文長度，而非實際時間。橫軸原點是數學外推，動畫從上下文長度 1 開始。
+
+受控比較固定非 KV 的權重讀取量，以隔離快取效應；實際 MHA 與 MQA 的權重大小可能不同。即使交會點變為四倍，也不保證延遲或可支援上下文容量有四倍改善，仍取決於完整系統與工作負載。以上為示意數值，並非 PaLM 實測結果。更完整的切分模型見 [Pope 等人（2022）](https://arxiv.org/abs/2211.05102)，共用 KV 頭見 [Shazeer（2019）](https://arxiv.org/abs/1911.02150)。
+
+*原創教學動畫，CC BY-SA 4.0。*
+
 ## 切分與結果
 
 - **1D 與 2D 權重固定配置** 讓權重固定在晶片上，改為移動啟動值。解碼階段使用 2D 配置。
