@@ -23,16 +23,26 @@ Human-labelled data contains errors, and the errors are not random. Annotators c
 
 ## How it works
 
-The method first obtains out-of-sample probabilities, then builds the confident joint from examples that clearly belong to another class than their given label. The off-diagonal counts give an estimate of the noise rate between each pair of classes, which in turn selects the examples to prune.
+The method first obtains out-of-sample probabilities, then counts confident assignments into both diagonal and off-diagonal cells using class-specific thresholds. The off-diagonal counts give an estimate of the noise rate between each pair of classes, which in turn selects the examples to prune.
 
-```mermaid
-flowchart LR
-  L[Given labels] --> P[Out-of-sample probabilities]
-  P --> T[Per-class thresholds]
-  T --> J[Confident joint]
-  J --> R[Rank and prune likely errors]
-  R --> M[Retrain on cleaned data]
-```
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Teaching figure; focus and scroll horizontally on narrow screens" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/confident-joint-counting-still.svg" data-motion-src="../../assets/concept-animations/confident-joint-counting-motion.svg" data-still-src="../../assets/concept-animations/confident-joint-counting-still.svg" alt="Eight held-out probability rows enter a given-by-likely class matrix; six are counted, two remain uncounted and two off-diagonal examples warrant review." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" loading="lazy">
+</div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* The left table contains eight constructed held-out predictions, not a fitted model or benchmark. For each class $j$, define the confidence threshold as the mean predicted probability for $j$ among examples with given label $j$. Here both thresholds are $(0.9+0.8+0.2+0.5)/4=0.60$. An example is counted in the row of its **given** label and the column of a class meeting its threshold. If several classes qualify, take the qualifying class with highest probability; if none qualify, do not count it. Chips move from the example list into the corresponding matrix cells.
+
+The resulting **raw, uncalibrated** confident joint is
+
+$
+C=\begin{pmatrix}2&1\\1&2\end{pmatrix}.
+$
+
+Examples e4 and e8 meet neither threshold. Examples e3 and e7 land off the diagonal and deserve inspection, not automatic relabelling. In the complete estimator (Northcutt, Jiang and Chuang, 2021, in References), the counts are calibrated to the given-label marginals and normalised to estimate the joint distribution; pruning and ranking are separate decisions. Thus the two off-diagonal counts out of six counted examples are **not** a measured dataset error rate.
+
+MkDocs provides Play/Pause and reduced-motion support; on narrow screens swipe horizontally or focus the figure and use the left/right arrow keys. [GitHub static overview](../../assets/concept-animations/confident-joint-counting-still.svg) · [Standalone animation](../../assets/concept-animations/confident-joint-counting-motion.svg).
+
 
 ## Key methods
 
