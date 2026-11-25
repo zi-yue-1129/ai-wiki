@@ -38,6 +38,18 @@ class DataRetrievalMotion(unittest.TestCase):
             self.assertEqual(actual, expected)
             self.assertEqual(counts, [[2,1],[1,2]])
             self.assertEqual(len(rows)-len(actual), 2)
+            observed = [sum(row[0] == label for row in rows) for label in 'AB']
+            calibrated = [[F(n*cell, len(rows)*sum(row)) for cell in row]
+                          for n, row in zip(observed, counts)]
+            self.assertEqual(calibrated, [[F(1,3), F(1,6)], [F(1,6), F(1,3)]])
+            self.assertEqual([sum(row) for row in calibrated], [F(n,len(rows)) for n in observed])
+            self.assertEqual(sum(map(sum, calibrated)), 1)
+            self.assertEqual(calibrated[0][1]+calibrated[1][0], F(1,3))
+            # Separate hypothetical unequal observed marginals; keep the raw counts fixed.
+            unequal = [[F(n*cell, 10*sum(row)) for cell in row]
+                       for n, row in zip((4,6), counts)]
+            self.assertEqual([sum(row) for row in unequal], [F(2,5),F(3,5)])
+            self.assertEqual(sum(map(sum, unequal)), 1)
     def test_anisotropic_residual(self):
         x = (3,0); q = (1,0); codes = [(2,0),(3,1)]
         residuals = [(x[0]-a,x[1]-b) for a,b in codes]
@@ -52,6 +64,22 @@ class DataRetrievalMotion(unittest.TestCase):
                 width = max(map(int,anim.get('values').split(';'))) if anim is not None else int(r.get('width'))
                 self.assertEqual(width, 45*v)
             self.assertIn('q · x = 3     q · A = 2     q · B = 3', [t.text for t in panel.iter(NS+'text')])
+
+    def test_query_dependent_pairwise_ranking(self):
+        x, z = (3,0), (F(5,2), F(1,2))
+        codes = ((2,0), (3,1))
+        for q, expected in [((1,0), (True, False)), ((0,1), (False, True))]:
+            def score(a):
+                return sum(a_i*q_i for a_i,q_i in zip(a,q))
+            exact = score(x)-score(z)
+            reversals = []
+            for code in codes:
+                approx = score(code)-score(z)
+                residual = tuple(a-b for a,b in zip(x,code))
+                self.assertEqual(approx, exact-score(residual))
+                self.assertNotEqual(approx, 0)
+                reversals.append(exact*approx < 0)
+            self.assertEqual(tuple(reversals), expected)
 
 if __name__ == '__main__':
     unittest.main()

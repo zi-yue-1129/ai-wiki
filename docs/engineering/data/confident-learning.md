@@ -31,7 +31,7 @@ The method first obtains out-of-sample probabilities, then counts confident assi
 </div>
 </div>
 
-*Original teaching animation, CC BY-SA 4.0.* The left table contains eight constructed held-out predictions, not a fitted model or benchmark. For each class $j$, define the confidence threshold as the mean predicted probability for $j$ among examples with given label $j$. Here both thresholds are $(0.9+0.8+0.2+0.5)/4=0.60$. An example is counted in the row of its **given** label and the column of a class meeting its threshold. If several classes qualify, take the qualifying class with highest probability; if none qualify, do not count it. Chips move from the example list into the corresponding matrix cells.
+*Original teaching animation, CC BY-SA 4.0.* The left table contains eight constructed held-out predictions, not a fitted model or benchmark. For each class $j$, define the confidence threshold as the mean predicted probability for $j$ among examples with given label $j$. Here both thresholds are $(0.9+0.8+0.2+0.5)/4=0.60$. An example is counted in the row of its **given** label and the column of a class meeting its threshold. If none qualify, do not count it. In the paper's collision rule, when several classes qualify, use the overall probability argmax; the binary example below has no collisions. Chips move from the example list into the corresponding matrix cells.
 
 The resulting **raw, uncalibrated** confident joint is
 
@@ -43,6 +43,24 @@ Examples e4 and e8 meet neither threshold. Examples e3 and e7 land off the diago
 
 MkDocs provides Play/Pause and reduced-motion support; on narrow screens swipe horizontally or focus the figure and use the left/right arrow keys. [GitHub static overview](../../assets/concept-animations/confident-joint-counting-still.svg) · [Standalone animation](../../assets/concept-animations/confident-joint-counting-motion.svg).
 
+
+### From counts to a joint distribution
+
+Let $n_i$ denote the number of examples with given label $i$, and $N=\sum_i n_i$. When each row has nonzero count, the real-valued estimator in Northcutt et al. (2021, Eq. 3) can be written as
+
+$
+\hat Q_{ij}=\frac{n_i}{N}\frac{C_{ij}}{\sum_k C_{ik}}.
+$
+
+In the animation, $n_A=n_B=4$ and each raw row sums to 3. Rescaling each row by $4/3$ and dividing by 8 gives
+
+$
+\hat Q=\begin{pmatrix}1/3&1/6\\1/6&1/3\end{pmatrix}.
+$
+
+The row sums are $1/2$ and the total is 1. Its off-diagonal mass is $1/3$, an estimated noise fraction under the estimator's assumptions, not a verified error rate or a count of specific examples. The two flagged examples are still just review candidates. This calculation is not depicted in the raw-count animation. Integer pruning budgets require a separate rounding and selection rule.
+
+The equal row counts hide the importance of calibration: in a separate hypothetical case with the same raw matrix but observed class counts 4 and 6, direct division by the raw total 6 would incorrectly assign both observed classes mass $1/2$. Row calibration instead gives masses $2/5$ and $3/5$ and preserves the within-row proportions. This formula does not cover a row with no confident counts; that case needs explicit handling rather than division by zero.
 
 ## Key methods
 

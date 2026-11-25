@@ -46,6 +46,17 @@ The loss is 4 for A and 1 for B. For the particular unit query $q=(1,0)$, the ex
 MkDocs provides Play/Pause and reduced-motion support; on narrow screens swipe horizontally or focus the figure and use the left/right arrow keys. [GitHub static overview](../../assets/concept-animations/scann-anisotropic-residual-still.svg) · [Standalone animation](../../assets/concept-animations/scann-anisotropic-residual-motion.svg).
 
 
+### When score error changes the ranking
+
+Keep the illustrated $x$, $A$ and $B$, and add an exactly represented competitor $z=(2.5,0.5)$. The same stored vector has two possible query-dependent ranking outcomes:
+
+| Query | Exact score of x | Score of z | Approximation A | Approximation B |
+|---|---:|---:|---:|---:|
+| $(1,0)$ | 3 | 2.5 | 2 (reversal) | 3 |
+| $(0,1)$ | 0 | 0.5 | 0 | 1 (reversal) |
+
+For a positive exact margin $m=q^\top(x-z)$, replacing only $x$ by $\hat x$ changes the margin to $m-q^\top e$. It reverses the pair if $q^\top e>m$ (equality is a tie). More generally the residual difference $e_x-e_z$ determines the perturbation when both candidates are quantised. The anisotropic loss prefers B in the figure, but it cannot guarantee the correct ordering for every query. These are synthetic pairwise scores, not a recall experiment.
+
 ## Key ideas
 
 - **Problem:** standard quantisation minimises the reconstruction error evenly in every direction, but inner-product score error depends on the residual projection onto the query, and changes in ranking also depend on score margins.
