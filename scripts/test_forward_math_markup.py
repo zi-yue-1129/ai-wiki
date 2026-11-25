@@ -238,7 +238,7 @@ a_n(a_n+b_n)&=o_p(n^{-1/2}).
                 blocks = [''.join(x.split()) for x in MathContainers(html).blocks]
                 for body in bodies:
                     self.assertEqual(blocks.count(r'\[' + ''.join(body.split()) + r'\]'), 1)
-                    self.assertEqual(source.count('\n\n$\n' + body + '\n$\n\n'), 1)
+                    self.assertEqual(source.count('\n\n$$\n' + body + '\n$$\n\n'), 1)
 
     def test_each_original_root_cause_and_detached_or_missing_formula_rejected(self):
         import re
