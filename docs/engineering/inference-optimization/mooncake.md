@@ -59,6 +59,18 @@ $$
 
 where $Q_i$ is estimated queueing, $X_i$ is cache-loading time and $F$ is remaining prefill time at prefix coverage $H_i$. A node with a longer hit can lose to one with a shorter queue or faster transfer. This expression illustrates the scheduling tradeoff; it is not a latency guarantee or a model of Mooncake's layer-wise overlap. The paper's cache-aware scheduler combines estimated prefill, transfer and queueing costs, and also considers hot-block replication for load balancing.[^scheduling]
 
+### Animated example: more cached blocks can lose
+
+<div role="region" tabindex="0" aria-label="Teaching animation: use arrow keys to scroll horizontally; Play/Pause controls follow" style="max-width:100%;overflow-x:auto;">
+  <div style="width:640px;max-width:none;">
+    <img data-source-asset-urls src="../../assets/concept-animations/mooncake-prefix-placement-still.svg" data-motion-src="../../assets/concept-animations/mooncake-prefix-placement-motion.svg" data-still-src="../../assets/concept-animations/mooncake-prefix-placement-still.svg" alt="Two hypothetical cache placements show queue, transfer and remaining prefill costs accumulating; the shorter cached prefix finishes earlier." width="640" height="360">
+  </div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* [GitHub-readable static preview](../../assets/concept-animations/mooncake-prefix-placement-still.svg). On MkDocs use Play/Pause; reduced-motion preferences show the still. On narrow screens swipe horizontally or focus the region and use Left/Right arrow keys.
+
+For a separate toy prompt of four equal-sized blocks, node A can reuse three blocks and node B two. Use arbitrary time units and the serial cost model above. A has queue, transfer and remaining prefill costs of 5, 3 and 2; B has 1, 2 and 4. As the cursor advances, the colored bars accumulate each component, yielding 10 versus 7. Node B has lower predicted serial completion cost despite less reuse, so it wins this two-candidate comparison. The timelines are hypothetical alternatives for the same request, not concurrent work on both nodes. These are illustrative costs, not measured latencies or the actual Mooncake scheduler; actual layer-wise overlap, contention and decode admission are omitted.[^scheduling]
+
 ## Overload and early rejection
 
 **Admission** decides whether to accept a request; it is separate from finding its cache blocks. Waiting until decoding to reject an unserviceable request wastes its prefill computation. Checking only the decoding pool's *current* load before prefill also causes trouble: a wave of accepted prefills can arrive after that check, alternately overloading and starving the two pools.

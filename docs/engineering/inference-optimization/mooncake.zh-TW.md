@@ -59,6 +59,18 @@ $$
 
 其中 $Q_i$ 是預估排隊時間，$X_i$ 是快取載入時間，而 $F$ 是前綴覆蓋長度為 $H_i$ 時的剩餘預填充時間。命中較長前綴的節點，仍可能輸給佇列較短或搬移較快的節點。此式用來說明排程取捨，並非延遲保證，也不是 Mooncake 逐層重疊執行的模型。論文的快取感知排程結合預估預填充、搬移與排隊成本，也考慮複製熱門區塊以平衡負載。[^scheduling]
 
+### 動畫算例：命中更多快取區塊仍可能落敗
+
+<div role="region" tabindex="0" aria-label="教學動畫：使用方向鍵水平捲動；下方提供播放與暫停控制" style="max-width:100%;overflow-x:auto;">
+  <div style="width:640px;max-width:none;">
+    <img data-source-asset-urls src="../../assets/concept-animations/mooncake-prefix-placement-still.svg" data-motion-src="../../assets/concept-animations/mooncake-prefix-placement-motion.svg" data-still-src="../../assets/concept-animations/mooncake-prefix-placement-still.svg" alt="兩個假設快取放置方案的排隊、搬移及剩餘預填充成本逐步累積；命中較短前綴的節點反而先完成。" width="640" height="360">
+  </div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* [GitHub 靜態預覽](../../assets/concept-animations/mooncake-prefix-placement-still.svg). 在 MkDocs 可使用播放／暫停；減少動態效果偏好會顯示靜態圖。窄螢幕可滑動，或聚焦圖框後使用左右方向鍵。
+
+另設一個由四個等大小區塊組成的教學提示。節點 A 可重用三個區塊，節點 B 可重用兩個。使用任意時間單位與前述忽略重疊的成本模型：A 的排隊、搬移、剩餘預填充成本分別為 5、3、2；B 則為 1、2、4。游標前進時，彩色長條逐項累積成本，總和分別為 10 與 7。儘管重用量較少，B 的預估序列完成成本更低，因此在這兩個候選方案中勝出。時間軸表示同一請求的兩個假設替代方案，並非同時在兩個節點執行。這些是示意成本，不是實測延遲或 Mooncake 實際排程器的結果；逐層重疊、資源競爭與解碼准入均未納入。[^scheduling]
+
 ## 過載與提早拒絕
 
 **准入**決定是否接受請求，與尋找快取區塊是不同的決策。等到解碼才拒絕無法服務的請求，會浪費已執行的預填充。只在預填充前檢查解碼池的「目前」負載，也會出問題：一波已接受的預填充可能在檢查之後才抵達解碼池，使兩個資源池交替過載與缺乏工作。

@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "distserve-joint-slo": {
+      "origins": [
+        {
+          "origin_blob": "b8a65f8273b2b23537a34ff730e8f43c3b97943b",
+          "origin_commit": "95a39210dd37fbc9382beb93f4c7983e8417afbf",
+          "path": "docs/assets/concept-animations/distserve-joint-slo-motion.svg"
+        },
+        {
+          "origin_blob": "613ee741cf15dff30f6913f2a4737546ebc88b4b",
+          "origin_commit": "95a39210dd37fbc9382beb93f4c7983e8417afbf",
+          "path": "docs/assets/concept-animations/distserve-joint-slo-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "mooncake-prefix-placement": {
+      "origins": [
+        {
+          "origin_blob": "e002a9ef7703da7f68ef33b7f13ca2a1f0e57b02",
+          "origin_commit": "95a39210dd37fbc9382beb93f4c7983e8417afbf",
+          "path": "docs/assets/concept-animations/mooncake-prefix-placement-motion.svg"
+        },
+        {
+          "origin_blob": "aec4d9bb430c8069c9f95c915f87af4d12929fce",
+          "origin_commit": "95a39210dd37fbc9382beb93f4c7983e8417afbf",
+          "path": "docs/assets/concept-animations/mooncake-prefix-placement-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

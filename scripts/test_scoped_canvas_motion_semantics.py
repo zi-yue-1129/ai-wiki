@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,54 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+
+class ServingTimelineSemantics(unittest.TestCase):
+    def groups(self, stem, attr, kind):
+        root = ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+        if kind == 'motion':
+            root = next(g for g in root.iter(v.NS + 'g') if g.get('class') == 'animated')
+        return [g for g in root.iter(v.NS + 'g') if g.get(attr) is not None]
+
+    def test_joint_slo(self):
+        expected = [[2, 4, 6], [4, 6, 8], [2, 6, 10],
+                    [2, 4, 6], [3, 5, 7], [2, 4, 6]]
+        for kind in ('motion', 'still'):
+            groups = self.groups('distserve-joint-slo', 'data-tokens', kind)
+            self.assertEqual(len(groups), 6)
+            counts = {'shared': 0, 'separated': 0}
+            for i, g in enumerate(groups):
+                times = list(map(int, g.get('data-tokens').split(',')))
+                self.assertEqual(times, expected[i])
+                a, b, c = times
+                case = 'shared' if i < 3 else 'separated'
+                self.assertEqual(g.get('data-case'), case)
+                y = [94, 126, 158, 218, 250, 282][i]
+                paths = [p.get('d') for p in g.iter(v.NS + 'path')]
+                self.assertEqual(paths, [f'M140 {y}L{140+34*a} {y}',
+                                         f'M{140+34*a} {y}L{140+34*c} {y}'])
+                counts[case] += int(a <= 3 and c-a <= 4)
+            self.assertEqual(counts, {'shared': 1, 'separated': 3})
+
+    def test_cache_placement_cost(self):
+        for kind in ('motion', 'still'):
+            groups = self.groups('mooncake-prefix-placement', 'data-node', kind)
+            self.assertEqual(len(groups), 6)
+            totals = {'A': 0, 'B': 0}
+            durations = {'A': [5, 3, 2], 'B': [1, 2, 4]}
+            for i, g in enumerate(groups):
+                node = 'A' if i < 3 else 'B'
+                self.assertEqual(g.get('data-node'), node)
+                self.assertEqual(g.get('data-kind'), ['queue', 'transfer', 'prefill'][i % 3])
+                value = int(g.get('data-duration'))
+                self.assertEqual(value, durations[node][i % 3])
+                rect = g.find(v.NS + 'rect')
+                self.assertEqual(int(rect.get('x')), 176 + 35*totals[node])
+                self.assertEqual(int(rect.get('width')), 35*value)
+                totals[node] += value
+            self.assertEqual(totals, {'A': 10, 'B': 7})
+            self.assertLess(totals['B'], totals['A'])
 
 
 if __name__ == '__main__':
