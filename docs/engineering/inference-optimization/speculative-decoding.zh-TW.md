@@ -25,6 +25,26 @@ translation_reviewed: 2026-10-29
 
 *原創教學動畫，CC BY-SA 4.0。* A–D 是**示意用詞元**，並非真實模型預測。目標模型平行計算草稿位置的機率；綠色勾號只代表**一次隨機接受檢驗的示意結果**，不是直接比對詞元是否相同，也不是實測接受率。首次拒絕 C 後，後續草稿 D 會被捨棄，替代詞元 R 則從正規化的 \(\max(0,p-q)\) 分布取樣。四個階段為教學而拆分，**不代表實際執行時間**。在 MkDocs 網站可用鍵盤操作「播放／暫停」；偏好減少動態效果時預設顯示靜態圖。GitHub 可直接查看[修正輸出的靜態預覽](../../assets/concept-animations/speculative-decoding-still.svg)。接受規則見 [Leviathan 等人（2023）](https://arxiv.org/abs/2211.17192)。
 
+### 教學算例：被拒絕的機率質量如何重新分配
+
+<div tabindex="0" role="region" aria-label="可水平捲動的教學動畫，使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/speculative-residual-mass-still.svg" data-motion-src="../../assets/concept-animations/speculative-residual-mass-motion.svg" data-still-src="../../assets/concept-animations/speculative-residual-mass-still.svg" alt="A、B、C 的草稿機率為 50%、40%、10%；接受質量為 20%、40%、10%，剩餘 30% 分配給 B 與 C，各為 10% 與 20%，重建目標分布。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態預覽](../../assets/concept-animations/speculative-residual-mass-still.svg) · MkDocs 可用 Enter 或 Space 操作**播放／暫停**，偏好減少動態效果時預設顯示靜態圖。
+
+固定同一個前綴，令 A、B、C 的草稿分布為 $q=(0.5,0.4,0.1)$，目標分布為 $p=(0.2,0.5,0.3)$。每個詞元的無條件接受質量為 $m(x)=\min(p(x),q(x))$，並非該詞元的條件接受機率。總拒絕機率為 $R=1-\sum_x m(x)=0.3$。在發生拒絕的條件下，替代取樣分布為 $(0,1/3,2/3)$。
+
+| 詞元 | 草稿 | 目標 | 接受質量 | 修正質量 |
+|---|---:|---:|---:|---:|
+| A | 0.5 | 0.2 | 0.2 | 0 |
+| B | 0.4 | 0.5 | 0.4 | 0.1 |
+| C | 0.1 | 0.3 | 0.1 | 0.2 |
+
+藍色長條表示接受質量；A 草稿長條的琥珀色部分表示被拒絕的質量。綠色長條接著加入無條件修正質量 $Rr(x)$，其中 $R>0$ 時 $r(x)=\max(0,p(x)-q(x))/R$。因此每個詞元的最終質量為 $m(x)+Rr(x)=p(x)$。若 $R=0$，則不需要剩餘分布取樣。這是對重複假設取樣的機率質量分解，不是三個連續位置、單次取樣軌跡，也不是模型實測接受率。完整演算法及分布證明見參考文獻 Leviathan 等人（2023）。
+
+*原創教學動畫，CC BY-SA 4.0。*
+
 ## 關鍵方法
 
 這個方法就是上面的草稿加驗證迴圈，搭配拒絕規則。它的關鍵性質是輸出具有目標模型的分布，這是論文所證明的。

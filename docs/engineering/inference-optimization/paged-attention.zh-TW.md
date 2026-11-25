@@ -20,6 +20,26 @@ PagedAttention 把 KV 快取儲存在固定大小的區塊中，類似虛擬記�
 
 *原創教學動畫，CC BY-SA 4.0。* 彩色路徑代表**邏輯區塊與實體區塊的映射關係**；移動的圓點示意沿已建立映射進行存取的導引，不代表 GPU 資料實際搬移的路徑或延遲量測。示例假設**每個區塊存放兩個示意詞元**，三個邏輯區塊依序映射至 P2、P0、P3，P1 維持未使用。只有新增一組雙詞元區塊時才需要配置下一個實體區塊，實體索引不必遵循詞元順序。動畫省略注意力核心、共用與搶佔細節。MkDocs 可使用**播放／暫停**（Enter 或 Space）；窄螢幕可聚焦圖像區域並以鍵盤水平捲動；偏好減少動態效果時預設暫停。[GitHub 可閱讀的最終映射](../../assets/concept-animations/paged-block-mapping-still.svg)。
 
+### 教學算例：共用尾端區塊的寫時複製
+
+<div tabindex="0" role="region" aria-label="可水平捲動的教學動畫，使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/paged-copy-on-write-still.svg" data-motion-src="../../assets/concept-animations/paged-copy-on-write-motion.svg" data-still-src="../../assets/concept-animations/paged-copy-on-write-still.svg" alt="兩個序列最初共用 P0 與 P1；B 先複製尾端有效槽位至 P2，再更新映射並加入 y；A 隨後在 P1 加入 x，P0 仍有兩個參照。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態預覽](../../assets/concept-animations/paged-copy-on-write-still.svg) · MkDocs 可用 Enter 或 Space 操作**播放／暫停**，偏好減少動態效果時預設顯示靜態圖。
+
+兩個平行取樣序列 A 與 B 共用三個詞元的前綴 `a b c`。若每個區塊有兩個詞元槽位，P0 已填滿，P1 只有一個有效槽位。兩者的區塊表最初都是 [P0, P1]，P0、P1 與尚未配置的 P2 的參照計數依序為 (2, 2, 0)。B 先保留 P2 並複製有效尾端狀態 c（移動圓點示意此相依性，不代表實際傳輸量），複製完成後才將映射更新為 [P0, P2]，參照計數變成 (2, 1, 1)。此時 B 能加入 y，A 也能獨立加入 x，而不會破壞彼此的序列。
+
+| 狀態 | A 的區塊表 | B 的區塊表 | 已配置實體區塊數 |
+|---|---|---|---:|
+| 共用前綴 | P0, P1 | P0, P1 | 2 |
+| 保留並複製 P2 | P0, P1 | P0, P1 | 3 |
+| 更新映射並延伸 | P0, P1 | P0, P2 | 3 |
+
+P0 的內容沒有被寫入修改，因此維持共用。最終只需三個實體區塊，而非各自配置時的四個。此計數不包含配置器中繼資料，也不預測實際頻寬；實作可能複製完整實體區塊，而非僅有效槽位。操作順序為教學示意，不是並行控制協定或實測軌跡。平行取樣與寫時複製機制見參考文獻 Kwon 等人（2023）。
+
+*原創教學動畫，CC BY-SA 4.0。*
+
 ## 關鍵方法
 
 這個方法是帶有隨需配置與共用的區塊表，並以自訂的注意力核心實作。論文的證據比較了記憶體浪費與服務吞吐量，對象是先前的系統。

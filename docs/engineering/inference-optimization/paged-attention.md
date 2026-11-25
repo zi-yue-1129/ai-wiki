@@ -28,6 +28,26 @@ When a request starts, the system allocates blocks for its prompt. During decodi
 
 *Original instructional animation, CC BY-SA 4.0.* Each coloured path is a **logical-to-physical block-table entry**; the moving dots represent an access guide along an already established mapping, not literal GPU data movement or measured latency. The example assumes **two toy tokens per block** and assigns three logical blocks to physical P2, P0, and P3, leaving P1 unused. A new block is acquired only as another two-token block is needed; physical indices need not follow token order. The illustration omits attention-kernel details, sharing, and preemption. On MkDocs use **Play/Pause** (Enter or Space), or the keyboard-focusable horizontal viewport on narrow screens. Reduced-motion mode starts paused. [GitHub-readable final mapping](../../assets/concept-animations/paged-block-mapping-still.svg).
 
+### Worked example: copy-on-write for a shared tail
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/paged-copy-on-write-still.svg" data-motion-src="../../assets/concept-animations/paged-copy-on-write-motion.svg" data-still-src="../../assets/concept-animations/paged-copy-on-write-still.svg" alt="Two sequences initially share P0 and P1. B copies the occupied tail slot to P2 before remapping and appending y; A then appends x to P1. P0 remains shared with two references." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../assets/concept-animations/paged-copy-on-write-still.svg) · On MkDocs use **Play/Pause** with Enter or Space; reduced-motion mode initially shows the static preview.
+
+Two parallel samples A and B share the three-token prefix `a b c`. With two token slots per block, P0 is full and P1 has one occupied slot. Both block tables start at [P0, P1], with reference counts (2, 2, 0) for P0, P1 and the initially free P2. B first reserves P2 and copies the valid tail state c (the moving dot illustrates this dependency, not the physical transfer size). Only after the copy does B publish its new mapping [P0, P2], making the reference counts (2, 1, 1). B can now append y, and A can append x independently without corrupting the other sequence.
+
+| State | A's block table | B's block table | Allocated physical blocks |
+|---|---|---|---:|
+| Shared prefix | P0, P1 | P0, P1 | 2 |
+| P2 reserved and copied | P0, P1 | P0, P1 | 3 |
+| Remapped and extended | P0, P1 | P0, P2 | 3 |
+
+P0 remains shared because no write changes its contents. The final layout uses three blocks instead of four independently allocated blocks. The count excludes allocator metadata and does not predict actual bandwidth; an implementation may copy an entire physical block rather than only its valid slot. The sequence of operations is schematic, not a concurrency protocol or a measured trace. See Kwon et al. (2023) in References for parallel sampling and copy-on-write.
+
+*Original instructional animation, CC BY-SA 4.0.*
+
 ## Key methods
 
 The method is the block table with on-demand allocation and sharing, implemented in a custom attention kernel. The paper's evidence compares memory waste and serving throughput against earlier systems.
