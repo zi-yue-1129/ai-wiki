@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -712,6 +712,73 @@ class KernelTeachingStates(unittest.TestCase):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
 
+
+
+class MoeDispatchSemantics(unittest.TestCase):
+    def motions(self, stem):
+        root = ET.parse(ASSETS / (stem + '-motion.svg')).getroot()
+        return root.findall('.//{http://www.w3.org/2000/svg}animateMotion')
+
+    def test_group_to_expert_layout_preserves_four_blocks(self):
+        nodes = self.motions('gshard-dispatch-layout')
+        paths = [node.get('path') for node in nodes]
+        self.assertEqual(paths, ['M212 107L428 107', 'M212 151L428 227',
+                                 'M212 227L428 151', 'M212 271L428 271'])
+        coordinates = [tuple(map(int, p.replace('M', '').replace('L', ' ').split())) for p in paths]
+        self.assertEqual(len({p[1] for p in coordinates}), 4)
+        self.assertEqual(len({p[3] for p in coordinates}), 4)
+        self.assertEqual(sum((p[1] < 190) != (p[3] < 190) for p in coordinates), 2)
+        intervals = [tuple(map(float, node.get('keyTimes').split(';')))[1:3] for node in nodes]
+        self.assertTrue(all(a < b for a, b in intervals))
+        self.assertTrue(all(a[1] < b[0] for a, b in zip(intervals, intervals[1:])))
+
+    def test_residual_branch_avoids_two_crossings(self):
+        nodes = self.motions('deepspeed-residual-traffic')
+        paths = [tuple(map(int, n.get('path').replace('M', '').replace('L', ' ').split())) for n in nodes]
+        self.assertEqual(len(paths), 8)
+        for a, b in zip(paths[::2], paths[1::2]):
+            self.assertEqual((a[0], a[2]), (b[2], b[0]))
+        def crossing(p):
+            return (p[0] < 320) != (p[2] < 320)
+        self.assertEqual(sum(map(crossing, paths[:4])), 4)
+        self.assertEqual(sum(map(crossing, paths[4:])), 2)
+        self.assertEqual([n.get('dur') for n in nodes], ['12s'] * 8)
+
+    def test_balanced_expert_load_does_not_fix_remote_traffic(self):
+        layouts = (
+            (((2, 0), (0, 2)), 0),
+            (((1, 1), (1, 1)), 2),
+            (((0, 2), (2, 0)), 4),
+        )
+        for matrix, remote in layouts:
+            with self.subTest(matrix=matrix):
+                self.assertEqual([sum(row) for row in matrix], [2, 2])
+                self.assertEqual([sum(col) for col in zip(*matrix)], [2, 2])
+                self.assertEqual(matrix[0][1] + matrix[1][0], remote)
+                self.assertEqual(sum(matrix[g][e] for g in range(2)
+                                     for e in range(2) if g != e), remote)
+        paths = [node.get('path') for node in self.motions('gshard-dispatch-layout')]
+        self.assertEqual(sum(p in ('M212 151L428 227', 'M212 227L428 151')
+                             for p in paths), layouts[1][1])
+
+    def test_residual_savings_depend_on_replaced_expert_locality(self):
+        cases = ((1, 1, 4, 2), (1, 0, 2, 2),
+                 (0, 1, 2, 0), (0, 0, 0, 0))
+        for r0, r1, top2, residual in cases:
+            with self.subTest(r0=r0, r1=r1):
+                self.assertEqual(2 * (r0 + r1), top2)
+                self.assertEqual(2 * r0, residual)
+                self.assertEqual(top2 - residual, 2 * r1)
+                if top2 == 0:
+                    self.assertEqual(residual, 0)
+                else:
+                    self.assertEqual((top2 - residual) / top2,
+                                     r1 / (r0 + r1))
+        paths = [tuple(map(int, n.get('path').replace('M', '').replace('L', ' ').split()))
+                 for n in self.motions('deepspeed-residual-traffic')]
+        crosses = lambda p: (p[0] < 320) != (p[2] < 320)
+        self.assertEqual((sum(map(crosses, paths[:4])),
+                          sum(map(crosses, paths[4:]))), cases[0][2:])
 
 if __name__ == '__main__':
     unittest.main()

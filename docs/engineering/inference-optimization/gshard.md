@@ -36,6 +36,33 @@ GShard asks the programmer to annotate which tensor dimensions are split across 
 4. Run the partitioned program, with the compiler inserting the communication that routing requires.
 5. Check the layout against the devices and adjust the annotations if the communication dominates.
 
+### Worked example: dispatch as a change of sharding axis
+
+After gating, GShard packs token representations into expert-capacity slots and changes the partition of the dispatch buffer so that each device owns the input for its local experts.[^dispatch-layout] Consider a two-device slice with two groups, two experts and one nonempty slot per group-expert pair.
+
+<img data-source-asset-urls src="../../assets/concept-animations/gshard-dispatch-layout-still.svg" data-motion-src="../../assets/concept-animations/gshard-dispatch-layout-motion.svg" data-still-src="../../assets/concept-animations/gshard-dispatch-layout-still.svg" width="640" height="360" alt="Device D0 holds group G0 with A for E0 and B for E1; D1 holds G1 with C for E0 and D for E1. After dispatch D0 owns A and C for E0, while D1 owns B and D for E1. Only B and C cross devices.">
+
+*Original instructional animation, CC BY-SA 4.0.* The left and right columns represent the same logical dispatch buffer under different layouts. A and D stay on their original device; B and C cross in opposite directions. The moving dots show block placement, not network timing or a serialized implementation. On MkDocs, use **Play/Pause** (Enter or Space); reduced-motion preferences show the still. On narrow screens the figure may be scrolled horizontally. [GitHub-readable static preview](../../assets/concept-animations/gshard-dispatch-layout-still.svg).
+
+| Device | Before: group-sharded | After: expert-sharded |
+|---|---|---|
+| D0 | G0: A for E0, B for E1 | E0: A from G0, C from G1 |
+| D1 | G1: C for E0, D for E1 | E1: B from G0, D from G1 |
+
+There are two local blocks and two logical remote blocks in the forward dispatch. If every block is one activation vector of $h$ elements with $b$ bytes per element, remote dispatch carries $2hb$ logical bytes across the two devices in total. Returning equally sized expert outputs to their originating groups adds another $2hb$; the combine step then applies the gating weights. The animation isolates the layout exchange, not expert arithmetic, gating, capacity overflow, padding, collective overhead or backward communication. GShard's actual gating can select up to two experts per token; the four occupied slots here are already routed contributions, not a new gating rule. The counts are schematic, not measured traffic or latency.
+
+**Why balanced expert counts do not determine communication.** Let each matrix row represent the originating group (G0 or G1), each column the destination expert (E0 or E1), and each entry the number of occupied slots. Group and expert ownership follow the animation: G0/E0 on D0 and G1/E1 on D1. Allow two slots per group-expert pair for this separate example.
+
+| Occupied slots (G0; G1) | Expert totals (E0, E1) | Remote sends | Remote returns |
+|---|---|---:|---:|
+| (2, 0); (0, 2) | (2, 2) | 0 | 0 |
+| (1, 1); (1, 1) — animation | (2, 2) | 2 | 2 |
+| (0, 2); (2, 0) | (2, 2) | 4 | 4 |
+
+Each device originates two contributions and each expert receives two contributions in all three cases. Only off-diagonal occupied slots cross devices, so the first and last cases have identical expert load but different useful remote payload counts. Empty slots carry no useful activation in this accounting; a padded collective may still transmit their allocated storage. These are hypothetical post-gating layouts, not measured bytes or a claim about the compiler's physical all-to-all implementation.
+
+[^dispatch-layout]: Lepikhin et al., [GShard](https://arxiv.org/abs/2006.16668), describes group-local gating, expert computation and automatic sharding; this two-device example is original.
+
 ## Results
 
 The paper reports training a sparsely gated mixture-of-experts model with automatic sharding beyond 600 billion parameters. It reports training a translation model from 100 languages to English on 2048 TPU v3 accelerators in 4 days. These are training results, and the paper's focus is training, so the serving consequences must be drawn from the design rather than from a reported serving benchmark.

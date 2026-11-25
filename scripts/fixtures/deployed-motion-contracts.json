@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "gshard-dispatch-layout": {
+      "origins": [
+        {
+          "origin_blob": "6f4e20c6fafad3ebbe2a4d9f13ec6ab789753cd2",
+          "origin_commit": "2a490bdce98d1498be46e8e0146d971b8640d1e0",
+          "path": "docs/assets/concept-animations/gshard-dispatch-layout-motion.svg"
+        },
+        {
+          "origin_blob": "b7070aa39c60e376142c572bc8c0c1466723e70e",
+          "origin_commit": "2a490bdce98d1498be46e8e0146d971b8640d1e0",
+          "path": "docs/assets/concept-animations/gshard-dispatch-layout-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "deepspeed-residual-traffic": {
+      "origins": [
+        {
+          "origin_blob": "e8549dcae2b634ada383b80a1f7258590a7b4d91",
+          "origin_commit": "2a490bdce98d1498be46e8e0146d971b8640d1e0",
+          "path": "docs/assets/concept-animations/deepspeed-residual-traffic-motion.svg"
+        },
+        {
+          "origin_blob": "2d8f11aea87be44f83087b48bd648e3d72177903",
+          "origin_commit": "2a490bdce98d1498be46e8e0146d971b8640d1e0",
+          "path": "docs/assets/concept-animations/deepspeed-residual-traffic-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
