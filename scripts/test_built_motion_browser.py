@@ -401,6 +401,81 @@ def check_image(page, image, url):
     return image.evaluate("img => ({src: img.src, complete: img.complete, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight})")
 
 
+def check_pipeline_comparison_timeline(page, image, host, output, index, record, viewport):
+    """Exercise the actual visible GPipe SMIL object, not the hidden fallback."""
+    from playwright.sync_api import expect
+    frame = host.locator('object.distributed-motion-frame')
+    controls = host.locator('.distributed-motion-controls')
+    expect(frame).to_have_count(1)
+    expect(frame).to_be_visible()
+    expect(controls).to_be_visible()
+    expect(image).to_be_hidden()
+    expect(host.locator('.concept-motion-controls')).to_be_hidden()
+    assert frame.get_attribute('aria-label') == image.get_attribute('alt')
+    expect(frame.locator('img')).to_have_attribute('alt', '')
+    expect(frame.locator('img')).to_have_attribute('aria-hidden', 'true')
+    page.wait_for_function(
+        'e => !!e.contentDocument?.documentElement?.getCurrentTime',
+        arg=frame.element_handle(), timeout=15000)
+    assert frame.get_attribute('data').endswith('-motion.svg')
+    assert frame.evaluate('e => !!e.contentDocument.documentElement.querySelector("animate, animateTransform, animateMotion, set")')
+    get_time = lambda: frame.evaluate('e => e.contentDocument.documentElement.getCurrentTime()')
+    buttons = controls.locator('button.concept-motion-toggle')
+    expect(buttons).to_have_count(3)
+    seek = controls.locator('input.distributed-motion-seek')
+    rate = controls.locator('select.distributed-motion-rate')
+    expect(seek).to_be_visible()
+    expect(rate).to_be_visible()
+
+    def capture(name):
+        frame.scroll_into_view_if_needed()
+        screenshot = output / f'image-{index}-{name}.png'
+        page.screenshot(path=str(screenshot))
+        record['states'][name] = {
+            'time': get_time(), 'document': assert_document_fits(page, viewport),
+            'screenshot': screenshot.name,
+        }
+
+    assert get_time() < 0.1
+    capture('initial')
+    # Use native keyboard activation to visit every completed slot.
+    buttons.nth(2).focus()
+    for slot in range(1, 13):
+        page.keyboard.press('Space')
+        assert abs(get_time() - (slot + 0.02)) < 0.05, (slot, get_time())
+    buttons.nth(0).click()
+    assert abs(get_time() - 11.02) < 0.05
+    seek.evaluate("e => {e.value='500';e.dispatchEvent(new Event('input',{bubbles:true}))}")
+    assert abs(get_time() - 7) < 0.05
+    rate.select_option('2')
+    buttons.nth(1).click()
+    page.wait_for_function('e => e.contentDocument.documentElement.getCurrentTime() > 7.15',
+                           arg=frame.element_handle(), timeout=5000)
+    buttons.nth(1).click()
+    paused = get_time()
+    page.wait_for_timeout(160)
+    assert abs(get_time() - paused) < 0.03
+    capture('paused')
+    buttons.nth(1).click()
+    page.wait_for_function('(args) => args[0].contentDocument.documentElement.getCurrentTime() > args[1] + 0.1',
+                           arg=[frame.element_handle(), paused], timeout=5000)
+    capture('replayed')
+    buttons.nth(1).click()
+    # Reduced-motion is a decoded still, not the hidden object. Switching
+    # back must restore a controllable paused timeline.
+    page.emulate_media(reduced_motion='reduce')
+    expect(frame).to_be_hidden()
+    expect(controls).to_be_hidden()
+    expect(image).to_be_visible()
+    assert image.get_attribute('src') == image.get_attribute('data-still-src')
+    page.wait_for_function('e => e.complete && e.naturalWidth > 0', arg=image.element_handle())
+    page.emulate_media(reduced_motion='no-preference')
+    expect(frame).to_be_visible()
+    expect(controls).to_be_visible()
+    expect(image).to_be_hidden()
+    record['pipeline_timeline'] = {'steps': 12, 'seek_time': 7, 'speed': 2, 'reduced_motion_roundtrip': True}
+
+
 def check_co_design_timeline(page, image, host, output, index, record, viewport):
     """Inspect the visible, controllable SVG in a real built MkDocs page.
 
@@ -1759,6 +1834,10 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
         result['keyboard_scroll'] = check_keyboard_scrollers(page, output)
         # These diagrams intentionally preserve a 640px reading width on phones.
         topic = target.source.rsplit('/', 1)[-1].removesuffix('.md').removesuffix('.zh-TW')
+        if viewport['width'] < 600 and topic == 'gpipe':
+            expect(page.locator('.gpipe-comparison-timeline[tabindex="0"]')).to_have_count(4)
+            assert sum(r['scrollWidth'] >= 640 and r['afterArrowRight'] > 0
+                       for r in result['keyboard_scroll']) >= 4, 'Four keyboard-scrollable GPipe diagrams required'
         if viewport['width'] < 600 and topic in {'t-sne', 'umap', 'minhash-deduplication', 'data-programming'}:
             assert any(r['scrollWidth'] >= 640 and r['afterArrowRight'] > 0
                        for r in result['keyboard_scroll']), 'Readable mobile diagram scroller is missing'
@@ -1777,6 +1856,15 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
                 'fp16-scaling-window-motion.svg',
                 'gradscaler-feedback-motion.svg',
             }
+            pipeline_names = {'gpipe-1f1b-schedule-motion.svg', 'gpipe-activation-liveness-motion.svg'}
+            is_pipeline = any(asset['motion'].split('?', 1)[0].endswith(name)
+                              for name in pipeline_names)
+            if not reduced and is_pipeline:
+                record = {'alt': asset['alt'], 'states': {}}
+                result['images'].append(record)
+                check_pipeline_comparison_timeline(page, image, host, output, index,
+                                                   record, viewport)
+                continue
             if not reduced and any(asset['motion'].split('?', 1)[0].endswith(name)
                                    for name in interactive_names):
                 record = {'alt': asset['alt'], 'states': {}}
@@ -1819,7 +1907,7 @@ def exercise_page(browser, target, expected, base_url, viewport, reduced, output
             page.keyboard.press("Enter")
             capture("replayed", "motion", pause)
             if reduced and any(asset["motion"].split("?", 1)[0].endswith(name)
-                               for name in interactive_names):
+                               for name in interactive_names | pipeline_names):
                 # A page opened with reduced motion must still install the
                 # SVG timeline, allowing later activation without a reload.
                 # Restore preference for all remaining figures in this page.

@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     'es-antithetic-weighted-update': 'theory/optimization/evolution-strategies',
     'distributed-kfac-layer-ownership': 'theory/optimization/kfac/distributed-kfac',
+    'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
+    'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
     'dynamo-graph-break-resume': 'engineering/frameworks/compilers-and-kernels/torch-compile',
     "tpu-systolic-wavefront": "engineering/hardware/accelerators/tpu/index",
@@ -509,9 +511,7 @@ CANONICAL_VIEWBOXES = {'es-antithetic-weighted-update': '0 0 640 360',
  'dynamo-graph-break-resume': '0 0 640 360',
  'interconnect-ring-reduction': '0 0 360 300',
  'interconnect-bucket-overlap': '0 0 360 300',
- 'dnn-output-stationary-traffic': '0 0 640 360',
  'dnn-sliding-window-reuse': '0 0 640 360',
- 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'triton-tail-mask': '0 0 640 360',
  '3d-unet-context-tiling': '0 0 800 420',
  '3d-unet-depth-kernel': '0 0 800 420',
@@ -967,7 +967,9 @@ CANONICAL_VIEWBOXES = {'es-antithetic-weighted-update': '0 0 640 360',
  'wgan-gp-interpolation': '0 0 640 360',
  'wgan-weight-clip': '0 0 640 360',
  'yarn-attention-temperature': '0 0 640 360',
- 'yarn-frequency-ramp': '0 0 640 360'}
+ 'yarn-frequency-ramp': '0 0 640 360',
+ 'gpipe-1f1b-schedule': '0 0 640 360',
+ 'gpipe-activation-liveness': '0 0 640 360'}
 # Explicit non-TOPICS assets validated by main(), not generic name allowances.
 EXTRA_CANONICAL_FILENAMES = {
  'fp8-rounding-grid-motion.svg': '0 0 360 254',
@@ -1482,7 +1484,7 @@ def main() -> int:
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
                     errors.append(f"{page}: missing independent static preview for {stem}")
-            elif stem in {"dynamo-shape-guard-cache", "dynamo-graph-break-resume", "kernel-fusion-intermediate-traffic", "triton-tail-mask"}:
+            elif stem in {"dynamo-shape-guard-cache", "dynamo-graph-break-resume", "kernel-fusion-intermediate-traffic", "triton-tail-mask", "gpipe-1f1b-schedule", "gpipe-activation-liveness"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:

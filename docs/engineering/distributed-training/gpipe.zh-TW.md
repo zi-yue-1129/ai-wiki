@@ -47,6 +47,41 @@ GPipe 把網路切成依序執行的階段，分別放在不同裝置上，再�
 
 <div class="distributed-explorer" data-explorer="gpipe" data-lang="zh"></div>
 
+
+### 同步 1F1B：改變排程，而非最佳化器語意
+
+非交錯式一前向一反向（one-forward-one-backward，1F1B，例如 PipeDream-Flush）比 GPipe 的全前向、全反向排程更早開始反向傳播。各階段先暖機執行前向運算，再交替執行前向與反向運算，最後排空剩餘的反向運算。小批次內的權重保持固定，所有反向梯度貢獻累積完成後才進行最佳化器更新。[^pipeline-schedules]
+
+<img data-source-asset-urls src="../../assets/concept-animations/gpipe-1f1b-schedule-still.svg" data-motion-src="../../assets/concept-animations/gpipe-1f1b-schedule-motion.svg" data-still-src="../../assets/concept-animations/gpipe-1f1b-schedule-still.svg" alt="三個階段、四個微批次的兩種 12 時槽排程。GPipe 先執行所有前向運算；1F1B 在第四個時槽於最後階段開始微批次一的反向運算。兩者均有 12 個閒置階段時槽。" width="640" height="360">
+
+*原創教學動畫，CC BY-SA 4.0。* F／B 方格代表指定微批次的前向／反向運算；圓點代表已完成的閒置時槽，空白格則是尚未完成的時槽。時間指標連續移動，只有時槽完成才揭露該欄。假設三個階段、四個微批次、前向與反向運算等時且忽略通訊時間，兩種排程均在 12 個實際經過的時槽中執行 24 次運算，36 個階段時槽中有 12 個閒置（三分之一）。此比例以經過的總容量為分母，並非相對於理想忙碌時間的額外開銷（12/24）。非交錯式 1F1B 改變運算時機，本例並未消除管線泡沫。這些時間均為教學示意，非 GPU 實測。[GitHub 靜態預覽](../../assets/concept-animations/gpipe-1f1b-schedule-still.svg) · [完整動畫](../../assets/concept-animations/gpipe-1f1b-schedule-motion.svg)。
+
+在 MkDocs 使用播放／暫停、上一／下一時槽、時間軸滑桿及速度選擇器，可在相同時間點比較兩種排程。窄螢幕的水平捲動區域可透過鍵盤聚焦操作；減少動態效果設定預設顯示完整靜態排程。
+
+**除了抵達次數，也要檢查梯度值。** 對可依樣本加總的平均損失，若微批次 $b$ 包含 $n_b$ 個樣本，其平均損失梯度為 $g_b$，完整小批次的梯度為 $g=\sum_b n_b g_b/\sum_b n_b$。微批次等大時可直接取梯度平均，但大小不同時通常不可如此處理。例如四個微批次的樣本數為 $(2,2,1,1)$，示意的純量平均梯度為 $(1,3,5,7)$，正確結果為 $20/6=10/3$，而非未加權平均 $4$。沿著任一排程的 B 方格追蹤：即使抵達順序不同，四組加權貢獻都會在更新前抵達。此處假設權重固定且每個樣本的運算相同；依賴批次的層或不同的隨機實現可能改變梯度，浮點數加總順序也可能造成捨入差異。此例為算術示意，非訓練實測紀錄。若語言模型使用遮罩後的 token 平均損失，同一等式應使用有效損失 token 數（或損失權重總和），而非序列數。累積未正規化的損失分子，再除以整個小批次的分母；沒有有效 token 的微批次貢獻零分子，不應計算未定義的局部平均。若整體分母為零，平均值未定義，必須明確處理該次更新。
+
+### 保存激活值的存活區間
+
+<img data-source-asset-urls src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" data-motion-src="../../assets/concept-animations/gpipe-activation-liveness-motion.svg" data-still-src="../../assets/concept-animations/gpipe-activation-liveness-still.svg" alt="階梯曲線顯示每個時槽完成後保存的激活值集合數。GPipe 各階段峰值皆為四；非交錯式 1F1B 第一至第三階段峰值分別為三、二、一。" width="640" height="360">
+
+*原創教學動畫，CC BY-SA 4.0。* 在每個時槽完成時，前向運算為該微批次保存一組激活值，相對應的反向運算則釋放該組資料。青綠實線是 GPipe，橘色虛線是 1F1B。假設同一階段每個微批次的保存集合大小固定，且忽略重新計算、運算中的工作空間、通訊緩衝區及配置器額外開銷；此處計數並非實測位元組或整體裝置記憶體。[GitHub 靜態預覽](../../assets/concept-animations/gpipe-activation-liveness-still.svg) · [完整動畫](../../assets/concept-animations/gpipe-activation-liveness-motion.svg)。
+
+| 階段 | GPipe 保存集合峰值 | 1F1B 保存集合峰值 |
+|---|---:|---:|
+| S1 | 4 | 3 |
+| S2 | 4 | 2 |
+| S3 | 4 | 1 |
+
+若每階段的保存集合大小為 $A_s$ 位元組，示意的階段記憶體峰值為 GPipe 的 $4A_s$，相對於 1F1B 的 $(4-s)A_s$（階段編號 $s=1,2,3$）。對於 $K$ 個階段、$M$ 個微批次的標準平衡非交錯式排程，階段 $s$ 尚未完成反向運算的前向微批次數上限為 $\min(M,K-s+1)$；GPipe 則可達 $M$。實際記憶體仍取決於激活值檢查點（activation checkpointing）的實作與該階段其他存活張量。提早反向運算能減少激活值保留量，但不改變運算次數或本例的理想化泡沫比例。
+
+第二個閱讀練習：將兩張動畫移至第三個時槽結束，GPipe 與 1F1B 各階段均保存 $(3,2,1)$ 組激活值。第六個時槽結束時，GPipe 為 $(4,4,4)$，1F1B 則為 $(2,2,0)$。若各階段的保存集合大小相同，本例同一時間的跨裝置合計峰值為 12 組與 6 組。這不是單一裝置的峰值；一般而言，各階段獨立峰值的總和僅為上界，因為峰值可能發生在不同時間。此練習沿用曲線的保存集合與時槽邊界假設。
+
+若各階段保存集合大小不同，可對同一組曲線加權，而非直接計算集合數。假設 $A_1,A_2,A_3$ 分別為 2、4、8 MiB，GPipe 的同時保存激活值峰值為 56 MiB（第六個時槽），1F1B 則為 22 MiB（第三個時槽）。另一個量是激活值隨時間的保留成本：將第 0 至第 11 個時槽邊界的加權計數加總，並將各邊界計數視為保留至下一個邊界的集合，可得 288 與 130 MiB·時槽。此離散記憶體時間乘積只是示意指標，既不是峰值配置容量，也不是記憶體流量；不計入讀寫次數或時槽內的配置。所有容量和時間皆為教學示意。
+
+第三個閱讀練習將排程方格與保存集合曲線下的面積連結起來。令 $f_{s,b}$ 與 $r_{s,b}$ 分別為階段 $s$ 的微批次 $b$ 前向與反向運算完成時槽。其保存集合在第 $f_{s,b}$ 至 $r_{s,b}-1$ 個邊界仍存活，共 $d_{s,b}=r_{s,b}-f_{s,b}$ 個時槽。依時間或依微批次計算同一批保存集合，本例皆得到 $\sum_{t=0}^{11}L_s(t)=\sum_{b=1}^{4}d_{s,b}$。在 S1，GPipe 的四組集合分別保留 $(11,9,7,5)$ 個時槽，1F1B 則為 $(5,6,7,5)$。因此 1F1B 使 S1 的集合時間乘積由 32 降至 23 集合·時槽，但並非每個微批次的存活時間都嚴格縮短（微批次 3、4 不變）。S2 與 S3 的對應總量為 $(24,16)$ 與 $(13,4)$ 集合·時槽。將三個階段的總量分別乘上其集合容量，即可重現前述加權記憶體時間乘積。此等式適用於教學示意的邊界計數模型，並非連續時間的實測配置紀錄。
+
+兩張圖在 MkDocs 皆沿用可用鍵盤操作的播放／暫停、上／下一時槽、時間軸與速度控制。初始及減少動態效果時使用完整靜態回退圖；播放最後兩秒停留於完成的排程。
+
 ## 關鍵方法
 
 這個方法是微批次管線搭配同步的梯度累積。論文的證據是：隨著加速器數量增加，所量測到的吞吐量變化，對象是非常大型的影像模型。
@@ -78,3 +113,5 @@ GPipe 把網路切成依序執行的階段，分別放在不同裝置上，再�
 - Shoeybi, M. et al. (2019). *Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism*. https://arxiv.org/abs/1909.08053 — 管線平行所補足的層內切分方式。
 - Rajbhandari, S. et al. (2020). *ZeRO: Memory Optimizations Toward Training Trillion Parameter Models*. SC 2020. https://arxiv.org/abs/1910.02054 — 降低每個階段上的模型狀態記憶體，是讓大型模型放得進去的另一條路。
 - Li, S. et al. (2020). *PyTorch Distributed: Experiences on Accelerating Data Parallel Training*. VLDB 2020. https://arxiv.org/abs/2006.15704 — 描述管線常與之搭配的資料平行通訊。
+
+[^pipeline-schedules]: Narayanan et al. (2021), *Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM*. https://arxiv.org/abs/2104.04473 — 第 2.2.1 節比較 GPipe 與非交錯式 PipeDream-Flush 排程，並分析激活值保留量及管線泡沫。

@@ -4,6 +4,8 @@
 (() => {
   'use strict';
   const sequences = {
+    'gpipe-1f1b-schedule': { duration: 14, steps: [0, 1.02, 2.02, 3.02, 4.02, 5.02, 6.02, 7.02, 8.02, 9.02, 10.02, 11.02, 12.02] },
+    'gpipe-activation-liveness': { duration: 14, steps: [0, 1.02, 2.02, 3.02, 4.02, 5.02, 6.02, 7.02, 8.02, 9.02, 10.02, 11.02, 12.02] },
     'gpipe-fill-drain': { duration: 12, steps: [0, 1.5, 3, 4.5, 6, 7.5, 9, 10.5, 11.9] },
     'gpipe-gradient-accumulation': { duration: 14, steps: [0, 2, 4, 6, 8, 10, 12, 13.5] },
     'fsdp-gather-scatter': { duration: 10, steps: [0, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5] },
@@ -28,7 +30,10 @@
       if (host.dataset.distributedTimeline === 'yes') continue;
       const img = host.querySelector('img[src*="concept-animations/"]');
       if (!img) continue;
-      const src = img.dataset.motionSrc || img.getAttribute('src') || '';
+      // Legacy Markdown points at motion directly; the base player may
+      // already have selected the still on a reduced-motion page load.
+      const src = (img.dataset.motionSrc || img.getAttribute('src') || '').replace(
+        /\/(gpipe-(?:fill-drain|gradient-accumulation))-still\.svg(?=$|[?#])/, '/$1-motion.svg');
       const match = src.match(/(?:^|\/)([a-z0-9-]+)-motion\.svg(?:[?#]|$)/);
       if (!match || !Object.hasOwn(sequences, match[1])) continue;
       const config = sequences[match[1]];
@@ -38,6 +43,14 @@
         host.classList.add('co-design-motion-timeline');
       }
       const zh = /[\u3400-\u9fff]/.test(img.alt || '');
+      // All GPipe diagrams, including the existing fill/drain and accumulation
+      // timelines, retain native-width labels and a keyboard-focusable scroller.
+      if (/^gpipe-(fill-drain|gradient-accumulation|1f1b-schedule|activation-liveness)$/.test(match[1])) {
+        host.classList.add('gpipe-comparison-timeline');
+        host.tabIndex = 0;
+        host.setAttribute('role', 'region');
+        host.setAttribute('aria-label', zh ? '可水平捲動的管線排程圖，使用左右方向鍵' : 'Scrollable pipeline diagram; use Left and Right arrow keys');
+      }
       const label = (en, tw) => zh ? tw : en;
       const previousControls = host.querySelector('.concept-motion-controls');
       let frame = document.createElement('object');
