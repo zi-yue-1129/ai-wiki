@@ -36,6 +36,24 @@ DistServe 把預填充與解碼放在不同的 GPU 上，以消除干擾。如�
 4. 把快取傳到解碼 GPU，由它以自己的批次產生輸出 token。
 5. 監控兩個階段的延遲，並在工作負載改變時調整配置。
 
+### 動畫算例：兩項延遲目標與有效吞吐
+
+<div role="region" tabindex="0" aria-label="教學動畫：使用方向鍵水平捲動；下方提供播放與暫停控制" style="max-width:100%;overflow-x:auto;">
+  <div style="width:640px;max-width:none;">
+    <img data-source-asset-urls src="../../assets/concept-animations/distserve-joint-slo-still.svg" data-motion-src="../../assets/concept-animations/distserve-joint-slo-motion.svg" data-still-src="../../assets/concept-animations/distserve-joint-slo-still.svg" alt="共用與分離部署的 token 抵達時間軸，同時檢查首個 token 延遲與平均後續 token 延遲。" width="640" height="360">
+  </div>
+</div>
+
+*原創教學動畫（CC BY-SA 4.0）。* [GitHub 靜態預覽](../../assets/concept-animations/distserve-joint-slo-still.svg). 在 MkDocs 可使用播放／暫停；減少動態效果偏好會顯示靜態圖。窄螢幕可滑動，或聚焦圖框後使用左右方向鍵。
+
+三筆請求皆於時間零抵達，且各生成三個輸出 token。時間軸採任意教學時間單位；藍色表示首個 token，藍綠色表示後續 token。TTFT 為首個 token 的抵達時間；TPOT 為首個 token 之後的平均間隔（最後一個減去第一個的抵達時間，再除以二）。設定 TTFT 不超過 3、TPOT 不超過 2。游標沿時間軸前進，請求完成時揭示兩項 SLO 的共同判定。
+
+共用部署中，A 的 token 抵達時間為 (2, 4, 6)，符合目標；B 為 (4, 6, 8)，不符合 TTFT；C 為 (2, 6, 10)，不符合 TPOT。分離部署的三筆請求分別為 (2, 4, 6)、(3, 5, 7)、(2, 4, 6)，全部符合目標。在相同的 12 單位觀察期間，兩種部署都完成三筆請求，但同時達標的請求分別只有一筆與三筆。共同達標率為 1/3 與 3/3，相對應的達標完成速率為每時間單位 1/12 與 3/12 筆。這些是自行構造的教學軌跡，不是資源排程模擬或 DistServe 實測結果，亦不能據此推定每張 GPU 的有效吞吐或最高可持續抵達速率；DistServe 還會在不同送入負載下比較資源配置與 SLO 達標率。[^joint-slo]
+
+**平均 TPOT 並不是每個 token 間隔的上界。** 另設一條假設軌跡 (2, 3, 6)，TTFT 為 2，TPOT 為 (6 - 2)/2 = 2，因此通過動畫的共同判定。然而兩個 token 間隔分別為 1 與 3；若政策要求每個間隔都不超過 2，就會拒絕這筆請求。在時間 5 時，此請求尚未完成，因此不能先計入達標完成數。比較系統時，應交代確切的延遲統計量、請求群體分母與觀察期間。此額外軌跡為算術示例，不是圖中新增的請求或實測結果。
+
+[^joint-slo]: Zhong 等人（2024），《DistServe》，第 2 節及摘要；連結見參考文獻。
+
 ## 結果
 
 論文報告，相較於它所評估的最先進系統，DistServe 能服務 7.4 倍的請求，或達成 12.6 倍更嚴格的 SLO，而且超過 90% 的請求都在延遲上限內完成。這些是有效吞吐的結果，只計入達到目標的請求，因此不應解讀為原始吞吐量的增益。比較結果取決於所評估的系統與選定的工作負載。

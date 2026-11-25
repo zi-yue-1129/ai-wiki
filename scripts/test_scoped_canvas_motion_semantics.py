@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,137 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+
+class ServingTimelineSemantics(unittest.TestCase):
+    def groups(self, stem, attr, kind):
+        root = ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+        if kind == 'motion':
+            root = next(g for g in root.iter(v.NS + 'g') if g.get('class') == 'animated')
+        return [g for g in root.iter(v.NS + 'g') if g.get(attr) is not None]
+
+    def test_joint_slo(self):
+        expected = [[2, 4, 6], [4, 6, 8], [2, 6, 10],
+                    [2, 4, 6], [3, 5, 7], [2, 4, 6]]
+        for kind in ('motion', 'still'):
+            groups = self.groups('distserve-joint-slo', 'data-tokens', kind)
+            self.assertEqual(len(groups), 6)
+            counts = {'shared': 0, 'separated': 0}
+            for i, g in enumerate(groups):
+                times = list(map(int, g.get('data-tokens').split(',')))
+                self.assertEqual(times, expected[i])
+                a, b, c = times
+                case = 'shared' if i < 3 else 'separated'
+                self.assertEqual(g.get('data-case'), case)
+                y = [94, 126, 158, 218, 250, 282][i]
+                paths = [p.get('d') for p in g.iter(v.NS + 'path')]
+                self.assertEqual(paths, [f'M140 {y}L{140+34*a} {y}',
+                                         f'M{140+34*a} {y}L{140+34*c} {y}'])
+                counts[case] += int(a <= 3 and c-a <= 4)
+            self.assertEqual(counts, {'shared': 1, 'separated': 3})
+
+    def test_cache_placement_cost(self):
+        for kind in ('motion', 'still'):
+            groups = self.groups('mooncake-prefix-placement', 'data-node', kind)
+            self.assertEqual(len(groups), 6)
+            totals = {'A': 0, 'B': 0}
+            durations = {'A': [5, 3, 2], 'B': [1, 2, 4]}
+            for i, g in enumerate(groups):
+                node = 'A' if i < 3 else 'B'
+                self.assertEqual(g.get('data-node'), node)
+                self.assertEqual(g.get('data-kind'), ['queue', 'transfer', 'prefill'][i % 3])
+                value = int(g.get('data-duration'))
+                self.assertEqual(value, durations[node][i % 3])
+                rect = g.find(v.NS + 'rect')
+                self.assertEqual(int(rect.get('x')), 176 + 35*totals[node])
+                self.assertEqual(int(rect.get('width')), 35*value)
+                totals[node] += value
+            self.assertEqual(totals, {'A': 10, 'B': 7})
+            self.assertLess(totals['B'], totals['A'])
+
+
+    def test_visible_events_follow_serving_timeline(self):
+        """Guard actual circles, verdicts and discrete reveal times, not just paths."""
+        stem = 'distserve-joint-slo'
+        for kind in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+            parents = {child: parent for parent in root.iter() for child in parent}
+            rows = self.groups(stem, 'data-tokens', kind)
+            for row, y in zip(rows, (94, 126, 158, 218, 250, 282)):
+                times = list(map(int, row.get('data-tokens').split(',')))
+                circles = [c for c in root.iter(v.NS + 'circle') if c.get('cy') == str(y)]
+                self.assertEqual(len(circles), 3)
+                for i, (circle, tick) in enumerate(zip(circles, times)):
+                    self.assertEqual(int(circle.get('cx')), 140 + 34*tick)
+                    self.assertEqual(circle.get('fill'), '#427eae' if i == 0 else '#168b82')
+                    if kind == 'motion':
+                        self.assert_event_reveal(parents[circle], tick)
+                verdict = [t for t in root.iter(v.NS + 'text')
+                           if t.get('x') == '574' and t.get('y') == str(y+5)]
+                self.assertEqual(len(verdict), 1)
+                a, _, c = times
+                expected = 'TTFT' if a > 3 else 'TPOT' if c-a > 4 else 'PASS'
+                self.assertEqual(verdict[0].text, expected)
+                if kind == 'motion':
+                    self.assert_event_reveal(parents[verdict[0]], c)
+
+    def assert_event_reveal(self, group, tick):
+        self.assertEqual(group.get('class'), 'reveal')
+        animation = group.find(v.NS + 'animate')
+        self.assertIsNotNone(animation)
+        self.assertEqual(animation.get('attributeName'), 'opacity')
+        self.assertEqual(animation.get('values'), '0;1;1;0')
+        self.assertEqual(animation.get('calcMode'), 'discrete')
+        self.assertEqual(animation.get('dur'), '12s')
+        self.assertEqual(animation.get('repeatCount'), 'indefinite')
+        key_times = list(map(float, animation.get('keyTimes').split(';')))
+        self.assertEqual(len(key_times), 4)
+        self.assertEqual(key_times[0], 0)
+        self.assertAlmostEqual(key_times[1], tick/15, places=5)
+        self.assertEqual(key_times[2:], [0.9999, 1])
+
+    def test_placement_labels_and_break_even(self):
+        stem = 'mooncake-prefix-placement'
+        for kind in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+            parents = {child: parent for parent in root.iter() for child in parent}
+            labels = list(root.iter(v.NS + 'text'))
+            totals = {'A': 0, 'B': 0}
+            for group in self.groups(stem, 'data-node', kind):
+                node = group.get('data-node')
+                value = int(group.get('data-duration'))
+                x = 176 + 35*(totals[node]+value/2)
+                y = 137 if node == 'A' else 232
+                match = [t for t in labels if float(t.get('x')) == x
+                         and int(t.get('y')) == y]
+                self.assertEqual(len(match), 1)
+                self.assertEqual(match[0].text, str(value))
+                totals[node] += value
+                if kind == 'motion':
+                    self.assert_event_reveal(parents[match[0]], totals[node])
+            for node, total in totals.items():
+                y = 137 if node == 'A' else 232
+                label = [t for t in labels if t.text == f'={total}' and int(t.get('y')) == y]
+                self.assertEqual(len(label), 1)
+                if kind == 'motion':
+                    self.assert_event_reveal(parents[label[0]], total)
+            choice = [t for t in labels if t.text == 'Choose B']
+            self.assertEqual(len(choice), 1)
+            if kind == 'motion':
+                self.assert_event_reveal(parents[choice[0]], totals['B'])
+            self.assertEqual(2+3+2, totals['B'])  # queue break-even
+            self.assertLess(1+3+2, totals['B'])
+            self.assertEqual((5+max(3, 2), 1+max(2, 4)), (8, 5))
+            self.assertLess(1+max(3, 2), 1+max(2, 4))
+
+    def test_mean_tpot_does_not_bound_every_gap(self):
+        first, second, last = 2, 3, 6
+        self.assertLessEqual(first, 3)
+        self.assertEqual((last-first)/2, 2)
+        self.assertGreater(max(second-first, last-second), 2)
+        self.assertGreater(last, 5)  # unfinished at the shorter observation horizon
+
 
 
 if __name__ == '__main__':

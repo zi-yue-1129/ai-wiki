@@ -36,6 +36,24 @@ DistServe removes the interference by placing prefill and decoding on different 
 4. Transfer the cache to a decoding GPU, which generates the output tokens in its own batches.
 5. Monitor the latency of both phases and adjust the placement when the workload changes.
 
+### Animated example: two latency targets, one goodput count
+
+<div role="region" tabindex="0" aria-label="Teaching animation: use arrow keys to scroll horizontally; Play/Pause controls follow" style="max-width:100%;overflow-x:auto;">
+  <div style="width:640px;max-width:none;">
+    <img data-source-asset-urls src="../../assets/concept-animations/distserve-joint-slo-still.svg" data-motion-src="../../assets/concept-animations/distserve-joint-slo-motion.svg" data-still-src="../../assets/concept-animations/distserve-joint-slo-still.svg" alt="Token arrivals on shared and separated deployments; first-token and per-output-token latency targets are checked jointly." width="640" height="360">
+  </div>
+</div>
+
+*Original teaching animation (CC BY-SA 4.0).* [GitHub-readable static preview](../../assets/concept-animations/distserve-joint-slo-still.svg). On MkDocs use Play/Pause; reduced-motion preferences show the still. On narrow screens swipe horizontally or focus the region and use Left/Right arrow keys.
+
+All three requests arrive at time zero and emit three output tokens each. The time axis is in arbitrary teaching units; blue marks the first token and teal marks later tokens. TTFT is the first arrival time, and TPOT is the mean interval after that token (last minus first, divided by two). Set TTFT at most 3 and TPOT at most 2. The cursor advances in time and each completed request receives its joint SLO verdict.
+
+In the shared trace, A emits at (2, 4, 6) and passes; B emits at (4, 6, 8) and fails TTFT; C emits at (2, 6, 10) and fails TPOT. In the separated trace the arrivals are (2, 4, 6), (3, 5, 7), (2, 4, 6), so all pass. Over the same 12-unit window both configurations complete three requests, but only one versus three meets both targets. The joint attainment fractions are 1/3 and 3/3; the corresponding compliant completion rates are 1/12 and 3/12 requests per time unit. These invented traces illustrate the metric rather than simulate resource scheduling or reproduce a DistServe measurement. They do not establish per-GPU goodput or the maximum sustainable arrival rate: DistServe additionally compares resource allocation and SLO attainment at offered loads.[^joint-slo]
+
+**Mean TPOT is not a bound on every token gap.** For a separate hypothetical trace (2, 3, 6), the TTFT is 2 and the TPOT is (6 - 2)/2 = 2, so it passes the animation's joint rule. But its two inter-token gaps are 1 and 3; a policy requiring every gap to be at most 2 rejects it. At time 5 the request has not finished, so it must not yet be counted as a compliant completion. Report the precise latency statistic, cohort denominator and observation window when comparing systems. These extra traces are arithmetic examples, not additional plotted requests or measurements.
+
+[^joint-slo]: Zhong et al. (2024), *DistServe*, section 2 and abstract; linked in References.
+
 ## Results
 
 The paper reports that DistServe can serve 7.4 times more requests, or meet a 12.6 times tighter SLO, compared with the state-of-the-art systems it evaluates, and that over 90 percent of requests stay within their latency limits. These results are goodput results, which count only requests that meet their objectives, so they should not be read as raw throughput gains. The comparison depends on the systems evaluated and the workloads chosen.
