@@ -46,7 +46,8 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 若不加處理，取樣所需的步數與訓練時一樣多。下列三類方法可降低步數：
 
 - **非馬可夫取樣器**，例如 [DDIM](ddim.md)，重用同一個已訓練的模型，以少得多的步數取樣。在無條件 CIFAR-10 上，DDIM 用 50 步即可達到 FID 4.67，而 DDPM 在相同步數下為 8.01。
-- **蒸餾**訓練一個學生模型，讓它以一步匹配教師模型的兩步取樣。Salimans 與 Ho（2022）逐步套用這個方法，每一輪把步數減半。
+- **求解器**，例如 [DPM-Solver](dpm-solver.md)（Lu 等人，2022），把取樣視為 ODE 並以高階方法積分，無需訓練即可在約 10 至 20 次評估內得到良好樣本。
+- **蒸餾**訓練一個學生模型，讓它以一步匹配教師模型的兩步取樣。Salimans 與 Ho（2022）在[漸進式蒸餾](progressive-distillation.md)頁面中逐步套用這個方法，每一輪把步數減半。
 - **引導**在取樣時以多樣性換取對提示的忠實度。[無分類器引導](classifier-free-guidance.md)不需要另外的分類器，只需要模型自己的條件與無條件預測。
 
 ## 主要方法
@@ -56,6 +57,8 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 - [DDPM](ddpm.md)（Ho、Jain 與 Abbeel，2020）：雜訊預測目標，以及讓擴散模型在影像上變得實用的取樣器。
 - [DDIM](ddim.md)（Song、Meng 與 Ermon，2021）：非馬可夫取樣器，重用 DDPM 模型，以少得多的步數取樣。
 - [Score SDE](score-sde.md)（Song 等人，2021）：連續時間的 SDE 框架，含前向與逆時 SDE 及機率流 ODE，統一了 DDPM 與分數式模型。
+- [DPM-Solver](dpm-solver.md)（Lu 等人，2022）：同一個已訓練模型上的免訓練高階 ODE 求解器，約 10 至 20 次評估即可得到良好樣本。
+- [漸進式蒸餾](progressive-distillation.md)（Salimans 與 Ho，2022）：學生取教師一半的步數，並重複減半。
 - [一致性模型與快速取樣器](consistency-models.md)（Song 等人，2023）：把軌跡上的任一點映射到其輸出，支援一步生成。
 - [潛在擴散](latent-diffusion.md)（Rombach 等人，2022）：在自編碼器的潛在空間中進行擴散，並以交叉注意力做條件化。
 - [DiT](../../../../models/transformer/dit/index.md)（Peebles 與 Xie，2023）：以 Transformer 取代 U-Net 的去噪器，且隨計算量擴展。
@@ -67,6 +70,8 @@ L = \mathbb{E}_{x_0,\epsilon,t}\big[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\big
 |---|---|---|---|
 | [DDPM](ddpm.md) | 訓練目標與馬可夫取樣器 | U-Net | 時間步 |
 | [DDIM](ddim.md) | 同一個已訓練模型上的非馬可夫取樣器 | 與 DDPM 相同 | 與 DDPM 相同 |
+| [DPM-Solver](dpm-solver.md) | 同一個已訓練模型上的高階 ODE 求解器，無需訓練 | 與 DDPM 相同 | 與 DDPM 相同 |
+| [漸進式蒸餾](progressive-distillation.md) | 反覆訓練學生，使其步數為教師的一半 | 與教師架構相同 | 與 DDPM 相同 |
 | [Score SDE](score-sde.md) | 含機率流 ODE 的連續時間 SDE 框架 | 分數網路（論文中的 NCSN++） | 雜訊水準（時間步） |
 | [潛在擴散](latent-diffusion.md) | 在自編碼器潛在空間中擴散 | U-Net | 交叉注意力 |
 | [DiT](../../../../models/transformer/dit/index.md) | 作用在潛在圖塊上的 Transformer 去噪器 | Transformer | 時間步與類別標籤，透過自適應層正規化 |
