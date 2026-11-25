@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -712,6 +712,39 @@ class KernelTeachingStates(unittest.TestCase):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
 
+
+
+class ServingOverlapAndSinkSemantics(unittest.TestCase):
+    def test_splitwise_layer_dependencies_and_widths(self):
+        stem = 'splitwise-layer-transfer'
+        for suffix in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'{stem}-{suffix}.svg').getroot()
+            group = root.find(v.NS + 'g[@class="fallback"]') if suffix == 'motion' else root
+            bars = [e for e in group.findall(v.NS + 'rect') if e.get('height') == '26']
+            self.assertEqual(len(bars), 12)
+            for offset, starts in ((0, (6, 7, 8)), (6, (2, 4, 6))):
+                for i, start in enumerate(starts):
+                    compute, transfer = bars[offset + 2*i:offset + 2*i + 2]
+                    self.assertEqual(int(compute.get('x')), 137 + 49 * (2*i))
+                    self.assertEqual(int(compute.get('width')), 96)
+                    self.assertEqual(int(transfer.get('x')), 137 + 49 * start)
+                    self.assertEqual(int(transfer.get('width')), 47)
+                    self.assertGreaterEqual(start, 2*(i+1))
+                self.assertEqual(starts[-1]+1, 9 if offset == 0 else 7)
+
+    def test_sink_normalization_preserves_mass(self):
+        stem = 'streamingllm-sink-normalization'
+        for suffix in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'{stem}-{suffix}.svg').getroot()
+            group = root.find(v.NS + 'g[@class="fallback"]') if suffix == 'motion' else root
+            before = [float(e.get('width')) for e in root.findall(v.NS + 'rect')
+                      if e.get('y') == '120' and e.get('rx') == '0']
+            after = [float(e.get('width')) for e in group.findall(v.NS + 'rect')
+                     if e.get('y') == '214' and e.get('rx') == '0']
+            self.assertEqual(before, [276, 92, 46, 46])
+            self.assertEqual(after, [230, 115, 115])
+            self.assertEqual(sum(before), sum(after))
+            self.assertEqual([w/460 for w in after], [0.5, 0.25, 0.25])
 
 if __name__ == '__main__':
     unittest.main()

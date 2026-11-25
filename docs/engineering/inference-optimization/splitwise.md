@@ -28,6 +28,18 @@ The prompt machine produces the first token and KV cache. The token machine cont
 
 Thus a two-box diagram is a useful introduction, but does not fully describe the scheduler. Pool management also differs from assigning one dedicated machine to every request: each machine can serve multiple requests over time.
 
+### Visual walkthrough: layer-wise transfer and compute overlap
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/splitwise-layer-transfer-still.svg" data-motion-src="../../assets/concept-animations/splitwise-layer-transfer-motion.svg" data-still-src="../../assets/concept-animations/splitwise-layer-transfer-still.svg" alt="Three-layer prompt computation and KV transfer timeline; serial transfer completes at time 9 and layer-wise overlap at time 7" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../assets/concept-animations/splitwise-layer-transfer-still.svg) · Use the keyboard-accessible **Play/Pause** control on the MkDocs site.
+
+Assume three layers each take two time units to compute and one to transfer, and the link can operate independently of subsequent computation. Serial transfer starts after all three layers finish; all KV is ready at time 9. Layer-wise transfer starts at times 2, 4 and 6 as each layer becomes ready; all KV is ready at time 7. Both perform six units of compute and three units of transfer. Overlap hides transfer time on the critical path, not bytes. This is an **illustrative schedule**, not a measured Splitwise result. It assumes one transfer channel, no contention or synchronization cost, and compares only all-KV readiness, not the earliest possible decode start. Real overlap can introduce interference; see Patel et al.[^splitwise]
+
+*Original instructional diagram, CC BY-SA 4.0.*
+
 ## Why cache transfer matters
 
 The state contains cached attention keys and values for the processed context. PagedAttention addresses cache allocation and sharing; it does not make network transfer free.[^paged] The query-head count is not always the key/value-head count: grouped-query attention shares key/value heads across groups of queries.[^gqa]

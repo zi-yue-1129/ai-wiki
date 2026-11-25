@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "splitwise-layer-transfer": {
+      "origins": [
+        {
+          "origin_blob": "9f484eb42db0c0d1fb7665a555042081eaf8531c",
+          "origin_commit": "206860c0a0eddfdb7963bb5fd021c1bf74d8e8fb",
+          "path": "docs/assets/concept-animations/splitwise-layer-transfer-motion.svg"
+        },
+        {
+          "origin_blob": "d44d661ca0409b0c76a6f6f525416e822af472cf",
+          "origin_commit": "206860c0a0eddfdb7963bb5fd021c1bf74d8e8fb",
+          "path": "docs/assets/concept-animations/splitwise-layer-transfer-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "streamingllm-sink-normalization": {
+      "origins": [
+        {
+          "origin_blob": "048596217489f60c2975bb7364532e0501e1705b",
+          "origin_commit": "206860c0a0eddfdb7963bb5fd021c1bf74d8e8fb",
+          "path": "docs/assets/concept-animations/streamingllm-sink-normalization-motion.svg"
+        },
+        {
+          "origin_blob": "bd5ecbb3396842f72a3948a3edff84832bf2a719",
+          "origin_commit": "206860c0a0eddfdb7963bb5fd021c1bf74d8e8fb",
+          "path": "docs/assets/concept-animations/streamingllm-sink-normalization-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

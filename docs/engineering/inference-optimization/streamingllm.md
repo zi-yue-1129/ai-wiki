@@ -29,6 +29,18 @@ A model trained on sequences of a few thousand tokens fails when it is run on mu
 
 The authors observe an attention sink: the first few tokens receive large attention scores whatever their content. Attention weights must sum to one, so the softmax needs somewhere to put attention that no context token needs. The initial tokens are visible to nearly every later token, which makes them easy to train as that place. Keeping the keys and values of these initial tokens restores the language-modelling quality that window attention loses, even though the middle of the sequence is removed. The authors also report that the position of the starting tokens matters more than their meaning. StreamingLLM therefore keeps the initial sink tokens and a recent window, and it assigns positions within the cache rather than the original positions of the tokens.
 
+### Visual walkthrough: normalization after masking an attention sink
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/streamingllm-sink-normalization-still.svg" data-motion-src="../../assets/concept-animations/streamingllm-sink-normalization-motion.svg" data-still-src="../../assets/concept-animations/streamingllm-sink-normalization-still.svg" alt="Fixed unnormalized weights 6, 2, 1, 1; masking the sink redistributes the remaining weights from 20, 10, 10 percent to 50, 25, 25 percent" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../assets/concept-animations/streamingllm-sink-normalization-still.svg) · Use the keyboard-accessible **Play/Pause** control on the MkDocs site.
+
+For a single query with fixed logits, suppose four tokens have exponentiated weights 6, 2, 1, 1, with the first token acting as the sink. With the sink retained, the denominator is 10 and the normalized weights are 60%, 20%, 10%, 10%. Masking the first token sets its exponentiated weight to zero, making the denominator 4 and the remaining weights 50%, 25%, 25%. The animation interpolates the two endpoints to illustrate redistribution, not actual token-by-token model computation. This is a **fixed-logit toy example**, not a paper measurement or proof of degraded generation: real eviction may change hidden states, positions and logits. See Xiao et al. (2024) in References for the attention-sink observation and streaming method. For the separate cache-retention timeline, see the [parent cache compression page](kv-cache-compression.md).
+
+*Original instructional diagram, CC BY-SA 4.0.*
+
 ## Procedure
 
 1. Choose a number of sink tokens, usually the first few positions of the stream.
