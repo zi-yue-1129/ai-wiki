@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "dml-crossfit-residual-pooling": {
+      "origins": [
+        {
+          "origin_blob": "5bedd739974fb97cdebae851e5594e56f198b6fb",
+          "origin_commit": "fdd50a2f8bae9e87064b62d77e6f84733764ccde",
+          "path": "docs/assets/concept-animations/dml-crossfit-residual-pooling-motion.svg"
+        },
+        {
+          "origin_blob": "d7190b9ad41dbd3cd41a57a8b4b32f6d374047d6",
+          "origin_commit": "fdd50a2f8bae9e87064b62d77e6f84733764ccde",
+          "path": "docs/assets/concept-animations/dml-crossfit-residual-pooling-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "honest-tree-leaf-contrast": {
+      "origins": [
+        {
+          "origin_blob": "688212b8072e9601957b55f5490e85885cbd7ea1",
+          "origin_commit": "fdd50a2f8bae9e87064b62d77e6f84733764ccde",
+          "path": "docs/assets/concept-animations/honest-tree-leaf-contrast-motion.svg"
+        },
+        {
+          "origin_blob": "322c63d9cfc8a9c2eafdb1caa9c551d26f245f06",
+          "origin_commit": "fdd50a2f8bae9e87064b62d77e6f84733764ccde",
+          "path": "docs/assets/concept-animations/honest-tree-leaf-contrast-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

@@ -76,6 +76,16 @@ The method adds cross-fitting, a sample-splitting step that stops the nuisance m
 
 Clustered or dependent observations require an appropriate variance estimator and splitting scheme; the displayed interval is asymptotic, not an exact finite-sample guarantee.
 
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="Interactive teaching figure; focus and scroll horizontally on narrow screens">
+<div style="width:640px">
+<img data-source-asset-urls width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/dml-crossfit-residual-pooling-still.svg" data-motion-src="../../assets/concept-animations/dml-crossfit-residual-pooling-motion.svg" data-still-src="../../assets/concept-animations/dml-crossfit-residual-pooling-still.svg" alt="Cross-fitting exchanges training and held-out folds, then pools four residual pairs in a single estimating equation.">
+</div>
+</div>
+
+On narrow screens, focus the figure and use the left/right arrow keys or swipe horizontally to read it at its natural size. MkDocs provides Play/Pause and reduced motion. [Complete static preview](../../assets/concept-animations/dml-crossfit-residual-pooling-still.svg) · [Standalone animation](../../assets/concept-animations/dml-crossfit-residual-pooling-motion.svg).
+
+*Original educational animation, CC BY-SA 4.0.* First train both nuisance models on F2 and predict on F1; then reverse the roles. Each observation contributes its held-out residual pair (V, U) once. The toy pairs in F1 are (−1, −2), (1, 2); those in F2 are (−2, −2), (2, 4). Thus the pooled estimate is $(4+12)/(2+8)=1.6$, not the unweighted mean $(2+1.5)/2=1.75$ of the fold slopes. The dots indicate model/prediction flow, not measured execution time; the residuals are constructed, not outputs of an actual fitted model. Cross-fitting alone does not identify a causal effect.
+
 ### Which effect does the PLR score estimate?
 
 The constant-effect partially linear model is not the general ATE model. With binary treatment, conditional exchangeability and heterogeneous effects, its population residual-on-residual coefficient is

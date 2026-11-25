@@ -63,6 +63,16 @@ Robinson（1988）以結果殘差對處理殘差迴歸，消除兩者中的 $X$ 
 
 群聚或相依資料需要相應的變異估計與切分方式；這不是有限樣本的精確涵蓋率保證。
 
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="互動教學圖；在窄螢幕上聚焦後可水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/dml-crossfit-residual-pooling-still.svg" data-motion-src="../../assets/concept-animations/dml-crossfit-residual-pooling-motion.svg" data-still-src="../../assets/concept-animations/dml-crossfit-residual-pooling-still.svg" alt="交叉擬合交換訓練折與保留折，將四組殘差合併到同一估計方程。">
+</div>
+</div>
+
+窄螢幕可聚焦圖形後使用左右方向鍵或滑動，閱讀原始尺寸。MkDocs 提供播放／暫停與減少動態效果的支援。 [完整靜態預覽](../../assets/concept-animations/dml-crossfit-residual-pooling-still.svg) · [獨立動畫](../../assets/concept-animations/dml-crossfit-residual-pooling-motion.svg).
+
+*原創教學動畫，CC BY-SA 4.0。* 先以 F2 訓練兩個干擾模型、對 F1 預測，再交換角色。每個觀察值的樣本外殘差配對 (V, U) 只計入一次。F1 的示意配對為 (−1, −2)、(1, 2)，F2 為 (−2, −2)、(2, 4)。因此合併估計為 $(4+12)/(2+8)=1.6$，不是兩折斜率的未加權平均 $(2+1.5)/2=1.75$。移動圓點代表模型與預測流程，不代表實測執行時間；殘差為人工構造，並非實際擬合結果。交叉擬合本身不能識別因果效應。
+
 ### PLR 分數估計哪一種效應？
 
 固定效應的部分線性模型不是一般的 ATE 模型。若處理為二元、滿足條件可交換性，且效應隨 $X$ 改變，母體殘差迴歸係數為：

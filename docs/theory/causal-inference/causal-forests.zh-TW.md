@@ -38,6 +38,16 @@ $Y(1),Y(0)$ 是處理與控制下的潛在結果。一般隨機森林預測 $Y$�
 \hat\tau(x)\pm z_{1-\alpha/2}\hat\sigma(x).
 \]
 
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="互動教學圖；在窄螢幕上聚焦後可水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/honest-tree-leaf-contrast-still.svg" data-motion-src="../../assets/concept-animations/honest-tree-leaf-contrast-motion.svg" data-still-src="../../assets/concept-animations/honest-tree-leaf-contrast-still.svg" alt="誠實因果樹先用分割集固定分割，再以互斥估計集計算兩個葉節點的處理組與控制組平均差。">
+</div>
+</div>
+
+窄螢幕可聚焦圖形後使用左右方向鍵或滑動，閱讀原始尺寸。MkDocs 提供播放／暫停與減少動態效果的支援。 [完整靜態預覽](../../assets/concept-animations/honest-tree-leaf-contrast-still.svg) · [獨立動畫](../../assets/concept-animations/honest-tree-leaf-contrast-motion.svg).
+
+*原創教學動畫，CC BY-SA 4.0。* P1–P4 為分割觀察值，E1–E8 為互斥的估計觀察值。在使用估計集結果前，先固定零點的示意分割。藍色圓點代表選擇分割；青綠色圓點代表依共變量將估計觀察值送入葉節點，而非重新擬合分割。左葉的處理結果 (5, 7) 與控制結果 (1, 3) 給出 $6-2=4$；右葉的處理結果 (4, 6) 與控制結果 (3, 5) 給出 $5-4=1$。分割與數值均為人工構造，不是實際擬合結果或真實效應異質性的證據。此例為單棵基本誠實因果樹，而非完整森林或 generalized random forest 的矩方程。
+
 ### 葉節點對比不是結果平均
 
 設估計集在葉節點 $L$ 中有 $n_1$ 個處理與 $n_0$ 個控制觀察值：
