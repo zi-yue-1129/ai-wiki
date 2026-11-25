@@ -18,7 +18,7 @@ aliases:
 
 # Interior-Point Methods
 
-Interior-point methods solve constrained optimisation problems by keeping every iterate strictly inside the feasible region and tightening a barrier that holds the iterates away from the boundary. They are the standard tool for convex programs, and they solve numerically the [Lagrange multiplier](lagrange-multipliers.md) conditions for inequality constraints. This page is part of [Calculus and optimisation foundations](index.md).
+Interior-point methods solve constrained optimisation problems by keeping every iterate strictly inside the feasible region and reducing the relative weight of a barrier that holds the iterates away from the boundary. They are the standard tool for convex programs, and they solve numerically the [Lagrange multiplier](lagrange-multipliers.md) conditions for inequality constraints. This page is part of [Calculus and optimisation foundations](index.md).
 
 ## Overview
 
@@ -41,11 +41,41 @@ The barrier method alternates a centering step with an increase in \(t\). Given 
 1. **Centering.** Compute \(x^\star(t)\) by minimising \(t f_0+\phi\) subject to \(Ax=b\), starting from \(x\).
 2. **Update.** Set \(x := x^\star(t)\).
 3. **Stop** if \(m/t<\epsilon\).
-4. **Increase the barrier.** Set \(t := \mu t\).
+4. **Increase the objective weight.** Set \(t := \mu t\).
 
 The barrier gradient is \(\nabla\phi(x) = -\sum_i \nabla f_i(x)/f_i(x)\). At a central point the optimality condition \(t\nabla f_0(x)+\nabla\phi(x)+A^\top\hat\nu=0\) holds for some \(\hat\nu\). Defining \(\lambda_i^\star(t) = -1/\big(t f_i(x^\star(t))\big)\) gives a dual feasible point, which is the source of the \(m/t\) bound. These multipliers satisfy \(\lambda_i^\star f_i(x^\star)=-1/t\). As \(t\) grows, this relaxed complementary slackness condition approaches the exact condition \(\lambda_i f_i(x)=0\) from the KKT conditions.
 
 The method uses each centering step as an inner Newton iteration. The number of outer iterations grows with the logarithm of the ratio between the initial and final duality gaps, so a moderate increase in \(t\) per outer step is efficient.
+
+### Central path and the duality gap
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Teaching figure; focus and scroll horizontally on narrow screens" style="max-width:100%;overflow-x:auto">
+  <div style="width:640px;max-width:none">
+    <img data-source-asset-urls src="../../../assets/concept-animations/barrier-central-path-gap-still.svg" data-motion-src="../../../assets/concept-animations/barrier-central-path-gap-motion.svg" data-still-src="../../../assets/concept-animations/barrier-central-path-gap-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="A marker approaches the origin from inside the nonnegative quadrant along the exact central path; a synchronized bar shrinks as the duality gap falls.">
+  </div>
+</div>
+
+[Static overview](../../../assets/concept-animations/barrier-central-path-gap-still.svg) · [Full animation](../../../assets/concept-animations/barrier-central-path-gap-motion.svg)
+
+*Original instructional animation, CC BY-SA 4.0.* Consider the illustrative linear program $\min_{x,y\geq 0}(x+2y)$. Its optimum is the origin. For $t>0$, the centering objective is $F_t(x,y)=t(x+2y)-\log x-\log y$. Setting its two partial derivatives to zero gives $x^\star(t)=1/t$ and $y^\star(t)=1/(2t)$. The two dual multipliers are 1 and 2, so the dual feasible lower bound is zero and the exact duality gap in this example is $2/t$.
+
+At the four labelled reference points, the gap decreases from 2 to 1, 0.5 and 0.25. The teal marker and bar interpolate along the analytic central path (linearly in the reciprocal of t); the marker never reaches the origin at finite t. The brief reset is only for looping. This is a constructed mathematical example, not a solver benchmark or an observed sequence of Newton iterates. The general gap certificate is described in Boyd and Vandenberghe (2004), §11.2 (see References).
+
+### Feasibility during a Newton centering step
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Teaching figure; focus and scroll horizontally on narrow screens" style="max-width:100%;overflow-x:auto">
+  <div style="width:640px;max-width:none">
+    <img data-source-asset-urls src="../../../assets/concept-animations/barrier-feasible-newton-still.svg" data-motion-src="../../../assets/concept-animations/barrier-feasible-newton-motion.svg" data-still-src="../../../assets/concept-animations/barrier-feasible-newton-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="A full Newton trial crosses the boundary, the half step lands on zero, and the quarter step remains strictly feasible and passes sufficient decrease.">
+  </div>
+</div>
+
+[Static overview](../../../assets/concept-animations/barrier-feasible-newton-still.svg) · [Full animation](../../../assets/concept-animations/barrier-feasible-newton-motion.svg)
+
+*Original instructional animation, CC BY-SA 4.0.* In a separate one-dimensional example, minimize $F(x)=4x-\log x$ on $x>0$. At $x_0=0.75$, the gradient is 8/3 and the Hessian is 16/9, so the Newton direction is −1.5. Starting with step length 1 and repeatedly halving it gives trial points −0.75, 0 and 0.375. Reject the first two **before evaluating the logarithm**, because neither is strictly feasible. The quarter step is feasible and also satisfies the Armijo sufficient-decrease test with parameter 0.1: the new objective is about 2.4808 versus an upper bound of 3.1877. It can therefore be accepted; the exact center is 0.25, not 0.375.
+
+The moving dot represents candidate trial positions, not accepted iterates; intermediate motion is a reading guide and the loop reset is not an optimization update. All values are illustrative, not measured solver performance. This backtracking example illustrates the domain check followed by sufficient decrease in the centering Newton method (Boyd and Vandenberghe, 2004, chapter 11; see References).
+
+Both figures use the shared MkDocs Play/Pause player and a reduced-motion still. On narrow screens, focus the figure and scroll with the arrow keys or swipe to read it at its original size.
 
 ## Results
 

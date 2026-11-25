@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "barrier-central-path-gap": {
+      "origins": [
+        {
+          "origin_blob": "38c2e4c1882460ab75b1ad12aa6a8e859408e681",
+          "origin_commit": "eb05e4f42094e6fbf4b36357f7a60414be0362df",
+          "path": "docs/assets/concept-animations/barrier-central-path-gap-motion.svg"
+        },
+        {
+          "origin_blob": "758774db0aadaa1797c708d325bd3406dd0e1747",
+          "origin_commit": "eb05e4f42094e6fbf4b36357f7a60414be0362df",
+          "path": "docs/assets/concept-animations/barrier-central-path-gap-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "barrier-feasible-newton": {
+      "origins": [
+        {
+          "origin_blob": "d2024363f65ac1249fb297fc99797d93934c1388",
+          "origin_commit": "eb05e4f42094e6fbf4b36357f7a60414be0362df",
+          "path": "docs/assets/concept-animations/barrier-feasible-newton-motion.svg"
+        },
+        {
+          "origin_blob": "25b1773e8badad22b7b974b550ef3cc0ff0f5864",
+          "origin_commit": "eb05e4f42094e6fbf4b36357f7a60414be0362df",
+          "path": "docs/assets/concept-animations/barrier-feasible-newton-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

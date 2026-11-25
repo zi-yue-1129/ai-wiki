@@ -4,7 +4,7 @@ translation_reviewed: 2026-11-24
 
 # 內點法
 
-內點法解有約束的最佳化問題時，讓每個迭代點都嚴格位於可行區域內部，並逐步加強一個障礙項，使迭代點遠離邊界。它們是凸規劃的標準工具，並以數值方式求解不等式約束下的[拉格朗日乘數](lagrange-multipliers.md)條件。本頁是[微積分與最佳化基礎](index.md)的一部分。
+內點法解有約束的最佳化問題時，讓每個迭代點都嚴格位於可行區域內部，並逐步降低障礙項的相對權重，使迭代點遠離邊界。它們是凸規劃的標準工具，並以數值方式求解不等式約束下的[拉格朗日乘數](lagrange-multipliers.md)條件。本頁是[微積分與最佳化基礎](index.md)的一部分。
 
 ## 概述
 
@@ -27,11 +27,41 @@ translation_reviewed: 2026-11-24
 1. **中心化。** 在 \(Ax=b\) 的約束下，從 \(x\) 出發，計算使 \(t f_0+\phi\) 最小的 \(x^\star(t)\)。
 2. **更新。** 令 \(x := x^\star(t)\)。
 3. **停止**：若 \(m/t<\epsilon\)。
-4. **增加障礙。** 令 \(t := \mu t\)。
+4. **增加目標函數權重。** 令 \(t := \mu t\)。
 
 障礙項的梯度為 \(\nabla\phi(x) = -\sum_i \nabla f_i(x)/f_i(x)\)。在中心點上，對某個 \(\hat\nu\) 滿足最優性條件 \(t\nabla f_0(x)+\nabla\phi(x)+A^\top\hat\nu=0\)。定義 \(\lambda_i^\star(t) = -1/\big(t f_i(x^\star(t))\big)\)，得到一個對偶可行點，這正是 \(m/t\) 界的來源。這些乘數滿足 \(\lambda_i^\star f_i(x^\star)=-1/t\)。隨著 \(t\) 增大，這個放寬的互補鬆弛條件會趨近 KKT 條件中的精確條件 \(\lambda_i f_i(x)=0\)。
 
 每個中心化步驟都以內層牛頓迭代完成。外層迭代的次數與初始與最終對偶間隙之比的對數成正比，因此每個外層步驟適度增加 \(t\) 是有效率的。
+
+### 中心路徑與對偶間隙
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="教學圖：窄螢幕可聚焦後左右捲動" style="max-width:100%;overflow-x:auto">
+  <div style="width:640px;max-width:none">
+    <img data-source-asset-urls src="../../../assets/concept-animations/barrier-central-path-gap-still.svg" data-motion-src="../../../assets/concept-animations/barrier-central-path-gap-motion.svg" data-still-src="../../../assets/concept-animations/barrier-central-path-gap-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="游標沿非負象限內的精確中心路徑逼近原點，右側同步縮短的長條表示對偶間隙下降。">
+  </div>
+</div>
+
+[靜態總覽](../../../assets/concept-animations/barrier-central-path-gap-still.svg) · [完整動畫](../../../assets/concept-animations/barrier-central-path-gap-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 考慮示意線性規劃 $\min_{x,y\geq 0}(x+2y)$，最優解為原點。當 $t>0$ 時，中心化目標函數為 $F_t(x,y)=t(x+2y)-\log x-\log y$。令兩個偏導數皆為零，可得 $x^\star(t)=1/t$ 與 $y^\star(t)=1/(2t)$。兩個對偶乘數為 1 與 2，因此對偶可行下界為零，此例的精確對偶間隙為 $2/t$。
+
+四個標記參考點的間隙依序為 2、1、0.5 與 0.25。青綠色游標與長條同步沿解析中心路徑插值（對 t 的倒數作線性插值）；有限的 t 不會使游標抵達原點。短暫重設僅為循環播放。這是人工構造的數學算例，不是求解器效能測量或實際牛頓迭代軌跡。一般對偶間隙證書可參見 Boyd 與 Vandenberghe（2004）第 11.2 節（見參考文獻）。
+
+### 牛頓中心化步驟的可行性
+
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="教學圖：窄螢幕可聚焦後左右捲動" style="max-width:100%;overflow-x:auto">
+  <div style="width:640px;max-width:none">
+    <img data-source-asset-urls src="../../../assets/concept-animations/barrier-feasible-newton-still.svg" data-motion-src="../../../assets/concept-animations/barrier-feasible-newton-motion.svg" data-still-src="../../../assets/concept-animations/barrier-feasible-newton-still.svg" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" alt="完整牛頓試探步跨越邊界，半步落在零，四分之一步則保持嚴格可行且滿足充分下降條件。">
+  </div>
+</div>
+
+[靜態總覽](../../../assets/concept-animations/barrier-feasible-newton-still.svg) · [完整動畫](../../../assets/concept-animations/barrier-feasible-newton-motion.svg)
+
+*原創教學動畫，CC BY-SA 4.0。* 另考慮一維問題，在 $x>0$ 上極小化 $F(x)=4x-\log x$。於 $x_0=0.75$，梯度為 8/3，海森矩陣為 16/9，故牛頓方向為 −1.5。步長從 1 開始逐次減半，試探點依序為 −0.75、0 與 0.375。前兩個點皆非嚴格可行，必須**在計算對數之前拒絕**。四分之一步嚴格可行，且滿足參數為 0.1 的 Armijo 充分下降條件：新目標函數值約為 2.4808，低於右式上界 3.1877。因此可接受該步，但精確中心點是 0.25，而非 0.375。
+
+移動圓點表示候選試探點，而非已接受的迭代點；中間移動僅引導閱讀，循環重設不是最佳化更新。所有數值皆為示意，不代表求解器實測效能。此例展示中心化牛頓法中先檢查定義域、再檢查充分下降的回溯線搜尋（Boyd 與 Vandenberghe，2004，第 11 章；見參考文獻）。
+
+兩圖皆使用 MkDocs 共用播放／暫停控制與降低動態效果的靜態回退。窄螢幕可聚焦圖表後使用方向鍵或滑動，以原始字級閱讀。
 
 ## 結果
 
