@@ -22,7 +22,7 @@ A serving system must keep the keys and values of every active request in memory
 
 ## How it works
 
-When a request starts, the system allocates blocks for its prompt. During decoding, a new block is allocated only when the current one fills. The attention kernel reads keys and values by following the block table, so it gathers them from scattered blocks. When memory runs short, the scheduler can preempt a request and swap or recompute its blocks.
+When a request starts, the system allocates blocks for its prompt. During decoding, a new logical block is allocated when the current one fills; writing into a shared partially filled physical block can also require a copy-on-write allocation. The attention kernel reads keys and values by following the block table, so it gathers them from scattered blocks. When memory runs short, the scheduler can preempt a request and swap or recompute its blocks.
 
 <img data-source-asset-urls src="../../assets/concept-animations/paged-block-mapping-still.svg" data-motion-src="../../assets/concept-animations/paged-block-mapping-motion.svg" data-still-src="../../assets/concept-animations/paged-block-mapping-still.svg" width="640" height="360" alt="Three logical KV blocks appear as tokens arrive. The block table maps them to noncontiguous physical blocks P2, P0, and P3, leaving P1 available.">
 
@@ -47,6 +47,17 @@ Two parallel samples A and B share the three-token prefix `a b c`. With two toke
 P0 remains shared because no write changes its contents. The final layout uses three blocks instead of four independently allocated blocks. The count excludes allocator metadata and does not predict actual bandwidth; an implementation may copy an entire physical block rather than only its valid slot. The sequence of operations is schematic, not a concurrency protocol or a measured trace. See Kwon et al. (2023) in References for parallel sampling and copy-on-write.
 
 *Original instructional animation, CC BY-SA 4.0.*
+
+#### Boundary case: full versus partially filled shared blocks
+
+A shared full block need not be copied merely because a sequence branches. In the same two-slot example, compare a prefix of length 3 with one of length 4, then append one distinct token to each of two samples. Assume no other cache owners and sequential allocation/write decisions.
+
+| Prefix length | Shared blocks before append | New blocks | Tail copies | Final physical blocks |
+|---|---:|---:|---:|---:|
+| 3 (partially filled tail, animation) | 2 | 1 | 1 | 3 |
+| 4 (full tail) | 2 | 2 | 0 | 4 |
+
+In the second case both original blocks stay shared, and each sequence allocates a new empty block. In the first case one writer copies the shared tail while the last remaining owner can write in place. Thus **new block allocation is not the same event as copy-on-write**. The logical block-table references sum to 4 in the first final layout and 6 in the second; neither sum is the number of physical blocks. For $n$ samples with no other owners, one append each needs $n-1$ tail copies for a partial shared tail, versus $n$ fresh blocks and zero copies for a full tail. These counts exclude caching policies, concurrent allocation and metadata; they are not measurements.
 
 ## Key methods
 

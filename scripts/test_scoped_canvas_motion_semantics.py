@@ -798,5 +798,70 @@ class InferenceCopyAndMassSemantics(unittest.TestCase):
             self.assertEqual(actual, expected)
 
 
+
+    def test_full_shared_tail_allocates_without_copying(self):
+        # Simulate sequential writes with only the sample block tables as owners.
+        from collections import Counter
+        still = self.root('paged-copy-on-write', 'still')
+        labels = {(e.get('x'), e.get('y')): e.text for e in still.iter(v.NS + 'text')}
+        for samples in (2, 3, 5):
+            for length in (3, 4):
+                tables = [[0, 1] for _ in range(samples)]
+                blocks = {0: ['a', 'b'], 1: ['c'] if length == 3 else ['c', 'd']}
+                copies = 0
+                for i, table in enumerate(tables):
+                    tail = table[-1]
+                    refs = Counter(b for t in tables for b in t)
+                    if len(blocks[tail]) == 2:
+                        tail = len(blocks)
+                        blocks[tail] = []
+                        table.append(tail)
+                    elif refs[tail] > 1:
+                        new = len(blocks)
+                        blocks[new] = blocks[tail][:]
+                        table[-1] = new
+                        tail = new
+                        copies += 1
+                    blocks[tail].append(str(i))
+                self.assertEqual(copies, samples-1 if length == 3 else 0)
+                self.assertEqual(len(blocks), samples+1 if length == 3 else samples+2)
+                self.assertEqual(sum(map(len, tables)), samples*(2 if length == 3 else 3))
+                for i, table in enumerate(tables):
+                    seq = [token for b in table for token in blocks[b]]
+                    self.assertEqual(seq, list('abc' if length == 3 else 'abcd') + [str(i)])
+                if samples == 2 and length == 3:
+                    self.assertEqual(tables, [[0, 2], [0, 1]])
+                    self.assertEqual(labels['594', '144'], 'refs 2')
+                    self.assertEqual(labels['594', '211'], 'refs 1')
+                    self.assertEqual(labels['594', '278'], 'refs 1')
+
+    def test_acceptance_overlap_and_round_progress(self):
+        from fractions import Fraction as F
+        still = self.root('speculative-residual-mass', 'still')
+        q, p = {}, {}
+        for rect in still.iter(v.NS + 'rect'):
+            token = rect.get('data-token')
+            if token is None:
+                continue
+            dst = q if int(rect.get('x')) < 367 else p
+            dst[token] = dst.get(token, F(0)) + F(rect.get('data-mass'))/10
+        self.assertEqual(sum(q.values()), 1)
+        self.assertEqual(sum(p.values()), 1)
+        alpha = sum(min(q[x], p[x]) for x in q)
+        tv = sum(abs(q[x]-p[x]) for x in q)/2
+        self.assertEqual(alpha, F(7,10))
+        self.assertEqual(tv, 1-alpha)
+        self.assertEqual([min(1, p[x]/q[x]) for x in 'ABC'], [F(2,5), 1, 1])
+        # Constant conditional acceptance at every reached position; no EOS.
+        probabilities = [alpha**k*(1-alpha) for k in range(3)] + [alpha**3]
+        self.assertEqual(probabilities, [F(300,1000), F(210,1000), F(147,1000), F(343,1000)])
+        self.assertEqual(sum(probabilities), 1)
+        self.assertEqual(sum((k+1)*prob for k, prob in enumerate(probabilities)), F(2533,1000))
+        self.assertEqual(sum(k*prob for k, prob in enumerate(probabilities)), F(1533,1000))
+        # Perfect overlap never invokes the residual branch; disjoint support always does.
+        for a, b, expected in (((1,0),(1,0),1), ((1,0),(0,1),0)):
+            self.assertEqual(sum(min(x,y) for x,y in zip(a,b)), expected)
+
+
 if __name__ == '__main__':
     unittest.main()
