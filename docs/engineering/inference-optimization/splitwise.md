@@ -28,6 +28,30 @@ The prompt machine produces the first token and KV cache. The token machine cont
 
 Thus a two-box diagram is a useful introduction, but does not fully describe the scheduler. Pool management also differs from assigning one dedicated machine to every request: each machine can serve multiple requests over time.
 
+### Visual walkthrough: layer-wise transfer and compute overlap
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/splitwise-layer-transfer-still.svg" data-motion-src="../../assets/concept-animations/splitwise-layer-transfer-motion.svg" data-still-src="../../assets/concept-animations/splitwise-layer-transfer-still.svg" alt="Three-layer prompt computation and KV transfer timeline; serial transfer completes at time 9 and layer-wise overlap at time 7" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../assets/concept-animations/splitwise-layer-transfer-still.svg) · Use the keyboard-accessible **Play/Pause** control on the MkDocs site.
+
+Assume three layers each take two time units to compute and one to transfer, and the link can operate independently of subsequent computation. Serial transfer starts after all three layers finish; all KV is ready at time 9. Layer-wise transfer starts at times 2, 4 and 6 as each layer becomes ready; all KV is ready at time 7. Both perform six units of compute and three units of transfer. Overlap hides transfer time on the critical path, not bytes. This is an **illustrative schedule**, not a measured Splitwise result. It assumes one transfer channel, no contention or synchronization cost, and compares only all-KV readiness, not the earliest possible decode start. Real overlap can introduce interference; see Patel et al.[^splitwise]
+
+*Original instructional diagram, CC BY-SA 4.0.*
+
+#### When the transfer channel becomes the bottleneck
+
+The growing bars in the animation assume that each transfer can start as soon as its layer is ready. More generally, for one FIFO transfer channel, let the readiness time R of a layer be the cumulative compute time up to that layer. Its transfer starts at the later of R and the previous layer's transfer finish, and finishes after its own transfer duration. This is a two-stage pipeline recurrence, not a Splitwise scheduler implementation.
+
+| Illustrative case | Layer compute times | Layer transfer times | Transfer starts | All KV ready |
+|---|---|---|---|---|
+| Animation | 2, 2, 2 | 1, 1, 1 | 2, 4, 6 | 7 |
+| Early long transfer | 1, 4, 1 | 4, 1, 1 | 1, 5, 6 | 7 |
+| Late long transfer | 4, 1, 1 | 1, 4, 1 | 4, 5, 9 | 10 |
+
+The last two rows both have six units of compute and six units of transfer; fully serialized readiness is 12 in either case. In the last row, layer 3 is ready at time 6 but its transfer must wait until time 9 because the link is busy. Equal total work therefore does not imply equal pipeline latency. These examples isolate dependency and channel occupancy; they do not estimate hardware interference, first-token delivery or throughput under concurrent requests.
+
 ## Why cache transfer matters
 
 The state contains cached attention keys and values for the processed context. PagedAttention addresses cache allocation and sharing; it does not make network transfer free.[^paged] The query-head count is not always the key/value-head count: grouped-query attention shares key/value heads across groups of queries.[^gqa]

@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,117 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+
+class ServingOverlapAndSinkSemantics(unittest.TestCase):
+    def test_splitwise_layer_dependencies_and_widths(self):
+        stem = 'splitwise-layer-transfer'
+        for suffix in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'{stem}-{suffix}.svg').getroot()
+            group = root.find(v.NS + 'g[@class="fallback"]') if suffix == 'motion' else root
+            bars = [e for e in group.findall(v.NS + 'rect') if e.get('height') == '26']
+            self.assertEqual(len(bars), 12)
+            for offset, starts in ((0, (6, 7, 8)), (6, (2, 4, 6))):
+                for i, start in enumerate(starts):
+                    compute, transfer = bars[offset + 2*i:offset + 2*i + 2]
+                    self.assertEqual(int(compute.get('x')), 137 + 49 * (2*i))
+                    self.assertEqual(int(compute.get('width')), 96)
+                    self.assertEqual(int(transfer.get('x')), 137 + 49 * start)
+                    self.assertEqual(int(transfer.get('width')), 47)
+                    self.assertGreaterEqual(start, 2*(i+1))
+                self.assertEqual(starts[-1]+1, 9 if offset == 0 else 7)
+
+    def test_sink_normalization_preserves_mass(self):
+        stem = 'streamingllm-sink-normalization'
+        for suffix in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'{stem}-{suffix}.svg').getroot()
+            group = root.find(v.NS + 'g[@class="fallback"]') if suffix == 'motion' else root
+            before = [float(e.get('width')) for e in root.findall(v.NS + 'rect')
+                      if e.get('y') == '120' and e.get('rx') == '0']
+            after = [float(e.get('width')) for e in group.findall(v.NS + 'rect')
+                     if e.get('y') == '214' and e.get('rx') == '0']
+            self.assertEqual(before, [276, 92, 46, 46])
+            self.assertEqual(after, [230, 115, 115])
+            self.assertEqual(sum(before), sum(after))
+            self.assertEqual([w/460 for w in after], [0.5, 0.25, 0.25])
+
+    def test_splitwise_animation_timing_and_channel_contention(self):
+        root = ET.parse(ASSETS / 'splitwise-layer-transfer-motion.svg').getroot()
+        moving = root.find(v.NS + 'g[@class="moving"]')
+        bars = moving.findall(v.NS + 'rect')
+        self.assertEqual(len(bars), 12)
+        expected = [(0, 2), (6, 7), (2, 4), (7, 8), (4, 6), (8, 9),
+                    (0, 2), (2, 3), (2, 4), (4, 5), (4, 6), (6, 7)]
+        for bar, (start, end) in zip(bars, expected):
+            anim = bar.find(v.NS + 'animate[@attributeName="width"]')
+            times = [float(t)*12 for t in anim.get('keyTimes').split(';')]
+            widths = [int(w) for w in anim.get('values').split(';')]
+            self.assertEqual(anim.get('dur'), '12s')
+            self.assertEqual(anim.get('calcMode'), 'linear')
+            self.assertEqual(anim.get('repeatCount'), 'indefinite')
+            first = next(i for i, w in enumerate(widths) if w > 0)
+            self.assertAlmostEqual(times[first-1], start, places=4)
+            self.assertAlmostEqual(times[first], end, places=4)
+            self.assertEqual(widths[first], 96 if bar.get('fill') == '#35678f' else 47)
+            self.assertTrue(all(w == widths[first] for w in widths[first:]))
+        def schedule(compute, transfer):
+            ready = finish = 0
+            starts = []
+            for c, x in zip(compute, transfer):
+                ready += c
+                start = max(ready, finish)
+                starts.append(start)
+                finish = start + x
+            return starts, finish
+        self.assertEqual(schedule([2, 2, 2], [1, 1, 1]), ([2, 4, 6], 7))
+        self.assertEqual(schedule([1, 4, 1], [4, 1, 1]), ([1, 5, 6], 7))
+        self.assertEqual(schedule([4, 1, 1], [1, 4, 1]), ([4, 5, 9], 10))
+
+    def test_sink_animation_partitions_mass_throughout_interpolation(self):
+        from fractions import Fraction
+        root = ET.parse(ASSETS / 'streamingllm-sink-normalization-motion.svg').getroot()
+        bars = root.find(v.NS + 'g[@class="moving"]').findall(v.NS + 'rect')
+        self.assertEqual(len(bars), 4)
+        endpoints = []
+        for bar in bars:
+            attributes = []
+            for attribute in ('x', 'width'):
+                anim = bar.find(v.NS + f'animate[@attributeName="{attribute}"]')
+                self.assertEqual(anim.get('keyTimes'), '0;0.2;0.65;1')
+                self.assertEqual(anim.get('calcMode'), 'linear')
+                self.assertEqual(anim.get('dur'), '12s')
+                self.assertEqual(anim.get('repeatCount'), 'indefinite')
+                values = list(map(Fraction, anim.get('values').split(';')))
+                self.assertEqual(values[0], values[1])
+                self.assertEqual(values[2], values[3])
+                attributes.append((values[1], values[2]))
+            endpoints.append(attributes)
+        for step in range(21):
+            f = Fraction(step, 20)
+            edge = Fraction(136)
+            widths = []
+            for (x0, x1), (w0, w1) in endpoints:
+                x, w = x0+(x1-x0)*f, w0+(w1-w0)*f
+                self.assertEqual(x, edge)
+                self.assertGreaterEqual(w, 0)
+                widths.append(w)
+                edge += w
+            self.assertEqual(edge, 596)
+            self.assertEqual(widths[1], 2*widths[2])
+            self.assertEqual(widths[2], widths[3])
+
+    def test_sink_attention_mass_does_not_determine_output_change(self):
+        from fractions import Fraction
+        retained = [Fraction(n, 10) for n in (6, 2, 1, 1)]
+        masked = [Fraction(n, 4) for n in (0, 2, 1, 1)]
+        for sink, expected in ((2, Fraction(0)), (0, Fraction(6, 5))):
+            values = [sink, 2, 0, 4]
+            before = sum(w*x for w, x in zip(retained, values))
+            after = sum(w*x for w, x in zip(masked, values))
+            self.assertEqual(after, 2)
+            self.assertEqual(after-before, expected)
+            self.assertEqual(after-before, retained[0]*(after-sink))
 
 
 if __name__ == '__main__':

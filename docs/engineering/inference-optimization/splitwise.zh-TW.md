@@ -28,6 +28,30 @@ Splitwise 將提示處理與後續 token 生成分配到不同機器，並為兩
 
 因此，兩個方塊的圖示適合入門，卻不足以完整描述排程器。資源池管理也不同於為每個請求保留一台專用機器：每台機器可隨時間服務多個請求。
 
+### 視覺解說：逐層傳輸與運算重疊
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/splitwise-layer-transfer-still.svg" data-motion-src="../../assets/concept-animations/splitwise-layer-transfer-motion.svg" data-still-src="../../assets/concept-animations/splitwise-layer-transfer-still.svg" alt="三層提示運算與 KV 傳輸的時間線；序列傳輸在時間 9 完成，逐層重疊在時間 7 完成" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態預覽](../../assets/concept-animations/splitwise-layer-transfer-still.svg) · 在 MkDocs 網站使用可由鍵盤操作的 **播放／暫停** 控制。
+
+假設三層各需 2 個時間單位運算與 1 個時間單位傳輸，且網路傳輸與後續層運算可以獨立執行。序列方式先完成三層運算，再依序傳輸，所有 KV 在時間 9 到達。逐層方式則於各層運算完成時啟動傳輸（時間 2、4、6），所有 KV 在時間 7 到達。兩者都執行 6 單位運算及 3 單位傳輸，減少的是暴露於關鍵路徑上的傳輸時間，而不是傳輸資料量。這是**人工構造的排程示意**，不是模型實測時間或 Splitwise 效能結果；假設單一傳輸通道、無其他競爭與同步成本，且只比較所有 KV 就緒的時間，不假設解碼必須等到該時點才開始。實際實作也可能因重疊造成干擾，見 Patel et al. 的論文。[^splitwise]
+
+*原創教學圖，CC BY-SA 4.0.*
+
+#### 傳輸通道成為瓶頸時
+
+動畫中的長條成長假設各層一就緒便能啟動傳輸。更一般地，對單一先進先出傳輸通道，某層的就緒時間 R 是截至該層的累積運算時間。該層的傳輸起點取 R 與前一層傳輸完成時間兩者的較大值，再加上自身的傳輸時間即可得到完成時間。這是兩階段管線的遞迴關係，不是 Splitwise 排程器的實作。
+
+| 示意情境 | 各層運算時間 | 各層傳輸時間 | 各層傳輸起點 | 所有 KV 就緒 |
+|---|---|---|---|---|
+| 原動畫 | 2、2、2 | 1、1、1 | 2、4、6 | 7 |
+| 較早的長傳輸 | 1、4、1 | 4、1、1 | 1、5、6 | 7 |
+| 較晚的長傳輸 | 4、1、1 | 1、4、1 | 4、5、9 | 10 |
+
+後兩列的運算與傳輸各為 6 個單位，完全序列執行時皆須 12 個單位。最後一列的第 3 層在時間 6 就緒，卻因通道忙碌而須等到時間 9 才開始傳輸。因此，相同總工作量不代表相同管線延遲。這些人工算例只隔離相依性與通道占用的影響，不估計硬體干擾、首 token 交付時間或多請求並行吞吐量。
+
 ## 為何快取傳輸重要
 
 狀態包含已處理上下文的注意力鍵和值。PagedAttention 處理快取配置與共享，並不會讓網路傳輸免費。[^paged] 查詢頭數也不一定等於鍵／值頭數：分組查詢注意力讓多組查詢共用鍵／值頭。[^gqa]
