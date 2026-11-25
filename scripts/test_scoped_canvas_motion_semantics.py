@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,77 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+class BarrierTeachingStates(unittest.TestCase):
+    def test_central_path_gap(self):
+        from fractions import Fraction as F
+        root = ET.parse(ASSETS / 'barrier-central-path-gap-motion.svg').getroot()
+        motion = root.find("./" + v.NS + "g[@class='motion']")
+        cursor = motion.find(v.NS + 'circle')
+        xy = {a.get('attributeName'): list(map(F, a.get('values').split(';')))
+              for a in cursor.findall(v.NS + 'animate')}
+        bar = motion.find(".//" + v.NS + "animate[@attributeName='width']")
+        widths = list(map(F, bar.get('values').split(';')))
+        for i, t in enumerate((1, 2, 4, 8)):
+            x, y = (xy['cx'][i] - 72) / 240, (288 - xy['cy'][i]) / 240
+            self.assertEqual(x, F(1, t))
+            self.assertEqual(y, F(1, 2*t))
+            self.assertEqual(x + 2*y, F(2, t))
+            self.assertEqual(widths[i] / 88, F(2, t))
+            self.assertGreater(x, 0)
+            self.assertGreater(y, 0)
+
+    def test_feasible_newton_backtracking(self):
+        from fractions import Fraction as F
+        from math import log
+        root = ET.parse(ASSETS / 'barrier-feasible-newton-motion.svg').getroot()
+        cursor = root.find("./" + v.NS + "g[@class='motion']/" + v.NS + 'circle')
+        xs = list(map(F, cursor.find(v.NS + "animate[@attributeName='cx']").get('values').split(';')))
+        x0 = F(3, 4)
+        grad, hess = 4 - 1/x0, 1/x0**2
+        direction = -grad/hess
+        self.assertEqual(direction, F(-3, 2))
+        candidates = [x0 + a*direction for a in (F(1), F(1, 2), F(1, 4))]
+        # SVG uses 208px per 0.75 units; test actual cursor keyframes.
+        self.assertEqual([(xs[i]-320)*F(3, 832) for i in (1, 3, 5)], candidates)
+        self.assertLessEqual(candidates[0], 0)
+        self.assertEqual(candidates[1], 0)
+        self.assertGreater(candidates[2], 0)
+        objective = lambda x: 4*x - log(float(x))
+        self.assertLessEqual(objective(candidates[2]),
+                             objective(x0) + F(1, 10)*F(1, 4)*grad*direction)
+        self.assertEqual(candidates[2], F(3, 8))
+        self.assertNotEqual(candidates[2], F(1, 4))
+
+    def test_off_path_gap_is_not_a_certificate(self):
+        from fractions import Fraction as F
+        t = F(2)
+        x, y = F(3, 5), F(1, 4)
+        nominal_gap = 2/t
+        inferred = (1/(t*x), 1/(t*y))
+        dual_feasible = (F(1), F(2))
+        self.assertEqual(inferred, (F(5, 6), F(2)))
+        self.assertNotEqual(inferred, dual_feasible)
+        self.assertEqual(x*inferred[0] + y*inferred[1], nominal_gap)
+        self.assertEqual(x + 2*y, F(11, 10))
+        self.assertGreater(x + 2*y, nominal_gap)
+        self.assertEqual(x*dual_feasible[0] + y*dual_feasible[1], F(11, 10))
+
+    def test_feasible_trial_can_fail_armijo(self):
+        from fractions import Fraction as F
+        from math import log
+        x0, alpha = F(3, 4), F(12, 25)
+        grad = 4 - 1/x0
+        direction = -grad/(1/x0**2)
+        candidate = x0 + alpha*direction
+        objective = lambda x: 4*x - log(float(x))
+        upper = objective(x0) + F(1, 10)*alpha*grad*direction
+        self.assertEqual(candidate, F(3, 100))
+        self.assertGreater(candidate, 0)
+        self.assertGreater(objective(candidate), upper)
+        self.assertAlmostEqual(objective(candidate), 3.626557897, places=8)
+        self.assertAlmostEqual(upper, 3.095682072, places=8)
 
 
 if __name__ == '__main__':
