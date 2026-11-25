@@ -21,19 +21,55 @@ When fine-tuned as a sentence-pair cross-encoder, BERT takes both sentences as o
 
 ## Core idea
 
-SBERT runs two copies of the same BERT encoder with shared weights on the two sentences. A pooling layer turns the token outputs into one vector. The paper tests three pooling strategies: the `[CLS]` output, the mean of all token outputs (MEAN, the default), and the maximum over tokens (MAX). The weights are then fine-tuned on sentence-pair data so that cosine similarity between the two pooled vectors reflects the target label.
+SBERT applies the same BERT encoder, with shared weights, to each sentence separately. A pooling layer turns the token outputs into one vector. The paper tests three pooling strategies, using the `[CLS]` output, a mean of token outputs (MEAN, the default), or the maximum over tokens (MAX). Fine-tuning uses classification, regression or triplet objectives. The paper's similarity evaluation then compares the resulting embeddings with cosine similarity.[^objectives]
 
-Because each sentence is encoded independently, the embeddings of a whole collection can be computed once and stored. Comparison then costs only the arithmetic of a dot product.
+Because each sentence is encoded independently, the embeddings of a whole collection can be computed once and stored. Comparison then uses vector arithmetic, including length normalisation when computing cosine similarity.
 
 ## Equation and algorithm
 
+### Pooling a padded batch
+
+For a padded sequence of $T$ token states $h_i\in\mathbb R^n$, let $m_i\in\{0,1\}$ indicate which positions participate in pooling. With at least one included position, mean pooling is
+
+$$
+s=\frac{\sum_{i=1}^{T}m_i h_i}{\sum_{i=1}^{T}m_i}.
+$$
+
+Padding positions have mask zero. The cited Sentence Transformers implementation applies the attention mask to both the summed token states and the denominator in its ordinary mean-pooling path.[^pooling] As a constructed example, states $(2,0)$, $(0,2)$ and $(8,0)$ with mask $(1,1,0)$ pool to $(1,1)$. Averaging all three states instead gives $(10/3,2/3)$. This demonstrates why padded outputs must be excluded. Mean pooling alone does not make the resulting vector unit length.
+
+### Training objectives
+
 The paper uses three training objectives, depending on the labelled data:
 
-- **Classification.** For column embeddings \(u,v\in\mathbb R^n\), concatenate \(h=[u;v;|u-v|]\in\mathbb R^{3n}\). With \(k\) labels and \(W\in\mathbb R^{k\times3n}\), compute \(o=\operatorname{softmax}(Wh)\). This explicitly uses a column-vector convention; a row-vector convention transposes the weight matrix. The loss is cross-entropy. The element-wise difference term lets the classifier respond to how far the two vectors differ.
+- **Classification.** For column embeddings $u,v\in\mathbb R^n$, concatenate $h=[u;v;|u-v|]\in\mathbb R^{3n}$. With $k$ labels and $W\in\mathbb R^{k\times3n}$, compute $o=\operatorname{softmax}(Wh)$. This explicitly uses a column-vector convention; a row-vector convention transposes the weight matrix. The loss is cross-entropy. The element-wise difference term lets the classifier respond to how far the two vectors differ.
 - **Regression.** The cosine similarity between `u` and `v` is trained against a gold similarity score with mean-squared error.
-- **Triplet.** For an anchor `s_a`, a positive `s_p` and a negative `s_n`, the loss is \(\max(\lVert s_a-s_p\rVert_2-\lVert s_a-s_n\rVert_2+\varepsilon,0)\), with Euclidean distance and margin `ε = 1` in the paper's experiments.
+- **Triplet.** For an anchor `s_a`, a positive `s_p` and a negative `s_n`, the loss is $\max(\lVert s_a-s_p\rVert_2-\lVert s_a-s_n\rVert_2+\varepsilon,0)$, with Euclidean distance and margin `ε = 1` in the paper's experiments.
 
-Training starts from natural language inference data, with the classification objective, and can be followed by fine-tuning on the STS benchmark with the regression objective.
+The paper evaluates both regression trained only on STSb and classification on natural language inference (NLI) data followed by regression on STSb.[^objectives]
+
+The NLI classifier and the cosine score serve different roles. The classifier produces $k$ class probabilities from the ordered features $[u;v;|u-v|]$. Swapping the sentences gives $[v;u;|u-v|]$, so its output can change with sentence order. Cosine is symmetric and gives one similarity value. The paper uses the embeddings with cosine for STS inference, without the NLI classification head. A cosine score is therefore not an entailment probability.[^objectives]
+
+## Comparing and searching embeddings
+
+For nonzero embeddings $u$ and $v$, cosine similarity can be written as
+
+$$
+\operatorname{cos}(u,v)=\frac{u^\top v}{\lVert u\rVert_2\lVert v\rVert_2}
+=\widehat u^\top\widehat v,\qquad
+\widehat u=\frac{u}{\lVert u\rVert_2},\quad
+\widehat v=\frac{v}{\lVert v\rVert_2}.
+$$
+
+To reproduce cosine scores with an inner-product search, use the unit vectors $\widehat u,\widehat v$. Raw dot products can give a different ranking. For example, take the constructed query vector $u=(1,0)$.
+
+| Candidate vector | Raw dot product with $u$ | Cosine with $u$ |
+|---|---|---|
+| $(0.8,0.6)$ | 0.8 | 0.8 |
+| $(0.7,0)$ | 0.7 | 1.0 |
+
+Raw dot product ranks the first candidate higher, while cosine ranks the second higher. Normalising the vectors before taking the dot product reproduces the cosine column. These are vector calculations, not measurements of sentence meanings.
+
+Precomputing a collection of $M$ embeddings removes repeated transformer passes over candidate pairs.[^cost] An exhaustive search still computes vector scores. One new query requires $M$ scores for a full scan, and comparing every unordered pair in the collection requires $M(M-1)/2$. At $M=10{,}000$, that is $49{,}995{,}000$ vector comparisons after encoding the sentences once. The model changes the cost of each comparison, while exhaustive comparison retains this pair count.
 
 ## Results
 
@@ -57,6 +93,10 @@ In these NLI-plus-STSb comparisons, the cross-encoder scores higher; this is not
 - **Scope of the original transfer tests.** Section 5 evaluates frozen embeddings with SentEval classifiers. The authors emphasise similarity search rather than treating those embeddings as a substitute for task-specific BERT fine-tuning. This does not rule out transfer learning with later sentence-embedding models.
 - **Mixed comparisons.** SBERT trails the Universal Sentence Encoder on some tasks, such as SICK-R and TREC, and the paper reports no significant gain from RoBERTa in its experiments.
 
+[^objectives]: Reimers and Gurevych (2019), Sections 3 and 4.2 and Figures 1–2, distinguish the training setups from cosine inference. Section 6 states that the concatenation is used for training the softmax classifier. The sentence-order observation follows from the ordered feature vector.
+[^pooling]: Sentence Transformers, `pooling.py` at commit `cddcaee`, `_forward_padded`, the ordinary `mean` branch without token weighting, linked below. The masked-mean example assumes at least one included token.
+[^cost]: Reimers and Gurevych (2019), Section 1, contrasts repeated cross-encoder computations with independently cached embeddings. The full-scan and pair counts above are direct counts of comparisons.
+
 ## References
 
 ### Seminal papers
@@ -72,3 +112,4 @@ In these NLI-plus-STSb comparisons, the cross-encoder scores higher; this is not
 ### Articles and documentation
 
 - Mikolov, T., Chen, K., Corrado, G. & Dean, J. (2013). *Efficient Estimation of Word Representations in Vector Space*. arXiv. https://arxiv.org/abs/1301.3781 — An efficient word-level embedding method, providing background for distributional vectors and sentence averaging.
+- Sentence Transformers contributors. *Pooling implementation*. https://github.com/huggingface/sentence-transformers/blob/cddcaee3405a5efde83c1d98f89c6ebd6733dab6/sentence_transformers/sentence_transformer/modules/pooling.py — Implements pooling over padded token states, including attention-mask handling for the mean and its denominator.
