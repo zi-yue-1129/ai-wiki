@@ -767,6 +767,43 @@ class SharedKvReadSemantics(unittest.TestCase):
         self.assertLess(4, 8)
         self.assertGreater(4*4, 8)
 
+    def test_shared_keys_can_realise_both_probability_rows(self):
+        from math import exp, log, sqrt
+        still = self.root('mqa-shared-values-output', 'still')
+        cells = {(e.get('x'), e.get('y')): e.text for e in still.iter(v.NS + 'text')}
+        xs = ('180', '302', '424')
+        keys = ((sqrt(2), 0), (0, 0), (0, sqrt(2)))
+        values = [float(cells[x, '120']) for x in xs]
+        for query, y in zip(((log(3), 0), (0, log(3))), (153, 241)):
+            unnormalised = [exp(sum(a*b for a, b in zip(query, key))/sqrt(2))
+                            for key in keys]
+            probabilities = [weight/sum(unnormalised) for weight in unnormalised]
+            self.assertAlmostEqual(sum(unnormalised), 5)
+            for x, p in zip(xs, probabilities):
+                self.assertAlmostEqual(p, float(cells[x, str(y+29)].rstrip('%'))/100)
+            self.assertAlmostEqual(sum(p*val for p, val in zip(probabilities, values)),
+                                   float(cells['547', str(y+32)]))
+
+    def test_ragged_batches_distinguish_useful_and_padded_reads(self):
+        still = self.root('decode-weight-kv-crossover', 'still')
+        slopes = []
+        for color in ('#35678f', '#08756e'):
+            line, = [p for p in still.iter(v.NS + 'path')
+                     if p.get('stroke') == color and p.get('d', '').startswith('M70 288L535 ')]
+            slopes.append((288-float(line.get('d').split()[-1]))/5.5/10)
+        self.assertEqual(slopes, [4, 1])
+        for lengths, logical, padded, per_token in (
+                ((4,), [16, 4], [16, 4], [24, 12]),
+                ((4, 4), [32, 8], [32, 8], [20, 8]),
+                ((1, 7), [32, 8], [56, 14], [20, 8])):
+            with self.subTest(lengths=lengths):
+                self.assertEqual([a*sum(lengths) for a in slopes], logical)
+                self.assertEqual([a*len(lengths)*max(lengths) for a in slopes], padded)
+                self.assertEqual([(8+n)/len(lengths) for n in logical], per_token)
+                self.assertEqual([8/(len(lengths)*a) for a in slopes],
+                                 [2/len(lengths), 8/len(lengths)])
+
+
 
 if __name__ == '__main__':
     unittest.main()

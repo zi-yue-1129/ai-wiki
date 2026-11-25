@@ -52,6 +52,16 @@ The crossover at which KV reads equal weight reads is $S_* = W/(2BGdb)$. The gra
 
 The comparison holds non-KV weight traffic constant to isolate the cache effect; real MHA and MQA weight sizes can differ. Even with the fourfold change in crossover, neither latency nor achievable context capacity is guaranteed to improve fourfold: those depend on the full system and workload. These quantities are schematic, not PaLM measurements. See [Pope et al. (2022)](https://arxiv.org/abs/2211.05102) for the broader partitioning model and [Shazeer (2019)](https://arxiv.org/abs/1911.02150) for shared KV heads.
 
+**Unequal sequence lengths and batching.** If the active sequences have lengths $S_1,\ldots,S_B$, the ideal logical KV read volume is $2Gdb\sum_i S_i$ rather than a padded rectangle of size $2GdbB\max_i S_i$. Suppose the graph's original batch is one sequence, the weight traffic of 8 units is paid once per iteration, and each active sequence emits one token. Keep the graph's per-token KV slopes of 4 (MHA) and 1 (MQA).
+
+| Active lengths | MHA logical KV | MQA logical KV | MHA total per emitted token | MQA total per emitted token |
+|---|---:|---:|---:|---:|
+| 4 | 16 | 4 | 24 | 12 |
+| 4, 4 | 32 | 8 | 20 | 8 |
+| 1, 7 | 32 | 8 | 20 | 8 |
+
+The last two rows have the same sum of lengths and thus the same ideal useful traffic, but a kernel that actually reads all padded slots would read 56 and 14 KV units in the last row. Batching amortises weight reads per emitted token while increasing total KV reads per iteration. A crossover expressed using mean active context length is therefore batch-dependent; it is not a constant architectural context limit. These are logical byte counts, not measured HBM transactions or latency; block rounding, kernel reuse and scheduling can change physical traffic.
+
 *Original instructional diagram, CC BY-SA 4.0.*
 
 ## Partitioning and results
