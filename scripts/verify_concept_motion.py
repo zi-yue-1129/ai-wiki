@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'es-antithetic-weighted-update': 'theory/optimization/evolution-strategies',
+    'distributed-kfac-layer-ownership': 'theory/optimization/kfac/distributed-kfac',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
     'dynamo-graph-break-resume': 'engineering/frameworks/compilers-and-kernels/torch-compile',
     "tpu-systolic-wavefront": "engineering/hardware/accelerators/tpu/index",
@@ -491,7 +493,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'es-antithetic-weighted-update': '0 0 640 360',
+ 'distributed-kfac-layer-ownership': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
  'ece-bin-merging': '0 0 640 360',
  'bernoulli-kl-direction': '0 0 720 400',
@@ -1375,7 +1379,7 @@ def main() -> int:
             linked_images = {(page.parent / link).resolve() for link in links}
             if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
-            elif stem in {"tpu-systolic-wavefront", "analog-crossbar-current-sum"}:
+            elif stem in {"tpu-systolic-wavefront", "analog-crossbar-current-sum", "es-antithetic-weighted-update", "distributed-kfac-layer-ownership"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:

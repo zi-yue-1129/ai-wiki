@@ -12,7 +12,7 @@ ES 是零階方法。它只需要每個取樣策略的獎勵，不需要其梯�
 
 ## 問題
 
-最大化期望獎勵 \(F(\theta)\)，其中 \(F\) 可能不可微，或無法透過環境做反向傳播。政策梯度需要獎勵沿策略路徑可微，但這不一定成立。
+最大化期望獎勵 \(F(\theta)\)，其中 \(F\) 可能不可微，或無法透過環境做反向傳播。與 REINFORCE 等透過取樣動作估計分數函數梯度的政策梯度方法不同，ES 擾動的是策略參數；兩者皆不需要對環境獎勵求導。
 
 ## 核心想法
 
@@ -37,6 +37,22 @@ g = \frac{1}{n\sigma}\sum_{i=1}^{n} F_i\,\varepsilon_i.
 \]
 
 再以 \(\theta \leftarrow \theta + \alpha g\) 更新，其中 \(\alpha\) 是學習率。每個工作者評估部分樣本，因此工作者之間只需分享純量獎勵與隨機種子。
+
+### 算例：對偶擾動
+
+<img data-source-asset-urls src="../../assets/concept-animations/es-antithetic-weighted-update-still.svg" data-still-src="../../assets/concept-animations/es-antithetic-weighted-update-still.svg" data-motion-src="../../assets/concept-animations/es-antithetic-weighted-update-motion.svg" alt="四個對稱擾動產生正負二與正負一的獎勵；藍色與青色加權貢獻合成橘色更新方向（一，二分之一）。" width="640" height="360">
+
+*原創教學動畫，CC BY-SA 4.0。 [靜態預覽](../../assets/concept-animations/es-antithetic-weighted-update-still.svg) · [完整動畫](../../assets/concept-animations/es-antithetic-weighted-update-motion.svg).*
+
+若有 $m$ 個獨立高斯方向，並與各自的負方向配對，使用原始獎勵的估計量為
+
+$
+\hat g=\frac{1}{2m\sigma}\sum_{j=1}^m [F(\theta+\sigma\varepsilon_j)-F(\theta-\sigma\varepsilon_j)]\varepsilon_j.
+$
+
+動畫採刻意構造的兩組方向，而非實際高斯隨機取樣或效能測量：$F(x,y)=2x+y$、$\theta=(0,0)$、$\sigma=1$、$\alpha=1$，方向為 $(1,0)$、$(0,1)$ 及其負方向。獎勵分別為 $2,-2,1,-1$。水平的兩個擾動經獎勵加權後都朝正水平方向貢獻，垂直配對亦然。兩組加總 $(4,0)$、$(0,2)$ 分別除以四，得到 $(1,0)$、$(0,1/2)$。估計量與更新後參數都是 $(1,1/2)$，而非精確梯度 $(2,1)$：這四個特定樣本的二階矩不等於高斯分布的二階矩。對偶取樣可消除常數獎勵偏移，但不能保證有限樣本估計完全精確。
+
+Salimans 等人（2017；見參考文獻）使用共用隨機數，讓工作者能重建相同的擾動。本算例只呈現原始獎勵的運算，不包含依排名塑形的適應值或通訊時間。MkDocs 的播放／暫停控制可切換動態顯示；GitHub 與減少動態效果模式呈現完整加總結果。
 
 ## 主要結果
 

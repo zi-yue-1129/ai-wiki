@@ -418,6 +418,8 @@ jobs:
           python scripts/test_scoped_canvas_motion_semantics.py
           python scripts/test_alt_accessibility_motion_semantics.py
           python scripts/test_source_contract_retention_motion_semantics.py
+      - name: Check antithetic ES and distributed K-FAC semantics
+        run: python scripts/test_parallel_optimization_motion_semantics.py
       - name: Check uncertainty motion numerical semantics
         run: python scripts/test_uncertainty_motion_semantics.py
       - name: Check probability-score decomposition and ECE bin merging
