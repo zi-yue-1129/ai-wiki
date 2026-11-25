@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCES = ('docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/mappo/index.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.md', 'docs/theory/paradigms/reinforcement-learning/multi-agent-rl/maddpg/index.zh-TW.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.md', 'docs/theory/paradigms/unsupervised/density-and-generative-models/diffusion/score-sde.zh-TW.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.md', 'docs/theory/paradigms/reinforcement-learning/offline-rl/cql/index.zh-TW.md', 'docs/theory/causal-inference/double-machine-learning.md', 'docs/theory/causal-inference/double-machine-learning.zh-TW.md', 'docs/society/interpretability/feature-attribution.md', 'docs/society/interpretability/feature-attribution.zh-TW.md', 'docs/theory/models/cnn/unet/3d-unet.md', 'docs/theory/models/cnn/unet/3d-unet.zh-TW.md', 'docs/theory/models/rnn/gated-cells/gru/index.md', 'docs/theory/models/rnn/gated-cells/gru/index.zh-TW.md', 'docs/theory/paradigms/probabilistic/mcmc/gibbs-sampling.md', 'docs/theory/paradigms/probabilistic/mcmc/gibbs-sampling.zh-TW.md')
 WIDTHS = (320, 390, 1280)
 EXISTING = {x["page"]:x for x in json.loads((ROOT/"scripts/fixtures/existing-math-followup.json").read_text())["pages"]}
-DISPLAY_COUNTS = dict(zip(SOURCES, (2,2,2,2,3,3,2,2,6,6,1,1,3,3,6,6,7,7)))
+DISPLAY_COUNTS = dict(zip(SOURCES, (2,2,2,2,3,3,2,2,8,8,1,1,3,3,6,6,7,7)))
 
 def compact(value):
     return re.sub(r'\s+', '', value)
@@ -33,7 +33,7 @@ def required_bodies(source):
     if '/mappo/' in source: return MappoRecurrenceMarkupTests.BODIES
     if '/maddpg/' in source: return [RetainedDeployedMathTests.MADDPG]
     if '/cql/' in source: return [CqlObjectiveMarkupTests.BODY]
-    if '/double-machine-learning' in source: return [DmlLimitationsMarkupTests.BODY]
+    if '/double-machine-learning' in source: return [DmlLimitationsMarkupTests.BODY, *DmlLimitationsMarkupTests.POOLING_BODIES]
     assert '/score-sde' in source
     return RetainedDeployedMathTests.SDE
 
