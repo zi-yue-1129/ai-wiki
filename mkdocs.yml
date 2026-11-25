@@ -253,6 +253,7 @@ plugins:
             Calculus and Optimisation Foundations: 微積分與最佳化基礎
             Newton's Method: 牛頓法
             Lagrange Multipliers: 拉格朗日乘數法
+            Interior-Point Methods: 內點法
             Probability and Statistics: 機率與統計
             Maximum Likelihood: 最大概似估計
             Maximum A Posteriori: 最大後驗估計
@@ -1228,6 +1229,7 @@ nav:
               - theory/math/calculus/index.md
               - Newton's Method: theory/math/calculus/newtons-method.md
               - Lagrange Multipliers: theory/math/calculus/lagrange-multipliers.md
+              - Interior-Point Methods: theory/math/calculus/interior-point-methods.md
           - Probability and Statistics:
               - theory/math/probability-statistics/index.md
               - Maximum Likelihood: theory/math/probability-statistics/maximum-likelihood.md

@@ -28,6 +28,21 @@ $$
 
 其中 $\Omega_\ell$ 是該層輸入區塊的二階矩，$\Gamma_\ell$ 是反向傳播導數的二階矩。更新即為 K-FAC 的預處理步驟，兩個因子都加上阻尼，並且逆矩陣的更新頻率低於梯度。論文也指出，所得的更新對常用的重新參數化（例如對激活做中心化）具有不變性。
 
+### 計算範例：空間區塊統計
+
+<img data-source-asset-urls src="../../../assets/concept-animations/kfc-patch-second-moment-still.svg" data-still-src="../../../assets/concept-animations/kfc-patch-second-moment-still.svg" data-motion-src="../../../assets/concept-animations/kfc-patch-second-moment-motion.svg" alt="寬度二的濾波器掃過三個重疊輸入區塊，逐項累加二乘二外積並計算空間平均二階矩。" width="640" height="360">
+
+*原創 CC BY-SA 4.0 圖解，依據 Grosse 與 Martens（2016；見參考文獻）的區塊統計。 [靜態預覽](../../../assets/concept-animations/kfc-patch-second-moment-still.svg) · [完整動畫](../../../assets/concept-animations/kfc-patch-second-moment-motion.svg).*
+
+對一維輸入 $(1,2,3,4)$，寬度為二、步幅為一、無填補及偏置的濾波器會看到三個區塊 $p_1=(1,2)$、$p_2=(2,3)$、$p_3=(3,4)$。動畫依序走訪各位置並累加其外積。區塊外積的空間平均為
+
+$
+\frac{1}{3}\sum_{t=1}^{3}p_t p_t^\top
+=\frac{1}{3}\begin{pmatrix}14&20\\20&29\end{pmatrix}.
+$
+
+這僅是採用空間平均慣例的輸入端因子；導數端因子必須一致地納入空間加總的尺度。圖中未計算導數端因子，也不主張在缺少 KFC 假設的情況下完整費雪矩陣仍可精確分解。數值為教學構造，非模型實測。MkDocs 播放器提供播放／暫停；減少動態效果模式與 GitHub 顯示完整靜態圖。
+
 ## 結果
 
 摘要回報，使用 KFC 的近似自然梯度下降，訓練卷積網路的速度比仔細調校的帶動量 SGD 快數倍，且所需的迭代次數少 10 到 20 倍。實驗使用 CIFAR-10 與街景門牌號碼（SVHN）資料集。論文宣稱的目標是在既有的架構上評估最佳化器，而非追求最先進的準確率。論文也在訓練好的網路上檢驗其機率假設，發現導數在空間上與跨特徵圖之間的相關性都很弱。

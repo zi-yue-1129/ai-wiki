@@ -517,3 +517,22 @@
   vector-effect: non-scaling-stroke;
 }
 .distributed-motion-replay-control input { accent-color: #256f9f; }
+
+/* Keep the GPipe comparison labels readable and its controls in the visible
+ * part of the keyboard-focusable horizontal figure region. */
+@media (max-width: 720px) {
+  .concept-motion-player.gpipe-comparison-timeline {
+    width: 100%; max-width: 100%; overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+  .gpipe-comparison-timeline > img,
+  .gpipe-comparison-timeline > .distributed-motion-frame:not([hidden]) {
+    width: 640px; min-width: 640px; max-width: none; height: auto;
+  }
+  .gpipe-comparison-timeline > .distributed-motion-frame:not([hidden]) { aspect-ratio: 16 / 9; }
+  .gpipe-comparison-timeline > .concept-motion-controls,
+  .gpipe-comparison-timeline > .distributed-motion-controls {
+    position: sticky; left: 0; width: 100%; max-width: 100%; box-sizing: border-box;
+  }
+}
+.gpipe-comparison-timeline:focus-visible { outline: 3px solid var(--md-accent-fg-color, #387e99); outline-offset: 2px; }

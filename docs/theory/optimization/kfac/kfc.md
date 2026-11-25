@@ -36,6 +36,21 @@ $$
 
 where $\Omega_\ell$ is the second moment of the layer's input patches and $\Gamma_\ell$ is the second moment of the backpropagated derivatives. The update is then the K-FAC preconditioned step, with damping added to both factors and the inverses refreshed less often than the gradients. The paper also shows that the resulting updates are invariant to commonly used reparameterisations, such as centring the activations.
 
+### Worked example: spatial patch statistics
+
+<img data-source-asset-urls src="../../../assets/concept-animations/kfc-patch-second-moment-still.svg" data-still-src="../../../assets/concept-animations/kfc-patch-second-moment-still.svg" data-motion-src="../../../assets/concept-animations/kfc-patch-second-moment-motion.svg" alt="A width-two filter visits three overlapping input patches; their two-by-two outer products sum to a spatially averaged second moment." width="640" height="360">
+
+*Original CC BY-SA 4.0 illustration of the patch statistics in Grosse and Martens (2016; see References). [Static preview](../../../assets/concept-animations/kfc-patch-second-moment-still.svg) · [Full animation](../../../assets/concept-animations/kfc-patch-second-moment-motion.svg).*
+
+For a one-dimensional input $(1,2,3,4)$, a width-two filter with stride one, no padding and no bias sees three patches $p_1=(1,2)$, $p_2=(2,3)$ and $p_3=(3,4)$. The animation visits each position and accumulates its outer product. The spatial mean of the patch outer products is
+
+$
+\frac{1}{3}\sum_{t=1}^{3}p_t p_t^\top
+=\frac{1}{3}\begin{pmatrix}14&20\\20&29\end{pmatrix}.
+$
+
+This is only the input-side factor under a spatial-average convention. The derivative-side factor must account for the spatial summation scale consistently; the figure neither computes it nor asserts that the full Fisher is exactly separable without the KFC assumptions. The numbers are constructed, not measured from a model. Use Play/Pause on MkDocs; reduced-motion mode and GitHub show the complete still.
+
 ## Results
 
 The abstract reports that approximate natural gradient descent with KFC trains convolutional networks several times faster than carefully tuned SGD with momentum, and that it trains them in 10 to 20 times fewer iterations. The experiments use CIFAR-10 and Street View House Numbers (SVHN). The paper's stated aim is to evaluate the optimiser on previously published architectures, not to reach state-of-the-art accuracy. The paper also checks its modelling assumptions on trained networks, and finds the derivatives only weakly correlated, both spatially and across feature maps.

@@ -83,7 +83,7 @@ For the constructed convex problem $\min_x (x-2)^2$ subject to $x\le1$, the prim
 ## Key methods
 
 - [Newton's method](newtons-method.md): a second-order method that can be applied to the Lagrangian's stationarity conditions, as an alternative to the first-order KKT approach.
-- Interior-point methods: handle inequality constraints by barrier terms, a related but distinct approach described in Boyd and Vandenberghe (2004).
+- [Interior-point methods](interior-point-methods.md): handle inequality constraints with barrier terms that keep iterates strictly feasible. Their barrier multipliers approximate the KKT multipliers on this page.
 
 ## Connections
 
@@ -94,8 +94,8 @@ For the constructed convex problem $\min_x (x-2)^2$ subject to $x\le1$, the prim
 ## Applications
 
 - **Support vector machines**: maximum-margin classifiers solved through the dual problem (Cortes & Vapnik, 1995).
-- **Constrained policy updates**: trust-region methods limit how far a policy moves per update using a constraint on the KL divergence (see [reinforcement learning](../../paradigms/reinforcement-learning/index.md)).
-- **Fairness and safety constraints**: constrained training problems use multipliers to enforce a measurable requirement (Boyd & Vandenberghe, 2004).
+- **Constrained policy updates**: trust-region methods limit how far a policy moves per update using a constraint on the KL divergence, as in TRPO (Schulman et al., 2015; see [reinforcement learning](../../paradigms/reinforcement-learning/index.md)).
+- **Fairness and safety constraints**: constrained training problems can use multipliers to enforce a measurable requirement, which is the same Lagrangian construction described above.
 
 ## Open questions
 
@@ -112,8 +112,9 @@ For the constructed convex problem $\min_x (x-2)^2$ subject to $x\le1$, the prim
 ### Surveys and textbooks
 
 - Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer. https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf — Covers constrained optimisation and the Lagrangian in its treatment of support vector machines.
-- Murphy, K. P. (2022). *Probabilistic Machine Learning: An Introduction*. MIT Press. https://github.com/probml/pml-book — Free textbook; covers the constrained formulations used for kernel methods.
+- Nocedal, J. & Wright, S. J. (2006). *Numerical Optimization*, 2nd ed. Springer. https://doi.org/10.1007/978-0-387-40065-5 — Covers Lagrange multipliers and the KKT conditions for constrained problems, and the interior-point methods built on them.
 
 ### Articles and documentation
 
-- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization methods for large-scale machine learning. *SIAM Review*. arXiv:1606.04838. https://arxiv.org/abs/1606.04838 — Surveys optimisation methods for learning, including constrained formulations and their practical costs.
+- Bottou, L., Curtis, F. E. & Nocedal, J. (2018). Optimization methods for large-scale machine learning. *SIAM Review*. arXiv:1606.04838. https://arxiv.org/abs/1606.04838 — Reviews numerical optimisation for machine learning, with a focus on stochastic gradient methods and their practical costs.
+- Schulman, J. et al. (2015). Trust region policy optimization. *Proceedings of the 32nd International Conference on Machine Learning (ICML)*. arXiv:1502.05477. https://arxiv.org/abs/1502.05477 — Introduces TRPO, which limits each policy update with a KL-divergence trust region.
