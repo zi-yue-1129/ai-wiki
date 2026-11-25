@@ -36,6 +36,25 @@ DeepSpeed-MoE combines two parts. The first is a set of compression techniques t
 4. Serve requests, with the system grouping tokens by expert and combining the outputs.
 5. Compare latency and cost against the dense and MoE baselines on the target hardware.
 
+### Worked example: residual MoE and communication
+
+DeepSpeed-MoE's Pyramid Residual MoE (PR-MoE) combines a depth-dependent expert count with a residual branch: one routed expert and a shared dense feed-forward network (FFN), rather than two routed experts.[^residual-traffic] The two design choices are distinct. The animation isolates the latter choice for a token originating on a device without either of the selected remote experts.
+
+<img data-source-asset-urls src="../../assets/concept-animations/deepspeed-residual-traffic-still.svg" data-motion-src="../../assets/concept-animations/deepspeed-residual-traffic-motion.svg" data-still-src="../../assets/concept-animations/deepspeed-residual-traffic-still.svg" width="640" height="360" alt="Top-2 sends two activation copies to remote experts E0 and E1 and receives two outputs. Residual MoE sends only one copy to E0 and computes the other branch with a local dense FFN. Four versus two cross-device payloads.">
+
+*Original instructional animation, CC BY-SA 4.0.* Solid arrows show dispatch and dashed arrows show return. The two copies of x denote the same token, not two independent requests. Both returned branch outputs are combined at the origin (combination weights are omitted). On MkDocs use **Play/Pause** (Enter or Space); reduced-motion preferences show the still. On narrow screens the figure may be scrolled horizontally. [GitHub-readable static preview](../../assets/concept-animations/deepspeed-residual-traffic-still.svg).
+
+| Logical work per token | Top-2 MoE | Residual MoE |
+|---|---:|---:|
+| FFN evaluations | 2 | 2 |
+| Remote activation sends | 2 | 1 |
+| Remote output returns | 2 | 1 |
+| Total cross-device payloads | 4 | 2 |
+
+If each payload contains $h$ elements of $b$ bytes each, the two cases carry $4hb$ and $2hb$ logical bytes, respectively. This comparison assumes the dense branch is replicated locally, both original routed experts are remote, equal activation sizes and no other traffic. A selected expert may instead be local, and tensor parallelism, padding, collective algorithms and synchronization can change physical traffic. Two FFN evaluations do not imply equal FLOPs or model quality. The toy comparison is not a measured speedup or a guarantee of halving network bytes.
+
+[^residual-traffic]: Rajbhandari et al., [DeepSpeed-MoE](https://arxiv.org/abs/2201.05596), Section 4.1; the logical payload example is original.
+
 ## Results
 
 The abstract reports three claims. The compression techniques reduce MoE model size by up to 3.7 times. The inference system provides 7.3 times better latency and cost compared with existing MoE inference solutions. Against quality-equivalent dense models, the system is up to 4.5 times faster and 9 times cheaper for inference. These comparisons depend on the baselines and the hardware in the paper, so the figures should be read with that setup.

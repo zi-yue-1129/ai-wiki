@@ -36,6 +36,25 @@ DeepSpeed-MoE 結合兩個部分。第一是一組壓縮技術，在維持品質
 4. 服務請求，系統依專家為 token 分組，並合併輸出。
 5. 在目標硬體上，與稠密與 MoE 基準比較延遲與成本。
 
+### 算例：殘差 MoE 與通訊
+
+DeepSpeed-MoE 的金字塔殘差 MoE（PR-MoE）結合兩種設計：依深度配置不同的專家數量，以及殘差分支，以一個路由專家與共享稠密前饋網路（FFN）取代兩個路由專家。[^residual-traffic] 兩種設計並不相同。動畫隔離後者，假設 token 起始裝置並未持有所選的兩個遠端專家。
+
+<img data-source-asset-urls src="../../assets/concept-animations/deepspeed-residual-traffic-still.svg" data-motion-src="../../assets/concept-animations/deepspeed-residual-traffic-motion.svg" data-still-src="../../assets/concept-animations/deepspeed-residual-traffic-still.svg" width="640" height="360" alt="Top-2 將兩份 activation 傳往遠端專家 E0、E1 並收回兩份輸出；殘差 MoE 僅傳一份給 E0，另一分支由本地稠密 FFN 計算。跨裝置負載為四份與兩份。">
+
+*原創教學動畫，CC BY-SA 4.0。* 實線箭頭表示派送，虛線箭頭表示回傳。兩個 x 是同一個 token 的兩份輸入，不是兩筆獨立請求。兩個分支的輸出在起始裝置合併（省略合併權重）。在 MkDocs 使用 **播放／暫停**（Enter 或 Space）；減少動態效果偏好會顯示靜態圖。窄螢幕可水平捲動。[GitHub 可讀靜態預覽](../../assets/concept-animations/deepspeed-residual-traffic-still.svg)。
+
+| 每個 token 的邏輯工作 | Top-2 MoE | 殘差 MoE |
+|---|---:|---:|
+| FFN 運算次數 | 2 | 2 |
+| 遠端 activation 派送 | 2 | 1 |
+| 遠端輸出回傳 | 2 | 1 |
+| 跨裝置負載總數 | 4 | 2 |
+
+若每份負載包含 $h$ 個元素、每元素 $b$ 位元組，兩種情況的邏輯資料量分別為 $4hb$ 與 $2hb$ 位元組。此比較假設稠密分支在本地複製、原本所選的兩個路由專家皆為遠端、activation 大小相同，且無其他通訊。所選專家也可能位於本地；張量平行、填充、集合通訊演算法及同步都可能改變實際流量。兩次 FFN 運算不代表 FLOPs 或模型品質相等。算例並非實測加速比，也不保證網路資料量減半。
+
+[^residual-traffic]: Rajbhandari 等人，[DeepSpeed-MoE](https://arxiv.org/abs/2201.05596)，第 4.1 節；邏輯負載算例為原創。
+
 ## 結果
 
 摘要提出三項主張。壓縮技術可把 MoE 模型大小縮小最多 3.7 倍。推論系統相較於現有 MoE 推論方案，延遲與成本改善 7.3 倍。相較於品質相當的稠密模型，此系統的推論速度最多快 4.5 倍，成本最多低 9 倍。這些比較取決於論文中的基準與硬體，因此讀數字時應連同這些設定一起考慮。

@@ -36,6 +36,23 @@ GShard 要求程式設計者標註哪些張量維度要跨裝置切分（例如�
 4. 執行分割後的程式，由編譯器插入路由所需的通訊。
 5. 對照裝置檢查配置，若通訊佔主導，則調整標註。
 
+### 算例：以分片軸的改變理解派送
+
+完成閘控後，GShard 將 token 表徵放入各專家的容量槽位，並改變派送緩衝區的分片方式，讓每台裝置持有其本地專家的輸入。[^dispatch-layout] 以下取兩台裝置、兩個群組、兩個專家，每組群組與專家配對各有一個非空槽位。
+
+<img data-source-asset-urls src="../../assets/concept-animations/gshard-dispatch-layout-still.svg" data-motion-src="../../assets/concept-animations/gshard-dispatch-layout-motion.svg" data-still-src="../../assets/concept-animations/gshard-dispatch-layout-still.svg" width="640" height="360" alt="D0 持有群組 G0，包含送往 E0 的 A 與送往 E1 的 B；D1 持有 G1，包含送往 E0 的 C 與送往 E1 的 D。派送後 D0 持有 E0 的 A、C，D1 持有 E1 的 B、D，僅 B、C 跨裝置。">
+
+*原創教學動畫，CC BY-SA 4.0。* 左右兩欄表示同一邏輯派送緩衝區的不同配置。A、D 留在原裝置；B、C 朝相反方向跨裝置。移動圓點表示區塊放置，不代表網路時序或序列化實作。在 MkDocs 使用 **播放／暫停**（Enter 或 Space）；減少動態效果偏好會顯示靜態圖。窄螢幕可水平捲動。[GitHub 可讀靜態預覽](../../assets/concept-animations/gshard-dispatch-layout-still.svg)。
+
+| 裝置 | 派送前：依群組分片 | 派送後：依專家分片 |
+|---|---|---|
+| D0 | G0：送往 E0 的 A、送往 E1 的 B | E0：來自 G0 的 A、來自 G1 的 C |
+| D1 | G1：送往 E0 的 C、送往 E1 的 D | E1：來自 G0 的 B、來自 G1 的 D |
+
+正向派送包含兩個本地區塊及兩個邏輯跨裝置區塊。若每個區塊是一個含 $h$ 個元素、每元素 $b$ 位元組的 activation 向量，兩台裝置的跨裝置派送邏輯資料量合計為 $2hb$ 位元組。將相同大小的專家輸出送回原群組再增加 $2hb$ 位元組，之後合併步驟才套用閘控權重。動畫隔離配置交換，不包含專家運算、閘控、容量溢位、填充、集合通訊開銷或反向通訊。GShard 實際閘控可為每個 token 選擇最多兩個專家；此處四個已占用槽位是完成路由的貢獻項，不是新的閘控規則。所有計數皆為示意，非實測流量或延遲。
+
+[^dispatch-layout]: Lepikhin 等人，[GShard](https://arxiv.org/abs/2006.16668)，說明群組內閘控、專家運算與自動分片；此兩裝置算例為原創。
+
 ## 結果
 
 論文報告，以自動分片訓練超過 6000 億參數的稀疏閘控混合專家模型。論文也報告，在 2048 顆 TPU v3 加速器上，於 4 天內訓練了一個從 100 種語言翻譯成英文的模型。這些是訓練結果，論文的重點也在訓練，因此推論的影響應從設計推論，而非從論文中報告的推論基準得出。
