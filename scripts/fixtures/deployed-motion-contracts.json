@@ -9678,6 +9678,36 @@
         }
       ],
       "viewBox": "0 0 720 400"
+    },
+    "mqa-shared-values-output": {
+      "origins": [
+        {
+          "origin_blob": "f36547d5a709f4666f22c4dd97c4db69934aacbb",
+          "origin_commit": "6e145d48281e1d22564b692d3994abd8853367b9",
+          "path": "docs/assets/concept-animations/mqa-shared-values-output-motion.svg"
+        },
+        {
+          "origin_blob": "a9fa63f80285d456fb2eaa081bcf23626c08c356",
+          "origin_commit": "6e145d48281e1d22564b692d3994abd8853367b9",
+          "path": "docs/assets/concept-animations/mqa-shared-values-output-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "decode-weight-kv-crossover": {
+      "origins": [
+        {
+          "origin_blob": "65a82642ba1f0f81791e351b7e199a8a9bff86f6",
+          "origin_commit": "6e145d48281e1d22564b692d3994abd8853367b9",
+          "path": "docs/assets/concept-animations/decode-weight-kv-crossover-motion.svg"
+        },
+        {
+          "origin_blob": "7116a9e4f5a3c963bec4d51028eb8acacc6e74a7",
+          "origin_commit": "6e145d48281e1d22564b692d3994abd8853367b9",
+          "path": "docs/assets/concept-animations/decode-weight-kv-crossover-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {
