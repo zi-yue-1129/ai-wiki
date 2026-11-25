@@ -128,6 +128,7 @@ on:
       - "scripts/test_probability_motion_semantics.py"
       - "scripts/test_information_motion_semantics.py"
       - "scripts/test_kfac_motion_semantics.py"
+      - "scripts/test_xla_lifetime_motion_semantics.py"
       - "scripts/test_predictive_coding_motion_browser.py"
       - "scripts/test_predictive_coding_motion_semantics.py"
       - "scripts/test_predictive_coding_labs.cjs"
@@ -379,6 +380,8 @@ jobs:
         run: python scripts/test_information_motion_semantics.py
       - name: Check EKFAC and KFC numerical motion semantics
         run: python scripts/test_kfac_motion_semantics.py
+      - name: Check XLA buffer lifetime and rematerialization semantics
+        run: python scripts/test_xla_lifetime_motion_semantics.py
       - name: Verify selective classification animation and GitHub fallback arithmetic
         run: |
           python scripts/test_selective_accuracy_motion_semantics.py
