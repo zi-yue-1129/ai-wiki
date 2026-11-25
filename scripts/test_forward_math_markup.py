@@ -223,6 +223,23 @@ a_n(a_n+b_n)&=o_p(n^{-1/2}).
             source=(ROOT/f'docs/theory/causal-inference/double-machine-learning{lang}.md').read_text()
             with self.subTest(language=lang): self.require_structure(source,heading_id,titles,explanation)
 
+    def test_dml_pooling_equations_are_separate_display_blocks(self):
+        # Check both formulas, not merely the absence of leaked TeX: deleting
+        # either equation must also fail this contract.
+        bodies = [
+            r'\hat\theta_{\mathrm{DML2}}=\sum_k\frac{b_k}{\sum_j b_j}\frac{a_k}{b_k},',
+            r'\hat\theta_{\mathrm{DML1}}=\frac1K\sum_k\frac{a_k}{b_k}.',
+        ]
+        for lang, *_ in self.RECORDS:
+            source = (ROOT / f'docs/theory/causal-inference/double-machine-learning{lang}.md').read_text()
+            with self.subTest(language=lang):
+                html = render(source)
+                require_no_outside_tex(html)
+                blocks = [''.join(x.split()) for x in MathContainers(html).blocks]
+                for body in bodies:
+                    self.assertEqual(blocks.count(r'\[' + ''.join(body.split()) + r'\]'), 1)
+                    self.assertEqual(source.count('\n\n$\n' + body + '\n$\n\n'), 1)
+
     def test_each_original_root_cause_and_detached_or_missing_formula_rejected(self):
         import re
         for lang,heading,heading_id,titles,explanation in self.RECORDS:

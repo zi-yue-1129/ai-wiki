@@ -91,7 +91,10 @@ On narrow screens, focus the figure and use the left/right arrow keys or swipe h
 The animation implements DML2 (one pooled score equation), whereas DML1 solves the score equation within each fold and averages the resulting parameter estimates.[^dml-pooling] Write $a_k=\sum_{i\in I_k}\hat V_i\hat U_i$ and $b_k=\sum_{i\in I_k}\hat V_i^2$. When every $b_k>0$,
 
 $
-\hat\theta_{\mathrm{DML2}}=\sum_k\frac{b_k}{\sum_j b_j}\frac{a_k}{b_k},\qquad
+\hat\theta_{\mathrm{DML2}}=\sum_k\frac{b_k}{\sum_j b_j}\frac{a_k}{b_k},
+$
+
+$
 \hat\theta_{\mathrm{DML1}}=\frac1K\sum_k\frac{a_k}{b_k}.
 $
 

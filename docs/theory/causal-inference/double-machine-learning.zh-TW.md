@@ -78,7 +78,10 @@ Robinson（1988）以結果殘差對處理殘差迴歸，消除兩者中的 $X$ 
 動畫實作 DML2（解單一合併分數方程）；DML1 則分別解各折的分數方程，再平均其參數估計值。[^dml-pooling] 令 $a_k=\sum_{i\in I_k}\hat V_i\hat U_i$、$b_k=\sum_{i\in I_k}\hat V_i^2$。若每折皆有 $b_k>0$，則
 
 $
-\hat\theta_{\mathrm{DML2}}=\sum_k\frac{b_k}{\sum_j b_j}\frac{a_k}{b_k},\qquad
+\hat\theta_{\mathrm{DML2}}=\sum_k\frac{b_k}{\sum_j b_j}\frac{a_k}{b_k},
+$
+
+$
 \hat\theta_{\mathrm{DML1}}=\frac1K\sum_k\frac{a_k}{b_k}.
 $
 
