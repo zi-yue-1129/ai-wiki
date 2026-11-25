@@ -754,6 +754,35 @@ class BarrierTeachingStates(unittest.TestCase):
         self.assertEqual(candidates[2], F(3, 8))
         self.assertNotEqual(candidates[2], F(1, 4))
 
+    def test_off_path_gap_is_not_a_certificate(self):
+        from fractions import Fraction as F
+        t = F(2)
+        x, y = F(3, 5), F(1, 4)
+        nominal_gap = 2/t
+        inferred = (1/(t*x), 1/(t*y))
+        dual_feasible = (F(1), F(2))
+        self.assertEqual(inferred, (F(5, 6), F(2)))
+        self.assertNotEqual(inferred, dual_feasible)
+        self.assertEqual(x*inferred[0] + y*inferred[1], nominal_gap)
+        self.assertEqual(x + 2*y, F(11, 10))
+        self.assertGreater(x + 2*y, nominal_gap)
+        self.assertEqual(x*dual_feasible[0] + y*dual_feasible[1], F(11, 10))
+
+    def test_feasible_trial_can_fail_armijo(self):
+        from fractions import Fraction as F
+        from math import log
+        x0, alpha = F(3, 4), F(12, 25)
+        grad = 4 - 1/x0
+        direction = -grad/(1/x0**2)
+        candidate = x0 + alpha*direction
+        objective = lambda x: 4*x - log(float(x))
+        upper = objective(x0) + F(1, 10)*alpha*grad*direction
+        self.assertEqual(candidate, F(3, 100))
+        self.assertGreater(candidate, 0)
+        self.assertGreater(objective(candidate), upper)
+        self.assertAlmostEqual(objective(candidate), 3.626557897, places=8)
+        self.assertAlmostEqual(upper, 3.095682072, places=8)
+
 
 if __name__ == '__main__':
     unittest.main()

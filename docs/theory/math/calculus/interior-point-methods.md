@@ -61,6 +61,8 @@ The method uses each centering step as an inner Newton iteration. The number of 
 
 At the four labelled reference points, the gap decreases from 2 to 1, 0.5 and 0.25. The teal marker and bar interpolate along the analytic central path (linearly in the reciprocal of t); the marker never reaches the origin at finite t. The brief reset is only for looping. This is a constructed mathematical example, not a solver benchmark or an observed sequence of Newton iterates. The general gap certificate is described in Boyd and Vandenberghe (2004), §11.2 (see References).
 
+**Why centering matters for the certificate.** At the illustrated point with t = 2, the exact center is (0.5, 0.25). A nearby strictly feasible point (0.6, 0.25) has original objective 1.1, exceeding the nominal gap 2/t = 1. Substituting this point into the central multiplier formula gives (5/6, 2), which violates the LP dual stationarity requirement that the multipliers equal (1, 2). Both componentwise complementarity products are still 1/t, but their sum is not a certified duality gap. Using the actual dual feasible pair (1, 2), whose dual value is zero, gives a valid gap of 1.1. Inexact centering can require a separate correction or a verified dual feasible point before claiming a rigorous stopping certificate.[^barrier-centering]
+
 ### Feasibility during a Newton centering step
 
 <div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Teaching figure; focus and scroll horizontally on narrow screens" style="max-width:100%;overflow-x:auto">
@@ -74,6 +76,8 @@ At the four labelled reference points, the gap decreases from 2 to 1, 0.5 and 0.
 *Original instructional animation, CC BY-SA 4.0.* In a separate one-dimensional example, minimize $F(x)=4x-\log x$ on $x>0$. At $x_0=0.75$, the gradient is 8/3 and the Hessian is 16/9, so the Newton direction is −1.5. Starting with step length 1 and repeatedly halving it gives trial points −0.75, 0 and 0.375. Reject the first two **before evaluating the logarithm**, because neither is strictly feasible. The quarter step is feasible and also satisfies the Armijo sufficient-decrease test with parameter 0.1: the new objective is about 2.4808 versus an upper bound of 3.1877. It can therefore be accepted; the exact center is 0.25, not 0.375.
 
 The moving dot represents candidate trial positions, not accepted iterates; intermediate motion is a reading guide and the loop reset is not an optimization update. All values are illustrative, not measured solver performance. This backtracking example illustrates the domain check followed by sufficient decrease in the centering Newton method (Boyd and Vandenberghe, 2004, chapter 11; see References).
+
+**Feasibility alone does not imply sufficient decrease.** Keep the same starting point and direction, but consider an alternative trial step of 0.48 (not a step in the illustrated halving schedule). It lands at 0.03, strictly inside the domain, yet the objective is about 3.6266, above the Armijo upper bound of about 3.0957. Reject it even though the logarithm is defined. In this example all steps strictly between zero and 0.5 are feasible, but only a subset pass sufficient decrease. The animation shows the first accepted step of the chosen halving schedule, not an exact line minimizer.
 
 Both figures use the shared MkDocs Play/Pause player and a reduced-motion still. On narrow screens, focus the figure and scroll with the arrow keys or swipe to read it at its original size.
 
@@ -109,6 +113,8 @@ Both figures use the shared MkDocs Play/Pause player and a reduced-motion still.
 - Warm-starting interior-point methods for sequences of related problems, such as online or receding-horizon control, remains an active question.
 - Exploiting parallel hardware for the linear algebra in each Newton step, for very large sparse problems, is a practical open problem.
 - Global guarantees for non-convex problems are limited. Interior-point solvers give local solutions, and the choice of starting point affects which local solution is found.
+
+[^barrier-centering]: Boyd and Vandenberghe (2004), *Convex Optimization*, §11.3.1, “Accuracy of centering”, and exercise 11.9. https://web.stanford.edu/~boyd/cvxbook/
 
 ## References
 
