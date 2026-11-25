@@ -55,6 +55,8 @@ The last use of $a$ is in the second operation; its slot becomes available for $
 
 Each column represents coexistence **during** an operation, not values retained after it finishes. For unequal array sizes $A,B,C,D$ (bytes), the illustrated fixed two-slot assignment needs capacity $\max(A,C)+\max(B,D)$, ignoring alignment and allocator overhead. Two slots do not imply that the peak byte count is exactly half of four separate slots; their capacities must accommodate the largest value assigned to each slot.
 
+Minimizing the number of slots is not the same as minimizing their total reserved capacity. For example, let $A=D=10$ MiB and $B=C=1$ MiB. The illustrated two-slot assignment reserves 20 MiB, even though the peak simultaneous live size is 11 MiB. An alternative with three fixed slots groups $a$ and $d$ in a 10 MiB slot and gives $b$ and $c$ separate 1 MiB slots, reserving only 12 MiB. All pairs that coexist still occupy distinct slots. This counterexample concerns fixed whole-value slots without alignment overhead or suballocation, not a prediction of XLA's actual allocator.
+
 ### Rematerialization: shorten a live range by recomputing
 
 XLA also has a rematerialization pass, which trades recomputation for lower memory pressure.[^xla-remat] Change the example so $y=k(a,c)$ needs $a$ again after $b=g(a)$ and $c=h(b)$. Keeping $a$ alive across the third operation requires three simultaneously live internal arrays. Alternatively, drop $a$ after computing $b$, then recompute $a=f(x)$ after producing $c$.

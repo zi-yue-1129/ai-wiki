@@ -78,5 +78,27 @@ class XlaLifetime(unittest.TestCase):
                 self.assertEqual(peaks[0]-peaks[1], min(a, b, c))
 
 
+    def test_minimum_slot_count_is_not_minimum_capacity(self):
+        from itertools import product
+
+        sizes = dict(a=10, b=1, c=1, d=10)
+        values = tuple(sizes)
+        for kind in ('motion', 'still'):
+            states = columns('xla-buffer-lifetime-reuse', kind)
+            live_sets = [set(a+b) for a,b in states]
+            self.assertEqual(max(sum(sizes[v] for v in row) for row in live_sets), 11)
+            best = {}
+            for assignment in product(range(4), repeat=4):
+                slots = dict(zip(values, assignment))
+                if any(len({slots[v] for v in row}) != len(row) for row in live_sets):
+                    continue
+                used = set(assignment)
+                capacity = sum(max(sizes[v] for v in values if slots[v] == slot) for slot in used)
+                best[len(used)] = min(capacity, best.get(len(used), capacity))
+            self.assertEqual(best, {2: 20, 3: 12, 4: 22})
+            illustrated = sum(max(sizes[v] for row in states for v in row[j]) for j in (0, 1))
+            self.assertEqual(illustrated, best[2])
+
+
 if __name__=='__main__':
     unittest.main()
