@@ -38,6 +38,32 @@ The paper estimates three times per layer.
 
 Here \(B\) is the batch size, \(L\) the sequence length and \(E\) the model dimension.
 
+### Worked example: when cache reads overtake weight reads
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/decode-weight-kv-crossover-still.svg" data-motion-src="../../assets/concept-animations/decode-weight-kv-crossover-motion.svg" data-still-src="../../assets/concept-animations/decode-weight-kv-crossover-still.svg" alt="At a fixed batch size, weight reads stay at eight units while MHA cache reads grow four times as fast as MQA, crossing the weight line at context lengths two and eight." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../assets/concept-animations/decode-weight-kv-crossover-still.svg) · On MkDocs use the keyboard-accessible **Play/Pause** control (Enter or Space); reduced-motion preferences initially show the still.
+
+The memory term in the analytical model motivates a controlled comparison. Suppose a fixed batch of $B$ equal-length sequences uses $G$ KV heads of dimension $d$, and each stored element occupies $b$ bytes. In an idealised read-once model, each decode iteration reads $2BSGdb$ bytes of cached keys and values at context length $S$, plus $W$ bytes of weights. It neglects KV writes, repeated loads, cache residency, communication, compute and other traffic.
+
+The crossover at which KV reads equal weight reads is $S_* = W/(2BGdb)$. The graph fixes $W=8$ arbitrary byte units and compares four KV heads with one, setting the per-context-unit KV read costs to 4 and 1 respectively. Thus MHA crosses at $S=2$ and MQA at $S=8$. At context 4, MHA reads 16 KV units while MQA reads 4; weights still cost 8 in both cases. The moving cursor sweeps context, not wall-clock time. The horizontal origin is a mathematical extrapolation; the animated sweep starts at context 1.
+
+The comparison holds non-KV weight traffic constant to isolate the cache effect; real MHA and MQA weight sizes can differ. Even with the fourfold change in crossover, neither latency nor achievable context capacity is guaranteed to improve fourfold: those depend on the full system and workload. These quantities are schematic, not PaLM measurements. See [Pope et al. (2022)](https://arxiv.org/abs/2211.05102) for the broader partitioning model and [Shazeer (2019)](https://arxiv.org/abs/1911.02150) for shared KV heads.
+
+**Unequal sequence lengths and batching.** If the active sequences have lengths $S_1,\ldots,S_B$, the ideal logical KV read volume is $2Gdb\sum_i S_i$ rather than a padded rectangle of size $2GdbB\max_i S_i$. Suppose the graph's original batch is one sequence, the weight traffic of 8 units is paid once per iteration, and each active sequence emits one token. Keep the graph's per-token KV slopes of 4 (MHA) and 1 (MQA).
+
+| Active lengths | MHA logical KV | MQA logical KV | MHA total per emitted token | MQA total per emitted token |
+|---|---:|---:|---:|---:|
+| 4 | 16 | 4 | 24 | 12 |
+| 4, 4 | 32 | 8 | 20 | 8 |
+| 1, 7 | 32 | 8 | 20 | 8 |
+
+The last two rows have the same sum of lengths and thus the same ideal useful traffic, but a kernel that actually reads all padded slots would read 56 and 14 KV units in the last row. Batching amortises weight reads per emitted token while increasing total KV reads per iteration. A crossover expressed using mean active context length is therefore batch-dependent; it is not a constant architectural context limit. These are logical byte counts, not measured HBM transactions or latency; block rounding, kernel reuse and scheduling can change physical traffic.
+
+*Original instructional diagram, CC BY-SA 4.0.*
+
 ## Partitioning and results
 
 - **1D and 2D weight-stationary layouts** keep the weights fixed on chips and move activations. The 2D layout is used for decoding.

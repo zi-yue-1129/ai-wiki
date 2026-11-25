@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,98 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+class SharedKvReadSemantics(unittest.TestCase):
+    def root(self, stem, kind):
+        return ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+
+    def test_shared_values_accumulate_distinct_outputs(self):
+        from decimal import Decimal as D
+        stem = 'mqa-shared-values-output'
+        still = self.root(stem, 'still')
+        motion = self.root(stem, 'motion')
+        cells = {(e.get('x'), e.get('y')): e.text for e in still.iter(v.NS + 'text')}
+        xs = ('180', '302', '424')
+        values = [D(cells[x, '120']) for x in xs]
+        self.assertEqual(values, [1, 2, 4])
+        for row, y in enumerate((153, 241)):
+            probabilities = [D(cells[x, str(y+29)].rstrip('%'))/100 for x in xs]
+            self.assertEqual(probabilities, [[D('.6'), D('.2'), D('.2')], [D('.2'), D('.2'), D('.6')]][row])
+            self.assertEqual(sum(probabilities), 1)
+            contributions = [p * val for p, val in zip(probabilities, values)]
+            self.assertEqual([D(cells[x, str(y+53)]) for x in xs], contributions)
+            self.assertEqual(D(cells['547', str(y+32)]), sum(contributions))
+            self.assertEqual(sum(contributions), [D('1.8'), D('3.0')][row])
+            bars = [r for r in motion.iter(v.NS + 'rect')
+                    if r.get('x') == '499' and r.get('y') == str(y+49)
+                    and r.find(v.NS + 'animate') is not None]
+            self.assertEqual(len(bars), 1)
+            animation = bars[0].find(v.NS + 'animate')
+            self.assertEqual(animation.get('attributeName'), 'width')
+            totals = [sum(contributions[:i]) * 32 for i in range(4)]
+            self.assertEqual([D(w) for w in animation.get('values').split(';')],
+                             [w for w in totals for _ in range(2)])
+
+    def test_decode_read_crossovers_and_cursor_geometry(self):
+        stem = 'decode-weight-kv-crossover'
+        still = self.root(stem, 'still')
+        motion = self.root(stem, 'motion')
+        x = lambda context: 70 + 46.5 * context
+        y = lambda units: 288 - 5.5 * units
+        crossovers = [(8/4, '#35678f'), (8/1, '#08756e')]
+        circles = list(still.iter(v.NS + 'circle'))
+        self.assertEqual(len(circles), 2)
+        for circle, (context, color) in zip(circles, crossovers):
+            self.assertEqual((float(circle.get('cx')), float(circle.get('cy')), circle.get('stroke')),
+                             (x(context), y(8), color))
+        self.assertEqual([c for c, _ in crossovers], [2, 8])
+        markers = [c for c in motion.iter(v.NS + 'circle') if c.find(v.NS + 'animate') is not None]
+        self.assertEqual(len(markers), 3)
+        for marker, (start, end) in zip(markers, ((8, 8), (4, 40), (1, 10))):
+            tracks = {a.get('attributeName'): a for a in marker.findall(v.NS + 'animate')}
+            self.assertEqual([float(n) for n in tracks['cx'].get('values').split(';')], [x(1), x(1), x(10), x(10)])
+            self.assertEqual([float(n) for n in tracks['cy'].get('values').split(';')], [y(start), y(start), y(end), y(end)])
+            self.assertEqual(tracks['cx'].get('keyTimes'), tracks['cy'].get('keyTimes'))
+        self.assertLess(4, 8)
+        self.assertGreater(4*4, 8)
+
+    def test_shared_keys_can_realise_both_probability_rows(self):
+        from math import exp, log, sqrt
+        still = self.root('mqa-shared-values-output', 'still')
+        cells = {(e.get('x'), e.get('y')): e.text for e in still.iter(v.NS + 'text')}
+        xs = ('180', '302', '424')
+        keys = ((sqrt(2), 0), (0, 0), (0, sqrt(2)))
+        values = [float(cells[x, '120']) for x in xs]
+        for query, y in zip(((log(3), 0), (0, log(3))), (153, 241)):
+            unnormalised = [exp(sum(a*b for a, b in zip(query, key))/sqrt(2))
+                            for key in keys]
+            probabilities = [weight/sum(unnormalised) for weight in unnormalised]
+            self.assertAlmostEqual(sum(unnormalised), 5)
+            for x, p in zip(xs, probabilities):
+                self.assertAlmostEqual(p, float(cells[x, str(y+29)].rstrip('%'))/100)
+            self.assertAlmostEqual(sum(p*val for p, val in zip(probabilities, values)),
+                                   float(cells['547', str(y+32)]))
+
+    def test_ragged_batches_distinguish_useful_and_padded_reads(self):
+        still = self.root('decode-weight-kv-crossover', 'still')
+        slopes = []
+        for color in ('#35678f', '#08756e'):
+            line, = [p for p in still.iter(v.NS + 'path')
+                     if p.get('stroke') == color and p.get('d', '').startswith('M70 288L535 ')]
+            slopes.append((288-float(line.get('d').split()[-1]))/5.5/10)
+        self.assertEqual(slopes, [4, 1])
+        for lengths, logical, padded, per_token in (
+                ((4,), [16, 4], [16, 4], [24, 12]),
+                ((4, 4), [32, 8], [32, 8], [20, 8]),
+                ((1, 7), [32, 8], [56, 14], [20, 8])):
+            with self.subTest(lengths=lengths):
+                self.assertEqual([a*sum(lengths) for a in slopes], logical)
+                self.assertEqual([a*len(lengths)*max(lengths) for a in slopes], padded)
+                self.assertEqual([(8+n)/len(lengths) for n in logical], per_token)
+                self.assertEqual([8/(len(lengths)*a) for a in slopes],
+                                 [2/len(lengths), 8/len(lengths)])
+
 
 
 if __name__ == '__main__':
