@@ -71,6 +71,12 @@ where $Q_i$ is estimated queueing, $X_i$ is cache-loading time and $F$ is remain
 
 For a separate toy prompt of four equal-sized blocks, node A can reuse three blocks and node B two. Use arbitrary time units and the serial cost model above. A has queue, transfer and remaining prefill costs of 5, 3 and 2; B has 1, 2 and 4. As the cursor advances, the colored bars accumulate each component, yielding 10 versus 7. Node B has lower predicted serial completion cost despite less reuse, so it wins this two-candidate comparison. The timelines are hypothetical alternatives for the same request, not concurrent work on both nodes. These are illustrative costs, not measured latencies or the actual Mooncake scheduler; actual layer-wise overlap, contention and decode admission are omitted.[^scheduling]
 
+#### When does the longer prefix win?
+
+Keeping the animation's transfer and remaining-prefill estimates fixed, A costs its queue time plus 5, while B costs 7. A ties B when its queue is 2 time units, wins if its queue is less than 2, and loses if it is greater. For example, changing only A's queue from 5 to 1 changes its total from 10 to 6, reversing the choice. More generally the extra queue and transfer cost of A must be smaller than its remaining-prefill saving for A to win in this serial model.
+
+If loading and computation can overlap, a separate optimistic illustration is queue + max(transfer, remaining prefill), assuming perfect overlap of those two stages and no other dependencies or costs. This gives A = 8 and B = 5 for the original numbers; with A's queue reduced to 1, it gives A = 4 and B = 5. Real layer-wise execution may overlap only partially and has dependencies, so neither this idealization nor the serial sum is a measured Mooncake latency or a guarantee. Placement also does not guarantee decoding admission.
+
 ## Overload and early rejection
 
 **Admission** decides whether to accept a request; it is separate from finding its cache blocks. Waiting until decoding to reject an unserviceable request wastes its prefill computation. Checking only the decoding pool's *current* load before prefill also causes trouble: a wave of accepted prefills can arrive after that check, alternately overloading and starving the two pools.

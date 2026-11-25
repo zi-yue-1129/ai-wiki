@@ -50,6 +50,8 @@ All three requests arrive at time zero and emit three output tokens each. The ti
 
 In the shared trace, A emits at (2, 4, 6) and passes; B emits at (4, 6, 8) and fails TTFT; C emits at (2, 6, 10) and fails TPOT. In the separated trace the arrivals are (2, 4, 6), (3, 5, 7), (2, 4, 6), so all pass. Over the same 12-unit window both configurations complete three requests, but only one versus three meets both targets. The joint attainment fractions are 1/3 and 3/3; the corresponding compliant completion rates are 1/12 and 3/12 requests per time unit. These invented traces illustrate the metric rather than simulate resource scheduling or reproduce a DistServe measurement. They do not establish per-GPU goodput or the maximum sustainable arrival rate: DistServe additionally compares resource allocation and SLO attainment at offered loads.[^joint-slo]
 
+**Mean TPOT is not a bound on every token gap.** For a separate hypothetical trace (2, 3, 6), the TTFT is 2 and the TPOT is (6 - 2)/2 = 2, so it passes the animation's joint rule. But its two inter-token gaps are 1 and 3; a policy requiring every gap to be at most 2 rejects it. At time 5 the request has not finished, so it must not yet be counted as a compliant completion. Report the precise latency statistic, cohort denominator and observation window when comparing systems. These extra traces are arithmetic examples, not additional plotted requests or measurements.
+
 [^joint-slo]: Zhong et al. (2024), *DistServe*, section 2 and abstract; linked in References.
 
 ## Results
