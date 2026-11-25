@@ -30,6 +30,18 @@ The factor computation and inversion are spread across processes, and the result
 
 The update applied to each layer is the K-FAC preconditioned gradient, as described on the [K-FAC](index.md) page. The distributed scheme changes how the factors are computed, combined and refreshed. It does not change the form of the update.
 
+### Layer ownership and collective communication
+
+<img data-source-asset-urls src="../../../assets/concept-animations/distributed-kfac-layer-ownership-still.svg" data-still-src="../../../assets/concept-animations/distributed-kfac-layer-ownership-still.svg" data-motion-src="../../../assets/concept-animations/distributed-kfac-layer-ownership-motion.svg" alt="Two GPUs compute statistics for both layers. Blue layer one is reduced to GPU zero and teal layer two to GPU one. Each owner preconditions its layer, then both directions are gathered to both GPUs." width="640" height="360">
+
+*Original teaching animation, CC BY-SA 4.0. [Static preview](../../../assets/concept-animations/distributed-kfac-layer-ownership-still.svg) · [Full animation](../../../assets/concept-animations/distributed-kfac-layer-ownership-motion.svg).*
+
+The moving packets illustrate the hybrid data-parallel/model-parallel design in Osawa et al. (2019, Section 3.3 and Algorithm 1; see References). Each worker first computes local factors and gradients for both layers. ReduceScatterV reduces these quantities and distributes the layer partitions: GPU 0 owns L1 and GPU 1 owns L2 in this example. Each owner computes the damped factor inverses and applies them to its layer gradient, then AllGatherV distributes both preconditioned directions to every worker. The result is replicated parameters, not a permanent partition of the model.
+
+With equal-size local batches, a global factor is the arithmetic average of local second moments. With unequal counts, the underlying sums and counts must instead be combined consistently. Inverting averaged factors is generally different from averaging locally inverted factors; the animation therefore places the inverse operation after aggregation. The layer assignment and packet travel are schematic, not a GPU timing measurement or a simulation of the collective's internal routing. MkDocs offers Play/Pause and a reduced-motion fallback; the GitHub preview shows all routes and their final destinations.
+
+**Read the reduction stage.** In a synthetic scalar analogue of the input factor, GPU 0 has one observation with local second moment 1; GPU 1 has three observations with local second moment 5. The owner must recover the observation-weighted global moment $(1+3\cdot5)/4=4$, not the worker mean 3. With scalar damping 1 and an illustrative gradient 10, the resulting preconditioned value is $10/(4+1)=2$, whereas the worker mean would give $10/(3+1)=2.5$. For convolutional factors, the count must match the particular statistic's normalization (for example, the number of spatial patches for a patch mean), not necessarily the number of sequences or devices. This is a one-factor arithmetic exercise, not a complete two-factor K-FAC update or a measured training result.
+
 ## Results
 
 The paper trains ResNet-50 on ImageNet with K-FAC at mini-batch sizes from 4,096 to 32,768. The reported top-1 single-crop validation accuracy is 75.1% to 75.3%, reached in 35 to 45 epochs. The headline result is that ResNet-50 on ImageNet trains in 10 minutes to 74.9% top-1 accuracy on 1,024 Tesla V100 GPUs. The paper's Table 2 places this against published large-batch ImageNet runs.

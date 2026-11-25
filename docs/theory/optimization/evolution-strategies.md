@@ -25,7 +25,7 @@ ES is a zeroth-order method. It needs only the reward of each sampled policy, no
 
 ## Problem
 
-Maximise an expected reward \(F(\theta)\), where \(F\) may be non-differentiable, or where backpropagation through the environment is impossible. Policy gradients need the reward to be differentiable along the path of the policy, which is not always the case.
+Maximise an expected reward \(F(\theta)\), where \(F\) may be non-differentiable, or where backpropagation through the environment is impossible. Unlike policy-gradient methods such as REINFORCE, ES perturbs policy parameters rather than sampling actions to estimate a score-function gradient; neither method requires differentiating the environment reward.
 
 ## Core idea
 
@@ -50,6 +50,22 @@ g = \frac{1}{n\sigma}\sum_{i=1}^{n} F_i\,\varepsilon_i.
 \]
 
 Then update \(\theta \leftarrow \theta + \alpha g\), where \(\alpha\) is a learning rate. Each worker evaluates some of the samples, so only scalar rewards and the random seeds need to be shared between workers.
+
+### Worked example: antithetic perturbations
+
+<img data-source-asset-urls src="../../assets/concept-animations/es-antithetic-weighted-update-still.svg" data-still-src="../../assets/concept-animations/es-antithetic-weighted-update-still.svg" data-motion-src="../../assets/concept-animations/es-antithetic-weighted-update-motion.svg" alt="Four symmetric perturbations give rewards plus or minus two and one. The blue and teal weighted contributions combine into the orange update (1, one half)." width="640" height="360">
+
+*Original teaching animation, CC BY-SA 4.0. [Static preview](../../assets/concept-animations/es-antithetic-weighted-update-still.svg) · [Full animation](../../assets/concept-animations/es-antithetic-weighted-update-motion.svg).*
+
+For $m$ independent Gaussian directions paired with their negatives, the raw-reward estimator is
+
+$
+\hat g=\frac{1}{2m\sigma}\sum_{j=1}^m [F(\theta+\sigma\varepsilon_j)-F(\theta-\sigma\varepsilon_j)]\varepsilon_j.
+$
+
+The animation uses a deliberately constructed two-direction sample, not a random Gaussian draw or a benchmark: $F(x,y)=2x+y$, $\theta=(0,0)$, $\sigma=1$, $\alpha=1$, and directions $(1,0)$ and $(0,1)$ with their negatives. Rewards are $2,-2,1,-1$. Both horizontal perturbations contribute in the positive horizontal direction after reward weighting; likewise for the vertical pair. Dividing the respective pair sums $(4,0)$ and $(0,2)$ by four gives $(1,0)$ and $(0,1/2)$. The estimate and new parameters are $(1,1/2)$, not the exact gradient $(2,1)$: these particular four samples do not reproduce the Gaussian second moment. Mirroring cancels a constant reward offset, but does not make a finite-sample estimate exact.
+
+Salimans et al. (2017; see References) use common random numbers to reconstruct perturbations across workers. The worked example isolates raw-reward arithmetic rather than rank-based fitness shaping or communication timing. The MkDocs Play/Pause control toggles motion; the GitHub and reduced-motion preview shows the completed sum.
 
 ## Key results
 

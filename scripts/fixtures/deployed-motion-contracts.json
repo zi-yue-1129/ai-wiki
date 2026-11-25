@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "es-antithetic-weighted-update": {
+      "origins": [
+        {
+          "origin_blob": "19f6e0ce9d2a5d498244713b156e0e235b3afd47",
+          "origin_commit": "3107ecf524c1811f77f29bc36cfbc159cbed1f2d",
+          "path": "docs/assets/concept-animations/es-antithetic-weighted-update-motion.svg"
+        },
+        {
+          "origin_blob": "2815e8f3c0b2ca37c5dc97cb7fc3d480f9f00c75",
+          "origin_commit": "3107ecf524c1811f77f29bc36cfbc159cbed1f2d",
+          "path": "docs/assets/concept-animations/es-antithetic-weighted-update-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "distributed-kfac-layer-ownership": {
+      "origins": [
+        {
+          "origin_blob": "45f0d89123361555dec036b912b80b839c6f96ca",
+          "origin_commit": "3107ecf524c1811f77f29bc36cfbc159cbed1f2d",
+          "path": "docs/assets/concept-animations/distributed-kfac-layer-ownership-motion.svg"
+        },
+        {
+          "origin_blob": "71544e419c2206c83c95c92e7d027713a303a5b1",
+          "origin_commit": "3107ecf524c1811f77f29bc36cfbc159cbed1f2d",
+          "path": "docs/assets/concept-animations/distributed-kfac-layer-ownership-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

@@ -1,5 +1,6 @@
 """Render the actual shared regression metric labs in Chromium and check math/controls."""
 from pathlib import Path
+from datetime import datetime, timedelta, timezone
 from math import isclose
 import os
 from playwright.sync_api import sync_playwright
@@ -31,7 +32,12 @@ main{{max-width:1000px;margin:auto}}</style></head><body><main>
 <div data-regression-lab='outlier' data-lang='{language}'></div>
 <div data-regression-lab='r2' data-lang='{language}'></div>
 </main><script>{JS}</script></body></html>"""
-                    page.clock.install()
+                    # Freeze wall time before the real page starts scheduling frames.
+                    # Only run_for() advances playback; locator/keyboard latency must
+                    # not change the direction or the slider's quantized value.
+                    epoch = datetime(2026, 1, 1, tzinfo=timezone.utc)
+                    page.clock.install(time=epoch)
+                    page.clock.pause_at(epoch + timedelta(seconds=1))
                     page.set_content(html)
                     assert page.locator(".rml-panel").count() == 2
                     assert page.locator("svg[viewBox='0 0 680 390']").count() == 2
@@ -88,8 +94,16 @@ main{{max-width:1000px;margin:auto}}</style></head><body><main>
                             assert isclose(float(lab.locator(".rml-number").inner_text()), paused + step, abs_tol=0.001)
                             lab.get_by_role("button", name=play_label, exact=True).focus()
                             page.keyboard.press("Space")
+                            assert lab.get_by_role("button", name=pause_label, exact=True).count() == 1, (
+                                "resume did not enter playing state", language, width, minimum
+                            )
+                            before_resume = float(slider.input_value())
                             page.clock.run_for(500)
-                            assert float(slider.input_value()) > paused + step
+                            resumed = float(slider.input_value())
+                            assert resumed > before_resume, (
+                                "slider did not advance after resume", language, width,
+                                minimum, before_resume, resumed, page.evaluate("document.visibilityState")
+                            )
                             lab.get_by_role("button", name=pause_label, exact=True).focus()
                             page.keyboard.press("Enter")
                     assert len(page.locator("svg text").all_inner_texts()) >= 10
