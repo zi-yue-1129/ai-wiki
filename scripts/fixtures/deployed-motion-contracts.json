@@ -9678,6 +9678,36 @@
         }
       ],
       "viewBox": "0 0 720 400"
+    },
+    "paged-copy-on-write": {
+      "origins": [
+        {
+          "origin_blob": "bae5c9707da2fc9b0885d9a4dd58be3b695e0afa",
+          "origin_commit": "6498fb8b8c1a3b7d447945d1f112d3a672d2f5bc",
+          "path": "docs/assets/concept-animations/paged-copy-on-write-motion.svg"
+        },
+        {
+          "origin_blob": "fbc8012a6775fd43463d10008cac0628598dce42",
+          "origin_commit": "6498fb8b8c1a3b7d447945d1f112d3a672d2f5bc",
+          "path": "docs/assets/concept-animations/paged-copy-on-write-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "speculative-residual-mass": {
+      "origins": [
+        {
+          "origin_blob": "fbddc936c667b85c6f9fe6ef57669cae73260a8e",
+          "origin_commit": "6498fb8b8c1a3b7d447945d1f112d3a672d2f5bc",
+          "path": "docs/assets/concept-animations/speculative-residual-mass-motion.svg"
+        },
+        {
+          "origin_blob": "d238faf3db6ae021d1aadb170ef349a2605eb9d8",
+          "origin_commit": "6498fb8b8c1a3b7d447945d1f112d3a672d2f5bc",
+          "path": "docs/assets/concept-animations/speculative-residual-mass-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {
