@@ -61,11 +61,11 @@ f(x_\epsilon,\epsilon)=x_\epsilon.
 
 ## Key methods
 
-Brief comparison. DDPM and DDIM have their own pages. DPM-Solver, progressive distillation and consistency models are described on this page for now; their own method pages are still to be written.
+Brief comparison. DDPM, DDIM, DPM-Solver and progressive distillation have their own pages. Consistency models are described on this page.
 
-- **DDIM (deterministic, non-Markovian)**: a change of sampler with the same trained model. Large speed-ups with modest loss in quality, and a clean path for interpolation.
-- **DPM-Solver (high-order ODE)**: a numerical solver for the same model, with 10 to 20 evaluations for good samples.
-- **Progressive distillation (teacher–student halving)**: repeated halving of the steps, each round training a new student.
+- **[DDIM](ddim.md) (deterministic, non-Markovian)**: a change of sampler with the same trained model. Large speed-ups with modest loss in quality, and a clean path for interpolation.
+- **[DPM-Solver](dpm-solver.md) (high-order ODE)**: a numerical solver for the same model that needs no training, with 10 to 20 evaluations for good samples.
+- **[Progressive distillation](progressive-distillation.md) (teacher–student halving)**: repeated halving of the steps, each round training a new student.
 - **Consistency models (self-consistent mapping)**: trained to map any point of a trajectory to its origin, supporting one-step and multi-step sampling.
 
 ## Connections
