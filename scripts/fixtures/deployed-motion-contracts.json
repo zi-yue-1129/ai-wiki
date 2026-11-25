@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "confident-joint-counting": {
+      "origins": [
+        {
+          "origin_blob": "cb88c50ccbf40b3d31d5a06cf44de8f296388259",
+          "origin_commit": "f7db02a3753ed36ca22506f56e44a6513b93cff2",
+          "path": "docs/assets/concept-animations/confident-joint-counting-motion.svg"
+        },
+        {
+          "origin_blob": "fa9bc135c452aa47a3b142fe099b934b69c6bf6d",
+          "origin_commit": "f7db02a3753ed36ca22506f56e44a6513b93cff2",
+          "path": "docs/assets/concept-animations/confident-joint-counting-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "scann-anisotropic-residual": {
+      "origins": [
+        {
+          "origin_blob": "f902537d9656b8beaff3af8c5d8cc0a57e9c3612",
+          "origin_commit": "f7db02a3753ed36ca22506f56e44a6513b93cff2",
+          "path": "docs/assets/concept-animations/scann-anisotropic-residual-motion.svg"
+        },
+        {
+          "origin_blob": "66e90ffb654a7b99381f211dd0ecb9ea09cc88ef",
+          "origin_commit": "f7db02a3753ed36ca22506f56e44a6513b93cff2",
+          "path": "docs/assets/concept-animations/scann-anisotropic-residual-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

@@ -18,7 +18,7 @@ ScaNN is a method for maximum inner-product search that changes how vectors are 
 
 ## Overview
 
-Standard quantisation minimises reconstruction error, which is the same in every direction. For inner-product ranking, though, only some of the error changes which item comes first. ScaNN targets that part of the error. Its quantiser keeps the components of a vector that matter most for the dot product with a query.
+Standard quantisation minimises reconstruction error, which is the same in every direction. For inner-product ranking, score error depends on the projection of the residual onto the query; whether a ranking changes also depends on score margins. ScaNN gives more weight to errors on high-scoring query–data pairs. Its quantiser keeps the components of a vector that matter most for the dot product with a query.
 
 ## Key concepts
 
@@ -29,18 +29,37 @@ Standard quantisation minimises reconstruction error, which is the same in every
 
 ## How it works
 
-```mermaid
-flowchart LR
-  D[Dataset] --> PT[Partition into cells]
-  PT --> AQ[Anisotropic quantisation codes]
-  Q[Query] --> S[Score cells and codes]
-  AQ --> S
-  S --> R[Re-rank top candidates]
-```
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="Teaching figure; focus and scroll horizontally on narrow screens" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/scann-anisotropic-residual-still.svg" data-motion-src="../../assets/concept-animations/scann-anisotropic-residual-motion.svg" data-still-src="../../assets/concept-animations/scann-anisotropic-residual-still.svg" alt="Two quantized approximations have equal Euclidean residual norm, but a score-aware weighted loss distinguishes their parallel and orthogonal residual components." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" loading="lazy">
+</div>
+</div>
+
+*Original teaching animation, CC BY-SA 4.0.* Let a stored vector be $x=(3,0)$ and two possible code vectors be $A=(2,0)$ and $B=(3,1)$. Both have squared Euclidean reconstruction error 1. The residual $e=x-\hat x$ decomposes along the **stored vector** as $e_\parallel=(e^\top u)u$, where $u=x/\|x\|$, and $e_\perp=e-e_\parallel$. For illustration, assign the parallel component four times the squared-error weight of the orthogonal component:
+
+$$
+L=4\|e_\parallel\|^2+\|e_\perp\|^2.
+$$
+
+The loss is 4 for A and 1 for B. For the particular unit query $q=(1,0)$, the exact score is 3, while the approximations give 2 and 3 respectively. The growing segments expose the two residuals; the bars then reveal the isotropic and anisotropic losses. The growth is a graphical reveal, not an optimisation trajectory. Other query directions can favour A instead; the paper (Guo et al., 2019, in References) derives the score-aware objective by weighting errors for high-inner-product query–data pairs under distributional assumptions. The 4:1 weight and vectors are chosen teaching values, **not ScaNN defaults, actual codebook training, or measured recall**.
+
+MkDocs provides Play/Pause and reduced-motion support; on narrow screens swipe horizontally or focus the figure and use the left/right arrow keys. [GitHub static overview](../../assets/concept-animations/scann-anisotropic-residual-still.svg) · [Standalone animation](../../assets/concept-animations/scann-anisotropic-residual-motion.svg).
+
+
+### When score error changes the ranking
+
+Keep the illustrated $x$, $A$ and $B$, and add an exactly represented competitor $z=(2.5,0.5)$. The same stored vector has two possible query-dependent ranking outcomes:
+
+| Query | Exact score of x | Score of z | Approximation A | Approximation B |
+|---|---:|---:|---:|---:|
+| $(1,0)$ | 3 | 2.5 | 2 (reversal) | 3 |
+| $(0,1)$ | 0 | 0.5 | 0 | 1 (reversal) |
+
+For a positive exact margin $m=q^\top(x-z)$, replacing only $x$ by $\hat x$ changes the margin to $m-q^\top e$. It reverses the pair if $q^\top e>m$ (equality is a tie). More generally the residual difference $e_x-e_z$ determines the perturbation when both candidates are quantised. The anisotropic loss prefers B in the figure, but it cannot guarantee the correct ordering for every query. These are synthetic pairwise scores, not a recall experiment.
 
 ## Key ideas
 
-- **Problem:** standard quantisation minimises the reconstruction error evenly in every direction, but for inner-product search only the error parallel to the query direction changes which item ranks first.
+- **Problem:** standard quantisation minimises the reconstruction error evenly in every direction, but inner-product score error depends on the residual projection onto the query, and changes in ranking also depend on score margins.
 - **Core idea:** use a score-aware loss that penalises the error component parallel to the data vector more heavily than the orthogonal component, so the quantiser keeps the parts of vectors that matter most for inner products.
 - **Equation or algorithm:** the quantisation loss weights the residual's parallel component by a factor $\eta > 1$ relative to its orthogonal component, which is optimised jointly with the codebook.
 - **Results:** the paper reports better recall at a given speed than prior quantisers on maximum inner-product search benchmarks.

@@ -23,16 +23,44 @@ aliases:
 
 ## 運作方式
 
-此方法先取得樣本外預測機率，再從那些明確屬於另一個類別、而非給定標籤的樣本建立置信聯合矩陣。非對角線的計數給出每對類別之間的雜訊率估計，並據此選出要剪枝的樣本。
+此方法先取得樣本外預測機率，再依類別門檻建立置信聯合矩陣，同時納入對角線及非對角線的計數。非對角線的計數給出每對類別之間的雜訊率估計，並據此選出要剪枝的樣本。
 
-```mermaid
-flowchart LR
-  L[給定標籤] --> P[樣本外預測機率]
-  P --> T[每類門檻]
-  T --> J[置信聯合矩陣]
-  J --> R[排序並剪除可能的錯誤]
-  R --> M[在清理後的資料上重新訓練]
-```
+<div class="concept-motion-scroll" role="region" tabindex="0" aria-label="教學圖：窄螢幕可聚焦後左右捲動" style="width:100%;overflow-x:auto">
+<div style="width:640px">
+<img data-source-asset-urls src="../../assets/concept-animations/confident-joint-counting-still.svg" data-motion-src="../../assets/concept-animations/confident-joint-counting-motion.svg" data-still-src="../../assets/concept-animations/confident-joint-counting-still.svg" alt="八筆樣本外預測機率：六筆依門檻進入給定標籤與可能類別的矩陣、兩筆未計數，兩筆非對角線樣本需複核。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" loading="lazy">
+</div>
+</div>
+
+*原創教學動畫，CC BY-SA 4.0。* 左側八筆樣本外預測機率為人工構造，並非實際模型擬合或基準測試結果。對類別 $j$，其置信門檻定義為給定標籤為 $j$ 的樣本之中，預測為 $j$ 的機率平均值。兩類的門檻皆為 $(0.9+0.8+0.2+0.5)/4=0.60$。每筆樣本依**給定標籤**決定列、依符合各自門檻的類別決定欄；若皆未達門檻，則不計數。依原論文的碰撞處理規則，若多類符合門檻，取所有類別中的預測機率最大者；此二元算例沒有碰撞。動畫中的方塊從樣本列表移入對應矩陣格。
+
+所得**尚未校準的原始**置信聯合矩陣為
+
+$$
+C=\begin{pmatrix}2&1\\1&2\end{pmatrix}.
+$$
+
+e4 與 e8 均未達門檻，e3 與 e7 落在非對角線，應複核而非直接改標籤。完整估計器（參考文獻 Northcutt、Jiang 與 Chuang，2021）還會將計數校準至給定標籤的邊際分布，再正規化以估計聯合分布；排序與剪枝則是後續決策。因此六筆計數中有兩筆非對角線，**不等於**資料集的實測錯標率。
+
+MkDocs 提供播放／暫停與降低動態效果；窄螢幕可左右滑動或聚焦圖表後按左右方向鍵。 [GitHub 靜態總覽](../../assets/concept-animations/confident-joint-counting-still.svg) · [獨立動畫](../../assets/concept-animations/confident-joint-counting-motion.svg).
+
+
+### 從計數到聯合分布
+
+令 $n_i$ 為給定標籤為 $i$ 的樣本數，$N=\sum_i n_i$。當每列的原始計數總和皆非零時，Northcutt 等人（2021，式 3）的實數估計量可寫為
+
+$$
+\hat Q_{ij}=\frac{n_i}{N}\frac{C_{ij}}{\sum_k C_{ik}}.
+$$
+
+動畫中 $n_A=n_B=4$，原始矩陣每列計數總和皆為 3。每列乘以 $4/3$ 後再除以 8，得到
+
+$$
+\hat Q=\begin{pmatrix}1/3&1/6\\1/6&1/3\end{pmatrix}.
+$$
+
+兩列總和皆為 $1/2$，矩陣總和為 1。非對角線機率質量為 $1/3$，是估計器假設下的雜訊比例，而非已驗證的錯標率或特定樣本的實際計數。兩筆被標記的樣本仍只是複核候選。這個校準計算不在原始計數動畫中；若要取得整數剪枝數量，仍須另訂取整與樣本選取規則。
+
+相同的列計數掩蓋了校準的重要性：另設一個假想案例，原始矩陣相同，但給定類別的樣本數分別為 4 與 6。直接除以原始計數總和 6，會錯誤地讓兩個給定類別的機率質量皆為 $1/2$。逐列校準則得到 $2/5$ 與 $3/5$，並保留各列內的比例。若某列完全沒有置信計數，此公式不適用，須明確處理而非除以零。
 
 ## 關鍵方法
 
