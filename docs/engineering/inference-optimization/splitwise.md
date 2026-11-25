@@ -40,6 +40,18 @@ Assume three layers each take two time units to compute and one to transfer, and
 
 *Original instructional diagram, CC BY-SA 4.0.*
 
+#### When the transfer channel becomes the bottleneck
+
+The growing bars in the animation assume that each transfer can start as soon as its layer is ready. More generally, for one FIFO transfer channel, let the readiness time R of a layer be the cumulative compute time up to that layer. Its transfer starts at the later of R and the previous layer's transfer finish, and finishes after its own transfer duration. This is a two-stage pipeline recurrence, not a Splitwise scheduler implementation.
+
+| Illustrative case | Layer compute times | Layer transfer times | Transfer starts | All KV ready |
+|---|---|---|---|---|
+| Animation | 2, 2, 2 | 1, 1, 1 | 2, 4, 6 | 7 |
+| Early long transfer | 1, 4, 1 | 4, 1, 1 | 1, 5, 6 | 7 |
+| Late long transfer | 4, 1, 1 | 1, 4, 1 | 4, 5, 9 | 10 |
+
+The last two rows both have six units of compute and six units of transfer; fully serialized readiness is 12 in either case. In the last row, layer 3 is ready at time 6 but its transfer must wait until time 9 because the link is busy. Equal total work therefore does not imply equal pipeline latency. These examples isolate dependency and channel occupancy; they do not estimate hardware interference, first-token delivery or throughput under concurrent requests.
+
 ## Why cache transfer matters
 
 The state contains cached attention keys and values for the processed context. PagedAttention addresses cache allocation and sharing; it does not make network transfer free.[^paged] The query-head count is not always the key/value-head count: grouped-query attention shares key/value heads across groups of queries.[^gqa]

@@ -41,6 +41,12 @@ For a single query with fixed logits, suppose four tokens have exponentiated wei
 
 *Original instructional diagram, CC BY-SA 4.0.*
 
+#### Attention mass is not the attention output
+
+Let the sink have normalized mass p and value vector v, and let r be the weighted average of the remaining value vectors after renormalization. Holding all values and non-sink logits fixed, the retained output is p times v plus (1 minus p) times r, whereas the masked output is r. Their difference (masked minus retained) is p times (r minus v). This is a single-head, single-query identity, not a statement about the full model's logits.
+
+Using the animation's weights, give A, B and C scalar values 2, 0 and 4. Their renormalized output is 2. If the sink value is also 2, removing its 60% attention mass leaves the output unchanged at 2. If the sink value is 0 instead, the retained output is 0.8 and the masked output is 2. The probability bars are identical in both examples, but the output changes only in the second. Large attention mass alone does not determine output sensitivity; the values matter. These are artificial scalar examples, not measured attention or perplexity.
+
 ## Procedure
 
 1. Choose a number of sink tokens, usually the first few positions of the stream.
