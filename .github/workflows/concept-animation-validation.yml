@@ -125,6 +125,7 @@ on:
       - "docs/javascripts/video-architecture-labs.js"
       - "docs/stylesheets/video-architecture-labs.css"
       - "scripts/test_uncertainty_motion_semantics.py"
+      - "scripts/test_probability_motion_semantics.py"
       - "scripts/test_information_motion_semantics.py"
       - "scripts/test_predictive_coding_motion_browser.py"
       - "scripts/test_predictive_coding_motion_semantics.py"
@@ -419,6 +420,8 @@ jobs:
           python scripts/test_source_contract_retention_motion_semantics.py
       - name: Check uncertainty motion numerical semantics
         run: python scripts/test_uncertainty_motion_semantics.py
+      - name: Check probability-score decomposition and ECE bin merging
+        run: python scripts/test_probability_motion_semantics.py
       - name: Validate co-design memory and loss-scale motion arithmetic
         run: python scripts/test_co_design_tradeoff_motion.py
       - name: Check SVD geometry and power-iteration numerical timelines
