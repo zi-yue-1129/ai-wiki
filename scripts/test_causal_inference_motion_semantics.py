@@ -60,4 +60,53 @@ class CausalTests(unittest.TestCase):
    for formula in ([r'a_n(a_n+b_n)',r'\theta_{\rm PLR}',r'\hat J^2'] if name.startswith('double') else [r'\hat\tau_L',r'\frac1{n_1}',r'\frac1{n_0}']):
     self.assertIn(formula,en);self.assertIn(formula,zh)
    self.assertIn('## References',en);self.assertIn('## 參考文獻',zh)
+ def test_crossfit_motion_residual_pooling(self):
+  import re
+  from xml.etree import ElementTree as ET
+  from fractions import Fraction
+  assets=R.parents[1]/'assets/concept-animations'
+  for kind in ['motion','still']:
+   root=ET.parse(assets/f'dml-crossfit-residual-pooling-{kind}.svg').getroot()
+   labels=[t.text for t in root.iter('{http://www.w3.org/2000/svg}text')]
+   pairs=[re.findall(r'\((-?\d+), (-?\d+)\)',t.replace('−','-')) for t in labels if t.startswith('(')]
+   self.assertEqual(len(pairs),2)
+   nums=[];dens=[]
+   for fold in pairs:
+    self.assertEqual(len(fold),2)
+    v,u=zip(*[(int(a),int(b)) for a,b in fold])
+    nums.append(sum(a*b for a,b in zip(v,u)));dens.append(sum(a*a for a in v))
+   self.assertEqual((nums,dens),([4,12],[2,8]))
+   self.assertEqual(Fraction(sum(nums),sum(dens)),Fraction(8,5))
+   self.assertNotEqual(Fraction(sum(nums),sum(dens)),sum(Fraction(n,d) for n,d in zip(nums,dens))/2)
+   self.assertIn('θ̂ = (4 + 12) / (2 + 8) = 1.6',labels)
+   pooled=Fraction(sum(nums),sum(dens))
+   fold_average=sum(Fraction(n,d) for n,d in zip(nums,dens))/2
+   weights=[Fraction(d,sum(dens)) for d in dens]
+   self.assertEqual(weights,[Fraction(1,5),Fraction(4,5)])
+   self.assertEqual([n-pooled*d for n,d in zip(nums,dens)],[Fraction(4,5),Fraction(-4,5)])
+   self.assertEqual(sum(n-fold_average*d for n,d in zip(nums,dens)),Fraction(-3,2))
+ def test_honest_tree_motion_leaf_contrasts(self):
+  from xml.etree import ElementTree as ET
+  assets=R.parents[1]/'assets/concept-animations'
+  for kind in ['motion','still']:
+   root=ET.parse(assets/f'honest-tree-leaf-contrast-{kind}.svg').getroot()
+   labels=[t.text for t in root.iter('{http://www.w3.org/2000/svg}text')]
+   values=[list(map(int,t.split(', '))) for t in labels if ', ' in t]
+   self.assertEqual(values,[[5,7],[1,3],[4,6],[3,5]])
+   for t,c,expected in [(values[0],values[1],4),(values[2],values[3],1)]:
+    self.assertEqual(sum(t)/len(t)-sum(c)/len(c),expected)
+    self.assertIn(f'τ̂ = {expected}',labels)
+   self.assertIn('P1 · P2 · P3 · P4',labels)
+   self.assertIn('E1 … E8',labels)
+   from fractions import Fraction
+   mean=lambda a:Fraction(sum(a),len(a))
+   left_t,left_c,right_t,right_c=values
+   left_t=left_t+[int(mean(left_t))]*2
+   right_c=right_c+[int(mean(right_c))]*2
+   self.assertEqual(len(left_t)+len(left_c),len(right_t)+len(right_c))
+   standardized=((mean(left_t)-mean(left_c))+(mean(right_t)-mean(right_c)))/2
+   crude=mean(left_t+right_t)-mean(left_c+right_c)
+   self.assertEqual(standardized,Fraction(5,2))
+   self.assertEqual(crude,Fraction(7,3))
+   self.assertNotEqual(standardized,crude)
 if __name__=='__main__':unittest.main()

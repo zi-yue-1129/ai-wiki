@@ -38,6 +38,16 @@ $Y(1),Y(0)$ 是處理與控制下的潛在結果。一般隨機森林預測 $Y$�
 \hat\tau(x)\pm z_{1-\alpha/2}\hat\sigma(x).
 \]
 
+<div class="concept-motion-scroll" style="width:100%;overflow-x:auto" role="region" tabindex="0" aria-label="互動教學圖；在窄螢幕上聚焦後可水平捲動">
+<div style="width:640px">
+<img data-source-asset-urls width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto;display:block" src="../../assets/concept-animations/honest-tree-leaf-contrast-still.svg" data-motion-src="../../assets/concept-animations/honest-tree-leaf-contrast-motion.svg" data-still-src="../../assets/concept-animations/honest-tree-leaf-contrast-still.svg" alt="誠實因果樹先用分割集固定分割，再以互斥估計集計算兩個葉節點的處理組與控制組平均差。">
+</div>
+</div>
+
+窄螢幕可聚焦圖形後使用左右方向鍵或滑動，閱讀原始尺寸。MkDocs 提供播放／暫停與減少動態效果的支援。 [完整靜態預覽](../../assets/concept-animations/honest-tree-leaf-contrast-still.svg) · [獨立動畫](../../assets/concept-animations/honest-tree-leaf-contrast-motion.svg).
+
+*原創教學動畫，CC BY-SA 4.0。* P1–P4 為分割觀察值，E1–E8 為互斥的估計觀察值。在使用估計集結果前，先固定零點的示意分割。藍色圓點代表選擇分割；青綠色圓點代表依共變量將估計觀察值送入葉節點，而非重新擬合分割。左葉的處理結果 (5, 7) 與控制結果 (1, 3) 給出 $6-2=4$；右葉的處理結果 (4, 6) 與控制結果 (3, 5) 給出 $5-4=1$。分割與數值均為人工構造，不是實際擬合結果或真實效應異質性的證據。此例為單棵基本誠實因果樹，而非完整森林或 generalized random forest 的矩方程。
+
 ### 葉節點對比不是結果平均
 
 設估計集在葉節點 $L$ 中有 $n_1$ 個處理與 $n_0$ 個控制觀察值：
@@ -50,6 +60,19 @@ $Y(1),Y(0)$ 是處理與控制下的潛在結果。一般隨機森林預測 $Y$�
 \]
 
 若處理結果為 $(5,7)$、控制為 $(1,3)$，效應是 $6-2=4$；合併結果平均也恰好為 $4$，但兩者並非同一量。全部結果加 $10$ 後，效應仍為 $4$，合併平均卻變成 $14$。這是區分兩種運算的人工例子，不是實測準確率。
+
+### 處理組與控制組樣本數不同時的葉節點對比
+
+誠實估計將分割選擇與葉節點估計分離，但不要求處理組與控制組樣本數相等，也不會自行消除混淆。[^honest-partition] 延伸動畫中的人工估計樣本：保持分割不變，在左葉新增兩筆處理結果 6，在右葉新增兩筆控制結果 4。每個葉節點現在都有六筆觀察值，葉內對比仍為 4 與 1。
+
+| 葉節點 | 處理組樣本數／平均 | 控制組樣本數／平均 | 對比 |
+| --- | --- | --- | --- |
+| L | 4 / 6 | 2 / 2 | 4 |
+| R | 2 / 5 | 4 / 4 | 1 |
+
+若目標母體的兩個葉節點比例相等，將對比標準化後為 $(4+1)/2=5/2$。若忽略分割，直接合併處理組與控制組的結果再相減，則為 $(24+10)/6-(4+16)/6=7/3$。兩組在各葉節點的樣本比例不同，因此葉內對比不變，未調整的整體差值卻改變。這是分層聚合的示意，不是完整因果森林的預測規則或實際擬合證據。若葉內缺少其中一組，簡單對比未定義，而非等於零；實作必須處理這類支持度限制。
+
+[^honest-partition]: Athey 與 Imbens（2016），*Recursive partitioning for heterogeneous causal effects*。https://doi.org/10.1073/pnas.1510489113 — 誠實分割與估計資料分離，以及葉節點處理效應估計。
 
 ## 結果
 
