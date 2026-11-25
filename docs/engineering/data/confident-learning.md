@@ -35,9 +35,9 @@ The method first obtains out-of-sample probabilities, then counts confident assi
 
 The resulting **raw, uncalibrated** confident joint is
 
-$
+$$
 C=\begin{pmatrix}2&1\\1&2\end{pmatrix}.
-$
+$$
 
 Examples e4 and e8 meet neither threshold. Examples e3 and e7 land off the diagonal and deserve inspection, not automatic relabelling. In the complete estimator (Northcutt, Jiang and Chuang, 2021, in References), the counts are calibrated to the given-label marginals and normalised to estimate the joint distribution; pruning and ranking are separate decisions. Thus the two off-diagonal counts out of six counted examples are **not** a measured dataset error rate.
 
@@ -48,15 +48,15 @@ MkDocs provides Play/Pause and reduced-motion support; on narrow screens swipe h
 
 Let $n_i$ denote the number of examples with given label $i$, and $N=\sum_i n_i$. When each row has nonzero count, the real-valued estimator in Northcutt et al. (2021, Eq. 3) can be written as
 
-$
+$$
 \hat Q_{ij}=\frac{n_i}{N}\frac{C_{ij}}{\sum_k C_{ik}}.
-$
+$$
 
 In the animation, $n_A=n_B=4$ and each raw row sums to 3. Rescaling each row by $4/3$ and dividing by 8 gives
 
-$
+$$
 \hat Q=\begin{pmatrix}1/3&1/6\\1/6&1/3\end{pmatrix}.
-$
+$$
 
 The row sums are $1/2$ and the total is 1. Its off-diagonal mass is $1/3$, an estimated noise fraction under the estimator's assumptions, not a verified error rate or a count of specific examples. The two flagged examples are still just review candidates. This calculation is not depicted in the raw-count animation. Integer pruning budgets require a separate rounding and selection rule.
 

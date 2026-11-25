@@ -30,7 +30,7 @@ class DataRetrievalMotion(unittest.TestCase):
             for i, (given, *p) in enumerate(rows):
                 candidates = [j for j in range(2) if p[j] >= thresholds[j]]
                 if candidates:
-                    j = max(candidates, key=lambda j:p[j])
+                    j = candidates[0] if len(candidates) == 1 else max(range(len(p)), key=lambda j:p[j])
                     r = 'AB'.index(given)
                     counts[r][j] += 1
                     expected[f'e{i+1}'] = f'{r},{j}'

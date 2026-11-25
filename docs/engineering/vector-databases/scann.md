@@ -37,9 +37,9 @@ Standard quantisation minimises reconstruction error, which is the same in every
 
 *Original teaching animation, CC BY-SA 4.0.* Let a stored vector be $x=(3,0)$ and two possible code vectors be $A=(2,0)$ and $B=(3,1)$. Both have squared Euclidean reconstruction error 1. The residual $e=x-\hat x$ decomposes along the **stored vector** as $e_\parallel=(e^\top u)u$, where $u=x/\|x\|$, and $e_\perp=e-e_\parallel$. For illustration, assign the parallel component four times the squared-error weight of the orthogonal component:
 
-$
+$$
 L=4\|e_\parallel\|^2+\|e_\perp\|^2.
-$
+$$
 
 The loss is 4 for A and 1 for B. For the particular unit query $q=(1,0)$, the exact score is 3, while the approximations give 2 and 3 respectively. The growing segments expose the two residuals; the bars then reveal the isotropic and anisotropic losses. The growth is a graphical reveal, not an optimisation trajectory. Other query directions can favour A instead; the paper (Guo et al., 2019, in References) derives the score-aware objective by weighting errors for high-inner-product query–data pairs under distributional assumptions. The 4:1 weight and vectors are chosen teaching values, **not ScaNN defaults, actual codebook training, or measured recall**.
 
