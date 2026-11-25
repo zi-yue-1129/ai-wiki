@@ -19,7 +19,7 @@ AI 用到的數學主要有五塊。這頁說明每塊「用在哪裡」與「�
 
 ## 2. 微積分
 
-> 詳細頁面：[微積分與最佳化基礎](calculus/index.md)，包含[牛頓法](calculus/newtons-method.md)與[拉格朗日乘數法](calculus/lagrange-multipliers.md)。
+> 詳細頁面：[微積分與最佳化基礎](calculus/index.md)，包含[牛頓法](calculus/newtons-method.md)、[拉格朗日乘數法](calculus/lagrange-multipliers.md)與[內點法](calculus/interior-point-methods.md)。
 
 
 **用在哪裡**：訓練＝最小化損失函數，需要梯度。

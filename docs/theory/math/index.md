@@ -25,7 +25,7 @@ Five areas of mathematics carry most of AI. This page explains where each is use
 
 ## 2. Calculus
 
-> Detailed page: [Calculus and optimisation foundations](calculus/index.md), with [Newton's method](calculus/newtons-method.md) and [Lagrange multipliers](calculus/lagrange-multipliers.md).
+> Detailed page: [Calculus and optimisation foundations](calculus/index.md), with [Newton's method](calculus/newtons-method.md), [Lagrange multipliers](calculus/lagrange-multipliers.md), and [interior-point methods](calculus/interior-point-methods.md).
 
 
 **Where it's used:** training = minimising a loss, which needs gradients.
