@@ -79,6 +79,12 @@ class CausalTests(unittest.TestCase):
    self.assertEqual(Fraction(sum(nums),sum(dens)),Fraction(8,5))
    self.assertNotEqual(Fraction(sum(nums),sum(dens)),sum(Fraction(n,d) for n,d in zip(nums,dens))/2)
    self.assertIn('θ̂ = (4 + 12) / (2 + 8) = 1.6',labels)
+   pooled=Fraction(sum(nums),sum(dens))
+   fold_average=sum(Fraction(n,d) for n,d in zip(nums,dens))/2
+   weights=[Fraction(d,sum(dens)) for d in dens]
+   self.assertEqual(weights,[Fraction(1,5),Fraction(4,5)])
+   self.assertEqual([n-pooled*d for n,d in zip(nums,dens)],[Fraction(4,5),Fraction(-4,5)])
+   self.assertEqual(sum(n-fold_average*d for n,d in zip(nums,dens)),Fraction(-3,2))
  def test_honest_tree_motion_leaf_contrasts(self):
   from xml.etree import ElementTree as ET
   assets=R.parents[1]/'assets/concept-animations'
@@ -92,4 +98,15 @@ class CausalTests(unittest.TestCase):
     self.assertIn(f'τ̂ = {expected}',labels)
    self.assertIn('P1 · P2 · P3 · P4',labels)
    self.assertIn('E1 … E8',labels)
+   from fractions import Fraction
+   mean=lambda a:Fraction(sum(a),len(a))
+   left_t,left_c,right_t,right_c=values
+   left_t=left_t+[int(mean(left_t))]*2
+   right_c=right_c+[int(mean(right_c))]*2
+   self.assertEqual(len(left_t)+len(left_c),len(right_t)+len(right_c))
+   standardized=((mean(left_t)-mean(left_c))+(mean(right_t)-mean(right_c)))/2
+   crude=mean(left_t+right_t)-mean(left_c+right_c)
+   self.assertEqual(standardized,Fraction(5,2))
+   self.assertEqual(crude,Fraction(7,3))
+   self.assertNotEqual(standardized,crude)
 if __name__=='__main__':unittest.main()

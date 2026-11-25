@@ -64,6 +64,19 @@ For estimation observations in leaf $L$, with $n_1$ treated and $n_0$ controls,
 
 For treated outcomes $(5,7)$ and controls $(1,3)$, the leaf contrast is $6-2=4$, not the pooled outcome mean $4$. Those numbers happen to coincide; adding $10$ to every outcome keeps the effect at $4$ but changes the pooled mean to $14$. This constructed example tests the distinction, not empirical accuracy.
 
+### Leaf contrasts under unequal treatment counts
+
+Honesty keeps partition selection separate from leaf estimation, but it does not require equal treated and control counts or remove confounding by itself.[^honest-partition] To see why leaf membership matters, extend the animation's toy estimation sample: add two treated outcomes of 6 to the left leaf and two control outcomes of 4 to the right leaf, keeping the split fixed. Each leaf now contains six observations. The within-leaf contrasts remain 4 and 1.
+
+| Leaf | Treated count / mean | Control count / mean | Contrast |
+| --- | --- | --- | --- |
+| L | 4 / 6 | 2 / 2 | 4 |
+| R | 2 / 5 | 4 / 4 | 1 |
+
+Standardizing these two contrasts to a target distribution with equal leaf proportions gives $(4+1)/2=5/2$. Ignoring the split and pooling outcomes by treatment instead gives $(24+10)/6-(4+16)/6=7/3$. The two treatment groups place different proportions of their observations in each leaf, so the crude difference changes despite unchanged leaf contrasts. This illustrates stratified aggregation, not the prediction rule of a full causal forest or evidence from a fitted model. If either treatment group is absent from a leaf, its simple contrast is undefined rather than zero; actual implementations must address such support constraints.
+
+[^honest-partition]: Athey & Imbens (2016), *Recursive partitioning for heterogeneous causal effects*. https://doi.org/10.1073/pnas.1510489113 — Honest partition/estimation separation and treatment-effect estimation in leaves.
+
 ## Results
 
 Wager and Athey (2018) report that, under their conditions, the causal forest estimate has an asymptotically Gaussian and centred sampling distribution. This is what permits confidence intervals centred on the estimate at a point. Their simulations and empirical checks are in the paper and are not reproduced here.

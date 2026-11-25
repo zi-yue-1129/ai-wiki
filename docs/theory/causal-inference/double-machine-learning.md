@@ -86,6 +86,19 @@ On narrow screens, focus the figure and use the left/right arrow keys or swipe h
 
 *Original educational animation, CC BY-SA 4.0.* First train both nuisance models on F2 and predict on F1; then reverse the roles. Each observation contributes its held-out residual pair (V, U) once. The toy pairs in F1 are (−1, −2), (1, 2); those in F2 are (−2, −2), (2, 4). Thus the pooled estimate is $(4+12)/(2+8)=1.6$, not the unweighted mean $(2+1.5)/2=1.75$ of the fold slopes. The dots indicate model/prediction flow, not measured execution time; the residuals are constructed, not outputs of an actual fitted model. Cross-fitting alone does not identify a causal effect.
 
+### Why pooling is a different estimating equation
+
+The animation implements DML2 (one pooled score equation), whereas DML1 solves the score equation within each fold and averages the resulting parameter estimates.[^dml-pooling] Write $a_k=\sum_{i\in I_k}\hat V_i\hat U_i$ and $b_k=\sum_{i\in I_k}\hat V_i^2$. When every $b_k>0$,
+
+$
+\hat\theta_{\mathrm{DML2}}=\sum_k\frac{b_k}{\sum_j b_j}\frac{a_k}{b_k},\qquad
+\hat\theta_{\mathrm{DML1}}=\frac1K\sum_k\frac{a_k}{b_k}.
+$
+
+The DML2 weights are residual treatment sums of squares, not just fold sizes. In the animation the weights are $1/5$ and $4/5$. At the pooled estimate $8/5$, the two fold score sums $a_k-\hat\theta b_k$ are $4/5$ and $-4/5$: they cancel across folds. At the DML1 estimate $7/4$, their sum is $-3/2$, which does not solve the pooled equation. Both procedures use held-out predictions; the distinction is the aggregation step, not leakage. If a fold has zero residual treatment sum of squares, its own ratio is undefined even if the pooled denominator is positive. A positive sample denominator alone does not establish adequate population overlap or valid inference.
+
+[^dml-pooling]: Chernozhukov et al. (2018), *Double/debiased machine learning for treatment and structural parameters*, section 3.1 (DML1 and DML2). https://doi.org/10.1111/ectj.12097
+
 ### Which effect does the PLR score estimate?
 
 The constant-effect partially linear model is not the general ATE model. With binary treatment, conditional exchangeability and heterogeneous effects, its population residual-on-residual coefficient is
