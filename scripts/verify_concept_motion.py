@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'paged-copy-on-write': 'engineering/inference-optimization/paged-attention',
+    'speculative-residual-mass': 'engineering/inference-optimization/speculative-decoding',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
     'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
@@ -495,7 +497,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'paged-copy-on-write': '0 0 640 360',
+ 'speculative-residual-mass': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
  'kfc-patch-second-moment': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
@@ -1480,7 +1484,7 @@ def main() -> int:
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
                     errors.append(f"{page}: missing independent static preview for {stem}")
-            elif stem in {"dynamo-shape-guard-cache", "dynamo-graph-break-resume", "kernel-fusion-intermediate-traffic", "triton-tail-mask", "gpipe-1f1b-schedule", "gpipe-activation-liveness"}:
+            elif stem in {"dynamo-shape-guard-cache", "dynamo-graph-break-resume", "kernel-fusion-intermediate-traffic", "triton-tail-mask", "gpipe-1f1b-schedule", "gpipe-activation-liveness", "paged-copy-on-write", "speculative-residual-mass"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
