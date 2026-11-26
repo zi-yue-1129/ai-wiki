@@ -758,5 +758,43 @@ class CacheEvolutionSemantics(unittest.TestCase):
                 self.assertEqual(loads, (3, 6)[j])
 
 
+    def test_heavy_hitter_turnover_threshold(self):
+        for kind in ('motion', 'still'):
+            cells = self.cells('h2o-evolving-cache', kind)
+            def cents(label):
+                return round(float(label.split()[1]) * 100)
+            old1 = cents(cells[(185, 119)])
+            old3 = cents(cells[(185, 153)])
+            margin = old1 - old3
+            self.assertEqual(margin, 30)
+            for a, b, expected in ((5, 65, 3), (35, 35, 1), (20, 50, None)):
+                self.assertEqual(a + b + 20 + 10, 100)
+                new1, new3 = old1 + a, old3 + b
+                winner = 3 if new3 > new1 else 1 if new1 > new3 else None
+                self.assertEqual(winner, expected)
+                self.assertEqual(new3 > new1, b - a > margin)
+            self.assertEqual(cents(cells[(303, 119)]), old1 + 5)
+            self.assertEqual(cents(cells[(303, 153)]), old3 + 65)
+
+    def test_reuse_distance_predicts_capacity_sweep(self):
+        for kind in ('motion', 'still'):
+            cells = self.cells('expert-lru-locality', kind)
+            for j, expected in enumerate(((3, 3, 3), (6, 6, 3))):
+                labels = [cells[(175.5 + i * 77, 112 + j * 117)] for i in range(6)]
+                trace = [label.split()[0] for label in labels]
+                distances = []
+                for i, expert in enumerate(trace):
+                    prior = trace[:i]
+                    if expert not in prior:
+                        distances.append(float('inf'))
+                    else:
+                        previous = max(k for k, e in enumerate(prior) if e == expert)
+                        distances.append(len(set(trace[previous + 1:i])))
+                self.assertEqual(tuple(sum(d >= k for d in distances) for k in (1, 2, 3)),
+                                 expected)
+                self.assertEqual([label.split()[1] for label in labels],
+                                 ['H' if d < 2 else 'M' for d in distances])
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -63,6 +63,18 @@ Each increment row sums to one. At step 5, t3 leaves the recent window but wins 
 
 *Original instructional animation, CC BY-SA 4.0.*
 
+#### When does the heavy hitter change?
+
+The step-4 scores differ by 0.30 (1.20 minus 0.90). Since t4 and t5 are protected at step 5, t3 wins over t1 exactly when its new attention increment exceeds t1's by more than 0.30. Keeping the initial cache and the recent-token increments fixed gives a controlled comparison:
+
+| Step-5 increments for t1, t3 | Updated scores for t1, t3 | Heavy hitter |
+|---|---|---|
+| .05, .65 (animation) | 1.25, 1.55 | t3 |
+| .35, .35 | 1.55, 1.25 | t1 |
+| .20, .50 | 1.40, 1.40 | Tie |
+
+The tie needs a specified tie-breaking rule; this toy policy does not prescribe one. All rows remain normalized because the increments for t4 and t5 stay at .20 and .10. The second row evicts t3 rather than t1, so the later animation columns cannot simply be reused: their candidate sets and attention distributions may differ. These are alternative synthetic attention rows, not independent measurements of the same model.
+
 ## Procedure
 
 1. Fix a cache budget, for example a share of the sequence length.

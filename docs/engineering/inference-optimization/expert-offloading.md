@@ -27,7 +27,7 @@ An MoE model with eight large experts per layer can be too large for the memory 
 
 ## Core idea
 
-The method keeps the non-expert parts of the model and a cache of experts on the device, and it stores the remaining experts in host memory. When the router selects an expert that is not resident, the expert is transferred to the device. The authors build on parameter offloading algorithms and propose a strategy that accelerates offloading. The abstract does not describe that strategy in detail, so this page does not either. The model is run with mixed quantisation, which reduces the size of the data that must be stored and moved.
+The method keeps the non-expert parts of the model and a cache of experts on the device, and it stores the remaining experts in host memory. When the router selects an expert that is not resident, the expert is transferred to the device. The paper uses an LRU cache with equal expert capacity per MoE layer and speculative loading: it applies the next layer's router to earlier hidden states to predict which experts to fetch while computation is ongoing. A wrong prediction requires loading the actual selected experts; it does not change the router's final selection.[^expert-method] The model is run with mixed quantisation, which reduces the size of the data that must be stored and moved.
 
 ## Procedure
 
@@ -58,9 +58,21 @@ Consider a single layer, one selected expert per access, equal-size expert weigh
 | Grouped | 3 | 3 | 3 |
 | Interleaved | 0 | 6 | 6 |
 
-For expert size W bytes, the logical weight transfer is 3W versus 6W bytes. Equal expert counts therefore do not determine cache hit rate or traffic; temporal locality matters. The example is a generic LRU calculation, not an assertion that Eliseev and Mazur (2023) use precisely this policy or that a real system is twice as fast. It excludes prefetching, overlap, shared weights, other layers and transfer overhead. All traces and counts are synthetic.
+For expert size W bytes, the logical weight transfer is 3W versus 6W bytes. Equal expert counts therefore do not determine cache hit rate or traffic; temporal locality matters. The example is a generic LRU calculation, consistent with the LRU principle in Eliseev and Mazur (2023), Section 3.1, but not a reproduction of their multi-expert trace, implementation or speed. It excludes prefetching, overlap, shared weights, other layers and transfer overhead. All traces and counts are synthetic.
 
 *Original instructional animation, CC BY-SA 4.0.*
+
+#### Reuse distance and cache capacity
+
+Define reuse distance as the number of distinct other experts accessed since the preceding access to the same expert (infinite for a first access). In an initially empty, fully associative LRU cache of capacity k, an access hits exactly when its reuse distance is strictly less than k. The three repeated accesses have distances 0, 0, 0 in the grouped trace and 2, 2, 2 in the interleaved trace.
+
+| Expert slots | Grouped loads | Interleaved loads |
+|---:|---:|---:|
+| 1 | 3 | 6 |
+| 2 (animation) | 3 | 6 |
+| 3 | 3 | 3 |
+
+Increasing capacity from one to two slots does not help either trace, whereas three slots eliminate all non-compulsory misses in the interleaved trace. For equal-size experts, each load costs W bytes in the host-to-device direction. This count excludes any reverse transfers when the host does not retain a copy (the implementation in Section 3.3 also discusses swapping experts), and speculative transfers can occur even without a demand miss. These synthetic traces do not predict measured latency.
 
 ## Results
 
@@ -84,6 +96,8 @@ The abstract reports that the strategy allows Mixtral-8x7B to run with mixed qua
 
 - Can the cache policy use the router's probabilities to predict which experts to load before they are selected?
 - How much does the cache hit rate fall as the batch size grows, and when does offloading stop being worth it?
+
+[^expert-method]: Eliseev and Mazur (2023), Sections 3.1–3.3, [paper](https://arxiv.org/abs/2312.17238).
 
 ## References
 
