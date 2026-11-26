@@ -18,6 +18,26 @@ translation_reviewed: 2026-10-28
 
 距離損失比較教師與學生空間中，一個批次內樣本之間正規化後的成對距離。角度損失比較三元組形成的角度。兩者都加到一般的任務損失上，並以平均值正規化距離，使兩個空間的尺度差異不影響結果。
 
+### 算例：跨座標系統匹配幾何
+
+令 $d_{ij}=\|z_i-z_j\|_2$，$\mu$ 為批次內相異樣本對的平均距離。RKD-D 比較教師與學生的 $d_{ij}/\mu$；RKD-A 比較三元組中以同一頂點為起點的兩個單位位移向量之餘弦值。原始方法以 Huber 損失懲罰兩者關係量的差異（Park et al., 2019）。
+
+教師三點 $A=(0,0), B=(3,0), C=(0,4)$ 與學生三點 $A'=(10,5), B'=(10,11), C'=(2,5)$，依 AB、AC、BC 順序得到距離 $(3,4,5)$ 與 $(6,8,10)$，各自平均值為 4 與 8。兩組正規化距離皆為 $(0.75,1,1.25)$，A 點夾角餘弦皆為零。學生幾何是教師經平移、旋轉與等比例縮放後的結果，因此所有夾角一致。此精確示意算例的距離與角度蒸餾損失皆為零，但任務損失不一定為零。重合點或全零平均距離需額外的數值穩定性處理；上述公式假設分母非零。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="教師與學生依相同順序連接三角形各邊；距離除以各自批次平均值後一致，且保留直角。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/rkd-normalized-geometry-still.svg" data-motion-src="../../../../../assets/concept-animations/rkd-normalized-geometry-motion.svg" data-still-src="../../../../../assets/concept-animations/rkd-normalized-geometry-still.svg" alt="教師與學生依相同順序連接三角形各邊；距離除以各自批次平均值後一致，且保留直角。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 觀察逐步延伸的三角形邊，再比較三個正規化距離與直角記號。線段延伸代表測量關係，而非梯度更新。 數值均為示意。MkDocs 提供鍵盤可操作的播放／暫停；GitHub 顯示 [靜態回退圖](../../../../../assets/concept-animations/rkd-normalized-geometry-still.svg)。 [完整 SVG 動畫](../../../../../assets/concept-animations/rkd-normalized-geometry-motion.svg).
+
+### 幾何不變性的限制
+
+若 $z_i'=sRz_i+t$，其中 $s>0$ 且 $R^\top R=I$，所有成對距離與其平均值皆縮放 $s$ 倍；正規化距離及位移向量的餘弦值均不變。但此性質不適用於一般非等比例變換。例如固定 $A=(0,0)$ 與 $B=(3,0)$，將 $C$ 由 $(0,4)$ 改為 $(0,3)$。A 點仍為直角，但正規化距離由 $(0.75,1,1.25)$ 變成 $(0.878680,0.878680,1.242641)$；B、C 點的夾角餘弦由 $3/5$ 與 $4/5$ 變為 $1/\sqrt{2}$。在此人工反例中，兩種 RKD 懲罰皆非零；僅檢查圖中標示的直角並不足夠。
+
+動畫正規化階段以琥珀色同步標示教師與學生的對應邊及正規化結果，並非將三角形本身縮小。
+
 ## 結果
 
 摘要表示，此方法以顯著的幅度改善學生模型，並且在度量學習中學生可以超越教師。摘要沒有給出單一的主要數字。
