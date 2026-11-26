@@ -24,6 +24,34 @@ XNOR-Net 以二值濾波器乘上實數縮放係數來近似每個實數卷積�
 
 其中 \(n\) 是濾波器中的權重數。因此縮放係數就是該濾波器權重的平均絕對值。卷積近似為 \(I \ast W \approx (I \oplus B)\,\alpha\)，其中 \(\oplus\) 只使用加法與減法。在完整的 XNOR-Net 變體中，輸入 \(I\) 以相同方式二值化，兩個二值向量的內積便成為 XNOR 加上位元計數（popcount）。
 
+### 動態解讀: 符號內積與位元計數
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以檢視教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/xnor-popcount-dot-still.svg" src="../../../../../assets/concept-animations/xnor-popcount-dot-still.svg" data-motion-src="../../../../../assets/concept-animations/xnor-popcount-dot-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="逐一比較六組符號位元，累積四個相同位置，再換算為帶符號內積 2 與縮放結果 8。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/xnor-popcount-dot-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/xnor-popcount-dot-motion.svg)
+
+將正號映射為位元 1、負號映射為位元 0。取一組展平的六元素卷積視窗，令 $w=(2,-1,3,-2,1,-3)$、$x=(2,-1,-1,-2,4,2)$。兩者的縮放係數（絕對值平均）皆為 2，符號位元向量分別為 $(1,0,1,0,1,0)$ 與 $(1,0,0,0,1,1)$。XNOR 將相同符號標記為 1、不同符號標記為 0，因此結果為 $(1,1,0,1,1,0)$，位元計數為 4。
+
+若有效位元數為 $n$、相符數為 $c$，帶符號的二值內積是 $c-(n-c)=2c-n$，而不是 $c$。此處為 2；套用兩個實數縮放係數後得到 $2\times2\times2=8$。原始實數內積為 4，因此縮放只是近似而非恆等式。打包字組中的填補位元必須排除於計數之外。逐一比較僅為教學視覺化，不代表真實打包核心逐位元執行。所有數值皆為示意，並非模型實測值。參見參考文獻 Rastegari 等人（2016）。[^xnor-motion]
+
+MkDocs 網站可用播放／暫停（Enter 或空白鍵）檢視變化；GitHub 與偏好減少動態效果的讀者可檢視完整靜態結果。原創動畫，**CC BY-SA 4.0**。
+
+[^xnor-motion]: Rastegari 等人（2016）. https://arxiv.org/abs/1603.05279 — 原始方法。
+
+### 打包字組的邊界算例
+
+若上述六個有效位元放在八位元字組的低六位，且兩組高位填補位元皆為零，XNOR 也會把兩組填補位置判為相符，因此未遮罩的位元計數會從 4 變成 6。有效位元遮罩為 $M=00111111_2$、$n=6$ 時，正確運算為
+
+$
+c=\operatorname{popcount}(\operatorname{XNOR}(b_w,b_x)\mathbin{\&}M),\qquad d=2c-n.
+$
+
+正確的帶符號內積為 2；若將八個位置皆納入，會得到 $2(6)-8=4$，若計入填補位元卻只減去六則得到 6。每個未填滿的字組應先套用遮罩再計數，最後減去有效維度總數，而非儲存字組的寬度。本例僅為打包示意，並非核心運算的實測結果。
+
 ## 結果
 
 摘要報告，二值權重版本的 AlexNet 在 ImageNet 上的分類準確率與全精度 AlexNet 相同。完全二值的 XNOR-Net 準確率較低：論文的表 1 顯示，XNOR-Net 的 top-1 準確率為 44.2%，全精度 AlexNet 為 56.6%，差距 12.4 個百分點。摘要也報告，它的準確率比 BinaryConnect 與 BinaryNet 高出 16% 以上。

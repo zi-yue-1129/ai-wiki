@@ -9678,6 +9678,36 @@
         }
       ],
       "viewBox": "0 0 720 400"
+    },
+    "xnor-popcount-dot": {
+      "origins": [
+        {
+          "origin_blob": "c36223668cc53c2b23ae02258d590fe76ef0ad80",
+          "origin_commit": "6c9519060ee8f2a8c056579298a135afc88246b6",
+          "path": "docs/assets/concept-animations/xnor-popcount-dot-motion.svg"
+        },
+        {
+          "origin_blob": "0b0df3cdb9f78f46674fbb76466d58aa436a982e",
+          "origin_commit": "6c9519060ee8f2a8c056579298a135afc88246b6",
+          "path": "docs/assets/concept-animations/xnor-popcount-dot-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "attention-transfer-spatial-energy": {
+      "origins": [
+        {
+          "origin_blob": "4d716dc22544cd1ab8efbace7542e0d2a0b38877",
+          "origin_commit": "6c9519060ee8f2a8c056579298a135afc88246b6",
+          "path": "docs/assets/concept-animations/attention-transfer-spatial-energy-motion.svg"
+        },
+        {
+          "origin_blob": "002171b14c01248a6c07b0f5637f9a5fbf1dfe91",
+          "origin_commit": "6c9519060ee8f2a8c056579298a135afc88246b6",
+          "path": "docs/assets/concept-animations/attention-transfer-spatial-energy-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {

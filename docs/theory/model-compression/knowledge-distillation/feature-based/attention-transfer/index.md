@@ -39,6 +39,36 @@ $$
 
 Here $Q^j$ is the vectorised attention map for layer $j$, $\mathcal{I}$ the set of matched layers, $\beta$ the weight of the penalty, and $p$ the norm type, which the paper sets to 2. Normalising the maps makes the comparison insensitive to their overall scale.
 
+### Visual walkthrough: normalised spatial energy
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/attention-transfer-spatial-energy-still.svg" src="../../../../../assets/concept-animations/attention-transfer-spatial-energy-still.svg" data-motion-src="../../../../../assets/concept-animations/attention-transfer-spatial-energy-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Two teacher feature channels and one student feature channel are squared and summed spatially; normalization yields identical attention maps despite unequal raw energy.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/attention-transfer-spatial-energy-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/attention-transfer-spatial-energy-motion.svg)
+
+For the activation-based mapping with exponent 2, use flattened $2\times2$ teacher channels $(2,0,0,1)$ and $(0,1,0,0)$, and a single student channel $(4,2,0,2)$. The teacher's first channel contributes $(4,0,0,1)$, and the second adds $(0,1,0,0)$. The raw maps are $Q_T=(4,1,0,1)$ and $Q_S=(16,4,0,4)=4Q_T$.
+
+The teacher norm is $\sqrt{18}$ and the student norm is $4\sqrt{18}$. Dividing each map by its own norm gives the same vector $(4,1,0,1)/\sqrt{18}$, approximately $(0.943,0.236,0,0.236)$. The attention-map distance is zero although the channel counts and raw magnitudes differ. This illustrates why matching spatial energy need not reproduce the full feature tensor. The map exponent and the comparison norm are separate choices; this example uses 2 for both. A zero map requires an explicit numerical safeguard (for example an epsilon in the denominator). Heatmap intensity is relative to each feature map's scale in the channel column, but shared within the raw-energy column. This is a schematic forward calculation, not a measured activation or simulated training trajectory. See Zagoruyko and Komodakis in References.[^at-motion]
+
+On MkDocs use Play/Pause (Enter or Space) to inspect the changes. GitHub and reduced-motion readers see the complete static result. Original artwork, **CC BY-SA 4.0**.
+
+[^at-motion]: Zagoruyko & Komodakis (2016). https://arxiv.org/abs/1612.03928 — Original method.
+
+### Geometry of the normalized comparison
+
+The highlighted channel shows which squared activations are currently being accumulated. The two divisors on the arrows are the norms of the completed raw maps, not norms of the individual channels.
+
+For nonzero maps $q$ and $r$, define $u=q/\|q\|_2$ and $v=r/\|r\|_2$. Expanding the squared distance gives
+
+$
+\|u-v\|_2^2=2-2u^\top v.
+$
+
+Thus the distance is zero exactly when the nonzero maps are positive scalar multiples. In the animation $Q_S=4Q_T$. If the student's third activation changes from 0 to 2, its raw map becomes $(16,4,4,4)$ and the cosine similarity becomes $\sqrt{18/19}$. The squared distance is then $2-2\sqrt{18/19}$, about 0.05334. The L2 distance (not its square) is about 0.2310. These are derived illustrative values; the equality does not apply unchanged to epsilon-stabilized normalization of zero maps.
+
 ## Results
 
 On CIFAR-10, Table 1 of the paper reports median test error over five runs. Attention transfer lowers the error of every student-teacher pair in the table, including pairs where the teacher is deeper than the student. Three of the pairs are shown below.
