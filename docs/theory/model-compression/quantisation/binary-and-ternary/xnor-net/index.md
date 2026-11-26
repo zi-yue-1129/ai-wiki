@@ -51,6 +51,16 @@ On MkDocs use Play/Pause (Enter or Space) to inspect the changes. GitHub and red
 
 [^xnor-motion]: Rastegari et al. (2016). https://arxiv.org/abs/1603.05279 — Original method.
 
+### Packed-word boundary example
+
+If the six valid bits above occupy the low six positions of an eight-bit word, let both high padding bits be zero. XNOR also marks the two padding pairs as matches, so the unmasked population count becomes 6 instead of 4. With a valid-bit mask $M=00111111_2$ and $n=6$, the correct operation is
+
+$
+c=\operatorname{popcount}(\operatorname{XNOR}(b_w,b_x)\mathbin{\&}M),\qquad d=2c-n.
+$
+
+The correct signed result is 2; counting all eight positions gives $2(6)-8=4$, while counting padding but subtracting only six gives 6. Mask each partial word before counting, and subtract the total valid dimension, not the storage width. This is an illustrative packing example, not a measured kernel result.
+
 ## Results
 
 The abstract reports that the binary-weight version of AlexNet matches the classification accuracy of the full-precision AlexNet on ImageNet. The fully binary XNOR-Net is less accurate. The paper's Table 1 gives 44.2% top-1 accuracy for XNOR-Net against 56.6% for full-precision AlexNet, a gap of 12.4 points, and the abstract reports that it is more than 16% more accurate than BinaryConnect and BinaryNet.

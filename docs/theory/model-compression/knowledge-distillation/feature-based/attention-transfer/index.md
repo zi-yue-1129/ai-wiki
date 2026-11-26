@@ -57,6 +57,18 @@ On MkDocs use Play/Pause (Enter or Space) to inspect the changes. GitHub and red
 
 [^at-motion]: Zagoruyko & Komodakis (2016). https://arxiv.org/abs/1612.03928 — Original method.
 
+### Geometry of the normalized comparison
+
+The highlighted channel shows which squared activations are currently being accumulated. The two divisors on the arrows are the norms of the completed raw maps, not norms of the individual channels.
+
+For nonzero maps $q$ and $r$, define $u=q/\|q\|_2$ and $v=r/\|r\|_2$. Expanding the squared distance gives
+
+$
+\|u-v\|_2^2=2-2u^\top v.
+$
+
+Thus the distance is zero exactly when the nonzero maps are positive scalar multiples. In the animation $Q_S=4Q_T$. If the student's third activation changes from 0 to 2, its raw map becomes $(16,4,4,4)$ and the cosine similarity becomes $\sqrt{18/19}$. The squared distance is then $2-2\sqrt{18/19}$, about 0.05334. The L2 distance (not its square) is about 0.2310. These are derived illustrative values; the equality does not apply unchanged to epsilon-stabilized normalization of zero maps.
+
 ## Results
 
 On CIFAR-10, Table 1 of the paper reports median test error over five runs. Attention transfer lowers the error of every student-teacher pair in the table, including pairs where the teacher is deeper than the student. Three of the pairs are shown below.

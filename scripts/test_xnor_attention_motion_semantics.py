@@ -42,5 +42,24 @@ class XnorAttentionMotion(unittest.TestCase):
         self.assertIn('Same spatial pattern · distance = 0', text)
 
 
+    def test_partial_word_mask(self):
+        for w in range(64):
+            for x in range(64):
+                matches = ~(w ^ x) & 0xff
+                valid = (matches & 0x3f).bit_count()
+                expected = sum(1 if (w >> i & 1) == (x >> i & 1) else -1 for i in range(6))
+                self.assertEqual(2 * valid - 6, expected)
+                self.assertEqual(matches.bit_count(), valid + 2)
+
+    def test_attention_normalized_geometry(self):
+        t, s = [4, 1, 0, 1], [16, 4, 4, 4]
+        normalize = lambda a: [v / sqrt(sum(x*x for x in a)) for v in a]
+        u, v = normalize(t), normalize(s)
+        self.assertAlmostEqual(sum(a*b for a, b in zip(u, v)), sqrt(18/19))
+        self.assertAlmostEqual(sum((a-b)**2 for a, b in zip(u, v)), 2-2*sqrt(18/19))
+        self.assertIn('÷ √18', labels('attention-transfer-spatial-energy'))
+        self.assertIn('÷ 4√18', labels('attention-transfer-spatial-energy'))
+
+
 if __name__ == '__main__':
     unittest.main()
