@@ -758,5 +758,55 @@ class CompressionMotionSemantics(unittest.TestCase):
                 self.assertEqual(cells[x+145,310], f'Sum {round(total)}')
 
 
+    def test_wanda_signed_residual_and_orthogonal_diagonal(self):
+        import itertools
+        weights = [4, 3, 2, 1]
+        original = [1, 1, 4, 6]
+        signed = [1, 1, 4, -6]
+        scores = [abs(w*x) for w, x in zip(weights, original)]
+        self.assertEqual(scores, [abs(w*x) for w, x in zip(weights, signed)])
+        keep = [sorted(range(4), key=metric.__getitem__, reverse=True)[:2]
+                for metric in (weights, scores)]
+        for row, expected in ((original, (21, 7, 14)), (signed, (9, 7, 2))):
+            terms = [w*x for w, x in zip(weights, row)]
+            outputs = (sum(terms), *(sum(terms[i] for i in mask) for mask in keep))
+            self.assertEqual(outputs, expected)
+            for mask in keep:
+                removed = [i for i in range(4) if i not in mask]
+                residual_sq = sum(terms[i] for i in removed)**2
+                gram_loss = sum(weights[i]*weights[j]*row[i]*row[j]
+                                for i in removed for j in removed)
+                self.assertEqual(residual_sq, gram_loss)
+        # Orthogonal feature columns: enumerate every two-weight removal.
+        X = [[x if i == j else 0 for j, x in enumerate(original)]
+             for i in range(4)]
+        losses = {removed: sum(sum(row[i]*weights[i] for i in removed)**2
+                               for row in X)
+                  for removed in itertools.combinations(range(4), 2)}
+        self.assertEqual(min(losses, key=losses.__getitem__), (0, 1))
+        self.assertEqual(losses[(0, 1)], 25)
+
+    def test_int8_feature_union_and_partition_mac_counts(self):
+        X = [[1, 2, 1270, 3], [3, 1, 2, -8]]
+        W = [[1, -2], [2, 1], [-1, 3], [4, -1]]
+        d, m, n = len(W), len(X), len(W[0])
+        maxima = [max(abs(row[j]) for row in X) for j in range(d)]
+        self.assertEqual(maxima, [3, 2, 1270, 8])
+        dense = [[sum(row[j]*W[j][c] for j in range(d))
+                  for c in range(n)] for row in X]
+        for threshold, expected in ((6, [2, 3]), (10, [2]), (2000, [])):
+            selected = [j for j, peak in enumerate(maxima) if peak >= threshold]
+            normal = [j for j in range(d) if j not in selected]
+            self.assertEqual(selected, expected)
+            self.assertEqual(m*n*len(selected)+m*n*len(normal), m*n*d)
+            for i, row in enumerate(X):
+                for c in range(n):
+                    fp = sum(row[j]*W[j][c] for j in selected)
+                    ordinary = sum(row[j]*W[j][c] for j in normal)
+                    # Exact pre-quantisation decomposition, not an INT8 accuracy test.
+                    self.assertEqual(fp+ordinary, dense[i][c])
+        self.assertLess(abs(X[0][3]), 6)
+        self.assertGreaterEqual(abs(X[1][3]), 6)
+
 if __name__ == '__main__':
     unittest.main()

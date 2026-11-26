@@ -38,6 +38,20 @@ In the split path, route the third feature and its matching weight to FP16. The 
 
 *Original instructional animation, CC BY-SA 4.0.*
 
+### Multiple tokens: split feature dimensions, not individual cells
+
+For a matrix multiplication with $X$ of shape $m$ × $d$ and $W$ of shape $d$ × $n$, define a toy threshold rule: a feature belongs to the FP16 set if any token has absolute activation at least $\tau$ in that feature. The same feature indices select columns of $X$ and rows of $W$. The original paper's mixed-precision decomposition uses this feature-level partition (Dettmers et al., 2022, Section 3.2); Section 4.1 additionally defines prevalence criteria for its statistical analysis, not for this toy partition.
+
+Keep the first input row from the animation and append a second row (3, 1, 2, −8). The absolute column maxima are (3, 2, 1270, 8).
+
+| Threshold | FP16 features (1-based) | INT8 features | FP16 MAC fraction |
+|---|---|---|---:|
+| 6 | 3, 4 | 1, 2 | 50% |
+| 10 | 3 | 1, 2, 4 | 25% |
+| 2000 | none | 1, 2, 3, 4 | 0% |
+
+At threshold 6, feature 4 is routed to FP16 for both tokens, including the first row's value 3. A cell-level mask would miss this shared feature partition. With $k$ selected features, the FP16 branch performs $mnk$ multiply-accumulates and the INT8 branch performs $mn(d-k)$, so the idealised arithmetic fraction is $k/d$. This is not a latency or memory fraction: vector-wise scales, gathering, kernel overhead, reuse and the output accumulation also matter. All values are constructed examples, not measured model statistics.
+
 ## Equation or algorithm
 
 The product of the input \(X\) and weights \(W\) is written as a sum over normal dimensions, quantised to int8, plus a sum over outlier dimensions computed in fp16. Each row of \(X\) and column of \(W\) has its own scale.

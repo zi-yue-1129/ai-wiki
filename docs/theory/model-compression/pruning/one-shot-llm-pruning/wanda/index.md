@@ -37,6 +37,26 @@ The difference illustrates why a small weight can have a large contribution when
 
 *Original instructional animation, CC BY-SA 4.0.*
 
+### Why the score can fail: signed contributions
+
+For a calibration matrix $X$ (tokens × features) and a fixed output weight vector $w$, let $r$ contain the removed weights and zeros elsewhere. Without updating the retained weights, the reconstruction residual is $Xr$, and its squared norm is
+
+$
+L(r)=r^T G r,\qquad G=X^T X.
+$
+
+The diagonal contribution is $\sum_j r_j^2 G_{jj}$. Wanda's squared score for a removed weight equals that diagonal term. If the feature columns are orthogonal on the calibration set, the off-diagonal terms vanish, so removing the smallest scores minimises this fixed-cardinality reconstruction loss without weight updates. In general, the cross terms can reinforce or cancel one another; Wanda does not optimise them.
+
+Change only the sign of the fourth input in the animation, from 6 to −6. Its activation norm and both masks remain unchanged, but the signed contributions change from (4, 3, 8, 6) to (4, 3, 8, −6).
+
+| Input | Dense | Magnitude | Wanda |
+|---|---:|---:|---:|
+| (1, 1, 4, 6) | 21 | 7 | 14 |
+| (1, 1, 4, −6) | 9 | 7 | 2 |
+| Absolute error, signed case | 0 | 2 | 7 |
+
+In the signed case, the two contributions removed by magnitude pruning cancel substantially (8 − 6 = 2). Wanda removes contributions 4 and 3, which reinforce each other. Thus the ranking by output error reverses even though the importance scores are identical. This constructed counterexample concerns one row and a local reconstruction objective, not language-model perplexity or the empirical results of Sun et al. (2023).
+
 ## Equation or algorithm
 
 The score of weight \(W_{ij}\) is
