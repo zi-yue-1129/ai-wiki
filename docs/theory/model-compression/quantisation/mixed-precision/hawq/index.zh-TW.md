@@ -14,9 +14,30 @@ HAWQ（Hessian AWare Quantization，海森感知量化）依每一層損失函�
 
 以損失函數對每一層權重的海森矩陣作為敏感度的度量。論文依據每一層的海森譜（Hessian spectrum）來決定該層的相對精度，因此曲率高的層會被更謹慎地量化。位元預算則優先分配給最敏感的層。
 
+### 動畫解讀：曲率與相同位元預算
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以檢視教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/hawq-curvature-budget-still.svg" src="../../../../../assets/concept-animations/hawq-curvature-budget-still.svg" data-motion-src="../../../../../assets/concept-animations/hawq-curvature-budget-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="比較相同 12 位元預算配置下尖銳與平坦區塊的二次損失貢獻。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/hawq-curvature-budget-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/hawq-curvature-budget-motion.svg)
+
+在 MkDocs 使用播放／暫停（Enter 或空白鍵）檢視變化；GitHub 與減少動態效果模式使用靜態比較圖。原創示意圖，**CC BY-SA 4.0**。
+
+在駐點附近，忽略跨區塊交互作用與高階項，曲率為 $h$ 的純量二次區塊受到擾動 $\delta$ 時，損失增量為 $\Delta L=\frac12 h\delta^2$。考慮兩個大小相同、曲率分別為 8 與 2 的純量區塊，權重位元總預算為 12。假設 4 位元與 8 位元的示意絕對擾動分別為 0.5 與 0.25，這是人工算例，而非量化器的規格。長條增長至各區塊的損失貢獻；中間長度是呈現進度，而非最佳化實測狀態。
+
+| 位元配置（尖銳、平坦） | 尖銳區塊損失 | 平坦區塊損失 | 總和 |
+| --- | ---: | ---: | ---: |
+| (4, 8) | 1 | 0.0625 | 1.0625 |
+| (8, 4) | 0.25 | 0.25 | 0.5 |
+
+兩種配置耗用相同位元數，但保護曲率較高的區塊可降低二次損失。原始 HAWQ 中，Dong 等人（2019，第 III-B 節）以海森矩陣最大特徵值除以區塊參數數量 $S_i=\lambda_i/n_i$ 來取得**相對**精度排序；微調順序則使用 $\Omega_i=\lambda_i\|Q(W_i)-W_i\|_2^2$。原始分數無法直接決定確切位元寬度。本雙區塊算例僅為等大小的解析示意，並非完整 HAWQ 搜尋、實際量化網格或模型準確率實測。參見 [Dong 等人（2019），公式 5–6](https://arxiv.org/abs/1905.03696)。
+
 ## 公式或演算法
 
-論文的摘要描述了依每一層的海森譜來選擇其相對量化精度。大型網路的完整海森矩陣太大，無法直接形成，因此方法使用可由損失與梯度估計的、基於海森的量。每一層會得到一個敏感度分數，然後在記憶體限制下選擇位元寬度，以降低總敏感度。確切的估計器與搜尋程序，見論文的方法章節，應以原文為準。
+論文的摘要描述了依每一層的海森譜來選擇其相對量化精度。大型網路的完整海森矩陣太大，無法直接形成，因此方法使用可由損失與梯度估計的、基於海森的量。原始 HAWQ 的敏感度排序只決定區塊的相對精度，確切位元寬度仍需另行選定。確切的估計器與搜尋程序，見論文的方法章節，應以原文為準。
 
 ## 結果
 

@@ -9678,6 +9678,36 @@
         }
       ],
       "viewBox": "0 0 720 400"
+    },
+    "nm-sr-ste-mask-turnover": {
+      "origins": [
+        {
+          "origin_blob": "ac2497e412e9c75fdc55cb8ba2ab3a7b021ee063",
+          "origin_commit": "d0fd5828dd0ac22e377248d3aa498da3724e0a07",
+          "path": "docs/assets/concept-animations/nm-sr-ste-mask-turnover-motion.svg"
+        },
+        {
+          "origin_blob": "f08737c42084bd4045cc77a6203237b8bea32d1f",
+          "origin_commit": "d0fd5828dd0ac22e377248d3aa498da3724e0a07",
+          "path": "docs/assets/concept-animations/nm-sr-ste-mask-turnover-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "hawq-curvature-budget": {
+      "origins": [
+        {
+          "origin_blob": "fdd0311995152f8f3c73361e01966c5053ed0b9d",
+          "origin_commit": "d0fd5828dd0ac22e377248d3aa498da3724e0a07",
+          "path": "docs/assets/concept-animations/hawq-curvature-budget-motion.svg"
+        },
+        {
+          "origin_blob": "23345d906cb0a56a5e9655ff06bbbd1a84dbfbe6",
+          "origin_commit": "d0fd5828dd0ac22e377248d3aa498da3724e0a07",
+          "path": "docs/assets/concept-animations/hawq-curvature-budget-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {

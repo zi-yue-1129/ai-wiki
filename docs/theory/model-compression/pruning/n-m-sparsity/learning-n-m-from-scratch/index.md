@@ -23,6 +23,33 @@ N:M sparsity is hardware friendly, but it was unclear whether networks can be tr
 
 Enforce the N:M constraint during training, so that the weights and their selection evolve together under the pattern. The network never has to recover from a one-off cut to the pattern.
 
+### Visual walkthrough: latent weights and mask turnover
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/nm-sr-ste-mask-turnover-still.svg" src="../../../../../assets/concept-animations/nm-sr-ste-mask-turnover-still.svg" data-motion-src="../../../../../assets/concept-animations/nm-sr-ste-mask-turnover-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Two latent-weight updates from the same 2:4 mask, showing a mask exchange with STE and unchanged mask with SR-STE.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/nm-sr-ste-mask-turnover-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/nm-sr-ste-mask-turnover-motion.svg)
+
+On MkDocs, use Play/Pause (Enter or Space) to inspect the changes. GitHub and reduced-motion readers see the static comparison. Original diagram, **CC BY-SA 4.0**.
+
+The forward pass uses $\widetilde w=m\odot w$, retaining the two largest-magnitude latent weights in each group of four. The latent vector $w$ is updated using the straight-through gradient $g=\nabla_{\widetilde w}L$. Zhou et al. (2021, Sections 3.2–3.3) introduce the sparse-refined update
+
+$
+w^+=w-\eta[g+\lambda(1-m)\odot w].
+$
+
+The additional term suppresses the magnitude of weights masked in the current forward pass without permanently freezing them. In this schematic one-block example, $w=(0.9,0.8,0.7,0.2)$, $m=(1,1,0,0)$, $g=(0,0,-0.22,0)$ and $\eta=1$. The bars show the latent weights, blue for initially retained positions and amber for initially masked positions. They interpolate between the two endpoints for explanation, not to depict multiple SGD iterations. The green boxes show the next forward mask.
+
+| Update | Next latent weights | Next mask | SAD |
+| --- | --- | --- | --- |
+| STE ($\lambda=0$) | (0.90, 0.80, 0.92, 0.20) | (1, 0, 1, 0) | 2 |
+| SR-STE ($\lambda=0.3$) | (0.90, 0.80, 0.71, 0.14) | (1, 1, 0, 0) | 0 |
+
+Sparse Architecture Divergence (SAD) is $\|m^+-m\|_1$: one exchanged connection changes two binary positions. Both forward masks retain exactly two positions. A sufficiently large opposing task gradient can still change the mask under SR-STE; stability is encouraged, not guaranteed. The unusually large illustrative regularisation and learning rate make a single update visible; they are **not** the paper's experimental settings or model measurements. See [Zhou et al. (2021), Eq. 4](https://arxiv.org/abs/2102.04010).
+
 ## Equation or algorithm
 
 Within each block of \(M\) weights, at most \(N\) may be non-zero. The method keeps this constraint throughout training, and the choice of which weights are non-zero is updated as the weights change. The exact update rule is in the paper.
