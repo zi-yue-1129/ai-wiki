@@ -9678,6 +9678,36 @@
         }
       ],
       "viewBox": "0 0 720 400"
+    },
+    "rkd-normalized-geometry": {
+      "origins": [
+        {
+          "origin_blob": "0d6163a75eb4cca6b02385141c5da73ee7fe311c",
+          "origin_commit": "0dc908f46ad495fdd46bd97bd9051649aa7083f2",
+          "path": "docs/assets/concept-animations/rkd-normalized-geometry-motion.svg"
+        },
+        {
+          "origin_blob": "4d2deffeda047e37a8b1f94e1c4c0c86c879f3fa",
+          "origin_commit": "0dc908f46ad495fdd46bd97bd9051649aa7083f2",
+          "path": "docs/assets/concept-animations/rkd-normalized-geometry-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "sp-row-gram-normalization": {
+      "origins": [
+        {
+          "origin_blob": "fb763119c3230da296b115bf8742607e40e6cf53",
+          "origin_commit": "0dc908f46ad495fdd46bd97bd9051649aa7083f2",
+          "path": "docs/assets/concept-animations/sp-row-gram-normalization-motion.svg"
+        },
+        {
+          "origin_blob": "bdf7add3ebfb94ff19f62f25ee5994b9b1688e97",
+          "origin_commit": "0dc908f46ad495fdd46bd97bd9051649aa7083f2",
+          "path": "docs/assets/concept-animations/sp-row-gram-normalization-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {
