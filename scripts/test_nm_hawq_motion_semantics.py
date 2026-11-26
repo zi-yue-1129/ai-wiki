@@ -39,5 +39,39 @@ class MaskAndCurvature(unittest.TestCase):
                 self.assertIn(f'Total ΔL = {loss}', labels('hawq-curvature-budget', kind))
 
 
+    def test_mask_turnover_threshold(self):
+        from fractions import Fraction as F
+        for lam in (F(0), F(3, 10), F(1)):
+            threshold = F(1, 10) + F(7, 10)*lam
+            for offset in (-F(1, 100), F(0), F(1, 100)):
+                u = threshold + offset
+                third = F(7, 10) + u - F(7, 10)*lam
+                self.assertEqual(third > F(8, 10), offset > 0)
+                self.assertEqual(third == F(8, 10), offset == 0)
+
+    def test_quadratic_perturbation_animation(self):
+        motion = ET.parse(ASSETS / 'hawq-curvature-budget-motion.svg').getroot()
+        still = ET.parse(ASSETS / 'hawq-curvature-budget-still.svg').getroot()
+        for j in range(2):
+            for i in range(2):
+                h = 2 if i else 8
+                d = 0.5 if j == i else 0.25
+                def track(kind):
+                    node = motion.find(f".//*[@id='moving-{j}-{i}-{kind}']")
+                    static = still.find(f".//*[@id='still-{j}-{i}-{kind}']")
+                    a = node.find(NS + 'animate')
+                    return ([float(v) for v in a.get('values').split(';')],
+                            a.get('keyTimes'), float(static.get('width')))
+                delta, dt, delta_end = track('delta')
+                loss, lt, loss_end = track('loss')
+                self.assertEqual(dt, lt)
+                self.assertEqual(len(delta), len(loss))
+                self.assertEqual(delta_end, 300*d)
+                self.assertEqual(loss_end, 150*0.5*h*d*d)
+                for dw, lw in zip(delta, loss):
+                    self.assertAlmostEqual(lw/150, 0.5*h*(dw/300)**2, places=6)
+        self.assertEqual(0.5*(8-2)*(0.5**2-0.25**2), 0.5625)
+
+
 if __name__ == '__main__':
     unittest.main()

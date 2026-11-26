@@ -36,7 +36,7 @@ Use the Hessian of the loss with respect to each layer's weights as a measure of
 
 On MkDocs, use Play/Pause (Enter or Space) to inspect the changes. GitHub and reduced-motion readers see the static comparison. Original diagram, **CC BY-SA 4.0**.
 
-Near a stationary point, ignoring cross-block interactions and higher-order terms, a scalar quadratic block with curvature $h$ has loss increase $\Delta L=\frac12 h\delta^2$ for perturbation $\delta$. Consider two equally sized scalar blocks with curvatures 8 and 2, and a total budget of 12 weight bits. Assign schematic absolute perturbations 0.5 to 4 bits and 0.25 to 8 bits; these are constructed examples, not quantizer specifications. The bars grow to show the loss contributions; their intermediate lengths are presentation progress rather than measured optimisation states.
+Near a stationary point, ignoring cross-block interactions and higher-order terms, a scalar quadratic block with curvature $h$ has loss increase $\Delta L=\frac12 h\delta^2$ for perturbation $\delta$. Consider two equally sized scalar blocks with curvatures 8 and 2, and a total budget of 12 weight bits. Assign schematic absolute perturbations 0.5 to 4 bits and 0.25 to 8 bits; these are constructed examples, not quantizer specifications. Amber bars grow linearly with the schematic perturbation magnitude (full scale 0.5); blue and teal loss bars grow quadratically (full scale 1). At each sampled animation knot the loss is computed from the corresponding perturbation; interpolation between knots approximates the quadratic curve. The reset is a presentation transition, not an optimisation trajectory.
 
 | Bit allocation (sharp, flat) | Sharp loss | Flat loss | Total |
 | --- | ---: | ---: | ---: |
@@ -44,6 +44,16 @@ Near a stationary point, ignoring cross-block interactions and higher-order term
 | (8, 4) | 0.25 | 0.25 | 0.5 |
 
 Both allocations cost the same number of bits, but protecting the sharper block reduces the quadratic loss. For the original HAWQ, Dong et al. (2019, Section III-B) rank blocks by the top Hessian eigenvalue divided by the block parameter count, $S_i=\lambda_i/n_i$, to obtain a **relative** precision ordering; their fine-tuning order uses $\Omega_i=\lambda_i\|Q(W_i)-W_i\|_2^2$. The original score does not determine exact bit widths. The two-block example is an analytic illustration with equal sizes, not the full HAWQ search, a real quantization grid, or measured model accuracy. See [Dong et al. (2019), Eqs. 5–6](https://arxiv.org/abs/1905.03696).
+
+### Why the allocation wins (and when it may not)
+
+For equal-size independent scalar blocks, let $e_4>e_8\geq0$ be the same candidate error magnitudes for both blocks. Subtracting the losses for allocations (4, 8) and (8, 4) gives
+
+$
+L_{4,8}-L_{8,4}=\tfrac12(h_A-h_B)(e_4^2-e_8^2).
+$
+
+For the illustrated curvatures and errors this is 0.5625. If the curvatures are equal there is no advantage in swapping. With layer-dependent quantization errors, unequal parameter counts or cross-block Hessian terms, this simplified ordering need not hold. A real bit budget counts bits per parameter (and may include metadata), not just the sum of layer bit-widths.
 
 ## Equation or algorithm
 

@@ -50,6 +50,16 @@ The additional term suppresses the magnitude of weights masked in the current fo
 
 Sparse Architecture Divergence (SAD) is $\|m^+-m\|_1$: one exchanged connection changes two binary positions. Both forward masks retain exactly two positions. A sufficiently large opposing task gradient can still change the mask under SR-STE; stability is encouraged, not guaranteed. The unusually large illustrative regularisation and learning rate make a single update visible; they are **not** the paper's experimental settings or model measurements. See [Zhou et al. (2021), Eq. 4](https://arxiv.org/abs/2102.04010).
 
+### When does the mask change?
+
+Hold the first two latent weights fixed and replace the third gradient by $-u$, with $u\geq0$ and $0\leq\lambda\leq1$. The fourth weight remains below both initially active weights. The third becomes $0.7+u-0.7\lambda$; it enters the top two precisely when
+
+$
+u>0.1+0.7\lambda.
+$
+
+At equality the next mask depends on the tie-breaking rule. The illustrated $u=0.22$ causes turnover at $\lambda=0$ but not at $\lambda=0.3$ (threshold 0.31). At $u=0.4$ even $\lambda=0.3$ allows turnover. This is a one-step threshold for this block, not a universal stability guarantee or a recommended training coefficient.
+
 ## Equation or algorithm
 
 Within each block of \(M\) weights, at most \(N\) may be non-zero. The method keeps this constraint throughout training, and the choice of which weights are non-zero is updated as the weights change. The exact update rule is in the paper.
