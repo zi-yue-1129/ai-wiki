@@ -38,7 +38,13 @@ Take teacher feature rows $(1,0),(1,1),(0,1)$ and student rows $(0,2),(2,2),(2,0
 </div>
 </div>
 
-*Original 12-second teaching animation (CC BY-SA 4.0).* Watch the Gram rows appear, followed by their exact divisors and normalised entries rounded to three decimals. Row-wise reveal is explanatory, not the execution schedule of a matrix multiplication kernel. All values are illustrative. MkDocs provides keyboard-accessible Play/Pause; GitHub shows the [static fallback](../../../../../assets/concept-animations/sp-row-gram-normalization-still.svg)。 [Full SVG animation](../../../../../assets/concept-animations/sp-row-gram-normalization-motion.svg).
+*Original 12-second teaching animation (CC BY-SA 4.0).* Watch the Gram rows appear, followed by their exact divisors and normalised entries rounded to three decimals. Row-wise reveal is explanatory, not the execution schedule of a matrix multiplication kernel. All values are illustrative. MkDocs provides keyboard-accessible Play/Pause; GitHub shows the [static fallback](../../../../../assets/concept-animations/sp-row-gram-normalization-still.svg). [Full SVG animation](../../../../../assets/concept-animations/sp-row-gram-normalization-motion.svg).
+
+### Global scaling versus per-example scaling
+
+For a shared positive scale $s$ and an orthogonal feature transform $R$, replacing $Q$ by $sQR$ multiplies $G$ by $s^2$, which row normalisation cancels. Independent positive scaling of each example instead produces $G'=DGD$ for a diagonal matrix $D$ of sample scales; the column scaling generally survives row normalisation.
+
+For a counterexample, use the animation's teacher features but double only its first row: $(2,0),(1,1),(0,1)$. All pairwise cosine similarities are unchanged, yet the first normalised Gram row changes from $(1,1,0)/\sqrt{2}$ to $(4,2,0)/\sqrt{20}$, and the second from $(1,2,1)/\sqrt{6}$ to $(2,2,1)/3$. The third row is unchanged. The layer loss becomes approximately $0.021942$ rather than zero. This constructed example isolates the distinction between SP row normalisation and cosine similarity; it is not a measured training loss.
 
 ## Results
 
