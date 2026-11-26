@@ -33,6 +33,24 @@ The weight approximation is \(W \approx \alpha B\), with \(B = \operatorname{sig
 
 where \(n\) is the number of weights in the filter. The scale is therefore the mean absolute value of the filter's weights. The convolution is approximated as \(I \ast W \approx (I \oplus B)\,\alpha\), where \(\oplus\) uses only additions and subtractions. In the full XNOR-Net variant the inputs \(I\) are binarised in the same way, and the dot product of two binary vectors becomes an XNOR followed by a popcount.
 
+### Visual walkthrough: signed dot product and population count
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/xnor-popcount-dot-still.svg" src="../../../../../assets/concept-animations/xnor-popcount-dot-still.svg" data-motion-src="../../../../../assets/concept-animations/xnor-popcount-dot-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Six sign-bit comparisons reveal matches, accumulate a population count of four, and convert it into the signed dot product two and scaled output eight.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/xnor-popcount-dot-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/xnor-popcount-dot-motion.svg)
+
+Map positive signs to bit 1 and negative signs to bit 0. For one flattened six-element convolution patch, take $w=(2,-1,3,-2,1,-3)$ and $x=(2,-1,-1,-2,4,2)$. The weight and input scales are both 2 (mean absolute magnitude). Their bit vectors are $(1,0,1,0,1,0)$ and $(1,0,0,0,1,1)$. XNOR marks equal signs as 1 and unequal signs as 0, so the result is $(1,1,0,1,1,0)$ and its population count is 4.
+
+For $n$ valid bits and $c$ matches, the signed binary dot product is $c-(n-c)=2c-n$, not just $c$. Here it is 2; applying the two real scales gives $2\times2\times2=8$. The original real-valued dot product is 4, so scaling is an approximation, not an identity. Padding bits in a packed word must be excluded from the count. The sequential comparisons are a teaching visualisation, not a claim that a real packed kernel processes one bit at a time. All numbers are schematic, not model measurements. See Rastegari et al. (2016) in References.[^xnor-motion]
+
+On MkDocs use Play/Pause (Enter or Space) to inspect the changes. GitHub and reduced-motion readers see the complete static result. Original artwork, **CC BY-SA 4.0**.
+
+[^xnor-motion]: Rastegari et al. (2016). https://arxiv.org/abs/1603.05279 — Original method.
+
 ## Results
 
 The abstract reports that the binary-weight version of AlexNet matches the classification accuracy of the full-precision AlexNet on ImageNet. The fully binary XNOR-Net is less accurate. The paper's Table 1 gives 44.2% top-1 accuracy for XNOR-Net against 56.6% for full-precision AlexNet, a gap of 12.4 points, and the abstract reports that it is more than 16% more accurate than BinaryConnect and BinaryNet.

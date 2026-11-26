@@ -34,6 +34,24 @@ $$
 
 其中 $Q^j$ 是第 $j$ 層的向量化注意力圖，$\mathcal{I}$ 是被匹配的層集合，$\beta$ 是懲罰的權重，$p$ 是範數類型，論文設為 2。正規化使比較不受圖的整體尺度影響。
 
+### 動態解讀: 空間能量的正規化
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以檢視教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/attention-transfer-spatial-energy-still.svg" src="../../../../../assets/concept-animations/attention-transfer-spatial-energy-still.svg" data-motion-src="../../../../../assets/concept-animations/attention-transfer-spatial-energy-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="教師的兩個特徵通道與學生的一個通道逐位置平方加總，正規化後即使原始能量不同也得到相同注意力圖。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/attention-transfer-spatial-energy-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/attention-transfer-spatial-energy-motion.svg)
+
+對冪次為 2 的激活式映射，使用展平後的 $2\times2$ 教師通道 $(2,0,0,1)$、$(0,1,0,0)$，以及學生的單一通道 $(4,2,0,2)$。教師第一個通道貢獻 $(4,0,0,1)$，第二個通道再加入 $(0,1,0,0)$。原始空間圖為 $Q_T=(4,1,0,1)$ 與 $Q_S=(16,4,0,4)=4Q_T$。
+
+教師的範數為 $\sqrt{18}$，學生的範數為 $4\sqrt{18}$。各自除以自身範數後，皆得到向量 $(4,1,0,1)/\sqrt{18}$，約為 $(0.943,0.236,0,0.236)$。即使通道數與原始幅度不同，注意力圖的距離仍為零。這說明匹配空間能量不必複製完整特徵張量。映射的冪次與比較範數是不同的選擇，本例皆採用 2。全零圖需要明確的數值保護（例如在分母加入 epsilon）。通道欄的熱圖深淺依各組特徵的尺度呈現，原始能量欄則共用尺度。這是示意前向計算，並非實測激活值或模擬訓練軌跡。參見參考文獻 Zagoruyko 與 Komodakis。[^at-motion]
+
+MkDocs 網站可用播放／暫停（Enter 或空白鍵）檢視變化；GitHub 與偏好減少動態效果的讀者可檢視完整靜態結果。原創動畫，**CC BY-SA 4.0**。
+
+[^at-motion]: Zagoruyko 與 Komodakis（2016）. https://arxiv.org/abs/1612.03928 — 原始方法。
+
 ## 結果
 
 在 CIFAR-10 上，論文的表 1 回報五次執行的測試誤差中位數。注意力轉移降低了表中每一組學生與教師配對的誤差，包括教師比學生更深的配對。下表列出其中三組。
