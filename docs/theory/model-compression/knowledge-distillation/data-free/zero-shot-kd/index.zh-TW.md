@@ -30,6 +30,22 @@ $$
 
 其中 $H$ 為交叉熵，$T(\bar{x};\theta_T)$ 為教師的 softmax 輸出。學生 $S$ 接著在 Data Impressions 上最小化它與教師 softmax 輸出之間的蒸餾損失。
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="四次梯度更新改變輸入；凍結教師的機率由 0.27 增至 0.75，接近目標 0.80。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/zskd-input-optimization-still.svg" data-motion-src="../../../../../assets/concept-animations/zskd-input-optimization-motion.svg" data-still-src="../../../../../assets/concept-animations/zskd-input-optimization-still.svg" alt="四次梯度更新改變輸入；凍結教師的機率由 0.27 增至 0.75，接近目標 0.80。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 在合成輸入期間固定抽出的目標。 網站支援鍵盤操作播放／暫停；GitHub 顯示[靜態回退圖](../../../../../assets/concept-animations/zskd-input-optimization-still.svg)。[完整 SVG 動畫](../../../../../assets/concept-animations/zskd-input-optimization-motion.svg)。[原始論文](https://arxiv.org/abs/1905.08114)。
+
+以二元分類的純量算例展示輸入合成階段：固定教師 $T(x)=\sigma(x)$，假設抽出的目標為 $(0.8,0.2)$，依序對應類別 1 與 0。軟目標二元交叉熵 $H(0.8,T(x))$ 對**輸入**的導數為 $\sigma(x)-0.8$。由 $x_0=-1$ 出發，使用步長 2 進行梯度下降：
+
+$
+x_{k+1}=x_k+2(0.8-\sigma(x_k)).
+$
+
+四步後 $x_4\approx1.0932$、$T(x_4)\approx0.7490$；純量問題的精確最小值位置為 $\log(4)\approx1.3863$。教師參數不更新。此目標是人工設定的機率向量，並非實際 Dirichlet 抽樣；動畫未模擬類別相似度提取或學生最佳化。步長與機率不是模型實測值。Data Impression 是替代輸入，不保證重建原始訓練資料。
+
 ## 結果
 
 在 MNIST 上，教師為參數量 61,706 的 LeNet-5，學生為參數量 35,820 的 LeNet-5-Half。論文表 1 回報的測試準確率如下。
