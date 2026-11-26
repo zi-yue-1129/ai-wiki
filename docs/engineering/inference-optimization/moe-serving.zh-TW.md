@@ -48,6 +48,21 @@ flowchart LR
 
 兩次全互連通訊，是專家平行化所增加的成本。它們的大小取決於批次，以及路由器把 token 分散得多均勻。
 
+### 範例：專家負載不均與慢速裝置
+
+八個 top-1 指派送至四台各持有一個專家的裝置。假設每次指派耗費一個時間單位、所有專家同時開始、不丟棄或填補 token，且合併步驟等待所有專家完成。比較負載 (2, 2, 2, 2) 與 (5, 1, 1, 1)。
+
+<img data-source-asset-urls src="../../assets/concept-animations/moe-expert-straggler-still.svg" data-motion-src="../../assets/concept-animations/moe-expert-straggler-motion.svg" data-still-src="../../assets/concept-animations/moe-expert-straggler-still.svg" alt="八個指派的總工作量相同；均衡負載於時間 2 完成，不均衡負載於時間 5 完成，三個專家各等待四個時間單位。">
+
+*原創教學動畫，CC BY-SA 4.0。* 藍色長條隨運算進度延伸，深灰色長條表示已完成的專家等待層級同步的時間；琥珀色線條表示共用時鐘。MkDocs 網站支援鍵盤操作的**播放／暫停**控制，啟用減少動態效果時顯示靜態圖。[GitHub 靜態預覽](../../assets/concept-animations/moe-expert-straggler-still.svg)。
+
+| 負載分布 | 總工作量 | 專家階段耗時 | 裝置閒置時間總和 |
+|---|---:|---:|---:|
+| 均衡 | 8 | 2 | 0 |
+| 不均衡 | 8 | 5 | 12 |
+
+設各專家的負載為 $n_i$，每次指派耗時相同且為一單位，理想化專家階段耗時為 $T=\max_i n_i$。四台裝置在同步前的閒置時間總和為 $4T-\sum_i n_i$，不均衡時為 12。有效運算時間比例從 100% 降為 40%。總活躍工作量相同，不代表層級延遲相同。2.5 倍的階段耗時差異僅為示意，並非 MoE 實測加速比；未計入派送、合併、專家 GEMM 效率、網路競爭與容量限制。實際分散式實作可參考 [GShard](gshard.zh-TW.md) 與 [DeepSpeed-MoE](deepspeed-moe.zh-TW.md)。
+
 ## 關鍵方法
 
 每個具名方法各有自己的頁面。下表比較它們。

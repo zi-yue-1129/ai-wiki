@@ -43,6 +43,22 @@ A request is routed to a prefill pool, which computes the prompt's KV cache. The
 
 The transfer is the step that the design must make cheap. Systems that use it reduce the cost by sending cache blocks over fast interconnects, and by overlapping the transfer with computation.
 
+### Worked example: KV transfer becomes the bottleneck
+
+Consider three requests A, B and C arriving at times 0, 2 and 4. Each needs two time units of prefill, three of KV transfer and two of decode. There is one independent worker for each phase and one serialized FIFO transfer link, with no batching, preemption or within-request overlap. Buffers are sufficient.
+
+<img data-source-asset-urls src="../../assets/concept-animations/disagg-link-queue-still.svg" data-motion-src="../../assets/concept-animations/disagg-link-queue-motion.svg" data-still-src="../../assets/concept-animations/disagg-link-queue-still.svg" alt="Three requests overlap across independent prefill, serialized KV transfer, and decode; link waiting grows from zero to one to two units, with completion times seven, ten, and thirteen.">
+
+*Original animated teaching diagram, CC BY-SA 4.0.* Each coloured segment grows as simulated time advances; grey is waiting for the link and pale segments are future work. On MkDocs use the keyboard-accessible **Play/Pause** control; reduced-motion preferences show the still. [Static preview for GitHub](../../assets/concept-animations/disagg-link-queue-still.svg).
+
+| Request | Prefill interval | Link wait | Transfer interval | Decode interval | Finish |
+|---|---|---:|---|---|---:|
+| A | 0–2 | 0 | 2–5 | 5–7 | 7 |
+| B | 2–4 | 1 | 5–8 | 8–10 | 10 |
+| C | 4–6 | 2 | 8–11 | 11–13 | 13 |
+
+The link can complete one request every three time units, whereas each compute worker can complete one every two. A sustained arrival interval of two thus exceeds the link's capacity; separating compute phases alone does not prevent queue growth. With a two-unit transfer instead, the same three requests would finish at 6, 8 and 10 without link waiting. These are deterministic teaching assumptions, not a trace, TTFT/TPOT measurement, or claim about a particular implementation. Real systems may stream individual layers, overlap transfer, and use different cache sizes or bandwidths; see [DistServe](distserve.md) and [Splitwise](splitwise.md).
+
 ## Key methods
 
 Each named system has its own page, which gives the problem, the core idea, the reported results and the limitations. The table compares them.

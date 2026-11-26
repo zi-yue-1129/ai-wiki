@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,51 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+
+class ServingBottleneckSemantics(unittest.TestCase):
+    def solid_rects(self, stem, variant, color, height):
+        root = ET.parse(ASSETS / f'{stem}-{variant}.svg').getroot()
+        return [e for e in root.iter(v.NS + 'rect')
+                if e.get('fill') == color and e.get('height') == str(height)
+                and float(e.get('width', '0')) > 0]
+
+    def test_expert_straggler_wait_and_work(self):
+        for variant in ('still', 'motion'):
+            busy = self.solid_rects('moe-expert-straggler', variant, '#35678f', 29)
+            wait = self.solid_rects('moe-expert-straggler', variant, '#aabdc9', 29)
+            loads = [int(e.get('width')) // 40 for e in busy]
+            self.assertEqual(loads, [2, 2, 2, 2, 5, 1, 1, 1])
+            self.assertEqual([sum(loads[:4]), sum(loads[4:])], [8, 8])
+            self.assertEqual([max(loads[:4]), max(loads[4:])], [2, 5])
+            self.assertEqual(sum(int(e.get('width')) // 40 for e in wait), 12)
+
+    def test_serial_link_wait_and_completion(self):
+        arrivals = [0, 2, 4]
+        free = [0, 0, 0]
+        intervals = [[], [], []]
+        waits = []
+        for arrival in arrivals:
+            t = arrival
+            for i, duration in enumerate((2, 3, 2)):
+                start = max(t, free[i])
+                if i == 1:
+                    waits.append(start - t)
+                free[i] = start + duration
+                intervals[i].append((start, free[i]))
+                t = free[i]
+        self.assertEqual(waits, [0, 1, 2])
+        self.assertEqual([b for a, b in intervals[2]], [7, 10, 13])
+        for variant in ('still', 'motion'):
+            for i, color in enumerate(('#35678f', '#a26420', '#08756e')):
+                bars = self.solid_rects('disagg-link-queue', variant, color, 32)
+                rendered = [((int(e.get('x')) - 105) // 38,
+                             (int(e.get('x')) - 105 + int(e.get('width')) + 2) // 38)
+                            for e in bars]
+                self.assertEqual(rendered, intervals[i])
+            wait_bars = self.solid_rects('disagg-link-queue', variant, '#aabdc9', 32)
+            self.assertEqual([(int(e.get('width')) + 2) // 38 for e in wait_bars], [1, 2])
 
 
 if __name__ == '__main__':
