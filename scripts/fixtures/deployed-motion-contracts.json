@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "wanda-activation-pruning": {
+      "origins": [
+        {
+          "origin_blob": "2b27d2ec32b5e437b2465a0093e8b3c36bd6048c",
+          "origin_commit": "b2eebe37770d10e0a6a5cd09eda60a04710e3727",
+          "path": "docs/assets/concept-animations/wanda-activation-pruning-motion.svg"
+        },
+        {
+          "origin_blob": "f5bed60346cadc4bfab112e481925a40f1b8c5c5",
+          "origin_commit": "b2eebe37770d10e0a6a5cd09eda60a04710e3727",
+          "path": "docs/assets/concept-animations/wanda-activation-pruning-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "llm-int8-outlier-split": {
+      "origins": [
+        {
+          "origin_blob": "7439b9200dae61e096496ee8bdfa7f4f7a1a977d",
+          "origin_commit": "b2eebe37770d10e0a6a5cd09eda60a04710e3727",
+          "path": "docs/assets/concept-animations/llm-int8-outlier-split-motion.svg"
+        },
+        {
+          "origin_blob": "a94eb4ea8b6cd1b4283c44f2ab7b077da7f0e07f",
+          "origin_commit": "b2eebe37770d10e0a6a5cd09eda60a04710e3727",
+          "path": "docs/assets/concept-animations/llm-int8-outlier-split-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

@@ -23,6 +23,40 @@ SparseGPT is accurate, but it needs a second-order calculation for each layer. A
 
 A weight matters when it is large and when the input it multiplies is large. Score each weight by the product of these two, and prune the lowest-scoring weights in each output. No other weight is changed.
 
+### Visual walkthrough
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/wanda-activation-pruning-still.svg" data-motion-src="../../../../../assets/concept-animations/wanda-activation-pruning-motion.svg" data-still-src="../../../../../assets/concept-animations/wanda-activation-pruning-still.svg" alt="Activation-aware scores select different weights from magnitude-only pruning at the same sparsity" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../../../../assets/concept-animations/wanda-activation-pruning-still.svg) · Use the keyboard-accessible **Play/Pause** control on MkDocs; reduced-motion preferences initially show the still.
+
+Consider one output row with weights (4, 3, 2, 1) and a single calibration input (1, 1, 4, 6), so the four input-feature L2 norms are (1, 1, 4, 6). The animation builds the Wanda scores (4, 3, 8, 6) one channel at a time, then compares two masks with 50% sparsity. Magnitude pruning within this row keeps the first two weights; Wanda keeps the last two. The dense dot product is 21. On the same toy input, magnitude pruning produces 7 and Wanda produces 14. The retained weights are unchanged in both cases.
+
+The difference illustrates why a small weight can have a large contribution when its input activation is large. These are constructed values, not model measurements; this one positive input is deliberately simple. Across multiple calibration tokens the feature norm is computed over all observations, and correlated or signed contributions can cancel. The score is a heuristic, not a guarantee of minimum output error for every input. See Sun et al. (2023), especially the pruning metric and per-output comparison in the existing References.
+
+*Original instructional animation, CC BY-SA 4.0.*
+
+### Why the score can fail: signed contributions
+
+For a calibration matrix $X$ (tokens × features) and a fixed output weight vector $w$, let $r$ contain the removed weights and zeros elsewhere. Without updating the retained weights, the reconstruction residual is $Xr$, and its squared norm is
+
+$
+L(r)=r^T G r,\qquad G=X^T X.
+$
+
+The diagonal contribution is $\sum_j r_j^2 G_{jj}$. Wanda's squared score for a removed weight equals that diagonal term. If the feature columns are orthogonal on the calibration set, the off-diagonal terms vanish, so removing the smallest scores minimises this fixed-cardinality reconstruction loss without weight updates. In general, the cross terms can reinforce or cancel one another; Wanda does not optimise them.
+
+Change only the sign of the fourth input in the animation, from 6 to −6. Its activation norm and both masks remain unchanged, but the signed contributions change from (4, 3, 8, 6) to (4, 3, 8, −6).
+
+| Input | Dense | Magnitude | Wanda |
+|---|---:|---:|---:|
+| (1, 1, 4, 6) | 21 | 7 | 14 |
+| (1, 1, 4, −6) | 9 | 7 | 2 |
+| Absolute error, signed case | 0 | 2 | 7 |
+
+In the signed case, the two contributions removed by magnitude pruning cancel substantially (8 − 6 = 2). Wanda removes contributions 4 and 3, which reinforce each other. Thus the ranking by output error reverses even though the importance scores are identical. This constructed counterexample concerns one row and a local reconstruction objective, not language-model perplexity or the empirical results of Sun et al. (2023).
+
 ## Equation or algorithm
 
 The score of weight \(W_{ij}\) is
