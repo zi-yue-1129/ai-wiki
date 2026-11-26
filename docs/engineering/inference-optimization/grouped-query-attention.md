@@ -50,6 +50,28 @@ $$
 
 This conversion does not generally preserve the original MHA outputs; additional pretraining aims to recover quality, not establish functional equivalence.
 
+### Worked example: pooling changes the attention output
+
+Two scalar query heads use the same query $q=1$ and the same values $V=[0,4]$ over two tokens. Their original key logits are $[0,\ln 3]$ and $[\ln 3,0]$. Averaging the key projections within this group gives equal logits $[\ln 3/2,\ln 3/2]$ for both heads (the input states are fixed and the value projections are identical).
+
+<img data-source-asset-urls src="../../assets/concept-animations/gqa-pooling-output-drift-still.svg" data-motion-src="../../assets/concept-animations/gqa-pooling-output-drift-motion.svg" data-still-src="../../assets/concept-animations/gqa-pooling-output-drift-still.svg" alt="Two original heads have attention weights 25/75 and 75/25 percent and outputs 3 and 1. The pooled group gives both heads equal weights and output 2.">
+
+*Original animated teaching diagram, CC BY-SA 4.0.* Follow the logits, the two-token softmax weights (blue then teal), and the weighted output as they appear. The animation is a staged computation comparison, not a training trajectory. On MkDocs use the keyboard-accessible **Play/Pause** control; reduced-motion preferences show the still. [Static preview for GitHub](../../assets/concept-animations/gqa-pooling-output-drift-still.svg).
+
+| Head | Original weights | Original output | Pooled weights | Pooled output |
+|---|---|---:|---|---:|
+| 1 | (0.25, 0.75) | 3 | (0.5, 0.5) | 2 |
+| 2 | (0.75, 0.25) | 1 | (0.5, 0.5) | 2 |
+
+Softmax gives these weights because the original exponentials are (1, 3) and (3, 1), whereas the pooled logits have identical exponentials. Each output is the weight on the second token multiplied by 4. Thus even with unchanged queries and values, the concatenated head outputs change from (3, 1) to (2, 2). An identity output projection would preserve this difference. The two-head group is a local example, not a claim that all groups or query vectors have identical outputs. The numbers are constructed, not model measurements; additional pretraining in Ainslie et al. (2023) adapts the converted model rather than guaranteeing exact preservation.
+
+
+### What sharing does and does not constrain
+
+For finite logits over the same unmasked token set, two softmax vectors are identical exactly when their logits differ by a token-independent additive constant. This follows by comparing the ratios of their exponentials. Equal attention weights are sufficient for equal outputs if values are fixed; equal outputs alone need not imply equal weights when the values are linearly dependent.
+
+The example above uses equal queries on purpose. Sharing keys does not force distinct queries to produce equal attention: keep the shared keys $[0,\ln 3]$ and values $[0,4]$, but choose queries $1$ and $-1$. Their logits become $[0,\ln 3]$ and $[0,-\ln 3]$, so their outputs are 3 and 1 despite sharing a KV head. Conversely, adding 5 to both original logits changes neither the softmax nor its output. These are illustrative conditions, not guarantees about a converted checkpoint.
+
 ## Results
 
 The paper reports that grouped-query models trained from converted checkpoints approach the quality of multi-head attention while decoding at near multi-query speed. Figures depend on the group count and the benchmark, so readers should check the paper's tables.

@@ -60,6 +60,35 @@ For a chain of $m$ pointwise operations with one input and one final output, ass
 
 [^fusion-traffic]: Triton contributors, [Fused Softmax](https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html), illustrates how retaining intermediate results on chip can reduce memory traffic; the scalar example above is original.
 
+### Worked example: fusion with two consumers
+
+Consider $z=x+1$, $y_1=2z$ and $y_2=z^2$ at $x=2$. Both outputs must be stored. A producer with two consumers differs from a single linear chain: fusing only one consumer does not remove the other consumer's need for the intermediate.
+
+<img data-source-asset-urls src="../../assets/concept-animations/kernel-fusion-fanout-traffic-still.svg" data-motion-src="../../assets/concept-animations/kernel-fusion-fanout-traffic-motion.svg" data-still-src="../../assets/concept-animations/kernel-fusion-fanout-traffic-still.svg" alt="The shared intermediate z equals 3 and both outputs are 6 and 9. Three schedules progressively reveal six, five, and three logical reads or writes.">
+
+*Original animated teaching diagram, CC BY-SA 4.0.* R denotes a read, W a write. Amber marks transfers of the shared intermediate. The timeline enumerates logical transfers, not hardware cycles. On MkDocs use the keyboard-accessible **Play/Pause** control; reduced-motion preferences show the still. [Static preview for GitHub](../../assets/concept-animations/kernel-fusion-fanout-traffic-still.svg).
+
+| Schedule | Intermediate writes | Intermediate reads | Total transfers |
+|---|---:|---:|---:|
+| Three separate kernels | 1 | 2 | 6 |
+| Producer fused with first consumer | 1 | 1 | 5 |
+| Fully fused, both outputs | 0 | 0 | 3 |
+
+Every schedule reads the input once and writes both outputs once. Assume equal element sizes, no extra inputs, no external user of $z$, no recomputation or spills, and that separately launched kernels exchange values through memory. Partial fusion must still materialise $z$ for the remaining kernel; full fusion can keep $z$ on chip and compute both outputs. If $z$ itself is externally required, full fusion also needs its store. These are logical element counts, not measured HBM transactions or latency; full fusion may increase register pressure or be infeasible for different layouts. See the preceding fused-softmax reference for the memory-traffic principle.
+
+
+### Generalising the fan-out count
+
+In the animation, the Count column starts at zero and increments only after a transfer cell is fully revealed. The final counts are held until the next cycle. This is an event-order illustration: equal reveal intervals do not represent equal hardware latency.
+
+Suppose one producer has $m$ consumers, each producing one distinct required output. Keep the same assumptions (one input, equal element sizes, no spills, no additional external consumer of the intermediate). Fuse $k$ consumers with the producer, leaving the other consumers in separate kernels. For $0\leq k<m$, the producer still writes the intermediate once and $m-k$ remaining kernels read it. Counting one input read and $m$ output writes gives
+
+$
+T=2m+2-k.
+$
+
+Fully fusing all $m$ consumers removes both the intermediate write and its reloads, giving $T=m+1$. This is a separate case, not the partial formula evaluated at $k=m$. For the original two-consumer graph, a third option is to recompute $z=x+1$ independently in each consumer kernel: two input reads and two output writes give four transfers instead of five for partial fusion, but execute the producer twice. In general this alternative gives $2m$ transfers and $m$ producer evaluations. It is only valid when recomputation preserves semantics and the producer needs no additional inputs or externally visible side effects. These counts do not predict actual memory traffic or runtime.
+
 ## Key methods
 
 - [FlashAttention (Dao et al., 2022)](../../theory/models/transformer/attention-variants/flash-attention/index.md): exact attention computed in blocks, so the full score matrix is not stored. It is described on its own page in the Models section.

@@ -59,6 +59,35 @@ aliases:
 
 [^fusion-traffic]: Triton contributors，[Fused Softmax](https://triton-lang.org/main/getting-started/tutorials/02-fused-softmax.html)，說明如何透過將中間值保留在晶片上來降低記憶體流量；上面的純量示例為原創。
 
+### 數值示例：具有兩個消費端的融合
+
+考慮 $z=x+1$、$y_1=2z$ 與 $y_2=z^2$，其中 $x=2$。兩個輸出都必須寫回。具有兩個消費端的生產運算不同於單一線性串接：僅融合其中一個消費端，並不會消除另一個消費端對中間值的需求。
+
+<img data-source-asset-urls src="../../assets/concept-animations/kernel-fusion-fanout-traffic-still.svg" data-motion-src="../../assets/concept-animations/kernel-fusion-fanout-traffic-motion.svg" data-still-src="../../assets/concept-animations/kernel-fusion-fanout-traffic-still.svg" alt="共用中間值 z 為 3，兩個輸出為 6 與 9；三種排程逐步呈現六、五、三次邏輯讀寫。">
+
+*原創教學動畫，CC BY-SA 4.0。* R 代表讀取，W 代表寫回；琥珀色標示共用中間值的搬移。時間軸列舉邏輯搬移，而非硬體週期。MkDocs 提供鍵盤可操作的**播放／暫停**；偏好減少動態效果時顯示靜態圖。 [GitHub 靜態預覽](../../assets/concept-animations/kernel-fusion-fanout-traffic-still.svg).
+
+| 排程 | 中間值寫回 | 中間值讀取 | 搬移總次數 |
+|---|---:|---:|---:|
+| 三個分離核心 | 1 | 2 | 6 |
+| 生產端與第一個消費端融合 | 1 | 1 | 5 |
+| 完全融合、保留兩個輸出 | 0 | 0 | 3 |
+
+每種排程皆讀取輸入一次，並各寫回兩個輸出一次。假設元素大小相同、無額外輸入、無外部使用者需要 $z$、不重新運算且無暫存器溢出，分離啟動的核心透過記憶體交換數值。部分融合仍需將 $z$ 寫回供剩餘核心讀取；完全融合則可把 $z$ 保留在晶片上並計算兩個輸出。若 $z$ 本身也是外部所需的輸出，完全融合也必須寫回它。這些是邏輯元素計數，而非 HBM 實測交易量或延遲；完全融合可能增加暫存器壓力，或因資料布局不同而不可行。記憶體流量原理可見前述 fused-softmax 參考資料。
+
+
+### 推廣至多個消費端
+
+動畫的 Count 欄位從零開始，每個搬移格完整顯示後才累加，最終計數保留至下一輪。這是邏輯事件順序的示意；等間隔揭露並不代表相同的硬體延遲。
+
+假設一個生產端有 $m$ 個消費端，各自產生一個必須保留的輸出。沿用單一輸入、元素大小相同、無暫存器溢出、無外部消費端需要中間值的假設。將其中 $k$ 個消費端與生產端融合，其餘消費端仍各自執行。當 $0\leq k<m$ 時，生產端仍須寫回中間值一次，剩餘 $m-k$ 個核心各讀取一次。加上一個輸入讀取及 $m$ 個輸出寫回，得到
+
+$
+T=2m+2-k.
+$
+
+完全融合全部 $m$ 個消費端時，中間值寫回與重新讀取皆可省去，因此 $T=m+1$。這是獨立情況，不可直接將 $k=m$ 代入部分融合公式。對原始雙消費端算例，另一種策略是在兩個消費端核心中各自重新計算 $z=x+1$：兩次輸入讀取與兩次輸出寫回，共四次搬移，少於部分融合的五次，但生產運算執行兩次。推廣後此策略需要 $2m$ 次搬移與 $m$ 次生產運算。這僅適用於重新計算能維持語意，且生產端沒有額外輸入或外部可見副作用的情況；計數不能直接預測實際記憶體流量或執行時間。
+
 ## 關鍵方法
 
 - [FlashAttention（Dao 等人，2022）](../../theory/models/transformer/attention-variants/flash-attention/index.zh-TW.md)：以區塊計算的精確注意力，不儲存完整的分數矩陣。其專屬頁面位於模型章節。
