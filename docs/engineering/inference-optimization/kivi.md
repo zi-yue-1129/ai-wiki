@@ -50,7 +50,13 @@ The moving **vertical band** highlights one key channel across token positions, 
 
 [GitHub static preview](../../assets/concept-animations/kivi-outlier-scale-error-still.svg) · Use keyboard-accessible **Play/Pause** on MkDocs; reduced-motion preferences show the still.
 
-Consider four token positions and two key channels, with values (0, 1, 2, 3) and (0, 10, 20, 30). For a nonconstant group with minimum $m$ and maximum $M$, a simple asymmetric 2-bit min–max quantiser uses step $s=(M-m)/3$, integer code $q=\\operatorname{clip}(\\operatorname{round}((x-m)/s),0,3)$, and reconstruction $\\hat{x}=m+sq$. Here all minima are zero.
+Consider four token positions and two key channels, with values (0, 1, 2, 3) and (0, 10, 20, 30). For a nonconstant group with minimum $m$ and maximum $M$, the simple asymmetric 2-bit min–max quantiser works in three steps:
+
+1. Set the step $s=(M-m)/3$.
+2. Compute $u=(x-m)/s$, round to the nearest integer, and clip to the range 0–3 to obtain the code $q$.
+3. Reconstruct the value $\hat{x}=m+sq$.
+
+If $M=m$, use a constant-group representation (for example, code zero and reconstruction $m$) rather than dividing by zero. Here all minima are zero.
 
 | Grouping | Step for low / high channel | Reconstructed low channel | Low-channel absolute error sum |
 |---|---|---|---:|
