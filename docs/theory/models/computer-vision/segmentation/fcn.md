@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-11-04
+last_reviewed: 2026-11-26
 related:
   - theory/models/cnn
 tags:
@@ -48,19 +48,19 @@ $$
 
 Pixels marked as ambiguous or difficult in the ground truth are excluded from the sum. The paper describes the procedure as standard backpropagation of this loss through the whole network, so the segmentation output and the upsampling filters are trained jointly.
 
-Inference is a single forward pass over the image. The arXiv abstracts report that inference takes about one third of a second for a typical image; the CVPR 2015 abstract gives a bound of less than one fifth of a second, so the figure depends on the version cited.
+Inference is a single forward pass over the image. The arXiv abstract states that inference takes less than one fifth of a second for a typical image. Table 3 of the paper lists about 175 ms for FCN-8s, against about 50 s for the SDS method it is compared with.
 
 ## Results
 
-- **PASCAL VOC 2012.** The abstract reports 62.2% mean intersection over union (mean IU) on the VOC 2012 segmentation test set. The arXiv abstracts describe this as a 20% relative improvement; that wording was not confirmed in the CVPR abstract.
-- **Variant comparison.** On a validation subset of VOC 2011, the paper's Table 2 reports 59.4 mean IU for FCN-32s, 62.4 for FCN-16s and 62.7 for FCN-8s, so the skip fusion adds about three points in mean IU.
-- **Other benchmarks.** The abstract also reports state-of-the-art results on NYUDv2 and SIFT Flow.
+- **PASCAL VOC 2012.** The arXiv abstract reports 62.2% mean intersection over union (mean IU) on the VOC 2012 test set, which it describes as a 20% relative improvement.
+- **Variant comparison.** On a subset of the VOC 2011 validation images, the paper's Table 2 reports 45.4 mean IU for FCN-32s with only the last layer fine-tuned, 59.4 for FCN-32s, 62.4 for FCN-16s and 62.7 for FCN-8s. The skip fusion adds 3.0 mean IU over FCN-32s.
+- **NYUDv2 and SIFT Flow.** The abstract names both benchmarks without figures. Table 4 reports 34.0 mean IU on NYUDv2 for FCN-16s with RGB-HHA input, and Table 5 reports 39.5 mean IU on SIFT Flow. The paper says the model achieves state-of-the-art performance on both tasks.
 
 The paper's appendix notes that mean IU is not a good measure of fine-scale accuracy, which is one reason later work reports boundary-sensitive metrics as well (see [Segmentation metrics](../../../evaluation/metrics/segmentation/index.md)).
 
 ## Limitations
 
-- **Coarse boundaries.** The authors note that the 32-pixel stride at the final prediction layer limits the scale of detail in the output. Skip fusion reduces this but does not remove it.
+- **Coarse boundaries.** The basic version predicts on a grid with a stride of 32 pixels, which limits the detail the final prediction can show. Skip fusion reduces this but does not remove it.
 - **No instance separation.** Each pixel receives a class, so two objects of the same class merge into one region. Instance methods such as [Mask R-CNN](mask-r-cnn.md) address this.
 - **Context at a fixed scale.** The receptive field of the network is fixed by its architecture, so very large or very small structures are hard to label consistently.
 - **Dependence on pretraining.** The paper relies on fine-tuning classifiers pretrained on ImageNet. Training the same architecture from scratch on segmentation data alone was not feasible in the authors' setting.
@@ -78,6 +78,7 @@ Later encoder–decoder designs such as [U-Net](../../cnn/unet/index.md) use a s
 ### Seminal papers
 
 - Long, J., Shelhamer, E. & Darrell, T. (2015). *Fully Convolutional Networks for Semantic Segmentation*. CVPR, pp. 3431–3440. doi:[10.1109/CVPR.2015.7298965](https://doi.org/10.1109/CVPR.2015.7298965). Also available as [arXiv:1411.4038](https://arxiv.org/abs/1411.4038). — Converts classification networks into fully convolutional networks with learned upsampling and skip fusion, trained end to end for dense prediction.
+- Szegedy, C. et al. (2014). *Going Deeper with Convolutions*. arXiv. https://arxiv.org/abs/1409.4842 — The GoogLeNet classification network, one of the three networks (with AlexNet and VGG) that the FCN paper names as the basis for its conversion.
 - Shelhamer, E., Long, J. & Darrell, T. (2017). *Fully Convolutional Networks for Semantic Segmentation*. IEEE Transactions on Pattern Analysis and Machine Intelligence, pp. 640–651. doi:[10.1109/TPAMI.2016.2572683](https://doi.org/10.1109/TPAMI.2016.2572683). — Journal version of the same work, which the conference paper above introduced.
 - Simonyan, K. & Zisserman, A. (2014). *Very Deep Convolutional Networks for Large-Scale Image Recognition*. arXiv. https://arxiv.org/abs/1409.1556 — The VGG classification network, one of the three networks (with AlexNet and GoogLeNet) that the FCN paper converts.
 - Ronneberger, O., Fischer, P. & Brox, T. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation*. Lecture Notes in Computer Science, pp. 234–241. doi:[10.1007/978-3-319-24574-4_28](https://doi.org/10.1007/978-3-319-24574-4_28). Also available as [arXiv:1505.04597](https://arxiv.org/abs/1505.04597). — The encoder–decoder with skip connections that built on the fully convolutional approach, covered on the U-Net page.

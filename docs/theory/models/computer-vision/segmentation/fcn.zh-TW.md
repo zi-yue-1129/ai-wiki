@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-04
+translation_reviewed: 2026-11-26
 related:
   - theory/models/cnn
 ---
@@ -38,19 +38,19 @@ $$
 
 真實標註中標為模糊或困難的像素，不計入加總。論文將此流程描述為把這個損失以標準反向傳播穿過整個網路，因此分割輸出與上採樣濾波器是聯合訓練的。
 
-推論是對影像做一次前向傳播。arXiv 版摘要報告，一張典型影像的推論約需三分之一秒；CVPR 2015 摘要則給出少於五分之一秒的數字，因此所引數字取決於版本。
+推論是對影像做一次前向傳播。arXiv 版摘要指出，一張典型影像的推論時間少於五分之一秒。論文表 3 列出 FCN-8s 約 175 毫秒，而其比較的 SDS 方法約需 50 秒。
 
 ## 結果
 
-- **PASCAL VOC 2012。** 摘要報告，在 VOC 2012 分割測試集上達到 62.2% 的平均交併比（mean IU）。arXiv 版摘要將其描述為相對改進 20%；此措辭未在 CVPR 摘要中確認。
-- **變體比較。** 在 VOC 2011 的驗證子集上，論文表 2 報告 FCN-32s 為 59.4 mean IU、FCN-16s 為 62.4、FCN-8s 為 62.7，因此跳躍融合使 mean IU 提升約三個點。
-- **其他基準。** 摘要也報告在 NYUDv2 與 SIFT Flow 上達到最先進的結果。
+- **PASCAL VOC 2012。** arXiv 版摘要報告，在 VOC 2012 測試集上達到 62.2% 的平均交併比（mean IU），並將其描述為相對改進 20%。
+- **變體比較。** 在 VOC 2011 驗證影像的子集上，論文表 2 報告：僅微調最後一層的 FCN-32s 為 45.4 mean IU，完整 FCN-32s 為 59.4，FCN-16s 為 62.4，FCN-8s 為 62.7。跳躍融合使 mean IU 比 FCN-32s 提升 3.0。
+- **NYUDv2 與 SIFT Flow。** 摘要提到這兩個基準但未給數字。表 4 報告 FCN-16s 以 RGB-HHA 輸入在 NYUDv2 上的 mean IU 為 34.0；表 5 報告在 SIFT Flow 上為 39.5。論文表示該模型在兩項任務上都達到最先進的表現。
 
 論文附錄指出，mean IU 並不是衡量細尺度精度的好指標，這也是後續工作同時回報邊界敏感指標的原因之一（見[分割指標](../../../evaluation/metrics/segmentation/index.md)）。
 
 ## 限制
 
-- **邊界粗糙。** 作者指出，最終預測層 32 像素的步幅限制了輸出的細節尺度。跳躍融合減輕但未消除這個問題。
+- **邊界粗糙。** 基本版本在步幅 32 像素的網格上做預測，限制了最終預測能呈現的細節。跳躍融合減輕但未消除這個問題。
 - **無法區分實例。** 每個像素只獲得一個類別，因此同類的兩個物件會合併為一個區域。[Mask R-CNN](mask-r-cnn.md)等實例方法處理了這個問題。
 - **固定尺度的上下文。** 網路的感受野由架構固定，因此非常大或非常小的結構難以被一致地標註。
 - **依賴預訓練。** 論文依賴在 ImageNet 上預訓練的分類器微調。在作者的設定中，僅以分割資料從頭訓練同一架構並不可行。
@@ -68,8 +68,9 @@ $$
 ### 開創性論文
 
 - Long, J., Shelhamer, E. & Darrell, T. (2015). *Fully Convolutional Networks for Semantic Segmentation*. CVPR, pp. 3431–3440. doi:[10.1109/CVPR.2015.7298965](https://doi.org/10.1109/CVPR.2015.7298965)。另見 [arXiv:1411.4038](https://arxiv.org/abs/1411.4038)。 — 以可學習的上採樣與跳躍融合，把分類網路轉換為全卷積網路，並端到端訓練以做密集預測。
-- Shelhamer, E., Long, J. & Darrell, T. (2017). *Fully Convolutional Networks for Semantic Segmentation*. IEEE Transactions on Pattern Analysis and Machine Intelligence, pp. 640–651. doi:[10.1109/TPAMI.2016.2572683](https://doi.org/10.1109/TPAMI.2016.2572683)。 — 同一工作的期刊版本，前述會議論文為其首次發表。
+- Szegedy, C. et al. (2014). *Going Deeper with Convolutions*. arXiv. https://arxiv.org/abs/1409.4842 — GoogLeNet 分類網路，FCN 論文所依據的分類網路之一（另外兩個為 AlexNet 與 VGG）。
 - Simonyan, K. & Zisserman, A. (2014). *Very Deep Convolutional Networks for Large-Scale Image Recognition*. arXiv. https://arxiv.org/abs/1409.1556 — VGG 分類網路。FCN 論文轉換的三個網路（另外兩個是 AlexNet 與 GoogLeNet）之一。
+- Shelhamer, E., Long, J. & Darrell, T. (2017). *Fully Convolutional Networks for Semantic Segmentation*. IEEE Transactions on Pattern Analysis and Machine Intelligence, pp. 640–651. doi:[10.1109/TPAMI.2016.2572683](https://doi.org/10.1109/TPAMI.2016.2572683)。 — 同一工作的期刊版本，前述會議論文為其首次發表。
 - Ronneberger, O., Fischer, P. & Brox, T. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation*. Lecture Notes in Computer Science, pp. 234–241. doi:[10.1007/978-3-319-24574-4_28](https://doi.org/10.1007/978-3-319-24574-4_28)。另見 [arXiv:1505.04597](https://arxiv.org/abs/1505.04597)。 — 帶跳躍連接的編碼器—解碼器，承襲全卷積的做法，見 U-Net 頁面。
 
 ### 綜述與教科書
