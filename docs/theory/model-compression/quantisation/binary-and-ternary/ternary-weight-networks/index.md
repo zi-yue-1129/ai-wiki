@@ -35,6 +35,30 @@ where \(n\) is the number of weights in the filter. The scale is the mean magnit
 
 The paper uses the ternary weights in the forward and backward propagations but not in the parameter update, which keeps real-valued weights, as in [BinaryConnect](../binaryconnect/index.md).
 
+### Visual walkthrough: threshold and shared scale
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/twn-threshold-scale-still.svg" src="../../../../../assets/concept-animations/twn-threshold-scale-still.svg" data-motion-src="../../../../../assets/concept-animations/twn-threshold-scale-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="A rising magnitude threshold excludes two weights; the two survivors produce signed ternary codes and a shared scale of 0.9.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/twn-threshold-scale-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/twn-threshold-scale-motion.svg)
+
+For $w=(-1,-0.2,0.4,0.8)$, the mean magnitude is $0.6$, so the heuristic threshold is $\Delta=0.42$. The rising shaded band illustrates the threshold selection, not a training trajectory. With strict survival $|w_i|>\Delta$, the ternary code is $t=(-1,0,0,1)$. Holding this nonempty code fixed, minimising $\|w-\alpha t\|_2^2$ gives $\alpha=(w^\top t)/(t^\top t)=(1+0.8)/2=0.9$. The reconstruction is $(-0.9,0,0,0.9)$ with squared error $0.01+0.04+0.16+0.01=0.22$. If no entries survive, the reconstruction is zero and the scale is immaterial; do not divide by zero. The example isolates the threshold and scale rule of Li et al. (2016), not a globally optimised threshold or an empirical accuracy result. All values are schematic, not model measurements.
+
+On MkDocs use Play/Pause (Enter or Space) to inspect the changes. GitHub and reduced-motion readers see the complete static result. Original diagram, **CC BY-SA 4.0**.
+
+### Why the threshold is only a heuristic
+
+The moving threshold mutes each magnitude bar when the strict survival condition fails. The final code is shown after the threshold stops, followed by reconstruction. For a nonempty retained set of size $k$, the optimal shared scale is the average of its magnitudes. Sort the magnitudes as $a_1\ge\cdots\ge a_n$. For a fixed $k$ the top-$k$ magnitudes minimise squared reconstruction error, and the resulting error is
+
+$
+E_k=\sum_{i=1}^n a_i^2-\frac{(\sum_{i=1}^k a_i)^2}{k}.
+$
+
+Include $E_0=\sum_i a_i^2$ for the all-zero code. A scalar threshold with strict survival cannot split tied magnitudes, so evaluate only attainable set sizes when comparing thresholds. For the animation's weights, $E_0,\ldots,E_4$ are $1.84,0.84,0.22,0.226\overline{6},0.4$. The heuristic happens to choose the best size here. As a counterexample take $w=(1,0.35,0.35,0.35)$. The heuristic threshold $0.35875$ retains just one weight (error $0.3675$), whereas retaining all four with scale $0.5125$ gives error $0.316875$. This is a local weight-reconstruction comparison, not a claim about downstream task accuracy or a replacement for the paper's training procedure.
+
 ## Results
 
 The abstract reports up to 16 times model compression. The accuracy gap to full precision is given in the paper's tables, and should be read there rather than compared across papers that use different networks.

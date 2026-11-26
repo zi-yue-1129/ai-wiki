@@ -26,6 +26,30 @@ translation_reviewed: 2026-10-28
 
 論文在前向與反向傳播時使用三值權重，但參數更新時不使用，從而保留實數權重，這與 [BinaryConnect](../binaryconnect/index.zh-TW.md) 相同。
 
+### 視覺解說：幅度門檻與共用縮放
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以檢視教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/twn-threshold-scale-still.svg" src="../../../../../assets/concept-animations/twn-threshold-scale-still.svg" data-motion-src="../../../../../assets/concept-animations/twn-threshold-scale-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="幅度門檻上升後排除兩個權重，其餘兩個權重產生帶符號的三值編碼及共用縮放係數 0.9。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/twn-threshold-scale-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/twn-threshold-scale-motion.svg)
+
+對 $w=(-1,-0.2,0.4,0.8)$，平均幅度為 $0.6$，因此啟發式門檻為 $\Delta=0.42$。上升的陰影區示意門檻選擇，而非訓練軌跡。採用嚴格保留條件 $|w_i|>\Delta$，三值編碼為 $t=(-1,0,0,1)$。固定此非空編碼，最小化 $\|w-\alpha t\|_2^2$ 得到 $\alpha=(w^\top t)/(t^\top t)=(1+0.8)/2=0.9$。重建結果為 $(-0.9,0,0,0.9)$，平方誤差為 $0.01+0.04+0.16+0.01=0.22$。若沒有權重通過門檻，重建結果為零、縮放係數不影響結果，應避免除以零。本例隔離 Li 等人（2016）的門檻與縮放規則，並非全域最佳化門檻或準確率實驗。所有數值皆為示意，並非模型實測值。
+
+在 MkDocs 使用播放／暫停（Enter 或 Space）觀察變化，GitHub 與減少動態效果模式提供完整靜態結果。原創圖示，**CC BY-SA 4.0**。
+
+### 為什麼門檻只是啟發式規則
+
+動畫中的門檻上升時，不再符合嚴格保留條件的幅度長條會轉為灰色；門檻停止後才揭露最終編碼與重建結果。對非空的 $k$ 個保留位置，最佳共用縮放係數是其幅度平均值。將幅度排序為 $a_1\ge\cdots\ge a_n$。固定 $k$ 時，保留前 $k$ 大的幅度可最小化重建平方誤差，所得誤差為
+
+$
+E_k=\sum_{i=1}^n a_i^2-\frac{(\sum_{i=1}^k a_i)^2}{k}.
+$
+
+全零編碼則為 $E_0=\sum_i a_i^2$。採用嚴格保留條件的單一純量門檻無法拆分同幅度權重，因此比較門檻時只能檢查可達到的保留數量。動畫中的 $E_0,\ldots,E_4$ 依序為 $1.84,0.84,0.22,0.226\overline{6},0.4$，啟發式規則恰好選中最佳大小。反例為 $w=(1,0.35,0.35,0.35)$：啟發式門檻 $0.35875$ 只保留一個權重（誤差 $0.3675$）；若保留全部四個權重、縮放係數為 $0.5125$，誤差則為 $0.316875$。此比較僅涉及局部權重重建，不代表下游任務準確率，也不取代原論文的訓練程序。
+
 ## 結果
 
 摘要報告最高可達 16 倍的模型壓縮。與全精度之間的準確率差距，見論文的表格；不應拿使用不同網路的論文來互相比較。

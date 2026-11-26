@@ -24,6 +24,24 @@ w_b = \begin{cases} +1 & \text{若 } w \ge 0 \\ -1 & \text{否則} \end{cases}
 
 隨機變體以機率 \(\sigma(w)\) 令 \(w_b = +1\)，其中 \(\sigma(x) = \max(0, \min(1, (x+1)/2))\) 是 hard sigmoid。梯度對二值權重 \(w_b\) 計算，然後套用到實數權重 \(w\) 上，並在每次更新後把 \(w\) 裁剪到 \([-1, 1]\)。論文未使用直通估計器（straight-through estimator）這個名稱，但它描述的正是這個更新，後續工作以此名稱稱呼它。由於符號函式幾乎處處梯度為零，這一步是讓更新產生作用所必需的。
 
+### 視覺解說：實數權重的梯度累積
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以檢視教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/binaryconnect-latent-accumulation-still.svg" src="../../../../../assets/concept-animations/binaryconnect-latent-accumulation-still.svg" data-motion-src="../../../../../assets/concept-animations/binaryconnect-latent-accumulation-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="儲存的實數權重每步增加 0.2，直到抵達零時，二值副本才從負一切換成正一。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/binaryconnect-latent-accumulation-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/binaryconnect-latent-accumulation-motion.svg)
+
+從 $w_0=-0.6$ 出發，固定示意梯度 $g=-1$ 與學習率 $\eta=0.2$，執行四次 SGD 更新：$w_{k+1}=\operatorname{clip}(w_k-\eta g,-1,1)$。儲存的實數權重依序為 $(-0.6,-0.4,-0.2,0,0.2)$；依上方零值取正號的定義，確定性二值副本依序為 $(-1,-1,-1,+1,+1)$。藍色線段只是離散更新之間的視覺插值，二值符號在每次更新完成後重新計算，而不是在單次 SGD 更新中連續取樣。前兩次更新雖未改變二值副本，仍累積於實數權重。本例隔離 Courbariaux 等人（2015）的核心機制，未模擬完整網路、隨機二值化或梯度重新計算。所有數值皆為示意，並非模型實測值。
+
+在 MkDocs 使用播放／暫停（Enter 或 Space）觀察變化，GitHub 與減少動態效果模式提供完整靜態結果。原創圖示，**CC BY-SA 4.0**。
+
+### 確定性與隨機二值副本
+
+對裁剪後的儲存權重 $w\in[-1,1]$，上述隨機規則滿足 $\Pr(w_b=+1)=(w+1)/2$，因此 $\mathbb{E}[w_b\mid w]=w$ 且 $\operatorname{Var}(w_b\mid w)=1-w^2$。沿用動畫中的五個儲存權重，取正號的機率依序為 $0.2,0.3,0.4,0.5,0.6$。不同於確定性副本，隨機取樣可能在儲存權重抵達零之前便取正號；在零時兩個符號等機率。裁剪限制的是儲存權重，而非二值副本的幅度。此處的不偏性僅指單一取樣權重，並不保證非線性網路的梯度或損失不偏。這些是解析機率，並非訓練實測頻率。
+
 ## 結果
 
 摘要報告，在排列不變的 MNIST、CIFAR-10 與 SVHN 上取得接近最先進的結果。它也報告，BinaryConnect 可作為正則化器，效果類似 dropout。

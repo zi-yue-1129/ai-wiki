@@ -32,6 +32,24 @@ w_b = \begin{cases} +1 & \text{if } w \ge 0 \\ -1 & \text{otherwise} \end{cases}
 
 The stochastic variant sets \(w_b = +1\) with probability \(\sigma(w)\), where \(\sigma(x) = \max(0, \min(1, (x+1)/2))\) is a hard sigmoid. The gradient is computed with respect to the binary weights \(w_b\) and applied to the real-valued weights \(w\), with \(w\) clipped to \([-1, 1]\) after each update. The paper does not use the term straight-through estimator, but it describes this same update, which later work names that way. Because the sign function has zero gradient almost everywhere, this step is needed for the update to have any effect.
 
+### Visual walkthrough: latent weight accumulation
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/binaryconnect-latent-accumulation-still.svg" src="../../../../../assets/concept-animations/binaryconnect-latent-accumulation-still.svg" data-motion-src="../../../../../assets/concept-animations/binaryconnect-latent-accumulation-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="A real-valued stored weight increases by 0.2 at each step; its binary copy switches from minus one to plus one only upon reaching zero.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/binaryconnect-latent-accumulation-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/binaryconnect-latent-accumulation-motion.svg)
+
+Starting from $w_0=-0.6$, apply four illustrative SGD updates with $\eta=0.2$ and an externally fixed gradient $g=-1$: $w_{k+1}=\operatorname{clip}(w_k-\eta g,-1,1)$. The stored weight evolves through $(-0.6,-0.4,-0.2,0,0.2)$, while the deterministic binary copy is $(-1,-1,-1,+1,+1)$ using the sign-at-zero convention above. The blue segments interpolate between discrete updates solely for readability; the sign is sampled at each completed step, not continuously during an SGD update. The first two updates are invisible to the binary copy but accumulate in the stored weight. This isolates the mechanism in Courbariaux et al. (2015); it does not simulate a network, stochastic binarisation or gradient recomputation. All values are schematic, not model measurements.
+
+On MkDocs use Play/Pause (Enter or Space) to inspect the changes. GitHub and reduced-motion readers see the complete static result. Original diagram, **CC BY-SA 4.0**.
+
+### Deterministic and stochastic copies
+
+For the clipped stored weight $w\in[-1,1]$, the stochastic rule above has $\Pr(w_b=+1)=(w+1)/2$. Thus $\mathbb{E}[w_b\mid w]=w$ and $\operatorname{Var}(w_b\mid w)=1-w^2$. Along the animation's five stored weights, the positive-sign probabilities are $0.2,0.3,0.4,0.5,0.6$, respectively. Unlike the deterministic copy, a stochastic draw can be positive even before the stored weight reaches zero; at zero it is equally likely to be either sign. Clipping confines the stored weight, not the size of the sampled binary copy. Unbiasedness here concerns a single sampled weight, not the gradient of a nonlinear network or its loss. These are analytic probabilities, not observed training frequencies.
+
 ## Results
 
 The abstract reports near state-of-the-art results on permutation-invariant MNIST, CIFAR-10 and SVHN. It also reports that BinaryConnect acts as a regulariser, comparable to dropout.
