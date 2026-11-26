@@ -22,6 +22,35 @@ MiniLLM 透過讓學生在自己生成的文字上訓練（由教師評分），
 2. **教師混合抽樣**，在學生的抽樣中混入教師的樣本，以限制獎勵駭客行為。
 3. **長度正規化**，消除對過短或過長回應的偏差。
 
+### 算例：抽樣來源與反向 KL
+
+固定提示詞後，假設完整回應 A、B、C 構成有限的示意空間，教師機率為 $p=(0.45,0.45,0.10)$，學生機率為 $q=(0.30,0.20,0.50)$。示意均勻抽樣值 $u=0.72$ 落在 C 的學生累積機率區間 $[0.5,1)$，因此抽到回應 C。接著由教師評估同一個回應，而非再從教師抽樣。移動的圓點表示反累積分布抽樣，而非逐 token 生成。
+
+此樣本的對數比值獎勵為 $\log(p(C)/q(C))=\log(0.1/0.5)\approx-1.609$。母體目標為 $D_{\mathrm{KL}}(q\Vert p)=\sum_y q(y)\log(q(y)/p(y))\approx0.521$ nats。因此，在 $q$ 下對數比值獎勵的期望值是反向 KL 的負值；單一抽樣獎勵並非完整散度。負的對數比值表示學生對此回應分配的機率高於教師。這是序列層級的示意目標，並未模擬完整 MiniLLM 策略梯度估計器、重要性加權、教師混合抽樣或參數更新。本例兩個分布在所有候選上均有正機率。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="從學生 q 抽樣選到 C；教師給 C 較低機率，得到負的對數比值與正的完整反向 KL。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/minillm-on-policy-score-still.svg" data-motion-src="../../../../../assets/concept-animations/minillm-on-policy-score-motion.svg" data-still-src="../../../../../assets/concept-animations/minillm-on-policy-score-still.svg" alt="從學生 q 抽樣選到 C；教師給 C 較低機率，得到負的對數比值與正的完整反向 KL。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。機率與分數皆為示意值，並非模型實測輸出。MkDocs 提供可用鍵盤操作的播放／暫停及減少動態效果的回退畫面；GitHub 顯示靜態結果。[原始論文](https://arxiv.org/abs/2306.08543)。*
+
+[靜態預覽](../../../../../assets/concept-animations/minillm-on-policy-score-still.svg) · [完整 SVG 動畫](../../../../../assets/concept-animations/minillm-on-policy-score-motion.svg).
+
+### 從單次抽樣分數到母體目標
+
+三個帶符號的 $q_i\log(q_i/p_i)$ 項約為 $(-0.121640,-0.162186,+0.804719)$，總和為 $0.520893$ nats。個別項可以為負，但完整 KL 散度非負。新版動畫在抽樣確定後才高亮學生的 C，評分路徑抵達教師後才高亮教師的 C，接著從共同零基準逐一展開三個貢獻項。這些是母體貢獻項，而非額外三次抽樣獎勵。
+
+另考慮有限類別模型，令序列 logits 為 $z$，且 $q=\operatorname{softmax}(z)$，則微分得到
+
+$
+\frac{\partial D_{\mathrm{KL}}(q\Vert p)}{\partial z_i}
+=q_i\left[\log(q_i/p_i)-D_{\mathrm{KL}}(q\Vert p)\right].
+$
+
+示意梯度約為 $(-0.277908,-0.266365,+0.544272)$，因此小幅梯度下降會使 C 的 logit 相對 A、B 降低。這是有限類別模型的精確微分，並非完整自回歸 MiniLLM 梯度估計器。
+
 ## 結果
 
 論文在指令遵循的設定中，把此方法應用於 1.2 億至 130 億參數的生成式語言模型，並以 Rouge-L 在五個資料集上評估。教師包括 GPT-2 與 GPT-J 6B，學生包括 GPT-2 760M 與 OPT 1.3B 等。摘要指出此方法在不同模型家族上擴展良好。論文回報，MiniLLM 在所有資料集上一致地勝過標準蒸餾基線，並且暴露偏差較低、校準較好，長回應的品質也較高。

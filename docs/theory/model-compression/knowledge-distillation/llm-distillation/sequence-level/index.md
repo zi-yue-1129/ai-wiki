@@ -38,6 +38,26 @@ Let \(Q(y \mid x)\) be the teacher's distribution over target sequences \(y\) fo
 
 In practice the student is trained with standard maximum likelihood on the pairs \((x, \hat{y})\). The paper also studies a sequence-level interpolation, which trains on teacher outputs that are nearer to the reference translation, and weight pruning applied after distillation.
 
+### Worked example: from search to a single target
+
+Suppose all complete sequences have two tokens (and termination is certain). The teacher assigns $Q(A\mid x)=0.6$ and $Q(B\mid x)=0.4$, followed by $Q(X\mid A,x)=0.55$ and $Q(X\mid B,x)=0.9$; the remaining probability goes to $Y$. The four joint probabilities are $0.33,0.27,0.36,0.04$ for AX, AY, BX and BY. Greedy decoding selects AX, while a width-two beam that retains both prefixes finds BX. Here the search is exact because all four complete candidates are evaluated; real beam search is only approximate.
+
+The selected sequence supplies a hard target for student maximum likelihood: $-\log P_\theta(B\mid x)-\log P_\theta(X\mid B,x)$ (plus an EOS term when termination is modelled). The other teacher probabilities are not directly matched by this single-target objective. The drawn branches indicate probability factorisation and search, not gradient updates.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Teacher prefix tree and four joint probabilities; BX is selected as the single student target.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/seqkd-beam-mode-still.svg" data-motion-src="../../../../../assets/concept-animations/seqkd-beam-mode-motion.svg" data-still-src="../../../../../assets/concept-animations/seqkd-beam-mode-still.svg" alt="Teacher prefix tree and four joint probabilities; BX is selected as the single student target." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0). All probabilities are schematic, not measured model outputs. MkDocs provides keyboard-accessible Play/Pause and a reduced-motion fallback; GitHub displays the static result. [Original paper](https://arxiv.org/abs/1606.07947).*
+
+[Static preview](../../../../../assets/concept-animations/seqkd-beam-mode-still.svg) · [Full SVG animation](../../../../../assets/concept-animations/seqkd-beam-mode-motion.svg).
+
+### Why a hard target loses distributional information
+
+Using the same four complete candidates, suppose the student initially assigns each probability $1/4$. The exact teacher cross-entropy and the hard-target negative log-likelihood are both $\log 4$ at this point, but their gradients differ. For a toy categorical softmax over complete sequences (not token logits), the soft-target gradient is $P-Q=(-0.08,-0.02,-0.11,0.21)$ in AX, AY, BX, BY order, whereas the hard BX target gives $P-\delta_{\mathrm{BX}}=(0.25,0.25,-0.75,0.25)$. Equal loss values at one point do not imply equal learning signals. In particular, AX receives opposite gradient signs. This is a schematic example, not a measured model gradient.
+
 ## Results
 
 The abstract reports that the best student runs 10 times faster than the state-of-the-art teacher, with little loss in performance. Relative to a student trained without distillation, the best student gains 4.2 BLEU with greedy decoding and 1.7 BLEU with beam search. Pruning the distilled student removes 13 times fewer parameters than the teacher, at a loss of about 0.4 BLEU.
