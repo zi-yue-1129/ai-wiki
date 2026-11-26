@@ -27,6 +27,20 @@ Compare the relations between examples in the teacher and the student, instead o
 
 A distance loss compares normalised pairwise distances between the examples of a batch in teacher and student spaces. An angle loss compares the angles formed by triples of examples. Both are added to the usual task loss, with the distances normalised by their mean so that the scale of the two spaces does not matter.
 
+### Worked example: matching geometry across coordinate systems
+
+Let $d_{ij}=\|z_i-z_j\|_2$ and let $\mu$ be the mean distance over distinct sample pairs in the batch. RKD-D compares $d_{ij}/\mu$ between teacher and student; RKD-A compares the cosine between the two unit displacement vectors meeting at a triplet's anchor. The original method uses a Huber penalty on the difference of these potentials (Park et al., 2019).
+
+For three teacher points $A=(0,0), B=(3,0), C=(0,4)$ and student points $A'=(10,5), B'=(10,11), C'=(2,5)$, distances in order AB, AC, BC are $(3,4,5)$ and $(6,8,10)$. Their respective means are 4 and 8. Both normalised vectors equal $(0.75,1,1.25)$, and the cosine at A is zero in both. All angles agree because the student is a translated, rotated and uniformly scaled copy. The distance and angle losses are zero in this exact toy example, not necessarily the task loss. Coincident points or an all-zero batch mean require a numerical safeguard; the formula assumes nonzero denominators.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Teacher and student triangle edges are drawn in corresponding order; dividing distances by each batch mean yields the same values and the right angle is preserved.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/rkd-normalized-geometry-still.svg" data-motion-src="../../../../../assets/concept-animations/rkd-normalized-geometry-motion.svg" data-still-src="../../../../../assets/concept-animations/rkd-normalized-geometry-still.svg" alt="Teacher and student triangle edges are drawn in corresponding order; dividing distances by each batch mean yields the same values and the right angle is preserved." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Follow the growing edges, then compare the three normalised distances and right-angle markers. The line drawing illustrates measuring relations, not a gradient update. All values are illustrative. MkDocs provides keyboard-accessible Play/Pause; GitHub shows the [static fallback](../../../../../assets/concept-animations/rkd-normalized-geometry-still.svg)。 [Full SVG animation](../../../../../assets/concept-animations/rkd-normalized-geometry-motion.svg).
+
 ## Results
 
 The abstract says the method improves student models with a significant margin, and that students can outperform their teachers in metric learning. It gives no single headline figure.

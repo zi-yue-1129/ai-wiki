@@ -16,7 +16,21 @@ translation_reviewed: 2026-10-28
 
 ## 公式或演算法
 
-對一個批次，教師與學生的相似度矩陣都由其激活值計算，每一對樣本都以正規化的內積計算。學生被訓練去匹配兩個矩陣，這項損失再加到一般的任務損失上。
+對一個批次，教師與學生的相似度矩陣都由其激活值計算，先計算批次 Gram 矩陣，再對其各列（row）做 L2 正規化。學生被訓練去匹配兩個矩陣，這項損失再加到一般的任務損失上。
+
+### 算例：逐列 L2 正規化的 Gram 矩陣
+
+將批次中 $b$ 個攤平特徵向量排成矩陣 $Q$ 的各列（row），Tung 與 Mori（2019）定義 $G=QQ^\top$，再逐列正規化：$\widetilde G_{i,:}=G_{i,:}/\|G_{i,:}\|_2$。該層損失為 $\|\widetilde G_T-\widetilde G_S\|_F^2/b^2$。這**不是**成對餘弦相似度：分母是整列 Gram 向量的範數，所得矩陣不一定對稱。
+
+依相同樣本順序，教師特徵列為 $(1,0),(1,1),(0,1)$，學生為 $(0,2),(2,2),(2,0)$。學生 Gram 矩陣是教師的四倍。教師各列範數為 $\sqrt{2},\sqrt{6},\sqrt{2}$，學生為其四倍。兩者正規化後的矩陣各列皆為 $(1,1,0)/\sqrt{2}$、$(1,2,1)/\sqrt{6}$ 與 $(0,1,1)/\sqrt{2}$，捨入前該層損失為零。全零 Gram 列需採用安全的正規化約定。此為人工算例，並非模型實測或訓練軌跡。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="特徵逐列產生兩個 Gram 矩陣，再除以各自的列範數，得到相同的正規化元素。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/sp-row-gram-normalization-still.svg" data-motion-src="../../../../../assets/concept-animations/sp-row-gram-normalization-motion.svg" data-still-src="../../../../../assets/concept-animations/sp-row-gram-normalization-still.svg" alt="特徵逐列產生兩個 Gram 矩陣，再除以各自的列範數，得到相同的正規化元素。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 觀察 Gram 矩陣逐列出現，再呈現各列精確除數與取三位小數的正規化元素。逐列揭露是教學順序，而非矩陣乘法核心的實際排程。 數值均為示意。MkDocs 提供鍵盤可操作的播放／暫停；GitHub 顯示 [靜態回退圖](../../../../../assets/concept-animations/sp-row-gram-normalization-still.svg)。 [完整 SVG 動畫](../../../../../assets/concept-animations/sp-row-gram-normalization-motion.svg).
 
 ## 結果
 

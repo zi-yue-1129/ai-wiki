@@ -24,7 +24,21 @@ Semantically similar inputs tend to elicit similar activation patterns in a trai
 
 ## Equation or algorithm
 
-For a batch, the similarity matrices of the teacher and the student are computed from their activations, with a normalised inner product for each pair. The student is trained to match the two matrices, and the loss is added to the usual task loss.
+For a batch, the similarity matrices of the teacher and the student are computed from their activations, by forming a batch Gram matrix and L2-normalising each row. The student is trained to match the two matrices, and the loss is added to the usual task loss.
+
+### Worked example: row-normalised Gram matrices
+
+For a batch of $b$ flattened activation vectors arranged as rows of $Q$, Tung and Mori (2019) define $G=QQ^\top$ and row-normalise it: $\widetilde G_{i,:}=G_{i,:}/\|G_{i,:}\|_2$. The layer loss is $\|\widetilde G_T-\widetilde G_S\|_F^2/b^2$. This is **not** pairwise cosine similarity: normalisation is over each entire Gram row, and the resulting matrix need not be symmetric.
+
+Take teacher feature rows $(1,0),(1,1),(0,1)$ and student rows $(0,2),(2,2),(2,0)$, in the same sample order. The student's Gram matrix is four times the teacher's. Teacher row norms are $\sqrt{2},\sqrt{6},\sqrt{2}$; student row norms are four times these. Both normalised matrices therefore have rows $(1,1,0)/\sqrt{2}$, $(1,2,1)/\sqrt{6}$ and $(0,1,1)/\sqrt{2}$, with zero layer loss before rounding. A zero Gram row requires a safe normalisation convention. This is a constructed example, not a model measurement or training trajectory.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Feature rows produce two Gram matrices row by row; division by their respective row norms yields identical normalised entries.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/sp-row-gram-normalization-still.svg" data-motion-src="../../../../../assets/concept-animations/sp-row-gram-normalization-motion.svg" data-still-src="../../../../../assets/concept-animations/sp-row-gram-normalization-still.svg" alt="Feature rows produce two Gram matrices row by row; division by their respective row norms yields identical normalised entries." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Watch the Gram rows appear, followed by their exact divisors and normalised entries rounded to three decimals. Row-wise reveal is explanatory, not the execution schedule of a matrix multiplication kernel. All values are illustrative. MkDocs provides keyboard-accessible Play/Pause; GitHub shows the [static fallback](../../../../../assets/concept-animations/sp-row-gram-normalization-still.svg)。 [Full SVG animation](../../../../../assets/concept-animations/sp-row-gram-normalization-motion.svg).
 
 ## Results
 
