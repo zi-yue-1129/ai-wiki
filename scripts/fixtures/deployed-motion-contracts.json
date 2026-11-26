@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "h2o-evolving-cache": {
+      "origins": [
+        {
+          "origin_blob": "d7a7c2c7e6554bd1baa7094f0ab8781d834e5c8c",
+          "origin_commit": "787b32edcccc382b462520464e92ed045e8447d3",
+          "path": "docs/assets/concept-animations/h2o-evolving-cache-motion.svg"
+        },
+        {
+          "origin_blob": "9dcfe5660e2e22aa717b45731489d1fbbfd3e143",
+          "origin_commit": "787b32edcccc382b462520464e92ed045e8447d3",
+          "path": "docs/assets/concept-animations/h2o-evolving-cache-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "expert-lru-locality": {
+      "origins": [
+        {
+          "origin_blob": "563e02eef5053bf67d6f35cb2688f55fced10619",
+          "origin_commit": "787b32edcccc382b462520464e92ed045e8447d3",
+          "path": "docs/assets/concept-animations/expert-lru-locality-motion.svg"
+        },
+        {
+          "origin_blob": "0bdca343ef693ccfbf4b2f729625f44d038a98de",
+          "origin_commit": "787b32edcccc382b462520464e92ed045e8447d3",
+          "path": "docs/assets/concept-animations/expert-lru-locality-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

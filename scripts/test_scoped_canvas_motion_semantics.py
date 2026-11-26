@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,51 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+
+class CacheEvolutionSemantics(unittest.TestCase):
+    def cells(self, stem, kind):
+        root = ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+        return {(float(e.get('x')), float(e.get('y'))): e.text for e in root.iter(v.NS + 'text')}
+
+    def test_heavy_hitter_turnover(self):
+        scores = {1: 120, 3: 90, 4: 20}
+        rows = [(scores.copy(), 1, None)]
+        for token, increments in [(5, [5, 65, 20, 10]), (6, [5, 15, 70, 10]), (7, [5, 5, 70, 20])]:
+            self.assertEqual(sum(increments), 100)
+            scores[token] = 0
+            for k, delta in zip(sorted(scores), increments):
+                scores[k] += delta
+            recent = {token - 1, token}
+            heavy = max(scores.keys() - recent, key=scores.__getitem__)
+            victim, = scores.keys() - recent - {heavy}
+            rows.append((scores.copy(), heavy, victim))
+            del scores[victim]
+        self.assertEqual([r[2] for r in rows], [None, 1, 4, 5])
+        for kind in ('motion', 'still'):
+            cells = self.cells('h2o-evolving-cache', kind)
+            for i, (state, heavy, victim) in enumerate(rows):
+                for j, token in enumerate([1, 3, 4, 5, 6, 7]):
+                    value = state.get(token)
+                    prefix = '×' if token == victim else 'H' if token == heavy else 'R'
+                    expected = None if value is None else f'{prefix} {value / 100:.2f}'
+                    self.assertEqual(cells.get((185 + i * 118, 119 + j * 34)), expected)
+
+    def test_lru_locality(self):
+        for kind in ('motion', 'still'):
+            cells = self.cells('expert-lru-locality', kind)
+            for j, trace in enumerate(('AABBCC', 'ABCABC')):
+                cache, loads = [], 0
+                for i, expert in enumerate(trace):
+                    hit = expert in cache
+                    loads += not hit
+                    cache = ([expert] + [e for e in cache if e != expert])[:2]
+                    x, y = 140 + i * 77, 94 + j * 117
+                    self.assertEqual(cells[(x + 35.5, y + 18)], f'{expert} {"H" if hit else "M"}')
+                    self.assertEqual(cells[(x + 35.5, y + 48)], ' / '.join(cache + ['–'] * (2 - len(cache))))
+                    self.assertEqual(cells[(x + loads * 9 + 4, y + 73)], str(loads))
+                self.assertEqual(loads, (3, 6)[j])
 
 
 if __name__ == '__main__':
