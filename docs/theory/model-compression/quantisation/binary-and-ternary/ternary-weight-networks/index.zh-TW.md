@@ -26,6 +26,20 @@ translation_reviewed: 2026-10-28
 
 論文在前向與反向傳播時使用三值權重，但參數更新時不使用，從而保留實數權重，這與 [BinaryConnect](../binaryconnect/index.zh-TW.md) 相同。
 
+### 視覺解說：幅度門檻與共用縮放
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以檢視教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/twn-threshold-scale-still.svg" src="../../../../../assets/concept-animations/twn-threshold-scale-still.svg" data-motion-src="../../../../../assets/concept-animations/twn-threshold-scale-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="幅度門檻上升後排除兩個權重，其餘兩個權重產生帶符號的三值編碼及共用縮放係數 0.9。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/twn-threshold-scale-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/twn-threshold-scale-motion.svg)
+
+對 $w=(-1,-0.2,0.4,0.8)$，平均幅度為 $0.6$，因此啟發式門檻為 $\Delta=0.42$。上升的陰影區示意門檻選擇，而非訓練軌跡。採用嚴格保留條件 $|w_i|>\Delta$，三值編碼為 $t=(-1,0,0,1)$。固定此非空編碼，最小化 $\|w-\alpha t\|_2^2$ 得到 $\alpha=(w^\top t)/(t^\top t)=(1+0.8)/2=0.9$。重建結果為 $(-0.9,0,0,0.9)$，平方誤差為 $0.01+0.04+0.16+0.01=0.22$。若沒有權重通過門檻，重建結果為零、縮放係數不影響結果，應避免除以零。本例隔離 Li 等人（2016）的門檻與縮放規則，並非全域最佳化門檻或準確率實驗。所有數值皆為示意，並非模型實測值。
+
+在 MkDocs 使用播放／暫停（Enter 或 Space）觀察變化，GitHub 與減少動態效果模式提供完整靜態結果。原創圖示，**CC BY-SA 4.0**。
+
 ## 結果
 
 摘要報告最高可達 16 倍的模型壓縮。與全精度之間的準確率差距，見論文的表格；不應拿使用不同網路的論文來互相比較。
