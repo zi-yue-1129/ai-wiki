@@ -755,5 +755,47 @@ class ReconstructionAndScaleGradient(unittest.TestCase):
             self.assertEqual(labels['521','307'], 's → 1.1')
 
 
+
+    def test_sparsegpt_residual_bars_follow_repair(self):
+        root = ET.parse(ASSETS / 'sparsegpt-fixed-mask-repair-motion.svg').getroot()
+        moving = next(g for g in root.findall(v.NS + 'g') if g.get('class') == 'moving')
+        def width_animation(x, y):
+            bar = next(e for e in moving.iter(v.NS + 'rect')
+                       if (e.get('x'), e.get('y')) == (x, y)
+                       and e.find(v.NS + 'animate') is not None)
+            return bar.find(v.NS + 'animate')
+        output = width_animation('78', '265')
+        residual = width_animation('174', '315')
+        self.assertEqual(output.get('keyTimes'), residual.get('keyTimes'))
+        self.assertEqual(output.get('dur'), residual.get('dur'))
+        self.assertEqual(output.get('calcMode'), 'linear')
+        self.assertEqual(residual.get('calcMode'), 'linear')
+        self.assertEqual(list(map(float, output.get('values').split(';'))), [140, 140, 210, 210])
+        self.assertEqual(list(map(float, residual.get('values').split(';'))), [110, 110, 0, 0])
+        for k in range(101):
+            a = 2 + k/100
+            self.assertAlmostEqual(3-a, (110*(1-k/100))/110)
+            self.assertAlmostEqual((3-a)**2+1, sum(r*r for r in (3-a, 1)))
+        for kind in ('motion', 'still'):
+            labels = self.labels('sparsegpt-fixed-mask-repair', kind)
+            self.assertEqual(labels['614', '326'], '|r2| = 1')
+        self.assertEqual([1*1+0*1, 1*1+0*0], [1, 1])  # G_KK, G_KP
+
+    def test_lsq_forward_task_and_reconstruction_counterexample(self):
+        x = [-2.4, -.7, .3, 1.6]
+        upstream = [-1, -1, 1, -1]
+        derivative = [-2 if a <= -2 else 1 if a >= 1 else round(a)-a for a in x]
+        grad = .5 * sum(a*b for a,b in zip(derivative, upstream))
+        self.assertAlmostEqual(grad, .5)
+        next_scale = 1 - .2*grad
+        self.assertAlmostEqual(next_scale, .9)
+        for scale, expected_sse, expected_task in ((1, .70, 4), (1.1, .54, 4.2), (.9, .98, 3.8)):
+            codes = [round(max(-2, min(1, a/scale))) for a in x]
+            self.assertEqual(codes, [-2, -1, 0, 1])
+            decoded = [scale*q for q in codes]
+            self.assertAlmostEqual(sum((a-b)**2 for a,b in zip(x,decoded)), expected_sse)
+            self.assertAlmostEqual(2+sum(a*b for a,b in zip(upstream,decoded)), expected_task)
+
+
 if __name__ == '__main__':
     unittest.main()

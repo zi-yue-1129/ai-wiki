@@ -73,6 +73,13 @@ The chain rule multiplies each derivative by its upstream gradient; the resultin
 
 The animation reveals contributions before applying the scaling and update. The derivative is a straight-through surrogate, not the ordinary derivative of rounding. The upstream gradient, step size, and learning rate are synthetic; this is one illustrative update, not a measured training trajectory or a guarantee of loss reduction.
 
+### After the scale update: task loss versus rounding error
+
+Keeping the four inputs fixed, the integer codes at $s=1$ and $s=1.1$ are both $(-2,-1,0,1)$. Their decoded outputs are $(-2,-1,0,1)$ and $(-2.2,-1.1,0,1.1)$; summed squared reconstruction error falls from 0.70 to 0.54.
+
+This decrease is not guaranteed by LSQ. For a counterexample, negate the original upstream gradients to $(-1,-1,1,-1)$ and use the explicit linear toy task loss $L=2-\hat x_1-\hat x_2+\hat x_3-\hat x_4$. The surrogate scale gradient becomes $+0.5$, so the same SGD rule gives $s'=0.9$. The integer codes remain unchanged, but decoded values become $(-1.8,-0.9,0,0.9)$. The task loss decreases from 4 to 3.8 while summed squared reconstruction error increases to 0.98. The scalar offset 2 only keeps these example task losses positive; it does not affect gradients. These are synthetic forward evaluations, not measurements of a trained model.
+
+
 ## Results
 
 The abstract says the method achieves the highest accuracy to date on ImageNet for models quantised to 2, 3 and 4 bits, and that 3-bit models reach full-precision baseline accuracy.
