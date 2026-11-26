@@ -39,7 +39,13 @@ For three teacher points $A=(0,0), B=(3,0), C=(0,4)$ and student points $A'=(10,
 </div>
 </div>
 
-*Original 12-second teaching animation (CC BY-SA 4.0).* Follow the growing edges, then compare the three normalised distances and right-angle markers. The line drawing illustrates measuring relations, not a gradient update. All values are illustrative. MkDocs provides keyboard-accessible Play/Pause; GitHub shows the [static fallback](../../../../../assets/concept-animations/rkd-normalized-geometry-still.svg)。 [Full SVG animation](../../../../../assets/concept-animations/rkd-normalized-geometry-motion.svg).
+*Original 12-second teaching animation (CC BY-SA 4.0).* Follow the growing edges, then compare the three normalised distances and right-angle markers. The line drawing illustrates measuring relations, not a gradient update. All values are illustrative. MkDocs provides keyboard-accessible Play/Pause; GitHub shows the [static fallback](../../../../../assets/concept-animations/rkd-normalized-geometry-still.svg). [Full SVG animation](../../../../../assets/concept-animations/rkd-normalized-geometry-motion.svg).
+
+### What the invariance does not preserve
+
+For $z_i'=sRz_i+t$, with $s>0$ and $R^\top R=I$, all pair distances and their mean scale by $s$; both the normalised distances and the displacement-vector cosines are unchanged. This does not hold for a general anisotropic transform. For example, keep $A=(0,0)$ and $B=(3,0)$ but change $C$ from $(0,4)$ to $(0,3)$. The right angle at A survives, yet the normalised distances become $(0.878680,0.878680,1.242641)$ instead of $(0.75,1,1.25)$. The cosines at B and C become $1/\sqrt{2}$ rather than $3/5$ and $4/5$. Both RKD penalties are consequently nonzero for this constructed counterexample; checking only the marked right angle is insufficient.
+
+During normalisation in the animation, the amber highlight links each raw edge to its corresponding normalised entry in both spaces, rather than implying that the triangle itself shrinks.
 
 ## Results
 
