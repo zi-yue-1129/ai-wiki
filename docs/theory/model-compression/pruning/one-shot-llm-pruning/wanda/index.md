@@ -23,6 +23,20 @@ SparseGPT is accurate, but it needs a second-order calculation for each layer. A
 
 A weight matters when it is large and when the input it multiplies is large. Score each weight by the product of these two, and prune the lowest-scoring weights in each output. No other weight is changed.
 
+### Visual walkthrough
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/wanda-activation-pruning-still.svg" data-motion-src="../../../../../assets/concept-animations/wanda-activation-pruning-motion.svg" data-still-src="../../../../../assets/concept-animations/wanda-activation-pruning-still.svg" alt="Activation-aware scores select different weights from magnitude-only pruning at the same sparsity" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../../../../assets/concept-animations/wanda-activation-pruning-still.svg) · Use the keyboard-accessible **Play/Pause** control on MkDocs; reduced-motion preferences initially show the still.
+
+Consider one output row with weights (4, 3, 2, 1) and a single calibration input (1, 1, 4, 6), so the four input-feature L2 norms are (1, 1, 4, 6). The animation builds the Wanda scores (4, 3, 8, 6) one channel at a time, then compares two masks with 50% sparsity. Magnitude pruning within this row keeps the first two weights; Wanda keeps the last two. The dense dot product is 21. On the same toy input, magnitude pruning produces 7 and Wanda produces 14. The retained weights are unchanged in both cases.
+
+The difference illustrates why a small weight can have a large contribution when its input activation is large. These are constructed values, not model measurements; this one positive input is deliberately simple. Across multiple calibration tokens the feature norm is computed over all observations, and correlated or signed contributions can cancel. The score is a heuristic, not a guarantee of minimum output error for every input. See Sun et al. (2023), especially the pruning metric and per-output comparison in the existing References.
+
+*Original instructional animation, CC BY-SA 4.0.*
+
 ## Equation or algorithm
 
 The score of weight \(W_{ij}\) is

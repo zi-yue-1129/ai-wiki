@@ -14,6 +14,20 @@ SparseGPT 很準確，但每一層都需要二階計算。若有一種更簡單�
 
 當權重大、且它所乘的輸入也大時，該權重才重要。以這兩者的乘積為每個權重評分，並在每個輸出中剪除分數最低的權重。其他權重一律不變。
 
+### 動畫解讀
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/wanda-activation-pruning-still.svg" data-motion-src="../../../../../assets/concept-animations/wanda-activation-pruning-motion.svg" data-still-src="../../../../../assets/concept-animations/wanda-activation-pruning-still.svg" alt="相同稀疏度下，加入激活值的分數與純權重幅度剪枝保留不同的權重" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/wanda-activation-pruning-still.svg) · MkDocs 網站可使用鍵盤操作的 **播放／暫停（Play/Pause）** 控制；偏好減少動態效果時顯示靜態圖。
+
+考慮單一輸出列，權重為 (4, 3, 2, 1)，校準資料只有一筆輸入 (1, 1, 4, 6)，所以四個輸入特徵的 L2 範數為 (1, 1, 4, 6)。動畫逐通道建立 Wanda 分數 (4, 3, 8, 6)，再比較兩種稀疏度皆為 50% 的遮罩。此輸出列內的幅度剪枝保留前兩個權重，Wanda 則保留後兩個。稠密內積為 21；對相同示意輸入，幅度剪枝的輸出為 7，Wanda 為 14。兩種方法都不修改保留權重的數值。
+
+這說明小幅度權重乘上大幅度激活值時，仍可能對輸出有顯著貢獻。所有數值皆為人工示意，並非模型實測；此處刻意只使用一筆正值輸入。實際有多筆校準詞元時，特徵範數需跨觀測值計算，而且相關或帶正負號的貢獻可能互相抵消。此分數是啟發式指標，不保證對所有輸入都能使輸出誤差最小。參見既有參考文獻 Sun 等人（2023）的剪枝指標與逐輸出比較。
+
+*原創教學動畫，CC BY-SA 4.0。*
+
 ## 公式或演算法
 
 權重 \(W_{ij}\) 的分數為

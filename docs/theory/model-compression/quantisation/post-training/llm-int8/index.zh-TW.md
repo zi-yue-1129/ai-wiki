@@ -14,6 +14,20 @@ LLM.int8() 是大型 Transformer 的訓練後 8 位元推論方法。它把少�
 
 把每次矩陣乘法拆開。少數離群維度以 16 位元精度計算，其餘以 8 位元整數與向量尺度計算。這種方法稱為混合精度分解。
 
+### 動畫解讀
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/llm-int8-outlier-split-still.svg" data-motion-src="../../../../../assets/concept-animations/llm-int8-outlier-split-motion.svg" data-still-src="../../../../../assets/concept-animations/llm-int8-outlier-split-still.svg" alt="全 INT8 共用尺度使小幅度特徵被量化為零，混合精度隔離離群維度並保留一般特徵的貢獻" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/llm-int8-outlier-split-still.svg) · MkDocs 網站可使用鍵盤操作的 **播放／暫停（Play/Pause）** 控制；偏好減少動態效果時顯示靜態圖。
+
+以單一內積為例，輸入為 (1, 2, 1270, 3)，權重為 (1, 1, 1, 1)。使用 -127 至 127 的對稱 INT8 量化碼，尺度為最大絕對值除以 127。權重可精確表示（權重尺度為 1/127）。全 INT8 路徑的輸入尺度為 10，使三個小幅度輸入皆捨入為零。解量化後的貢獻總和為 1270，而原始內積為 1276。
+
+在分解路徑中，第三個特徵及其對應權重走 FP16 路徑。其餘輸入的尺度為 3/127，一般特徵的量化碼為 42、85、127。解量化後的貢獻約為 0.99、2.01、3；FP16 貢獻為 1270。在此理想化算術中，兩個部分內積相加得到 1276。前兩個一般特徵的捨入誤差恰好抵消，並不保證能精確重建。動畫依序揭露量化碼、解量化貢獻及總和。所有數值均為示意，並非模型實測或硬體執行紀錄。實際 LLM.int8() 會沿矩陣乘法的特徵維度分割兩個運算元，採用逐向量尺度，仍有捨入誤差及實作開銷。參見既有參考文獻 Dettmers 等人（2022）第 3 節與圖 2。
+
+*原創教學動畫，CC BY-SA 4.0。*
+
 ## 公式或演算法
 
 輸入 \(X\) 與權重 \(W\) 的乘積寫成兩部分之和：正常維度的部分量化為 int8；離群維度的部分以 fp16 計算。\(X\) 的每一列與 \(W\) 的每一行各有自己的尺度。

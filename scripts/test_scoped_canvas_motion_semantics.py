@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,51 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+class CompressionMotionSemantics(unittest.TestCase):
+    def cells(self, stem, kind):
+        ns = '{http://www.w3.org/2000/svg}'
+        root = ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+        if kind == 'motion':
+            root = next(g for g in root.findall(ns+'g') if g.get('class') == 'motion')
+        return {(float(e.get('x')), float(e.get('y'))): e.text for e in root.iter(ns+'text')}
+
+    def test_wanda_activation_aware_mask_and_output(self):
+        weights, features = [4, 3, 2, 1], [1, 1, 4, 6]
+        scores = [abs(w)*abs(x) for w, x in zip(weights, features)]
+        masks = [sorted(range(4), key=metric.__getitem__, reverse=True)[:2]
+                 for metric in (weights, scores)]
+        dense = sum(w*x for w, x in zip(weights, features))
+        outputs = [sum(weights[i]*features[i] for i in mask) for mask in masks]
+        self.assertEqual(outputs, [7, 14])
+        for kind in ('motion', 'still'):
+            cells = self.cells('wanda-activation-pruning', kind)
+            for i in range(4):
+                x = 238 + i*103
+                self.assertEqual(cells[x,100], str(weights[i]))
+                self.assertEqual(cells[x,144], str(features[i]))
+                self.assertEqual(cells[x,185], str(scores[i]))
+                for j, mask in enumerate(masks):
+                    self.assertEqual(cells[x,261+j*45], str(weights[i] if i in mask else 0))
+            self.assertEqual(cells[24,335], f'Output: dense {dense}  |  magnitude {outputs[0]}  |  Wanda {outputs[1]}')
+
+    def test_int8_outlier_split_and_reconstruction(self):
+        values = [1, 2, 1270, 3]
+        for split in (False, True):
+            normal = [v for i, v in enumerate(values) if not (split and i == 2)]
+            scale = max(normal)/127
+            codes = [round(v/scale) if not (split and i == 2) else 'FP16' for i,v in enumerate(values)]
+            terms = [c*scale if c != 'FP16' else values[i] for i,c in enumerate(codes)]
+            total = sum(terms)
+            self.assertAlmostEqual(total, 1276 if split else 1270)
+            for kind in ('motion', 'still'):
+                cells = self.cells('llm-int8-outlier-split', kind)
+                x = 20 + int(split)*310
+                for i in range(4):
+                    self.assertEqual(cells[x+43.5+i*67,208], str(codes[i]))
+                    self.assertAlmostEqual(float(cells[x+43.5+i*67,268]), terms[i], delta=.005)
+                self.assertEqual(cells[x+145,310], f'Sum {round(total)}')
 
 
 if __name__ == '__main__':
