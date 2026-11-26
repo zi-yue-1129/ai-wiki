@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'sparsegpt-fixed-mask-repair': 'theory/model-compression/pruning/one-shot-llm-pruning/sparsegpt/index',
+    'lsq-surrogate-gradient': 'theory/model-compression/quantisation/quantisation-aware-training/lsq/index',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
     'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
@@ -495,7 +497,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {
+    'sparsegpt-fixed-mask-repair': '0 0 640 360',
+    'lsq-surrogate-gradient': '0 0 640 360','kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
  'kfc-patch-second-moment': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
@@ -1379,7 +1383,13 @@ def main() -> int:
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
-            if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
+            if stem in {'sparsegpt-fixed-mask-repair', 'lsq-surrogate-gradient'}:
+                errors.extend(verify_source_pair(page, text, stem))
+                preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                # Independent preview links are required; image attributes alone are not links.
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing GitHub static preview for {stem}")
+            elif ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"tpu-systolic-wavefront", "analog-crossbar-current-sum"}:
                 errors.extend(verify_source_pair(page, text, stem))

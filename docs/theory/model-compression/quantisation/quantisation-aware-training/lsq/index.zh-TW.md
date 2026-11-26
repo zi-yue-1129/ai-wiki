@@ -45,6 +45,24 @@ $$
 
 這次掃描的四個權重始終位於裁剪範圍內。整數碼在半整數邊界立即切換；非邊界處採最近捨入，恰好同距離時的處理依實作而異。移動格線包含全部八個有號 3 位元整數碼（含 −4）。
 
+## 教學動畫：累積步長的替代梯度
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="可水平捲動的教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/lsq-surrogate-gradient-still.svg" src="../../../../../assets/concept-animations/lsq-surrogate-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/lsq-surrogate-gradient-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="四個有號 2 位元輸入依序顯示步長導數及上游梯度。帶符號的貢獻累積為負一，乘上二分之一，梯度下降使步長由 1 增加至 1.1。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/lsq-surrogate-gradient-still.svg) · [完整動畫](../../../../../assets/concept-animations/lsq-surrogate-gradient-motion.svg)
+
+原創 12 秒教學動畫（CC BY-SA 4.0）。網站支援鍵盤操作的播放／暫停；減少動態效果模式預設顯示靜態圖。手機可聚焦圖形區域後水平捲動。
+
+與前面的固定權重掃描不同，此算例追蹤步長的一次**替代梯度更新**。使用有號 2 位元整數碼 $[-2,1]$、$s=1$，以及四個輸入 $(-2.4,-0.7,0.3,1.6)$。假設損失對量化輸出的上游梯度為 $(1,1,-1,1)$。依 Esser 等人（2020）式 3 的分段替代導數，包含兩個被裁剪的輸入，導數為 $(-2,-0.3,-0.3,1)$。
+
+鏈鎖律將每個導數乘上對應的上游梯度，得到帶符號的貢獻 $(-2,-0.3,0.3,1)$；依序累積為 $-2,-2.3,-2,-1$。由於 $N=4$ 且 $Q_p=1$，LSQ 梯度縮放因子為 $g=1/2$。縮放後梯度為 $-0.5$；採用學習率 $\eta=0.2$ 的普通 SGD，得到下一步長 $s'=1.1$。
+
+動畫先呈現各項貢獻，再進行梯度縮放與更新。此導數是直通估計器的替代導數，並非捨入函數的普通導數。上游梯度、步長與學習率均為人工設定；此為單次教學更新，並非實測訓練軌跡，也不保證損失下降。
+
 ## 結果
 
 摘要表示，此方法在 ImageNet 上對量化到 2、3、4 位元的模型達到迄今最高準確度，並且 3 位元模型能達到全精度基準的準確度。

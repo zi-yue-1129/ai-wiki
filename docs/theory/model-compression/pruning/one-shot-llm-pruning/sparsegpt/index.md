@@ -32,6 +32,24 @@ For a layer with weights \(W\) and calibration inputs \(X\), the method seeks a 
 
 over the mask and the updated weights. The solver uses an approximate inverse Hessian of the reconstruction error, computed from the calibration inputs, and the remaining weights are updated to compensate for the removed ones.
 
+## Instructional animation: repair after fixing a pruning mask
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-still.svg" src="../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-still.svg" data-motion-src="../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Dense outputs 3 and 1; removing the second weight gives outputs 2 and 0. Increasing the remaining weight to 3 restores the first output and reduces squared error from 2 to 1.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-still.svg) · [Full animation](../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-motion.svg)
+
+Original 12-second instructional animation (CC BY-SA 4.0). Use the MkDocs keyboard-operable Play/Pause control; reduced motion starts with the still, and the focusable figure can be scrolled horizontally on mobile.
+
+Use the row weight vector $w=(2,1)$ and two calibration inputs $x^{(1)}=(1,1)$ and $x^{(2)}=(0,1)$. The dense outputs are $(3,1)$. Fix a mask that removes the second weight. Without repair, $w'=(2,0)$ yields $(2,0)$ and summed squared error (SSE) 2.
+
+Write the surviving weight as $a$. The reconstruction objective is $L(a)=(a-3)^2+1$, with minimum at $a=3$. Repair yields $(3,0)$ and SSE 1. The second sample cannot be recovered with this mask. The calibration Gram matrix has a nonzero off-diagonal entry: both features contribute to the first sample, so changing the surviving weight can compensate for part of the removed contribution.
+
+This fixed-mask analytic example illustrates the local second-order repair motivation of Frantar and Alistarh (2023), Section 3; it does not simulate SparseGPT's blockwise mask selection, damping, or full inverse-Hessian updates. The growing bar interpolates the output change for explanation, not an iterative training trajectory. All numbers are constructed teaching values, not model measurements.
+
 ## Results
 
 The paper reports that the method can prune large GPT-family models in one shot, without retraining, to at least 50% sparsity. The abstract states that it reaches 60% unstructured sparsity with negligible increase in perplexity. The largest open models it is evaluated on are OPT-175B and BLOOM-176B.
