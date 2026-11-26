@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "seqkd-beam-mode": {
+      "origins": [
+        {
+          "origin_blob": "3d33f3970741724a510d455b137c24b20138fe12",
+          "origin_commit": "8510b927032b99b74ddae8a226ed8d653ef4b229",
+          "path": "docs/assets/concept-animations/seqkd-beam-mode-motion.svg"
+        },
+        {
+          "origin_blob": "6cf4fa6153f220371a59fb9f5b8bffded05478cd",
+          "origin_commit": "8510b927032b99b74ddae8a226ed8d653ef4b229",
+          "path": "docs/assets/concept-animations/seqkd-beam-mode-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "minillm-on-policy-score": {
+      "origins": [
+        {
+          "origin_blob": "f4ce51d46252a159eb2e61313465ee60fc47fe8b",
+          "origin_commit": "8510b927032b99b74ddae8a226ed8d653ef4b229",
+          "path": "docs/assets/concept-animations/minillm-on-policy-score-motion.svg"
+        },
+        {
+          "origin_blob": "94a838221abcb3fe143a6fe5bfb614417677a3db",
+          "origin_commit": "8510b927032b99b74ddae8a226ed8d653ef4b229",
+          "path": "docs/assets/concept-animations/minillm-on-policy-score-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
