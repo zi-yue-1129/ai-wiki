@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "orca-selective-attention-domain": {
+      "origins": [
+        {
+          "origin_blob": "0a15eacc1a4d654da100e49dd0e62b559181ab0b",
+          "origin_commit": "e44756a34f7e168c39b14330d56bc637ce339827",
+          "path": "docs/assets/concept-animations/orca-selective-attention-domain-motion.svg"
+        },
+        {
+          "origin_blob": "7660f86b426ea0c0ac9d0f81eb84584896e4744e",
+          "origin_commit": "e44756a34f7e168c39b14330d56bc637ce339827",
+          "path": "docs/assets/concept-animations/orca-selective-attention-domain-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "kivi-outlier-scale-error": {
+      "origins": [
+        {
+          "origin_blob": "40a28a82d1d87d7f4d82812dd6a609e88aca7ec1",
+          "origin_commit": "e44756a34f7e168c39b14330d56bc637ce339827",
+          "path": "docs/assets/concept-animations/kivi-outlier-scale-error-motion.svg"
+        },
+        {
+          "origin_blob": "85409824392e60e71acc18e9a7b255b5a30fdeb6",
+          "origin_commit": "e44756a34f7e168c39b14330d56bc637ce339827",
+          "path": "docs/assets/concept-animations/kivi-outlier-scale-error-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

@@ -26,6 +26,27 @@ Before each iteration, the scheduler removes finished requests, adds waiting req
 
 *Original animated teaching diagram, CC BY-SA 4.0.* Columns t1–t4 represent **model iterations**, not wall-clock measurements. A, B and C are toy requests; numbers indicate their illustrative generated-token counts. B finishes after t1, allowing waiting request C to join at t2; A finishes after t3 while C continues. The moving outline marks the current iteration and the GPU batch label updates accordingly. This simplified schedule assumes the newly admitted request's prompt is ready to process and omits prefill and memory-capacity details; it is **not a measured throughput trace**. The MkDocs player offers keyboard-accessible **Play/Pause** and honours reduced-motion preferences. GitHub readers can use the [static four-iteration timeline](../../assets/concept-animations/orca-continuous-batching-still.svg). See the [original Orca paper](https://www.usenix.org/conference/osdi22/presentation/yu).
 
+### Visual walkthrough: selective batching and attention isolation
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/orca-selective-attention-domain-still.svg" data-motion-src="../../assets/concept-animations/orca-selective-attention-domain-motion.svg" data-still-src="../../assets/concept-animations/orca-selective-attention-domain-still.svg" alt="Four packed QKV rows A4 and B1–B3 enter separate causal attention domains and merge back into four rows; no cross-request attention is allowed." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../assets/concept-animations/orca-selective-attention-domain-still.svg) · Use keyboard-accessible **Play/Pause** on MkDocs; reduced-motion preferences show the still.
+
+Unlike the scheduling timeline above, this example looks inside one Transformer layer. Request A is decoding token A4 with three cached positions, and request B is prefilling B1–B3. Their four new hidden-state rows can share token-wise projections, but the attention operator must respect both the request boundary and causal masking. The packed QKV projection has four input token rows; the three historical A keys and values are supplied from the cache, not recomputed as projection inputs.
+
+| Query row | Allowed keys | Number of pairs |
+|---|---|---:|
+| A4 | A1, A2, A3, A4 | 4 |
+| B1 | B1 | 1 |
+| B2 | B1, B2 | 2 |
+| B3 | B1, B2, B3 | 3 |
+
+The animation reveals the ten allowed query–key pairs, then the four corresponding output rows. The 4 × 7 grid is a **schematic dependency mask**, not an actual dense score allocation. The original Orca selective-batching design splits attention by request and merges the outputs for the remaining batched operators. The row-by-row reveal is for teaching, not a claim about kernel execution order, attention weights, or measured GPU throughput. See Yu et al. (2022), Section 3 and Figure 5, in References.
+
+*Original instructional diagram, CC BY-SA 4.0.*
+
 ## Key methods
 
 Orca's method is the iteration-level scheduler and selective batching, described above. The paper's evidence compares throughput against request-level batching for GPT-style generation at comparable latency.

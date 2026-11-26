@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,41 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+
+class SelectiveAttentionAndQuantization(unittest.TestCase):
+    def test_orca_request_boundaries_and_causal_pairs(self):
+        queries = ['A4', 'B1', 'B2', 'B3']
+        keys = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3']
+        for kind in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'orca-selective-attention-domain-{kind}.svg').getroot()
+            cells = [node for node in root.iter() if 'data-allowed' in node.attrib]
+            self.assertEqual(len(cells), 28)
+            actual = {(e.attrib['data-q'], e.attrib['data-k']): int(e.attrib['data-allowed']) for e in cells}
+            expected = {(q, k): int(q[0] == k[0] and int(k[1:]) <= int(q[1:])) for q in queries for k in keys}
+            self.assertEqual(actual, expected)
+            self.assertEqual(sum(actual.values()), 10)
+            self.assertEqual([sum(actual[q, k] for k in keys) for q in queries], [4, 1, 2, 3])
+
+    def test_kivi_groupwise_reconstruction_and_geometry(self):
+        source = [[0, 1, 2, 3], [0, 10, 20, 30]]
+        for kind in ('motion', 'still'):
+            root = ET.parse(ASSETS / f'kivi-outlier-scale-error-{kind}.svg').getroot()
+            cells = [node for node in root.iter() if 'data-reconstructed' in node.attrib]
+            self.assertEqual(len(cells), 24)
+            actual = {}
+            for e in cells:
+                panel, channel, token = (int(e.attrib[k]) for k in ('data-panel', 'data-channel', 'data-token'))
+                x = source[channel - 1][token]
+                step = 10 if panel == 1 else (1 if channel == 1 else 10)
+                expected = x if panel == 0 else step * min(3, max(0, round(x / step)))
+                self.assertEqual(int(e.attrib['data-reconstructed']), expected)
+                self.assertEqual(float(e.attrib['height']), expected / (1 if channel == 1 else 10) * 10)
+                actual[panel, channel, token] = expected
+            self.assertEqual(len(actual), 24)
+            self.assertEqual(sum(abs(actual[1, 1, t] - source[0][t]) for t in range(4)), 6)
+            self.assertEqual(sum(abs(actual[2, 1, t] - source[0][t]) for t in range(4)), 0)
 
 
 if __name__ == '__main__':

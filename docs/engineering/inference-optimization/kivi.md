@@ -42,6 +42,25 @@ The moving **vertical band** highlights one key channel across token positions, 
 *Original instructional diagram, CC BY-SA 4.0.*
 
 
+### Visual walkthrough: how an outlier channel changes reconstruction
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/kivi-outlier-scale-error-still.svg" data-motion-src="../../assets/concept-animations/kivi-outlier-scale-error-motion.svg" data-still-src="../../assets/concept-animations/kivi-outlier-scale-error-still.svg" alt="Two key channels with ranges 0–3 and 0–30 are reconstructed using a shared 2-bit step of ten versus separate steps of one and ten. The low channel collapses to zeros only with the shared scale." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../assets/concept-animations/kivi-outlier-scale-error-still.svg) · Use keyboard-accessible **Play/Pause** on MkDocs; reduced-motion preferences show the still.
+
+Consider four token positions and two key channels, with values (0, 1, 2, 3) and (0, 10, 20, 30). For a nonconstant group with minimum $m$ and maximum $M$, a simple asymmetric 2-bit min–max quantiser uses step $s=(M-m)/3$, integer code $q=\\operatorname{clip}(\\operatorname{round}((x-m)/s),0,3)$, and reconstruction $\\hat{x}=m+sq$. Here all minima are zero.
+
+| Grouping | Step for low / high channel | Reconstructed low channel | Low-channel absolute error sum |
+|---|---|---|---:|
+| One shared group | 10 / 10 | 0, 0, 0, 0 | 6 |
+| Separate channel groups | 1 / 10 | 0, 1, 2, 3 | 0 |
+
+The high channel is exactly representable in both cases. The animation makes the loss of low-channel resolution visible as its reconstruction bars shrink under the shared scale. Bars use the same numeric scale within each channel across all three panels, not across channels. Intermediate bar heights are visual interpolation, not additional quantisation levels. These deliberately chosen values isolate the key-channel effect discussed by Liu et al. (2024), Section 3.2, in References; they are **not model measurements**, nor proof that KIVI always reconstructs keys exactly. Actual KIVI uses groups across token positions for key channels, per-token groups for values, and a full-precision residual.
+
+*Original instructional diagram, CC BY-SA 4.0.*
+
 ## Procedure
 
 1. Keep a residual of the most recent tokens in full precision.

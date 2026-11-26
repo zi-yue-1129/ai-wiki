@@ -24,6 +24,27 @@ Orca 是以單次模型迭代為單位進行排程的服務系統。完成的請
 
 *原創教學動畫，CC BY-SA 4.0。* t1–t4 表示**模型迭代**，不是實測的經過時間。A、B、C 是示意請求；數字代表各請求在該步的示意輸出詞元數。B 在 t1 後完成，讓等待中的 C 於 t2 加入；A 在 t3 後完成，C 則繼續執行。移動外框標示目前迭代，GPU 批次標籤也隨之切換。此簡化時序假設新加入請求的提示已準備好處理，省略預填充與記憶體容量細節，**並非吞吐量實測軌跡**。MkDocs 網站提供可用鍵盤操作的「播放／暫停」及減少動態效果支援；GitHub 可查看[四次迭代的靜態時序圖](../../assets/concept-animations/orca-continuous-batching-still.svg)。詳見 [Orca 原始論文](https://www.usenix.org/conference/osdi22/presentation/yu)。
 
+### 動態示範：選擇性批次處理與注意力隔離
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/orca-selective-attention-domain-still.svg" data-motion-src="../../assets/concept-animations/orca-selective-attention-domain-motion.svg" data-still-src="../../assets/concept-animations/orca-selective-attention-domain-still.svg" alt="四個打包的 QKV 詞元列 A4、B1–B3 分別進入各請求的因果注意力範圍，再合併成四列；不允許跨請求注意力。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態預覽](../../assets/concept-animations/orca-selective-attention-domain-still.svg) · 在 MkDocs 網站可使用支援鍵盤操作的 **播放／暫停**；減少動態效果偏好會顯示靜態圖。
+
+不同於前面的排程時序圖，本算例觀察單一 Transformer 層內的運算。請求 A 正在解碼 A4，已有三個快取位置；請求 B 正在預填充 B1–B3。四個新的隱藏狀態列可以共同進行逐詞元投影，但注意力運算必須同時遵守請求邊界與因果遮罩。打包的 QKV 投影包含四個輸入詞元列；A 的三組歷史 Key、Value 從快取讀取，不需要重新加入投影輸入。
+
+| Query 列 | 可注意的 Key | 配對數量 |
+|---|---|---:|
+| A4 | A1、A2、A3、A4 | 4 |
+| B1 | B1 | 1 |
+| B2 | B1、B2 | 2 |
+| B3 | B1、B2、B3 | 3 |
+
+動畫依序揭露十個允許的 Query–Key 配對，再顯示四個對應輸出列。4 × 7 網格是**示意相依性遮罩**，並非實際配置的稠密分數矩陣。Orca 原始的選擇性批次處理設計會依請求分開執行注意力，再將輸出合併供其餘批次運算使用。逐列揭露僅為教學，不代表核心執行順序、注意力權重或 GPU 實測吞吐量。詳見參考文獻 Yu et al.（2022）第 3 節與圖 5。
+
+*原創教學視覺，CC BY-SA 4.0。*
+
 ## 關鍵方法
 
 Orca 的方法就是上面所述的逐迭代排程器與選擇性批次處理。論文的證據，是在相近延遲下，把生成式 GPT 類模型的吞吐量與以請求為單位的批次處理相比。
