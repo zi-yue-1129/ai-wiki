@@ -32,14 +32,71 @@ Words that occur in similar contexts receive similar vectors, because the same p
 
 ## Equation and algorithm
 
-The paper gives a training cost for each model. For \(E\) epochs, \(T\) training words, vector size \(D\), vocabulary size \(V\) and the paper's context/window parameters \(N\) (CBOW) or \(C\) (Skip-gram), its approximate training-cost accounting is \(O=E\times T\times Q\), where
+CBOW and Skip-gram specify the direction of prediction. The output training objective is a separate choice, including hierarchical softmax or negative sampling.[^objectives]
 
-- CBOW: \(Q=ND+D\log_2V\),
-- Skip-gram: \(Q=C(D+D\log_2V)\).
+### Cost with hierarchical softmax
 
-The \(\log_2V\) term comes from the output layer, which uses a hierarchical softmax over a tree of words. This is why the cost grows slowly with the vocabulary. The later paper by Mikolov et al. (2013b) introduces negative sampling as an alternative to hierarchical softmax, which the parent page mentions and [Goldberg and Levy (2014)](https://arxiv.org/abs/1402.3722) explain in detail.
+The paper gives a training cost for each model. For $E$ epochs, $T$ training words, vector size $D$, vocabulary size $V$ and the paper's context/window parameters $N$ (CBOW) or $C$ (Skip-gram), its approximate training-cost accounting is $O=E\times T\times Q$, where
+
+- CBOW: $Q=ND+D\log_2V$,
+- Skip-gram: $Q=C(D+D\log_2V)$.
+
+The $\log_2V$ term comes from the output layer, which uses a hierarchical softmax over a tree of words. This is why the cost grows slowly with the vocabulary. The later paper by Mikolov et al. (2013b) introduces negative sampling as an alternative to hierarchical softmax, which the parent page mentions and [Goldberg and Levy (2014)](https://arxiv.org/abs/1402.3722) explain in detail.
 
 The training loop is standard stochastic gradient descent over sliding windows of text. Each window gives one or several prediction targets, and the gradient updates the input and output vectors involved: CBOW uses context words as inputs, while Skip-gram uses the centre word as input.
+
+### Skip-gram with negative sampling
+
+Let $v_w\in\mathbb R^D$ be the input vector for centre word $w$, and $u_c\in\mathbb R^D$ the output vector for context $c$. These are separate parameter tables, even when the word and context vocabularies contain the same tokens. Write $s_{wc}=u_c^\top v_w$. For a context vocabulary $\mathcal V$, a full softmax would define the normalised conditional distribution[^objectives]
+
+$$
+p_\theta(c\mid w)=\frac{\exp(s_{wc})}{\sum_{c'\in\mathcal V}\exp(s_{wc'})}.
+$$
+
+Skip-gram with negative sampling (SGNS) instead trains a binary classifier to distinguish observed word–context pairs from noise pairs. For one observed pair $(w,c)$ and $k\ge1$ context draws $n_r$ from a noise distribution $q$, minimise[^objectives]
+
+$$
+\begin{aligned}
+\ell(w,c)&=-\log\sigma(s_{wc})-\sum_{r=1}^{k}\log\sigma(-s_{w n_r}),\\
+\sigma(s)&=\frac{1}{1+\exp(-s)},\qquad n_r\sim q.
+\end{aligned}
+$$
+
+This sampled loss evaluates one positive and $k$ negative dot products, costing $O((k+1)D)$ per observed pair for those scores and updates. The earlier hierarchical-softmax cost formula does not describe this output objective. SGNS optimises a different loss from the full-softmax log likelihood.[^objectives]
+
+Mikolov et al. (2013b) use a noise distribution based on unigram frequencies $f(c)$ raised to the power $3/4$,[^noise]
+
+$$
+q(c)=\frac{f(c)^{3/4}}{\sum_{c'\in\mathcal V}f(c')^{3/4}}.
+$$
+
+This controls which contexts are sampled as negatives. Frequent-word subsampling discards some corpus tokens when forming training examples. A noise sample is a training label, so it does not certify that the sampled word is semantically incompatible with the centre word.[^noise]
+
+## Interpreting the sigmoid
+
+The SGNS sigmoid scores a pair's membership in the observed-versus-noise classification task. It is not normalised over the context vocabulary. To see the distinction, fix a centre word and a context with empirical conditional probability $p=p_{\mathrm{data}}(c\mid w)>0$ and $q(c)>0$. Grouping the expected positive and negative terms gives the pair-specific loss[^interpretation]
+
+$$
+j(s)=-p\log\sigma(s)-kq(c)\log\sigma(-s).
+$$
+
+If each pair score can be optimised independently, setting $j'(s)=(p+kq(c))\sigma(s)-p$ to zero yields
+
+$$
+s^*=\log\frac{p}{kq(c)},\qquad
+\sigma(s^*)=\frac{p}{p+kq(c)}.
+$$
+
+This idealised optimum assumes independently adjustable pair scores. Finite-dimensional word and context vectors couple the pair scores, so a trained embedding need not attain every such optimum.[^interpretation]
+
+For a constructed two-context example, let $k=5$ and $q(c)=0.5$ for both contexts. Natural logarithms give the following values, rounded to four decimals.
+
+| Context | $p_{\mathrm{data}}(c\mid w)$ | Ideal score $s^*$ | Binary sigmoid $\sigma(s^*)$ |
+|---|---|---|---|
+| A | 0.8 | -1.1394 | 0.2424 |
+| B | 0.2 | -2.5257 | 0.0741 |
+
+The empirical conditional probabilities sum to one, while the ideal binary sigmoids sum to about $0.3165$. Changing $k$ or $q$ changes those sigmoids even when the empirical conditional distribution is fixed. The table illustrates the objective, not measured word2vec outputs.
 
 ## Results
 
@@ -61,12 +118,17 @@ These paired rows give Skip-gram higher semantic accuracy than CBOW. The paper s
 - **One vector per word.** Each word has a single vector whatever its sense, a limitation that contextual models later addressed.
 - **Training cost at scale.** The paper expects that larger corpora and larger vectors will do better, and the cost grows with both, which motivated distributed training.
 
+[^objectives]: Mikolov et al. (2013b), Section 2.2, Equation (4), and Goldberg and Levy (2014), Sections 1–2, distinguish the softmax conditional distribution from the negative-sampling objective and its separate word/context vectors. The per-pair cost follows by counting the $k+1$ scored vector pairs.
+[^noise]: Mikolov et al. (2013b), Sections 2.2–2.3, specify the $3/4$ noise distribution and the separate frequent-token subsampling procedure. Goldberg and Levy (2014), Section 2, explains the binary labels assigned to sampled pairs.
+[^interpretation]: Levy and Goldberg (2014), Sections 3.1–3.2 and footnote 1, analyse independently optimised scores, unigram noise, its smoothed variant and dimensionality constraints. The general-$q$ formula and table here follow by differentiating the displayed expected loss.
+
 ## References
 
 ### Seminal papers
 
 - Mikolov, T., Chen, K., Corrado, G. & Dean, J. (2013). *Efficient Estimation of Word Representations in Vector Space*. arXiv. https://arxiv.org/abs/1301.3781 — Defines the CBOW and Skip-gram architectures, the training cost of each, and the semantic-syntactic evaluation used on this page.
 - Mikolov, T., Sutskever, I., Chen, K., Corrado, G. & Dean, J. (2013). *Distributed Representations of Words and Phrases and their Compositionality*. arXiv. https://arxiv.org/abs/1310.4546 — Introduces negative sampling as a substitute for the hierarchical softmax, together with subsampling of frequent words.
+- Levy, O. & Goldberg, Y. (2014). *Neural Word Embedding as Implicit Matrix Factorization*. NIPS 27. https://proceedings.neurips.cc/paper/2014/hash/b78666971ceae55a8e87efb7cbfd9ad4-Abstract.html — Derives the shifted-PMI interpretation for unigram-noise SGNS and explains how finite embedding dimensions constrain the ideal pair scores.
 
 ### Surveys and textbooks
 
