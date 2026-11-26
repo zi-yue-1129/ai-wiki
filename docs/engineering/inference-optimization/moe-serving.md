@@ -48,6 +48,27 @@ flowchart LR
 
 The two all-to-all communication steps are the cost that expert parallelism adds. Their size depends on the batch and on how evenly the router spreads tokens.
 
+### Worked example: the expert straggler
+
+Eight top-1 assignments reach four devices, each hosting one expert. Assume that every assignment costs one time unit, experts start together, no tokens are dropped or padded, and the combine step waits for every expert. Compare loads (2, 2, 2, 2) and (5, 1, 1, 1).
+
+<img data-source-asset-urls src="../../assets/concept-animations/moe-expert-straggler-still.svg" data-motion-src="../../assets/concept-animations/moe-expert-straggler-motion.svg" data-still-src="../../assets/concept-animations/moe-expert-straggler-still.svg" alt="Equal total expert work of eight assignments, with balanced loads finishing at time two and skewed loads finishing at time five; three experts wait four units each.">
+
+*Original animated teaching diagram, CC BY-SA 4.0.* Blue bars grow during computation; darker grey bars accumulate while finished experts wait for the layer barrier. The amber line is a shared clock. On MkDocs use the keyboard-accessible **Play/Pause** control; reduced-motion preferences show the still. [Static preview for GitHub](../../assets/concept-animations/moe-expert-straggler-still.svg).
+
+| Load distribution | Total work | Expert-stage time | Idle device-time |
+|---|---:|---:|---:|
+| Balanced | 8 | 2 | 0 |
+| Skewed | 8 | 5 | 12 |
+
+For expert loads $n_i$ and equal unit service times, the idealised expert-stage duration is $T=\max_i n_i$. With four devices, idle device-time before the barrier is $4T-\sum_i n_i$: 12 in the skewed case. The busy fraction falls from 100% to 40%. Equal total active work does not guarantee equal layer latency. The 2.5-fold stage-time difference is schematic, not a measured MoE speedup; dispatch, combine, expert GEMM efficiency, network contention and capacity limits are omitted. See [GShard](gshard.md) and [DeepSpeed-MoE](deepspeed-moe.md) for actual distributed implementations.
+
+#### When equal counts are not enough
+
+For identical devices and indivisible assignments, the largest count is at least $\lceil N/E\rceil$, where $N$ is the total number of assignments and $E$ is the number of experts. For eight assignments and four experts, the balanced panel attains this lower bound of two.
+
+If device $i$ instead takes $c_i$ time units per assignment, its busy time is $n_i c_i$ and the barrier is set by the largest busy time, not the largest count. Suppose the four costs are (1, 1, 1, 2). Equal counts (2, 2, 2, 2) now finish at time 4; counts (3, 2, 2, 1) finish at time 3. At time 2 the devices can complete at most seven whole assignments, so time 3 is optimal in this toy model. This is a scheduling comparison, not permission to change a trained router's chosen experts. With top-k routing, count expert assignments rather than unique tokens; if experts share a device, the relevant barrier is the device's actual workload.
+
 ## Key methods
 
 Each named method has its own page. The table compares them.

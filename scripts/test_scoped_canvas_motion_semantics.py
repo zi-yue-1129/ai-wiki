@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,125 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+
+class ServingBottleneckSemantics(unittest.TestCase):
+    def solid_rects(self, stem, variant, color, height):
+        root = ET.parse(ASSETS / f'{stem}-{variant}.svg').getroot()
+        return [e for e in root.iter(v.NS + 'rect')
+                if e.get('fill') == color and e.get('height') == str(height)
+                and float(e.get('width', '0')) > 0]
+
+    def test_expert_straggler_wait_and_work(self):
+        for variant in ('still', 'motion'):
+            busy = self.solid_rects('moe-expert-straggler', variant, '#35678f', 29)
+            wait = self.solid_rects('moe-expert-straggler', variant, '#aabdc9', 29)
+            loads = [int(e.get('width')) // 40 for e in busy]
+            self.assertEqual(loads, [2, 2, 2, 2, 5, 1, 1, 1])
+            self.assertEqual([sum(loads[:4]), sum(loads[4:])], [8, 8])
+            self.assertEqual([max(loads[:4]), max(loads[4:])], [2, 5])
+            self.assertEqual(sum(int(e.get('width')) // 40 for e in wait), 12)
+
+    def test_serial_link_wait_and_completion(self):
+        arrivals = [0, 2, 4]
+        free = [0, 0, 0]
+        intervals = [[], [], []]
+        waits = []
+        for arrival in arrivals:
+            t = arrival
+            for i, duration in enumerate((2, 3, 2)):
+                start = max(t, free[i])
+                if i == 1:
+                    waits.append(start - t)
+                free[i] = start + duration
+                intervals[i].append((start, free[i]))
+                t = free[i]
+        self.assertEqual(waits, [0, 1, 2])
+        self.assertEqual([b for a, b in intervals[2]], [7, 10, 13])
+        for variant in ('still', 'motion'):
+            for i, color in enumerate(('#35678f', '#a26420', '#08756e')):
+                bars = self.solid_rects('disagg-link-queue', variant, color, 32)
+                rendered = [((int(e.get('x')) - 105) // 38,
+                             (int(e.get('x')) - 105 + int(e.get('width')) + 2) // 38)
+                            for e in bars]
+                self.assertEqual(rendered, intervals[i])
+            wait_bars = self.solid_rects('disagg-link-queue', variant, '#aabdc9', 32)
+            self.assertEqual([(int(e.get('width')) + 2) // 38 for e in wait_bars], [1, 2])
+
+
+    def assert_clock_alignment(self, stem, height, unit, total, pad, clocks):
+        motion = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
+        still = ET.parse(ASSETS / f'{stem}-still.svg').getroot()
+        rects = list(still.iter(v.NS + 'rect'))
+        bars = clock_count = 0
+        for bar in motion.iter(v.NS + 'rect'):
+            animation = bar.find(v.NS + 'animate')
+            if animation is None or bar.get('height') not in (str(height), '3'):
+                continue
+            is_clock = bar.get('height') == '3'
+            if is_clock:
+                width, start, end = total * unit, 0, total
+                clock_count += 1
+            else:
+                matches = [r for r in rects if all(
+                    r.get(key) == bar.get(key) for key in ('x', 'y', 'fill', 'height'))]
+                self.assertEqual(len(matches), 1)
+                width = int(matches[0].get('width'))
+                x = int(bar.get('x'))
+                origin = 105 if pad else (392 if x >= 392 else 82)
+                start = (x - origin) / unit
+                end = start + (width + pad) / unit
+                bars += 1
+            values = [0, width, width] if start == 0 else [0, 0, width, width]
+            times = [0, .82 * end / total, 1] if start == 0 else [
+                0, .82 * start / total, .82 * end / total, 1]
+            self.assertEqual([float(x) for x in animation.get('values').split(';')], values)
+            actual = [float(x) for x in animation.get('keyTimes').split(';')]
+            self.assertEqual(len(actual), len(times))
+            for a, b in zip(actual, times):
+                self.assertAlmostEqual(a, b, places=6)
+            self.assertEqual(animation.get('attributeName'), 'width')
+            self.assertEqual(animation.get('dur'), '12s')
+            self.assertEqual(animation.get('repeatCount'), 'indefinite')
+            self.assertIn(animation.get('calcMode', 'linear'), ('linear',))
+        self.assertEqual((bars, clock_count), (11, clocks))
+
+    def test_straggler_clock_and_heterogeneous_devices(self):
+        self.assert_clock_alignment('moe-expert-straggler', 29, 40, 5, 0, 2)
+        costs = (1, 1, 1, 2)
+        def duration(loads):
+            self.assertEqual(sum(loads), 8)
+            return max(n * c for n, c in zip(loads, costs))
+        self.assertEqual(duration((2, 2, 2, 2)), 4)
+        self.assertEqual(duration((3, 2, 2, 1)), 3)
+        self.assertEqual(sum(2 // c for c in costs), 7)
+
+    def test_link_clock_and_variable_transfer_waits(self):
+        self.assert_clock_alignment('disagg-link-queue', 32, 38, 13, 2, 1)
+        def simulate(transfers):
+            free = [0, 0, 0]
+            link_waits, decode_waits, finishes = [], [], []
+            for i, transfer in enumerate(transfers):
+                t = 2 * i
+                waits = []
+                for stage, service in enumerate((2, transfer, 2)):
+                    start = max(t, free[stage])
+                    waits.append(start - t)
+                    t = free[stage] = start + service
+                link_waits.append(waits[1])
+                decode_waits.append(waits[2])
+                finishes.append(t)
+            recurrence = [0]
+            for service in transfers[:-1]:
+                recurrence.append(max(0, recurrence[-1] + service - 2))
+            self.assertEqual(link_waits, recurrence)
+            return link_waits, decode_waits, finishes
+        self.assertEqual(simulate((3, 3, 3)), ([0, 1, 2], [0, 0, 0], [7, 10, 13]))
+        self.assertEqual(simulate((2, 2, 2)), ([0, 0, 0], [0, 0, 0], [6, 8, 10]))
+        self.assertEqual(simulate((3, 1, 2)), ([0, 1, 0], [0, 1, 1], [7, 9, 11]))
+        self.assertEqual([t - 2 * i for i, t in enumerate(simulate((3, 3, 3))[2])],
+                         [7, 8, 9])
 
 
 if __name__ == '__main__':

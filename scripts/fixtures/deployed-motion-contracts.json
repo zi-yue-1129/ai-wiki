@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "moe-expert-straggler": {
+      "origins": [
+        {
+          "origin_blob": "18d62389a7ca9acf24f920dbb04e6bc63a44cada",
+          "origin_commit": "8f87b8d8fc6e62eb8c160eca16eb98338a9af618",
+          "path": "docs/assets/concept-animations/moe-expert-straggler-motion.svg"
+        },
+        {
+          "origin_blob": "9fe1e20cf8b1e487057705bd69d838a81d3a96d1",
+          "origin_commit": "8f87b8d8fc6e62eb8c160eca16eb98338a9af618",
+          "path": "docs/assets/concept-animations/moe-expert-straggler-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "disagg-link-queue": {
+      "origins": [
+        {
+          "origin_blob": "d92bc78abaff0a7a3794dc6a69ec7f293bfac6a7",
+          "origin_commit": "8f87b8d8fc6e62eb8c160eca16eb98338a9af618",
+          "path": "docs/assets/concept-animations/disagg-link-queue-motion.svg"
+        },
+        {
+          "origin_blob": "244edf847793f5b998fafc582ee6eaf45533353a",
+          "origin_commit": "8f87b8d8fc6e62eb8c160eca16eb98338a9af618",
+          "path": "docs/assets/concept-animations/disagg-link-queue-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
