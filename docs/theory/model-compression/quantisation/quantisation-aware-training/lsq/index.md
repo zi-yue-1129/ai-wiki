@@ -55,6 +55,31 @@ $$
 
 All four weights remain inside the clipping range throughout this sweep. Code changes occur exactly at half-integer boundaries; nearest rounding determines the code away from a boundary, while exact-tie conventions are implementation-dependent. The moving grid shows all eight signed 3-bit codes, including −4.
 
+## Instructional animation: accumulate the surrogate scale gradient
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/lsq-surrogate-gradient-still.svg" src="../../../../../assets/concept-animations/lsq-surrogate-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/lsq-surrogate-gradient-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Four signed 2-bit inputs reveal their scale derivatives and upstream gradients. Signed contributions accumulate to minus one, scale by one half, and a gradient descent step raises the step size from 1 to 1.1.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/lsq-surrogate-gradient-still.svg) · [Full animation](../../../../../assets/concept-animations/lsq-surrogate-gradient-motion.svg)
+
+Original 12-second instructional animation (CC BY-SA 4.0). Use the MkDocs keyboard-operable Play/Pause control; reduced motion starts with the still, and the focusable figure can be scrolled horizontally on mobile.
+
+Unlike the fixed-weight sweep above, this example follows a single **surrogate-gradient update** of the step size. Use signed 2-bit codes $[-2,1]$, $s=1$, and four inputs $(-2.4,-0.7,0.3,1.6)$. Assume upstream loss gradients $(1,1,-1,1)$ with respect to the quantised outputs. The piecewise surrogate derivative from Equation 3 of Esser et al. (2020) gives $(-2,-0.3,-0.3,1)$, including the two clipped inputs.
+
+The chain rule multiplies each derivative by its upstream gradient; the resulting signed contributions are $(-2,-0.3,0.3,1)$. Their running sum is $-2,-2.3,-2,-1$. For $N=4$ and $Q_p=1$, the LSQ gradient factor is $g=1/2$. The scaled gradient is $-0.5$; plain SGD with learning rate $\eta=0.2$ gives the next step size $s'=1.1$.
+
+The animation reveals contributions before applying the scaling and update. The derivative is a straight-through surrogate, not the ordinary derivative of rounding. The upstream gradient, step size, and learning rate are synthetic; this is one illustrative update, not a measured training trajectory or a guarantee of loss reduction.
+
+### After the scale update: task loss versus rounding error
+
+Keeping the four inputs fixed, the integer codes at $s=1$ and $s=1.1$ are both $(-2,-1,0,1)$. Their decoded outputs are $(-2,-1,0,1)$ and $(-2.2,-1.1,0,1.1)$; summed squared reconstruction error falls from 0.70 to 0.54.
+
+This decrease is not guaranteed by LSQ. For a counterexample, negate the original upstream gradients to $(-1,-1,1,-1)$ and use the explicit linear toy task loss $L=2-\hat x_1-\hat x_2+\hat x_3-\hat x_4$. The surrogate scale gradient becomes $+0.5$, so the same SGD rule gives $s'=0.9$. The integer codes remain unchanged, but decoded values become $(-1.8,-0.9,0,0.9)$. The task loss decreases from 4 to 3.8 while summed squared reconstruction error increases to 0.98. The scalar offset 2 only keeps these example task losses positive; it does not affect gradients. These are synthetic forward evaluations, not measurements of a trained model.
+
+
 ## Results
 
 The abstract says the method achieves the highest accuracy to date on ImageNet for models quantised to 2, 3 and 4 bits, and that 3-bit models reach full-precision baseline accuracy.

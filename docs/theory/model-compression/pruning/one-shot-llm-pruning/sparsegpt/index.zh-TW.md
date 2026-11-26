@@ -24,6 +24,38 @@ SparseGPT 是一種針對大型 GPT 系列模型的一次性剪枝方法。它�
 
 此最小化是針對遮罩與更新後的權重。求解器使用由校準輸入計算出的重建誤差近似逆 Hessian 矩陣，並更新剩餘的權重，以補償被移除的權重。
 
+## 教學動畫：固定剪枝遮罩後的權重補償
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="可水平捲動的教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-still.svg" src="../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-still.svg" data-motion-src="../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="稠密輸出為 3、1；移除第二個權重後輸出為 2、0。將保留權重增加到 3，使第一個輸出恢復，平方誤差從 2 降為 1。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-still.svg) · [完整動畫](../../../../../assets/concept-animations/sparsegpt-fixed-mask-repair-motion.svg)
+
+原創 12 秒教學動畫（CC BY-SA 4.0）。網站支援鍵盤操作的播放／暫停；減少動態效果模式預設顯示靜態圖。手機可聚焦圖形區域後水平捲動。
+
+令權重列向量為 $w=(2,1)$，兩筆校準輸入為 $x^{(1)}=(1,1)$ 與 $x^{(2)}=(0,1)$。稠密輸出為 $(3,1)$。固定遮罩，移除第二個權重；若不補償，$w'=(2,0)$ 的輸出為 $(2,0)$，平方誤差總和（SSE）為 2。
+
+將保留的權重記為 $a$。重建目標為 $L(a)=(a-3)^2+1$，最小值出現在 $a=3$。補償後輸出為 $(3,0)$，SSE 降至 1；此遮罩無法恢復第二筆樣本的輸出。校準資料的 Gram 矩陣存在非零的非對角項：兩個特徵都對第一筆樣本有貢獻，因此調整保留權重可以補償部分被移除的貢獻。
+
+此固定遮罩的解析算例呈現 Frantar 與 Alistarh（2023）第 3 節所述的局部二階補償動機，並未模擬 SparseGPT 的區塊遮罩選擇、阻尼或完整逆 Hessian 更新。長條增長是為了解釋輸出變化的插值，不是迭代訓練軌跡。所有數值皆為人工教學算例，並非模型實測。
+
+### 為何第一個殘差消失，第二個卻無法恢復？
+
+將校準樣本排列為矩陣的列，$X=\begin{bmatrix}1&1\\0&1\end{bmatrix}$。定義 $r=Xw-X\hat w$，動畫下方的長條表示 $|r_1|$ 與 $|r_2|$，而非平方誤差。示意補償過程中，$a$ 由 2 變為 3，此時 $r=(3-a,1)$，第一個長條逐漸縮短，第二個始終為一。最佳解的殘差與保留特徵正交。
+
+一般而言，令 $K$ 為保留座標、$P$ 為剪除座標。採用直行向量形式的權重時，殘差為 $X_Pw_P-X_K\Delta_K$，其中 $\hat w_K=w_K+\Delta_K$。固定遮罩且不加阻尼的最小平方法，其正規方程為
+
+$
+G_{KK}\Delta_K=G_{KP}w_P,
+\qquad G=X^TX.
+$
+
+若 $G_{KK}$ 非奇異，即可唯一決定補償量。本例 $G_{KK}=G_{KP}=1$ 且 $w_P=1$，得到 $\Delta_K=1$。反之，若保留與移除的校準特徵彼此正交，則 $G_{KP}=0$，這類補償無法改善目標。這是固定遮罩下的精確局部重建計算，不是完整 SparseGPT 求解器；奇異或加阻尼的系統需另行處理。
+
+
 ## 結果
 
 論文報告，此方法可在不重新訓練的情況下，把大型 GPT 系列模型一次性剪到至少 50% 稀疏度。摘要指出，它能達到 60% 的非結構化稀疏度，困惑度的增加可忽略不計。它評估所用最大的開源模型為 OPT-175B 與 BLOOM-176B。

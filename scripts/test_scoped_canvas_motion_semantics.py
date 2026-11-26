@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,90 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+
+class ReconstructionAndScaleGradient(unittest.TestCase):
+    def labels(self, stem, kind):
+        root = ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+        if kind == 'motion':
+            root = next(g for g in root.findall(v.NS + 'g') if g.get('class') == 'still')
+        return {(e.get('x'), e.get('y')): e.text for e in root.iter(v.NS + 'text')}
+
+    def test_fixed_mask_repair(self):
+        samples = [(1, 1), (0, 1)]
+        weights = [(2, 1), (2, 0), (3, 0)]
+        outputs = [[sum(a*b for a, b in zip(w, x)) for x in samples] for w in weights]
+        target = outputs[0]
+        losses = [sum((a-b)**2 for a,b in zip(y,target)) for y in outputs]
+        self.assertEqual(losses, [0, 2, 1])
+        for kind in ('motion', 'still'):
+            labels = self.labels('sparsegpt-fixed-mask-repair', kind)
+            for i, (w, y, loss) in enumerate(zip(weights, outputs, losses)):
+                row = 76 + i*80
+                self.assertEqual([labels['300', str(row+41+j*17)] for j in range(2)], list(map(str,y)))
+                self.assertEqual([labels[str(398.5+j*67), str(row+44)] for j in range(2)], list(map(str,w)))
+                self.assertEqual(labels['598', str(row+44)], f'SSE {loss}')
+
+    def test_lsq_surrogate_scale_gradient(self):
+        x = [-2.4, -.7, .3, 1.6]
+        upstream = [1, 1, -1, 1]
+        derivative = [-2 if a <= -2 else 1 if a >= 1 else round(a)-a for a in x]
+        contribution = [round(a*b, 10) for a,b in zip(derivative,upstream)]
+        self.assertEqual(contribution, [-2, -.3, .3, 1])
+        self.assertAlmostEqual(sum(contribution), -1)
+        self.assertAlmostEqual(1-.2*.5*sum(contribution), 1.1)
+        for kind in ('motion', 'still'):
+            labels = self.labels('lsq-surrogate-gradient', kind)
+            for i in range(4):
+                row = str(115+i*40)
+                for xx, expected in zip(('92','235','376','529'), (x[i],derivative[i],upstream[i],contribution[i])):
+                    self.assertAlmostEqual(float(labels[xx,row]), expected)
+            self.assertEqual(labels['117','307'], '−1.0')
+            self.assertEqual(labels['318','307'], '−0.5')
+            self.assertEqual(labels['521','307'], 's → 1.1')
+
+
+
+    def test_sparsegpt_residual_bars_follow_repair(self):
+        root = ET.parse(ASSETS / 'sparsegpt-fixed-mask-repair-motion.svg').getroot()
+        moving = next(g for g in root.findall(v.NS + 'g') if g.get('class') == 'moving')
+        def width_animation(x, y):
+            bar = next(e for e in moving.iter(v.NS + 'rect')
+                       if (e.get('x'), e.get('y')) == (x, y)
+                       and e.find(v.NS + 'animate') is not None)
+            return bar.find(v.NS + 'animate')
+        output = width_animation('78', '265')
+        residual = width_animation('174', '315')
+        self.assertEqual(output.get('keyTimes'), residual.get('keyTimes'))
+        self.assertEqual(output.get('dur'), residual.get('dur'))
+        self.assertEqual(output.get('calcMode'), 'linear')
+        self.assertEqual(residual.get('calcMode'), 'linear')
+        self.assertEqual(list(map(float, output.get('values').split(';'))), [140, 140, 210, 210])
+        self.assertEqual(list(map(float, residual.get('values').split(';'))), [110, 110, 0, 0])
+        for k in range(101):
+            a = 2 + k/100
+            self.assertAlmostEqual(3-a, (110*(1-k/100))/110)
+            self.assertAlmostEqual((3-a)**2+1, sum(r*r for r in (3-a, 1)))
+        for kind in ('motion', 'still'):
+            labels = self.labels('sparsegpt-fixed-mask-repair', kind)
+            self.assertEqual(labels['614', '326'], '|r2| = 1')
+        self.assertEqual([1*1+0*1, 1*1+0*0], [1, 1])  # G_KK, G_KP
+
+    def test_lsq_forward_task_and_reconstruction_counterexample(self):
+        x = [-2.4, -.7, .3, 1.6]
+        upstream = [-1, -1, 1, -1]
+        derivative = [-2 if a <= -2 else 1 if a >= 1 else round(a)-a for a in x]
+        grad = .5 * sum(a*b for a,b in zip(derivative, upstream))
+        self.assertAlmostEqual(grad, .5)
+        next_scale = 1 - .2*grad
+        self.assertAlmostEqual(next_scale, .9)
+        for scale, expected_sse, expected_task in ((1, .70, 4), (1.1, .54, 4.2), (.9, .98, 3.8)):
+            codes = [round(max(-2, min(1, a/scale))) for a in x]
+            self.assertEqual(codes, [-2, -1, 0, 1])
+            decoded = [scale*q for q in codes]
+            self.assertAlmostEqual(sum((a-b)**2 for a,b in zip(x,decoded)), expected_sse)
+            self.assertAlmostEqual(2+sum(a*b for a,b in zip(upstream,decoded)), expected_task)
 
 
 if __name__ == '__main__':

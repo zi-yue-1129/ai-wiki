@@ -3653,6 +3653,21 @@
       ],
       "viewBox": "0 0 640 360"
     },
+    "sparsegpt-fixed-mask-repair": {
+      "origins": [
+        {
+          "origin_blob": "8cc72fb1c565adceedf6a65311da1a924d0a3372",
+          "origin_commit": "541e95dd0609ec4b3b423a08ff480d3cfda0576f",
+          "path": "docs/assets/concept-animations/sparsegpt-fixed-mask-repair-motion.svg"
+        },
+        {
+          "origin_blob": "6355840952cb1199844b5f3718bea819272280fe",
+          "origin_commit": "541e95dd0609ec4b3b423a08ff480d3cfda0576f",
+          "path": "docs/assets/concept-animations/sparsegpt-fixed-mask-repair-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "speculative-decoding": {
       "origins": [
         {
@@ -6794,6 +6809,21 @@
           "blob": "1bee6c75c898a6f652b182e5b3e4954dd3a2ccb2"
         }
       ]
+    },
+    "lsq-surrogate-gradient": {
+      "origins": [
+        {
+          "origin_blob": "d3a36a9bec16c76194e791274a6fed6563924d35",
+          "origin_commit": "541e95dd0609ec4b3b423a08ff480d3cfda0576f",
+          "path": "docs/assets/concept-animations/lsq-surrogate-gradient-motion.svg"
+        },
+        {
+          "origin_blob": "95c4fc92083ef681e99764a088e980bd9086848b",
+          "origin_commit": "541e95dd0609ec4b3b423a08ff480d3cfda0576f",
+          "path": "docs/assets/concept-animations/lsq-surrogate-gradient-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     },
     "maddpg-actor-gradient": {
       "viewBox": "0 0 640 360",
