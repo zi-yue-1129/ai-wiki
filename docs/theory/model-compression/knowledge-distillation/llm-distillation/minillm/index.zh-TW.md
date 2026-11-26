@@ -38,6 +38,19 @@ MiniLLM 透過讓學生在自己生成的文字上訓練（由教師評分），
 
 [靜態預覽](../../../../../assets/concept-animations/minillm-on-policy-score-still.svg) · [完整 SVG 動畫](../../../../../assets/concept-animations/minillm-on-policy-score-motion.svg).
 
+### 從單次抽樣分數到母體目標
+
+三個帶符號的 $q_i\log(q_i/p_i)$ 項約為 $(-0.121640,-0.162186,+0.804719)$，總和為 $0.520893$ nats。個別項可以為負，但完整 KL 散度非負。新版動畫在抽樣確定後才高亮學生的 C，評分路徑抵達教師後才高亮教師的 C，接著從共同零基準逐一展開三個貢獻項。這些是母體貢獻項，而非額外三次抽樣獎勵。
+
+另考慮有限類別模型，令序列 logits 為 $z$，且 $q=\operatorname{softmax}(z)$，則微分得到
+
+$
+\frac{\partial D_{\mathrm{KL}}(q\Vert p)}{\partial z_i}
+=q_i\left[\log(q_i/p_i)-D_{\mathrm{KL}}(q\Vert p)\right].
+$
+
+示意梯度約為 $(-0.277908,-0.266365,+0.544272)$，因此小幅梯度下降會使 C 的 logit 相對 A、B 降低。這是有限類別模型的精確微分，並非完整自回歸 MiniLLM 梯度估計器。
+
 ## 結果
 
 論文在指令遵循的設定中，把此方法應用於 1.2 億至 130 億參數的生成式語言模型，並以 Rouge-L 在五個資料集上評估。教師包括 GPT-2 與 GPT-J 6B，學生包括 GPT-2 760M 與 OPT 1.3B 等。摘要指出此方法在不同模型家族上擴展良好。論文回報，MiniLLM 在所有資料集上一致地勝過標準蒸餾基線，並且暴露偏差較低、校準較好，長回應的品質也較高。

@@ -54,6 +54,10 @@ The selected sequence supplies a hard target for student maximum likelihood: $-\
 
 [Static preview](../../../../../assets/concept-animations/seqkd-beam-mode-still.svg) · [Full SVG animation](../../../../../assets/concept-animations/seqkd-beam-mode-motion.svg).
 
+### Why a hard target loses distributional information
+
+Using the same four complete candidates, suppose the student initially assigns each probability $1/4$. The exact teacher cross-entropy and the hard-target negative log-likelihood are both $\log 4$ at this point, but their gradients differ. For a toy categorical softmax over complete sequences (not token logits), the soft-target gradient is $P-Q=(-0.08,-0.02,-0.11,0.21)$ in AX, AY, BX, BY order, whereas the hard BX target gives $P-\delta_{\mathrm{BX}}=(0.25,0.25,-0.75,0.25)$. Equal loss values at one point do not imply equal learning signals. In particular, AX receives opposite gradient signs. This is a schematic example, not a measured model gradient.
+
 ## Results
 
 The abstract reports that the best student runs 10 times faster than the state-of-the-art teacher, with little loss in performance. Relative to a student trained without distillation, the best student gains 4.2 BLEU with greedy decoding and 1.7 BLEU with beam search. Pruning the distilled student removes 13 times fewer parameters than the teacher, at a loss of about 0.4 BLEU.

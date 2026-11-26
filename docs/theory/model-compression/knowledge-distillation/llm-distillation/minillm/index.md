@@ -52,6 +52,19 @@ For this sample the log-ratio reward is $\log(p(C)/q(C))=\log(0.1/0.5)\approx-1.
 
 [Static preview](../../../../../assets/concept-animations/minillm-on-policy-score-still.svg) · [Full SVG animation](../../../../../assets/concept-animations/minillm-on-policy-score-motion.svg).
 
+### From a sampled score to the population objective
+
+The three signed terms $q_i\log(q_i/p_i)$ are approximately $(-0.121640,-0.162186,+0.804719)$. Their sum is $0.520893$ nats; individual terms need not be nonnegative, although the total KL is nonnegative. The animation now highlights C in the student only after selection, then in the teacher after the scoring path arrives, and grows the three terms from a shared zero baseline. These are population terms, not three additional sampled rewards.
+
+For a separate finite categorical model with sequence logits $z$ and $q=\operatorname{softmax}(z)$, differentiation gives
+
+$
+\frac{\partial D_{\mathrm{KL}}(q\Vert p)}{\partial z_i}
+=q_i\left[\log(q_i/p_i)-D_{\mathrm{KL}}(q\Vert p)\right].
+$
+
+The illustrative gradient is approximately $(-0.277908,-0.266365,+0.544272)$, so a small gradient descent step decreases the C logit relative to A and B. This is an exact derivative in the finite categorical model, not the full autoregressive MiniLLM gradient estimator.
+
 ## Results
 
 The paper applies the method to generative language models from 120 million to 13 billion parameters in the instruction-following setting, with five datasets evaluated by Rouge-L. The teachers include GPT-2 and GPT-J 6B, with students such as GPT-2 760M and OPT 1.3B. The abstract states that the method scales well across model families. The paper reports that MiniLLM consistently outperforms standard distillation baselines on all datasets, and that it yields lower exposure bias, better calibration and higher quality on long responses.

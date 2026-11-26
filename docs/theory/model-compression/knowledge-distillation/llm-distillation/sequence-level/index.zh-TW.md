@@ -40,6 +40,10 @@ translation_reviewed: 2026-10-28
 
 [靜態預覽](../../../../../assets/concept-animations/seqkd-beam-mode-still.svg) · [完整 SVG 動畫](../../../../../assets/concept-animations/seqkd-beam-mode-motion.svg).
 
+### 為什麼硬目標會捨棄分布資訊
+
+沿用相同四個完整候選，假設學生初始機率皆為 $1/4$。此時完整教師交叉熵與硬目標負對數似然均為 $\log 4$，但梯度不同。對完整序列建立示意類別 softmax（並非 token logits），按照 AX、AY、BX、BY 順序，軟目標梯度為 $P-Q=(-0.08,-0.02,-0.11,0.21)$，硬目標 BX 的梯度則為 $P-\delta_{\mathrm{BX}}=(0.25,0.25,-0.75,0.25)$。單點損失相同不代表學習訊號相同；特別是 AX 的梯度符號相反。這是示意算例，並非模型實測梯度。
+
 ## 結果
 
 摘要報告，最佳學生比最先進的教師快 10 倍，而效能損失很小。相較於未經蒸餾訓練的基準，最佳學生在貪婪解碼下提升 4.2 BLEU，在 beam search 下提升 1.7 BLEU。對蒸餾後的學生再做剪枝，所用的參數比教師少 13 倍，而 BLEU 約下降 0.4。
