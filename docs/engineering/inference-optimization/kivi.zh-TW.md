@@ -42,6 +42,31 @@ KIVI 是一種無需調校的方法，把 KV 快取量化為 2 位元。它保�
 *原創教學視覺，CC BY-SA 4.0。*
 
 
+### 動態示範：離群通道如何改變重建結果
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/kivi-outlier-scale-error-still.svg" data-motion-src="../../assets/concept-animations/kivi-outlier-scale-error-motion.svg" data-still-src="../../assets/concept-animations/kivi-outlier-scale-error-still.svg" alt="兩個 Key 通道的數值範圍分別為 0–3、0–30，比較共用步長 10 與分別採用步長 1、10 的 2-bit 重建；只有共用尺度時低幅度通道會全部重建為零。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態預覽](../../assets/concept-animations/kivi-outlier-scale-error-still.svg) · 在 MkDocs 網站可使用支援鍵盤操作的 **播放／暫停**；減少動態效果偏好會顯示靜態圖。
+
+考慮四個詞元位置與兩個 Key 通道，數值分別為 (0, 1, 2, 3) 與 (0, 10, 20, 30)。對於最小值 $m$、最大值 $M$ 的非常數群組，簡化的非對稱 2-bit 最小最大值量化分為三步：
+
+1. 設定量化步長 $s=(M-m)/3$。
+2. 計算 $u=(x-m)/s$，四捨五入至最接近的整數，再限制於 0–3，得到整數碼 $q$。
+3. 重建數值 $\hat{x}=m+sq$。
+
+若 $M=m$，則使用常數群組表示法（例如整數碼為零、重建值為 $m$），避免除以零。此算例所有最小值均為零。
+
+| 分組方式 | 低／高幅度通道的步長 | 低幅度通道重建值 | 低幅度通道絕對誤差總和 |
+|---|---|---|---:|
+| 共用一組尺度 | 10 / 10 | 0, 0, 0, 0 | 6 |
+| 各通道獨立分組 | 1 / 10 | 0, 1, 2, 3 | 0 |
+
+高幅度通道在兩種方式下都可精確表示。動畫透過共用尺度下低幅度通道的重建長條縮短，呈現解析度損失。三個面板中同一通道的長條使用相同數值尺度，但不同通道之間的尺度不同。中間長條高度只是視覺插值，不是額外的量化層級。這些人工選定的數值旨在隔離 Liu et al.（2024）第 3.2 節討論的 Key 通道效應，**並非模型實測數據**，也不代表 KIVI 必然能無誤差重建 Key。實際 KIVI 會對 Key 的各通道跨詞元位置分組、對 Value 依詞元分組，並保留全精度殘差。
+
+*原創教學視覺，CC BY-SA 4.0。*
+
 ## 程序
 
 1. 以全精度保留最近的一小段 token 殘差。
