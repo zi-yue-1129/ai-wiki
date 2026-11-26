@@ -43,6 +43,38 @@ Numeric labels show final illustrative scores; bars reveal the same proportional
 *Original instructional diagram, CC BY-SA 4.0.*
 
 
+### Worked example: heavy-hitter turnover across decoding steps
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/h2o-evolving-cache-still.svg" data-motion-src="../../assets/concept-animations/h2o-evolving-cache-motion.svg" data-still-src="../../assets/concept-animations/h2o-evolving-cache-still.svg" alt="A three-token cache changes heavy hitter from t1 to t3 at step five; evicted tokens disappear from later candidate sets." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../assets/concept-animations/h2o-evolving-cache-still.svg) · Use the keyboard-accessible **Play/Pause** on MkDocs; reduced motion displays the complete still.
+
+A simplified single-head policy keeps one heavy hitter outside the two newest tokens. At step 4 the retained scores for t1, t3 and t4 are 1.20, 0.90 and 0.20; t2 was already evicted. For each new step, add attention increments to the available candidates (including the new token), protect the newest two and choose the highest cumulative score among the remainder.
+
+| Step | Candidate order | Attention increments | Evicted |
+|---|---|---|---|
+| 5 | t1, t3, t4, t5 | .05, .65, .20, .10 | t1 |
+| 6 | t3, t4, t5, t6 | .05, .15, .70, .10 | t4 |
+| 7 | t3, t5, t6, t7 | .05, .05, .70, .20 | t5 |
+
+Each increment row sums to one. At step 5, t3 leaves the recent window but wins the heavy-hitter slot (1.55 versus 1.25). An orange cell records the score at eviction, not an extra resident slot; blank cells are absent from the cache. Evicted tokens are not scored in later rows. This illustrates local selection, not an implementation trace or a claim that future attention can recover discarded content. Initial scores and attention increments are synthetic, not measurements. See Zhang et al. (2023) in References for the dynamic heavy-hitter policy.
+
+*Original instructional animation, CC BY-SA 4.0.*
+
+#### When does the heavy hitter change?
+
+The step-4 scores differ by 0.30 (1.20 minus 0.90). Since t4 and t5 are protected at step 5, t3 wins over t1 exactly when its new attention increment exceeds t1's by more than 0.30. Keeping the initial cache and the recent-token increments fixed gives a controlled comparison:
+
+| Step-5 increments for t1, t3 | Updated scores for t1, t3 | Heavy hitter |
+|---|---|---|
+| .05, .65 (animation) | 1.25, 1.55 | t3 |
+| .35, .35 | 1.55, 1.25 | t1 |
+| .20, .50 | 1.40, 1.40 | Tie |
+
+The tie needs a specified tie-breaking rule; this toy policy does not prescribe one. All rows remain normalized because the increments for t4 and t5 stay at .20 and .10. The second row evicts t3 rather than t1, so the later animation columns cannot simply be reused: their candidate sets and attention distributions may differ. These are alternative synthetic attention rows, not independent measurements of the same model.
+
 ## Procedure
 
 1. Fix a cache budget, for example a share of the sequence length.
