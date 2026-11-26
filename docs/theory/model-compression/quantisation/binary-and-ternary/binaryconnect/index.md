@@ -46,6 +46,10 @@ Starting from $w_0=-0.6$, apply four illustrative SGD updates with $\eta=0.2$ an
 
 On MkDocs use Play/Pause (Enter or Space) to inspect the changes. GitHub and reduced-motion readers see the complete static result. Original diagram, **CC BY-SA 4.0**.
 
+### Deterministic and stochastic copies
+
+For the clipped stored weight $w\in[-1,1]$, the stochastic rule above has $\Pr(w_b=+1)=(w+1)/2$. Thus $\mathbb{E}[w_b\mid w]=w$ and $\operatorname{Var}(w_b\mid w)=1-w^2$. Along the animation's five stored weights, the positive-sign probabilities are $0.2,0.3,0.4,0.5,0.6$, respectively. Unlike the deterministic copy, a stochastic draw can be positive even before the stored weight reaches zero; at zero it is equally likely to be either sign. Clipping confines the stored weight, not the size of the sampled binary copy. Unbiasedness here concerns a single sampled weight, not the gradient of a nonlinear network or its loss. These are analytic probabilities, not observed training frequencies.
+
 ## Results
 
 The abstract reports near state-of-the-art results on permutation-invariant MNIST, CIFAR-10 and SVHN. It also reports that BinaryConnect acts as a regulariser, comparable to dropout.
