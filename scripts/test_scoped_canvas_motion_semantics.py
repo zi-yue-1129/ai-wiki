@@ -752,5 +752,59 @@ class PoolingAndFanoutSemantics(unittest.TestCase):
                 self.assertEqual(ops.count('W z') + ops.count('R z'), (3, 2, 0)[i])
 
 
+
+class PoolingFanoutFollowup(unittest.TestCase):
+    def test_fanout_running_count_tracks_completed_transfers(self):
+        root = ET.parse(ASSETS / 'kernel-fusion-fanout-traffic-motion.svg').getroot()
+        animated = next(g for g in root.iter(v.NS + 'g') if g.get('class') == 'animated')
+        for lane, n in enumerate((6, 5, 3)):
+            groups = [g for g in animated.findall(v.NS + 'g') if g.get('data-lane') == str(lane)]
+            self.assertEqual([int(g.get('data-count')) for g in groups], list(range(n + 1)))
+            events = [g for g in animated.findall(v.NS + 'g')
+                      if any(t.get('y') == str(178 + lane * 55) for t in g.findall(v.NS + 'text'))]
+            self.assertEqual(len(events), n)
+            completion = []
+            for g in events:
+                a = g.find(v.NS + 'animate')
+                self.assertEqual(a.get('values'), '0;0;1;1')
+                self.assertEqual(a.get('dur'), '12s')
+                self.assertEqual(a.get('repeatCount'), 'indefinite')
+                completion.append(float(a.get('keyTimes').split(';')[2]))
+            self.assertEqual(completion, [round(.08 + .12 * k, 2) for k in range(n)])
+            for g in groups:
+                a = g.find(v.NS + 'animate')
+                self.assertEqual(a.get('calcMode'), 'discrete')
+                self.assertEqual(a.get('dur'), '12s')
+                self.assertEqual(a.get('repeatCount'), 'indefinite')
+                self.assertEqual(g.find(v.NS + 'text').text, g.get('data-count'))
+            for tick in range(100):
+                t = tick / 100
+                active = []
+                for g in groups:
+                    a = g.find(v.NS + 'animate')
+                    times = list(map(float, a.get('keyTimes').split(';')))
+                    values = a.get('values').split(';')
+                    if values[max(i for i, start in enumerate(times) if start <= t)] == '1':
+                        active.append(int(g.get('data-count')))
+                self.assertEqual(active, [sum(t >= end for end in completion)])
+
+    def test_shared_keys_and_fanout_tradeoffs(self):
+        import math
+        def output(logits):
+            e = [math.exp(x) for x in logits]
+            return 4 * e[1] / sum(e)
+        a = math.log(3)
+        self.assertAlmostEqual(output((0, a)), 3)
+        self.assertAlmostEqual(output((0, -a)), 1)
+        self.assertAlmostEqual(output((5, 5 + a)), 3)
+        self.assertAlmostEqual(output((a / 2, a / 2)), 2)
+        for m in range(2, 9):
+            for k in range(m):
+                transfers = ['R x', 'W z'] + ['W y'] * k + ['R z', 'W y'] * (m - k)
+                self.assertEqual(len(transfers), 2*m + 2 - k)
+            self.assertEqual(len(['R x'] + ['W y'] * m), m + 1)
+            self.assertEqual(len(['R x', 'W y'] * m), 2*m)
+
+
 if __name__ == '__main__':
     unittest.main()
