@@ -59,6 +59,16 @@ Consider three requests A, B and C arriving at times 0, 2 and 4. Each needs two 
 
 The link can complete one request every three time units, whereas each compute worker can complete one every two. A sustained arrival interval of two thus exceeds the link's capacity; separating compute phases alone does not prevent queue growth. With a two-unit transfer instead, the same three requests would finish at 6, 8 and 10 without link waiting. These are deterministic teaching assumptions, not a trace, TTFT/TPOT measurement, or claim about a particular implementation. Real systems may stream individual layers, overlap transfer, and use different cache sizes or bandwidths; see [DistServe](distserve.md) and [Splitwise](splitwise.md).
 
+#### Waiting time versus throughput
+
+Let $w_j$ be the link wait for request $j$, $x_j$ its transfer duration, and $g_j$ the gap between this request and the next becoming ready at the link (not necessarily the external arrival gap). With an initially empty FIFO link, the next wait is
+
+$w_{j+1}=\max(0,w_j+x_j-g_j).$
+
+In the animation, the ready times are 2, 4 and 6, so the gap is two. The waits grow as 0, 1, 2. Subtracting external arrival times from finish times gives response times 7, 8 and 9; the last finish time 13 is not the third request's latency. The finite batch completes three requests in 13 units, including pipeline fill and drain; this is distinct from the steady-state link capacity of one request per three units.
+
+Equal mean transfer duration and ready-time gap do not guarantee zero waiting. Keep the same arrivals but change the three transfer durations to (3, 1, 2). The mean is two, yet the link waits are (0, 1, 0); the decode waits are (0, 1, 1), and the finish times are (7, 9, 11). These are additional schematic calculations, not measurements. At exactly matched deterministic rates there is no spare capacity for disturbances.
+
 ## Key methods
 
 Each named system has its own page, which gives the problem, the core idea, the reported results and the limitations. The table compares them.

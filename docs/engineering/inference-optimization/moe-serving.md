@@ -63,6 +63,12 @@ Eight top-1 assignments reach four devices, each hosting one expert. Assume that
 
 For expert loads $n_i$ and equal unit service times, the idealised expert-stage duration is $T=\max_i n_i$. With four devices, idle device-time before the barrier is $4T-\sum_i n_i$: 12 in the skewed case. The busy fraction falls from 100% to 40%. Equal total active work does not guarantee equal layer latency. The 2.5-fold stage-time difference is schematic, not a measured MoE speedup; dispatch, combine, expert GEMM efficiency, network contention and capacity limits are omitted. See [GShard](gshard.md) and [DeepSpeed-MoE](deepspeed-moe.md) for actual distributed implementations.
 
+#### When equal counts are not enough
+
+For identical devices and indivisible assignments, the largest count is at least $\lceil N/E\rceil$, where $N$ is the total number of assignments and $E$ is the number of experts. For eight assignments and four experts, the balanced panel attains this lower bound of two.
+
+If device $i$ instead takes $c_i$ time units per assignment, its busy time is $n_i c_i$ and the barrier is set by the largest busy time, not the largest count. Suppose the four costs are (1, 1, 1, 2). Equal counts (2, 2, 2, 2) now finish at time 4; counts (3, 2, 2, 1) finish at time 3. At time 2 the devices can complete at most seven whole assignments, so time 3 is optimal in this toy model. This is a scheduling comparison, not permission to change a trained router's chosen experts. With top-k routing, count expert assignments rather than unique tokens; if experts share a device, the relevant barrier is the device's actual workload.
+
 ## Key methods
 
 Each named method has its own page. The table compares them.

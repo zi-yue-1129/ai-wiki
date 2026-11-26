@@ -758,5 +758,79 @@ class ServingBottleneckSemantics(unittest.TestCase):
             self.assertEqual([(int(e.get('width')) + 2) // 38 for e in wait_bars], [1, 2])
 
 
+    def assert_clock_alignment(self, stem, height, unit, total, pad, clocks):
+        motion = ET.parse(ASSETS / f'{stem}-motion.svg').getroot()
+        still = ET.parse(ASSETS / f'{stem}-still.svg').getroot()
+        rects = list(still.iter(v.NS + 'rect'))
+        bars = clock_count = 0
+        for bar in motion.iter(v.NS + 'rect'):
+            animation = bar.find(v.NS + 'animate')
+            if animation is None or bar.get('height') not in (str(height), '3'):
+                continue
+            is_clock = bar.get('height') == '3'
+            if is_clock:
+                width, start, end = total * unit, 0, total
+                clock_count += 1
+            else:
+                matches = [r for r in rects if all(
+                    r.get(key) == bar.get(key) for key in ('x', 'y', 'fill', 'height'))]
+                self.assertEqual(len(matches), 1)
+                width = int(matches[0].get('width'))
+                x = int(bar.get('x'))
+                origin = 105 if pad else (392 if x >= 392 else 82)
+                start = (x - origin) / unit
+                end = start + (width + pad) / unit
+                bars += 1
+            values = [0, width, width] if start == 0 else [0, 0, width, width]
+            times = [0, .82 * end / total, 1] if start == 0 else [
+                0, .82 * start / total, .82 * end / total, 1]
+            self.assertEqual([float(x) for x in animation.get('values').split(';')], values)
+            actual = [float(x) for x in animation.get('keyTimes').split(';')]
+            self.assertEqual(len(actual), len(times))
+            for a, b in zip(actual, times):
+                self.assertAlmostEqual(a, b, places=6)
+            self.assertEqual(animation.get('attributeName'), 'width')
+            self.assertEqual(animation.get('dur'), '12s')
+            self.assertEqual(animation.get('repeatCount'), 'indefinite')
+            self.assertIn(animation.get('calcMode', 'linear'), ('linear',))
+        self.assertEqual((bars, clock_count), (11, clocks))
+
+    def test_straggler_clock_and_heterogeneous_devices(self):
+        self.assert_clock_alignment('moe-expert-straggler', 29, 40, 5, 0, 2)
+        costs = (1, 1, 1, 2)
+        def duration(loads):
+            self.assertEqual(sum(loads), 8)
+            return max(n * c for n, c in zip(loads, costs))
+        self.assertEqual(duration((2, 2, 2, 2)), 4)
+        self.assertEqual(duration((3, 2, 2, 1)), 3)
+        self.assertEqual(sum(2 // c for c in costs), 7)
+
+    def test_link_clock_and_variable_transfer_waits(self):
+        self.assert_clock_alignment('disagg-link-queue', 32, 38, 13, 2, 1)
+        def simulate(transfers):
+            free = [0, 0, 0]
+            link_waits, decode_waits, finishes = [], [], []
+            for i, transfer in enumerate(transfers):
+                t = 2 * i
+                waits = []
+                for stage, service in enumerate((2, transfer, 2)):
+                    start = max(t, free[stage])
+                    waits.append(start - t)
+                    t = free[stage] = start + service
+                link_waits.append(waits[1])
+                decode_waits.append(waits[2])
+                finishes.append(t)
+            recurrence = [0]
+            for service in transfers[:-1]:
+                recurrence.append(max(0, recurrence[-1] + service - 2))
+            self.assertEqual(link_waits, recurrence)
+            return link_waits, decode_waits, finishes
+        self.assertEqual(simulate((3, 3, 3)), ([0, 1, 2], [0, 0, 0], [7, 10, 13]))
+        self.assertEqual(simulate((2, 2, 2)), ([0, 0, 0], [0, 0, 0], [6, 8, 10]))
+        self.assertEqual(simulate((3, 1, 2)), ([0, 1, 0], [0, 1, 1], [7, 9, 11]))
+        self.assertEqual([t - 2 * i for i, t in enumerate(simulate((3, 3, 3))[2])],
+                         [7, 8, 9])
+
+
 if __name__ == '__main__':
     unittest.main()
