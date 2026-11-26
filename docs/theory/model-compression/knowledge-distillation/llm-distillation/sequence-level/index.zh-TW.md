@@ -24,6 +24,22 @@ translation_reviewed: 2026-10-28
 
 實務上，學生在配對 \((x, \hat{y})\) 上以標準的最大似然訓練。論文也研究序列層級的插值，即訓練於較接近參考譯文的教師輸出，以及蒸餾後套用的權重剪枝。
 
+### 算例：從搜尋到單一目標
+
+假設完整序列均有兩個 token（且必定終止）。教師給出 $Q(A\mid x)=0.6$、$Q(B\mid x)=0.4$，接著 $Q(X\mid A,x)=0.55$、$Q(X\mid B,x)=0.9$，剩餘機率分配給 $Y$。AX、AY、BX、BY 的聯合機率分別為 $0.33,0.27,0.36,0.04$。貪婪解碼選擇 AX，而保留兩個前綴、寬度為二的 beam search 找到 BX。此例評估所有四個完整候選，因而得到精確解；實際 beam search 只是近似搜尋。
+
+選出的序列成為學生最大似然訓練的硬目標：$-\log P_\theta(B\mid x)-\log P_\theta(X\mid B,x)$（若模型包含終止機率，另計 EOS 項）。這個單一目標並不直接匹配教師的其餘機率。動畫中的分支代表機率分解與搜尋，而非梯度更新。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="教師前綴樹及四個聯合機率，選擇 BX 作為學生的單一目標。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/seqkd-beam-mode-still.svg" data-motion-src="../../../../../assets/concept-animations/seqkd-beam-mode-motion.svg" data-still-src="../../../../../assets/concept-animations/seqkd-beam-mode-still.svg" alt="教師前綴樹及四個聯合機率，選擇 BX 作為學生的單一目標。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。所有機率皆為示意值，並非模型實測輸出。MkDocs 提供可用鍵盤操作的播放／暫停及減少動態效果的回退畫面；GitHub 顯示靜態結果。[原始論文](https://arxiv.org/abs/1606.07947)。*
+
+[靜態預覽](../../../../../assets/concept-animations/seqkd-beam-mode-still.svg) · [完整 SVG 動畫](../../../../../assets/concept-animations/seqkd-beam-mode-motion.svg).
+
 ## 結果
 
 摘要報告，最佳學生比最先進的教師快 10 倍，而效能損失很小。相較於未經蒸餾訓練的基準，最佳學生在貪婪解碼下提升 4.2 BLEU，在 beam search 下提升 1.7 BLEU。對蒸餾後的學生再做剪枝，所用的參數比教師少 13 倍，而 BLEU 約下降 0.4。
