@@ -30,7 +30,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 469 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 473 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
@@ -711,6 +711,45 @@ class KernelTeachingStates(unittest.TestCase):
                 for row, value in enumerate(expected):
                     self.assertEqual(cells[152+k*63,95+row*47], value)
             self.assertEqual(cells[14,321], f'Valid stores: {stored} / {N}')
+
+
+
+class PoolingAndFanoutSemantics(unittest.TestCase):
+    def texts(self, stem, kind):
+        root = ET.parse(ASSETS / f'{stem}-{kind}.svg').getroot()
+        if kind == 'motion':
+            root = next(g for g in root.iter(v.NS + 'g') if g.get('class') == 'animated')
+        return {(int(e.get('x')), int(e.get('y'))): e.text
+                for e in root.iter(v.NS + 'text')}
+
+    def test_pooling_changes_attention_outputs(self):
+        import math
+        rows = [(0, math.log(3)), (math.log(3), 0)]
+        pooled = tuple(sum(x) / 2 for x in zip(*rows))
+        for kind in ('motion', 'still'):
+            cells = self.texts('gqa-pooling-output-drift', kind)
+            for j, x in enumerate((24, 340)):
+                for i, logits in enumerate(rows if j == 0 else [pooled, pooled]):
+                    exp = [math.exp(z) for z in logits]
+                    p = exp[1] / sum(exp)
+                    y = 110 + i * 105
+                    self.assertEqual(cells[x+151, y+88], f'Output = {round(4*p)}')
+                    self.assertEqual(cells[x+40+round(112*(1-p)), y+59], f'{round(100*(1-p))}%')
+                    self.assertEqual(cells[x+40+round(224*(1-p)+112*p), y+59], f'{round(100*p)}%')
+
+    def test_shared_intermediate_transfer_counts(self):
+        schedules = [
+            ['R x', 'W z', 'R z', 'W y₁', 'R z', 'W y₂'],
+            ['R x', 'W z', 'W y₁', 'R z', 'W y₂'],
+            ['R x', 'W y₁', 'W y₂'],
+        ]
+        for kind in ('motion', 'still'):
+            cells = self.texts('kernel-fusion-fanout-traffic', kind)
+            for i, ops in enumerate(schedules):
+                y = 153 + i*55
+                self.assertEqual(cells[596, y+27], str(len(ops)))
+                self.assertEqual([cells[166+j*72, y+25] for j in range(len(ops))], ops)
+                self.assertEqual(ops.count('W z') + ops.count('R z'), (3, 2, 0)[i])
 
 
 if __name__ == '__main__':

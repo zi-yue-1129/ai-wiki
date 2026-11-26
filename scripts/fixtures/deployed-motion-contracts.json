@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "gqa-pooling-output-drift": {
+      "origins": [
+        {
+          "origin_blob": "8f2afe58c62f1953316b2bcbbebe3105ce0aabcb",
+          "origin_commit": "ba6a279e2349b32edc466687a47eb7576bfebe2b",
+          "path": "docs/assets/concept-animations/gqa-pooling-output-drift-motion.svg"
+        },
+        {
+          "origin_blob": "f9794d8efd2c9b5e3d26a606b09ae3e5488c41db",
+          "origin_commit": "ba6a279e2349b32edc466687a47eb7576bfebe2b",
+          "path": "docs/assets/concept-animations/gqa-pooling-output-drift-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "kernel-fusion-fanout-traffic": {
+      "origins": [
+        {
+          "origin_blob": "5d8daf77df963c847937fa8071dd97c21aa65cfd",
+          "origin_commit": "ba6a279e2349b32edc466687a47eb7576bfebe2b",
+          "path": "docs/assets/concept-animations/kernel-fusion-fanout-traffic-motion.svg"
+        },
+        {
+          "origin_blob": "790d80c7dfeebd102e98954ffecb9136d972a352",
+          "origin_commit": "ba6a279e2349b32edc466687a47eb7576bfebe2b",
+          "path": "docs/assets/concept-animations/kernel-fusion-fanout-traffic-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
