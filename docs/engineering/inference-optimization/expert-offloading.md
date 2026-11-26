@@ -43,6 +43,25 @@ The animation first frees the GPU slot, then transfers E2. LOADED means the firs
 
 *Original instructional animation, CC BY-SA 4.0.* This is a **two-slot schematic cache**, not a measured inference trace or a claim about the original paper's cache policy. Initially the GPU holds E0 and E1 while the router selects E2; E2 must be loaded from host memory and E1's GPU copy is evicted. The following selection of E2 is a **cache hit** and needs no repeated transfer. The dashed path and moving dot depict a conceptual transfer, not a GPU hardware trace. The specific victim, timing, and expert choices are illustrative. On MkDocs use **Play/Pause** (Enter or Space); reduced-motion preferences show the still, and the image can be scrolled horizontally by keyboard on narrow screens. [GitHub-readable post-load state](../../assets/concept-animations/expert-cache-miss-still.svg).
 
+### Worked example: routing locality and repeated loads
+
+<div tabindex="0" role="region" aria-label="Scrollable concept animation; use Left and Right arrow keys" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/expert-lru-locality-still.svg" data-motion-src="../../assets/concept-animations/expert-lru-locality-motion.svg" data-still-src="../../assets/concept-animations/expert-lru-locality-still.svg" alt="Two cold two-slot LRU caches process grouped and interleaved requests with equal expert frequencies; cumulative loads are three versus six." width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub static preview](../../assets/concept-animations/expert-lru-locality-still.svg) · Use the keyboard-accessible **Play/Pause** on MkDocs; reduced motion displays the complete still.
+
+Consider a single layer, one selected expert per access, equal-size expert weights and a cold two-slot least-recently-used (LRU) cache. Compare A,A,B,B,C,C with A,B,C,A,B,C. Both traces select each expert twice. On a hit, move that expert to the most-recently-used (MRU) position; on a miss, load its weights and, if full, evict the least-recently-used entry. The animation shows the cache after each access and the cumulative load count.
+
+| Trace | Hits | Misses | Host-to-device loads |
+|---|---:|---:|---:|
+| Grouped | 3 | 3 | 3 |
+| Interleaved | 0 | 6 | 6 |
+
+For expert size W bytes, the logical weight transfer is 3W versus 6W bytes. Equal expert counts therefore do not determine cache hit rate or traffic; temporal locality matters. The example is a generic LRU calculation, not an assertion that Eliseev and Mazur (2023) use precisely this policy or that a real system is twice as fast. It excludes prefetching, overlap, shared weights, other layers and transfer overhead. All traces and counts are synthetic.
+
+*Original instructional animation, CC BY-SA 4.0.*
+
 ## Results
 
 The abstract reports that the strategy allows Mixtral-8x7B to run with mixed quantisation on desktop hardware and on free-tier Google Colab instances. The abstract does not give specific speed figures, so this page reports none. A reader who needs them should measure the method on the target hardware, with its cache size and quantisation.

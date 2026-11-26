@@ -43,6 +43,26 @@ H2O 是生成式推論中的 KV 快取淘汰策略。它保留一小組「重擊
 
 數字標籤是最終的示意分數；長條按同一比例揭示，標記沿路徑移到選定的快取槽位。這是固定資料的重播，不是解碼過程的即時模擬。
 
+### 算例：跨解碼步驟的重擊手更替
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/h2o-evolving-cache-still.svg" data-motion-src="../../assets/concept-animations/h2o-evolving-cache-motion.svg" data-still-src="../../assets/concept-animations/h2o-evolving-cache-still.svg" alt="三格快取在第五步將重擊手由 t1 換成 t3；被淘汰的 token 不再進入後續候選集合。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態回退預覽](../../assets/concept-animations/h2o-evolving-cache-still.svg) · MkDocs 網站支援鍵盤操作的**播放／暫停**；偏好減少動態效果時顯示完整靜態圖。
+
+簡化的單頭策略在最新兩個 token 之外保留一個重擊手。第 4 步保留 t1、t3、t4，累積分數分別為 1.20、0.90、0.20；t2 已先被淘汰。每個新步驟將注意力增量加到可用候選（含新 token），保護最新兩個 token，再從其餘候選中選擇累積分數最高者。
+
+| 步驟 | 候選順序 | 注意力增量 | 淘汰 |
+|---|---|---|---|
+| 5 | t1, t3, t4, t5 | .05, .65, .20, .10 | t1 |
+| 6 | t3, t4, t5, t6 | .05, .15, .70, .10 | t4 |
+| 7 | t3, t5, t6, t7 | .05, .05, .70, .20 | t5 |
+
+每列增量總和為 1。第 5 步的 t3 離開近期視窗，卻因分數 1.55 高於 t1 的 1.25 而成為重擊手。橘色格表示淘汰當下的分數，並非額外常駐位置；空白格表示不在快取內。已淘汰的 token 不參與後續分數更新。此算例呈現局部選擇，而非實作追蹤，也不代表未來注意力能找回被丟棄的內容。初始分數與增量皆為人工示意，非模型實測。動態重擊手策略見參考文獻 Zhang et al.（2023）。
+
+*原創教學動畫，CC BY-SA 4.0。*
+
 ## 程序
 
 1. 設定快取預算，例如序列長度的一部分。

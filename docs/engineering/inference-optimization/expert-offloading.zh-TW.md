@@ -43,6 +43,25 @@ aliases:
 
 *原創教學動畫，CC BY-SA 4.0。* 圖中是**只有兩個位置的示意快取**，並非推論效能實測，也不代表原始論文特定的替換策略。起初 GPU 存有 E0 與 E1，但路由器選中 E2，因此必須從主機記憶體載入 E2，並移除 GPU 上的 E1 副本。下一次再選中 E2 時便會**快取命中**，不必重新傳輸。虛線與移動圓點只示意傳輸，並非實際硬體追蹤；淘汰對象、時間與專家選擇均為人工設定。MkDocs 可使用**播放／暫停**（Enter 或 Space），偏好減少動態效果時顯示靜態圖；窄螢幕可聚焦圖像區域並以鍵盤水平捲動。[GitHub 可閱讀的載入後狀態](../../assets/concept-animations/expert-cache-miss-still.svg)。
 
+### 算例：路由的時間區域性與重複載入
+
+<div tabindex="0" role="region" aria-label="可水平捲動的概念動畫；使用左右方向鍵" style="max-width:100%;overflow-x:auto">
+<img data-source-asset-urls src="../../assets/concept-animations/expert-lru-locality-still.svg" data-motion-src="../../assets/concept-animations/expert-lru-locality-motion.svg" data-still-src="../../assets/concept-animations/expert-lru-locality-still.svg" alt="兩個初始空白的兩格 LRU 快取處理群聚與交錯請求，專家出現次數相同，但累積載入次數為三與六。" width="640" height="360" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 靜態回退預覽](../../assets/concept-animations/expert-lru-locality-still.svg) · MkDocs 網站支援鍵盤操作的**播放／暫停**；偏好減少動態效果時顯示完整靜態圖。
+
+考慮單一層、每次存取只選一個專家、專家權重大小相同，以及初始為空的兩格最近最少使用（LRU）快取。比較 A,A,B,B,C,C 與 A,B,C,A,B,C；兩者皆選取每個專家兩次。命中時將專家移至最近使用（MRU）位置；未命中時載入權重，若已滿則淘汰最近最少使用的項目。動畫顯示每次存取後的快取及累積載入次數。
+
+| 路由順序 | 命中 | 未命中 | 主機至裝置載入 |
+|---|---:|---:|---:|
+| 群聚 | 3 | 3 | 3 |
+| 交錯 | 0 | 6 | 6 |
+
+若每個專家大小為 W 位元組，邏輯權重傳輸量分別為 3W 與 6W 位元組。因此，即使每個專家的選取次數相同，快取命中率及流量仍取決於時間區域性。此為一般 LRU 算例，並非宣稱 Eliseev 與 Mazur（2023）採用完全相同的策略，也不代表真實系統有兩倍速度差異。未計入預先載入、運算與通訊重疊、共享權重、其他層及傳輸額外成本。路由序列與數值皆為人工示意。
+
+*原創教學動畫，CC BY-SA 4.0。*
+
 ## 結果
 
 摘要報告，此策略可讓 Mixtral-8x7B 以混合量化在桌上型硬體與免費的 Google Colab 執行個體上執行。摘要未給出具體的速度數字，因此本頁不報告速度。需要這些數字的讀者，應在目標硬體上，以所用的快取大小與量化方式進行量測。
