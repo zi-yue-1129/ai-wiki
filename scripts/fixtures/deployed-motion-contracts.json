@@ -9678,6 +9678,36 @@
         }
       ],
       "viewBox": "0 0 720 400"
+    },
+    "binaryconnect-latent-accumulation": {
+      "origins": [
+        {
+          "origin_blob": "01156407330dcc3b005013f07bbe043adf64eb01",
+          "origin_commit": "78521c42de4a69cb34ff4156540d558a360da09b",
+          "path": "docs/assets/concept-animations/binaryconnect-latent-accumulation-motion.svg"
+        },
+        {
+          "origin_blob": "39ef58f477f759d422f6ef4a8092520b8d7321fa",
+          "origin_commit": "78521c42de4a69cb34ff4156540d558a360da09b",
+          "path": "docs/assets/concept-animations/binaryconnect-latent-accumulation-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "twn-threshold-scale": {
+      "origins": [
+        {
+          "origin_blob": "d8fcb865ac8dd5f3cc771fb8e6e8932b988f3844",
+          "origin_commit": "78521c42de4a69cb34ff4156540d558a360da09b",
+          "path": "docs/assets/concept-animations/twn-threshold-scale-motion.svg"
+        },
+        {
+          "origin_blob": "8c4e270bc790ef259c48a72b6a0a1542a694674f",
+          "origin_commit": "78521c42de4a69cb34ff4156540d558a360da09b",
+          "path": "docs/assets/concept-animations/twn-threshold-scale-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
     }
   },
   "extra": {
