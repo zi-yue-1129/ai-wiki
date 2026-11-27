@@ -18,6 +18,26 @@ translation_reviewed: 2026-10-28
 
 參數數量從 \(mn\) 降為 \(r(m+n)\)，因此只要 \(r < \frac{mn}{m+n}\)，就能節省。近似誤差由被捨棄的奇異值決定，\(\lVert W - W_r \rVert_F^2 = \sum_{i > r} \sigma_i^2\)，這提供了依誤差預算選擇 \(r\) 的直接方法。實務上，秩是逐層選擇的，分解後的模型通常再微調以恢復準確度。
 
+### 秩預算與捨棄能量
+
+取示意矩陣 $W=\operatorname{diag}(6,3,1,0.5)$ 與 $x=(1,1,1,1)^\top$。此例的 $U=V=I$，所以 $W_rx$ 直接保留前 $r$ 個分量。動畫框選保留的奇異值，依序揭露輸出分量，並比較一般稠密因子 $A\in\mathbb R^{4\times r}$、$B\in\mathbb R^{r\times4}$ 的儲存成本。
+
+| 秩 $r$ | $W_rx$ | 因子元素數 / 原矩陣元素數 | $\|W-W_r\|_F^2$ |
+|---:|---|---:|---:|
+| 1 | $(6,0,0,0)$ | 8 / 16 | 10.25 |
+| 2 | $(6,3,0,0)$ | 16 / 16 | 1.25 |
+| 3 | $(6,3,1,0)$ | 24 / 16 | 0.25 |
+
+增加秩會降低矩陣近似誤差，但不一定能壓縮儲存量。這裡採稠密儲存假設，忽略偏差、對齊及中介緩衝區；對角矩陣本身也能用其他結構化格式儲存。一般輸入的輸出誤差取決於其在右奇異向量方向上的投影，不等於 Frobenius 誤差。所有數值均為人工算例，不是模型實測或延遲測量。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="四個奇異值依序保留；秩一、二、三的輸出分量、因子儲存量及平方誤差並列。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" data-motion-src="../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg" data-still-src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" alt="四個奇異值依序保留；秩一、二、三的輸出分量、因子儲存量及平方誤差並列。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* MkDocs 可使用播放／暫停控制；較窄畫面可透過鍵盤聚焦的容器水平捲動。GitHub 顯示[靜態預覽](../../../../assets/concept-animations/svd-factor-rank-budget-still.svg)，另可開啟[完整動畫](../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg)。
+
 ## 結果
 
 Denton 等人報告，對卷積層而言，在 CPU 與 GPU 上速度約提升 2 倍，且準確度維持在原模型的 1% 以內。各網路的確切數字見論文。

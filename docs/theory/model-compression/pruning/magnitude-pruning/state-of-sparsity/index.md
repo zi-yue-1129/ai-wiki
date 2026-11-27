@@ -27,6 +27,26 @@ Run several sparsity methods under a common protocol on large-scale image and la
 
 The benchmark does not add a new algorithm. Each method chooses a mask at a target sparsity, the masked network is retrained, and the final accuracy is compared at matched sparsity. The paper reports the accuracy-sparsity trade-off for each method.
 
+### Matched sparsity, different output errors
+
+Use the illustrative linear model $w=(4,3,2,1)$ with fixed masks $m_A=(1,1,0,0)$ and $m_B=(0,0,1,1)$. The first retains the two largest absolute weights; the second is only a counterexample mask, not another algorithm from the paper. Both have 50% sparsity. For input $x$, the dense output $w^\top x$ is the reference and the masked output is $(w\odot m)^\top x$. Animated bars accumulate the individual products, then compare mean squared deviations on two inputs.
+
+| Input | Dense | Magnitude | Alternate |
+|---|---:|---:|---:|
+| $(0,1,3,4)$ | 13 | 3 | 10 |
+| $(1,1,0,0)$ | 7 | 7 | 0 |
+| MSE relative to dense output | 0 | 50 | 29 |
+
+Equal retained-weight counts do not ensure equal outputs, accuracy or speed. The first input emphasises the smaller weights, whereas the second does the opposite. This constructed example has no retraining and is not a result from the paper, nor does it contradict its magnitude-pruning baseline. Real comparisons should also control training and fine-tuning budgets, data, hyperparameter search and evaluation protocols, and compare task metrics at matched sparsity.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Two masks retain two weights each, but their accumulated outputs and mean squared deviations from dense outputs differ across two inputs.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg" data-motion-src="../../../../../assets/concept-animations/matched-sparsity-output-error-motion.svg" data-still-src="../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg" alt="Two masks retain two weights each, but their accumulated outputs and mean squared deviations from dense outputs differ across two inputs." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use Play/Pause on MkDocs; the focusable container scrolls horizontally on narrow screens. GitHub displays the [static preview](../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg); the [full animation](../../../../../assets/concept-animations/matched-sparsity-output-error-motion.svg) is also linked.
+
 ## Results
 
 The abstract reports that on large-scale tasks, simple magnitude pruning matches or beats more complex sparsity techniques.

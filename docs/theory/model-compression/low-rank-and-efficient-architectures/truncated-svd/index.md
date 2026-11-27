@@ -27,6 +27,26 @@ Decompose the matrix by singular value decomposition, \(W = U \Sigma V^\top\), a
 
 The parameter count falls from \(mn\) to \(r(m+n)\), so the saving is positive whenever \(r < \frac{mn}{m+n}\). The approximation error is given by the discarded singular values, \(\lVert W - W_r \rVert_F^2 = \sum_{i > r} \sigma_i^2\), which provides a direct way to choose \(r\) for a given error budget. In practice the rank is chosen layer by layer, and the factorised model is usually fine-tuned afterwards to recover accuracy.
 
+### Rank budget and discarded energy
+
+Take the illustrative matrix $W=\operatorname{diag}(6,3,1,0.5)$ and $x=(1,1,1,1)^\top$. Here $U=V=I$, so $W_rx$ retains the first $r$ components directly. The animation selects successive singular values, reveals output components, and compares the storage of ordinary dense factors $A\in\mathbb R^{4\times r}$ and $B\in\mathbb R^{r\times4}$.
+
+| Rank $r$ | $W_rx$ | Factor entries / original entries | $\|W-W_r\|_F^2$ |
+|---:|---|---:|---:|
+| 1 | $(6,0,0,0)$ | 8 / 16 | 10.25 |
+| 2 | $(6,3,0,0)$ | 16 / 16 | 1.25 |
+| 3 | $(6,3,1,0)$ | 24 / 16 | 0.25 |
+
+Increasing rank reduces matrix approximation error but need not compress storage. The count assumes dense storage and excludes bias, alignment and intermediate buffers; a diagonal matrix itself admits other structured storage formats. For general inputs, output error depends on projections onto right singular vectors and is not the Frobenius error. All values are constructed examples, not model measurements or latency results.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Successive singular values are retained; output components, factor storage and squared error for ranks one through three are compared.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" data-motion-src="../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg" data-still-src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" alt="Successive singular values are retained; output components, factor storage and squared error for ranks one through three are compared." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use Play/Pause on MkDocs; the focusable container scrolls horizontally on narrow screens. GitHub displays the [static preview](../../../../assets/concept-animations/svd-factor-rank-budget-still.svg); the [full animation](../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg) is also linked.
+
 ## Results
 
 Denton et al. report, for convolutional layers, speed-ups of about 2 times on both CPU and GPU, with accuracy kept within 1% of the original model. The exact figures for each network are in the paper.

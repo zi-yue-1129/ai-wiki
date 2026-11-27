@@ -18,6 +18,26 @@ translation_reviewed: 2026-10-28
 
 基準本身沒有新的演算法。每個方法在目標稀疏度下選擇遮罩，對遮罩後的網路重新訓練，並在相同稀疏度下比較最終準確度。論文報告各方法的準確度與稀疏度之間的取捨。
 
+### 相同稀疏度，不同輸出誤差
+
+用人工線性模型 $w=(4,3,2,1)$ 比較兩個固定遮罩 $m_A=(1,1,0,0)$ 與 $m_B=(0,0,1,1)$。前者保留絕對值最大的兩個權重；後者僅是反例遮罩，不代表論文中的另一種演算法。兩者皆為 50% 稀疏度。對輸入 $x$，以稠密輸出 $w^\top x$ 為比較基準，遮罩輸出為 $(w\odot m)^\top x$。動畫長條依序累加各項乘積，最後比較兩筆輸入上的均方偏差。
+
+| 輸入 | 稠密輸出 | Magnitude | Alternate |
+|---|---:|---:|---:|
+| $(0,1,3,4)$ | 13 | 3 | 10 |
+| $(1,1,0,0)$ | 7 | 7 | 0 |
+| 相對稠密輸出的 MSE | 0 | 50 | 29 |
+
+同樣的權重保留數量並不保證相同輸出，更不保證相同準確率或加速。第一筆輸入較偏向小權重方向，第二筆則相反。這個不含重新訓練的算例不是論文的實驗結果，也不否定其 magnitude pruning 基準。實際比較還需控制訓練與微調預算、資料、超參數搜尋及評估協定，並在相同稀疏度下檢視任務指標。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="兩種遮罩均保留兩個權重，對兩組輸入的累加輸出與相對稠密輸出的均方誤差不同。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg" data-motion-src="../../../../../assets/concept-animations/matched-sparsity-output-error-motion.svg" data-still-src="../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg" alt="兩種遮罩均保留兩個權重，對兩組輸入的累加輸出與相對稠密輸出的均方誤差不同。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* MkDocs 可使用播放／暫停控制；較窄畫面可透過鍵盤聚焦的容器水平捲動。GitHub 顯示[靜態預覽](../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg)，另可開啟[完整動畫](../../../../../assets/concept-animations/matched-sparsity-output-error-motion.svg)。
+
 ## 結果
 
 摘要表示，在大規模任務上，簡單的量值剪枝與更複雜的稀疏化技術相當或更好。
