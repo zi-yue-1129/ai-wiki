@@ -24,13 +24,13 @@ Be Your Own Teacher 是一種自我蒸餾方法，在單次訓練中改善同一
 
 其中 \(q^i\) 是第 \(i\) 個分類器的 softmax 輸出，\(q^C\) 是最深分類器的輸出，\(y\) 是標籤，\(F_i\) 與 \(F_C\) 分別是第 \(i\) 段與最深段的特徵圖。第一項是標籤損失，第二項是蒸餾項，第三項是特徵提示項，使淺層特徵圖與最深層對齊。論文將最深分類器的 \(\alpha\) 與 \(\lambda\) 設為零。softmax 溫度通常設為 1。淺層分類器可用於深度可調的推論，作者提議用於資源受限的裝置。
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="前向特徵傳入淺層與深層分類器，虛線將深層特徵與預測目標傳至淺層區段及分類器，真實標籤則監督兩個分類器。">
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="前向激活值傳入兩個分類器，深層特徵、預測及真實標籤提供監督；帶符號長條比較深層標籤梯度、加權 KL 梯度及阻斷或保留目標梯度時的結果。">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/byot-deep-head-targets-still.svg" data-motion-src="../../../../../assets/concept-animations/byot-deep-head-targets-motion.svg" data-still-src="../../../../../assets/concept-animations/byot-deep-head-targets-still.svg" alt="前向特徵傳入淺層與深層分類器，虛線將深層特徵與預測目標傳至淺層區段及分類器，真實標籤則監督兩個分類器。" width="640" height="360">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/byot-deep-head-targets-still.svg" data-motion-src="../../../../../assets/concept-animations/byot-deep-head-targets-motion.svg" data-still-src="../../../../../assets/concept-animations/byot-deep-head-targets-still.svg" alt="前向激活值傳入兩個分類器，深層特徵、預測及真實標籤提供監督；帶符號長條比較深層標籤梯度、加權 KL 梯度及阻斷或保留目標梯度時的結果。" width="640" height="360">
 </div>
 </div>
 
-*原創 12 秒教學動畫（CC BY-SA 4.0）。* 以兩個分類器簡化原論文的多區段與瓶頸層架構。藍色移動訊號代表前向激活值，青綠色虛線由最深區段傳遞特徵與輸出目標，橘色路徑將相同真實標籤提供給兩個分類器。最深分類器自身的損失項只有標籤交叉熵；共享的上游層仍可能收到其他損失的梯度貢獻。目標箭頭並非微分方向，也不表示深層網路是另外預訓練且凍結的教師。路徑依序出現是為了教學，而非不同的最佳化步驟。[原始論文](https://arxiv.org/abs/1905.08094)。
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 以兩個分類器簡化原論文的多區段與瓶頸層架構。藍色移動訊號代表前向激活值，青綠色虛線由最深區段傳遞特徵與輸出目標，橘色路徑將相同真實標籤提供給兩個分類器。最深分類器自身的損失項只有標籤交叉熵；共享的上游層仍可能收到其他損失的梯度貢獻。目標箭頭並非微分方向，也不表示深層網路是另外預訓練且凍結的教師。移動訊號呈現監督目標的傳遞；接著帶符號長條顯示深層標籤梯度（藍色）、假設保留目標梯度時的 0.5 倍 KL 梯度（橘色）及兩者總和（青綠色）。僅有藍色長條代表目標執行 detach 的情況。青綠色長條從標籤梯度長度變化至總和；此為固定 logits 下的比較，並非最佳化步驟。[原始論文](https://arxiv.org/abs/1905.08094)。
 
 以溫度 1 的人工算例比較目標：淺層與深層類別分布分別為 $q^1=(0.5,0.3,0.2)$ 與 $q^C=(0.7,0.2,0.1)$，真實標籤為 A。兩者的標籤交叉熵分別為 $-\log 0.5\approx0.6931$ 與 $-\log 0.7\approx0.3567$。依上方公式的 KL 方向，$D_{\mathrm{KL}}(q^1\Vert q^C)\approx0.0920$ nats。假設已對齊的特徵向量為 $(0.2,0.6)$ 與 $(0.5,0.4)$，平方距離為 $0.13$。這些是人工示意值，不是模型實測；特徵項需使用相容形狀。訓練時共同最佳化三項損失，部署時若只使用最深分類器，便不必執行輔助分類器。
 

@@ -61,6 +61,17 @@ The revised animation exposes the conditioning context explicitly: $x$ denotes t
 
 The next context uses the recorded target token even if the student's highest-probability prediction is different. The three displayed rows are a conceptual factorization, not necessarily three separate forward passes: a causal Transformer can compute all three losses in parallel using shifted targets and causal attention. The prompt is context only in this response-only loss example; real training pipelines can choose different masking and normalization conventions.
 
+### Token averaging versus sequence averaging
+
+For a batch of $N$ nonempty responses with unmasked token counts $n_i$ and summed NLLs $S_i$, two possible objectives are
+
+$
+L_{\mathrm{token}}=\frac{\sum_i S_i}{\sum_i n_i},\qquad
+L_{\mathrm{sequence}}=\frac{1}{N}\sum_i\frac{S_i}{n_i}.
+$
+
+Suppose two artificial responses have 3 and 9 unmasked tokens, with respective mean NLLs 1 and 2 nats. The token mean is $(3+18)/12=1.75$, whereas the sequence mean is $(1+2)/2=1.5$. The longer response contributes 75% of the token-mean objective's total coefficient mass, but 50% of the sequence-mean objective's mass. These are objective coefficients, not necessarily gradient norms. Padding and masked prompt tokens are excluded from $n_i$. This illustrates alternative reductions, not a claim about the exact reduction used for the reported R1 models.
+
 ## Results
 
 The paper compares a distilled 32B model against a 32B base model trained with large-scale reinforcement learning, which the authors call Qwen2.5-32B-Zero. On the benchmarks in its Table 16, the distilled model scores higher on every one:

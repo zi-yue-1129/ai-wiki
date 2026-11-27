@@ -20,8 +20,21 @@ class DistillationTargetSemantics(unittest.TestCase):
             labels = {n.text for n in root.iter(NS + "text")}
             self.assertTrue({"Head 1", "Head C", "Feature target", "KL", "CE", "Label"} <= labels)
             paths = {n.get("d") for n in root.iter(NS + "path")}
-            self.assertTrue({"M430 116V70H210V116", "M362 240H278",
-                             "M320 310V292H210V264", "M320 310V292H430V264"} <= paths)
+            self.assertTrue({"M240 126V86H156V112H130V126", "M180 230H144",
+                             "M162 310V292H84V250", "M162 310V292H240V250"} <= paths)
+
+    def test_signed_deep_gradient_and_reduction(self):
+        for kind in ("motion", "still"):
+            root = ET.parse(ASSETS / f"byot-deep-head-targets-{kind}.svg").getroot()
+            labels = [n.text for n in root.iter(NS+"text")]
+            self.assertTrue({"CE / detached", "0.5 ∇KL", "Sum / attached",
+                             "-0.30", "+0.10", "-0.20", "+0.20", "-0.05", "+0.15", "+0.05"} <= set(labels))
+            if kind == "motion":
+                self.assertTrue(any(n.get("attributeName") == "width" for n in root.iter(NS+"animate")))
+        counts, means = (3, 9), (1, 2)
+        self.assertAlmostEqual(sum(n*m for n,m in zip(counts,means))/sum(counts), 1.75)
+        self.assertAlmostEqual(sum(means)/len(means), 1.5)
+        self.assertAlmostEqual(counts[1]/sum(counts), .75)
 
     def test_trace_filter_and_nll(self):
         traces = [("A","B","4"), ("A","C","5"), ("B","A","4")]
