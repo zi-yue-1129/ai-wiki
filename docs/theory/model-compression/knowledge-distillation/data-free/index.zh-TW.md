@@ -32,15 +32,15 @@ aliases:
 
 DeepInversion 固定教師模型，利用已儲存的批次正規化特徵統計量最佳化合成輸入，並搭配分類與影像先驗目標。[^deepinversion] 為了單獨觀察特徵匹配，假設固定的恆等特徵映射之目標平均值為 $2$、變異數為 $1$。將兩個合成激活值參數化為 $(m-s,m+s)$，其中 $s>0$；其母體平均值為 $m$、母體標準差為 $s$。最小化人工目標：
 
-$
+$$
 L(m,s)=(m-2)^2+(s-1)^2.
-$
+$$
 
 此標準差損失及雙參數恆等映射是教學簡化，並非原論文的多層變異數正規化項。從 $m_0=-1$ 與 $s_0=1/4$ 開始，使用學習率 $1/4$ 執行梯度下降，可得
 
-$
+$$
 m_k=2-3/2^k,\qquad s_k=1-(3/4)/2^k,\qquad L_k=\frac{153}{16\cdot4^k}.
-$
+$$
 
 | 步數 | 平均值 | 標準差 | 損失 |
 | ---: | ---: | ---: | ---: |
@@ -58,6 +58,17 @@ $
 </div>
 
 *原創 12 秒教學動畫（CC BY-SA 4.0）。* 網站可使用播放／暫停按鈕，小螢幕可水平捲動。GitHub 可直接開啟[靜態預覽](../../../../assets/concept-animations/data-free-moment-descent-still.svg)或[完整 SVG 動畫](../../../../assets/concept-animations/data-free-moment-descent-motion.svg)。
+
+### 相同統計量，不同分布
+
+前述雙特徵值算例刻意限制了分布形式。為了解平均值與變異數匹配為何無法還原一般分布，考慮兩個假想的純量特徵分布：
+
+| 特徵值分布 | 機率 | 平均值 | 母體變異數 | 四階中心動差 |
+| --- | --- | ---: | ---: | ---: |
+| $X\in\{1,3\}$ | $(1/2,1/2)$ | 2 | 1 | 1 |
+| $Y\in\{0,2,4\}$ | $(1/8,3/4,1/8)$ | 2 | 1 | 4 |
+
+兩者在上述簡化目標的統計量匹配損失都是零，但支撐集與四階中心動差不同。例如非線性特徵 $(x-2)^4$ 在第一個分布的期望值為 1，在第二個分布則為 4。因此，即使兩個純量統計量完全一致，也不能保證後續非線性運算產生相同的反應。這是人工計算示例，並非對特定合成方法的覆蓋率或隱私保證做出實測主張。
 
 ## 主要方法
 
@@ -84,6 +95,8 @@ $
 
 無資料蒸餾與隱私議題相關，相關討論見[倫理](../../../../society/ethics/index.zh-TW.md)與[治理](../../../../society/governance/index.zh-TW.md)頁面，也與[訓練與微調](../../../../engineering/training/index.zh-TW.md)的流程有關。從訓練好的網路合成輸入，隱約類似大腦在休息時重播模式的方式，相關討論見[記憶與學習](../../../../brain-mind/memory-learning/index.zh-TW.md)。
 
+[^deepinversion]: Yin 等人（2020），第 3.2 節，[DeepInversion](https://arxiv.org/abs/1912.08795)。
+
 ## 參考文獻
 
 ### 開創性論文
@@ -94,8 +107,6 @@ $
 - Hinton, G., Vinyals, O. & Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — 標準的蒸餾目標，假設有訓練集，而無資料方法即是取代它。
 
 - Yin, H., et al. (2020). *Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion*. CVPR. https://arxiv.org/abs/1912.08795 — 利用固定教師的批次正規化統計量引導合成輸入的最佳化。
-
-[^deepinversion]: Yin 等人（2020），第 3.2 節，[DeepInversion](https://arxiv.org/abs/1912.08795)。
 
 ### 綜述與教科書
 

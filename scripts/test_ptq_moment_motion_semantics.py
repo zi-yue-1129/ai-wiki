@@ -27,15 +27,41 @@ class PTQMomentMotion(unittest.TestCase):
         self.assertEqual(sse(small + large, F(4)), F(17, 4))
         self.assertEqual(sse(small, F(4, 7)) + sse(large, F(4)), F(17, 196))
         root = read('ptq-group-scale-grid', 'motion')
-        motions = root.findall('.//' + NS + 'animate')
-        self.assertEqual(len(motions), 8)
-        for j, (left, s) in enumerate([(15, F(4)), (330, F(4, 7))]):
+        still = read('ptq-group-scale-grid', 'still')
+        nodes = {n.get('id'): n for n in root.iter() if n.get('id')}
+        still_nodes = {n.get('id'): n for n in still.iter() if n.get('id')}
+        ends = [0.19, 0.34, 0.49, 0.64]
+        self.assertEqual(len(root.findall('.//' + NS + 'animate')), 18)
+        for key, left, scale in [('shared', 12, F(4)), ('local', 328, F(4, 7))]:
+            errors = [(w - round(w / scale) * scale) ** 2 for w in small]
             for i, w in enumerate(small):
-                v = values(motions[4*j+i])
-                self.assertAlmostEqual(v[0], float(left+65+55*w), places=3)
-                self.assertAlmostEqual(v[2], float(left+65+55*round(w/s)*s), places=3)
-                self.assertEqual(v[2], v[3])
+                dot = nodes[f'{key}-dot-{i}'].find(NS+'animate')
+                bar = nodes[f'{key}-error-{i}'].find(NS+'animate')
+                v = values(dot)
+                self.assertAlmostEqual(v[0], float(left+44+38*w), places=3)
+                self.assertAlmostEqual(v[2], float(left+44+38*round(w/scale)*scale), places=3)
                 self.assertEqual(v[0], v[-1])
+                self.assertEqual(float(dot.get('keyTimes').split(';')[2]), ends[i])
+                self.assertEqual(float(bar.get('keyTimes').split(';')[1]), ends[i])
+                self.assertEqual(bar.get('calcMode'), 'discrete')
+                self.assertAlmostEqual(values(bar)[1], float(74*errors[i]/F(9,4)), places=3)
+                self.assertAlmostEqual(float(still_nodes[f'{key}-error-{i}'].get('width')), values(bar)[1], places=3)
+                self.assertAlmostEqual(float(still_nodes[f'{key}-dot-{i}'].get('cx')), v[2], places=3)
+            total = nodes[f'{key}-total'].find(NS+'animate')
+            self.assertEqual(list(map(float,total.get('keyTimes').split(';')))[1:5], ends)
+            for i in range(4):
+                self.assertAlmostEqual(values(total)[i+1], float(272*sum(errors[:i+1])/F(17,4)), places=3)
+            self.assertAlmostEqual(float(still_nodes[f'{key}-total'].get('width')), values(total)[4], places=3)
+
+    def test_moment_nonidentifiability(self):
+        a = [(F(1), F(1,2)), (F(3), F(1,2))]
+        b = [(F(0), F(1,8)), (F(2), F(3,4)), (F(4), F(1,8))]
+        for dist in (a,b):
+            self.assertEqual(sum(p for _,p in dist),1)
+            self.assertEqual(sum(x*p for x,p in dist),2)
+            self.assertEqual(sum((x-2)**2*p for x,p in dist),1)
+        self.assertEqual(sum((x-2)**4*p for x,p in a),1)
+        self.assertEqual(sum((x-2)**4*p for x,p in b),4)
 
     def test_moment_descent(self):
         root = read('data-free-moment-descent', 'motion')

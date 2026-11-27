@@ -31,9 +31,9 @@ The simplest PTQ is round-to-nearest: compute a scale per tensor or per group, a
 
 Consider two toy groups of four weights, $(1,1.5,3,4)$ and $(8,16,24,28)$. Use symmetric signed four-bit quantisation with integer codes $-7$ through $7$ (the code $-8$ is unused), a max-absolute scale $s=\max|w|/7$, and nearest rounding:
 
-$
+$$
 q_i=\operatorname{clip}(\operatorname{round}(w_i/s),-7,7),\qquad \hat w_i=sq_i.
-$
+$$
 
 A shared scale of $4$ makes the small group's reconstructed weights $(0,0,4,4)$; a local scale of $4/7$ gives $(8/7,12/7,20/7,4)$. The larger group has scale $4$ in both cases and is reconstructed exactly. The animation moves each small weight from its original position to its nearest grid point; the movement between endpoints is explanatory interpolation, not an iterative quantiser.
 
@@ -44,13 +44,24 @@ A shared scale of $4$ makes the small group's reconstructed weights $(0,0,4,4)$;
 
 The squared weight error is 49 times smaller in this example. This is a constructed example with no rounding ties, not a measured accuracy or latency result. The extra scale needs metadata storage; if codes are packed at four bits and each scale occupies $b$ bits, the eight weights cost $32+b$ bits with one scale versus $32+2b$ with two, ignoring alignment and headers. A smaller group is not automatically better for end-to-end latency or task loss.
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Four small weights move to their nearest shared or group-local quantisation grid points; final squared errors are 4.25 and 17/196.">
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Four small weights round in sequence; per-weight squared errors and their running sums update, with final totals 4.25 and 17/196.">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" data-motion-src="../../../../assets/concept-animations/ptq-group-scale-grid-motion.svg" data-still-src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" alt="Four small weights move to their nearest shared or group-local quantisation grid points; final squared errors are 4.25 and 17/196." width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" data-motion-src="../../../../assets/concept-animations/ptq-group-scale-grid-motion.svg" data-still-src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" alt="Four small weights round in sequence; per-weight squared errors and their running sums update, with final totals 4.25 and 17/196." width="640" height="360">
 </div>
 </div>
 
 *Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../../assets/concept-animations/ptq-group-scale-grid-still.svg) and [full SVG animation](../../../../assets/concept-animations/ptq-group-scale-grid-motion.svg).
+
+The revised animation rounds the four small weights in sequence. When each dot reaches its grid point, the corresponding squared residual is revealed and added to the running sum. The row bars have a common maximum of $9/4$; the sum bars share a maximum of $17/4$ across both panels. The smaller final number in the figure is rounded to three decimals.
+
+| Rounded weight | Shared-scale running SSE | Group-local running SSE |
+| ---: | ---: | ---: |
+| 1 | 1 | $4/196$ |
+| 1.5 | $13/4$ | $13/196$ |
+| 3 | $17/4$ | $17/196$ |
+| 4 | $17/4$ | $17/196$ |
+
+This order is only an explanatory decomposition of an independent nearest-rounding operation; a real quantisation kernel can round all four weights in parallel. The bars count only completed rounding events, and the loop reset is not a quantisation step.
 
 ## Methods
 
