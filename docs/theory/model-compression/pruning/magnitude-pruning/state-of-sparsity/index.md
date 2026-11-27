@@ -47,6 +47,29 @@ Equal retained-weight counts do not ensure equal outputs, accuracy or speed. The
 
 *Original 12-second teaching animation (CC BY-SA 4.0).* Use Play/Pause on MkDocs; the focusable container scrolls horizontally on narrow screens. GitHub displays the [static preview](../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg); the [full animation](../../../../../assets/concept-animations/matched-sparsity-output-error-motion.svg) is also linked.
 
+### Why activation statistics can change the preferred mask
+
+Let $\Delta w=(1-m)\odot w$. On an input distribution with uncentred second moment $M_x=\mathbb E[xx^\top]$, the expected squared output deviation is
+
+$
+\mathbb E[(\Delta w^\top x)^2]=\Delta w^\top M_x\Delta w.
+$
+
+The diagonal terms weight each removed coefficient by its input's second moment; the off-diagonal terms account for correlations in the uncentred products. When $M_x=cI$ with $c>0$, this expression reduces to a common multiple of the squared magnitude of the removed weights, so keeping the largest magnitudes minimizes the deviation.
+
+On the two equally weighted illustrative inputs above, exhaustive enumeration of all six fixed two-weight masks gives:
+
+| Kept positions (1-based) | MSE relative to dense |
+|---|---:|
+| 1, 2 (magnitude) | 50 |
+| 1, 3 | 29 |
+| 1, 4 | 45 |
+| 2, 3 | 16 |
+| 2, 4 | 26 |
+| 3, 4 (alternate) | 29 |
+
+The best mask in this finite toy example retains positions 2 and 3, not the two largest weights and not the alternate mask in the animation. This is an exhaustive calculation on the two specified inputs, not a pruning algorithm or measured task accuracy. A different input distribution or retraining can change the ranking.
+
 ## Results
 
 The abstract reports that on large-scale tasks, simple magnitude pruning matches or beats more complex sparsity techniques.

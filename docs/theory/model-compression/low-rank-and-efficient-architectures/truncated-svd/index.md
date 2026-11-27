@@ -29,7 +29,7 @@ The parameter count falls from \(mn\) to \(r(m+n)\), so the saving is positive w
 
 ### Rank budget and discarded energy
 
-Take the illustrative matrix $W=\operatorname{diag}(6,3,1,0.5)$ and $x=(1,1,1,1)^\top$. Here $U=V=I$, so $W_rx$ retains the first $r$ components directly. The animation selects successive singular values, reveals output components, and compares the storage of ordinary dense factors $A\in\mathbb R^{4\times r}$ and $B\in\mathbb R^{r\times4}$.
+Take the illustrative matrix $W=\operatorname{diag}(6,3,1,0.5)$ and $x=(1,1,1,1)^\top$. Here $U=V=I$, so $W_rx$ retains the first $r$ components directly. The animation builds the two factors and their intermediate activation, reveals output components, and compares the storage of ordinary dense factors $A\in\mathbb R^{4\times r}$ and $B\in\mathbb R^{r\times4}$.
 
 | Rank $r$ | $W_rx$ | Factor entries / original entries | $\|W-W_r\|_F^2$ |
 |---:|---|---:|---:|
@@ -39,9 +39,19 @@ Take the illustrative matrix $W=\operatorname{diag}(6,3,1,0.5)$ and $x=(1,1,1,1)
 
 Increasing rank reduces matrix approximation error but need not compress storage. The count assumes dense storage and excludes bias, alignment and intermediate buffers; a diagonal matrix itself admits other structured storage formats. For general inputs, output error depends on projections onto right singular vectors and is not the Frobenius error. All values are constructed examples, not model measurements or latency results.
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Successive singular values are retained; output components, factor storage and squared error for ranks one through three are compared.">
+The upper panel now follows the actual two-factor computation: $h=Bx$ and $y_r=Ah$. The active rows of $B$ are the first $r$ rows of the identity; the active columns of $A$ contain the corresponding scaled identity columns. Increasing $r$ by one adds a row of four entries to $B$, a column of four entries to $A$, and one intermediate activation. Dashed slots are absent from the current factors, while solid zero-valued cells are counted under the dense-storage assumption. The vertical marker on each storage bar marks the original 16 entries. The static preview shows the rank-three factors with all three budget comparisons. No full weight matrix needs to be reconstructed to evaluate $Ah$.
+
+For a general SVD, the output error on a particular input is
+
+$
+\| (W-W_r)x\|_2^2=\sum_{i>r}\sigma_i^2(v_i^\top x)^2.
+$
+
+For example, at rank one, the squared error on $x=(1,0,0,0)^\top$ is zero, while on $x=(0,1,0,0)^\top$ it is 9; the matrix approximation error remains 10.25. This illustrates why rank selection using weight energy alone is not equivalent to minimizing errors on an input distribution.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Successive rows of B and columns of A compute Bx then ABx; factor storage and discarded squared error are compared for ranks one through three.">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" data-motion-src="../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg" data-still-src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" alt="Successive singular values are retained; output components, factor storage and squared error for ranks one through three are compared." width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" data-motion-src="../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg" data-still-src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" alt="Successive rows of B and columns of A compute Bx then ABx; factor storage and discarded squared error are compared for ranks one through three." width="640" height="360">
 </div>
 </div>
 

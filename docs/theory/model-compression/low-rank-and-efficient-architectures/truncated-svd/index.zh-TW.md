@@ -20,7 +20,7 @@ translation_reviewed: 2026-10-28
 
 ### 秩預算與捨棄能量
 
-取示意矩陣 $W=\operatorname{diag}(6,3,1,0.5)$ 與 $x=(1,1,1,1)^\top$。此例的 $U=V=I$，所以 $W_rx$ 直接保留前 $r$ 個分量。動畫框選保留的奇異值，依序揭露輸出分量，並比較一般稠密因子 $A\in\mathbb R^{4\times r}$、$B\in\mathbb R^{r\times4}$ 的儲存成本。
+取示意矩陣 $W=\operatorname{diag}(6,3,1,0.5)$ 與 $x=(1,1,1,1)^\top$。此例的 $U=V=I$，所以 $W_rx$ 直接保留前 $r$ 個分量。動畫逐步建構兩個因子及中介激活值，揭露輸出分量，並比較一般稠密因子 $A\in\mathbb R^{4\times r}$、$B\in\mathbb R^{r\times4}$ 的儲存成本。
 
 | 秩 $r$ | $W_rx$ | 因子元素數 / 原矩陣元素數 | $\|W-W_r\|_F^2$ |
 |---:|---|---:|---:|
@@ -30,7 +30,17 @@ translation_reviewed: 2026-10-28
 
 增加秩會降低矩陣近似誤差，但不一定能壓縮儲存量。這裡採稠密儲存假設，忽略偏差、對齊及中介緩衝區；對角矩陣本身也能用其他結構化格式儲存。一般輸入的輸出誤差取決於其在右奇異向量方向上的投影，不等於 Frobenius 誤差。所有數值均為人工算例，不是模型實測或延遲測量。
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="四個奇異值依序保留；秩一、二、三的輸出分量、因子儲存量及平方誤差並列。">
+上方動畫呈現實際的兩因子計算：$h=Bx$ 與 $y_r=Ah$。$B$ 的有效列為單位矩陣的前 $r$ 列，$A$ 的有效欄為對應的縮放單位矩陣欄。秩每增加一，$B$ 增加一列（四個元素），$A$ 增加一欄（四個元素），中介激活值則增加一個。虛線格表示目前因子中不存在的元素；實線格中的零值則仍計入稠密儲存成本。儲存量長條中的垂直標記代表原矩陣的 16 個元素。靜態預覽呈現秩三的因子及三種秩預算的比較。計算 $Ah$ 時不需要先重建完整權重矩陣。
+
+對一般 SVD，特定輸入的輸出平方誤差為
+
+$
+\| (W-W_r)x\|_2^2=\sum_{i>r}\sigma_i^2(v_i^\top x)^2.
+$
+
+例如秩一時，$x=(1,0,0,0)^\top$ 的輸出平方誤差為零，而 $x=(0,1,0,0)^\top$ 的輸出平方誤差為 9；矩陣近似誤差則仍為 10.25。這說明只依權重能量選擇秩，並不等同於最小化特定輸入分布上的誤差。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="逐步增加 B 的有效列與 A 的有效欄，計算 Bx 與 ABx，並比較秩一、二、三的因子儲存量及捨棄平方誤差。">
 <div style="width:640px">
 <img data-source-asset-urls src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" data-motion-src="../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg" data-still-src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" alt="四個奇異值依序保留；秩一、二、三的輸出分量、因子儲存量及平方誤差並列。" width="640" height="360">
 </div>
