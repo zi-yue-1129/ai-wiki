@@ -18,6 +18,20 @@ translation_reviewed: 2026-10-28
 
 初始化為 \(\theta_0\)，訓練到 \(\theta_T\)，剪除最小的權重得到遮罩 \(m\)，然後重設為 \(m \odot \theta_0\)，再訓練。如果重設後的子網路達到稠密網路的準確度，遮罩與 \(\theta_0\) 合起來就是獲勝彩票。重設為新的隨機權重會使效果消失，因此原始初始化很重要。
 
+### 動畫算例
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="兩輪剪枝從存活的訓練後權重選出逐步縮小的遮罩，並取回對應的原始初始化值。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/lottery-ticket-initial-reset-still.svg" data-motion-src="../../../../../assets/concept-animations/lottery-ticket-initial-reset-motion.svg" data-still-src="../../../../../assets/concept-animations/lottery-ticket-initial-reset-still.svg" alt="兩輪剪枝從存活的訓練後權重選出逐步縮小的遮罩，並取回對應的原始初始化值。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 數值為示意，非模型實測值。MkDocs 提供播放／暫停；聚焦捲動區域後可使用鍵盤水平捲動。GitHub 顯示[靜態回退圖](../../../../../assets/concept-animations/lottery-ticket-initial-reset-still.svg)。
+
+單輪示例從 $\theta_0=(0.2,-0.4,0.6,-0.1,0.3,-0.5)$ 開始，訓練結束時為 $\theta_T=(0.9,-0.05,0.7,0.04,-0.8,0.2)$。剪除訓練後絕對值最小的兩個權重（從 1 起算的位置 2、4），得到 $m=(1,0,1,0,1,1)$。移動的藍色訊號取回**原始初始化值**，青綠色虛線傳遞遮罩。兩者結合得到 $m\odot\theta_0=(0.2,0,0.6,0,0.3,-0.5)$，而不是保留訓練後值的 $m\odot\theta_T=(0.9,0,0.7,0,-0.8,0.2)$；後者是微調的起點。以新固定遮罩重新訓練，後續迭代只從存活權重中選擇剪除項目，再次重設其餘權重。第二輪假設重新訓練存活權重後得到 $(0.05,0,0.8,0,-0.6,0.3)$。只在四個存活位置中選擇剪除位置 1（絕對值 0.05），而非已被遮罩的兩個零值。累積遮罩為 $(0,0,1,0,1,1)$，第二次重設得到 $(0,0,0.6,0,0.3,-0.5)$，同樣取自原始初始化。琥珀色外框標示新剪除位置，灰色表示已遮罩的權重或重設後的零值。兩輪均由藍色路徑取回初始值，遮罩決定哪些位置保留。兩組訓練後權重皆為人工示意，並非實際訓練軌跡。只有後續訓練符合比較效能條件時，遮罩與初始化才構成獲勝彩票；稀疏度本身不能證明這點。
+
+[完整 SVG 動畫](../../../../../assets/concept-animations/lottery-ticket-initial-reset-motion.svg).
+
 ## 結果
 
 摘要指出，隨機初始化的稠密前饋網路中包含子網路，單獨訓練時能達到與原網路相近的準確度。
