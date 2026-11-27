@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc" font-family="Arial,Helvetica,sans-serif">
+<title id="title">Input-weighted rank-one selection</title><desc id="desc">The input is the first basis vector with probability p and the second otherwise. Weighted mode energies are 36p and 9(1-p). Retaining mode one discards the second energy; retaining mode two discards the first. Their expected squared output errors cross at p=0.2. The static snapshot uses p=0.1.</desc>
+<rect x="1" y="1" width="638" height="358" rx="6" fill="#f9fbfe" stroke="#dae5ef"/>
+<g fill="#23364a"><text x="20" y="30" font-size="22" font-weight="600">Input-weighted rank-one selection</text><text x="30" y="63" font-size="16" font-weight="600">Input mixture</text><text x="30" y="150" font-size="16" font-weight="600">Weighted mode energy</text><text x="330" y="63" font-size="16" font-weight="600">Expected output error</text></g>
+<rect x="30" y="78" width="240" height="24" rx="4" fill="#08766f"/><rect x="30" y="78" width="24" height="24" rx="2" fill="#315c85"></rect><line x1="54" x2="54" y1="75" y2="105" stroke="#23364a" stroke-width="2"></line>
+<g font-size="14" fill="#23364a"><circle cx="35" cy="119" r="5" fill="#315c85"/><text x="46" y="124">e₁ · p</text><circle cx="151" cy="119" r="5" fill="#08766f"/><text x="162" y="124">e₂ · 1−p</text><text x="30" y="179">Mode 1 · 36p</text><text x="30" y="236">Mode 2 · 9(1−p)</text></g>
+<rect x="30" y="188" width="216" height="20" rx="3" fill="#e3eaf1"/><rect x="30" y="188" width="21.6" height="20" rx="3" fill="#315c85"></rect>
+<rect x="30" y="245" width="216" height="20" rx="3" fill="#e3eaf1"/><rect x="30" y="245" width="48.6" height="20" rx="3" fill="#08766f"></rect>
+<g fill="#23364a" font-size="12"><text x="30" y="222">0</text><text x="246" y="222" text-anchor="end">36</text><text x="30" y="279">0</text><text x="246" y="279" text-anchor="end">36</text></g>
+<line x1="300" x2="300" y1="57" y2="326" stroke="#dae5ef"/>
+<g stroke="#dae5ef" stroke-width="1"><path d="M340 290H600"/><path d="M340 245H600"/><path d="M340 200H600"/><path d="M340 155H600"/><path d="M340 110H600"/></g><g fill="#23364a" font-size="13" text-anchor="end"><text x="332" y="294">0</text><text x="332" y="249">9</text><text x="332" y="204">18</text><text x="332" y="159">27</text><text x="332" y="114">36</text></g>
+<path d="M340 103V290H600" fill="none" stroke="#64788a" stroke-width="1.4"/>
+<path d="M340 245L600 290" stroke="#315c85" stroke-width="3" fill="none"/><path d="M340 290L600 110" stroke="#08766f" stroke-width="3" fill="none"/>
+<path d="M392 106V290" stroke="#64788a" stroke-dasharray="4 4"/><circle cx="392" cy="254" r="4.5" fill="#f9fbfe" stroke="#23364a" stroke-width="1.5"/>
+<line x1="366" x2="366" y1="106" y2="290" stroke="#a05c20" stroke-width="1.7" stroke-dasharray="5 3"></line>
+<circle cx="366" cy="249.5" r="5.5" fill="#315c85" stroke="white" stroke-width="1.2"></circle><circle cx="366" cy="272" r="5.5" fill="#08766f" stroke="white" stroke-width="1.2"></circle>
+<g font-size="13" fill="#23364a" text-anchor="middle"><text x="340" y="307">0</text><text x="392" y="307">0.2</text><text x="600" y="307">1</text><text x="470" y="326">p</text></g>
+<g font-size="13" fill="#23364a"><path d="M340 83h18" stroke="#315c85" stroke-width="3"/><text x="364" y="87">Keep 1</text><path d="M470 83h18" stroke="#08766f" stroke-width="3"/><text x="494" y="87">Keep 2</text></g>
+<text x="30" y="313" font-size="14" fill="#23364a">Keep the larger energy.</text><text x="30" y="334" font-size="14" fill="#23364a">Discard the other.</text>
+</svg>
