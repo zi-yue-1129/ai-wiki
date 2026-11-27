@@ -35,6 +35,20 @@ The paper's iterative magnitude pruning (IMP) with rewinding has these steps:
 
 The change from the original lottery ticket procedure is in step 5: the surviving weights are rewound to \(W_k\), not to \(W_0\). The mask is always taken from the fully trained network, and only the weights are rewound.
 
+### Worked animation
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Final weights select a binary mask; the early checkpoint supplies the surviving values.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-still.svg" data-motion-src="../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-motion.svg" data-still-src="../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-still.svg" alt="Final weights select a binary mask; the early checkpoint supplies the surviving values." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* All values are schematic, not model measurements. MkDocs provides Play/Pause; focus the scroll region to navigate horizontally by keyboard. GitHub displays the [static fallback](../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-still.svg).
+
+Let $W_0=(0.2,-0.4,0.6,-0.1)$, $W_k=(0.5,-0.2,0.4,0.3)$ and $W_T=(0.9,0.05,-0.8,-0.04)$. Prune the two smallest trained magnitudes (positions 2 and 4), so $m=(1,0,1,0)$. The moving blue signal represents the early checkpoint supplying values, while the amber path supplies the mask. The rewind result is $m\odot W_k=(0.5,0,0.4,0)$; initialization reset would give $(0.2,0,0.6,0)$ and retaining trained weights gives $(0.9,0,-0.8,0)$. The mask is the same, but the starting parameters differ. No stability or accuracy is measured here; selecting a successful rewind point requires training experiments.
+
+[Full SVG animation](../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-motion.svg).
+
 ## Results
 
 The abstract reports that the modified procedure finds subnetworks that could have been obtained by pruning early in training, and that it extends the tickets to deeper networks. The paper reports the following examples:

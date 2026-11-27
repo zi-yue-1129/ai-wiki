@@ -24,6 +24,20 @@ translation_reviewed: 2026-10-28
 
 其中 \(\lambda\) 用來平衡兩項。論文以驗證集上對 \(10^{-3}\)、\(10^{-4}\) 與 \(10^{-5}\) 的網格搜尋來選擇它；VGGNet 使用 \(10^{-4}\)，ResNet 與 DenseNet 使用 \(10^{-5}\)。\(\ell_1\) 項不平滑，因此論文以次梯度下降訓練。訓練後，以全域門檻剪枝，門檻為所有縮放係數的某個百分位數。在 CIFAR 上的多輪 VGGNet 實驗中，每一層最多只能剪掉一半的通道，以免整層被移除。之後再微調網路。
 
+### 動畫算例
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="四個批次正規化縮放係數的絕對值縮小，再以門檻保留 A、B 通道。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/network-slimming-scale-shrink-still.svg" data-motion-src="../../../../../assets/concept-animations/network-slimming-scale-shrink-motion.svg" data-still-src="../../../../../assets/concept-animations/network-slimming-scale-shrink-still.svg" alt="四個批次正規化縮放係數的絕對值縮小，再以門檻保留 A、B 通道。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 數值皆為人工示意，並非模型實測。MkDocs 提供播放／暫停；可聚焦捲動區域後使用鍵盤水平捲動。GitHub 顯示[靜態回退圖](../../../../../assets/concept-animations/network-slimming-scale-shrink-still.svg).
+
+只考慮稀疏懲罰，執行兩次次梯度更新，令 $\eta\lambda=0.1$。從 $\gamma=(0.9,-0.6,0.3,-0.2)$ 開始，第一次更新為 $(0.8,-0.5,0.2,-0.1)$，第二次為 $(0.7,-0.4,0.1,0)$。長條顯示 $|\gamma|$，動畫內插僅表示兩次離散更新，不是連續訓練。示意門檻 $\tau=0.15$ 保留 A、B 通道。實際訓練仍包含任務梯度，並共同學習 BN 偏移量。當偏移量非零時，縮放係數為零不代表激活值為零；移除通道可能改變網路函數，需再微調。對連續卷積層，需同步移除產生端輸出通道、BN 對應項及使用端輸入通道，並考慮計算圖相依性。
+
+[完整 SVG 動畫](../../../../../assets/concept-animations/network-slimming-scale-shrink-motion.svg).
+
 ## 結果
 
 摘要報告，多輪版本的網路瘦身使 VGGNet 的模型大小縮小為 20 倍、計算運算量減少為 5 倍。

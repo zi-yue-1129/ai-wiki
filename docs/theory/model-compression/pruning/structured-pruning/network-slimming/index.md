@@ -32,6 +32,20 @@ The training objective adds a sparsity penalty on the scale parameters \(\gamma\
 
 Here \(\lambda\) balances the two terms. The paper chooses it by grid search over \(10^{-3}\), \(10^{-4}\) and \(10^{-5}\) on a validation set. It uses \(10^{-4}\) for VGGNet and \(10^{-5}\) for ResNet and DenseNet. The \(\ell_1\) term is not smooth, so the paper trains with subgradient descent. After training, channels are pruned by a global threshold, a percentile of all the scaling factors. In the multi-pass VGGNet experiments on CIFAR, at most half of the channels in any layer may be pruned, so that no layer is removed entirely. The remaining network is then fine-tuned.
 
+### Worked animation
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Four BN scale magnitudes shrink, then a threshold retains channels A and B.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/network-slimming-scale-shrink-still.svg" data-motion-src="../../../../../assets/concept-animations/network-slimming-scale-shrink-motion.svg" data-still-src="../../../../../assets/concept-animations/network-slimming-scale-shrink-still.svg" alt="Four BN scale magnitudes shrink, then a threshold retains channels A and B." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* All values are schematic, not model measurements. MkDocs provides Play/Pause; focus the scroll region to navigate horizontally by keyboard. GitHub displays the [static fallback](../../../../../assets/concept-animations/network-slimming-scale-shrink-still.svg).
+
+Isolate the sparsity penalty for two subgradient steps with $\eta\lambda=0.1$. Starting from $\gamma=(0.9,-0.6,0.3,-0.2)$, the first update yields $(0.8,-0.5,0.2,-0.1)$ and the second yields $(0.7,-0.4,0.1,0)$. The bars show $|\gamma|$; their interpolation represents the two discrete updates, not continuous training. The illustrative threshold $\tau=0.15$ retains channels A and B. Real training also includes the task gradient and jointly learns the BN offsets. A zero scale does not by itself imply a zero activation when the learned offset is nonzero; channel deletion can change the network function and requires fine-tuning. For sequential convolutions, remove the corresponding producer output channels, BN entries and consumer input channels, subject to graph dependencies.
+
+[Full SVG animation](../../../../../assets/concept-animations/network-slimming-scale-shrink-motion.svg).
+
 ## Results
 
 The abstract reports that a multi-pass version of network slimming gives a 20 times reduction in VGGNet's model size and a 5 times reduction in its computing operations.
