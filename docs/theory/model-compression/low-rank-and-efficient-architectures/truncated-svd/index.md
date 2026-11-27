@@ -43,9 +43,9 @@ The upper panel now follows the actual two-factor computation: $h=Bx$ and $y_r=A
 
 For a general SVD, the output error on a particular input is
 
-$
+$$
 \| (W-W_r)x\|_2^2=\sum_{i>r}\sigma_i^2(v_i^\top x)^2.
-$
+$$
 
 For example, at rank one, the squared error on $x=(1,0,0,0)^\top$ is zero, while on $x=(0,1,0,0)^\top$ it is 9; the matrix approximation error remains 10.25. This illustrates why rank selection using weight energy alone is not equivalent to minimizing errors on an input distribution.
 
@@ -56,6 +56,18 @@ For example, at rank one, the squared error on $x=(1,0,0,0)^\top$ is zero, while
 </div>
 
 *Original 12-second teaching animation (CC BY-SA 4.0).* Use Play/Pause on MkDocs; the focusable container scrolls horizontally on narrow screens. GitHub displays the [static preview](../../../../assets/concept-animations/svd-factor-rank-budget-still.svg); the [full animation](../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg) is also linked.
+
+### Input-weighted rank-one approximation
+
+For an input second-moment matrix $M_x=\mathbb E[xx^\top]$, the expected squared output error of any approximation $\widetilde W$ is
+
+$
+\mathbb E\|(W-\widetilde W)x\|_2^2=\operatorname{tr}\big((W-\widetilde W)M_x(W-\widetilde W)^\top\big).
+$
+
+Take the same diagonal matrix and suppose the input is the first basis vector with probability $p$ and the second with probability $1-p$. The ordinary rank-one SVD keeps the first mode, with expected output error $9(1-p)$. A different rank-one approximation retaining only the second mode, $\widetilde W=\operatorname{diag}(0,3,0,0)$, has expected error $36p$. It has larger squared Frobenius error (37.25 instead of 10.25), yet gives smaller expected output error when $p<0.2$. Both use the same dense-factor entry count. At $p=0.2$ they tie.
+
+This example compares fixed linear approximations without fine-tuning and is not a measured neural-network result.
 
 ## Results
 

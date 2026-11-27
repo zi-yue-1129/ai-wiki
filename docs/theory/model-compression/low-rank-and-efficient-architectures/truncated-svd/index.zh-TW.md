@@ -34,19 +34,31 @@ translation_reviewed: 2026-10-28
 
 對一般 SVD，特定輸入的輸出平方誤差為
 
-$
+$$
 \| (W-W_r)x\|_2^2=\sum_{i>r}\sigma_i^2(v_i^\top x)^2.
-$
+$$
 
 例如秩一時，$x=(1,0,0,0)^\top$ 的輸出平方誤差為零，而 $x=(0,1,0,0)^\top$ 的輸出平方誤差為 9；矩陣近似誤差則仍為 10.25。這說明只依權重能量選擇秩，並不等同於最小化特定輸入分布上的誤差。
 
 <div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="逐步增加 B 的有效列與 A 的有效欄，計算 Bx 與 ABx，並比較秩一、二、三的因子儲存量及捨棄平方誤差。">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" data-motion-src="../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg" data-still-src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" alt="四個奇異值依序保留；秩一、二、三的輸出分量、因子儲存量及平方誤差並列。" width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" data-motion-src="../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg" data-still-src="../../../../assets/concept-animations/svd-factor-rank-budget-still.svg" alt="逐步增加 B 的有效列與 A 的有效欄，計算 Bx 與 ABx，並比較秩一、二、三的因子儲存量及捨棄平方誤差。" width="640" height="360">
 </div>
 </div>
 
 *原創 12 秒教學動畫（CC BY-SA 4.0）。* MkDocs 可使用播放／暫停控制；較窄畫面可透過鍵盤聚焦的容器水平捲動。GitHub 顯示[靜態預覽](../../../../assets/concept-animations/svd-factor-rank-budget-still.svg)，另可開啟[完整動畫](../../../../assets/concept-animations/svd-factor-rank-budget-motion.svg)。
+
+### 依輸入統計量加權的秩一近似
+
+若輸入的二階動差矩陣為 $M_x=\mathbb E[xx^\top]$，任意近似矩陣 $\widetilde W$ 的預期輸出平方誤差為
+
+$
+\mathbb E\|(W-\widetilde W)x\|_2^2=\operatorname{tr}\big((W-\widetilde W)M_x(W-\widetilde W)^\top\big).
+$
+
+沿用同一個對角矩陣，假設輸入以機率 $p$ 取第一個基底向量，以機率 $1-p$ 取第二個基底向量。一般秩一 SVD 保留第一個模態，其預期輸出誤差為 $9(1-p)$。另一個只保留第二個模態的秩一近似 $\widetilde W=\operatorname{diag}(0,3,0,0)$，預期誤差則為 $36p$。後者的 Frobenius 平方誤差較大（37.25，相較於 10.25），但當 $p<0.2$ 時，預期輸出誤差反而較小。兩者的稠密因子元素數量相同；在 $p=0.2$ 時兩者並列。
+
+此算例比較未微調的固定線性近似，並非神經網路實測結果。
 
 ## 結果
 

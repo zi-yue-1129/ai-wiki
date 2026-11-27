@@ -20,7 +20,7 @@ translation_reviewed: 2026-10-28
 
 ### 相同稀疏度，不同輸出誤差
 
-用人工線性模型 $w=(4,3,2,1)$ 比較兩個固定遮罩 $m_A=(1,1,0,0)$ 與 $m_B=(0,0,1,1)$。前者保留絕對值最大的兩個權重；後者僅是反例遮罩，不代表論文中的另一種演算法。兩者皆為 50% 稀疏度。對輸入 $x$，以稠密輸出 $w^\top x$ 為比較基準，遮罩輸出為 $(w\odot m)^\top x$。動畫長條依序累加各項乘積，最後比較兩筆輸入上的均方偏差。
+用人工線性模型 $w=(4,3,2,1)$ 比較兩個固定遮罩 $m_A=(1,1,0,0)$ 與 $m_B=(0,0,1,1)$。前者保留絕對值最大的兩個權重；後者僅是反例遮罩，不代表論文中的另一種演算法。兩者皆為 50% 稀疏度。對輸入 $x$，以稠密輸出 $w^\top x$ 為比較基準，遮罩輸出為 $(w\odot m)^\top x$。
 
 | 輸入 | 稠密輸出 | Magnitude | Alternate |
 |---|---:|---:|---:|
@@ -30,21 +30,13 @@ translation_reviewed: 2026-10-28
 
 同樣的權重保留數量並不保證相同輸出，更不保證相同準確率或加速。第一筆輸入較偏向小權重方向，第二筆則相反。這個不含重新訓練的算例不是論文的實驗結果，也不否定其 magnitude pruning 基準。實際比較還需控制訓練與微調預算、資料、超參數搜尋及評估協定，並在相同稀疏度下檢視任務指標。
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="兩種遮罩均保留兩個權重，對兩組輸入的累加輸出與相對稠密輸出的均方誤差不同。">
-<div style="width:640px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg" data-motion-src="../../../../../assets/concept-animations/matched-sparsity-output-error-motion.svg" data-still-src="../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg" alt="兩種遮罩均保留兩個權重，對兩組輸入的累加輸出與相對稠密輸出的均方誤差不同。" width="640" height="360">
-</div>
-</div>
-
-*原創 12 秒教學動畫（CC BY-SA 4.0）。* MkDocs 可使用播放／暫停控制；較窄畫面可透過鍵盤聚焦的容器水平捲動。GitHub 顯示[靜態預覽](../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg)，另可開啟[完整動畫](../../../../../assets/concept-animations/matched-sparsity-output-error-motion.svg)。
-
 ### 為什麼激活值統計量會改變遮罩選擇
 
 令 $\Delta w=(1-m)\odot w$。若輸入分布的未中心化二階動差矩陣為 $M_x=\mathbb E[xx^\top]$，則預期輸出平方偏差為
 
-$
+$$
 \mathbb E[(\Delta w^\top x)^2]=\Delta w^\top M_x\Delta w.
-$
+$$
 
 對角項依各輸入的二階動差加權被移除的係數，非對角項則反映未中心化交叉乘積。當 $M_x=cI$ 且 $c>0$ 時，此式化為被移除權重平方和的固定倍數，此時保留絕對值最大的權重即可最小化偏差。
 
@@ -59,7 +51,32 @@ $
 | 2, 4 | 26 |
 | 3, 4（反例遮罩） | 29 |
 
-此有限算例的最佳遮罩保留第 2、3 個位置，不是絕對值最大的兩個權重，也不是動畫中的反例遮罩。這是針對指定兩筆輸入的窮舉計算，而非剪枝演算法或實測任務準確率。改變輸入分布或重新訓練，都可能改變排序。
+此有限算例的最佳遮罩保留第 2、3 個位置，不是絕對值最大的兩個權重，也不是反例遮罩。這是針對指定兩筆輸入的窮舉計算，而非剪枝演算法或實測任務準確率。改變輸入分布或重新訓練，都可能改變排序。
+
+### 改變輸入混合分布
+
+令 $p=\Pr(x=x_1)$，第二筆輸入的機率為 $1-p$。若某固定遮罩在兩筆輸入上的平方誤差為 $e_1,e_2$，則其預期平方偏差為 $p e_1+(1-p)e_2$。六種遮罩的仿射成本如下。
+
+| 保留位置 | 預期平方偏差 |
+|---|---:|
+| 1, 2 | $100p$ |
+| 1, 3 | $9+40p$ |
+| 1, 4 | $9+72p$ |
+| 2, 3 | $16$ |
+| 2, 4 | $16+20p$ |
+| 3, 4 | $49-40p$ |
+
+最小值是這些直線的下包絡線。當 $0\le p<0.15$ 時，最佳保留位置為 1、2；當 $0.15<p<0.175$ 時為 1、3；當 $0.175<p<0.825$ 時為 2、3；當 $0.825<p\le1$ 時為 3、4。三個分界點皆有相鄰最佳遮罩並列。動畫在並列時只標示其中一個最佳解，將輸入機率由零掃至一，並刻意在 $p=0.1625$ 停留以呈現狹窄的第二個區間。六條長條共用 0–100 刻度；右側最小值曲線使用獨立的 0–20 刻度。靜態預覽對應 $p=0.5$。
+
+每個候選遮罩內部保留的權重始終固定；改變的是輸入分布與目前被標示的最佳候選。此算例沒有模擬訓練或任務準確率。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="六種固定遮罩各保留兩個權重；預期平方偏差與最佳遮罩隨輸入混合分布改變。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg" data-motion-src="../../../../../assets/concept-animations/matched-sparsity-output-error-motion.svg" data-still-src="../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg" alt="六種固定遮罩各保留兩個權重；預期平方偏差與最佳遮罩隨輸入混合分布改變。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* MkDocs 可使用播放／暫停控制；較窄畫面可透過鍵盤聚焦的容器水平捲動。GitHub 顯示[靜態預覽](../../../../../assets/concept-animations/matched-sparsity-output-error-still.svg)，另可開啟[完整動畫](../../../../../assets/concept-animations/matched-sparsity-output-error-motion.svg)。
 
 ## 結果
 
