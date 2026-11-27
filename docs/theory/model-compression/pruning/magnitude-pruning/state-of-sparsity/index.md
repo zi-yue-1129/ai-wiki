@@ -68,10 +68,10 @@ In the equal-mixture example, the magnitude mask removes positions 3 and 4. The 
 
 Keep the same two removed coefficients $\Delta w=(2,1)$ in a separate two-coordinate toy model. Take $x=(1,1)$ with probability $p$ and $x=(1,-1)$ otherwise. Both coordinates always have unit second moment; their uncentred cross moment is $2p-1$. Therefore,
 
-$
+$$
 M_x=\begin{bmatrix}1&2p-1\\2p-1&1\end{bmatrix},\qquad
 L(p)=5+4(2p-1)=1+8p.
-$
+$$
 
 The diagonal-only estimate stays at 5. The cross term is positive for $p>0.5$, zero at $p=0.5$, and negative for $p<0.5$. At the extremes, the actual squared residual is 9 or 1, despite identical diagonal statistics and fixed removed weights. The animation varies the input mixture, not the weights: the green point follows $L(p)$, and the orange segment measures the signed difference from the dashed diagonal-only estimate. It holds at the endpoints and the zero crossing; the static preview uses $p=1$. This is constructed arithmetic without retraining, not benchmark data.
 
