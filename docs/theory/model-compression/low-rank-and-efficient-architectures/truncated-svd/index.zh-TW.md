@@ -60,6 +60,18 @@ $
 
 此算例比較未微調的固定線性近似，並非神經網路實測結果。
 
+加權目標可改寫為輸入縮放後的 Frobenius 範數：$\mathbb E\|(W-\widetilde W)x\|_2^2=\|(W-\widetilde W)M_x^{1/2}\|_F^2$。若 $M_x$ 為正定矩陣，先將 $WM_x^{1/2}$ 截斷至秩 $r$，再將結果右乘 $M_x^{-1/2}$。本例的 $M_x=\operatorname{diag}(p,1-p,0,0)$ 為奇異矩陣；只有前兩欄會影響目標，將無輸入支撐的欄設為零即可達到最優值。$WM_x^{1/2}$ 的前兩個模態的平方奇異值為 $36p$ 與 $9(1-p)$，其餘為零。因此保留加權能量較大的模態，會得到秩至多為一的全域最小誤差 $\min(36p,9(1-p))$。當 $p=0.2$ 並列時，兩種示意選擇的誤差均為 7.2；其他秩一解也可能達到同樣最優值。
+
+動畫將 $p$ 從 0.1 掃至 0.9 再返回，並在交點停留。左側長條以相同的 0–36 刻度表示候選保留模態的加權能量；右側曲線表示各選擇所**捨棄**的能量，所以保留較長的左側長條，對應右側較低的曲線。兩個彩色游標在並列時重合。靜態預覽使用 $p=0.1$。所有數值均為人工示意，並非模型實測。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="輸入混合分布改變兩個模態的加權能量，以及保留任一模態的預期輸出誤差。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/svd-input-weighted-rank-one-still.svg" data-motion-src="../../../../assets/concept-animations/svd-input-weighted-rank-one-motion.svg" data-still-src="../../../../assets/concept-animations/svd-input-weighted-rank-one-still.svg" alt="輸入混合分布改變兩個模態的加權能量，以及保留任一模態的預期輸出誤差。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* MkDocs 可使用播放／暫停；窄畫面可透過鍵盤聚焦容器水平捲動。GitHub 顯示[靜態預覽](../../../../assets/concept-animations/svd-input-weighted-rank-one-still.svg)，也可開啟[完整動畫](../../../../assets/concept-animations/svd-input-weighted-rank-one-motion.svg)。
+
 ## 結果
 
 Denton 等人報告，對卷積層而言，在 CPU 與 GPU 上速度約提升 2 倍，且準確度維持在原模型的 1% 以內。各網路的確切數字見論文。

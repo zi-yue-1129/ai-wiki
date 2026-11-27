@@ -458,6 +458,21 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "svd-input-weighted-rank-one": {
+      "origins": [
+        {
+          "origin_blob": "4cdded616a735a50d6d862f90f2addc1c29d82a4",
+          "origin_commit": "9e493cddf6f2629efdff1282b51e9b84d6df3ff3",
+          "path": "docs/assets/concept-animations/svd-input-weighted-rank-one-motion.svg"
+        },
+        {
+          "origin_blob": "c34ce79411422ac5362b3272a669af2c4e2c0be3",
+          "origin_commit": "9e493cddf6f2629efdff1282b51e9b84d6df3ff3",
+          "path": "docs/assets/concept-animations/svd-input-weighted-rank-one-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "svd-factor-rank-budget": {
       "origins": [
         {

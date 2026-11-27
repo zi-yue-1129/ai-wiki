@@ -69,6 +69,18 @@ Take the same diagonal matrix and suppose the input is the first basis vector wi
 
 This example compares fixed linear approximations without fine-tuning and is not a measured neural-network result.
 
+The weighted objective is a Frobenius norm after scaling the inputs: $\mathbb E\|(W-\widetilde W)x\|_2^2=\|(W-\widetilde W)M_x^{1/2}\|_F^2$. If $M_x$ is positive definite, truncate $WM_x^{1/2}$ to rank $r$ and multiply the result on the right by $M_x^{-1/2}$. In the present example $M_x=\operatorname{diag}(p,1-p,0,0)$ is singular. Only the first two columns affect the objective; setting the unsupported columns to zero attains the optimum. The two squared singular values of $WM_x^{1/2}$ are $36p$ and $9(1-p)$, with additional zeros. Keeping the larger weighted mode therefore gives the globally minimal rank-at-most-one error $\min(36p,9(1-p))$. At the tie $p=0.2$, both illustrated choices attain 7.2; other rank-one solutions can also attain the optimum.
+
+The animation sweeps $p$ from 0.1 to 0.9 and back, holding at the crossing. The left bars show retained-mode candidates' weighted energies on the same 0–36 scale; the right curves show the **discarded** energy for each choice, so keeping the larger left bar corresponds to the lower curve. The two colored markers coincide at the tie. The still preview uses $p=0.1$. All values are illustrative, not model measurements.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Input mixture changes the two weighted mode energies and the expected output errors of retaining either mode.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/svd-input-weighted-rank-one-still.svg" data-motion-src="../../../../assets/concept-animations/svd-input-weighted-rank-one-motion.svg" data-still-src="../../../../assets/concept-animations/svd-input-weighted-rank-one-still.svg" alt="Input mixture changes the two weighted mode energies and the expected output errors of retaining either mode." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use Play/Pause on MkDocs; the focusable container scrolls horizontally on narrow screens. GitHub displays the [static preview](../../../../assets/concept-animations/svd-input-weighted-rank-one-still.svg); the [full animation](../../../../assets/concept-animations/svd-input-weighted-rank-one-motion.svg) is also linked.
+
 ## Results
 
 Denton et al. report, for convolutional layers, speed-ups of about 2 times on both CPU and GPU, with accuracy kept within 1% of the original model. The exact figures for each network are in the paper.

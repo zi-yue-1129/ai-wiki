@@ -62,6 +62,8 @@ On the two equally weighted illustrative inputs above, exhaustive enumeration of
 
 The best mask in this finite toy example retains positions 2 and 3, not the two largest weights and not the alternate mask. This is an exhaustive calculation on the two specified inputs, not a pruning algorithm or measured task accuracy. A different input distribution or retraining can change the ranking.
 
+In the equal-mixture example, the magnitude mask removes positions 3 and 4. The diagonal-only contribution is $2^2(4.5)+1^2(8)=26$, but the omitted cross term is $2(2)(1)(6)=24$, giving the full error 50. By contrast, retaining positions 2 and 3 removes positions 1 and 4: their diagonal contribution is $4^2(0.5)+1^2(8)=16$ and their cross term is zero. Using only per-coordinate second moments can therefore misestimate joint pruning error; cross terms can have either sign in general. These are exact arithmetic on the specified inputs, not benchmark measurements.
+
 ### Changing the input mixture
 
 Let $p=\Pr(x=x_1)$, so the second input has probability $1-p$. For a fixed mask with squared errors $e_1,e_2$, its expected squared deviation is $p e_1+(1-p)e_2$. The six masks yield the affine costs below.
