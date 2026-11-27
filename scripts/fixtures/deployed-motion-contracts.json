@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "integer-requantization-accumulator": {
+      "origins": [
+        {
+          "origin_blob": "360973683cf0d315fec2c7fe27b6605e990c6dc3",
+          "origin_commit": "c93dce09d9ad969c3021c08a1249105d65a02ce9",
+          "path": "docs/assets/concept-animations/integer-requantization-accumulator-motion.svg"
+        },
+        {
+          "origin_blob": "9b266278459bc5291f71996eb9aa6b0c7d3bfe66",
+          "origin_commit": "c93dce09d9ad969c3021c08a1249105d65a02ce9",
+          "path": "docs/assets/concept-animations/integer-requantization-accumulator-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "prune-fixed-mask-gradient": {
+      "origins": [
+        {
+          "origin_blob": "cc0d58ec02df90c568cdc1d02549a8215c215a92",
+          "origin_commit": "c93dce09d9ad969c3021c08a1249105d65a02ce9",
+          "path": "docs/assets/concept-animations/prune-fixed-mask-gradient-motion.svg"
+        },
+        {
+          "origin_blob": "647ab365469d281b34191c524eea40fbabdb1fa7",
+          "origin_commit": "c93dce09d9ad969c3021c08a1249105d65a02ce9",
+          "path": "docs/assets/concept-animations/prune-fixed-mask-gradient-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
