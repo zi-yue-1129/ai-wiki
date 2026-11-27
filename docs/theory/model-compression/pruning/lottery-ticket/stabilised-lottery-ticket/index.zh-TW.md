@@ -26,6 +26,22 @@ translation_reviewed: 2026-10-28
 
 與原始彩票程序的差異在第 5 步：存活的權重倒回 \(W_k\)，而不是 \(W_0\)。遮罩永遠取自完整訓練後的網路，倒回的只有權重。
 
+### 動畫算例
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="最終權重決定二元遮罩，早期檢查點提供存活權重的數值。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-still.svg" data-motion-src="../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-motion.svg" data-still-src="../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-still.svg" alt="最終權重決定二元遮罩，早期檢查點提供存活權重的數值。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 數值皆為人工示意，並非模型實測。MkDocs 提供播放／暫停；可聚焦捲動區域後使用鍵盤水平捲動。GitHub 顯示[靜態回退圖](../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-still.svg).
+
+令 $W_0=(0.2,-0.4,0.6,-0.1)$、$W_k=(0.5,-0.2,0.4,0.3)$、$W_T=(0.9,0.05,-0.8,-0.04)$。剪除訓練後絕對值最小的兩個權重（位置 2、4），得到 $m=(1,0,1,0)$。藍色移動訊號表示早期檢查點提供數值，琥珀色路徑提供遮罩。倒回結果為 $m\odot W_k=(0.5,0,0.4,0)$；重設至初始化則為 $(0.2,0,0.6,0)$，保留訓練後權重則為 $(0.9,0,-0.8,0)$。三者遮罩相同，但訓練起點的參數不同。此處未量測穩定性或準確率，選擇成功的倒回點仍需訓練實驗。
+
+[完整 SVG 動畫](../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-motion.svg).
+
+**兩種不同的穩定性比較。** 固定示意遮罩 $m=(1,0,1,0)$，假設兩次使用不同資料順序的稀疏訓練完成後，分別得到 $a=(0.7,0,0.4,0)$ 與 $b=(0.6,0,0.5,0)$。兩者的歐氏端點距離為 $\|a-b\|_2=\sqrt{0.02}$。若另一次稠密訓練完成後得到遮罩端點 $c=(0.9,0,-0.8,0)$，則 $a$ 與稠密訓練結果的比較為 $\|a-c\|_2=\sqrt{1.48}$。後者比較其他權重是否參與訓練，並非比較兩種資料順序。這些人工設定的訓練端點不同於上方的訓練起始權重，並非實測的穩定性結果；端點距離小也不代表任務準確率必然良好。
+
 ## 結果
 
 摘要報告，修改後的程序能找到那些可在訓練早期剪枝得到的子網路，並把彩票延伸到更深的網路。論文報告的例子包括：

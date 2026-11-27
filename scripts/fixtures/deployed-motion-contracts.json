@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "network-slimming-scale-shrink": {
+      "origins": [
+        {
+          "origin_blob": "51fb57bbc450045d92e7a0b502ee0cd719708d8f",
+          "origin_commit": "39671b05803a9aa32bd904d8924c768749fdb5cf",
+          "path": "docs/assets/concept-animations/network-slimming-scale-shrink-motion.svg"
+        },
+        {
+          "origin_blob": "2bfc3f5af4864e07b68f20ac766ccfe72e5a398f",
+          "origin_commit": "39671b05803a9aa32bd904d8924c768749fdb5cf",
+          "path": "docs/assets/concept-animations/network-slimming-scale-shrink-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "lottery-early-checkpoint-rewind": {
+      "origins": [
+        {
+          "origin_blob": "0aac9a7d6b4abf69f58cadceef3ecb3847169172",
+          "origin_commit": "39671b05803a9aa32bd904d8924c768749fdb5cf",
+          "path": "docs/assets/concept-animations/lottery-early-checkpoint-rewind-motion.svg"
+        },
+        {
+          "origin_blob": "d062b34434aa3f38eb749704a891cece348da814",
+          "origin_commit": "39671b05803a9aa32bd904d8924c768749fdb5cf",
+          "path": "docs/assets/concept-animations/lottery-early-checkpoint-rewind-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
