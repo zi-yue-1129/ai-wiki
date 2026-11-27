@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "gradual-pruning-cubic-mask": {
+      "origins": [
+        {
+          "origin_blob": "642dc81258732f80c6311ca8c299b6f764d3c8f1",
+          "origin_commit": "337ee129c08cf96bad7b0699357885b85b72fb37",
+          "path": "docs/assets/concept-animations/gradual-pruning-cubic-mask-motion.svg"
+        },
+        {
+          "origin_blob": "e75509975c791574b9f54f870629cb746022def6",
+          "origin_commit": "337ee129c08cf96bad7b0699357885b85b72fb37",
+          "path": "docs/assets/concept-animations/gradual-pruning-cubic-mask-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "lottery-ticket-initial-reset": {
+      "origins": [
+        {
+          "origin_blob": "22ff3fb949d3b58efa33f72f49d8a745a503d571",
+          "origin_commit": "337ee129c08cf96bad7b0699357885b85b72fb37",
+          "path": "docs/assets/concept-animations/lottery-ticket-initial-reset-motion.svg"
+        },
+        {
+          "origin_blob": "5ad8392e8ac281bb76383669bd44f2d327e2d50e",
+          "origin_commit": "337ee129c08cf96bad7b0699357885b85b72fb37",
+          "path": "docs/assets/concept-animations/lottery-ticket-initial-reset-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

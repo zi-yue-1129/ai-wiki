@@ -24,6 +24,20 @@ s_t = s_f + (s_i - s_f)\left(1 - \frac{t - t_0}{n\,\Delta t}\right)^3
 
 其中 \(t \in \{t_0, t_0 + \Delta t, \dots, t_0 + n\,\Delta t\}\)。\(t_0\) 是開始剪枝的訓練步數，\(n\) 是剪枝步數，\(\Delta t\) 是剪枝頻率（以訓練步數計）。每個剪枝步驟會遮罩幅度最小的權重，直到達到當前稀疏度，然後在剩下的權重上繼續訓練。三次方的形式在網路冗餘最多的初期剪得較快，接近目標時則放慢。
 
+### 動畫算例
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="三次方稀疏度目標與階梯狀實際稀疏度，對照五組各含十六個權重的遮罩，最後遮罩十二個權重。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/gradual-pruning-cubic-mask-still.svg" data-motion-src="../../../../../assets/concept-animations/gradual-pruning-cubic-mask-motion.svg" data-still-src="../../../../../assets/concept-animations/gradual-pruning-cubic-mask-still.svg" alt="三次方稀疏度目標與階梯狀實際稀疏度，對照五組各含十六個權重的遮罩，最後遮罩十二個權重。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 數值為示意，非模型實測值。MkDocs 提供播放／暫停；聚焦捲動區域後可使用鍵盤水平捲動。GitHub 顯示[靜態回退圖](../../../../../assets/concept-animations/gradual-pruning-cubic-mask-still.svg)。
+
+假設有 16 個權重，設定 $s_i=0$、$s_f=0.75$，共四個剪枝間隔。藍線為連續延伸的目標曲線 $s_i+(s_f-s_i)[1-(1-u)^3]$，其中 $u=(t-t_0)/(4\Delta t)$ 介於 $[0,1]$。五個排程更新點各遮罩 $\lfloor16s_t\rfloor$ 個權重，依序為 $0,6,10,11,12$。青綠色階梯表示實際遮罩比例，而非連續目標。本示例固定權重幅度排名，且遮罩為巢狀；實際訓練可能改變排名，不同遮罩更新實作也可能允許已遮罩的權重重新加入。兩次排程更新之間，遮罩數量不變，訓練仍持續進行。向下取整只是本算例的約定，不是論文指定的規則。本圖未量測準確率或執行時間。
+
+[完整 SVG 動畫](../../../../../assets/concept-animations/gradual-pruning-cubic-mask-motion.svg).
+
 ## 結果
 
 論文摘要報告，大型稀疏模型始終優於小型稠密模型。部分實驗在非零參數數量相等的條件下比較；另一些實驗則在記憶體佔用相當的條件下比較，並把稀疏儲存的額外開銷算進去。實驗的最終稀疏度從 50% 到 97.5% 不等。
