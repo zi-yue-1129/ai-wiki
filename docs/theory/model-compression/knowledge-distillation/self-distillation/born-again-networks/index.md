@@ -23,6 +23,31 @@ Distillation was assumed to work only when the student is smaller than the teach
 
 Train a student with the same architecture as its teacher, using the teacher's softened predictions as the target. The authors found that the resulting born-again networks outperform their teachers, and that the gain can be repeated over generations.
 
+### Visual walkthrough: fresh students and changing targets
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" data-motion-src="../../../../../assets/concept-animations/born-again-generation-step-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Three equal-architecture generations pass fixed probability targets to newly initialized students, each taking one illustrative logit gradient step.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/born-again-generation-step-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/born-again-generation-step-motion.svg)
+
+Furlanello et al. (2018) study distillation between identically parameterized architectures. Each new student is trained separately; the preceding trained student becomes the fixed teacher for the next generation. This differs from continuing to update one network.
+
+For a **constructed one-example, one-step demonstration**, start with $p_0=(0.7,0.2,0.1)$, let each new student's logits start at $z=0$, use temperature 1, and optimize only soft-target cross-entropy with learning rate 1. For a fixed teacher $p_k$, the gradient is $\operatorname{softmax}(z)-p_k$. Thus
+
+$
+z_{k+1}=p_k-\tfrac13(1,1,1),\qquad
+p_{k+1}=\operatorname{softmax}(z_{k+1}).
+$
+
+The first step produces logits approximately $(0.367,-0.133,-0.233)$ and probabilities $(0.464,0.281,0.255)$. The next generation starts from zero logits again, uses the unrounded preceding probabilities as its target, and produces logits approximately $(0.131,-0.052,-0.079)$ and probabilities $(0.378,0.315,0.307)$. The animated bars interpolate between the initial and computed final probabilities; they do not depict extra SGD steps.
+
+This example only demonstrates the transfer and fresh initialization. If each student could exactly match the teacher distribution everywhere, pure soft-target cross-entropy alone would reproduce that distribution. The example does not explain or guarantee the paper's empirical accuracy gains, and the increased entropy here is not a general property of born-again training. Actual training uses many examples and optimization steps, and may include hard labels. The numbers are not measurements.
+
+On MkDocs use Play/Pause (Enter or Space); GitHub and reduced-motion readers can inspect the complete static result. Original diagram, **CC BY-SA 4.0**.
+
 ## Equation or algorithm
 
 Each generation minimises the distillation loss against the previous generation's softened predictions, with the same architecture and no larger model. The first generation is trained on the labels. Each later generation uses the one before it as its teacher.

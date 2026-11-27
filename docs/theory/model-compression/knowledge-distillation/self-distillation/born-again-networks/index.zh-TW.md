@@ -14,6 +14,31 @@ translation_reviewed: 2026-10-28
 
 訓練一個與教師架構相同的學生，以教師經軟化的預測作為目標。作者發現，所得的重生網路優於其教師，而且這種增益可以跨世代重複。
 
+### 動畫解讀：新初始化學生與世代目標
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以查看完整教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" data-motion-src="../../../../../assets/concept-animations/born-again-generation-step-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="三個同架構世代依序將固定機率目標傳給新初始化的學生，每個學生執行一步示意 logit 梯度更新。">
+</div>
+</div>
+
+[GitHub 靜態回退圖](../../../../../assets/concept-animations/born-again-generation-step-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/born-again-generation-step-motion.svg)
+
+Furlanello 等人（2018）研究參數化架構相同的模型之間的知識蒸餾。每個新學生獨立訓練，前一代訓練完成的學生成為下一代固定教師；這與持續更新同一個網路不同。
+
+在此**單筆資料、單步更新的人工算例**中，起始教師分布為 $p_0=(0.7,0.2,0.1)$，每一代新學生均從 $z=0$ 的 logits 開始，溫度為 1，僅使用軟目標交叉熵與學習率 1。固定教師 $p_k$ 時，梯度為 $\operatorname{softmax}(z)-p_k$，因此
+
+$
+z_{k+1}=p_k-\tfrac13(1,1,1),\qquad
+p_{k+1}=\operatorname{softmax}(z_{k+1}).
+$
+
+第一步得到約 $(0.367,-0.133,-0.233)$ 的 logits 與 $(0.464,0.281,0.255)$ 的機率。下一代再次從零 logits 開始，將前一代未捨入的機率作為目標，得到約 $(0.131,-0.052,-0.079)$ 的 logits 與 $(0.378,0.315,0.307)$ 的機率。動畫長條以插值呈現初始與計算後的機率，不代表額外的 SGD 步驟。
+
+此算例只說明知識傳遞與重新初始化。若每個學生皆能在所有輸入上精確匹配教師分布，單純使用軟目標交叉熵只會重現該分布。此算例不解釋或保證論文的實驗準確度增益，這裡熵增加也不是重生訓練的一般性質。實際訓練包含大量資料與最佳化步驟，也可能納入硬標籤。數值並非模型實測結果。
+
+在 MkDocs 使用播放／暫停（Enter 或空白鍵）；GitHub 與減少動態效果的讀者可查看完整靜態結果。原創圖示，**CC BY-SA 4.0**。
+
 ## 公式或演算法
 
 每一代都以相同架構，最小化與前一代經軟化預測之間的蒸餾損失，不需要更大的模型。第一代以標籤訓練，之後每一代都以前一代作為教師。

@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "teacher-assistant-target-gradient": {
+      "origins": [
+        {
+          "origin_blob": "108e6f1a98ee2f24ca8633fed2eb0e45eff30e27",
+          "origin_commit": "f49f624b724dab998593046e6079c5024cceae19",
+          "path": "docs/assets/concept-animations/teacher-assistant-target-gradient-motion.svg"
+        },
+        {
+          "origin_blob": "fbd300b4e41d72fbf9cfed41357da504e7e36dc4",
+          "origin_commit": "f49f624b724dab998593046e6079c5024cceae19",
+          "path": "docs/assets/concept-animations/teacher-assistant-target-gradient-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "born-again-generation-step": {
+      "origins": [
+        {
+          "origin_blob": "24aa2d9cabd1372c29fcf3458fca922bbd6aa4ee",
+          "origin_commit": "f49f624b724dab998593046e6079c5024cceae19",
+          "path": "docs/assets/concept-animations/born-again-generation-step-motion.svg"
+        },
+        {
+          "origin_blob": "5daea403a655d8d79e70bda63fd12b7ed67944b2",
+          "origin_commit": "f49f624b724dab998593046e6079c5024cceae19",
+          "path": "docs/assets/concept-animations/born-again-generation-step-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

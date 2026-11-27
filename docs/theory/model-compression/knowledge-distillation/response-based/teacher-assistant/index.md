@@ -23,6 +23,29 @@ A very large teacher gives a student a weaker signal than a medium-size teacher 
 
 Train an intermediate model, the teacher assistant, from the large teacher. Then distil the student from the assistant rather than from the large teacher. The assistant is closer in capacity to the student and gives a learnable target.
 
+### Visual walkthrough: direct versus assistant targets
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/teacher-assistant-target-gradient-still.svg" src="../../../../../assets/concept-animations/teacher-assistant-target-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/teacher-assistant-target-gradient-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="A large teacher trains an intermediate assistant. The two target distributions give different gradients at the same student initialization.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/teacher-assistant-target-gradient-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/teacher-assistant-target-gradient-motion.svg)
+
+Mirzadeh et al. (2019) introduce intermediate-capacity teachers to bridge the student–teacher gap. In this **constructed example**, let the large teacher's distribution be $p_T=(0.80,0.15,0.05)$ and the trained assistant's distribution be $p_A=(0.65,0.20,0.15)$ over classes A/B/C. The animation interpolates to the assistant's prescribed output; it is not a simulated training trajectory.
+
+To isolate the effect of the target, constrain a toy student to $q=(a,(1-a)/2,(1-a)/2)$ with $a=\sigma(z)$. With temperature 1, the soft-target cross-entropy for any fixed distribution $p$ reduces to
+
+$
+L(z)=-p(A)\log a-(1-p(A))\log((1-a)/2),\quad
+\frac{\partial L}{\partial z}=a-p(A).
+$
+
+At the same starting point $z=0$ ($a=0.5$), direct distillation gives $-0.30$ and assistant-mediated distillation gives $-0.15$. The teacher-to-assistant signal precedes the assistant-to-student signal; the assistant is fixed when used as the student's teacher. The two gradients are evaluated independently at the same student state, not summed. Smaller gradient magnitude is not a guarantee of better accuracy, nor does the example claim that the assistant's distribution is an optimal fit. Real TAKD runs train models on datasets and may also use hard-label losses. All probabilities and gradients are schematic, not model measurements.
+
+On MkDocs use Play/Pause (Enter or Space); GitHub and reduced-motion readers can inspect the complete static result. Original diagram, **CC BY-SA 4.0**.
+
 ## Equation or algorithm
 
 The procedure is a chain. The large teacher distils a teacher assistant of intermediate size. The assistant, using the same soft-target objective as [Hinton distillation](../hinton-distillation/index.md), then distils the student. Several assistants can be chained when the gap is very large.
