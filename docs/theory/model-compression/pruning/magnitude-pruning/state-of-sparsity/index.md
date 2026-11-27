@@ -64,6 +64,25 @@ The best mask in this finite toy example retains positions 2 and 3, not the two 
 
 In the equal-mixture example, the magnitude mask removes positions 3 and 4. The diagonal-only contribution is $2^2(4.5)+1^2(8)=26$, but the omitted cross term is $2(2)(1)(6)=24$, giving the full error 50. By contrast, retaining positions 2 and 3 removes positions 1 and 4: their diagonal contribution is $4^2(0.5)+1^2(8)=16$ and their cross term is zero. Using only per-coordinate second moments can therefore misestimate joint pruning error; cross terms can have either sign in general. These are exact arithmetic on the specified inputs, not benchmark measurements.
 
+### When cross terms cancel or reinforce
+
+Keep the same two removed coefficients $\Delta w=(2,1)$ in a separate two-coordinate toy model. Take $x=(1,1)$ with probability $p$ and $x=(1,-1)$ otherwise. Both coordinates always have unit second moment; their uncentred cross moment is $2p-1$. Therefore,
+
+$
+M_x=\begin{bmatrix}1&2p-1\\2p-1&1\end{bmatrix},\qquad
+L(p)=5+4(2p-1)=1+8p.
+$
+
+The diagonal-only estimate stays at 5. The cross term is positive for $p>0.5$, zero at $p=0.5$, and negative for $p<0.5$. At the extremes, the actual squared residual is 9 or 1, despite identical diagonal statistics and fixed removed weights. The animation varies the input mixture, not the weights: the green point follows $L(p)$, and the orange segment measures the signed difference from the dashed diagonal-only estimate. It holds at the endpoints and the zero crossing; the static preview uses $p=1$. This is constructed arithmetic without retraining, not benchmark data.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Two input patterns have identical per-coordinate second moments; their mixture changes the signed cross term and expected squared pruning error relative to the diagonal-only estimate.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/pruning-cross-term-sweep-still.svg" data-motion-src="../../../../../assets/concept-animations/pruning-cross-term-sweep-motion.svg" data-still-src="../../../../../assets/concept-animations/pruning-cross-term-sweep-still.svg" alt="Two input patterns have identical per-coordinate second moments; their mixture changes the signed cross term and expected squared pruning error relative to the diagonal-only estimate." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use Play/Pause on MkDocs; the focusable container scrolls horizontally on narrow screens. GitHub displays the [static preview](../../../../../assets/concept-animations/pruning-cross-term-sweep-still.svg); the [full animation](../../../../../assets/concept-animations/pruning-cross-term-sweep-motion.svg) is also linked.
+
 ### Changing the input mixture
 
 Let $p=\Pr(x=x_1)$, so the second input has probability $1-p$. For a fixed mask with squared errors $e_1,e_2$, its expected squared deviation is $p e_1+(1-p)e_2$. The six masks yield the affine costs below.

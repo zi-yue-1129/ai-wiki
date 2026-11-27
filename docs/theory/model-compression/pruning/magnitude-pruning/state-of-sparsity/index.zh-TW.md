@@ -55,6 +55,25 @@ $$
 
 在等權重混合算例中，量值剪枝移除第 3、4 個位置。只考慮對角項時，貢獻為 $2^2(4.5)+1^2(8)=26$，但被忽略的交叉項為 $2(2)(1)(6)=24$，所以完整誤差為 50。相對地，保留第 2、3 個位置會移除第 1、4 個位置：對角項貢獻為 $4^2(0.5)+1^2(8)=16$，交叉項為零。因此僅依各座標的二階動差，可能錯估共同剪枝的輸出誤差；一般而言交叉項可為正或負。這些是指定輸入上的精確算術，並非基準實測。
 
+### 交叉項如何抵消或增強誤差
+
+在另一個兩維度的人工線性算例中，固定被移除的係數 $\Delta w=(2,1)$。輸入以機率 $p$ 取 $x=(1,1)$，否則取 $x=(1,-1)$。兩個座標的二階動差始終為 1，而未中心化交叉動差為 $2p-1$。因此，
+
+$
+M_x=\begin{bmatrix}1&2p-1\\2p-1&1\end{bmatrix},\qquad
+L(p)=5+4(2p-1)=1+8p.
+$
+
+僅考慮對角項的估計固定為 5。當 $p>0.5$ 時交叉項為正，$p=0.5$ 時為零，$p<0.5$ 時為負。兩個端點的實際殘差平方分別為 9 與 1，儘管對角統計量相同且移除的權重固定。動畫改變輸入混合比例而非權重：綠色游標沿 $L(p)$ 移動，橘色線段表示相對於對角項虛線估計的帶符號差值。動畫在兩端點與零點停留，靜態預覽使用 $p=1$。這是不含重新訓練的人工算術，並非基準實測。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="兩種輸入的各座標二階動差相同；混合比例改變交叉項的正負號，以及相對於僅考慮對角項的預期剪枝平方誤差。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/pruning-cross-term-sweep-still.svg" data-motion-src="../../../../../assets/concept-animations/pruning-cross-term-sweep-motion.svg" data-still-src="../../../../../assets/concept-animations/pruning-cross-term-sweep-still.svg" alt="兩種輸入的各座標二階動差相同；混合比例改變交叉項的正負號，以及相對於僅考慮對角項的預期剪枝平方誤差。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* MkDocs 可播放／暫停；窄畫面可透過鍵盤聚焦容器水平捲動。GitHub 顯示[靜態預覽](../../../../../assets/concept-animations/pruning-cross-term-sweep-still.svg)，另可開啟[完整動畫](../../../../../assets/concept-animations/pruning-cross-term-sweep-motion.svg)。
+
 ### 改變輸入混合分布
 
 令 $p=\Pr(x=x_1)$，第二筆輸入的機率為 $1-p$。若某固定遮罩在兩筆輸入上的平方誤差為 $e_1,e_2$，則其預期平方偏差為 $p e_1+(1-p)e_2$。六種遮罩的仿射成本如下。

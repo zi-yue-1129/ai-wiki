@@ -61,15 +61,17 @@ For example, at rank one, the squared error on $x=(1,0,0,0)^\top$ is zero, while
 
 For an input second-moment matrix $M_x=\mathbb E[xx^\top]$, the expected squared output error of any approximation $\widetilde W$ is
 
-$
+$$
 \mathbb E\|(W-\widetilde W)x\|_2^2=\operatorname{tr}\big((W-\widetilde W)M_x(W-\widetilde W)^\top\big).
-$
+$$
 
 Take the same diagonal matrix and suppose the input is the first basis vector with probability $p$ and the second with probability $1-p$. The ordinary rank-one SVD keeps the first mode, with expected output error $9(1-p)$. A different rank-one approximation retaining only the second mode, $\widetilde W=\operatorname{diag}(0,3,0,0)$, has expected error $36p$. It has larger squared Frobenius error (37.25 instead of 10.25), yet gives smaller expected output error when $p<0.2$. Both use the same dense-factor entry count. At $p=0.2$ they tie.
 
 This example compares fixed linear approximations without fine-tuning and is not a measured neural-network result.
 
 The weighted objective is a Frobenius norm after scaling the inputs: $\mathbb E\|(W-\widetilde W)x\|_2^2=\|(W-\widetilde W)M_x^{1/2}\|_F^2$. If $M_x$ is positive definite, truncate $WM_x^{1/2}$ to rank $r$ and multiply the result on the right by $M_x^{-1/2}$. In the present example $M_x=\operatorname{diag}(p,1-p,0,0)$ is singular. Only the first two columns affect the objective; setting the unsupported columns to zero attains the optimum. The two squared singular values of $WM_x^{1/2}$ are $36p$ and $9(1-p)$, with additional zeros. Keeping the larger weighted mode therefore gives the globally minimal rank-at-most-one error $\min(36p,9(1-p))$. At the tie $p=0.2$, both illustrated choices attain 7.2; other rank-one solutions can also attain the optimum.
+
+For positive semidefinite $M_x$ including singular cases, write $C=M_x^{1/2}$, let $C^+$ be its Moore–Penrose pseudoinverse, and let $Y_r=(WC)_r$ be a truncated SVD. One minimizer is $\widetilde W_r=Y_rC^+$. Indeed, $P=C^+C$ projects onto the support of $C$, and $Y_rP=Y_r$ because its nonzero right singular vectors lie in that support. Hence $\widetilde W_r C=Y_r$, with rank at most $r$, attaining the unconstrained Frobenius lower bound. Components on the null space of $C$ do not affect the objective; any alternative completion must still respect the rank constraint. At $p=0$ or $p=1$ in the toy example, only one input direction has support.
 
 The animation sweeps $p$ from 0.1 to 0.9 and back, holding at the crossing. The left bars show retained-mode candidates' weighted energies on the same 0–36 scale; the right curves show the **discarded** energy for each choice, so keeping the larger left bar corresponds to the lower curve. The two colored markers coincide at the tie. The still preview uses $p=0.1$. All values are illustrative, not model measurements.
 
