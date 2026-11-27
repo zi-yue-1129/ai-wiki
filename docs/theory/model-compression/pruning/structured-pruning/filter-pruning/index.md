@@ -33,6 +33,20 @@ s_j = \sum_{l=1}^{n_i} \lVert K_l \rVert_1
 
 Filters with the lowest scores are pruned first. Removing filter \(j\) also removes the feature map it produces and input channel \(j\) of the following layer. The main method prunes across several layers at once and retrains once afterwards, with per-layer pruning ratios chosen by sensitivity analysis. The paper also describes an iterative variant that retrains after each layer is pruned. The authors report that it may give better results but needs many more epochs, especially for very deep networks.
 
+### Worked animation
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Two consecutive pointwise convolution matrices: the second filter has L1 score 0.2, so its row and the corresponding column of the next matrix are removed, yielding two dense 2 by 2 matrices.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/filter-pruning-channel-compaction-still.svg" data-motion-src="../../../../../assets/concept-animations/filter-pruning-channel-compaction-motion.svg" data-still-src="../../../../../assets/concept-animations/filter-pruning-channel-compaction-still.svg" alt="Two consecutive pointwise convolution matrices: the second filter has L1 score 0.2, so its row and the corresponding column of the next matrix are removed, yielding two dense 2 by 2 matrices." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* All values are schematic, not model measurements. MkDocs provides Play/Pause; focus the scroll region to navigate horizontally by keyboard. GitHub shows the [static fallback](../../../../../assets/concept-animations/filter-pruning-channel-compaction-still.svg).
+
+For two consecutive bias-free $1\times1$ convolutions with no cross-channel operation between them, write the channel matrices as $W_1\in\mathbb R^{3\times2}$ and $W_2\in\mathbb R^{2\times3}$. The three filter scores are $(3,0.2,4)$. The amber row and column show the **same hidden channel**, not two independently chosen pruning decisions. The teal signal then reveals the surviving rows of $W_1$ and columns of $W_2$ in compact storage. With $S=\{1,3\}$, the compact matrices are $W_1'=W_1[S,:]$ and $W_2'=W_2[:,S]$. For a pointwise activation $f$, $W_2'f(W_1'x)$ equals the output of the original network with its second hidden activation explicitly masked to zero. It does not generally equal the unpruned output; fine-tuning may be necessary. Nominal weights and MACs per spatial position decrease from $3\cdot2+2\cdot3=12$ to $2\cdot2+2\cdot2=8$ (one third fewer). Biases, spatial sizes, memory traffic and runtime are not included. For general CNNs, the downstream channel slice extends across all spatial kernel coefficients, and normalisation, residual additions and grouped convolutions can impose further dependency constraints.
+
+[Full SVG animation](../../../../../assets/concept-animations/filter-pruning-channel-compaction-motion.svg).
+
 ## Results
 
 The abstract reports that inference cost is reduced by up to 34% for VGG-16 and by up to 38% for ResNet-110 on CIFAR-10. The authors also report that the \(\ell_2\) norm gives nearly the same result as the \(\ell_1\) norm.

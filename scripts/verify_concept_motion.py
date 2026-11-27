@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'deep-compression-codebook-stream': 'theory/model-compression/deep-compression/index',
+    'filter-pruning-channel-compaction': 'theory/model-compression/pruning/structured-pruning/filter-pruning/index',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
     'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
@@ -495,7 +497,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'deep-compression-codebook-stream': '0 0 640 360',
+ 'filter-pruning-channel-compaction': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
  'kfc-patch-second-moment': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
@@ -1403,7 +1407,7 @@ def main() -> int:
                         errors.append(f"{page}: invalid GitHub static fallback")
                     if (page.parent / motion_link).resolve() != animated_path.resolve():
                         errors.append(f"{page}: invalid MkDocs motion link")
-            elif stem in {'a3c-async-gradient', 'a3c-nstep-return', 'alibi-content-recency', 'alibi-distance-softmax', 'alibi-head-prefix', 'cfm-conditional-bridge', 'deep-ensemble-spread', 'dreamer-lambda-bootstrap', 'dreamer-posterior-prior', 'ece-binned-calibration', 'fitnets-hint-then-output', 'hmm-baum-welch-transition', 'hmm-filter-smooth', 'hmm-forward-sum-product', 'hmm-pairwise-posterior', 'kd-soft-target-alignment', 'lion-sign-momentum', 'mbpo-horizon-error', 'mbpo-short-branches', 'muon-spectral-balancing', 'pets-cem-refit', 'pets-ensemble-particles', 'qk-norm-scale-sweep', 'rectified-reflow-coupling', 'rlhf-dpo-margin', 'rlhf-reward-sums', 'rope-axial-2d', 'rope-cache-reindex', 'rope-frequency-bands', 'rope-interpolation-angle', 'shaw-relative-clipping', 'shaw-relative-value', 'sigma-reparam-spectral-gain', 'sinusoidal-multiscale', 'trpo-kl-backtracking', 'trpo-ratio-surrogate', 'tsne-kl-embedding', 'umap-fuzzy-union', 'yarn-attention-temperature', 'yarn-frequency-ramp'}:
+            elif stem in {'deep-compression-codebook-stream', 'filter-pruning-channel-compaction', 'a3c-async-gradient', 'a3c-nstep-return', 'alibi-content-recency', 'alibi-distance-softmax', 'alibi-head-prefix', 'cfm-conditional-bridge', 'deep-ensemble-spread', 'dreamer-lambda-bootstrap', 'dreamer-posterior-prior', 'ece-binned-calibration', 'fitnets-hint-then-output', 'hmm-baum-welch-transition', 'hmm-filter-smooth', 'hmm-forward-sum-product', 'hmm-pairwise-posterior', 'kd-soft-target-alignment', 'lion-sign-momentum', 'mbpo-horizon-error', 'mbpo-short-branches', 'muon-spectral-balancing', 'pets-cem-refit', 'pets-ensemble-particles', 'qk-norm-scale-sweep', 'rectified-reflow-coupling', 'rlhf-dpo-margin', 'rlhf-reward-sums', 'rope-axial-2d', 'rope-cache-reindex', 'rope-frequency-bands', 'rope-interpolation-angle', 'shaw-relative-clipping', 'shaw-relative-value', 'sigma-reparam-spectral-gain', 'sinusoidal-multiscale', 'trpo-kl-backtracking', 'trpo-ratio-surrogate', 'tsne-kl-embedding', 'umap-fuzzy-union', 'yarn-attention-temperature', 'yarn-frequency-ramp'}:
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"ekfac-eigenvalue-correction", "kfc-patch-second-moment", "bernoulli-kl-direction", "binary-channel-information", "roc-cost-operating-point", "pr-random-ap-expectation", "f1-threshold-topk", "roc-randomized-operating-mix", "roc-tie-half-credit", "pr-ap-tied-threshold", "roc-pairwise-auc", "pr-ap-rectangles", "precision-recall-threshold", "f1-harmonic-gap", "accuracy-prevalence", "fbeta-recall-emphasis", "precision-base-rate", "f1-macro-micro-imbalance", "roc-partial-area", "pr-ap-trapezoid-gap", "confusion-condition-direction", "f1-averaging-rules", "roc-score-quantization", "roc-tie-group-step"}:
                 errors.extend(verify_source_pair(page, text, stem))
