@@ -14,6 +14,26 @@ translation_reviewed: 2026-10-28
 
 訓練時使用部署模型將使用的同一種整數運算。每個張量都以 8 位元整數加上尺度與零點儲存。每一層以較寬的累加器做整數矩陣乘法，再把結果重新縮放到下一層的網格。重新縮放本身也以整數運算完成。
 
+### 動畫解讀
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動查看教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/integer-requantization-accumulator-still.svg" src="../../../../../assets/concept-animations/integer-requantization-accumulator-still.svg" data-motion-src="../../../../../assets/concept-animations/integer-requantization-accumulator-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="從三個整數輸入碼扣除零點，乘上權重並累加至 20，接著重新縮放、捨入及加上輸出零點，得到整數碼 16。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/integer-requantization-accumulator-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/integer-requantization-accumulator-motion.svg)
+
+此人工算例為不含偏差的內積。令輸入整數碼 $q_x=(7,2,5)$，零點 $z_x=3$、尺度 $s_x=1/4$；有號權重整數碼 $q_w=(4,-2,1)$，零點 $z_w=0$、尺度 $s_w=1/2$。扣除零點後的整數乘積為 $(16,2,2)$，逐步累加值為 $(16,18,20)$。因此兩個量化張量所代表的實數內積為 $s_xs_w A=2.5$。
+
+取輸出尺度 $s_y=2/5$、零點 $z_y=10$，尺度倍率恰為 $M=s_xs_w/s_y=5/16$。使用無號 8 位元輸出及最接近值捨入（此處沒有平手），輸出整數碼為
+
+$q_y=\operatorname{clip}_{[0,255]}(\operatorname{round}(MA)+z_y)=16.$
+
+圖中的 $6.25$ 是數學中間值，不代表執行浮點指令；本例非負數的捨入可直接以 $(5A+8)\gg 4=6$ 完成。反量化後的輸出為 $s_y(q_y-z_y)=2.4$，並非 2.5。實際核心須處理足夠寬的累加器、有號捨入規則、飽和裁切及定點倍率近似；量化感知訓練通常使用浮點假量化，而非整數梯度。見 [Jacob 等人](https://arxiv.org/abs/1712.05877)。本例整數碼及尺度均為示意，並非模型實測值。
+
+在 MkDocs 網站可使用播放／暫停（Enter／Space）觀察各步驟；GitHub 與減少動態效果模式採用靜態回退圖。原創視覺，**CC BY-SA 4.0**。
+
 ## 公式或演算法
 
 實數 \(r\) 表示為 \(r = s\,(q - z)\)，其中 \(q\) 是 8 位元整數，\(s\) 是實數尺度，\(z\) 是整數零點。對於輸入與權重都已量化的層，乘積以整數累加計算，輸出再以尺度比值的定點近似映射到下一個網格。訓練圖在這些位置插入假量化，因此梯度以直通估計器穿過。

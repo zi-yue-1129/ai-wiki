@@ -23,6 +23,24 @@ Large networks, such as AlexNet for image classification, contain far more param
 
 Train the network to learn which connections matter, prune the weak ones, and retrain. The pruned network keeps its accuracy while having far fewer connections.
 
+### Visual walkthrough
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../assets/concept-animations/prune-fixed-mask-gradient-still.svg" src="../../../../assets/concept-animations/prune-fixed-mask-gradient-still.svg" data-motion-src="../../../../assets/concept-animations/prune-fixed-mask-gradient-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="A threshold removes the second weight, its raw gradient is masked to zero, and one update changes only the surviving weights while reducing the illustrative loss.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../assets/concept-animations/prune-fixed-mask-gradient-still.svg) · [Full 12-second animation](../../../../assets/concept-animations/prune-fixed-mask-gradient-motion.svg)
+
+In a schematic linear predictor with $x=(1,2,1)$, target $y^*=1.4$, trained weights $w=(0.8,0.1,-0.4)$, and threshold $\tau=0.2$, the fixed mask is $m=(1,0,1)$. Start retraining from $v=m\odot w=(0.8,0,-0.4)$, not from the original initialization. The squared loss is $L=\frac12(v^\top x-y^*)^2$. The prediction is 0.4 and the residual is -1, so the gradient with respect to the effective weights before applying the mask is $g=(-1,-2,-1)$. With learning rate $\eta=0.2$ and plain SGD, the constrained update is
+
+$v'=m\odot(v-\eta g)=(1,0,-0.2).$
+
+The new prediction is 0.8, and the loss changes from 0.50 to 0.18. In a parameterization $v=m\odot w$, the chain rule gives $\nabla_wL=m\odot g$; the removed connection has zero gradient even when its unconstrained gradient is nonzero. Reapplying the fixed mask also guards against optimizer state or other updates reintroducing nonzero effective weights. This isolates one retraining step of [Han et al.](https://arxiv.org/abs/1506.02626), not an empirical recovery of accuracy or a guarantee that every step decreases loss. All values are schematic.
+
+On MkDocs, use Play/Pause (Enter/Space) to inspect the operations. GitHub and reduced-motion readers use the static fallback. Original visual, **CC BY-SA 4.0**.
+
 ## Equation or algorithm
 
 Weights whose magnitude is below a threshold are set to zero and held there with a mask. The network is then retrained on the remaining weights. The abstract describes three steps: learn which connections matter, prune the low-weight ones, and retrain the surviving connections.

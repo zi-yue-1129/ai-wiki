@@ -24,6 +24,26 @@ Mobile processors run integer arithmetic far more efficiently than floating poin
 
 Train with the same integer arithmetic that the deployed model will use. Every tensor is stored as an 8-bit integer with a scale and a zero point. Each layer computes an integer matrix multiplication with a wide accumulator, and then rescales the result to the next layer's grid. The rescaling is itself done with integer operations.
 
+### Visual walkthrough
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/integer-requantization-accumulator-still.svg" src="../../../../../assets/concept-animations/integer-requantization-accumulator-still.svg" data-motion-src="../../../../../assets/concept-animations/integer-requantization-accumulator-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Subtract the input zero point from three integer codes, multiply by weights, accumulate to 20, then scale, round and add the output zero point to obtain code 16.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/integer-requantization-accumulator-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/integer-requantization-accumulator-motion.svg)
+
+For this illustrative dot product without bias, let input codes be $q_x=(7,2,5)$ with $z_x=3$, $s_x=1/4$, and signed weight codes $q_w=(4,-2,1)$ with $z_w=0$, $s_w=1/2$. The centered integer products are $(16,2,2)$ and the running accumulator is $(16,18,20)$. A real-valued dot product of the represented operands is therefore $s_xs_w A=2.5$.
+
+Choose the output scale $s_y=2/5$ and zero point $z_y=10$. The multiplier is exactly $M=s_xs_w/s_y=5/16$. With an unsigned 8-bit output and round-to-nearest (no tie here), the output code is
+
+$q_y=\operatorname{clip}_{[0,255]}(\operatorname{round}(MA)+z_y)=16.$
+
+The displayed $6.25$ is a mathematical intermediate, not a floating-point instruction: the same rounded nonnegative result is obtained by $(5A+8)\gg 4=6$. The reconstructed output is $s_y(q_y-z_y)=2.4$, not 2.5. Production kernels need appropriate wide accumulators, signed rounding conventions, saturation, and fixed-point multiplier approximations; an actual quantization-aware training graph typically uses floating-point fake quantization rather than integer gradients. See [Jacob et al.](https://arxiv.org/abs/1712.05877). The codes and scales are schematic, not measurements.
+
+On MkDocs, use Play/Pause (Enter/Space) to inspect the operations. GitHub and reduced-motion readers use the static fallback. Original visual, **CC BY-SA 4.0**.
+
 ## Equation or algorithm
 
 A real value \(r\) is represented as \(r = s\,(q - z)\), where \(q\) is an 8-bit integer, \(s\) a real scale and \(z\) an integer zero point. For a layer with quantised inputs and weights, the product is computed as an integer accumulation, and the output is mapped to the next grid by multiplying with a fixed-point approximation of the ratio of scales. The training graph inserts fake quantisation at these points, so the gradient passes through with the straight-through estimator.
