@@ -39,6 +39,26 @@ $$
 
 where $H$ is the cross-entropy and $T(\bar{x};\theta_T)$ is the teacher's softmax output. The student $S$ then minimises the distillation loss between its softmax output and the teacher's on the Data Impressions.
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="The input changes over four gradient steps while the frozen teacher probability increases from 0.27 to 0.75 toward 0.80.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/zskd-input-optimization-still.svg" data-motion-src="../../../../../assets/concept-animations/zskd-input-optimization-motion.svg" data-still-src="../../../../../assets/concept-animations/zskd-input-optimization-still.svg" alt="The input changes over four gradient steps while the frozen teacher probability increases from 0.27 to 0.75 toward 0.80." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* The sampled target is held fixed during input synthesis. MkDocs provides keyboard-accessible Play/Pause; GitHub shows the [static fallback](../../../../../assets/concept-animations/zskd-input-optimization-still.svg). [Full SVG animation](../../../../../assets/concept-animations/zskd-input-optimization-motion.svg). [Original paper](https://arxiv.org/abs/1905.08114).
+
+For a minimal binary example of the input-synthesis phase, hold the teacher fixed at $T(x)=\sigma(x)$, and use a hypothetical sampled target $(0.8,0.2)$ ordered as classes 1 and 0. With the soft binary cross-entropy $H(0.8,T(x))$, the derivative with respect to **the input** is $\sigma(x)-0.8$. Starting at $x_0=-1$, gradient descent with step size 2 gives
+
+$
+x_{k+1}=x_k+2(0.8-\sigma(x_k)).
+$
+
+After four steps $x_4\approx1.0932$ and $T(x_4)\approx0.7490$; the exact scalar minimizer is $\log(4)\approx1.3863$. The teacher parameters do not change. The target is a fixed illustrative probability vector, not an actual Dirichlet draw; the animation does not simulate the class-similarity extraction or student optimization. The finite step size and probabilities are not measurements from a trained network. A Data Impression is a surrogate input, not a guaranteed reconstruction of original training data.
+
+The scalar example also has a monotone convergence guarantee: the update map $F(x)=x+2(0.8-\sigma(x))$ satisfies $F'(x)=1-2\sigma(x)(1-\sigma(x))\in[1/2,1)$ for finite $x$. It is strictly increasing, with the fixed point $x^*=\log 4$. Starting below (above) that point gives $x<F(x)<x^*$ ($x^*<F(x)<x$), hence the iterates approach it without crossing. This is a property of this scalar teacher and step size, not of arbitrary nonlinear networks.
+
+Matching a soft target does not identify a unique input in general. For the illustrative teacher $T(x_1,x_2)=\sigma(x_1+x_2)$, all pairs satisfying $x_1+x_2=\log 4$ minimize the same cross-entropy. The input gradient is parallel to $(1,1)$, so unconstrained gradient descent preserves $x_1-x_2$ while adjusting the sum. Distinct initial inputs can converge to different Data Impressions with identical teacher predictions.
+
 ## Results
 
 On MNIST, the teacher is a LeNet-5 with 61,706 parameters and the student is LeNet-5-Half with 35,820. The paper's Table 1 reports the following test accuracies.

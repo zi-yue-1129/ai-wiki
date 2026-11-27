@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "zskd-input-optimization": {
+      "origins": [
+        {
+          "origin_blob": "ae7cd1c45ea868d734d04d86d90f5458bc2eaaea",
+          "origin_commit": "1e6dba7839c5fca19b261deeaa928845da339747",
+          "path": "docs/assets/concept-animations/zskd-input-optimization-motion.svg"
+        },
+        {
+          "origin_blob": "ee31247e404b063fa3c164fb0e496ffabf7b5627",
+          "origin_commit": "1e6dba7839c5fca19b261deeaa928845da339747",
+          "path": "docs/assets/concept-animations/zskd-input-optimization-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "separable-filter-two-pass": {
+      "origins": [
+        {
+          "origin_blob": "faeb7fde3ed2772f42ebbbc34c47c06ec3c7b368",
+          "origin_commit": "1e6dba7839c5fca19b261deeaa928845da339747",
+          "path": "docs/assets/concept-animations/separable-filter-two-pass-motion.svg"
+        },
+        {
+          "origin_blob": "e44fc72221e543cfc2baf3b4a113c251a5c98e15",
+          "origin_commit": "1e6dba7839c5fca19b261deeaa928845da339747",
+          "path": "docs/assets/concept-animations/separable-filter-two-pass-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

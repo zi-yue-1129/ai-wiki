@@ -18,6 +18,25 @@ translation_reviewed: 2026-10-28
 
 一個 \(k \times k\) 濾波器以 \(r\) 個可分離濾波器之和來近似，每個可分離濾波器都是一個垂直向量與一個水平向量的外積。該層的乘加運算量大致與 \(r\) 除以 \(k\) 成比例下降，因此對大型卷積核而言，小的秩就能帶來大幅節省。秩逐層設定，近似則以匹配原始響應來最佳化。
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="四列水平內積產生 −2、1、−2、3；兩個重疊的垂直視窗重用中間兩列的響應，分別得到 −2 與 0。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/separable-filter-two-pass-still.svg" data-motion-src="../../../../assets/concept-animations/separable-filter-two-pass-motion.svg" data-still-src="../../../../assets/concept-animations/separable-filter-two-pass-still.svg" alt="四列水平內積產生 −2、1、−2、3；兩個重疊的垂直視窗重用中間兩列的響應，分別得到 −2 與 0。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 秩一空間卷積核分解成兩次一維運算。 網站支援鍵盤操作播放／暫停；GitHub 顯示[靜態回退圖](../../../../assets/concept-animations/separable-filter-two-pass-still.svg)。[完整 SVG 動畫](../../../../assets/concept-animations/separable-filter-two-pass-motion.svg)。[原始論文](https://arxiv.org/abs/1405.3866)。
+
+考慮秩一空間卷積核 $K=vh^\top$，其中 $h=(1,0,-1)^\top$、$v=(1,2,1)^\top$。依 CNN 常用的互相關慣例，先對輸入區塊 $X$ 進行水平運算得到 $u=Xh$，再垂直運算得到 $v^\top u$：
+
+$
+X=\begin{bmatrix}1&2&3\\2&4&1\\0&1&2\end{bmatrix},
+\quad u=(-2,1,-2)^\top,\quad v^\top u=-2.
+$
+
+其結果恰為 $\sum_{ij}K_{ij}X_{ij}$。對大型單通道特徵圖，若中間特徵與輸出的空間尺寸相近，秩 $r$ 分解藉由重用水平中間結果，每個輸出約需 $2kr$ 次乘加，原始運算則需 $k^2$ 次。前面算例為動畫的前三列；動畫再加入第四列 $(3,1,0)$，水平響應為 $(-2,1,-2,3)$。兩個有效垂直視窗分別產生 $-2$ 與 $1-4+3=0$。綠色格子標示兩個視窗共同使用的中間響應，其垂直係數不同。每列只需執行一次水平運算。
+
+此 $4\times3$ 輸入採步幅 1、無填補，直接稠密濾波需 $2\times9=18$ 次名目 MAC；兩階段運算也需 $4\times3+2\times3=18$ 次。若每個視窗各自重算水平響應則需 24 次。更一般地，輸入高度 $H\ge k$、寬度 $k$，採相同有效濾波慣例的秩一 $k\times k$ 卷積核，其兩種運算量分別為 $k^2(H-k+1)$ 與 $kH+k(H-k+1)$。當 $k=3,H=5$ 時，分別為 27 與 24 次。這些名目運算量包含零係數，並非硬體效能實測。多通道成本依分解方式及中間通道數而異。此人工算例不是實測加速結果。
+
 ## 結果
 
 摘要報告，在場景文字字元辨識網路上，可能有 2.5 倍的加速且沒有準確度損失；加速 4.5 倍時，準確度下降不到 1%。其他網路的結果見論文。

@@ -27,6 +27,25 @@ Express the filters of a layer in a low-rank basis of separable filters, that is
 
 A \(k \times k\) filter is approximated by a sum of \(r\) separable filters, each the outer product of a vertical and a horizontal vector. The multiply-add count of the layer falls roughly in proportion to \(r\) divided by \(k\), so a small rank gives a large saving for large kernels. The rank is set per layer, and the approximation is optimised to match the original responses.
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Four horizontal dot products produce −2, 1, −2, 3; two overlapping vertical windows reuse the middle responses to produce −2 and 0.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/separable-filter-two-pass-still.svg" data-motion-src="../../../../assets/concept-animations/separable-filter-two-pass-motion.svg" data-still-src="../../../../assets/concept-animations/separable-filter-two-pass-still.svg" alt="Four horizontal dot products produce −2, 1, −2, 3; two overlapping vertical windows reuse the middle responses to produce −2 and 0." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* A rank-one spatial kernel factors into two one-dimensional passes. MkDocs provides keyboard-accessible Play/Pause; GitHub shows the [static fallback](../../../../assets/concept-animations/separable-filter-two-pass-still.svg). [Full SVG animation](../../../../assets/concept-animations/separable-filter-two-pass-motion.svg). [Original paper](https://arxiv.org/abs/1405.3866).
+
+Consider the rank-one spatial kernel $K=vh^\top$ with $h=(1,0,-1)^\top$ and $v=(1,2,1)^\top$. In the cross-correlation convention used by CNNs, the horizontal pass on a single input patch $X$ produces $u=Xh$; the vertical pass gives $v^\top u$:
+
+$
+X=\begin{bmatrix}1&2&3\\2&4&1\\0&1&2\end{bmatrix},
+\quad u=(-2,1,-2)^\top,\quad v^\top u=-2.
+$
+
+This is exactly $\sum_{ij}K_{ij}X_{ij}$. Across a large single-channel feature map with comparable intermediate/output spatial sizes, rank $r$ uses approximately $2kr$ multiply-accumulates per output rather than $k^2$, reusing intermediate horizontal responses. The first three rows form the patch above. The animation extends it with a fourth row $(3,1,0)$, so the horizontal responses are $(-2,1,-2,3)$. The two valid vertical windows produce $-2$ and $1-4+3=0$. The green cells indicate the two intermediate responses used in both windows, with different vertical coefficients. The horizontal pass is computed only once per row.
+
+For this $4\times3$ input, stride 1 and no padding, direct dense filtering needs $2\times9=18$ nominal MACs; the two-pass implementation also needs $4\times3+2\times3=18$. Recomputing the horizontal pass for each window separately would need 24 nominal MACs. More generally, for input height $H\ge k$, width $k$, a rank-one $k\times k$ kernel and the same valid filtering convention, the two counts are $k^2(H-k+1)$ and $kH+k(H-k+1)$. At $k=3,H=5$, they become 27 and 24. These are nominal counts including zero coefficients, not a hardware benchmark. Multi-channel costs depend on the factorization and intermediate channel count. No measured speedup is implied by this artificial example.
+
 ## Results
 
 The abstract reports a possible 2.5 times speed-up with no loss in accuracy, and a 4.5 times speed-up with less than a 1% accuracy drop, on a scene text character recognition network. The results on other networks are in the paper.
