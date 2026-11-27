@@ -46,6 +46,8 @@ Isolate the sparsity penalty for two subgradient steps with $\eta\lambda=0.1$. S
 
 [Full SVG animation](../../../../../assets/concept-animations/network-slimming-scale-shrink-motion.svg).
 
+The three columns retain the signed scale at initialization and after each completed update, while the animated bar shows its absolute magnitude. Fixed-step subgradient descent is not soft-thresholding: with $\eta\lambda=0.1$, a smaller positive scale $0.03$ would move to $-0.07$, then back to $0.03$ under penalty-only updates. Exact zeros are not guaranteed. For a separate schematic example with $\gamma=0$, $\beta=0.5$, a subsequent ReLU and a scalar consumer weight of 3, the channel contributes $3\max(0,0\widehat{x}+0.5)=1.5$ regardless of the normalized input. Simply deleting that contribution without compensation changes the output.
+
 ## Results
 
 The abstract reports that a multi-pass version of network slimming gives a 20 times reduction in VGGNet's model size and a 5 times reduction in its computing operations.

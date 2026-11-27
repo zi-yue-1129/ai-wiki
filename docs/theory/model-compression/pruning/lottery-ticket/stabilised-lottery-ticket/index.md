@@ -49,6 +49,8 @@ Let $W_0=(0.2,-0.4,0.6,-0.1)$, $W_k=(0.5,-0.2,0.4,0.3)$ and $W_T=(0.9,0.05,-0.8,
 
 [Full SVG animation](../../../../../assets/concept-animations/lottery-early-checkpoint-rewind-motion.svg).
 
+**Two distinct stability comparisons.** For a schematic fixed mask $m=(1,0,1,0)$, suppose two completed sparse training runs with different data orders yield $a=(0.7,0,0.4,0)$ and $b=(0.6,0,0.5,0)$. Their Euclidean endpoint distance is $\|a-b\|_2=\sqrt{0.02}$. If a completed dense run instead yields the masked endpoint $c=(0.9,0,-0.8,0)$, the sparse-versus-dense comparison for $a$ is $\|a-c\|_2=\sqrt{1.48}$. The latter compares training with and without the other weights, not two data orders. These invented endpoints are distinct from the starting weights above and are not measured stability results. A small endpoint distance alone does not establish task accuracy.
+
 ## Results
 
 The abstract reports that the modified procedure finds subnetworks that could have been obtained by pruning early in training, and that it extends the tickets to deeper networks. The paper reports the following examples:
