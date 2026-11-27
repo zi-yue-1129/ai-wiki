@@ -39,6 +39,10 @@ $v'=m\odot(v-\eta g)=(1,0,-0.2).$
 
 The new prediction is 0.8, and the loss changes from 0.50 to 0.18. In a parameterization $v=m\odot w$, the chain rule gives $\nabla_wL=m\odot g$; the removed connection has zero gradient even when its unconstrained gradient is nonzero. Reapplying the fixed mask also guards against optimizer state or other updates reintroducing nonzero effective weights. This isolates one retraining step of [Han et al.](https://arxiv.org/abs/1506.02626), not an empirical recovery of accuracy or a guarantee that every step decreases loss. All values are schematic.
 
+The moving gradient signals now follow individual parameter lanes: the second lane stops at the mask gate while the first and third continue to the update. Zeroing a gradient alone is not equivalent to projecting a directly stored sparse parameter after an optimizer step. For example, with momentum $u'_2=0.9u_2+g_2$ and an existing buffer $u_2=-2$, the masked gradient $g_2=0$ still yields $u'_2=-1.8$. A direct update from zero with learning rate 0.2 produces 0.36; projection by $m_2=0$ restores zero. A masked forward parameterization instead keeps the effective weight zero regardless of the latent value. Clearing or masking optimizer state may also be appropriate for permanent pruning.
+
+For the fixed-mask plain SGD toy example, write the prediction residual as $e_t=v_t^\top x-y^*$. Then $e_{t+1}=(1-\eta\|m\odot x\|_2^2)e_t=(1-2\eta)e_t$. Hence the loss contracts by $(1-2\eta)^2$ for $0<\eta<1$ when the residual is nonzero, but this is a single-example linear result, not a general neural-network training guarantee.
+
 On MkDocs, use Play/Pause (Enter/Space) to inspect the operations. GitHub and reduced-motion readers use the static fallback. Original visual, **CC BY-SA 4.0**.
 
 ## Equation or algorithm

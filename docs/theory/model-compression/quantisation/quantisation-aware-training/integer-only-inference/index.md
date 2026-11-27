@@ -42,6 +42,10 @@ $q_y=\operatorname{clip}_{[0,255]}(\operatorname{round}(MA)+z_y)=16.$
 
 The displayed $6.25$ is a mathematical intermediate, not a floating-point instruction: the same rounded nonnegative result is obtained by $(5A+8)\gg 4=6$. The reconstructed output is $s_y(q_y-z_y)=2.4$, not 2.5. Production kernels need appropriate wide accumulators, signed rounding conventions, saturation, and fixed-point multiplier approximations; an actual quantization-aware training graph typically uses floating-point fake quantization rather than integer gradients. See [Jacob et al.](https://arxiv.org/abs/1712.05877). The codes and scales are schematic, not measurements.
 
+The animation now branches from the same accumulator into the mathematical scale (reference only) and the actual integer path: multiply by 5, add the rounding offset 8 to obtain 108, shift right four bits to obtain 6, and add the output zero point. The fractional branch is not an operand of the integer branch.
+
+For a signed accumulator, the illustrative rule $r=\lfloor(5A+8)/16\rfloor$ rounds to nearest with ties toward positive infinity: $A=8$ gives 3 but $A=-8$ gives -2. This requires floor division (or a sign-extending arithmetic right shift) and sufficient intermediate width; other kernels may specify different tie rules. Clipping is separate from rounding: for $A=1000$ the unbounded code is 323 and saturates to 255; for $A=-100$ it is -21 and saturates to 0. All values are constructed examples, not kernel measurements.
+
 On MkDocs, use Play/Pause (Enter/Space) to inspect the operations. GitHub and reduced-motion readers use the static fallback. Original visual, **CC BY-SA 4.0**.
 
 ## Equation or algorithm
