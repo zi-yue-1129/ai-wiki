@@ -31,6 +31,24 @@ Train a large model with reinforcement learning until it reasons well, then use 
 
 The large model produces reasoning traces and answers for a set of prompts, which are filtered for quality. The paper fine-tunes the base models on the resulting 800k samples for 2 to 3 epochs. The base models are open models such as Qwen, as listed in the paper's distillation table. The objective is the ordinary next-token loss, so the step is supervised learning and needs no reward model at the small scale.
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Three toy traces end in 4, 5 and 4. The outcome check retains the first and third; a selected trace supplies fixed next-token targets to the student and three token probabilities yield the summed negative log likelihood.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" data-motion-src="../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg" data-still-src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" alt="Three toy traces end in 4, 5 and 4. The outcome check retains the first and third; a selected trace supplies fixed next-token targets to the student and three token probabilities yield the summed negative log likelihood." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* A simplified reasoning-data example checks the final answer 4: traces (A,B,4) and (B,A,4) enter the accepted pool, while (A,C,5) is rejected. A, B and C are symbolic tokens, not actual reasoning steps. The example picks the first accepted trace for supervised training, rather than sampling a new trace from the student. Correct final answers alone do not establish faithful intermediate reasoning. The real dataset also contains non-reasoning examples and additional quality filters; see Appendix B.3.3 and F of the [report](https://arxiv.org/html/2501.12948v2).
+
+For a prompt $x$ and fixed selected response $y$, the illustrative response-only negative log likelihood is
+
+$
+L=-\sum_{t=1}^{|y|}\log p_\theta(y_t\mid x,y_{<t}).
+$
+
+With conditional target-token probabilities $(0.50,0.25,0.80)$ for the three successive tokens, the summed loss is $-\log(0.50\cdot0.25\cdot0.80)=\log 10\approx2.303$ nats (mean $0.768$ per token). Bar growth reveals these fixed probabilities; it is not a training trajectory. All values are artificial, not model measurements. This is teacher forcing on a selected sequence, not matching the teacher's full vocabulary logits, and not a student RL update. The report's distilled models use SFT without a subsequent RL stage.
+
+Use the keyboard-accessible Play/Pause on MkDocs; GitHub provides a [static fallback](../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg) and the [full SVG animation](../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg).
+
 ## Results
 
 The paper compares a distilled 32B model against a 32B base model trained with large-scale reinforcement learning, which the authors call Qwen2.5-32B-Zero. On the benchmarks in its Table 16, the distilled model scores higher on every one:

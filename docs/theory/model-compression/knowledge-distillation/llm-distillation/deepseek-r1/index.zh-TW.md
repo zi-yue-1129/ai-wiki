@@ -18,6 +18,24 @@ DeepSeek-R1 蒸餾，是透過在大型模型的推理軌跡上微調小模型�
 
 大型模型針對一組提示生成推理軌跡與答案，並經過品質篩選。論文以產生的 80 萬筆樣本，對基礎模型微調 2 到 3 個週期。基礎模型為 Qwen 等開放模型，列於論文的蒸餾表中。目標是一般的下一個 token 損失，因此這一步是監督式學習，在小模型規模上不需要獎勵模型。
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="三條示意軌跡以 4、5、4 結尾，答案篩選保留第一及第三條。選定軌跡成為學生固定的下一個 token 目標，以三個 token 機率計算負對數似然總和。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" data-motion-src="../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg" data-still-src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" alt="三條示意軌跡以 4、5、4 結尾，答案篩選保留第一及第三條。選定軌跡成為學生固定的下一個 token 目標，以三個 token 機率計算負對數似然總和。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 簡化推理資料篩選：以最終答案 4 為條件，將軌跡 (A,B,4) 與 (B,A,4) 納入保留集合，淘汰 (A,C,5)。A、B、C 是符號化 token，並非實際推理步驟。算例取第一條保留軌跡進行監督式訓練，而非由學生重新取樣軌跡。最終答案正確不代表中間推理必然忠實。真實資料集也包括非推理樣本與額外品質篩選，參見[報告](https://arxiv.org/html/2501.12948v2)附錄 B.3.3 與 F。
+
+給定提示 $x$ 與固定選取的回答 $y$，示意的僅回答 token 負對數似然為
+
+$
+L=-\sum_{t=1}^{|y|}\log p_\theta(y_t\mid x,y_{<t}).
+$
+
+假設三個依序出現的目標 token 條件機率為 $(0.50,0.25,0.80)$，損失總和為 $-\log(0.50\cdot0.25\cdot0.80)=\log 10\approx2.303$ nats（每 token 平均 $0.768$）。長條逐步揭露固定機率，並非訓練軌跡；所有數值皆為人工示意，非模型實測。此處是對選取序列進行 teacher forcing，不是匹配教師完整詞彙表 logits，也不是學生的強化學習更新。報告中的蒸餾模型採 SFT，沒有後續 RL 階段。
+
+MkDocs 可使用鍵盤操作播放／暫停；GitHub 提供 [靜態回退圖](../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg)，亦可開啟 [完整 SVG 動畫](../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg)。
+
 ## 結果
 
 論文把蒸餾後的 32B 模型，與以大規模強化學習訓練的 32B 基礎模型（作者稱之為 Qwen2.5-32B-Zero）作比較。在其表 16 的基準上，蒸餾模型在每一項都得分較高：
