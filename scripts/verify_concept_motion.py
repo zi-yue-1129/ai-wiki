@@ -15,6 +15,10 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'pruning-cross-term-sweep': 'theory/model-compression/pruning/magnitude-pruning/state-of-sparsity/index',
+    'svd-input-weighted-rank-one': 'theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index',
+    'svd-factor-rank-budget': 'theory/model-compression/low-rank-and-efficient-architectures/truncated-svd/index',
+    'matched-sparsity-output-error': 'theory/model-compression/pruning/magnitude-pruning/state-of-sparsity/index',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
     'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
@@ -495,7 +499,11 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'pruning-cross-term-sweep': '0 0 640 360',
+ 'svd-input-weighted-rank-one': '0 0 640 360',
+ 'svd-factor-rank-budget': '0 0 640 360',
+ 'matched-sparsity-output-error': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
  'kfc-patch-second-moment': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
@@ -1379,7 +1387,12 @@ def main() -> int:
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
-            if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
+            if stem in {"svd-input-weighted-rank-one", "pruning-cross-term-sweep"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                previews = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if not {static_path.resolve(), animated_path.resolve()} <= {(page.parent / link).resolve() for link in previews}:
+                    errors.append(f"{page}: missing independent still or motion link for {stem}")
+            elif ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"tpu-systolic-wavefront", "analog-crossbar-current-sum"}:
                 errors.extend(verify_source_pair(page, text, stem))
