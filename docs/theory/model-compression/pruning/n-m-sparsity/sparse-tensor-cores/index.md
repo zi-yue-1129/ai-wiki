@@ -41,6 +41,8 @@ $
 
 The dense dot product with the same already-pruned weights also gives 18. It need not agree with the output of the original unpruned model. The visual preserves the original column alignment for clarity; only the two packed pairs are stored in this schematic sparse representation, not the blank lanes. The compressed operand also needs metadata, so halving the stored weight values does not halve total storage exactly. Mishra et al. (2021) describe the hardware's 2:4 constraint and peak math throughput; this example is not an instruction layout, timing measurement or an end-to-end speedup claim.
 
+**Storage accounting.** In a schematic format with two 2-bit positions (zero-based for encoding) per group, the dense payload is $4b$ bits and the compressed payload is $2b+4$ bits for $b$-bit weights. At $b=16$ this is 36 rather than 64 bits (56.25% of the dense payload, or 43.75% saved); at $b=8$ it is 20 rather than 32 bits (62.5% of the dense payload). This arithmetic excludes padding, alignment and auxiliary buffers, and does not claim the exact instruction encoding or physical storage layout. Metadata therefore matters more as weight precision decreases.
+
 On MkDocs use Play/Pause (Enter or Space); GitHub and reduced-motion readers can inspect the complete static result. Original diagram, **CC BY-SA 4.0**.
 
 ## Equation or algorithm

@@ -45,6 +45,8 @@ $
 
 With illustrative unit coefficients, the sum is approximately 2.757 (rounded after adding unrounded losses). In general the three terms have separate coefficients. Soft-target cross-entropy differs from KL divergence by the fixed teacher entropy; the MLM target is the actual token, not the teacher's most probable token. Cosine loss matches direction, not vector magnitude. The three signals contribute to the same student update; the teacher is fixed. The order of animation is explanatory, not a sequential training schedule. These are constructed numbers, not model measurements or the paper's hyperparameters.
 
+**Why the objectives can disagree.** The bars show the full soft distributions; the orange token is the hard target, and the hidden-state arrows depict direction only (the angle is about 53 degrees). At temperature 1, write $q=\operatorname{softmax}(z)$ and $e_B=(0,1,0)$. The gradients with respect to student logits are $\nabla_z L_{\rm KD}=q-p=(-0.10,-0.05,0.15)$ and $\nabla_z L_{\rm MLM}=q-e_B=(0.50,-0.75,0.25)$. They disagree on logit A: gradient descent on KD alone would increase it, whereas MLM alone would decrease it. With unit coefficients their sum is $(0.40,-0.80,0.40)$. This is only the output-loss contribution; cosine loss backpropagates through the hidden representation, and the full parameter update uses the chain rule. The example does not simulate an optimizer step or a trained model.
+
 On MkDocs use Play/Pause (Enter or Space); GitHub and reduced-motion readers can inspect the complete static result. Original diagram, **CC BY-SA 4.0**.
 
 ## Equation or algorithm

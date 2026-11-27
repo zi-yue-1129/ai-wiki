@@ -42,6 +42,19 @@ class SparseDistilMotion(unittest.TestCase):
         for kind in ('motion', 'still'):
             self.assertTrue({'0.970', '1.386', '0.400', 'Total = 2.757', 'Update student only'} <= self.labels('distilbert-triple-loss', kind))
 
+    def test_output_gradient_and_storage(self):
+        q, p, target = (.5, .25, .25), (.6, .3, .1), (0, 1, 0)
+        kd = [a-b for a, b in zip(q, p)]
+        mlm = [a-b for a, b in zip(q, target)]
+        self.assertLess(kd[0], 0)
+        self.assertGreater(mlm[0], 0)
+        for a, b, expected in zip(kd, mlm, (.4, -.8, .4)):
+            self.assertAlmostEqual(a+b, expected)
+        self.assertEqual((2*16+4)/(4*16), .5625)
+        self.assertEqual((2*8+4)/(4*8), .625)
+        for kind in ('motion', 'still'):
+            self.assertTrue({'Teacher', 'Student', 'Target B', '53°', 'cos = .6'} <= self.labels('distilbert-triple-loss', kind))
+
 
 if __name__ == '__main__':
     unittest.main()
