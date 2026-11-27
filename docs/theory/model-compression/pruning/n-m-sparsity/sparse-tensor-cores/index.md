@@ -23,9 +23,29 @@ Sparse tensor cores need a documented pattern and a software path that makes the
 
 Keep the two largest-magnitude values in each group of four weights, then fine-tune the network to recover accuracy. The compressed representation is handled by the hardware, so the matrix multiplication runs on half the values.
 
+### Visual walkthrough: metadata-guided multiplication
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/sparse-metadata-gather-still.svg" src="../../../../../assets/concept-animations/sparse-metadata-gather-still.svg" data-motion-src="../../../../../assets/concept-animations/sparse-metadata-gather-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Two retained weights and their positions select matching input values; the two signed products sum to eighteen.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/sparse-metadata-gather-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/sparse-metadata-gather-motion.svg)
+
+The toy reduction uses $w=(0,-2,0,3)$ and $x=(2,-3,1,4)$. After imposing 2:4 sparsity, the schematic packed pairs are $(w,k)=(-2,2),(3,4)$, with **one-based positions**, not the actual hardware metadata bit encoding. The indices select $x_2=-3$ and $x_4=4$, giving two products and their sum:
+
+$
+w^\top x=(-2)(-3)+3(4)=18.
+$
+
+The dense dot product with the same already-pruned weights also gives 18. It need not agree with the output of the original unpruned model. The visual preserves the original column alignment for clarity; only the two packed pairs are stored in this schematic sparse representation, not the blank lanes. The compressed operand also needs metadata, so halving the stored weight values does not halve total storage exactly. Mishra et al. (2021) describe the hardware's 2:4 constraint and peak math throughput; this example is not an instruction layout, timing measurement or an end-to-end speedup claim.
+
+On MkDocs use Play/Pause (Enter or Space); GitHub and reduced-motion readers can inspect the complete static result. Original diagram, **CC BY-SA 4.0**.
+
 ## Equation or algorithm
 
-Pruning to 2:4 keeps the two largest values in each group of four, followed by fine-tuning. The compressed form stores the non-zero values and a small index for their positions, and the matrix unit uses the index to select the matching inputs.
+Pruning to 2:4 keeps the two largest-magnitude values in each group of four, followed by fine-tuning. The compressed form stores the non-zero values and a small index for their positions, and the matrix unit uses the index to select the matching inputs.
 
 ## Results
 

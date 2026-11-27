@@ -14,6 +14,31 @@ BERT 準確，但對許多生產用途而言體積大、速度慢。而從頭微
 
 以教師的權重初始化學生，並移除一半的層，然後在預訓練期間把教師的軟預測當作其中一個目標。學生同時與教師的隱藏狀態對齊，因此保留了教師的內部結構。
 
+### 動畫解讀：三項同時最佳化的目標
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以檢視教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/distilbert-triple-loss-still.svg" src="../../../../../assets/concept-animations/distilbert-triple-loss-still.svg" data-motion-src="../../../../../assets/concept-animations/distilbert-triple-loss-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="教師與學生的軟機率、遮罩 token 標籤與兩個隱藏向量產生三項損失，合併為一次只更新學生的目標。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/distilbert-triple-loss-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/distilbert-triple-loss-motion.svg)
+
+DistilBERT 將三項預訓練損失共同最佳化，而不是分成三個訓練階段（Sanh 等人，2019）。考慮**單一示意遮罩 token**，設定溫度為 1，在 A/B/C 的簡化詞彙表中使用教師機率 $p=(0.6,0.3,0.1)$、學生機率 $q=(0.5,0.25,0.25)$，真實遮罩 token 為 B。令對齊的非零隱藏狀態為 $h_T=(1,0)$ 與 $h_S=(3,4)$，則
+
+$
+L_{\rm KD}=-\sum_i p_i\log q_i\approx0.970406,\quad
+L_{\rm MLM}=-\log q_B\approx1.386294,
+$
+
+$
+L_{\rm cos}=1-\frac{h_T^\top h_S}{\|h_T\|\|h_S\|}=0.4.
+$
+
+示意權重係數皆為 1 時，總和約為 2.757（先加總未捨入的損失，再捨入）。一般情況三項損失各有權重係數。軟目標交叉熵與 KL 散度相差固定的教師熵；MLM 目標是真實 token，不是教師機率最大的 token。餘弦損失對齊方向而非向量長度。三項訊號共同貢獻至學生的一次更新，教師維持固定。動畫的揭露順序是為了教學，並非依序訓練三個階段。以上為人工示意數值，並非模型實測或論文超參數。
+
+MkDocs 網站使用播放／暫停（Enter 或 Space）；GitHub 與減少動態效果偏好的讀者可檢視完整靜態結果。原創圖示，**CC BY-SA 4.0**。
+
 ## 公式或演算法
 
 學生同時以三個目標訓練。溫度縮放的蒸餾損失匹配教師在整個詞彙表上的軟預測。遮罩語言建模損失是常見的預訓練目標。餘弦嵌入損失則使學生在每個 token 上的隱藏狀態向量與教師對齊。

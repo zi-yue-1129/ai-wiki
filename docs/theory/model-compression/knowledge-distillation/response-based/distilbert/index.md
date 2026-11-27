@@ -22,6 +22,31 @@ BERT is accurate but large and slow for many production uses, and fine-tuning a 
 
 Initialise the student from the teacher's weights, with half of the layers removed, and train it during pretraining with the teacher's soft predictions as one target. The student is also aligned with the teacher's hidden states, so it keeps the teacher's internal structure.
 
+### Visual walkthrough: three simultaneous objectives
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/distilbert-triple-loss-still.svg" src="../../../../../assets/concept-animations/distilbert-triple-loss-still.svg" data-motion-src="../../../../../assets/concept-animations/distilbert-triple-loss-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Teacher and student soft probabilities, a masked token label and two hidden vectors produce three losses, summed for one student-only update.">
+</div>
+</div>
+
+[GitHub-readable fallback](../../../../../assets/concept-animations/distilbert-triple-loss-still.svg) · [Full 12-second animation](../../../../../assets/concept-animations/distilbert-triple-loss-motion.svg)
+
+DistilBERT combines the three pretraining losses rather than using them in separate training phases (Sanh et al., 2019). For a **single illustrative masked token**, set the temperature to 1 and use teacher probabilities $p=(0.6,0.3,0.1)$ and student probabilities $q=(0.5,0.25,0.25)$ over a toy vocabulary A/B/C, with B as the true masked token. Let the aligned nonzero hidden states be $h_T=(1,0)$ and $h_S=(3,4)$. Then
+
+$
+L_{\rm KD}=-\sum_i p_i\log q_i\approx0.970406,\quad
+L_{\rm MLM}=-\log q_B\approx1.386294,
+$
+
+$
+L_{\rm cos}=1-\frac{h_T^\top h_S}{\|h_T\|\|h_S\|}=0.4.
+$
+
+With illustrative unit coefficients, the sum is approximately 2.757 (rounded after adding unrounded losses). In general the three terms have separate coefficients. Soft-target cross-entropy differs from KL divergence by the fixed teacher entropy; the MLM target is the actual token, not the teacher's most probable token. Cosine loss matches direction, not vector magnitude. The three signals contribute to the same student update; the teacher is fixed. The order of animation is explanatory, not a sequential training schedule. These are constructed numbers, not model measurements or the paper's hyperparameters.
+
+On MkDocs use Play/Pause (Enter or Space); GitHub and reduced-motion readers can inspect the complete static result. Original diagram, **CC BY-SA 4.0**.
+
 ## Equation or algorithm
 
 The student is trained on three objectives together. A temperature-scaled distillation loss matches the teacher's soft predictions over the vocabulary. The masked language modelling loss is the usual pretraining objective. A cosine embedding loss aligns the student's hidden-state vectors with the teacher's at each token.

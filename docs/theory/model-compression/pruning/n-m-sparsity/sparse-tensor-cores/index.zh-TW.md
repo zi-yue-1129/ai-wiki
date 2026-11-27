@@ -14,9 +14,29 @@ translation_reviewed: 2026-10-28
 
 在每四個權重中保留兩個最大量值的值，然後微調網路以恢復準確度。壓縮的表示由硬體處理，因此矩陣乘法只使用一半的值。
 
+### 動畫解讀：中繼資料引導的乘法
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以檢視教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/sparse-metadata-gather-still.svg" src="../../../../../assets/concept-animations/sparse-metadata-gather-still.svg" data-motion-src="../../../../../assets/concept-animations/sparse-metadata-gather-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="兩組保留權重與位置索引選出對應輸入值，兩項帶符號乘積相加得到十八。">
+</div>
+</div>
+
+[GitHub 靜態預覽](../../../../../assets/concept-animations/sparse-metadata-gather-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/sparse-metadata-gather-motion.svg)
+
+本算例使用 $w=(0,-2,0,3)$、$x=(2,-3,1,4)$。套用 2:4 稀疏結構後，示意壓縮配對為 $(w,k)=(-2,2),(3,4)$，採用**從 1 開始的位置索引**，並非硬體實際使用的中繼資料位元編碼。依索引選出 $x_2=-3$ 與 $x_4=4$，得到兩項乘積與總和：
+
+$
+w^\top x=(-2)(-3)+3(4)=18.
+$
+
+使用相同剪枝後權重的稠密內積也會得到 18，但不一定等於原始未剪枝模型的輸出。圖中為方便追蹤而保留原始欄位對齊；此示意稀疏表示只儲存兩組壓縮配對，而非空白欄位。壓縮運算元也需要中繼資料，因此儲存的權重值減半並不代表總儲存量恰好減半。Mishra 等人（2021）說明硬體的 2:4 限制及峰值數學吞吐量；此人工算例不是指令格式、延遲實測或端到端加速宣稱。
+
+MkDocs 網站使用播放／暫停（Enter 或 Space）；GitHub 與減少動態效果偏好的讀者可檢視完整靜態結果。原創圖示，**CC BY-SA 4.0**。
+
 ## 公式或演算法
 
-剪成 2:4 時，每四個值保留兩個最大的，之後微調。壓縮格式儲存非零值與一個小索引，記錄它們的位置；矩陣單元使用索引選取對應的輸入。
+剪成 2:4 時，每四個值保留兩個絕對值最大的，之後微調。壓縮格式儲存非零值與一個小索引，記錄它們的位置；矩陣單元使用索引選取對應的輸入。
 
 ## 結果
 
