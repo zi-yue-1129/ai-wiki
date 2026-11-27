@@ -27,7 +27,7 @@ Train a student with the same architecture as its teacher, using the teacher's s
 
 <div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="Scroll horizontally to inspect the teaching animation">
 <div style="width:640px;min-width:640px">
-<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" data-motion-src="../../../../../assets/concept-animations/born-again-generation-step-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Three equal-architecture generations pass fixed probability targets to newly initialized students, each taking one illustrative logit gradient step.">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" data-motion-src="../../../../../assets/concept-animations/born-again-generation-step-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="Three equal-architecture generations pass fixed probability targets to newly initialized students, each taking one illustrative logit gradient step; the lower plot shows distance to uniform and its contraction bound.">
 </div>
 </div>
 
@@ -55,6 +55,8 @@ $
 $
 
 Thus for $0<\eta<2$ the repeated fresh one-step protocol contracts toward uniformity (at most a factor of $1/2$ per generation when $\eta=1$). This result is about the constructed probability update, not the convergence, entropy, or accuracy of general born-again networks. Multiple optimization steps, hard labels, and model parameterization change the map.
+
+The lower plot makes the bound explicit: for $\eta=1$, define $d_k=\|p_k-u\|_2$. The computed distances are $0.455$, $0.161$, and $0.055$ (rounded); the dashed amber curve is the cumulative bound $d_0/2^k$, not a measured trajectory. The dashed horizontal reference in each probability panel represents $1/3$. The graph records only completed generations; it does not measure an intermediate interpolated bar.
 
 On MkDocs use Play/Pause (Enter or Space); GitHub and reduced-motion readers can inspect the complete static result. Original diagram, **CC BY-SA 4.0**.
 

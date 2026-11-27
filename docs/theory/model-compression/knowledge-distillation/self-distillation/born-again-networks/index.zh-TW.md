@@ -18,7 +18,7 @@ translation_reviewed: 2026-10-28
 
 <div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以查看完整教學動畫">
 <div style="width:640px;min-width:640px">
-<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" data-motion-src="../../../../../assets/concept-animations/born-again-generation-step-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="三個同架構世代依序將固定機率目標傳給新初始化的學生，每個學生執行一步示意 logit 梯度更新。">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" src="../../../../../assets/concept-animations/born-again-generation-step-still.svg" data-motion-src="../../../../../assets/concept-animations/born-again-generation-step-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="三個同架構世代依序將固定機率目標傳給新初始化的學生，每個學生執行一步示意 logit 梯度更新，下方曲線呈現至均勻分布的距離及其收縮上界。">
 </div>
 </div>
 
@@ -46,6 +46,8 @@ $
 $
 
 所以在 $0<\eta<2$ 時，反覆執行此重新初始化的單步流程會收縮至均勻分布（$\eta=1$ 時每代距離至多為前一代的一半）。此結論只適用於人工建構的機率更新，不能推廣為一般重生網路的收斂、熵或準確度保證。多步最佳化、硬標籤與模型參數化都會改變這個映射。
+
+下方曲線將上界視覺化：當 $\eta=1$，令 $d_k=\|p_k-u\|_2$，計算出的距離分別約為 $0.455$、$0.161$、$0.055$。琥珀色虛線表示累積上界 $d_0/2^k$，不是實測軌跡。各機率長條區域的水平虛線表示 $1/3$。曲線只記錄已完成的世代，不量測長條插值期間的中間狀態。
 
 在 MkDocs 使用播放／暫停（Enter 或空白鍵）；GitHub 與減少動態效果的讀者可查看完整靜態結果。原創圖示，**CC BY-SA 4.0**。
 

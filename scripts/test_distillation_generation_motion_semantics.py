@@ -67,5 +67,23 @@ class DistillationGenerationMotion(unittest.TestCase):
                 p=q
 
 
+    def test_contraction_plot_and_capacity_residual(self):
+        p = [.7, .2, .1]
+        distances = []
+        for k in range(3):
+            distances.append(math.dist(p, [1/3]*3))
+            p = softmax([v-1/3 for v in p])
+        self.assertTrue(all(d <= distances[0]/2**k for k,d in enumerate(distances)))
+        for mode in ('motion','still'):
+            self.assertTrue({f'{d:.3f}' for d in distances} | {'Actual','Upper bound','Dashed line: uniform probability'} <= self.labels('born-again-generation-step',mode))
+        for p,expected in [((.8,.15,.05),.026162407188227425),((.65,.2,.15),.003583676550815821)]:
+            def kl(a):
+                q = [a,(1-a)/2,(1-a)/2]
+                return sum(x*math.log(x/y) for x,y in zip(p,q))
+            self.assertAlmostEqual(kl(p[0]),expected,places=12)
+            for a in [.1,.3,.5,.65,.8,.9]:
+                self.assertGreaterEqual(kl(a)+1e-12,expected)
+
+
 if __name__ == '__main__':
     unittest.main()
