@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "svd-factor-rank-budget": {
+      "origins": [
+        {
+          "origin_blob": "c85714a7ffce63d98f3f62c490428c647a630d86",
+          "origin_commit": "3c60a94ffa4a2bfa00438a713bdbb7ba8b98da22",
+          "path": "docs/assets/concept-animations/svd-factor-rank-budget-motion.svg"
+        },
+        {
+          "origin_blob": "191a8d13233331fa9905978fca4ee021b2ddf17d",
+          "origin_commit": "3c60a94ffa4a2bfa00438a713bdbb7ba8b98da22",
+          "path": "docs/assets/concept-animations/svd-factor-rank-budget-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "matched-sparsity-output-error": {
+      "origins": [
+        {
+          "origin_blob": "a1782627dbcb9047044f79cef56685240c20fd2f",
+          "origin_commit": "3c60a94ffa4a2bfa00438a713bdbb7ba8b98da22",
+          "path": "docs/assets/concept-animations/matched-sparsity-output-error-motion.svg"
+        },
+        {
+          "origin_blob": "cb9ca349d477cabe15203c19a56f7c5ab6bb6535",
+          "origin_commit": "3c60a94ffa4a2bfa00438a713bdbb7ba8b98da22",
+          "path": "docs/assets/concept-animations/matched-sparsity-output-error-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
