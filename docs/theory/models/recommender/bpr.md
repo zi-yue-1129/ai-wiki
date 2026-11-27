@@ -26,7 +26,13 @@ Implicit feedback such as clicks, views and purchases records what a user did, n
 
 ## Core idea
 
-For a user $u$, an observed item $i$ should be ranked above an unobserved item $j$. BPR turns each user's history into such pairs and learns a model in which the pairwise order holds. The method is generic: the paper applies it to matrix factorisation and to adaptive nearest-neighbour models.
+For a user $u$, BPR assumes that an observed item $i$ should rank above an unobserved item $j$. It infers no order between two observed items or between two unobserved items. This is a training assumption, not a verified dislike for $j$. The criterion applies to different scoring models, including matrix factorisation and adaptive nearest neighbours.[^bpr-training]
+
+Let $I$ be the item catalogue and $I_u^+$ the items observed for user $u$. The training set is
+
+$$D_S=\{(u,i,j)\mid i\in I_u^+,\ j\in I\setminus I_u^+\}.$$
+
+For example, if $I=\{a,b,c,d\}$ and $I_u^+=\{a,b\}$, the four triples compare $a$ with $c,d$ and $b$ with $c,d$. They do not compare $a$ with $b$ or $c$ with $d$. This enumeration follows directly from the set definition.
 
 ## Equation
 
@@ -50,9 +56,7 @@ Here $D_S$ is the set of training triples and $\lambda_\Theta$ is a model-specif
 
 For a single sampled triple $(u,i,j)$, use a fixed scalar user factor $p_u=1$ and two item factors $q_i=0.5$, $q_j=1.3$. The observed item $i$ is initially scored **below** the unobserved item $j$. To isolate the item updates, keep $p_u$ fixed and use no regularisation. With $\Delta=p_u(q_i-q_j)$ and $\eta=0.4$, one ascent step on $\log\sigma(\Delta)$ gives
 
-\[
-g=\sigma(-\Delta),\qquad q_i\leftarrow q_i+\eta g p_u,\qquad q_j\leftarrow q_j-\eta g p_u.
-\]
+$$g=\sigma(-\Delta),\qquad q_i\leftarrow q_i+\eta g p_u,\qquad q_j\leftarrow q_j-\eta g p_u.$$
 
 The left panel pushes the observed-item score upward and the sampled unseen-item score downward; the right panel follows the pairwise loss $-\log\sigma(\Delta)$. Over four updates, the margin moves from **−0.8000** to approximately **0.8518**, and the loss decreases from **1.1711** to **0.3553**.
 
@@ -70,11 +74,7 @@ In MkDocs, use the accessible **Play/Pause** control; on narrow screens, focus a
 
 For a **single** illustrative training triple, define the score gap $\Delta=\hat{x}_{ui}-\hat{x}_{uj}$ and minimise its negative log-likelihood:
 
-\[
-\ell(\Delta)=-\log\sigma(\Delta)=\log(1+e^{-\Delta}),
-\qquad
-\frac{\partial\ell}{\partial\Delta}=-\sigma(-\Delta).
-\]
+$$\ell(\Delta)=-\log\sigma(\Delta)=\log(1+e^{-\Delta}), \qquad \frac{\partial\ell}{\partial\Delta}=-\sigma(-\Delta).$$
 
 The teal curve and bar follow the **magnitude** of the loss derivative, $g=\sigma(-\Delta)$, not the signed derivative itself. At $\Delta=-2$, the observed item is misordered and $g\approx0.8808$ with $\ell\approx2.1269$; at $\Delta=+2$, $g\approx0.1192$ with $\ell\approx0.1269$. For a one-dimensional factor model with fixed $p_u=1$, the corresponding negative-loss-gradient update moves $q_i$ up and $q_j$ down by $\eta g$ (omitting regularisation). Thus the correction signal weakens as the margin becomes positive. The animation **sweeps an input margin** to explain its derivative; it is *not* a trained optimisation trajectory or a measurement of gradient norms in a real model. The logistic criterion comes from Rendle et al. in the References.
 
@@ -82,7 +82,37 @@ Use the MkDocs **Play/Pause** control and keyboard-accessible horizontal scroll 
 
 ## Algorithm
 
-The criterion is optimised by stochastic gradient ascent over sampled triples. The paper chooses the triples uniformly at random and uses bootstrap sampling with replacement, which means training can be stopped at any step. For each step, one observed pair $(u, i)$ is drawn with a randomly chosen unobserved item $j$, and the parameters move in the direction that increases $\ln \sigma(\hat{x}_{uij})$.
+LearnBPR draws triples uniformly from $D_S$ with replacement, then takes a stochastic gradient ascent step on the ranking criterion, including regularisation. The paper describes sampling triples, so “choose an observed pair, then an unobserved item” is incomplete unless the first draw's distribution is specified.[^bpr-training]
+
+### Sampling changes the weighting
+
+The following probabilities are derived from the training-set definition. Write $m=|I|$ and $r_u=|I_u^+|$. User $u$ contributes $n_u=r_u(m-r_u)$ triples. Users with $r_u=0$ or $r_u=m$ contribute none and cannot supply a training triple. Let $U_*$ contain the remaining users, and suppose it is nonempty.
+
+To sample a uniform triple without materialising $D_S$:
+
+1. Draw $u\in U_*$ with probability $P(u)=n_u/\sum_{v\in U_*}n_v$.
+2. Draw $i$ uniformly from $I_u^+$.
+3. Draw $j$ uniformly from $I\setminus I_u^+$.
+
+Multiplying the three probabilities gives
+
+$$P(u,i,j)=\frac{r_u(m-r_u)}{\sum_{v\in U_*}r_v(m-r_v)}\frac{1}{r_u}\frac{1}{m-r_u}=\frac{1}{|D_S|}.$$
+
+Consider an illustrative four-item catalogue with two users: $I_A^+=\{a\}$ and $I_B^+=\{a,b\}$. Their triple counts are $3$ and $4$, so $|D_S|=7$. Compare three sampling procedures; each chooses $i$ and $j$ uniformly conditional on the chosen user, except that the last procedure first chooses an observed pair:
+
+| Procedure | $P(A)$ | $P(B)$ | Probability of each A triple | Probability of each B triple |
+|---|---|---|---|---|
+| Uniform triple | $3/7$ | $4/7$ | $1/7$ | $1/7$ |
+| Uniform user, then $i,j$ | $1/2$ | $1/2$ | $1/6$ | $1/8$ |
+| Uniform observed pair $(u,i)$, then $j$ | $1/3$ | $2/3$ | $1/9$ | $1/6$ |
+
+For example, the last row assigns $(A,a,c)$ probability $(1/3)(1/3)=1/9$ and $(B,a,c)$ probability $(1/3)(1/2)=1/6$. These are exact toy probabilities, not measured recommendation results.
+
+For a fixed sampling distribution $\rho(u,i,j)$, the expected unweighted pairwise loss is
+
+$$L_\rho=\sum_{(u,i,j)\in D_S}\rho(u,i,j)\,\ell(\hat{x}_{ui}-\hat{x}_{uj}).$$
+
+Here only the data term is shown; regularisation is separate. Changing the sampler therefore changes the triples' weights in this expectation. Uniform users and uniform observed pairs are possible training choices, but neither generally reproduces uniform triples. State the sampling procedure when comparing runs; matching the loss formula alone does not match the training objective.
 
 ## Results
 
@@ -113,6 +143,8 @@ BPR is a pairwise ranking loss, a close relative of the ranking objectives used 
 
 - Which negatives should be sampled for pairwise training, and how much does that choice change the final ranking?
 - How should pairwise objectives be combined with the sequential and context information that now drives many recommenders?
+
+[^bpr-training]: Rendle et al., *BPR* (listed below), §3.2 defines $D_S$; §4.2 describes uniform sampling with replacement for LearnBPR. https://arxiv.org/pdf/1205.2618
 
 ## References
 
