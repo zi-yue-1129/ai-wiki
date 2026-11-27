@@ -36,6 +36,16 @@ Be Your Own Teacher 是一種自我蒸餾方法，在單次訓練中改善同一
 
 MkDocs 可使用鍵盤操作播放／暫停；GitHub 提供 [靜態回退圖](../../../../../assets/concept-animations/byot-deep-head-targets-still.svg)，亦可開啟 [完整 SVG 動畫](../../../../../assets/concept-animations/byot-deep-head-targets-motion.svg)。
 
+### 目標傳遞方向與梯度方向
+
+上述 KL 項的梯度也取決於計算圖的設定。令 $q$ 與 $p$ 分別為淺層與深層 softmax 分布，深層 logits 為 $z_C$。固定淺層 logits，依上方公式的 KL 方向可得
+
+$
+\nabla_{z_C}D_{\mathrm{KL}}(q\Vert p)=p-q.
+$
+
+若允許梯度穿過深層目標，本算例的 KL 梯度為 $(0.2,-0.1,-0.1)$。當淺層蒸餾權重 $\alpha=0.5$ 時，其對深層 logits 的直接貢獻為 $(0.1,-0.05,-0.05)$。加上深層分類器自身的標籤梯度 $p-e_A=(-0.3,0.2,0.1)$，得到 $(-0.2,0.15,0.05)$。若對深層目標執行 detach，KL 的直接貢獻則消失，只剩 $p-e_A$。此比較假設各分類器 logits 獨立，且省略特徵損失；目的是隔離自動微分的設定差異，而非宣稱原作者採用特定實作。不論何者，共享網路參數仍可能收到淺層分類器的梯度。
+
 ## 結果
 
 論文的主要表格在 CIFAR-100 上比較基線與自我蒸餾，數字為最深分類器的準確率：

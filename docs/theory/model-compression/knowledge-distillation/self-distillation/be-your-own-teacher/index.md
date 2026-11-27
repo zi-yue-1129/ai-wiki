@@ -45,6 +45,16 @@ For an illustrative target comparison at temperature 1, let the shallow and deep
 
 Use the keyboard-accessible Play/Pause on MkDocs; GitHub provides a [static fallback](../../../../../assets/concept-animations/byot-deep-head-targets-still.svg) and the [full SVG animation](../../../../../assets/concept-animations/byot-deep-head-targets-motion.svg).
 
+### Target direction versus gradient direction
+
+The KL term also makes the gradient convention important. Let $q$ and $p$ denote the shallow and deep softmax distributions, with deep logits $z_C$. For the KL direction used above, holding the shallow logits fixed gives
+
+$
+\nabla_{z_C}D_{\mathrm{KL}}(q\Vert p)=p-q.
+$
+
+If gradients are allowed through the deep target, this term contributes $(0.2,-0.1,-0.1)$ in the illustrative example. With shallow distillation weight $\alpha=0.5$, its direct contribution to the deep logits is $(0.1,-0.05,-0.05)$. Adding the deep head's own label gradient $p-e_A=(-0.3,0.2,0.1)$ gives $(-0.2,0.15,0.05)$. If the deep target is detached, the direct KL contribution instead vanishes, leaving $p-e_A$. This comparison assumes independent head logits and omits feature losses; it isolates an automatic-differentiation choice, not a claim about the original authors' implementation. Shared network parameters may still receive shallow-head gradients in either case.
+
 ## Results
 
 On CIFAR-100 the paper's main table compares a baseline with self-distillation, using the deepest classifier's accuracy:

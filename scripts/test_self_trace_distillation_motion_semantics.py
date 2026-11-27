@@ -34,8 +34,32 @@ class DistillationTargetSemantics(unittest.TestCase):
             labels = [n.text for n in root.iter(NS + "text")]
             self.assertEqual(labels.count("Keep"), 2)
             self.assertEqual(labels.count("Reject"), 1)
-            self.assertTrue({"0.50", "0.25", "0.80", "NLL = 2.303", "Pool"} <= set(labels))
-            self.assertTrue(any(n.get("d") == "M371 111H405V223H371" for n in root.iter(NS+"path")))
+            self.assertTrue({"0.50", "0.25", "0.80", "NLL = 2.303", "Pool", "Given prefix", "x", "x  A", "x  A  B"} <= set(labels))
+            self.assertTrue(any(n.get("d") == "M206 108H222V266H206" for n in root.iter(NS+"path")))
+
+    def test_deep_target_gradient_and_fixed_prefix(self):
+        q, p = (.5, .3, .2), (.7, .2, .1)
+        def kl(z):
+            ex = [math.exp(v) for v in z]
+            return sum(a * math.log(a * sum(ex) / b) for a, b in zip(q, ex))
+        z = [math.log(v) for v in p]
+        h = 1e-5
+        for i in range(3):
+            plus, minus = z.copy(), z.copy()
+            plus[i] += h
+            minus[i] -= h
+            self.assertAlmostEqual((kl(plus)-kl(minus))/(2*h), p[i]-q[i], places=8)
+        combined = [v - (i == 0) + .5*(v-q[i]) for i, v in enumerate(p)]
+        for actual, expected in zip(combined, (-.2,.15,.05)):
+            self.assertAlmostEqual(actual, expected)
+        response = ("A", "B", "4")
+        self.assertEqual([("x",)+response[:i] for i in range(len(response))],
+                         [("x",), ("x","A"), ("x","A","B")])
+        for kind in ("motion", "still"):
+            root = ET.parse(ASSETS / f"r1-trace-filter-sft-{kind}.svg").getroot()
+            labels = [n.text for n in root.iter(NS+"text")]
+            self.assertTrue({"x","x  A","x  A  B","Given prefix","Target","Fixed trace: A B 4"} <= set(labels))
+            self.assertTrue(any(n.get("d") == "M206 282H235V85H248" for n in root.iter(NS+"path")))
 
 
 if __name__ == "__main__":

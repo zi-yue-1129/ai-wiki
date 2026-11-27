@@ -31,9 +31,9 @@ Train a large model with reinforcement learning until it reasons well, then use 
 
 The large model produces reasoning traces and answers for a set of prompts, which are filtered for quality. The paper fine-tunes the base models on the resulting 800k samples for 2 to 3 epochs. The base models are open models such as Qwen, as listed in the paper's distillation table. The objective is the ordinary next-token loss, so the step is supervised learning and needs no reward model at the small scale.
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Three toy traces end in 4, 5 and 4. The outcome check retains the first and third; a selected trace supplies fixed next-token targets to the student and three token probabilities yield the summed negative log likelihood.">
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Three toy traces end in 4, 5 and 4. The outcome check retains the first and third; the selected trace supplies fixed prefixes x, x A and x A B with next-token targets A, B and 4; the three conditional probabilities yield the summed negative log likelihood.">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" data-motion-src="../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg" data-still-src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" alt="Three toy traces end in 4, 5 and 4. The outcome check retains the first and third; a selected trace supplies fixed next-token targets to the student and three token probabilities yield the summed negative log likelihood." width="640" height="360">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" data-motion-src="../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg" data-still-src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" alt="Three toy traces end in 4, 5 and 4. The outcome check retains the first and third; the selected trace supplies fixed prefixes x, x A and x A B with next-token targets A, B and 4; the three conditional probabilities yield the summed negative log likelihood." width="640" height="360">
 </div>
 </div>
 
@@ -48,6 +48,18 @@ $
 With conditional target-token probabilities $(0.50,0.25,0.80)$ for the three successive tokens, the summed loss is $-\log(0.50\cdot0.25\cdot0.80)=\log 10\approx2.303$ nats (mean $0.768$ per token). Bar growth reveals these fixed probabilities; it is not a training trajectory. All values are artificial, not model measurements. This is teacher forcing on a selected sequence, not matching the teacher's full vocabulary logits, and not a student RL update. The report's distilled models use SFT without a subsequent RL stage.
 
 Use the keyboard-accessible Play/Pause on MkDocs; GitHub provides a [static fallback](../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg) and the [full SVG animation](../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg).
+
+### Fixed prefixes under teacher forcing
+
+The revised animation exposes the conditioning context explicitly: $x$ denotes the prompt, not a response token. For the selected fixed response $(A,B,4)$:
+
+| Given context | Target | Conditional probability |
+|---|---|---:|
+| $x$ | A | 0.50 |
+| $x,A$ | B | 0.25 |
+| $x,A,B$ | 4 | 0.80 |
+
+The next context uses the recorded target token even if the student's highest-probability prediction is different. The three displayed rows are a conceptual factorization, not necessarily three separate forward passes: a causal Transformer can compute all three losses in parallel using shifted targets and causal attention. The prompt is context only in this response-only loss example; real training pipelines can choose different masking and normalization conventions.
 
 ## Results
 
