@@ -18,9 +18,9 @@ translation_reviewed: 2026-10-28
 
 一個 \(k \times k\) 濾波器以 \(r\) 個可分離濾波器之和來近似，每個可分離濾波器都是一個垂直向量與一個水平向量的外積。該層的乘加運算量大致與 \(r\) 除以 \(k\) 成比例下降，因此對大型卷積核而言，小的秩就能帶來大幅節省。秩逐層設定，近似則以匹配原始響應來最佳化。
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="三列水平內積產生 −2、1、−2，再以垂直權重 1、2、1 加總得到 −2。">
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="四列水平內積產生 −2、1、−2、3；兩個重疊的垂直視窗重用中間兩列的響應，分別得到 −2 與 0。">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/separable-filter-two-pass-still.svg" data-motion-src="../../../../assets/concept-animations/separable-filter-two-pass-motion.svg" data-still-src="../../../../assets/concept-animations/separable-filter-two-pass-still.svg" alt="三列水平內積產生 −2、1、−2，再以垂直權重 1、2、1 加總得到 −2。" width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/separable-filter-two-pass-still.svg" data-motion-src="../../../../assets/concept-animations/separable-filter-two-pass-motion.svg" data-still-src="../../../../assets/concept-animations/separable-filter-two-pass-still.svg" alt="四列水平內積產生 −2、1、−2、3；兩個重疊的垂直視窗重用中間兩列的響應，分別得到 −2 與 0。" width="640" height="360">
 </div>
 </div>
 
@@ -33,7 +33,9 @@ X=\begin{bmatrix}1&2&3\\2&4&1\\0&1&2\end{bmatrix},
 \quad u=(-2,1,-2)^\top,\quad v^\top u=-2.
 $
 
-其結果恰為 $\sum_{ij}K_{ij}X_{ij}$。對大型單通道特徵圖，若中間特徵與輸出的空間尺寸相近，秩 $r$ 分解藉由重用水平中間結果，每個輸出約需 $2kr$ 次乘加，原始運算則需 $k^2$ 次。圖中的獨立區塊實際需要三次水平內積及一次垂直內積，本身並未展示這項攤銷後的節省。多通道成本依分解方式及中間通道數而異。此人工算例不是實測加速結果。
+其結果恰為 $\sum_{ij}K_{ij}X_{ij}$。對大型單通道特徵圖，若中間特徵與輸出的空間尺寸相近，秩 $r$ 分解藉由重用水平中間結果，每個輸出約需 $2kr$ 次乘加，原始運算則需 $k^2$ 次。前面算例為動畫的前三列；動畫再加入第四列 $(3,1,0)$，水平響應為 $(-2,1,-2,3)$。兩個有效垂直視窗分別產生 $-2$ 與 $1-4+3=0$。綠色格子標示兩個視窗共同使用的中間響應，其垂直係數不同。每列只需執行一次水平運算。
+
+此 $4\times3$ 輸入採步幅 1、無填補，直接稠密濾波需 $2\times9=18$ 次名目 MAC；兩階段運算也需 $4\times3+2\times3=18$ 次。若每個視窗各自重算水平響應則需 24 次。更一般地，輸入高度 $H\ge k$、寬度 $k$，採相同有效濾波慣例的秩一 $k\times k$ 卷積核，其兩種運算量分別為 $k^2(H-k+1)$ 與 $kH+k(H-k+1)$。當 $k=3,H=5$ 時，分別為 27 與 24 次。這些名目運算量包含零係數，並非硬體效能實測。多通道成本依分解方式及中間通道數而異。此人工算例不是實測加速結果。
 
 ## 結果
 
