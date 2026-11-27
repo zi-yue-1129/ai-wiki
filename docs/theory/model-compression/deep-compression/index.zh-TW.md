@@ -18,9 +18,23 @@ translation_reviewed: 2026-10-28
 
 剪枝階段在權重 \(w\) 的絕對值超過門檻 \(|w| > t\) 時保留它，其餘設為零。之後的重新訓練只更新保留下來的連線。
 
-量化階段通常以 k-means 把倖存的權重群聚成 \(k\) 個質心。每個權重被替換為最近質心的索引 \(c_i\)，因此一層 \(n\) 個權重需要 \(n \log_2 k\) 位元存放索引，外加一張小的質心表。接著以共享同一質心的權重所平均的梯度，微調這些質心。
+量化階段通常以 k-means 把倖存的權重群聚成 \(k\) 個質心。每個權重被替換為最近質心的索引 \(c_i\)，因此一層 \(n\) 個權重需要 \(n \lceil\log_2 k\rceil\) 位元存放索引，外加一張小的質心表。接著以共享同一質心的權重梯度總和（原始論文公式 3），微調這些質心。
 
 最後階段對索引做霍夫曼編碼。其期望碼長接近索引分布的熵；當某些質心的使用頻率遠高於其他質心時，這個熵低於 \(\log_2 k\)。
+
+### 動態算例
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="八個權重依絕對值門檻 0.2 剪枝，六個保留權重轉成 A A B A B C 索引，再以九位元前綴碼取代十二位元固定長度索引。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/deep-compression-codebook-stream-still.svg" data-motion-src="../../../assets/concept-animations/deep-compression-codebook-stream-motion.svg" data-still-src="../../../assets/concept-animations/deep-compression-codebook-stream-still.svg" alt="八個權重依絕對值門檻 0.2 剪枝，六個保留權重轉成 A A B A B C 索引，再以九位元前綴碼取代十二位元固定長度索引。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 所有數值均為人工示意，非模型實測值。MkDocs 提供播放／暫停控制；可使用鍵盤聚焦圖框並水平捲動。GitHub 顯示 [靜態回退圖](../../../assets/concept-animations/deep-compression-codebook-stream-still.svg).
+
+外框標示絕對值門檻 $t=0.2$ 剪除的權重；破折號是被移除的位置，不是需要儲存的符號。使用**預先指定的示意碼本** $(1,-2,3)$，六個保留權重依最近質心分配為 A、A、B、A、B、C。此碼本並非執行 k-means 得到的結果。出現次數為 $(3,2,1)$，霍夫曼樹合併兩個最少出現的符號後，可得到前綴碼 A=0、B=10、C=11，串接位元流為 \(\texttt{001001011}\)。移動的圓點依序將保留索引的編碼傳入緊密排列的位元流；兩個剪除位置不佔位元。各色區塊的寬度與碼長成正比。解碼器逐位元讀取，直到符合一個碼字便輸出索引，再繼續讀取，不需分隔符號即可還原 A、A、B、A、B、C。原始稀疏位置仍需由額外的中繼資料還原。固定長度索引需要 $6\lceil\log_2 3\rceil=12$ 位元，霍夫曼編碼需要 $3\cdot1+2\cdot2+1\cdot2=9$ 位元（僅索引資料減少 25%）。解碼可精確還原量化後的索引，但不能還原量化前的權重。此處未計入碼本、稀疏位置、編碼表及對齊；小型算例的完整檔案不一定會變小。原始方法也對稀疏相對索引進行熵編碼，並微調共享質心。此處未模擬重新訓練或實測壓縮率。
+
+[完整 SVG 動畫](../../../assets/concept-animations/deep-compression-codebook-stream-motion.svg).
 
 ## 結果
 

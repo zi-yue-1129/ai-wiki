@@ -33,9 +33,23 @@ Apply three stages in order. First, prune connections whose weights are small, t
 
 The pruning stage keeps a weight \(w\) when its magnitude exceeds a threshold, \(|w| > t\), and sets the rest to zero. Retraining then updates only the surviving connections.
 
-The quantisation stage clusters the surviving weights into \(k\) centroids, usually with k-means. Each weight is replaced by the index \(c_i\) of its nearest centroid, so a layer with \(n\) weights needs \(n \log_2 k\) bits for its indices plus a small table of centroids. The centroids are then fine-tuned with the gradient averaged over the weights that share each one.
+The quantisation stage clusters the surviving weights into \(k\) centroids, usually with k-means. Each weight is replaced by the index \(c_i\) of its nearest centroid, so a layer with \(n\) weights needs \(n \lceil\log_2 k\rceil\) bits for its indices plus a small table of centroids. The centroids are then fine-tuned with the sum of gradients over the weights that share each centroid (Equation 3 in the original paper).
 
 The final stage applies Huffman coding to the indices. Its expected code length is close to the entropy of the index distribution, which is lower than \(\log_2 k\) when some centroids are used much more often than others.
+
+### Worked animation
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Eight weights are pruned at a magnitude threshold of 0.2, six surviving weights become indices A A B A B C, and their prefix codes use nine rather than twelve bits.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/deep-compression-codebook-stream-still.svg" data-motion-src="../../../assets/concept-animations/deep-compression-codebook-stream-motion.svg" data-still-src="../../../assets/concept-animations/deep-compression-codebook-stream-still.svg" alt="Eight weights are pruned at a magnitude threshold of 0.2, six surviving weights become indices A A B A B C, and their prefix codes use nine rather than twelve bits." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* All values are schematic, not model measurements. MkDocs provides Play/Pause; focus the scroll region to navigate horizontally by keyboard. GitHub shows the [static fallback](../../../assets/concept-animations/deep-compression-codebook-stream-still.svg).
+
+The outlined weights are pruned at $t=0.2$; a dash marks a removed position, not a stored symbol. With a **fixed illustrative codebook** $(1,-2,3)$, nearest-centroid assignment of the six survivors gives A, A, B, A, B, C. The codebook is assumed rather than obtained by running k-means. Frequencies are $(3,2,1)$, so merging the two least frequent symbols in a Huffman tree yields one valid prefix code A=0, B=10, C=11. The concatenated bitstream is \(\texttt{001001011}\). The moving dots carry each surviving code into the packed row in order; the two removed positions contribute no bits. The coloured group widths are proportional to code length. A decoder consumes bits until a codeword matches, emits its index, and repeats; it recovers A, A, B, A, B, C without separators. Recovering the original sparse positions still requires separate metadata. The fixed-width index payload uses $6\lceil\log_2 3\rceil=12$ bits; Huffman coding uses $3\cdot1+2\cdot2+1\cdot2=9$ bits (25% fewer payload bits). Decoding restores the quantised indices exactly, not the pre-quantisation weights. Codebook values, sparse positions, the code table and alignment are excluded; a small example need not compress the complete file. The original method also entropy-codes relative sparse indices and fine-tunes the shared centroids. No retraining or measured compression ratio is simulated here.
+
+[Full SVG animation](../../../assets/concept-animations/deep-compression-codebook-stream-motion.svg).
 
 ## Results
 

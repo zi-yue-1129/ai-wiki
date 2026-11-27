@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "deep-compression-codebook-stream": {
+      "origins": [
+        {
+          "origin_blob": "90651f38cf44517c9c20a33e4158389f08c4ada0",
+          "origin_commit": "4f1dd66ba752583af264a1da35c94d41f5c752d1",
+          "path": "docs/assets/concept-animations/deep-compression-codebook-stream-motion.svg"
+        },
+        {
+          "origin_blob": "3c89645e5c60e285d7673d75da8513f5b3a4555e",
+          "origin_commit": "4f1dd66ba752583af264a1da35c94d41f5c752d1",
+          "path": "docs/assets/concept-animations/deep-compression-codebook-stream-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "filter-pruning-channel-compaction": {
+      "origins": [
+        {
+          "origin_blob": "5da8422e3ca308fe7bbea1eacb1b22d5515a872b",
+          "origin_commit": "4f1dd66ba752583af264a1da35c94d41f5c752d1",
+          "path": "docs/assets/concept-animations/filter-pruning-channel-compaction-motion.svg"
+        },
+        {
+          "origin_blob": "030eedc0723a5f32b7a3aa0a6ef2aa2b6b1e01aa",
+          "origin_commit": "4f1dd66ba752583af264a1da35c94d41f5c752d1",
+          "path": "docs/assets/concept-animations/filter-pruning-channel-compaction-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

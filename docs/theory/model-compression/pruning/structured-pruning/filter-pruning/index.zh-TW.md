@@ -24,6 +24,24 @@ s_j = \sum_{l=1}^{n_i} \lVert K_l \rVert_1
 
 分數最低的濾波器先被剪除。移除濾波器 \(j\) 也會移除它產生的特徵圖，以及下一層中的輸入通道 \(j\)。主要方法一次跨多層剪枝，然後只重新訓練一次，各層的剪枝比例由敏感度分析決定。論文也描述一種迭代變體，每剪完一層就重新訓練。作者報告，它可能得到更好的結果，但需要多得多的 epoch，對很深的網路尤其如此。
 
+### 動態算例
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="兩個連續逐點卷積的權重矩陣：第二個濾波器的 L1 分數為 0.2，因此移除其列及下一矩陣對應的欄，得到兩個 2×2 稠密矩陣。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/filter-pruning-channel-compaction-still.svg" data-motion-src="../../../../../assets/concept-animations/filter-pruning-channel-compaction-motion.svg" data-still-src="../../../../../assets/concept-animations/filter-pruning-channel-compaction-still.svg" alt="兩個連續逐點卷積的權重矩陣：第二個濾波器的 L1 分數為 0.2，因此移除其列及下一矩陣對應的欄，得到兩個 2×2 稠密矩陣。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 所有數值均為人工示意，非模型實測值。MkDocs 提供播放／暫停控制；可使用鍵盤聚焦圖框並水平捲動。GitHub 顯示 [靜態回退圖](../../../../../assets/concept-animations/filter-pruning-channel-compaction-still.svg).
+
+考慮兩個連續、不含偏置的 $1\times1$ 卷積，且中間沒有跨通道運算，通道權重矩陣分別為 $W_1\in\mathbb R^{3\times2}$ 及 $W_2\in\mathbb R^{2\times3}$。三個濾波器的分數為 $(3,0.2,4)$。琥珀色的列與欄標示的是**同一個隱藏通道**，不是兩次獨立的剪枝決策。接著綠色訊號依序揭露 $W_1$ 保留的列及 $W_2$ 保留的欄，形成緊湊的儲存排列。令 $S=\{1,3\}$，則 $W_1'=W_1[S,:]$、$W_2'=W_2[:,S]$。對逐元素激活函數 $f$，$W_2'f(W_1'x)$ 等於原網路將第二個隱藏激活值明確遮罩為零後的輸出，但通常不等於未剪枝的輸出，因此可能需要微調。每個空間位置的名目權重數及 MACs 由 $3\cdot2+2\cdot3=12$ 降為 $2\cdot2+2\cdot2=8$（減少三分之一）。未計入偏置、空間尺寸、記憶體存取及實際執行時間。一般 CNN 的下游通道切片包含所有空間卷積核係數；正規化、殘差相加與群組卷積也可能帶來額外的相依性限制。
+
+#### 保持網路函數不變的縮放仍可改變排名
+
+沿用相同的示意矩陣，並在兩層之間使用 ReLU。令 $D=\operatorname{diag}(1,30,1)$、$\widehat W_1=DW_1$、$\widehat W_2=W_2D^{-1}$。由正齊次性可知，對所有輸入均有 $\widehat W_2\operatorname{ReLU}(\widehat W_1x)=W_2\operatorname{ReLU}(W_1x)$，但濾波器分數由 $(3,0.2,4)$ 變成 $(3,6,4)$。即使未剪枝的網路函數完全相同，最低分濾波器也由第二通道改為第一通道。對 $x=(2,1)^\top$，原始輸出為 $(6.6,0.2)^\top$；移除第二通道得到 $(6,-1)^\top$，移除第一通道則得到 $(3.6,3.2)^\top$。此為人工建構的反例，並非準確度實測，說明單靠濾波器幅度並不能得到對網路函數表示方式不變的重要性指標。此等式假設正對角縮放與正齊次激活函數，不能直接推廣到任意非線性函數。
+
+[完整 SVG 動畫](../../../../../assets/concept-animations/filter-pruning-channel-compaction-motion.svg).
+
 ## 結果
 
 摘要報告，在 CIFAR-10 上，VGG-16 的推論成本最多降低 34%，ResNet-110 最多降低 38%。作者也報告，\(\ell_2\) 範數得到的結果與 \(\ell_1\) 範數幾乎相同。
