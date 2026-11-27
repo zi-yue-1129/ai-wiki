@@ -18,6 +18,47 @@ DeepSeek-R1 蒸餾，是透過在大型模型的推理軌跡上微調小模型�
 
 大型模型針對一組提示生成推理軌跡與答案，並經過品質篩選。論文以產生的 80 萬筆樣本，對基礎模型微調 2 到 3 個週期。基礎模型為 Qwen 等開放模型，列於論文的蒸餾表中。目標是一般的下一個 token 損失，因此這一步是監督式學習，在小模型規模上不需要獎勵模型。
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="三條符號軌跡經答案篩選後保留兩條；選定軌跡依序提供固定前綴 x、x A、x A B 與目標 A、B、4，三個條件機率形成總負對數似然。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" data-motion-src="../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg" data-still-src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" alt="三條符號軌跡經答案篩選後保留兩條；選定軌跡依序提供固定前綴 x、x A、x A B 與目標 A、B、4，三個條件機率形成總負對數似然。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 簡化推理資料篩選：以最終答案 4 為條件，將軌跡 (A,B,4) 與 (B,A,4) 納入保留集合，淘汰 (A,C,5)。A、B、C 是符號化 token，並非實際推理步驟。算例取第一條保留軌跡進行監督式訓練，而非由學生重新取樣軌跡。最終答案正確不代表中間推理必然忠實。真實資料集也包括非推理樣本與額外品質篩選，參見[報告](https://arxiv.org/html/2501.12948v2)附錄 B.3.3 與 F。
+
+給定提示 $x$ 與固定選取的回答 $y$，示意的僅回答 token 負對數似然為
+
+$
+L=-\sum_{t=1}^{|y|}\log p_\theta(y_t\mid x,y_{<t}).
+$
+
+假設三個依序出現的目標 token 條件機率為 $(0.50,0.25,0.80)$，損失總和為 $-\log(0.50\cdot0.25\cdot0.80)=\log 10\approx2.303$ nats（每 token 平均 $0.768$）。長條逐步揭露固定機率，並非訓練軌跡；所有數值皆為人工示意，非模型實測。此處是對選取序列進行 teacher forcing，不是匹配教師完整詞彙表 logits，也不是學生的強化學習更新。報告中的蒸餾模型採 SFT，沒有後續 RL 階段。
+
+MkDocs 可使用鍵盤操作播放／暫停；GitHub 提供 [靜態回退圖](../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg)，亦可開啟 [完整 SVG 動畫](../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg)。
+
+### Teacher forcing 的固定前綴
+
+新版動畫明確呈現條件上下文：$x$ 代表提示，而非回答 token。對選定的固定回答 $(A,B,4)$：
+
+| 給定上下文 | 目標 | 條件機率 |
+|---|---|---:|
+| $x$ | A | 0.50 |
+| $x,A$ | B | 0.25 |
+| $x,A,B$ | 4 | 0.80 |
+
+即使學生機率最高的預測不同，下一個上下文仍使用已記錄的目標 token。三列是概念上的機率分解，不必分別執行三次前向傳播：因果 Transformer 可透過位移目標與因果注意力平行計算三個損失。在本例的僅回答損失中，提示只作為上下文；實際訓練流程可採用不同的遮罩與正規化方式。
+
+### Token 平均與序列平均
+
+假設批次包含 $N$ 筆非空回答，第 $i$ 筆未被遮罩的 token 數為 $n_i$，NLL 總和為 $S_i$，兩種可能的目標函數為
+
+$
+L_{\mathrm{token}}=\frac{\sum_i S_i}{\sum_i n_i},\qquad
+L_{\mathrm{sequence}}=\frac{1}{N}\sum_i\frac{S_i}{n_i}.
+$
+
+假設兩筆人工示意回答分別有 3 與 9 個未被遮罩的 token，每 token 平均 NLL 分別為 1 與 2 nats。Token 平均為 $(3+18)/12=1.75$，序列平均則為 $(1+2)/2=1.5$。較長的回答占 token 平均目標總係數權重的 75%，但在序列平均中僅占 50%。這是目標函數係數，而非梯度範數的必然比例。Padding 與被遮罩的提示 token 不計入 $n_i$。此例比較不同損失彙總方式，並非宣稱 R1 報告中的模型採用其中一種特定實作。
+
 ## 結果
 
 論文把蒸餾後的 32B 模型，與以大規模強化學習訓練的 32B 基礎模型（作者稱之為 Qwen2.5-32B-Zero）作比較。在其表 16 的基準上，蒸餾模型在每一項都得分較高：

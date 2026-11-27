@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "byot-deep-head-targets": {
+      "origins": [
+        {
+          "origin_blob": "6646fc64713e3e003858342d475aee3b501763f8",
+          "origin_commit": "04215b9b3a653b7a6fcfe5faad20c8c5882089ef",
+          "path": "docs/assets/concept-animations/byot-deep-head-targets-motion.svg"
+        },
+        {
+          "origin_blob": "baa8e0db6c0bdfca64f960f903dafd7d7f64ebd8",
+          "origin_commit": "04215b9b3a653b7a6fcfe5faad20c8c5882089ef",
+          "path": "docs/assets/concept-animations/byot-deep-head-targets-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "r1-trace-filter-sft": {
+      "origins": [
+        {
+          "origin_blob": "5e4868d46a75766c391436d06cba667684eb8025",
+          "origin_commit": "04215b9b3a653b7a6fcfe5faad20c8c5882089ef",
+          "path": "docs/assets/concept-animations/r1-trace-filter-sft-motion.svg"
+        },
+        {
+          "origin_blob": "c89ad15cef4659713f7629333ad82327e7b3ac11",
+          "origin_commit": "04215b9b3a653b7a6fcfe5faad20c8c5882089ef",
+          "path": "docs/assets/concept-animations/r1-trace-filter-sft-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

@@ -33,6 +33,28 @@ The total loss sums a per-classifier loss over all \(C\) classifiers:
 
 where \(q^i\) is the softmax output of classifier \(i\), \(q^C\) is the deepest classifier's output, \(y\) is the label and \(F_i\) and \(F_C\) are the feature maps of section \(i\) and the deepest section. The first term is the label loss, the second is the distillation term and the third is a feature-hint term that aligns the shallow feature maps with the deepest ones. The paper sets the \(\alpha\) and \(\lambda\) of the deepest classifier to zero. The softmax temperature is normally set to 1. The shallow classifiers are used for depth-wise scalable inference, which the authors propose for resource-limited devices.
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Forward activations feed two heads; deep features, predictions and labels supply supervision. Signed bars compare deep-label gradients, weighted KL gradients and their sum with detached and attached targets.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/byot-deep-head-targets-still.svg" data-motion-src="../../../../../assets/concept-animations/byot-deep-head-targets-motion.svg" data-still-src="../../../../../assets/concept-animations/byot-deep-head-targets-still.svg" alt="Forward activations feed two heads; deep features, predictions and labels supply supervision. Signed bars compare deep-label gradients, weighted KL gradients and their sum with detached and attached targets." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* A two-head schematic abstracts the paper's multiple sections and bottlenecks. Blue moving signals are forward activations, teal dashed paths convey feature and output targets from the deepest section, and amber paths convey the same hard label to both heads. The deepest head has only its own label-loss term; its shared upstream layers can still receive contributions from other losses. The target arrows do not depict the direction of differentiation or imply that the deep network is a separately pretrained, frozen teacher. The moving signals illustrate the target flow. The signed bars then show the deep head's label gradient (blue), the hypothetical attached-target KL contribution weighted by 0.5 (amber), and their sum (teal). The blue bars alone represent the detached-target case. The teal bars start at the label-gradient lengths and move to the sums; these are comparisons at fixed logits, not optimizer steps. [Original paper](https://arxiv.org/abs/1905.08094).
+
+For an illustrative target comparison at temperature 1, let the shallow and deep class distributions be $q^1=(0.5,0.3,0.2)$ and $q^C=(0.7,0.2,0.1)$, with class A as the label. The label cross-entropies are $-\log 0.5\approx0.6931$ and $-\log 0.7\approx0.3567$. Using the KL direction in the equation above, $D_{\mathrm{KL}}(q^1\Vert q^C)\approx0.0920$ nats. If the already aligned feature vectors are $(0.2,0.6)$ and $(0.5,0.4)$, their squared distance is $0.13$. These are artificial numbers, not model measurements; the feature term requires compatible shapes. The three terms are combined during training, and auxiliary heads need not be evaluated when deploying only the deepest head.
+
+Use the keyboard-accessible Play/Pause on MkDocs; GitHub provides a [static fallback](../../../../../assets/concept-animations/byot-deep-head-targets-still.svg) and the [full SVG animation](../../../../../assets/concept-animations/byot-deep-head-targets-motion.svg).
+
+### Target direction versus gradient direction
+
+The KL term also makes the gradient convention important. Let $q$ and $p$ denote the shallow and deep softmax distributions, with deep logits $z_C$. For the KL direction used above, holding the shallow logits fixed gives
+
+$
+\nabla_{z_C}D_{\mathrm{KL}}(q\Vert p)=p-q.
+$
+
+If gradients are allowed through the deep target, this term contributes $(0.2,-0.1,-0.1)$ in the illustrative example. With shallow distillation weight $\alpha=0.5$, its direct contribution to the deep logits is $(0.1,-0.05,-0.05)$. Adding the deep head's own label gradient $p-e_A=(-0.3,0.2,0.1)$ gives $(-0.2,0.15,0.05)$. If the deep target is detached, the direct KL contribution instead vanishes, leaving $p-e_A$. This comparison assumes independent head logits and omits feature losses; it isolates an automatic-differentiation choice, not a claim about the original authors' implementation. Shared network parameters may still receive shallow-head gradients in either case.
+
 ## Results
 
 On CIFAR-100 the paper's main table compares a baseline with self-distillation, using the deepest classifier's accuracy:

@@ -31,6 +31,47 @@ Train a large model with reinforcement learning until it reasons well, then use 
 
 The large model produces reasoning traces and answers for a set of prompts, which are filtered for quality. The paper fine-tunes the base models on the resulting 800k samples for 2 to 3 epochs. The base models are open models such as Qwen, as listed in the paper's distillation table. The objective is the ordinary next-token loss, so the step is supervised learning and needs no reward model at the small scale.
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Three toy traces end in 4, 5 and 4. The outcome check retains the first and third; the selected trace supplies fixed prefixes x, x A and x A B with next-token targets A, B and 4; the three conditional probabilities yield the summed negative log likelihood.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" data-motion-src="../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg" data-still-src="../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg" alt="Three toy traces end in 4, 5 and 4. The outcome check retains the first and third; the selected trace supplies fixed prefixes x, x A and x A B with next-token targets A, B and 4; the three conditional probabilities yield the summed negative log likelihood." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* A simplified reasoning-data example checks the final answer 4: traces (A,B,4) and (B,A,4) enter the accepted pool, while (A,C,5) is rejected. A, B and C are symbolic tokens, not actual reasoning steps. The example picks the first accepted trace for supervised training, rather than sampling a new trace from the student. Correct final answers alone do not establish faithful intermediate reasoning. The real dataset also contains non-reasoning examples and additional quality filters; see Appendix B.3.3 and F of the [report](https://arxiv.org/html/2501.12948v2).
+
+For a prompt $x$ and fixed selected response $y$, the illustrative response-only negative log likelihood is
+
+$
+L=-\sum_{t=1}^{|y|}\log p_\theta(y_t\mid x,y_{<t}).
+$
+
+With conditional target-token probabilities $(0.50,0.25,0.80)$ for the three successive tokens, the summed loss is $-\log(0.50\cdot0.25\cdot0.80)=\log 10\approx2.303$ nats (mean $0.768$ per token). Bar growth reveals these fixed probabilities; it is not a training trajectory. All values are artificial, not model measurements. This is teacher forcing on a selected sequence, not matching the teacher's full vocabulary logits, and not a student RL update. The report's distilled models use SFT without a subsequent RL stage.
+
+Use the keyboard-accessible Play/Pause on MkDocs; GitHub provides a [static fallback](../../../../../assets/concept-animations/r1-trace-filter-sft-still.svg) and the [full SVG animation](../../../../../assets/concept-animations/r1-trace-filter-sft-motion.svg).
+
+### Fixed prefixes under teacher forcing
+
+The revised animation exposes the conditioning context explicitly: $x$ denotes the prompt, not a response token. For the selected fixed response $(A,B,4)$:
+
+| Given context | Target | Conditional probability |
+|---|---|---:|
+| $x$ | A | 0.50 |
+| $x,A$ | B | 0.25 |
+| $x,A,B$ | 4 | 0.80 |
+
+The next context uses the recorded target token even if the student's highest-probability prediction is different. The three displayed rows are a conceptual factorization, not necessarily three separate forward passes: a causal Transformer can compute all three losses in parallel using shifted targets and causal attention. The prompt is context only in this response-only loss example; real training pipelines can choose different masking and normalization conventions.
+
+### Token averaging versus sequence averaging
+
+For a batch of $N$ nonempty responses with unmasked token counts $n_i$ and summed NLLs $S_i$, two possible objectives are
+
+$
+L_{\mathrm{token}}=\frac{\sum_i S_i}{\sum_i n_i},\qquad
+L_{\mathrm{sequence}}=\frac{1}{N}\sum_i\frac{S_i}{n_i}.
+$
+
+Suppose two artificial responses have 3 and 9 unmasked tokens, with respective mean NLLs 1 and 2 nats. The token mean is $(3+18)/12=1.75$, whereas the sequence mean is $(1+2)/2=1.5$. The longer response contributes 75% of the token-mean objective's total coefficient mass, but 50% of the sequence-mean objective's mass. These are objective coefficients, not necessarily gradient norms. Padding and masked prompt tokens are excluded from $n_i$. This illustrates alternative reductions, not a claim about the exact reduction used for the reported R1 models.
+
 ## Results
 
 The paper compares a distilled 32B model against a 32B base model trained with large-scale reinforcement learning, which the authors call Qwen2.5-32B-Zero. On the benchmarks in its Table 16, the distilled model scores higher on every one:
