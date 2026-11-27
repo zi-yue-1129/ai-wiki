@@ -14,6 +14,41 @@ translation_reviewed: 2026-10-28
 
 從大型教師訓練一個中間模型，也就是助教。然後從助教而不是大型教師蒸餾學生。助教在容量上較接近學生，並提供可以學習的目標。
 
+### 動畫解讀：直接蒸餾與助教目標
+
+<div class="concept-motion-scroll" style="max-width:100%;overflow-x:auto" tabindex="0" role="group" aria-label="水平捲動以查看完整教學動畫">
+<div style="width:640px;min-width:640px">
+<img data-source-asset-urls data-still-src="../../../../../assets/concept-animations/teacher-assistant-target-gradient-still.svg" src="../../../../../assets/concept-animations/teacher-assistant-target-gradient-still.svg" data-motion-src="../../../../../assets/concept-animations/teacher-assistant-target-gradient-motion.svg" style="width:640px;min-width:640px;max-width:none" alt="固定的教師與助教目標在相同學生狀態下產生不同梯度；隨 A 類機率提高，助教梯度穿越零點。">
+</div>
+</div>
+
+[GitHub 靜態回退圖](../../../../../assets/concept-animations/teacher-assistant-target-gradient-still.svg) · [完整 12 秒動畫](../../../../../assets/concept-animations/teacher-assistant-target-gradient-motion.svg)
+
+Mirzadeh 等人（2019）提出以中間容量的教師縮小師生差距。在此**人工建構的算例**中，大型教師的機率分布為 $p_T=(0.80,0.15,0.05)$，訓練後的助教分布為 $p_A=(0.65,0.20,0.15)$，類別為 A/B/C。兩個目標保持固定。動畫先示意傳遞順序，再將同一學生的 A 類機率由 0.50 掃描至 0.70；這是狀態比較，而非實際最佳化軌跡。
+
+為了獨立觀察目標分布的影響，限制示意學生為 $q=(a,(1-a)/2,(1-a)/2)$，其中 $a=\sigma(z)$。溫度為 1 時，任意固定分布 $p$ 的軟目標交叉熵可寫成
+
+$
+L(z)=-p(A)\log a-(1-p(A))\log((1-a)/2),\quad
+\frac{\partial L}{\partial z}=a-p(A).
+$
+
+在相同起點 $z=0$（$a=0.5$），直接蒸餾的梯度為 $-0.30$，經助教蒸餾則為 $-0.15$。教師至助教的訊號先於助教至學生的訊號；助教成為學生的教師時保持固定。兩個梯度分別在相同學生狀態下計算，不會相加。較小的梯度幅度不保證較高的準確度，算例也未宣稱助教分布為最佳擬合。實際 TAKD 需在資料集上訓練模型，也可能納入硬標籤損失。所有機率與梯度皆為示意，並非模型實測值。
+
+在第二個共同狀態 $a=0.70$（亦即 $z=\log(7/3)$）時，直接蒸餾的梯度為 $-0.10$，助教蒸餾的梯度為 $+0.05$。青綠色長條於 $a=0.65$ 穿越零點，藍色長條在整個掃描過程維持負值。梯度下降在梯度為負時增加 $z$，為正時則降低 $z$。因此，當 $0.65<a<0.80$ 時，兩種教師給出的純量更新方向相反。這並不代表助教一定降低或提升泛化能力；目標與受限學生分布皆為人工建構，實際學生具有大量共享參數及訓練樣本。
+
+### 容量限制與不可消除的目標分布差異
+
+對此受限分布族，$a=p(A)$ 是唯一最小值（對 $z$ 的二階導數為 $a(1-a)>0$）。然而純量梯度為零不等於精確匹配分布：學生無法區分類別 B 與 C。在最佳解 $q^*=(p(A),(1-p(A))/2,(1-p(A))/2)$ 處，剩餘的 KL 散度為
+
+$
+D_{\mathrm{KL}}(p\Vert q^*)=p(B)\log\frac{2p(B)}{1-p(A)}+p(C)\log\frac{2p(C)}{1-p(A)}.
+$
+
+對人工設定的大型教師目標，$q_T^*=(0.8,0.1,0.1)$，剩餘 KL 散度約為 $0.02616$ nats。對人工設定的助教目標，$q_A^*=(0.65,0.175,0.175)$，剩餘散度約為 $0.00358$ nats。助教目標**僅在此受限算例中**較容易由學生表示。兩個數值分別相對於不同目標，不代表助教更能保留原始教師的知識，也不代表任務準確度一定提高。
+
+在 MkDocs 使用播放／暫停（Enter 或空白鍵）；GitHub 與減少動態效果的讀者可查看完整靜態結果。原創圖示，**CC BY-SA 4.0**。
+
 ## 公式或演算法
 
 此程序是一條鏈。大型教師蒸餾出大小居中的助教。助教再以與 [Hinton 蒸餾](../hinton-distillation/index.zh-TW.md)相同的軟目標蒸餾學生。當差距非常大時，可以串接多個助教。
