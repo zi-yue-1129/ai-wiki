@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "sparse-metadata-gather": {
+      "origins": [
+        {
+          "origin_blob": "8ac8a8c90ba1f6fa75a3c23f98e9c6838d729db6",
+          "origin_commit": "824ec0ed62ab9ba80c56b404ecc58a148311f91c",
+          "path": "docs/assets/concept-animations/sparse-metadata-gather-motion.svg"
+        },
+        {
+          "origin_blob": "7803f836723310b3ca061cd5dbaa81e68fc07864",
+          "origin_commit": "824ec0ed62ab9ba80c56b404ecc58a148311f91c",
+          "path": "docs/assets/concept-animations/sparse-metadata-gather-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "distilbert-triple-loss": {
+      "origins": [
+        {
+          "origin_blob": "d224fd0c325b5aa461b4eb8933bdeda61adcadf5",
+          "origin_commit": "824ec0ed62ab9ba80c56b404ecc58a148311f91c",
+          "path": "docs/assets/concept-animations/distilbert-triple-loss-motion.svg"
+        },
+        {
+          "origin_blob": "cfff1a00b9bec8993444435a50b3742f81671ad7",
+          "origin_commit": "824ec0ed62ab9ba80c56b404ecc58a148311f91c",
+          "path": "docs/assets/concept-animations/distilbert-triple-loss-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
