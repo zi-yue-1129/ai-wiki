@@ -930,6 +930,8 @@ plugins:
             Multi-Agent Orchestration: 多代理編排
             Agent Evaluation: 代理評估
             Agent Observability: 代理可觀測性
+            Dapper (Sigelman et al. 2010): Dapper（Sigelman 等人，2010）
+            AgentOps (Dong et al. 2024): AgentOps（Dong 等人，2024）
             ReAct (Yao et al. 2022): ReAct（Yao 等人，2022）
             Reflexion (Shinn et al. 2023): Reflexion（Shinn 等人，2023）
             Toolformer (Schick et al. 2023): Toolformer（Schick 等人，2023）
@@ -2168,6 +2170,8 @@ nav:
           - Multi-Agent Orchestration: engineering/agents/multi-agent-orchestration.md
           - Agent Evaluation: engineering/agents/agent-evaluation.md
           - Agent Observability: engineering/agents/agent-observability.md
+          - Dapper (Sigelman et al. 2010): engineering/agents/dapper.md
+          - AgentOps (Dong et al. 2024): engineering/agents/agentops.md
           - ReAct (Yao et al. 2022): engineering/agents/react.md
           - Reflexion (Shinn et al. 2023): engineering/agents/reflexion.md
           - Toolformer (Schick et al. 2023): engineering/agents/toolformer.md

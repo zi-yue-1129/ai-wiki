@@ -49,6 +49,8 @@ aliases:
 - [SWE-agent](swe-agent.zh-TW.md)：用於解決軟體問題的代理電腦介面。
 - [AutoGen](autogen.zh-TW.md)：代理以對話協作的框架，人類與工具可作為選擇性參與者。
 - [MetaGPT](metagpt.zh-TW.md)：扮演軟體公司角色、沿流水線傳遞定義文件的代理。
+- [Dapper](dapper.zh-TW.md)：分散式追蹤的 trace、span 與註記模型，為代理追蹤所沿用。
+- [AgentOps](agentops.zh-TW.md)：列出代理系統應追蹤之產物與資料的分類法。
 
 ## 執行契約與狀態轉移
 

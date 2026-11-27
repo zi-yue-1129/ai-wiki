@@ -53,6 +53,8 @@ The section has five pages, each covering one part of the work. Each compares a 
 - [SWE-agent](swe-agent.md): an agent-computer interface for resolving software issues.
 - [AutoGen](autogen.md): a framework in which agents hold conversations, with people and tools as optional participants.
 - [MetaGPT](metagpt.md): software-company roles that pass defined documents along a pipeline.
+- [Dapper](dapper.md): the trace, span and annotation model of distributed tracing, which agent tracing reuses.
+- [AgentOps](agentops.md): a taxonomy of the artifacts and data an agent system should trace.
 
 ## Execution contracts and state transitions
 
