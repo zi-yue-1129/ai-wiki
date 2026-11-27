@@ -17,6 +17,31 @@ translation_reviewed: 2026-10-28
 - **逐層目標**：大多數 PTQ 方法最小化單一層的輸出誤差 \(\lVert WX - \hat{W}X \rVert^2\)，而不是權重誤差。
 - **僅權重與權重加激活**：僅權重方法節省記憶體，但運算仍以浮點數進行；權重加激活的方法則可使用整數運算。
 
+### 為什麼分組尺度會改變捨入結果
+
+考慮兩組各四個權重的人工算例：$(1,1.5,3,4)$ 與 $(8,16,24,28)$。採用對稱式有號 4 位元量化，整數碼範圍為 $-7$ 至 $7$（不使用 $-8$），最大絕對值尺度 $s=\max|w|/7$，以及最近捨入：
+
+$
+q_i=\operatorname{clip}(\operatorname{round}(w_i/s),-7,7),\qquad \hat w_i=sq_i.
+$
+
+共用尺度 $4$ 時，小權重組重建為 $(0,0,4,4)$；獨立尺度 $4/7$ 則重建為 $(8/7,12/7,20/7,4)$。大權重組在兩種設定下的尺度皆為 $4$，且都能精確重建。動畫將小權重由原始位置移至最近的量化網格點；中間移動只是教學插值，並非反覆迭代的量化演算法。
+
+| 尺度選擇 | 小權重組平方誤差 | 大權重組平方誤差 |
+| --- | ---: | ---: |
+| 共用 | $17/4=4.25$ | 0 |
+| 分組 | $17/196\approx0.086735$ | 0 |
+
+本算例的權重平方誤差降為原來的 1/49。這是沒有捨入平手的人工數值，不是實測準確率或延遲。額外尺度也需要中繼資料空間：若權重以 4 位元打包、每個尺度占 $b$ 位元，忽略對齊與標頭時，八個權重的成本分別為 $32+b$ 與 $32+2b$ 位元。較小的分組不一定能改善端到端延遲或任務損失。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="四個小權重移至共用或分組尺度的最近量化網格點，最終平方誤差分別為 4.25 與 17/196。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" data-motion-src="../../../../assets/concept-animations/ptq-group-scale-grid-motion.svg" data-still-src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" alt="四個小權重移至共用或分組尺度的最近量化網格點，最終平方誤差分別為 4.25 與 17/196。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 網站可使用播放／暫停按鈕，小螢幕可水平捲動。GitHub 可直接開啟[靜態預覽](../../../../assets/concept-animations/ptq-group-scale-grid-still.svg)或[完整 SVG 動畫](../../../../assets/concept-animations/ptq-group-scale-grid-motion.svg)。
+
 ## 方法
 
 每個方法都有自己的頁面：

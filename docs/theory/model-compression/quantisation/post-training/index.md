@@ -27,6 +27,31 @@ The simplest PTQ is round-to-nearest: compute a scale per tensor or per group, a
 - **Layer-wise objective.** Most PTQ methods minimise the output error of one layer, \(\lVert WX - \hat{W}X \rVert^2\), rather than the weight error.
 - **Weight-only versus weight-and-activation.** Weight-only methods save memory but keep the arithmetic in floating point; weight-and-activation methods can use integer arithmetic.
 
+### Why group-local scales change rounding
+
+Consider two toy groups of four weights, $(1,1.5,3,4)$ and $(8,16,24,28)$. Use symmetric signed four-bit quantisation with integer codes $-7$ through $7$ (the code $-8$ is unused), a max-absolute scale $s=\max|w|/7$, and nearest rounding:
+
+$
+q_i=\operatorname{clip}(\operatorname{round}(w_i/s),-7,7),\qquad \hat w_i=sq_i.
+$
+
+A shared scale of $4$ makes the small group's reconstructed weights $(0,0,4,4)$; a local scale of $4/7$ gives $(8/7,12/7,20/7,4)$. The larger group has scale $4$ in both cases and is reconstructed exactly. The animation moves each small weight from its original position to its nearest grid point; the movement between endpoints is explanatory interpolation, not an iterative quantiser.
+
+| Scale choice | Small-group squared error | Large-group squared error |
+| --- | ---: | ---: |
+| Shared | $17/4=4.25$ | 0 |
+| Group-local | $17/196\approx0.086735$ | 0 |
+
+The squared weight error is 49 times smaller in this example. This is a constructed example with no rounding ties, not a measured accuracy or latency result. The extra scale needs metadata storage; if codes are packed at four bits and each scale occupies $b$ bits, the eight weights cost $32+b$ bits with one scale versus $32+2b$ with two, ignoring alignment and headers. A smaller group is not automatically better for end-to-end latency or task loss.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Four small weights move to their nearest shared or group-local quantisation grid points; final squared errors are 4.25 and 17/196.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" data-motion-src="../../../../assets/concept-animations/ptq-group-scale-grid-motion.svg" data-still-src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" alt="Four small weights move to their nearest shared or group-local quantisation grid points; final squared errors are 4.25 and 17/196." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../../assets/concept-animations/ptq-group-scale-grid-still.svg) and [full SVG animation](../../../../assets/concept-animations/ptq-group-scale-grid-motion.svg).
+
 ## Methods
 
 Each method has its own page:

@@ -28,6 +28,37 @@ aliases:
 - **替代資料（surrogate data）。** 近似訓練資料、用於蒸餾的樣本，並不重現任何真實樣本。
 - **覆蓋範圍（coverage）。** 合成樣本是否涵蓋學生必須表現良好的輸入空間區域。
 
+### 特徵統計量最佳化的人工算例
+
+DeepInversion 固定教師模型，利用已儲存的批次正規化特徵統計量最佳化合成輸入，並搭配分類與影像先驗目標。[^deepinversion] 為了單獨觀察特徵匹配，假設固定的恆等特徵映射之目標平均值為 $2$、變異數為 $1$。將兩個合成激活值參數化為 $(m-s,m+s)$，其中 $s>0$；其母體平均值為 $m$、母體標準差為 $s$。最小化人工目標：
+
+$
+L(m,s)=(m-2)^2+(s-1)^2.
+$
+
+此標準差損失及雙參數恆等映射是教學簡化，並非原論文的多層變異數正規化項。從 $m_0=-1$ 與 $s_0=1/4$ 開始，使用學習率 $1/4$ 執行梯度下降，可得
+
+$
+m_k=2-3/2^k,\qquad s_k=1-(3/4)/2^k,\qquad L_k=\frac{153}{16\cdot4^k}.
+$
+
+| 步數 | 平均值 | 標準差 | 損失 |
+| ---: | ---: | ---: | ---: |
+| 0 | -1 | 0.25 | 9.5625 |
+| 1 | 0.5 | 0.625 | 2.390625 |
+| 2 | 1.25 | 0.8125 | 0.59765625 |
+| 5 | 1.90625 | 0.9765625 | 0.00933837890625 |
+
+綠點只是符合目標統計量的其中一組可能數值，而非重建的訓練樣本。藍點代表合成激活值，橘色標記代表平均值，藍色線段跨越兩個數值。關鍵影格為精確的梯度下降迭代結果，中間位置及損失長條採插值以利理解；循環重設不是最佳化步驟。教師模型始終不更新。僅匹配少量統計矩無法唯一識別分布，也不能保證隱私，因為不同分布可能有相同的統計矩。數值皆為人工示意，並非模型實測結果。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="合成特徵值經五次梯度更新逐漸接近目標平均值 2 與標準差 1，損失長條同步縮短。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-moment-descent-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" alt="合成特徵值經五次梯度更新逐漸接近目標平均值 2 與標準差 1，損失長條同步縮短。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 網站可使用播放／暫停按鈕，小螢幕可水平捲動。GitHub 可直接開啟[靜態預覽](../../../../assets/concept-animations/data-free-moment-descent-still.svg)或[完整 SVG 動畫](../../../../assets/concept-animations/data-free-moment-descent-motion.svg)。
+
 ## 主要方法
 
 以下兩個方法的目標都是在沒有訓練資料的情況下蒸餾，但取得替代輸入的方式不同。
@@ -61,6 +92,10 @@ aliases:
 - Lopes, R. G., Fenu, S. & Starner, T. (2017). *Data-Free Knowledge Distillation for Deep Neural Networks*. arXiv:1710.07535. https://arxiv.org/abs/1710.07535 — 以隨預訓練模型釋出的少量中繼資料取代訓練集，並探討不同中繼資料選擇的取捨。
 - Kim, Y. & Rush, A. M. (2016). *Sequence-Level Knowledge Distillation*. arXiv:1606.07947. https://arxiv.org/abs/1606.07947 — 在教師自身的序列輸出上訓練；摘要報告學生的速度約為教師的 10 倍，品質損失很小。
 - Hinton, G., Vinyals, O. & Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — 標準的蒸餾目標，假設有訓練集，而無資料方法即是取代它。
+
+- Yin, H., et al. (2020). *Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion*. CVPR. https://arxiv.org/abs/1912.08795 — 利用固定教師的批次正規化統計量引導合成輸入的最佳化。
+
+[^deepinversion]: Yin 等人（2020），第 3.2 節，[DeepInversion](https://arxiv.org/abs/1912.08795)。
 
 ### 綜述與教科書
 
