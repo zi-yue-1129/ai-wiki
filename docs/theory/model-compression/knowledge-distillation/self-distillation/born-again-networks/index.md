@@ -46,6 +46,16 @@ The first step produces logits approximately $(0.367,-0.133,-0.233)$ and probabi
 
 This example only demonstrates the transfer and fresh initialization. If each student could exactly match the teacher distribution everywhere, pure soft-target cross-entropy alone would reproduce that distribution. The example does not explain or guarantee the paper's empirical accuracy gains, and the increased entropy here is not a general property of born-again training. Actual training uses many examples and optimization steps, and may include hard labels. The numbers are not measurements.
 
+### Why the one-step example approaches uniformity
+
+For this toy protocol only, allow a positive learning rate $\eta$ while still starting each generation at zero logits and taking exactly one step. Shift invariance of softmax gives $F_\eta(p)=\operatorname{softmax}(\eta p)$, with uniform fixed point $u=(1/3,1/3,1/3)$. The softmax Jacobian at output $q$ is $J=\operatorname{diag}(q)-qq^\top$. It is symmetric, and each row's absolute sum is $2q_i(1-q_i)\leq 1/2$, so its spectral norm is at most $1/2$. Integrating the Jacobian along the line segment between two inputs gives
+
+$
+\|F_\eta(p)-F_\eta(u)\|_2\leq \frac{\eta}{2}\|p-u\|_2.
+$
+
+Thus for $0<\eta<2$ the repeated fresh one-step protocol contracts toward uniformity (at most a factor of $1/2$ per generation when $\eta=1$). This result is about the constructed probability update, not the convergence, entropy, or accuracy of general born-again networks. Multiple optimization steps, hard labels, and model parameterization change the map.
+
 On MkDocs use Play/Pause (Enter or Space); GitHub and reduced-motion readers can inspect the complete static result. Original diagram, **CC BY-SA 4.0**.
 
 ## Equation or algorithm
