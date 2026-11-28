@@ -48,11 +48,11 @@ $$
 | 2 | 1.25 | 0.8125 | 0.59765625 |
 | 5 | 1.90625 | 0.9765625 | 0.00933837890625 |
 
-The green points represent one possible pair with the target statistics, not recovered training samples. Blue points show the synthetic activations, the orange marker is their mean, and the blue segment spans both values. Keyframes correspond to exact gradient-descent iterates; intermediate motion and loss-bar widths are interpolated for readability. The reset is not an optimisation step. The teacher is never updated. Matching a few moments does not identify a distribution or establish privacy; many distributions share the same moments. These values are schematic, not model measurements.
+The green points represent one possible pair with the target statistics, not recovered training samples. Blue points show the synthetic activations, the orange marker is their mean, and the blue segment spans both values. The synthetic points interpolate between exact gradient-descent iterates for readability. The green marker on the logarithmic chart and the orange linear loss bar update only when a step completes, so they report the last completed iterate, not an interpolated loss. Since $L_k/L_0=4^{-k}$, the logarithmic chart has ordinate $\log_2(L_k/L_0)=-2k$; it remains readable when the linear bar is nearly zero. The reset is not an optimisation step. The teacher is never updated. Matching a few moments does not identify a distribution or establish privacy; many distributions share the same moments. These values are schematic, not model measurements.
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Synthetic feature pair moves toward target mean two and standard deviation one over five gradient steps; the loss bar shrinks.">
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Synthetic feature pair approaches target mean two and standard deviation one; the completed-step log-loss marker descends and the linear loss bar shrinks.">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-moment-descent-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" alt="Synthetic feature pair moves toward target mean two and standard deviation one over five gradient steps; the loss bar shrinks." width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-moment-descent-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" alt="Synthetic feature pair approaches target mean two and standard deviation one; the completed-step log-loss marker descends and the linear loss bar shrinks." width="640" height="360">
 </div>
 </div>
 

@@ -66,7 +66,8 @@ class PTQMomentMotion(unittest.TestCase):
     def test_moment_descent(self):
         root = read('data-free-moment-descent', 'motion')
         motions = root.findall('.//' + NS + 'animate')
-        self.assertEqual(len(motions), 6)
+        self.assertEqual(len(motions), 8)
+        self.assertEqual([a.get('calcMode') for a in motions[5:]], ['discrete'] * 3)
         steps = [0, 0, 1, 2, 3, 4, 5, 5, 0]
         m, s = F(-1), F(1, 4)
         states = [(m, s)]
@@ -79,9 +80,23 @@ class PTQMomentMotion(unittest.TestCase):
             loss = (m-2)**2 + (s-1)**2
             self.assertEqual(loss, F(153, 16)/4**k)
             a, b = 80+80*(m-s+2), 80+80*(m+s+2)
-            expected = [a, b, 80+80*(m+2)-2, a, b, 460*loss/F(153,16)]
+            expected = [a, b, 80+80*(m+2)-2, a, b, 220*loss/F(153,16), 69+46*k, 235+16*k]
             for motion, val in zip(motions, expected):
                 self.assertAlmostEqual(values(motion)[i], float(val), places=3)
+
+    def test_calibration_output_error(self):
+        w = [F(11,10), F(17,20)]
+        results = []
+        for scale in [F(1), F(3,5)]:
+            self.assertTrue(all((v/scale) % 1 != F(1,2) for v in w))
+            codes = [round(v/scale) for v in w]
+            self.assertTrue(all(-7 <= q <= 7 for q in codes))
+            d = [v-q*scale for v,q in zip(w,codes)]
+            results.append((sum(v*v for v in d), *(sum(v*x for v,x in zip(d,inp))**2 for inp in [(5,2),(3,2)])))
+        self.assertEqual(results, [(F(13,400), F(1,25), F(0)), (F(29,400), F(0), F(1,25))])
+        for p in [F(0), F(1,2), F(1)]:
+            losses = [p*a+(1-p)*b for _,a,b in results]
+            self.assertEqual(losses[0]-losses[1], (2*p-1)/25)
 
     def test_asset_contracts(self):
         for stem in ('ptq-group-scale-grid', 'data-free-moment-descent'):

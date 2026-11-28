@@ -63,6 +63,23 @@ The revised animation rounds the four small weights in sequence. When each dot r
 
 This order is only an explanatory decomposition of an independent nearest-rounding operation; a real quantisation kernel can round all four weights in parallel. The bars count only completed rounding events, and the loop reset is not a quantisation step.
 
+### Weight error versus calibration output error
+
+The weight SSE above is not generally the objective used to select a scale for a linear layer. For a row vector $w$, let $d=w-\hat w$ and let $M=\mathbb E[xx^\top]$ denote the uncentred calibration second moment. The expected squared output error is
+
+$
+\mathbb E[(d^\top x)^2]=d^\top M d.
+$
+
+For a separate schematic example, use $w=(1.1,0.85)$ and signed four-bit nearest rounding with two candidate scales, not necessarily max-absolute scales. Neither candidate clips or has a rounding tie.
+
+| Scale | Reconstructed weights | Weight SSE | Squared output error at $x=(5,2)$ | Squared output error at $x=(3,2)$ |
+| ---: | --- | ---: | ---: | ---: |
+| 1 | $(1,1)$ | 0.0325 | 0.04 | 0 |
+| 0.6 | $(1.2,0.6)$ | 0.0725 | 0 | 0.04 |
+
+If calibration consists of $x=(5,2)$ with probability $p$ and $x=(3,2)$ otherwise, the two expected output errors are $0.04p$ and $0.04(1-p)$. The preferred scale under this output objective switches at $p=1/2$, although weight SSE always prefers scale 1. Cancellation of signed residual contributions explains the zero output error on one direction. These two scales are only illustrative candidates, not the global optimum or a measured result of a PTQ method.
+
 ## Methods
 
 Each method has its own page:

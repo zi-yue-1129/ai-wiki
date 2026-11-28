@@ -49,11 +49,11 @@ $$
 | 2 | 1.25 | 0.8125 | 0.59765625 |
 | 5 | 1.90625 | 0.9765625 | 0.00933837890625 |
 
-綠點只是符合目標統計量的其中一組可能數值，而非重建的訓練樣本。藍點代表合成激活值，橘色標記代表平均值，藍色線段跨越兩個數值。關鍵影格為精確的梯度下降迭代結果，中間位置及損失長條採插值以利理解；循環重設不是最佳化步驟。教師模型始終不更新。僅匹配少量統計矩無法唯一識別分布，也不能保證隱私，因為不同分布可能有相同的統計矩。數值皆為人工示意，並非模型實測結果。
+綠點只是符合目標統計量的其中一組可能數值，而非重建的訓練樣本。藍點代表合成激活值，橘色標記代表平均值，藍色線段跨越兩個數值。合成特徵值在精確的梯度下降迭代結果之間採插值移動，以利理解。對數圖上的綠色標記與橘色線性損失長條只在每次更新完成時改變，顯示上一個已完成迭代的損失，而不是插值損失。由於 $L_k/L_0=4^{-k}$，對數圖的縱軸為 $\log_2(L_k/L_0)=-2k$；即使線性長條接近零，仍能看出收斂進程。循環重設不是最佳化步驟。教師模型始終不更新。僅匹配少量統計矩無法唯一識別分布，也不能保證隱私，因為不同分布可能有相同的統計矩。數值皆為人工示意，並非模型實測結果。
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="合成特徵值經五次梯度更新逐漸接近目標平均值 2 與標準差 1，損失長條同步縮短。">
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="合成特徵值逐漸接近目標平均值 2 與標準差 1；每次更新完成時，對數損失標記下降、線性損失長條縮短。">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-moment-descent-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" alt="合成特徵值經五次梯度更新逐漸接近目標平均值 2 與標準差 1，損失長條同步縮短。" width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-moment-descent-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" alt="合成特徵值逐漸接近目標平均值 2 與標準差 1；每次更新完成時，對數損失標記下降、線性損失長條縮短。" width="640" height="360">
 </div>
 </div>
 
