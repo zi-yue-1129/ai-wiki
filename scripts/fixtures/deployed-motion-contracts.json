@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "wav2vec-window-hop": {
+      "origins": [
+        {
+          "origin_blob": "79f98e0b479f0cffa96c90982f4e7772c968a3d7",
+          "origin_commit": "f6dd3a8b11e11525b0f2e74dc9e8866a7a4a6658",
+          "path": "docs/assets/concept-animations/wav2vec-window-hop-motion.svg"
+        },
+        {
+          "origin_blob": "2287c84632e5b9ea463cb68709961ee2ba36cc41",
+          "origin_commit": "f6dd3a8b11e11525b0f2e74dc9e8866a7a4a6658",
+          "path": "docs/assets/concept-animations/wav2vec-window-hop-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "wav2vec-mask-overlap": {
+      "origins": [
+        {
+          "origin_blob": "1762725ee38dcede8e03c703f9760f87d01f9f19",
+          "origin_commit": "f6dd3a8b11e11525b0f2e74dc9e8866a7a4a6658",
+          "path": "docs/assets/concept-animations/wav2vec-mask-overlap-motion.svg"
+        },
+        {
+          "origin_blob": "4af38782e7ba49d0eba4a4836049eacb74f72b3d",
+          "origin_commit": "f6dd3a8b11e11525b0f2e74dc9e8866a7a4a6658",
+          "path": "docs/assets/concept-animations/wav2vec-mask-overlap-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "wav2vec-contrastive-normalization": {
       "origins": [
         {
