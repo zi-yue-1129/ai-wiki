@@ -1,5 +1,5 @@
 ---
-translation_reviewed: 2026-11-17
+translation_reviewed: 2026-11-28
 related:
   - theory/models/recommender
 ---
@@ -46,12 +46,50 @@ NeuMF 結合兩條路徑，且論文允許每條路徑學習各自的嵌入。
 
 ## 結果
 
-論文在兩個資料集上評估。MovieLens 含 1,000,209 筆互動、6,040 名使用者與 3,706 個項目，其明確評分已轉換為隱式回饋。Pinterest 子集含 1,500,809 筆互動、55,187 名使用者與 9,916 個項目。評估協定為留一法（leave-one-out）：每位使用者保留一筆互動作為測試項目，並與該使用者未互動過的 100 個抽樣項目一起排序。指標為命中率（HR@10）與 NDCG@10。比較基準包含 ItemPop、以項目為基礎的最近鄰方法（ItemKNN）、BPR 與 eALS。
+論文在兩個資料集上評估。MovieLens 含 1,000,209 筆互動、6,040 名使用者與 3,706 個項目，其明確評分已轉換為隱式回饋。Pinterest 子集含 1,500,809 筆互動、55,187 名使用者與 9,916 個項目。評估協定為留一法（leave-one-out）：每位使用者保留最新一筆互動作為測試項目，並與該使用者未互動過的 100 個抽樣項目一起排序。指標為命中率（HR@10）與 NDCG@10。比較基準包含 ItemPop、以項目為基礎的最近鄰方法（ItemKNN）、BPR 與 eALS。[^ncf-protocol]
 
 - 使用預訓練時，MovieLens 上 64 個因子的 NeuMF 達到 HR@10 0.730、NDCG@10 0.447。
 - Pinterest 上 8 個因子、使用預訓練的 NeuMF 達到 HR@10 0.878、NDCG@10 0.555。
 - 相較於 eALS 與 BPR 基準，平均相對提升分別為 4.5% 與 4.9%。
 - 堆疊 MLP 層也有幫助。MovieLens 上 8 個因子的模型，HR@10 從沒有隱藏層時的 0.452 提升到四層時的 0.678。作者也指出，沒有隱藏層的模型並不優於非個人化的 ItemPop 基準。
+
+## 如何解讀評估
+
+### 只有一個留出項目時的 HR 與 NDCG
+
+令 $r_u$ 為測試使用者 $u$ 的留出項目在所選候選集合中的名次，從一開始計數；$K$ 為截斷位置。在二元相關性且恰有一個相關項目的設定下，每位使用者的貢獻為[^sampled-metrics]
+
+$$h_K(r)=\mathbf{1}[r\le K],\qquad d_K(r)=\frac{\mathbf{1}[r\le K]}{\log_2(r+1)}.$$
+
+條件成立時指示函數為一，否則為零。此設定的理想折損增益為一。對測試使用者集合 $T$ 取平均，得到
+
+$$\mathrm{HR}@K=\frac{1}{|T|}\sum_{u\in T}h_K(r_u),\qquad \mathrm{NDCG}@K=\frac{1}{|T|}\sum_{u\in T}d_K(r_u).$$
+
+這些只有一個正例時的公式，不能取代多個相關項目或分級相關性設定下的一般 NDCG 定義。
+
+### 算例：抽樣時命中，完整候選集合卻未進入前 K 名
+
+這是**人工評估範例**，不是 NeuMF 的訓練結果。固定模型對七個合格候選項目的分數：留出正例為 $6$，另外三個項目為 $9,8,7$，其餘三個為 $5,4,3$。評估只將留出項目標為相關，且沒有同分。在全部七個候選項目中，正例名次為 $4$，所以 HR@2 與 NDCG@2 都為零。
+
+現在保留正例，並從其餘六個候選項目中均勻、**不放回**地抽兩個。不放回是此人工範例的規則，並非對 NCF 論文新增的敘述。共有 $\binom{6}{2}=15$ 個等機率子集合。令 $H$ 為抽樣項目中分數高於正例的數量：
+
+| 分數高於正例的抽樣項目數 $H$ | 機率 | 正例的抽樣名次 | HR@2 貢獻 | NDCG@2 貢獻 |
+|---|---|---|---|---|
+| $0$ | $3/15$ | $1$ | $1$ | $1$ |
+| $1$ | $9/15$ | $2$ | $1$ | $1/\log_2(3)\approx0.6309$ |
+| $2$ | $3/15$ | $3$ | $0$ | $0$ |
+
+兩個低分項目的組合有 $\binom{3}{2}=3$ 種，一高一低有 $3\cdot3=9$ 種，兩個高分項目的組合有 $\binom{3}{2}=3$ 種。因此，此抽樣程序的精確期望值為
+
+$$\mathbb{E}[\mathrm{HR}@2]=\frac{12}{15}=0.8,\qquad \mathbb{E}[\mathrm{NDCG}@2]=\frac{3}{15}+\frac{9}{15\log_2(3)}\approx0.5786.$$
+
+模型分數完全沒有改變，是移除競爭項目改變了評估所用的名次。上述期望值描述單一測試案例的重複抽樣，並非真實使用者群體的平均結果。未觀察候選項目的評估標籤，也不能證明使用者不喜歡它們。
+
+### 比較報告中的分數
+
+NCF 協定將一個正例與 100 個抽樣項目一起排序，因此 HR@10 與 NDCG@10 針對的是含 101 個項目的候選集合。[^ncf-protocol] Krichene 與 Rendle 的研究指出，抽樣排序指標甚至可能在期望值上改變推薦模型之間的相對優劣。[^sampled-metrics]
+
+為了讓比較可以重現，應交代候選池、排除的歷史紀錄、抽樣數量與分布、是否放回與同分處理、留出資料的切分方式，以及截斷位置。比較不同模型時使用相同的評估候選項目，並區分評估抽樣與訓練所用的負例抽樣。重複抽樣可以量化變異，但本身無法消除與完整候選集合評估之間的差異。[^sampled-metrics]
 
 ## 限制
 
@@ -75,11 +113,15 @@ NCF 保留了[推薦系統](index.md)概述與[嵌入](../embeddings/index.md)�
 - 在這兩個資料集之外，學得的互動函數比調校良好的內積多出多少效益，論文的實驗並未定論。
 - 論文以 100 個抽樣負例對每個留出的項目排序，因此其數字無法直接說明在完整目錄上排序的表現。
 
+[^ncf-protocol]: He et al.（2017，下方參考文獻），§4.1 說明以最新互動留出測試、抽取 100 個比較項目，並對使用者平均 HR 與 NDCG。https://arxiv.org/pdf/1708.05031
+[^sampled-metrics]: Krichene & Rendle（2021，下方參考文獻），§2 定義單一相關項目的指標；§3 與 §6 討論抽樣指標的偏差。https://ijcai.org/proceedings/2021/651
+
 ## 參考文獻
 
 ### 開創性論文
 
 - He, X., Liao, L., Zhang, H., Nie, L., Hu, X. & Chua, T.-S. (2017). Neural collaborative filtering. In *Proceedings of the 26th International Conference on World Wide Web (WWW 2017)*, pp. 173–182. https://doi.org/10.1145/3038912.3052569 — 本頁的來源：NeuMF、其資料集、留一法協定，以及 HR@10 與 NDCG@10 結果。
+- Krichene, W. & Rendle, S. (2021). *On Sampled Metrics for Item Recommendation (Extended Abstract).* IJCAI-21, pp. 4784–4788. https://ijcai.org/proceedings/2021/651 — 定義單一相關項目的排序指標，並說明抽樣評估為何可能改變模型的相對優劣。
 - Koren, Y., Bell, R. & Volinsky, C. (2009). Matrix factorization techniques for recommender systems. *Computer*, 42, pp. 30–37. https://doi.org/10.1109/MC.2009.263 — NCF 所推廣的內積模型。
 - Rendle, S., Freudenthaler, C., Gantner, Z. & Schmidt-Thieme, L. (2012). *BPR: Bayesian Personalized Ranking from Implicit Feedback*. arXiv:1205.2618，首次發表於 UAI 2009。https://arxiv.org/abs/1205.2618 — NCF 所比較的 BPR 基準，以及 NCF 留待未來研究的配對目標。
 - Sarwar, B., Karypis, G., Konstan, J. & Riedl, J. (2001). Item-based collaborative filtering recommendation algorithms. In *Proceedings of the 10th International World Wide Web Conference (WWW10)*, pp. 285–295. https://doi.org/10.1145/371920.372071 — 項目為基礎的鄰域協同過濾基準，作為背景引用。

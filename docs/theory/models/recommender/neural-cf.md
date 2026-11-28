@@ -56,12 +56,50 @@ The moving markers highlight **parallel computation and feature fusion**, not se
 
 ## Results
 
-The paper evaluates on two datasets. MovieLens has 1,000,209 interactions, 6,040 users and 3,706 items, with the explicit ratings converted to implicit feedback. The Pinterest subset has 1,500,809 interactions, 55,187 users and 9,916 items. The protocol is leave-one-out: one interaction of each user is held out as the test item, and it is ranked against 100 sampled items the user has not interacted with. Hit ratio (HR@10) and NDCG@10 measure the result. The baselines include ItemPop, item-based nearest neighbours (ItemKNN), BPR and eALS.
+The paper evaluates on two datasets. MovieLens has 1,000,209 interactions, 6,040 users and 3,706 items, with the explicit ratings converted to implicit feedback. The Pinterest subset has 1,500,809 interactions, 55,187 users and 9,916 items. The protocol is leave-one-out: each user's latest interaction is held out as the test item, and it is ranked against 100 sampled items the user has not interacted with. Hit ratio (HR@10) and NDCG@10 measure the result. The baselines include ItemPop, item-based nearest neighbours (ItemKNN), BPR and eALS.[^ncf-protocol]
 
 - With pre-training, NeuMF on MovieLens with 64 factors reaches HR@10 of 0.730 and NDCG@10 of 0.447.
 - On Pinterest with 8 factors, NeuMF with pre-training reaches HR@10 of 0.878 and NDCG@10 of 0.555.
 - The average relative improvement over the eALS and BPR baselines is 4.5% and 4.9%.
 - Stacking MLP layers also helps. On MovieLens with 8 factors, HR@10 rises from 0.452 with no hidden layers to 0.678 with four layers. The authors also note that a model with no hidden layers is not better than the non-personalised ItemPop baseline.
+
+## Interpreting the evaluation
+
+### HR and NDCG with one held-out item
+
+Let $r_u$ be the held-out item's one-based rank for test user $u$ in the chosen candidate set, and let $K$ be the cutoff. With binary relevance and exactly one relevant item, the per-user contributions are[^sampled-metrics]
+
+$$h_K(r)=\mathbf{1}[r\le K],\qquad d_K(r)=\frac{\mathbf{1}[r\le K]}{\log_2(r+1)}.$$
+
+The indicator is one when its condition holds and zero otherwise. The ideal discounted gain is one in this setting. Averaging over the set $T$ of test users gives
+
+$$\mathrm{HR}@K=\frac{1}{|T|}\sum_{u\in T}h_K(r_u),\qquad \mathrm{NDCG}@K=\frac{1}{|T|}\sum_{u\in T}d_K(r_u).$$
+
+These single-positive formulas do not replace the general NDCG definition for multiple relevant items or graded relevance.
+
+### Worked example: a sampled hit can miss the full top-K
+
+This is an **invented evaluation example**, not a result from training NeuMF. Fix a model's scores on seven eligible candidates: the held-out positive has score $6$; three other candidates score $9,8,7$, and three score $5,4,3$. The evaluation labels only the held-out item as relevant. There are no ties. On all seven candidates, its rank is $4$, so both HR@2 and NDCG@2 are zero.
+
+Now keep the positive and sample two of the other six candidates uniformly **without replacement**. This replacement rule is part of this toy example, not an additional claim about the NCF paper. There are $\binom{6}{2}=15$ equally likely subsets. Let $H$ count sampled items with higher scores than the positive:
+
+| Higher-scoring sampled items $H$ | Probability | Positive's sampled rank | HR@2 contribution | NDCG@2 contribution |
+|---|---|---|---|---|
+| $0$ | $3/15$ | $1$ | $1$ | $1$ |
+| $1$ | $9/15$ | $2$ | $1$ | $1/\log_2(3)\approx0.6309$ |
+| $2$ | $3/15$ | $3$ | $0$ | $0$ |
+
+The counts are $\binom{3}{2}=3$ pairs of lower-scoring items, $3\cdot3=9$ mixed pairs, and $\binom{3}{2}=3$ pairs of higher-scoring items. Thus the exact expectations over this sampling process are
+
+$$\mathbb{E}[\mathrm{HR}@2]=\frac{12}{15}=0.8,\qquad \mathbb{E}[\mathrm{NDCG}@2]=\frac{3}{15}+\frac{9}{15\log_2(3)}\approx0.5786.$$
+
+No model score changed: removing competitors changed the rank being measured. These expectations describe repeated samples for this single test case, not averages from a real user population. The unobserved candidates' evaluation labels do not establish that the user dislikes them.
+
+### Comparing reported scores
+
+The NCF protocol ranks one positive with 100 sampled items, so its HR@10 and NDCG@10 concern a 101-item candidate set.[^ncf-protocol] Krichene and Rendle show that sampled ranking metrics can even change the relative ordering of recommenders in expectation.[^sampled-metrics]
+
+For a reproducible comparison, state the candidate pool, excluded history, sample count and distribution, replacement and tie rules, held-out split, and cutoff. Use the same evaluation candidates across compared models. Distinguish this evaluation sampling from the negative samples used to train the model. Repeating random samples can quantify variability; it does not by itself remove the difference from full-candidate evaluation.[^sampled-metrics]
 
 ## Limitations
 
@@ -85,11 +123,15 @@ NCF keeps the embedding view of recommendation from the [Recommender Systems](in
 - How much a learned interaction function adds over a well-tuned inner product, on data other than these two, is not settled by the paper's experiments.
 - The paper ranks each held-out item against 100 sampled negatives. Its numbers therefore do not directly show performance when ranking the full catalogue.
 
+[^ncf-protocol]: He et al. (2017, below), §4.1 specifies latest-interaction holdout, 100 sampled comparison items, and user-averaged HR and NDCG. https://arxiv.org/pdf/1708.05031
+[^sampled-metrics]: Krichene & Rendle (2021, below), §2 defines single-relevant-item metrics; §3 and §6 discuss sampling bias. https://ijcai.org/proceedings/2021/651
+
 ## References
 
 ### Seminal papers
 
 - He, X., Liao, L., Zhang, H., Nie, L., Hu, X. & Chua, T.-S. (2017). Neural collaborative filtering. In *Proceedings of the 26th International Conference on World Wide Web (WWW 2017)*, pp. 173–182. https://doi.org/10.1145/3038912.3052569 — The source of this page: NeuMF, its datasets, leave-one-out protocol and HR@10 and NDCG@10 results.
+- Krichene, W. & Rendle, S. (2021). *On Sampled Metrics for Item Recommendation (Extended Abstract).* IJCAI-21, pp. 4784–4788. https://ijcai.org/proceedings/2021/651 — Defines single-relevant-item ranking metrics and explains why sampled evaluation can change comparisons between recommenders.
 - Koren, Y., Bell, R. & Volinsky, C. (2009). Matrix factorization techniques for recommender systems. *Computer*, 42, pp. 30–37. https://doi.org/10.1109/MC.2009.263 — The inner-product model that NCF generalises.
 - Rendle, S., Freudenthaler, C., Gantner, Z. & Schmidt-Thieme, L. (2012). *BPR: Bayesian Personalized Ranking from Implicit Feedback*. arXiv:1205.2618, first published at UAI 2009. https://arxiv.org/abs/1205.2618 — The pairwise BPR baseline that NCF is compared against, and the pairwise objective it leaves to future work.
 - Sarwar, B., Karypis, G., Konstan, J. & Riedl, J. (2001). Item-based collaborative filtering recommendation algorithms. In *Proceedings of the 10th International World Wide Web Conference (WWW10)*, pp. 285–295. https://doi.org/10.1145/371920.372071 — A neighbourhood baseline for item-based collaborative filtering, cited for context.
