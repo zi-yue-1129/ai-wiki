@@ -39,11 +39,11 @@ class TimeSeries(unittest.TestCase):
    # Long inline assistive MathML caused document overflow at 390 px.
    # Keep each new formula in an independent display block; the built-page
    # browser matrix still checks actual geometry at all three viewport widths.
-   self.assertIn('$\n'+r'e_{T,h}=y_{T+h}-\hat y_{T+h|T}'+'\n$',overview)
-   self.assertIn('$\n'+r'\mathrm{MAE}_h=\frac{1}{n}\sum_T |e_{T,h}|'+'\n$',overview)
-   self.assertIn('$\n'+r'\mathrm{RMSE}_h=\sqrt{\frac{1}{n}\sum_T e_{T,h}^2}'+'\n$',overview)
-   self.assertIn('$\n'+r'g_0(t)=1,\quad g_1(t)=t'+'\n$',nb)
-   self.assertIn('$\n'+r'f(t)=2g_0(t)+ag_1(t)=2+at'+'\n$',nb)
+   self.assertIn('$$\n'+r'e_{T,h}=y_{T+h}-\hat y_{T+h|T}'+'\n$$',overview)
+   self.assertIn('$$\n'+r'\mathrm{MAE}_h=\frac{1}{n}\sum_T |e_{T,h}|'+'\n$$',overview)
+   self.assertIn('$$\n'+r'\mathrm{RMSE}_h=\sqrt{\frac{1}{n}\sum_T e_{T,h}^2}'+'\n$$',overview)
+   self.assertIn('$$\n'+r'g_0(t)=1,\quad g_1(t)=t'+'\n$$',nb)
+   self.assertIn('$$\n'+r'f(t)=2g_0(t)+ag_1(t)=2+at'+'\n$$',nb)
 
 if __name__=='__main__':
  # This entry point is already executed by concept-animation-validation.
