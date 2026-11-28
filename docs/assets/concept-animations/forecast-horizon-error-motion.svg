@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-labelledby="title desc" font-family="Arial, sans-serif"><title id="title">Horizon-wise error</title><desc id="desc">Three forecast origins contribute absolute errors to two horizon columns. Both MAEs are two; the second horizon has greater squared error. Original CC BY-SA 4.0.</desc><rect width="640" height="360" rx="10" fill="#f8fafc"/>
+<text x="24" y="34" font-size="23" fill="#183047" text-anchor="start">Horizon-wise error</text>
+<line x1="24" y1="48" x2="616" y2="48" stroke="#d6e0ea" stroke-width="2" />
+<text x="26" y="76" font-size="18" fill="#183047" text-anchor="start">Absolute errors</text>
+<text x="324" y="76" font-size="18" fill="#183047" text-anchor="start">Accumulated squared error</text>
+<text x="85" y="107" font-size="15" fill="#526579" text-anchor="middle">Origin</text>
+<text x="178" y="107" font-size="16" fill="#315c85" text-anchor="middle">h = 1</text>
+<text x="264" y="107" font-size="16" fill="#08766f" text-anchor="middle">h = 2</text>
+<rect x="30" y="120" width="110" height="37" rx="4" fill="#e6edf4" />
+<text x="85" y="145" font-size="18" fill="#183047" text-anchor="middle">4</text>
+<rect x="145" y="120" width="66" height="37" rx="4" fill="#e6edf4" />
+<rect x="231" y="120" width="66" height="37" rx="4" fill="#e6edf4" />
+<g opacity="0"><animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.25;0.5;0.75;1" dur="12s" repeatCount="indefinite" calcMode="discrete"/>
+<rect x="145" y="120" width="66" height="37" rx="4" fill="#315c85" />
+<text x="178" y="145" font-size="19" fill="white" text-anchor="middle">1</text>
+<rect x="231" y="120" width="66" height="37" rx="4" fill="#08766f" />
+<text x="264" y="145" font-size="19" fill="white" text-anchor="middle">1</text>
+</g>
+<rect x="30" y="166" width="110" height="37" rx="4" fill="#e6edf4" />
+<text x="85" y="191" font-size="18" fill="#183047" text-anchor="middle">5</text>
+<rect x="145" y="166" width="66" height="37" rx="4" fill="#e6edf4" />
+<rect x="231" y="166" width="66" height="37" rx="4" fill="#e6edf4" />
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.25;0.5;0.75;1" dur="12s" repeatCount="indefinite" calcMode="discrete"/>
+<rect x="145" y="166" width="66" height="37" rx="4" fill="#315c85" />
+<text x="178" y="191" font-size="19" fill="white" text-anchor="middle">2</text>
+<rect x="231" y="166" width="66" height="37" rx="4" fill="#08766f" />
+<text x="264" y="191" font-size="19" fill="white" text-anchor="middle">1</text>
+</g>
+<rect x="30" y="212" width="110" height="37" rx="4" fill="#e6edf4" />
+<text x="85" y="237" font-size="18" fill="#183047" text-anchor="middle">6</text>
+<rect x="145" y="212" width="66" height="37" rx="4" fill="#e6edf4" />
+<rect x="231" y="212" width="66" height="37" rx="4" fill="#e6edf4" />
+<g opacity="0"><animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.25;0.5;0.75;1" dur="12s" repeatCount="indefinite" calcMode="discrete"/>
+<rect x="145" y="212" width="66" height="37" rx="4" fill="#315c85" />
+<text x="178" y="237" font-size="19" fill="white" text-anchor="middle">3</text>
+<rect x="231" y="212" width="66" height="37" rx="4" fill="#08766f" />
+<text x="264" y="237" font-size="19" fill="white" text-anchor="middle">4</text>
+</g>
+<text x="324" y="139" font-size="16" fill="#315c85" text-anchor="start">h = 1</text>
+<rect x="383" y="124" width="207" height="22" rx="4" fill="#e6edf4" />
+<rect x="383" y="124" width="0" height="22" rx="3" fill="#315c85"><animate attributeName="width" values="0;11.5;57.5;161;0" keyTimes="0;0.25;0.5;0.75;1" dur="12s" repeatCount="indefinite" calcMode="discrete"/></rect>
+<text x="324" y="201" font-size="16" fill="#08766f" text-anchor="start">h = 2</text>
+<rect x="383" y="186" width="207" height="22" rx="4" fill="#e6edf4" />
+<rect x="383" y="186" width="0" height="22" rx="3" fill="#08766f"><animate attributeName="width" values="0;11.5;23;207;0" keyTimes="0;0.25;0.5;0.75;1" dur="12s" repeatCount="indefinite" calcMode="discrete"/></rect>
+<line x1="383" y1="214" x2="383" y2="220" stroke="#526579" stroke-width="2" />
+<text x="383" y="236" font-size="13" fill="#526579" text-anchor="middle">0</text>
+<line x1="452" y1="214" x2="452" y2="220" stroke="#526579" stroke-width="2" />
+<text x="452" y="236" font-size="13" fill="#526579" text-anchor="middle">6</text>
+<line x1="521" y1="214" x2="521" y2="220" stroke="#526579" stroke-width="2" />
+<text x="521" y="236" font-size="13" fill="#526579" text-anchor="middle">12</text>
+<line x1="590" y1="214" x2="590" y2="220" stroke="#526579" stroke-width="2" />
+<text x="590" y="236" font-size="13" fill="#526579" text-anchor="middle">18</text>
+<g opacity="0"><animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.25;0.5;0.75;1" dur="12s" repeatCount="indefinite" calcMode="discrete"/>
+<rect x="24" y="254" width="592" height="82" rx="4" fill="#e6edf4" />
+<text x="42" y="282" font-size="17" fill="#526579" text-anchor="start">MAE</text>
+<text x="164" y="282" font-size="21" fill="#315c85" text-anchor="start">2.00</text>
+<text x="264" y="282" font-size="21" fill="#08766f" text-anchor="start">2.00</text>
+<text x="42" y="314" font-size="17" fill="#526579" text-anchor="start">RMSE</text>
+<text x="164" y="314" font-size="21" fill="#315c85" text-anchor="start">2.16</text>
+<text x="264" y="314" font-size="21" fill="#08766f" text-anchor="start">2.45</text>
+<text x="410" y="282" font-size="17" fill="#183047" text-anchor="start">Same MAE</text>
+<text x="410" y="314" font-size="17" fill="#183047" text-anchor="start">Different RMSE</text>
+</g>
+<circle cx="17" cy="138" r="5" fill="#a05c20"><animate attributeName="cy" values="138;138;184;230;138" keyTimes="0;0.25;0.5;0.75;1" dur="12s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;1;1;0;1" keyTimes="0;0.25;0.5;0.75;1" dur="12s" repeatCount="indefinite" calcMode="discrete"/></circle>
+</svg>

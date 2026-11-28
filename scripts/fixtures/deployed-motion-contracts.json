@@ -458,6 +458,126 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "deepar-coupling-totals": {
+      "origins": [
+        {
+          "origin_blob": "bc99d53f057cc288c6cbcaf182359e9a85740b7d",
+          "origin_commit": "0eaab6abfcaa14e19a86069856f42bd001c9d346",
+          "path": "docs/assets/concept-animations/deepar-coupling-totals-motion.svg"
+        },
+        {
+          "origin_blob": "bebbd38beff9f9bdf4ddb87778cd58b9625e4269",
+          "origin_commit": "0eaab6abfcaa14e19a86069856f42bd001c9d346",
+          "path": "docs/assets/concept-animations/deepar-coupling-totals-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "informer-value-error": {
+      "origins": [
+        {
+          "origin_blob": "0029086c085a55a27bbb912eaf138a6dd3479978",
+          "origin_commit": "0eaab6abfcaa14e19a86069856f42bd001c9d346",
+          "path": "docs/assets/concept-animations/informer-value-error-motion.svg"
+        },
+        {
+          "origin_blob": "1d698c2e13a318b06481f263bc43029a9a014e64",
+          "origin_commit": "0eaab6abfcaa14e19a86069856f42bd001c9d346",
+          "path": "docs/assets/concept-animations/informer-value-error-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "deepar-path-sums": {
+      "origins": [
+        {
+          "origin_blob": "f8451c937fc17a6a799479ed983b5e9d7ea53e8f",
+          "origin_commit": "b013d6f8db2b8e8c8382acc5bc48af4cb86956d7",
+          "path": "docs/assets/concept-animations/deepar-path-sums-motion.svg"
+        },
+        {
+          "origin_blob": "c838d7fe697111ead266bbcf4bb2c728154c992a",
+          "origin_commit": "b013d6f8db2b8e8c8382acc5bc48af4cb86956d7",
+          "path": "docs/assets/concept-animations/deepar-path-sums-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "informer-probsparse-query": {
+      "origins": [
+        {
+          "origin_blob": "cf924327a9faa6bbec57404d3b1a0b56cf8b1b4e",
+          "origin_commit": "b013d6f8db2b8e8c8382acc5bc48af4cb86956d7",
+          "path": "docs/assets/concept-animations/informer-probsparse-query-motion.svg"
+        },
+        {
+          "origin_blob": "70a087b231d5021cd0d9178ae04f16bdf9c879cc",
+          "origin_commit": "b013d6f8db2b8e8c8382acc5bc48af4cb86956d7",
+          "path": "docs/assets/concept-animations/informer-probsparse-query-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "forecast-horizon-error": {
+      "origins": [
+        {
+          "origin_blob": "062521fca87fb52cedb12275abcf0f4cd37f28e5",
+          "origin_commit": "2bc7061f8ddc55e83c1ba4bbb42e98f966d3224b",
+          "path": "docs/assets/concept-animations/forecast-horizon-error-motion.svg"
+        },
+        {
+          "origin_blob": "24eb1c6b6f6f1fa624584b6b0f3446ea9f7d7794",
+          "origin_commit": "2bc7061f8ddc55e83c1ba4bbb42e98f966d3224b",
+          "path": "docs/assets/concept-animations/forecast-horizon-error-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "nbeats-basis-expansion": {
+      "origins": [
+        {
+          "origin_blob": "0fda91b211628f8e09342b35013cc42271e22621",
+          "origin_commit": "2bc7061f8ddc55e83c1ba4bbb42e98f966d3224b",
+          "path": "docs/assets/concept-animations/nbeats-basis-expansion-motion.svg"
+        },
+        {
+          "origin_blob": "fcb68d29e19e2513b74407f26ab8d91ae862258c",
+          "origin_commit": "2bc7061f8ddc55e83c1ba4bbb42e98f966d3224b",
+          "path": "docs/assets/concept-animations/nbeats-basis-expansion-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "rolling-origin-forecast-evaluation": {
+      "origins": [
+        {
+          "origin_blob": "2049bd589b4c79a2e10a5c7e757a1bed913c1419",
+          "origin_commit": "03ce7a92750fe798034d3c384ee8dead80c6bf5b",
+          "path": "docs/assets/concept-animations/rolling-origin-forecast-evaluation-motion.svg"
+        },
+        {
+          "origin_blob": "bb7f99d1d2192e188426026fb3811e1dd26a5555",
+          "origin_commit": "03ce7a92750fe798034d3c384ee8dead80c6bf5b",
+          "path": "docs/assets/concept-animations/rolling-origin-forecast-evaluation-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "nbeats-double-residual": {
+      "origins": [
+        {
+          "origin_blob": "aaa96c6d4ce7a63f8e57f840535b4deb1f72f23c",
+          "origin_commit": "03ce7a92750fe798034d3c384ee8dead80c6bf5b",
+          "path": "docs/assets/concept-animations/nbeats-double-residual-motion.svg"
+        },
+        {
+          "origin_blob": "f32e58ccd768e5832cffcd68aa22af2e9c343f47",
+          "origin_commit": "03ce7a92750fe798034d3c384ee8dead80c6bf5b",
+          "path": "docs/assets/concept-animations/nbeats-double-residual-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

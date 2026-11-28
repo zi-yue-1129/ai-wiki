@@ -40,6 +40,54 @@ The max-mean $\overline M$ above is an approximation, not the original KL-derive
 
 **Generative decoder.** The decoder input concatenates a start-token segment, taken from the known history just before the target, with zero placeholders for the target window. Masked attention and a fully connected layer then produce every future step together. Because no prediction is fed back as input, the decoder avoids the error accumulation of step-by-step inference.
 
+### Worked example: select queries, not individual keys
+
+Use three toy query rows, four keys and scalar values (0, 4, 8, 12). The table displays exponentiated scaled logits, so their logarithms are the logits used to calculate the max-mean scores in Equation 4 of Zhou et al. (2021). For this example only, evaluate all four logits to isolate the ranking mechanism and set the query budget to one. This is not the actual sampled score estimator or a benchmark of its computational cost.
+
+| Query | Exponentiated logits | Max-mean score | Dense context | Sparse context |
+| --- | --- | ---: | ---: | ---: |
+| Q1 | (1, 1, 1, 1) | 0 | 6 | 6 |
+| Q2 | (1, 1, 1, 9) | 1.648 | 10 | 10 |
+| Q3 | (2, 1, 1, 1) | 0.520 | 4.8 | 6 |
+
+The maximum-minus-mean score of Q2 is three quarters of the natural logarithm of 9. It is the highest, so its entire row is selected, not just its largest key. Its exact softmax-weighted context is:
+
+$
+\frac{0+4+8+9\cdot12}{12}=10
+$
+
+The unselected queries use the mean value 6 in this unmasked encoder illustration. Q1 happens to match its dense output, but Q3 differs by 1.2. The growing connectors illustrate context computation after selection, not measured execution time. The mean-value rule does not apply unchanged to the causal decoder, and a finite query budget can introduce approximation error. All numbers are constructed for instruction.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Three queries are ranked by max-mean logit score; the top query uses full attention and the other two use the mean value.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/informer-probsparse-query-still.svg" data-motion-src="../../../assets/concept-animations/informer-probsparse-query-motion.svg" data-still-src="../../../assets/concept-animations/informer-probsparse-query-still.svg" alt="Three queries are ranked by max-mean logit score; the top query uses full attention and the other two use the mean value." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/informer-probsparse-query-still.svg) and [full SVG animation](../../../assets/concept-animations/informer-probsparse-query-motion.svg).
+
+### Worked example: a query score does not rank output errors
+
+Keep the logits and query budget from the preceding example fixed, but vary the fourth scalar value from 12 to 4, leaving the first three at (0, 4, 8). Call the fourth value $v$. The scores remain 1.648 for Q2 and 0.520 for Q3, so the fixed-budget selector always chooses Q2. If either query were skipped and replaced by the value mean, its absolute context error would be:
+
+$
+E_2(v)=v/2-2
+$
+
+$
+E_3(v)=(12+v)/20
+$
+
+These formulas hold over the illustrated range, from 4 through 12. The two error curves cross at 52/9. At 12, skipping Q2 would cause error 4, versus 1.2 for Q3; at 4, skipping Q2 would cause no error, versus 0.8 for Q3. Q1 is uniform and has zero skipped error throughout. With budget one at the latter endpoint, selecting Q3 instead would eliminate all context approximation error. The chart displays the counterfactual error **if skipped**, not the actual error of selected Q2 (which is zero). The max-mean score measures logit concentration, not value-dependent output reconstruction error. This is an exact toy counterexample, not a proposed replacement selector, a trained model measurement, or an assertion about forecast accuracy.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Fixed query scores select Q2 while a moving value changes the counterfactual skipped-context errors of Q2 and Q3.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/informer-value-error-still.svg" data-motion-src="../../../assets/concept-animations/informer-value-error-motion.svg" data-still-src="../../../assets/concept-animations/informer-value-error-still.svg" alt="Fixed query scores select Q2 while a moving value changes the counterfactual skipped-context errors of Q2 and Q3." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/informer-value-error-still.svg) and [full SVG animation](../../../assets/concept-animations/informer-value-error-motion.svg).
+
 ## Results
 
 The paper evaluates on electricity transformer temperature datasets (ETTh1, ETTh2, ETTm1), electricity consumption (ECL) and weather data. Its univariate tables report mean squared error and mean absolute error averaged over the forecast window. At the longest univariate horizon for ETTh1, which is 720 steps, Informer reports an MSE of 0.269, against 0.658 for DeepAR on the same cell. The canonical-attention variant, labelled Informer† in the paper, reports 0.257 there, so the efficient mechanism does not win every cell. Across its univariate and multivariate tables, the authors count Informer as the best method in most settings, and they report large MSE reductions against LSTMa and against DeepAR, ARIMA and Prophet at several horizons.

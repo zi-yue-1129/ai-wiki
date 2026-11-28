@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-labelledby="title desc" font-family="Arial, sans-serif"><title id="title">Polynomial basis expansion</title><desc id="desc">A constant and a linear basis are added. Changing the slope coefficient tilts the sum while the intercept stays fixed. Inference uses fixed coefficients. Original CC BY-SA 4.0.</desc><rect width="640" height="360" rx="10" fill="#f8fafc"/>
+<text x="24" y="34" font-size="23" fill="#183047" text-anchor="start">Polynomial basis expansion</text>
+<line x1="24" y1="48" x2="616" y2="48" stroke="#d6e0ea" stroke-width="2" />
+<text x="32" y="78" font-size="18" fill="#183047" text-anchor="start">Basis terms</text>
+<text x="338" y="78" font-size="18" fill="#183047" text-anchor="start">Sum</text>
+<line x1="42" y1="288" x2="280" y2="288" stroke="#dce5ee" stroke-width="2" />
+<text x="33" y="292" font-size="13" fill="#526579" text-anchor="end">-1</text>
+<line x1="42" y1="245" x2="280" y2="245" stroke="#dce5ee" stroke-width="2" />
+<text x="33" y="249" font-size="13" fill="#526579" text-anchor="end">0</text>
+<line x1="42" y1="202" x2="280" y2="202" stroke="#dce5ee" stroke-width="2" />
+<text x="33" y="206" font-size="13" fill="#526579" text-anchor="end">1</text>
+<line x1="42" y1="159" x2="280" y2="159" stroke="#dce5ee" stroke-width="2" />
+<text x="33" y="163" font-size="13" fill="#526579" text-anchor="end">2</text>
+<line x1="42" y1="116" x2="280" y2="116" stroke="#dce5ee" stroke-width="2" />
+<text x="33" y="120" font-size="13" fill="#526579" text-anchor="end">3</text>
+<line x1="42" y1="245" x2="280" y2="245" stroke="#526579" stroke-width="2" />
+<line x1="42" y1="288" x2="42" y2="116" stroke="#526579" stroke-width="2" />
+<text x="42" y="308" font-size="14" fill="#526579" text-anchor="middle">-1</text>
+<text x="161" y="308" font-size="14" fill="#526579" text-anchor="middle">0</text>
+<text x="280" y="308" font-size="14" fill="#526579" text-anchor="middle">1</text>
+<text x="161" y="324" font-size="15" fill="#526579" text-anchor="middle">t</text>
+<line x1="352" y1="288" x2="590" y2="288" stroke="#dce5ee" stroke-width="2" />
+<text x="343" y="292" font-size="13" fill="#526579" text-anchor="end">0</text>
+<line x1="352" y1="245" x2="590" y2="245" stroke="#dce5ee" stroke-width="2" />
+<text x="343" y="249" font-size="13" fill="#526579" text-anchor="end">1</text>
+<line x1="352" y1="202" x2="590" y2="202" stroke="#dce5ee" stroke-width="2" />
+<text x="343" y="206" font-size="13" fill="#526579" text-anchor="end">2</text>
+<line x1="352" y1="159" x2="590" y2="159" stroke="#dce5ee" stroke-width="2" />
+<text x="343" y="163" font-size="13" fill="#526579" text-anchor="end">3</text>
+<line x1="352" y1="116" x2="590" y2="116" stroke="#dce5ee" stroke-width="2" />
+<text x="343" y="120" font-size="13" fill="#526579" text-anchor="end">4</text>
+<line x1="352" y1="288" x2="590" y2="288" stroke="#526579" stroke-width="2" />
+<line x1="352" y1="288" x2="352" y2="116" stroke="#526579" stroke-width="2" />
+<text x="352" y="308" font-size="14" fill="#526579" text-anchor="middle">-1</text>
+<text x="471" y="308" font-size="14" fill="#526579" text-anchor="middle">0</text>
+<text x="590" y="308" font-size="14" fill="#526579" text-anchor="middle">1</text>
+<text x="471" y="324" font-size="15" fill="#526579" text-anchor="middle">t</text>
+<line x1="42" y1="159" x2="280" y2="159" stroke="#315c85" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="48" y="149" font-size="16" fill="#315c85" text-anchor="start">2 × 1</text>
+<text x="48" y="103" font-size="16" fill="#08766f" text-anchor="start">a × t</text>
+<line x1="42" y1="288" x2="280" y2="202" stroke="#08766f" stroke-width="3"></line>
+<line x1="352" y1="245" x2="590" y2="159" stroke="#a05c20" stroke-width="4"></line>
+<text x="360" y="103" font-size="17" fill="#a05c20" text-anchor="start">2 + a × t</text>
+<line x1="352" y1="202" x2="590" y2="202" stroke="#315c85" stroke-width="2" stroke-dasharray="6 4"/>
+<circle cx="471" cy="202" r="5" fill="#a05c20"/>
+<text x="32" y="346" font-size="16" fill="#526579" text-anchor="start">Slope a</text>
+<line x1="125" y1="340" x2="270" y2="340" stroke="#526579" stroke-width="2" />
+<text x="125" y="334" font-size="13" fill="#526579" text-anchor="middle">−1</text>
+<text x="270" y="334" font-size="13" fill="#526579" text-anchor="middle">1</text>
+<circle cx="270" cy="340" r="6" fill="#08766f"></circle>
+<text x="338" y="346" font-size="16" fill="#315c85" text-anchor="start">Fixed intercept: 2</text>
+</svg>

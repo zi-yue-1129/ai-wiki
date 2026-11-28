@@ -61,6 +61,43 @@ Values are divided by an item-specific scale $\nu_i = 1 + \frac{1}{t_0}\sum_{t=1
 
 Covariates include time features such as day of week and week of year, the age of the series since its first observation, and an embedding of the item identity. At forecast time the model uses ancestral sampling: it draws a value from the predicted distribution, feeds it back as the next input, and repeats. The experiments use 200 sample paths. Quantiles of aggregated quantities, such as weekly totals, are computed from those paths.
 
+### Worked example: preserve dependence in sampled paths
+
+Consider a toy conditional transition with last observed value 3. Each next value equals the previous value plus an independent increment of either -1 or +1 with probability one half each. This is a discrete teaching distribution, not the output of a trained DeepAR network.
+
+| Step 1 | Step 2 | Two-step sum | Probability |
+| ---: | ---: | ---: | ---: |
+| 2 | 1 | 3 | 1/4 |
+| 2 | 3 | 5 | 1/4 |
+| 4 | 3 | 7 | 1/4 |
+| 4 | 5 | 9 | 1/4 |
+
+The blue branches show the first sample; the green branches condition the next draw on that particular sample. Orange boxes sum within the same path. The figure enumerates every possible path of this toy transition, rather than displaying independent marginal draws or four actual Monte Carlo samples. In DeepAR, the conditional likelihood is instead produced by the recurrent network (Salinas et al., 2020, Section 4). Each simulated trajectory retains its own history and recurrent state.
+
+The two future values have covariance 1 and marginal variances 1 and 2. Their sum has variance 5, not 3 as independent marginal sampling would imply. Compute quantiles of a total from the distribution of path totals; in general, adding marginal quantiles does not give a quantile of the total.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Four two-step conditional branches from a last value of three yield equally likely sums three, five, seven and nine.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/deepar-path-sums-still.svg" data-motion-src="../../../assets/concept-animations/deepar-path-sums-motion.svg" data-still-src="../../../assets/concept-animations/deepar-path-sums-still.svg" alt="Four two-step conditional branches from a last value of three yield equally likely sums three, five, seven and nine." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/deepar-path-sums-still.svg) and [full SVG animation](../../../assets/concept-animations/deepar-path-sums-motion.svg).
+
+### Worked example: identical marginals, different totals
+
+Keep the same two marginal distributions as above. Compare their original joint law with the product of the two marginals. Mixing these two joint laws with independent-law weight $t$ (between zero and one) preserves both marginal distributions exactly. The probabilities of totals 3 and 9 each decrease from 1/4 to 1/8; those of totals 5 and 7 each increase from 1/4 to 3/8. The mean total stays 6, while the covariance is $1-t$ and the total variance is $5-2t$.
+
+The solid bars show the moving mixture and dashed outlines retain the original joint-law probabilities. The variance bar uses a common zero-based scale. At the independent endpoint the upper-tail probability of a total at least 9 is half its original value. The sweep illustrates hypothetical joint laws, not successive time steps, sampled paths, or a trained model's measurements. Independent marginals do not always underestimate variance: the sign of the covariance matters.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="The two marginal distributions stay fixed while the total distribution and variance change from joint to independent.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/deepar-coupling-totals-still.svg" data-motion-src="../../../assets/concept-animations/deepar-coupling-totals-motion.svg" data-still-src="../../../assets/concept-animations/deepar-coupling-totals-still.svg" alt="The two marginal distributions stay fixed while the total distribution and variance change from joint to independent." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/deepar-coupling-totals-still.svg) and [full SVG animation](../../../assets/concept-animations/deepar-coupling-totals-motion.svg).
+
 ## Results
 
 The abstract reports accuracy improvements of around 15% over state-of-the-art methods on several real-world datasets. The main metric is the normalised $\rho$-risk, which is the quantile loss summed over series and divided by the summed targets. The tables report these values relative to a baseline for each dataset, so the gains are ratios rather than absolute errors. Point forecasts on electricity and traffic are compared with a matrix-factorisation baseline, using normalised deviation and normalised RMSE. Those comparisons cover two datasets and one competitor only. The numbers quoted here come from the arXiv preprint, and the journal version may differ.

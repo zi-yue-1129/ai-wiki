@@ -57,6 +57,55 @@ The M4 and M3 models were also trained with MAPE and MASE, and the paper reports
 
 For TOURISM, model selection uses MAPE-only training (Appendix D.1); the three-loss ensemble description for M4/M3 does not apply unchanged to TOURISM.
 
+### Worked example: subtract backcasts, add forecasts
+
+Take a toy lookback vector $x_1=(3,1,5,3)$ and two blocks with horizon 2. Suppose the first block emits backcast $(2,2,4,4)$ and partial forecast $(6,6)$. Its residual $x_2=(1,-1,1,-1)$, not the original history or the partial forecast, becomes the second block's input. Suppose the second block emits backcast $(1,-1,1,-1)$ and partial forecast $(1,-1)$.
+
+| Block | Input | Backcast | Residual | Partial forecast | Accumulated forecast |
+| ---: | --- | --- | --- | --- | --- |
+| 1 | (3,1,5,3) | (2,2,4,4) | (1,-1,1,-1) | (6,6) | (6,6) |
+| 2 | (1,-1,1,-1) | (1,-1,1,-1) | (0,0,0,0) | (1,-1) | (7,5) |
+
+The blue connector carries the first residual to the next block; the green connector carries the accumulated forecast, which is updated by adding the next partial forecast. Bars share a signed zero baseline and appear at completed block operations; the blue moving marker illustrates the residual transfer. The final forecast is $(6,6)+(1,-1)=(7,5)$, not the residual or the last partial forecast. A zero backcast residual does not establish correct future prediction. These vectors are stipulated teaching outputs of the blocks, not a trained model's results or a guarantee of exact decomposition.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Two N-BEATS blocks subtract their backcasts and pass the residual to the next block while adding two partial forecasts to obtain seven and five.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/nbeats-double-residual-still.svg" data-motion-src="../../../assets/concept-animations/nbeats-double-residual-motion.svg" data-still-src="../../../assets/concept-animations/nbeats-double-residual-still.svg" alt="Two N-BEATS blocks subtract their backcasts and pass the residual to the next block while adding two partial forecasts to obtain seven and five." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/nbeats-double-residual-still.svg) and [full SVG animation](../../../assets/concept-animations/nbeats-double-residual-motion.svg).
+
+### Worked example: polynomial basis coefficients
+
+A linear trend basis is the degree-one special case of polynomial expansion. For an illustrative coordinate $t\in[-1,1]$, fix the constant coefficient at 2 and vary the linear coefficient $a$:
+
+$$
+g_0(t)=1,\quad g_1(t)=t
+$$
+
+The weighted sum is:
+
+$$
+f(t)=2g_0(t)+ag_1(t)=2+at
+$$
+
+| Coefficient a | f(-1) | f(0) | f(1) |
+| ---: | ---: | ---: | ---: |
+| -1 | 3 | 2 | 1 |
+| 0 | 2 | 2 | 2 |
+| 1 | 1 | 2 | 3 |
+
+The left plot separates the constant term (blue dashed line) from the weighted linear term (green); the right plot adds them pointwise (orange). Changing the slope coefficient changes both plots continuously while the intercept remains 2. The green bottom marker denotes the swept coefficient, not an interactive slider on the SVG. This is a sensitivity illustration, not an optimisation trajectory or a sequence of model inference steps: in N-BEATS the coefficients for a particular block input are emitted together by its head and then evaluated on the corresponding basis grid. The symmetric coordinate interval and coefficients are chosen for this teaching example, not taken from a trained N-BEATS model or its exact grid convention.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="A fixed constant term and a changing linear term sum to a trend whose slope changes while its intercept stays at two.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/nbeats-basis-expansion-still.svg" data-motion-src="../../../assets/concept-animations/nbeats-basis-expansion-motion.svg" data-still-src="../../../assets/concept-animations/nbeats-basis-expansion-still.svg" alt="A fixed constant term and a changing linear term sum to a trend whose slope changes while its intercept stays at two." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/nbeats-basis-expansion-still.svg) and [full SVG animation](../../../assets/concept-animations/nbeats-basis-expansion-motion.svg).
+
 ## Results
 
 On the M4 competition data, the combined generic-and-interpretable ensemble (N-BEATS-I+G) reaches an average sMAPE of 11.135, against 11.374 for the M4 winner, a hybrid of exponential smoothing and recurrent networks. The abstract reports 11% and 3% improvements, but these should not be read as reductions from the sMAPE values above. Table 1 reports OWA of 0.795 for N-BEATS-I+G versus 0.821 for the M4 winner, about a 3.2% reduction; its sMAPE reduction is about 2.1%. The generic and interpretable configurations are close in accuracy. The paper also reports results on the M3 and tourism datasets, where the same architecture is used without changes.

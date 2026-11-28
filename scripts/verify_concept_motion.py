@@ -15,6 +15,14 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'deepar-coupling-totals': 'theory/models/time-series/deepar',
+    'informer-value-error': 'theory/models/time-series/informer',
+    'deepar-path-sums': 'theory/models/time-series/deepar',
+    'informer-probsparse-query': 'theory/models/time-series/informer',
+    'forecast-horizon-error': 'theory/models/time-series/index',
+    'nbeats-basis-expansion': 'theory/models/time-series/n-beats',
+    'rolling-origin-forecast-evaluation': 'theory/models/time-series/index',
+    'nbeats-double-residual': 'theory/models/time-series/n-beats',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
     'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
@@ -495,7 +503,15 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'deepar-coupling-totals': '0 0 640 360',
+ 'informer-value-error': '0 0 640 360',
+ 'deepar-path-sums': '0 0 640 360',
+ 'informer-probsparse-query': '0 0 640 360',
+ 'forecast-horizon-error': '0 0 640 360',
+ 'nbeats-basis-expansion': '0 0 640 360',
+ 'rolling-origin-forecast-evaluation': '0 0 640 360',
+ 'nbeats-double-residual': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
  'kfc-patch-second-moment': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
@@ -1363,6 +1379,11 @@ def main() -> int:
                 errors.append(f"{page}: missing translation")
                 continue
             text = page.read_text(encoding="utf-8")
+            if stem in {"rolling-origin-forecast-evaluation", "nbeats-double-residual", "forecast-horizon-error", "nbeats-basis-expansion", "deepar-path-sums", "informer-probsparse-query", "deepar-coupling-totals", "informer-value-error"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                previews = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if not {static_path.resolve(), animated_path.resolve()} <= {(page.parent / link).resolve() for link in previews}:
+                    errors.append(f"{page}: missing independently clickable motion or static preview for {stem}")
             if stem in SOURCE_ALT_CONTRACT_STEMS:
                 images = [img for img in MotionImages(text).images
                           if stem in (img.get("src") or "")]

@@ -25,17 +25,73 @@ A forecast is a function from a history of observations to a prediction for one 
 
 Evaluation must respect time. A model is trained on the past and tested on a later period, and the test window is usually rolled forward over many origins, so that the result does not depend on one lucky split. Shuffling the data, as is standard in many machine-learning tasks, leaks future information into training and can overstate accuracy.
 
+### Rolling-origin evaluation without future leakage
+
+For an illustrative series $(2,4,3,5,6,4,7,8)$, use an expanding history, horizon $H=2$, and a last-value baseline $\hat y_{T+h|T}=y_T$ for both horizons. At origin $T$, only values up to $T$ may be used to issue the prediction; the next two observations are revealed only to score that fixed prediction. Repeat retrospectively at origins 4, 5 and 6.
+
+| Origin | Forecast | Held-out values | MAE |
+| ---: | --- | --- | ---: |
+| 4 | (5, 5) | (6, 4) | 1 |
+| 5 | (6, 6) | (4, 7) | 1.5 |
+| 6 | (4, 4) | (7, 8) | 3.5 |
+
+The mean across these equal-horizon folds is 2. The blue line and shaded region show the available history; the orange squares and dashed line are the fixed forecasts, and the moving orange dot illustrates their issuance, not elapsed physical time. Green points and vertical error segments appear only during scoring. The lower strip reveals each fold's MAE only after scoring. Folds overlap (an observation can be a target at different origins); this is a retrospective replay, not a single real-time process or six independent errors. Any model fitting, scaling or tuning for an origin must use only information available at that origin; later evaluation results must not influence earlier forecasts. All values are schematic, not measured model performance.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="An expanding observed history issues two fixed forecasts at each origin; held-out points and errors are revealed only when scoring, with MAEs 1, 1.5 and 3.5.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg" data-motion-src="../../../assets/concept-animations/rolling-origin-forecast-evaluation-motion.svg" data-still-src="../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg" alt="An expanding observed history issues two fixed forecasts at each origin; held-out points and errors are revealed only when scoring, with MAEs 1, 1.5 and 3.5." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg) and [full SVG animation](../../../assets/concept-animations/rolling-origin-forecast-evaluation-motion.svg).
+
+### Inspect errors by forecast horizon
+
+A pooled MAE can hide differences in the distribution of errors at different horizons. For the three origins above, define the signed forecast error:
+
+$$
+e_{T,h}=y_{T+h}-\hat y_{T+h|T}
+$$
+
+With $n=3$ origins, compute the mean absolute error and root mean squared error separately for each horizon:
+
+$$
+\mathrm{MAE}_h=\frac{1}{n}\sum_T |e_{T,h}|
+$$
+
+$$
+\mathrm{RMSE}_h=\sqrt{\frac{1}{n}\sum_T e_{T,h}^2}
+$$
+
+| Origin | Absolute error at h=1 | Absolute error at h=2 |
+| ---: | ---: | ---: |
+| 4 | 1 | 1 |
+| 5 | 2 | 1 |
+| 6 | 3 | 4 |
+| MAE | 2 | 2 |
+| RMSE | 2.16 | 2.45 |
+
+The animation reveals the scored errors one origin at a time and accumulates their squares separately in blue (horizon 1) and green (horizon 2). The sums of squares are 14 and 18, so the two RMSE values are $\sqrt{14/3}$ and $\sqrt{18/3}$. The orange dot illustrates progression between folds, not elapsed physical time. Empty cells are not yet scored. The final aggregate is shown only after all three folds; the loop reset is not an additional observation. The equal MAEs do not imply equal error distributions. Report horizon-specific scores alongside aggregates, especially when large errors matter. These are analytic toy values, not measured forecasting performance.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Three origins reveal absolute errors by horizon and accumulate their squares; both MAEs are 2 but RMSEs are 2.16 and 2.45.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/forecast-horizon-error-still.svg" data-motion-src="../../../assets/concept-animations/forecast-horizon-error-motion.svg" data-still-src="../../../assets/concept-animations/forecast-horizon-error-still.svg" alt="Three origins reveal absolute errors by horizon and accumulate their squares; both MAEs are 2 but RMSEs are 2.16 and 2.45." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/forecast-horizon-error-still.svg) and [full SVG animation](../../../assets/concept-animations/forecast-horizon-error-motion.svg).
+
 ### Comparing errors across series
 
 MASE scales forecast errors by a seasonal naïve error from the training range, not by a denominator estimated on the test set. For training length $T$, seasonal period $m$ and forecast horizon $H$:
 
-\[
+$$
 \begin{gathered}
 d_m=\frac{1}{T-m}\sum_{t=m+1}^{T}|y_t-y_{t-m}|,\\
 \mathrm{MASE}=\frac{1}{H}\sum_{h=1}^{H}
 \frac{|y_{T+h}-\hat y_{T+h|T}|}{d_m}.
 \end{gathered}
-\]
+$$
 
 Use $m=1$ for a non-seasonal series. When $d_m=0$, the ratio is undefined, not a zero error. M4 compared 100,000 series and 61 methods, but a competition advantage is not a guarantee for every application. Probabilistic forecasts also require calibration and interval evaluation rather than point errors alone. See [Hyndman and Koehler (2006)](https://doi.org/10.1016/j.ijforecast.2006.03.001), [FPP3](https://otexts.com/fpp3/toolbox.html#scaled-errors) and [Gneiting and Katzfuss (2014)](https://doi.org/10.1146/annurev-statistics-062713-085831).
 
