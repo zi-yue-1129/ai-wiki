@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "ctc-collapse-scan": {
+      "origins": [
+        {
+          "origin_blob": "6ab80c519480f280271d3ce9bad1a6eae8a79441",
+          "origin_commit": "71f51c876f2653962fe0b80e69f2864dbff792a4",
+          "path": "docs/assets/concept-animations/ctc-collapse-scan-motion.svg"
+        },
+        {
+          "origin_blob": "90ded63592ca2aca4e31dfc8f84a2445c5805829",
+          "origin_commit": "71f51c876f2653962fe0b80e69f2864dbff792a4",
+          "path": "docs/assets/concept-animations/ctc-collapse-scan-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "ctc-path-mass": {
+      "origins": [
+        {
+          "origin_blob": "31927aebf11097b962e2241d4815405165eea969",
+          "origin_commit": "71f51c876f2653962fe0b80e69f2864dbff792a4",
+          "path": "docs/assets/concept-animations/ctc-path-mass-motion.svg"
+        },
+        {
+          "origin_blob": "37cf6dce99267c31495f6662b70b0d57724e992d",
+          "origin_commit": "71f51c876f2653962fe0b80e69f2864dbff792a4",
+          "path": "docs/assets/concept-animations/ctc-path-mass-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
