@@ -153,6 +153,28 @@ $
 
 兩圖皆為人工數值算例，非模型實測值。移動圓點代表整列分布的運算貢獻，不是個別抽樣項目。MkDocs 可使用播放／暫停控制；窄螢幕可聚焦圖示後水平捲動。靜態回退圖保留完成運算的狀態。原創圖示，CC BY-SA 4.0。
 
+### 特徵編碼器：感受野與影格間距
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-window-hop-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-window-hop-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-window-hop-still.svg" alt="三個各含 400 個取樣點的卷積視窗分別自第 0、320、640 個取樣點開始，相鄰視窗重疊 80 個取樣點，產生三個潛在影格。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/wav2vec-window-hop-still.svg)
+
+原始七層卷積的步幅為 (5, 2, 2, 2, 2, 2, 2)，核寬為 (10, 3, 3, 3, 3, 2, 2)。累積步幅為 320 個取樣點，幾何卷積感受野為 400 個取樣點；在 16 kHz 下分別為 20 ms 與 25 ms。[^wav2vec] 在無填補、無膨脹的情況下，圖中 1,040 個取樣點產生三個輸出，半開支撐區間為 [0,400)、[320,720)、[640,1040)，相鄰視窗重疊 80 個取樣點。掃描呈現卷積支撐範圍，不代表循序執行、串流延遲或上下文表徵的完整依賴範圍；正規化也可能耦合不同位置。波形為人工示意。
+
+### 區段遮罩：重疊位置僅計算一次
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-mask-overlap-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-mask-overlap-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-mask-overlap-still.svg" alt="兩個長度為四的遮罩區段分別涵蓋第 2 至 5 與第 4 至 7 個影格；第 4、5 個影格重疊且僅計算一次，因此八個影格中有六個被遮罩。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/wav2vec-mask-overlap-still.svg)
+
+原始方法不放回地抽取不同的起始索引，並遮罩連續的潛在時間步；區段允許重疊。[^wav2vec] 在此八影格人工算例中，兩個長度為四的區段分別從第 2、4 個位置開始（索引從一開始）。交集為第 4、5 個位置，因此聯集只有六個影格，而非八個。上下文輸入的每個涵蓋位置只替換一次，共用同一個可學習遮罩向量；量化器輸入仍保持未遮罩。此例 75% 的覆蓋率並非原始模型實測遮罩比例；原始論文使用長度 10 及起始位置比例 0.065。逐步掃描為教學示意，並非實作限制。
+
+兩圖皆為教學示意，非模型實測。MkDocs 可使用播放／暫停控制，聚焦圖形可水平捲動；靜態回退呈現完成狀態。原創圖形採 CC BY-SA 4.0 授權。
+
 ## 台灣與華語語音
 
 - 台語、客語、原住民族語辨識與合成：教育部、中研院、台大等計畫，以及「台灣媠聲」、意傳科技等

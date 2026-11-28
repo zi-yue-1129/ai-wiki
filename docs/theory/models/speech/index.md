@@ -159,6 +159,28 @@ The diversity objective encourages use of each codebook's entries by maximizing 
 
 Both are constructed numerical examples, not model measurements. The moving dots represent complete row contributions, not individual sampled entries. Use Play/Pause on MkDocs; focus the diagram to scroll on narrow screens. Static fallbacks show completed computations. Original CC BY-SA 4.0 artwork.
 
+### Feature encoder: receptive field versus hop
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-window-hop-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-window-hop-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-window-hop-still.svg" alt="Three 400-sample convolutional windows start at 0, 320 and 640 samples; adjacent windows overlap by 80 samples and produce three latent frames." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/wav2vec-window-hop-still.svg)
+
+The original seven convolutional layers use strides (5, 2, 2, 2, 2, 2, 2) and kernel widths (10, 3, 3, 3, 3, 2, 2). Their cumulative stride is 320 samples and their geometric convolutional receptive field is 400 samples, or 20 ms and 25 ms at 16 kHz respectively.[^wav2vec] Without padding or dilation, the illustrated 1,040-sample input yields three outputs with half-open support intervals [0,400), [320,720), [640,1040). Adjacent windows overlap by 80 samples. The scan reveals support geometry, not serial execution, streaming latency, or the full dependency of contextual representations; normalization may also couple positions. The waveform is synthetic.
+
+### Span masking: overlap is counted once
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-mask-overlap-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-mask-overlap-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-mask-overlap-still.svg" alt="Two four-frame spans mask positions 2 through 5 and 4 through 7; the overlapping positions 4 and 5 are counted once, leaving six of eight frames masked." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/wav2vec-mask-overlap-still.svg)
+
+The original method samples distinct start indices without replacement and masks consecutive latent time steps; spans may overlap.[^wav2vec] In this constructed eight-frame example, length-four spans start at positions 2 and 4 (one-based). Their intersection is positions 4 and 5; the union contains six frames rather than eight. The shared learned mask vector replaces each covered position once in the context input, while the quantizer input stays unmasked. The toy 75% coverage is not the original model's measured masking rate; the paper uses span length 10 and start proportion 0.065. The scanning order is illustrative, not an implementation constraint.
+
+Both are schematic teaching examples, not model measurements. Use Play/Pause on MkDocs and focus the diagram for horizontal scrolling; the static fallback shows the completed state. Original CC BY-SA 4.0 artwork.
+
 ## Low-resource and code-switched speech
 
 Most languages and dialects lack large transcribed corpora. Code-switching (mixing languages within a sentence) and regional languages (e.g. Taiwanese Hokkien, Hakka and Indigenous languages in Taiwan) are active research areas; Whisper-style models often need fine-tuning and post-processing for them.
