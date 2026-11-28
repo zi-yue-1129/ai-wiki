@@ -85,6 +85,20 @@ These two-dimensional vectors can be extended to 128 dimensions by appending zer
 
 The anchor and positive from the example stay fixed, with squared distance 0.4 and margin 0.2. As the negative moves, its squared distance from the anchor sweeps from 0.1 to 0.9 and back. At 0.4 it ties the positive; between 0.4 and 0.6 it is semi-hard with nonzero hinge loss; from 0.6 onward the loss is zero. The two points can coincide in the illustration even if their source identities differ. The right plot is restricted to squared distances from zero to one for readability; the full feasible range is zero to four. The static view shows distance 0.5 and loss 0.1. This is toy unit-circle geometry, not a learned embedding or an optimisation trajectory. Intermediate coordinates are sampled and interpolated.
 
+### Screening candidates in a batch
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="A distance cursor visits four negative candidates. Only the second and third are farther than the positive and still within the training margin.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-semi-hard-screening-still.svg" data-motion-src="../../../assets/concept-animations/facenet-semi-hard-screening-motion.svg" data-still-src="../../../assets/concept-animations/facenet-semi-hard-screening-still.svg" alt="A distance cursor visits four negative candidates. Only the second and third are farther than the positive and still within the training margin." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/facenet-semi-hard-screening-still.svg) and [full SVG animation](../../../assets/concept-animations/facenet-semi-hard-screening-motion.svg).
+
+Hold the anchor–positive squared distance at 0.4 and the margin at 0.2. Four different-identity candidates have constructed squared distances of 0.2, 0.45, 0.55 and 0.8. The moving cursor tests each candidate against the strict semi-hard interval (0.4, 0.6). Candidates N2 and N3 are eligible, with respective hinge losses 0.15 and 0.05. N1 is hard despite a larger loss of 0.4; N4 has zero loss. The eligible set is not the same as the set of all positive-loss triplets.
+
+The scan order only explains the predicate, not a prescribed sequential implementation, tie-breaking policy, or measured batch. A batch may contain no eligible negatives; this illustration does not prescribe a fallback. The selection condition follows the semi-hard mining definition above.[^mining]
+
 ## Verification thresholds
 
 Verification compares a single pair against a decision threshold $\delta$. Using the paper's convention of accepting a pair at the threshold, the rule for unit embeddings is[^verification]

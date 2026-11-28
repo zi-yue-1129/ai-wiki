@@ -75,6 +75,20 @@ $$
 
 固定上述算例的錨點及正樣本，平方距離為 0.4、間隔為 0.2。負樣本與錨點的平方距離從 0.1 增至 0.9 再返回。距離為 0.4 時與正樣本並列；介於 0.4 與 0.6 時為半困難負樣本，仍有正的鉸鏈損失；從 0.6 起損失為零。即使來源身分不同，示意嵌入仍可能重合。為便於閱讀，右圖只顯示平方距離零至一，完整可行範圍為零至四。靜態圖顯示距離 0.5、損失 0.1。這是人工單位圓幾何算例，不是學得的嵌入或最佳化軌跡；中間座標經取樣與插值顯示。
 
+### 篩選批次中的候選負例
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="距離游標依序檢查四個候選負例；只有第二與第三個比正例遠且仍落在訓練間隔內。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-semi-hard-screening-still.svg" data-motion-src="../../../assets/concept-animations/facenet-semi-hard-screening-motion.svg" data-still-src="../../../assets/concept-animations/facenet-semi-hard-screening-still.svg" alt="距離游標依序檢查四個候選負例；只有第二與第三個比正例遠且仍落在訓練間隔內。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/facenet-semi-hard-screening-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/facenet-semi-hard-screening-motion.svg)。
+
+固定錨點與正例的平方距離為 0.4，間隔為 0.2。四個不同身分的候選負例具有人工設定的平方距離 0.2、0.45、0.55 與 0.8。移動游標逐一檢查是否位於嚴格的半困難區間 (0.4, 0.6)。N2 與 N3 符合條件，鉸鏈損失分別為 0.15 與 0.05；N1 雖有較大的 0.4 損失，卻是困難負例；N4 的損失為零。符合條件的集合不等於所有具有正損失的三元組集合。
+
+掃描順序只是說明篩選條件，並非規定必須循序執行、指定並列處理策略或批次實測資料。批次內也可能沒有符合條件的負例，本圖不指定此時的回退策略。篩選條件來自前述半困難挖掘定義。[^mining]
+
 ## 驗證門檻
 
 驗證將單一配對與決策門檻 $\delta$ 比較。採用論文在等號成立時也接受的方式，單位嵌入的判斷規則為[^verification]

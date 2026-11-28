@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "glove-simultaneous-gradient": {
+      "origins": [
+        {
+          "origin_blob": "0185ac77375aa555c2f6334ee24c33c103f593cb",
+          "origin_commit": "8c8b70dd0c64b733330d4011eddacb2bd73219bf",
+          "path": "docs/assets/concept-animations/glove-simultaneous-gradient-motion.svg"
+        },
+        {
+          "origin_blob": "1c29e34cdca09c000cdd657e983f37a2711ea8ac",
+          "origin_commit": "8c8b70dd0c64b733330d4011eddacb2bd73219bf",
+          "path": "docs/assets/concept-animations/glove-simultaneous-gradient-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "facenet-semi-hard-screening": {
+      "origins": [
+        {
+          "origin_blob": "f74c5d358dfd4899d105fe9ae1a9db5d2ab69ca3",
+          "origin_commit": "8c8b70dd0c64b733330d4011eddacb2bd73219bf",
+          "path": "docs/assets/concept-animations/facenet-semi-hard-screening-motion.svg"
+        },
+        {
+          "origin_blob": "99bb9229182702f11a6e7c16e890aaa60419e376",
+          "origin_commit": "8c8b70dd0c64b733330d4011eddacb2bd73219bf",
+          "path": "docs/assets/concept-animations/facenet-semi-hard-screening-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "clip-temperature-scale": {
       "origins": [
         {

@@ -85,6 +85,27 @@ The blue curve shows the log target and the green curve shows the residual weigh
 
 Read the two separate toy windows from the target A toward context B. Assume both distances lie inside the window. For the directed entry X(A,B), the first contributes 1/2 and the second 1/3, giving 5/6. The bar updates only once each contribution arrives. Other pairs in these windows are omitted. This illustration tracks one matrix entry, not a measured corpus or a complete co-occurrence pass. The scale ends at one for this example, not because co-occurrence counts are bounded by one. After aggregation, the positive entry is used once in the displayed weighted regression objective; its log target is approximately -0.1823. The inverse-distance contributions are not the residual weights.
 
+### One simultaneous gradient step
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Four parameter gradients are computed from the same old word and context vectors; a simultaneous SGD step reduces the constructed loss from 1 to 0.04.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/glove-simultaneous-gradient-still.svg" data-motion-src="../../../assets/concept-animations/glove-simultaneous-gradient-motion.svg" data-still-src="../../../assets/concept-animations/glove-simultaneous-gradient-still.svg" alt="Four parameter gradients are computed from the same old word and context vectors; a simultaneous SGD step reduces the constructed loss from 1 to 0.04." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/glove-simultaneous-gradient-still.svg) and [full SVG animation](../../../assets/concept-animations/glove-simultaneous-gradient-motion.svg).
+
+For one positive-count term, write $r=w_i^\top\widetilde w_j+b_i+\widetilde b_j-\log X_{ij}$ and $g=2f(X_{ij})r$. Differentiating the displayed objective gives
+
+$
+\nabla_{w_i}J_{ij}=g\widetilde w_j,\qquad
+\nabla_{\widetilde w_j}J_{ij}=gw_i.
+$
+
+Both bias derivatives are $g$. The two vector gradients use the same pre-update state. To illustrate, take count 100 (weight one), word vector (1, 0), context vector (0, 1), first bias $\log(100)+1$ and second bias zero. The residual is one. With a simultaneous plain SGD step of size 0.1, the vectors become (1, −0.2) and (−0.2, 1), and both biases decrease by 0.2. Their new dot product is −0.4, the residual is 0.2, and the pair loss is 0.04.
+
+The orange markers track the simultaneous update: the gradients appear before any parameters change. This is a constructed single-pair derivative example, not the original GloVe optimiser's exact update rule, a whole-corpus loss, or empirical training data. It illustrates why updating one vector first and using that new vector for the other gradient does not implement the same simultaneous SGD step.
+
 ## Using the learned vectors
 
 Training maintains two vector tables and two bias tables. For downstream word representations, the paper adds the word and context vectors for the same vocabulary item.[^vectors]
