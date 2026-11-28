@@ -107,6 +107,36 @@ These are constructed examples, not recognizer measurements. On MkDocs use Play/
 
 [^ctc]: Graves, A., Fernández, S., Gomez, F. & Schmidhuber, J. (2006). Connectionist temporal classification. ICML, section 3.1 and 4.1. https://doi.org/10.1145/1143844.1143891
 
+## Self-supervised speech representations: wav2vec 2.0
+
+### Masked context and unmasked targets
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-mask-target-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-mask-target-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-mask-target-still.svg" alt="A four-position latent sequence splits into two branches. The context input replaces positions two and three with the same learned mask vector, while the quantizer receives the original sequence. The context output c2 and quantized target q2 meet for comparison." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/wav2vec-mask-target-still.svg)
+
+The convolutional feature encoder produces latent vectors $z_t$. During pre-training, spans of these vectors are replaced by a shared learned mask vector before the Transformer context network, but the quantizer receives the original, unmasked vectors. In the illustrated example, positions two and three are masked in the context input, while the positive target $q_2$ still comes from $z_2$. The context representation $c_2$ is trained to distinguish its positive quantized target from distractors using cosine similarity and a contrastive loss. In the original paper, distractors are sampled from other masked positions of the same utterance; the diagram shows only the positive comparison, not all candidates or the diversity loss.[^wav2vec]
+
+The split is at the feature-encoder output, not at raw waveform samples. Masking does not mean replacing the target with the mask vector. Both branches participate in the self-supervised training objective; this diagram is not a stop-gradient prescription. After pre-training, speech recognition fine-tuning uses the context network with a task-specific output projection and CTC loss.[^wav2vec]
+
+### Product quantization: select, concatenate, project
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-product-quantization-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-product-quantization-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-product-quantization-still.svg" alt="Two three-entry codebooks select their second and third entries respectively, yielding vectors [1, 0] and [0, 2]. The vectors concatenate into four coordinates and a linear projection produces q." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/wav2vec-product-quantization-still.svg)
+
+The quantizer selects one entry from each of $G$ learned codebooks, each containing $V$ entries, using hard Gumbel-softmax with a straight-through estimator during pre-training. It concatenates the selected vectors and applies a learned linear projection to obtain $q_t$. The schematic uses two codebooks with three entries each: selecting indices 2 and 3 (one-based) yields $(1,0)$ and $(0,2)$, hence the concatenated vector $(1,0,0,2)$. The projection output is not assigned a numeric value because no projection weights are specified.[^wav2vec]
+
+There are $V^G$ possible index tuples (nine in the toy example). This is a combinatorial capacity, not the number of distinct projected vectors guaranteed by training or the number of observed speech units. Different tuples may coincide after projection; the diversity objective encourages codebook usage, but does not guarantee uniform usage of the joint tuples. The animation depicts hard selections and concatenation, not the Gumbel sampling or surrogate backward gradient.
+
+Both diagrams use constructed examples, not model measurements. Use the site's Play/Pause control; focus the diagram to scroll on narrow screens. The static fallback shows the completed computation. Original CC BY-SA 4.0 artwork.
+
+[^wav2vec]: Baevski, A., Zhou, H., Mohamed, A. & Auli, M. (2020). *wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations*. NeurIPS, sections 2 and 3. https://arxiv.org/abs/2006.11477
+
 ## Low-resource and code-switched speech
 
 Most languages and dialects lack large transcribed corpora. Code-switching (mixing languages within a sentence) and regional languages (e.g. Taiwanese Hokkien, Hakka and Indigenous languages in Taiwan) are active research areas; Whisper-style models often need fine-tuning and post-processing for them.

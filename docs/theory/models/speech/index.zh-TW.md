@@ -101,6 +101,36 @@ $
 
 [^ctc]: Graves, A., Fernández, S., Gomez, F. & Schmidhuber, J. (2006). Connectionist temporal classification. ICML，第 3.1 與 4.1 節。https://doi.org/10.1145/1143844.1143891
 
+## 自監督語音表徵：wav2vec 2.0
+
+### 遮罩上下文與未遮罩目標
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-mask-target-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-mask-target-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-mask-target-still.svg" alt="四個位置的潛在向量分成兩個分支。上下文輸入將第二、第三個位置換成相同的可學習遮罩向量，量化器則接收原始序列。第二個位置的上下文輸出 c2 與量化目標 q2 匯合比較。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/wav2vec-mask-target-still.svg)
+
+卷積特徵編碼器產生潛在向量 $z_t$。預訓練時，將部分連續位置替換為共用的可學習遮罩向量，再送入 Transformer 上下文網路；量化器仍接收未遮罩的原始向量。圖中上下文輸入的第二、第三個位置被遮罩，但正例目標 $q_2$ 仍由 $z_2$ 產生。透過餘弦相似度與對比損失，訓練上下文表徵 $c_2$ 區分正例量化目標及干擾候選。原始論文從同一段語音中其他被遮罩的位置抽取干擾候選；圖中僅呈現正例比較，未畫出全部候選或多樣性損失。[^wav2vec]
+
+分支發生於特徵編碼器的輸出端，而非原始波形的取樣點。遮罩不代表將目標替換成遮罩向量。兩個分支均參與自監督訓練目標；圖示並非指定停止梯度的策略。預訓練完成後，語音辨識微調使用上下文網路、任務專屬的輸出投影及 CTC 損失。[^wav2vec]
+
+### 乘積量化：選取、串接、投影
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-product-quantization-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-product-quantization-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-product-quantization-still.svg" alt="兩個各含三筆向量的碼本分別選取第二筆與第三筆，得到 [1, 0] 及 [0, 2]；兩者串接為四個座標，再透過線性投影產生 q。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/wav2vec-product-quantization-still.svg)
+
+量化器在 $G$ 個可學習碼本中各選一筆向量，每個碼本有 $V$ 個項目；預訓練使用硬式 Gumbel-softmax 搭配直通估計器（straight-through estimator）。將選取的向量串接，再經過可學習的線性投影得到 $q_t$。圖中兩個碼本各有三個項目，分別選取索引 2、3（從一開始），得到 $(1,0)$ 與 $(0,2)$，串接後為 $(1,0,0,2)$。因未指定投影權重，圖中不提供投影後的數值。[^wav2vec]
+
+可能的索引組合數為 $V^G$（此算例為九種）。這是組合容量，不代表訓練必然產生相同數量的相異投影向量或實際觀察到的語音單元。不同組合經投影後可能相同；多樣性目標鼓勵使用各碼本，但不保證聯合組合的均勻使用。動畫呈現硬式選取及串接，不包含 Gumbel 取樣或替代反向梯度。
+
+兩圖皆為人工算例，非模型實測值。MkDocs 網站可使用播放／暫停控制；窄螢幕可聚焦圖示後水平捲動。靜態回退圖呈現完成運算的狀態。原創圖示，CC BY-SA 4.0。
+
+[^wav2vec]: Baevski, A., Zhou, H., Mohamed, A. & Auli, M. (2020). *wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations*. NeurIPS，第 2 與第 3 節。https://arxiv.org/abs/2006.11477
+
 ## 台灣與華語語音
 
 - 台語、客語、原住民族語辨識與合成：教育部、中研院、台大等計畫，以及「台灣媠聲」、意傳科技等

@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "wav2vec-mask-target": {
+      "origins": [
+        {
+          "origin_blob": "807d913414b2fc9c5de27110aa2dc29c48295b82",
+          "origin_commit": "2227c6011e9e1ba9a3c57e1be5440266ea211ce9",
+          "path": "docs/assets/concept-animations/wav2vec-mask-target-motion.svg"
+        },
+        {
+          "origin_blob": "7f0c0fdbcd0cc921711de5ddab7b1054cc822de6",
+          "origin_commit": "2227c6011e9e1ba9a3c57e1be5440266ea211ce9",
+          "path": "docs/assets/concept-animations/wav2vec-mask-target-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "wav2vec-product-quantization": {
+      "origins": [
+        {
+          "origin_blob": "bb4726e52a01660bacf119239aa058fd1a4fd42b",
+          "origin_commit": "2227c6011e9e1ba9a3c57e1be5440266ea211ce9",
+          "path": "docs/assets/concept-animations/wav2vec-product-quantization-motion.svg"
+        },
+        {
+          "origin_blob": "18aaa8ddf610bee730c1977838d55576935277be",
+          "origin_commit": "2227c6011e9e1ba9a3c57e1be5440266ea211ce9",
+          "path": "docs/assets/concept-animations/wav2vec-product-quantization-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "ctc-alignment-posterior": {
       "origins": [
         {

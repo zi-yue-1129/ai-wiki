@@ -12,6 +12,7 @@ import verify_concept_motion as v
 from test_ctc_motion import CTCMotion
 from test_ctc_forward_motion import CTCForwardMotion
 from test_ctc_posterior_motion import CTCPosteriorMotion
+from test_wav2vec_motion import Wav2vecMotion
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'docs/assets/concept-animations'
@@ -33,7 +34,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 477 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 479 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
