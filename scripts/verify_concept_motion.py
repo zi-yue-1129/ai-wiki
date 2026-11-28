@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'clip-bidirectional-softmax': 'theory/models/embeddings/clip',
+    'clip-candidate-set': 'theory/models/embeddings/clip',
     'glove-window-accumulation': 'theory/models/embeddings/glove',
     'facenet-verification-sweep': 'theory/models/embeddings/facenet',
     'glove-count-weighting': 'theory/models/embeddings/glove',
@@ -499,7 +501,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'glove-window-accumulation': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'clip-bidirectional-softmax': '0 0 640 360',
+ 'clip-candidate-set': '0 0 640 360',
+ 'glove-window-accumulation': '0 0 640 360',
  'facenet-verification-sweep': '0 0 640 360',
  'glove-count-weighting': '0 0 640 360',
  'facenet-triplet-margin': '0 0 640 360',
@@ -1371,7 +1375,7 @@ def main() -> int:
                 errors.append(f"{page}: missing translation")
                 continue
             text = page.read_text(encoding="utf-8")
-            if stem in {"glove-count-weighting", "facenet-triplet-margin", "glove-window-accumulation", "facenet-verification-sweep"}:
+            if stem in {"glove-count-weighting", "facenet-triplet-margin", "glove-window-accumulation", "facenet-verification-sweep", "clip-bidirectional-softmax", "clip-candidate-set"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 previews = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if not {static_path.resolve(), animated_path.resolve()} <= {(page.parent / link).resolve() for link in previews}:

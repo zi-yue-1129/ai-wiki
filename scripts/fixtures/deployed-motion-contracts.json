@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "clip-bidirectional-softmax": {
+      "origins": [
+        {
+          "origin_blob": "0377ac7d24fa25e9867f9adf90249736015f119b",
+          "origin_commit": "7d609bc9084f1bb116ad8196a25c4ff54ff9ba5d",
+          "path": "docs/assets/concept-animations/clip-bidirectional-softmax-motion.svg"
+        },
+        {
+          "origin_blob": "cde666151617b2ece615e3cbe06261810fd11b51",
+          "origin_commit": "7d609bc9084f1bb116ad8196a25c4ff54ff9ba5d",
+          "path": "docs/assets/concept-animations/clip-bidirectional-softmax-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "clip-candidate-set": {
+      "origins": [
+        {
+          "origin_blob": "0c50f116355f6131b88ce968fc7778a9437d76f2",
+          "origin_commit": "7d609bc9084f1bb116ad8196a25c4ff54ff9ba5d",
+          "path": "docs/assets/concept-animations/clip-candidate-set-motion.svg"
+        },
+        {
+          "origin_blob": "6aaf17790c4905d59573e6ea37c58d91fddedbab",
+          "origin_commit": "7d609bc9084f1bb116ad8196a25c4ff54ff9ba5d",
+          "path": "docs/assets/concept-animations/clip-candidate-set-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "glove-window-accumulation": {
       "origins": [
         {
