@@ -99,6 +99,27 @@ For $0\le\delta\le4$, the equivalent unsquared Euclidean threshold is $\sqrt{\de
 
 The paper's LFW evaluation selects a threshold on nine splits and tests it on the remaining split.[^verification] Report the threshold-selection protocol and distance convention with the result. Section 4 separately defines the true-acceptance rate among same-identity pairs and the false-acceptance rate among different-identity pairs. These rates at a chosen threshold describe a different aspect of performance from a single overall accuracy. See [ROC-AUC](../../evaluation/metrics/classification/roc-auc.md) for threshold trade-offs.
 
+### Sweeping a verification threshold
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="A distance threshold sweeps over four same-identity pairs and four different-identity pairs; true and false acceptance rates update at each observed distance.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-verification-sweep-still.svg" data-motion-src="../../../assets/concept-animations/facenet-verification-sweep-motion.svg" data-still-src="../../../assets/concept-animations/facenet-verification-sweep-still.svg" alt="A distance threshold sweeps over four same-identity pairs and four different-identity pairs; true and false acceptance rates update at each observed distance." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/facenet-verification-sweep-still.svg) and [full SVG animation](../../../assets/concept-animations/facenet-verification-sweep-motion.svg).
+
+The blue circles represent same-identity squared distances 0.1, 0.3, 0.5 and 0.7. The orange squares represent different-identity distances 0.4, 0.6, 0.8 and 0.9. A pair is accepted when its squared distance is no greater than the green threshold. The two rates count accepted pairs within their respective groups and divide by four. The moving boundary is continuous, but the empirical rates change in discrete steps.
+
+| Threshold | True acceptance rate (TAR) | False acceptance rate (FAR) |
+|---:|---:|---:|
+| 0.35 | 50% | 0% |
+| 0.55 | 75% | 25% |
+| 0.65 | 75% | 50% |
+| 0.75 | 100% | 50% |
+
+The static preview uses threshold 0.65. The plotted distance interval is zero to one, a subset of the feasible squared-distance range for unit vectors. These eight distances are constructed solely to demonstrate threshold trade-offs; they are not FaceNet measurements or a recommended operational threshold. A real decision threshold must be selected on held-out validation data according to the desired false-acceptance constraint, independently of the triplet training margin.
+
 ## Results
 
 [Schroff et al. (2015), Sections 5.6–5.7](https://arxiv.org/abs/1503.03832), report verification accuracy on two benchmarks:

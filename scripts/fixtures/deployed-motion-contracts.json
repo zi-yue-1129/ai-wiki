@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "glove-window-accumulation": {
+      "origins": [
+        {
+          "origin_blob": "e28ff404686f7c04644f6c10446449ae2903774d",
+          "origin_commit": "ba867b1339b26830f557495b7bc0875bb9c46ac9",
+          "path": "docs/assets/concept-animations/glove-window-accumulation-motion.svg"
+        },
+        {
+          "origin_blob": "8dbedfd09dc39b48f072ee573c87888e323f18f2",
+          "origin_commit": "ba867b1339b26830f557495b7bc0875bb9c46ac9",
+          "path": "docs/assets/concept-animations/glove-window-accumulation-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "facenet-verification-sweep": {
+      "origins": [
+        {
+          "origin_blob": "405456cd26eed9ab730ba0e3a222ad7e8349df97",
+          "origin_commit": "ba867b1339b26830f557495b7bc0875bb9c46ac9",
+          "path": "docs/assets/concept-animations/facenet-verification-sweep-motion.svg"
+        },
+        {
+          "origin_blob": "789aac72d1e30edd7e8bfbba4d14388b04345484",
+          "origin_commit": "ba867b1339b26830f557495b7bc0875bb9c46ac9",
+          "path": "docs/assets/concept-animations/facenet-verification-sweep-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "glove-count-weighting": {
       "origins": [
         {

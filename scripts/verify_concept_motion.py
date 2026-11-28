@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'glove-window-accumulation': 'theory/models/embeddings/glove',
+    'facenet-verification-sweep': 'theory/models/embeddings/facenet',
     'glove-count-weighting': 'theory/models/embeddings/glove',
     'facenet-triplet-margin': 'theory/models/embeddings/facenet',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
@@ -497,7 +499,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'glove-count-weighting': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'glove-window-accumulation': '0 0 640 360',
+ 'facenet-verification-sweep': '0 0 640 360',
+ 'glove-count-weighting': '0 0 640 360',
  'facenet-triplet-margin': '0 0 640 360',
  'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
@@ -1367,7 +1371,7 @@ def main() -> int:
                 errors.append(f"{page}: missing translation")
                 continue
             text = page.read_text(encoding="utf-8")
-            if stem in {"glove-count-weighting", "facenet-triplet-margin"}:
+            if stem in {"glove-count-weighting", "facenet-triplet-margin", "glove-window-accumulation", "facenet-verification-sweep"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 previews = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if not {static_path.resolve(), animated_path.resolve()} <= {(page.parent / link).resolve() for link in previews}:

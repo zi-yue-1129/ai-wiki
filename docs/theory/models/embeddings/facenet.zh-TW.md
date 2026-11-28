@@ -89,6 +89,27 @@ $$
 
 論文的 LFW 評估用九個分割選擇門檻，再於剩下一個分割測試。[^verification] 報告結果時應交代門檻選擇流程與距離定義。第 4 節另外定義同身分配對中的真接受率，以及不同身分配對中的誤接受率。在指定門檻下報告這些比率，呈現的面向與單一總體準確率不同。門檻取捨可參閱 [ROC-AUC](../../evaluation/metrics/classification/roc-auc.md)。
 
+### 掃描驗證門檻
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="距離門檻掃過四組同身分配對與四組不同身分配對；每跨越一個觀察距離，真接受率或誤接受率便更新。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-verification-sweep-still.svg" data-motion-src="../../../assets/concept-animations/facenet-verification-sweep-motion.svg" data-still-src="../../../assets/concept-animations/facenet-verification-sweep-still.svg" alt="距離門檻掃過四組同身分配對與四組不同身分配對；每跨越一個觀察距離，真接受率或誤接受率便更新。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/facenet-verification-sweep-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/facenet-verification-sweep-motion.svg)。
+
+藍色圓點代表同身分配對的平方距離 0.1、0.3、0.5、0.7；橘色方塊代表不同身分配對的平方距離 0.4、0.6、0.8、0.9。平方距離不大於綠色門檻時接受配對。兩個比率分別計算各組被接受的數量並除以四。門檻連續移動，但經驗比率呈離散階梯變化。
+
+| 門檻 | 真接受率（TAR） | 誤接受率（FAR） |
+|---:|---:|---:|
+| 0.35 | 50% | 0% |
+| 0.55 | 75% | 25% |
+| 0.65 | 75% | 50% |
+| 0.75 | 100% | 50% |
+
+靜態預覽採門檻 0.65。圖中距離區間為零至一，是單位向量可行平方距離範圍的子集。八個距離為展示門檻取捨而建構，並非 FaceNet 實測結果或建議的實際使用門檻。實際決策門檻須依所需的誤接受限制於保留的驗證資料上選擇，不由三元組訓練間隔直接決定。
+
 ## 結果
 
 [原論文第 5.6–5.7 節](https://arxiv.org/abs/1503.03832)報告：
