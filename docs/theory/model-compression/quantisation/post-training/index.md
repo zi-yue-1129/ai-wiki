@@ -65,11 +65,11 @@ This order is only an explanatory decomposition of an independent nearest-roundi
 
 ### Weight error versus calibration output error
 
-The weight SSE above is not generally the objective used to select a scale for a linear layer. For a row vector $w$, let $d=w-\hat w$ and let $M=\mathbb E[xx^\top]$ denote the uncentred calibration second moment. The expected squared output error is
+The weight SSE above is not generally the objective used to select a scale for a linear layer. For a weight vector $w$, let $d=w-\hat w$ and let $M=\mathbb E[xx^\top]$ denote the uncentred calibration second moment. The expected squared output error is
 
-$
+$$
 \mathbb E[(d^\top x)^2]=d^\top M d.
-$
+$$
 
 For a separate schematic example, use $w=(1.1,0.85)$ and signed four-bit nearest rounding with two candidate scales, not necessarily max-absolute scales. Neither candidate clips or has a rounding tie.
 
