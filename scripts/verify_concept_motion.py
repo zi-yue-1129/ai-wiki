@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'whisper-timestamp-interleave': 'theory/models/speech/index',
+    'whisper-window-seek': 'theory/models/speech/index',
     'wav2vec-window-hop': 'theory/models/speech/index',
     'wav2vec-mask-overlap': 'theory/models/speech/index',
     'wav2vec-contrastive-normalization': 'theory/models/speech/index',
@@ -507,7 +509,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'wav2vec-window-hop': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'whisper-timestamp-interleave': '0 0 640 360',
+ 'whisper-window-seek': '0 0 640 360',
+ 'wav2vec-window-hop': '0 0 640 360',
  'wav2vec-mask-overlap': '0 0 640 360',
  'wav2vec-contrastive-normalization': '0 0 640 360',
  'wav2vec-diversity-mean': '0 0 640 360',
@@ -1403,7 +1407,7 @@ def main() -> int:
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in {"ctc-collapse-scan", "ctc-path-mass", "ctc-forward-lattice", "ctc-repeat-skip", "ctc-alignment-posterior", "ctc-prefix-repeat", "wav2vec-mask-target", "wav2vec-product-quantization", "wav2vec-contrastive-normalization", "wav2vec-diversity-mean", "wav2vec-window-hop", "wav2vec-mask-overlap"}:
+            if stem in {"ctc-collapse-scan", "ctc-path-mass", "ctc-forward-lattice", "ctc-repeat-skip", "ctc-alignment-posterior", "ctc-prefix-repeat", "wav2vec-mask-target", "wav2vec-product-quantization", "wav2vec-contrastive-normalization", "wav2vec-diversity-mean", "wav2vec-window-hop", "wav2vec-mask-overlap", "whisper-timestamp-interleave", "whisper-window-seek"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 images = [img for img in MotionImages(text).images if stem in (img.get("src") or "")]
                 if not images or any(not (img.get("alt") or "").strip() for img in images):

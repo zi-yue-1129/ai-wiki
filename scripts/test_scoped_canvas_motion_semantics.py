@@ -15,6 +15,7 @@ from test_ctc_posterior_motion import CTCPosteriorMotion
 from test_wav2vec_motion import Wav2vecMotion
 from test_wav2vec_objective_motion import Wav2vecObjectiveMotion
 from test_wav2vec_span_motion import Wav2vecSpanMotion
+from test_whisper_timing_motion import WhisperTimingMotion
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'docs/assets/concept-animations'
@@ -36,7 +37,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 483 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 485 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 

@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "whisper-timestamp-interleave": {
+      "origins": [
+        {
+          "origin_blob": "f3679c56bd403dff97445387aa23bc26bd53000a",
+          "origin_commit": "8a2dc17e3faeb44613589691c299ecc828a998f9",
+          "path": "docs/assets/concept-animations/whisper-timestamp-interleave-motion.svg"
+        },
+        {
+          "origin_blob": "d8d88ed3728f8838c0e6aebb18488a5272fdfe7b",
+          "origin_commit": "8a2dc17e3faeb44613589691c299ecc828a998f9",
+          "path": "docs/assets/concept-animations/whisper-timestamp-interleave-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "whisper-window-seek": {
+      "origins": [
+        {
+          "origin_blob": "5bd54848c65a35a56c823d1728148e20ab490cae",
+          "origin_commit": "8a2dc17e3faeb44613589691c299ecc828a998f9",
+          "path": "docs/assets/concept-animations/whisper-window-seek-motion.svg"
+        },
+        {
+          "origin_blob": "e94cce9a1d006c645cd9b4a41975bb66b1509d2c",
+          "origin_commit": "8a2dc17e3faeb44613589691c299ecc828a998f9",
+          "path": "docs/assets/concept-animations/whisper-window-seek-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "wav2vec-window-hop": {
       "origins": [
         {
