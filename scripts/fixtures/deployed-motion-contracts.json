@@ -458,6 +458,66 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+      "ptq-calibration-scale-choice": {
+        "origins": [
+          {
+            "origin_blob": "d34646345a93a400a7da5f739d7ef7fa3a6d1739",
+            "origin_commit": "ad46d44a36b3f9f50494a04fade8eb40529c6475",
+            "path": "docs/assets/concept-animations/ptq-calibration-scale-choice-motion.svg"
+          },
+          {
+            "origin_blob": "ab10be6b4be6b24afd34bd9fa73b67f13b454327",
+            "origin_commit": "ad46d44a36b3f9f50494a04fade8eb40529c6475",
+            "path": "docs/assets/concept-animations/ptq-calibration-scale-choice-still.svg"
+          }
+        ],
+        "viewBox": "0 0 640 360"
+      },
+      "data-free-equal-moments": {
+        "origins": [
+          {
+            "origin_blob": "7e81509c2e78e0cc7594f20dca3fb871cecc79bf",
+            "origin_commit": "ad46d44a36b3f9f50494a04fade8eb40529c6475",
+            "path": "docs/assets/concept-animations/data-free-equal-moments-motion.svg"
+          },
+          {
+            "origin_blob": "2f1445b8a03d506a87e237a298539a23b5b1e1de",
+            "origin_commit": "ad46d44a36b3f9f50494a04fade8eb40529c6475",
+            "path": "docs/assets/concept-animations/data-free-equal-moments-still.svg"
+          }
+        ],
+        "viewBox": "0 0 640 360"
+      },
+      "ptq-group-scale-grid": {
+        "origins": [
+          {
+            "origin_blob": "15d5d4f9c6d0ee41b8a8d023f09f2e85bdc05da1",
+            "origin_commit": "4f12cf30c803a155fd96e2451387f3b7ce14fbc0",
+            "path": "docs/assets/concept-animations/ptq-group-scale-grid-motion.svg"
+          },
+          {
+            "origin_blob": "0f817bf470ca0006aef9c45790e9d95a129a677f",
+            "origin_commit": "4f12cf30c803a155fd96e2451387f3b7ce14fbc0",
+            "path": "docs/assets/concept-animations/ptq-group-scale-grid-still.svg"
+          }
+        ],
+        "viewBox": "0 0 640 360"
+      },
+      "data-free-moment-descent": {
+        "origins": [
+          {
+            "origin_blob": "1610582db454b3313d9fbb482cf6942b060e1d8e",
+            "origin_commit": "4f12cf30c803a155fd96e2451387f3b7ce14fbc0",
+            "path": "docs/assets/concept-animations/data-free-moment-descent-motion.svg"
+          },
+          {
+            "origin_blob": "9fe7fa1fcbebad6c0e63ba0e1487f3eb37b3bd2c",
+            "origin_commit": "4f12cf30c803a155fd96e2451387f3b7ce14fbc0",
+            "path": "docs/assets/concept-animations/data-free-moment-descent-still.svg"
+          }
+        ],
+        "viewBox": "0 0 640 360"
+      },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

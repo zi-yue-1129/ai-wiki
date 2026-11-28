@@ -27,6 +27,71 @@ The simplest PTQ is round-to-nearest: compute a scale per tensor or per group, a
 - **Layer-wise objective.** Most PTQ methods minimise the output error of one layer, \(\lVert WX - \hat{W}X \rVert^2\), rather than the weight error.
 - **Weight-only versus weight-and-activation.** Weight-only methods save memory but keep the arithmetic in floating point; weight-and-activation methods can use integer arithmetic.
 
+### Why group-local scales change rounding
+
+Consider two toy groups of four weights, $(1,1.5,3,4)$ and $(8,16,24,28)$. Use symmetric signed four-bit quantisation with integer codes $-7$ through $7$ (the code $-8$ is unused), a max-absolute scale $s=\max|w|/7$, and nearest rounding:
+
+$$
+q_i=\operatorname{clip}(\operatorname{round}(w_i/s),-7,7),\qquad \hat w_i=sq_i.
+$$
+
+A shared scale of $4$ makes the small group's reconstructed weights $(0,0,4,4)$; a local scale of $4/7$ gives $(8/7,12/7,20/7,4)$. The larger group has scale $4$ in both cases and is reconstructed exactly. The animation moves each small weight from its original position to its nearest grid point; the movement between endpoints is explanatory interpolation, not an iterative quantiser.
+
+| Scale choice | Small-group squared error | Large-group squared error |
+| --- | ---: | ---: |
+| Shared | $17/4=4.25$ | 0 |
+| Group-local | $17/196\approx0.086735$ | 0 |
+
+The squared weight error is 49 times smaller in this example. This is a constructed example with no rounding ties, not a measured accuracy or latency result. The extra scale needs metadata storage; if codes are packed at four bits and each scale occupies $b$ bits, the eight weights cost $32+b$ bits with one scale versus $32+2b$ with two, ignoring alignment and headers. A smaller group is not automatically better for end-to-end latency or task loss.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Four small weights round in sequence; per-weight squared errors and their running sums update, with final totals 4.25 and 17/196.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" data-motion-src="../../../../assets/concept-animations/ptq-group-scale-grid-motion.svg" data-still-src="../../../../assets/concept-animations/ptq-group-scale-grid-still.svg" alt="Four small weights round in sequence; per-weight squared errors and their running sums update, with final totals 4.25 and 17/196." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../../assets/concept-animations/ptq-group-scale-grid-still.svg) and [full SVG animation](../../../../assets/concept-animations/ptq-group-scale-grid-motion.svg).
+
+The revised animation rounds the four small weights in sequence. When each dot reaches its grid point, the corresponding squared residual is revealed and added to the running sum. The row bars have a common maximum of $9/4$; the sum bars share a maximum of $17/4$ across both panels. The smaller final number in the figure is rounded to three decimals.
+
+| Rounded weight | Shared-scale running SSE | Group-local running SSE |
+| ---: | ---: | ---: |
+| 1 | 1 | $4/196$ |
+| 1.5 | $13/4$ | $13/196$ |
+| 3 | $17/4$ | $17/196$ |
+| 4 | $17/4$ | $17/196$ |
+
+This order is only an explanatory decomposition of an independent nearest-rounding operation; a real quantisation kernel can round all four weights in parallel. The bars count only completed rounding events, and the loop reset is not a quantisation step.
+
+### Weight error versus calibration output error
+
+The weight SSE above is not generally the objective used to select a scale for a linear layer. For a weight vector $w$, let $d=w-\hat w$ and let $M=\mathbb E[xx^\top]$ denote the uncentred calibration second moment. The expected squared output error is
+
+$$
+\mathbb E[(d^\top x)^2]=d^\top M d.
+$$
+
+For a separate schematic example, use $w=(1.1,0.85)$ and signed four-bit nearest rounding with two candidate scales, not necessarily max-absolute scales. Neither candidate clips or has a rounding tie.
+
+| Scale | Reconstructed weights | Weight SSE | Squared output error at $x=(5,2)$ | Squared output error at $x=(3,2)$ |
+| ---: | --- | ---: | ---: | ---: |
+| 1 | $(1,1)$ | 0.0325 | 0.04 | 0 |
+| 0.6 | $(1.2,0.6)$ | 0.0725 | 0 | 0.04 |
+
+If calibration consists of $x=(5,2)$ with probability $p$ and $x=(3,2)$ otherwise, the two expected output errors are $0.04p$ and $0.04(1-p)$. The preferred scale under this output objective switches at $p=1/2$, although weight SSE always prefers scale 1. Cancellation of signed residual contributions explains the zero output error on one direction. These two scales are only illustrative candidates, not the global optimum or a measured result of a PTQ method.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Signed residual products cancel on different input directions for each scale; as the calibration mixture changes, output errors cross at probability one half.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg" data-motion-src="../../../../assets/concept-animations/ptq-calibration-scale-choice-motion.svg" data-still-src="../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg" alt="Signed residual products cancel on different input directions for each scale; as the calibration mixture changes, output errors cross at probability one half." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg) and [full SVG animation](../../../../assets/concept-animations/ptq-calibration-scale-choice-motion.svg).
+
+The top numbers show the fixed weight SSE. The middle cells explicitly add the two signed products $d_1x_1+d_2x_2$ **before squaring**: for scale 1 the products cancel on $(3,2)$, whereas for scale 0.6 they cancel on $(5,2)$. The orange shading of the input columns varies with their mixture weights $p$ and $1-p$ (a visual emphasis, not an error bar). The lower output MSE bars share the same maximum, 0.04, and follow the orange curve cursor. At $p=1/2$ the candidates tie. The return to zero is a loop reset, not a training step.
+
+The residual vectors are $(0.1,-0.15)$ and $(-0.1,0.25)$ respectively. Averaging the squared signed sums across inputs yields the two output objectives; squaring each product separately would omit the cross term $2d_1d_2x_1x_2$ and lose the exact cancellation.
+
 ## Methods
 
 Each method has its own page:

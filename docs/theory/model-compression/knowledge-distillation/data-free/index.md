@@ -27,6 +27,66 @@ The standard distillation recipe assumes that the student can be trained on real
 - **Surrogate data.** Samples that approximate the training data for the purpose of distillation, without reproducing any real example.
 - **Coverage.** Whether the synthetic samples span the regions of input space where the student must perform well.
 
+### A toy feature-statistics optimisation
+
+DeepInversion keeps a teacher fixed while optimising synthetic inputs against stored batch-normalisation feature statistics, with additional class and image-prior objectives.[^deepinversion] To isolate the role of feature matching, suppose a frozen identity feature map has target mean $2$ and variance $1$. Parameterise two synthetic activations as $(m-s,m+s)$ with $s>0$: their population mean is $m$ and their population standard deviation is $s$. Minimise the illustrative objective
+
+$$
+L(m,s)=(m-2)^2+(s-1)^2.
+$$
+
+This standard-deviation loss and two-parameter identity map are a teaching simplification, not the paper's multi-layer variance regulariser. Starting with $m_0=-1$ and $s_0=1/4$, gradient descent with learning rate $1/4$ gives
+
+$$
+m_k=2-3/2^k,\qquad s_k=1-(3/4)/2^k,\qquad L_k=\frac{153}{16\cdot4^k}.
+$$
+
+| Step | Mean | Standard deviation | Loss |
+| ---: | ---: | ---: | ---: |
+| 0 | -1 | 0.25 | 9.5625 |
+| 1 | 0.5 | 0.625 | 2.390625 |
+| 2 | 1.25 | 0.8125 | 0.59765625 |
+| 5 | 1.90625 | 0.9765625 | 0.00933837890625 |
+
+The green points represent one possible pair with the target statistics, not recovered training samples. Blue points show the synthetic activations, the orange marker is their mean, and the blue segment spans both values. The synthetic points interpolate between exact gradient-descent iterates for readability. The green marker on the logarithmic chart and the orange linear loss bar update only when a step completes, so they report the last completed iterate, not an interpolated loss. Since $L_k/L_0=4^{-k}$, the logarithmic chart has ordinate $\log_2(L_k/L_0)=-2k$; it remains readable when the linear bar is nearly zero. The reset is not an optimisation step. The teacher is never updated. Matching a few moments does not identify a distribution or establish privacy; many distributions share the same moments. These values are schematic, not model measurements.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Synthetic feature pair approaches target mean two and standard deviation one; the completed-step log-loss marker descends and the linear loss bar shrinks.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-moment-descent-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-moment-descent-still.svg" alt="Synthetic feature pair approaches target mean two and standard deviation one; the completed-step log-loss marker descends and the linear loss bar shrinks." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../../assets/concept-animations/data-free-moment-descent-still.svg) and [full SVG animation](../../../../assets/concept-animations/data-free-moment-descent-motion.svg).
+
+### Equal moments, different distributions
+
+The two-value example above is deliberately constrained. To see why matching mean and variance does not recover a general distribution, compare two hypothetical scalar activation distributions:
+
+| Activation distribution | Probabilities | Mean | Population variance | Fourth central moment |
+| --- | --- | ---: | ---: | ---: |
+| $X\in\{1,3\}$ | $(1/2,1/2)$ | 2 | 1 | 1 |
+| $Y\in\{0,2,4\}$ | $(1/8,3/4,1/8)$ | 2 | 1 | 4 |
+
+Both have zero moment-matching loss for the simplified objective above, but their supports and fourth central moments differ. For instance, the nonlinear feature $(x-2)^4$ has expectation 1 under the first distribution and 4 under the second. Therefore, even exact agreement on two scalar moments does not ensure identical responses to a subsequent nonlinear operation. This is an illustrative calculation, not a claim about the coverage or privacy of a particular synthesis method.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Probability mass changes with fixed mean and variance; the fourth moment grows from one to four while the expected centred ReLU output falls from one half to one quarter.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-equal-moments-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" alt="Probability mass changes with fixed mean and variance; the fourth moment grows from one to four while the expected centred ReLU output falls from one half to one quarter." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../../assets/concept-animations/data-free-equal-moments-still.svg) and [full SVG animation](../../../../assets/concept-animations/data-free-equal-moments-motion.svg).
+
+The animation generalises this counterexample to the entire mixture $P_t=(1-t)P_X+tP_Y$ for $0\le t\le1$. The probabilities at activations 0 through 4 are $(t/8,(1-t)/2,3t/4,(1-t)/2,t/8)$. Every mixture has mean 2, variance 1 and zero simplified moment loss, while its fourth central moment is $1+3t$. Dashed outlines mark the fixed reference $X$; teal bars show the current probability mass. The orange bar shows the fourth central moment, and the blue bar shows the expected centred ReLU activation, both synchronised with the mixture. This is a probability mixture, not an optimisation trajectory or an empirical feature distribution.
+
+A familiar neural-network nonlinearity also distinguishes the mixtures: set $g(x)=\max(x-2,0)$. Only activation values 3 and 4 contribute to its expectation, with outputs 1 and 2 respectively. Thus
+
+$
+\mathbb E_{P_t}[g(x)]=\frac{1-t}{2}+2\frac{t}{8}=\frac12-\frac{t}{4}.
+$
+
+As the fourth central moment grows from 1 to 4, the expected ReLU activation falls from 0.5 to 0.25. The two examples demonstrate that matching the first two moments does not fix subsequent nonlinear responses, even in a scalar network with a fixed bias. These are exact schematic quantities, not measured teacher activations.
+
 ## Key methods
 
 The two methods below share the goal of distilling without training data, but they obtain their substitute inputs differently.
@@ -52,6 +112,8 @@ Zero-shot distillation uses no real inputs at all. Sequence-level distillation k
 
 Data-free distillation touches privacy, which is discussed in the [ethics](../../../../society/ethics/index.md) and [governance](../../../../society/governance/index.md) pages, and the training pipelines in [training and fine-tuning](../../../../engineering/training/index.md). Synthesising inputs from a trained network loosely resembles the way the brain replays patterns during rest, a parallel discussed in [memory and learning](../../../../brain-mind/memory-learning/index.md).
 
+[^deepinversion]: Yin et al. (2020), Section 3.2, [DeepInversion](https://arxiv.org/abs/1912.08795).
+
 ## References
 
 ### Seminal papers
@@ -60,6 +122,8 @@ Data-free distillation touches privacy, which is discussed in the [ethics](../..
 - Lopes, R. G., Fenu, S. & Starner, T. (2017). *Data-Free Knowledge Distillation for Deep Neural Networks*. arXiv:1710.07535. https://arxiv.org/abs/1710.07535 — Replaces the training set with small metadata released with a pretrained model, and examines the trade-offs of different metadata choices.
 - Kim, Y. & Rush, A. M. (2016). *Sequence-Level Knowledge Distillation*. arXiv:1606.07947. https://arxiv.org/abs/1606.07947 — Trains on the teacher's own sequence outputs; the abstract reports a student about 10 times faster than its teacher with little loss in quality.
 - Hinton, G., Vinyals, O. & Dean, J. (2015). *Distilling the Knowledge in a Neural Network*. arXiv:1503.02531. https://arxiv.org/abs/1503.02531 — The standard distillation objective, which assumes a training set that data-free methods replace.
+
+- Yin, H., et al. (2020). *Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion*. CVPR. https://arxiv.org/abs/1912.08795 — Uses frozen teacher batch-normalisation statistics to guide synthetic input optimisation.
 
 ### Surveys and textbooks
 
