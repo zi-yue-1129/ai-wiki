@@ -49,10 +49,10 @@ The mean across these equal-horizon folds is 2. The blue line and shaded region 
 
 A pooled MAE can hide differences in the distribution of errors at different horizons. For the three origins above, let $e_{T,h}=y_{T+h}-\hat y_{T+h|T}$. With $n=3$ origins, define:
 
-$
+$$
 \mathrm{MAE}_h=\frac{1}{n}\sum_T |e_{T,h}|,\qquad
 \mathrm{RMSE}_h=\sqrt{\frac{1}{n}\sum_T e_{T,h}^2}.
-$
+$$
 
 | Origin | Absolute error at h=1 | Absolute error at h=2 |
 | ---: | ---: | ---: |

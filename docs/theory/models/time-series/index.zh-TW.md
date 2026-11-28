@@ -38,10 +38,10 @@ related:
 
 整體 MAE 可能掩蓋不同預測步長的誤差分布差異。沿用前三個預測起點，令 $e_{T,h}=y_{T+h}-\hat y_{T+h|T}$，起點數量為 $n=3$，定義：
 
-$
+$$
 \mathrm{MAE}_h=\frac{1}{n}\sum_T |e_{T,h}|,\qquad
 \mathrm{RMSE}_h=\sqrt{\frac{1}{n}\sum_T e_{T,h}^2}.
-$
+$$
 
 | 起點 | 第 1 步絕對誤差 | 第 2 步絕對誤差 |
 | ---: | ---: | ---: |
