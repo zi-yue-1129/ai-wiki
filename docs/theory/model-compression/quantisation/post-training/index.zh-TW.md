@@ -70,6 +70,16 @@ $$
 
 若校準輸入以機率 $p$ 取 $x=(5,2)$，否則取 $x=(3,2)$，兩種尺度的預期輸出誤差分別為 $0.04p$ 與 $0.04(1-p)$。因此，以輸出誤差為目標時，較佳尺度在 $p=1/2$ 切換，但權重平方誤差始終偏好尺度 1。帶符號的殘差貢獻彼此抵消，因此某個輸入方向上的輸出誤差可以為零。兩個尺度只是人工候選值，不代表全域最佳解或特定 PTQ 方法的實測結果。
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="兩個固定權重誤差不變；隨校準輸入混合比例改變，預期輸出誤差在機率二分之一處相交。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg" data-motion-src="../../../../assets/concept-animations/ptq-calibration-scale-choice-motion.svg" data-still-src="../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg" alt="兩個固定權重誤差不變；隨校準輸入混合比例改變，預期輸出誤差在機率二分之一處相交。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 網站可使用播放／暫停按鈕，小螢幕可水平捲動。GitHub 可直接開啟[靜態預覽](../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg)或[完整 SVG 動畫](../../../../assets/concept-animations/ptq-calibration-scale-choice-motion.svg)。
+
+上方長條顯示固定的權重平方誤差，下方長條與兩個曲線游標則共用目前的校準機率 $p$。兩條輸出誤差長條的上限皆為 0.04；權重誤差長條則另以 0.0725 為共同上限。橘色游標從零掃過二分之一至一，此時尺度 0.6 雖有較大的權重誤差，輸出誤差卻為零。交點處兩個候選尺度並列。回到零是循環重設，而非訓練步驟。
+
 ## 方法
 
 每個方法都有自己的頁面：

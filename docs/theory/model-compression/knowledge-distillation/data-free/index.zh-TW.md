@@ -70,6 +70,16 @@ $$
 
 兩者在上述簡化目標的統計量匹配損失都是零，但支撐集與四階中心動差不同。例如非線性特徵 $(x-2)^4$ 在第一個分布的期望值為 1，在第二個分布則為 4。因此，即使兩個純量統計量完全一致，也不能保證後續非線性運算產生相同的反應。這是人工計算示例，並非對特定合成方法的覆蓋率或隱私保證做出實測主張。
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="機率質量由兩點參考分布移至三點分布，平均值與變異數不變，四階中心動差由 1 增至 4。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-equal-moments-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" alt="機率質量由兩點參考分布移至三點分布，平均值與變異數不變，四階中心動差由 1 增至 4。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 網站可使用播放／暫停按鈕，小螢幕可水平捲動。GitHub 可直接開啟[靜態預覽](../../../../assets/concept-animations/data-free-equal-moments-still.svg)或[完整 SVG 動畫](../../../../assets/concept-animations/data-free-equal-moments-motion.svg)。
+
+動畫將此反例推廣至整個混合分布 $P_t=(1-t)P_X+tP_Y$，其中 $0\le t\le1$。激活值 0 至 4 的機率依序為 $(t/8,(1-t)/2,3t/4,(1-t)/2,t/8)$。所有混合分布的平均值皆為 2、變異數皆為 1，簡化統計量匹配損失皆為零，而四階中心動差為 $1+3t$。虛線框標示固定參考分布 $X$，青綠色長條顯示目前的機率質量，橘色長條則顯示非線性運算的期望值。這是機率混合，不是最佳化軌跡或實測特徵分布。
+
 ## 主要方法
 
 以下兩個方法的目標都是在沒有訓練資料的情況下蒸餾，但取得替代輸入的方式不同。

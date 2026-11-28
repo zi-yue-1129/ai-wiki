@@ -69,6 +69,16 @@ The two-value example above is deliberately constrained. To see why matching mea
 
 Both have zero moment-matching loss for the simplified objective above, but their supports and fourth central moments differ. For instance, the nonlinear feature $(x-2)^4$ has expectation 1 under the first distribution and 4 under the second. Therefore, even exact agreement on two scalar moments does not ensure identical responses to a subsequent nonlinear operation. This is an illustrative calculation, not a claim about the coverage or privacy of a particular synthesis method.
 
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Probability mass moves from the two-point reference to a three-point distribution; mean and variance remain fixed while the fourth central moment grows from one to four.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-equal-moments-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" alt="Probability mass moves from the two-point reference to a three-point distribution; mean and variance remain fixed while the fourth central moment grows from one to four." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../../assets/concept-animations/data-free-equal-moments-still.svg) and [full SVG animation](../../../../assets/concept-animations/data-free-equal-moments-motion.svg).
+
+The animation generalises this counterexample to the entire mixture $P_t=(1-t)P_X+tP_Y$ for $0\le t\le1$. The probabilities at activations 0 through 4 are $(t/8,(1-t)/2,3t/4,(1-t)/2,t/8)$. Every mixture has mean 2, variance 1 and zero simplified moment loss, while its fourth central moment is $1+3t$. Dashed outlines mark the fixed reference $X$; teal bars show the current probability mass and the orange bar shows the nonlinear expectation. This is a probability mixture, not an optimisation trajectory or an empirical feature distribution.
+
 ## Key methods
 
 The two methods below share the goal of distilling without training data, but they obtain their substitute inputs differently.
