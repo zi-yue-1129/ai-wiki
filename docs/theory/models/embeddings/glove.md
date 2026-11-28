@@ -61,6 +61,18 @@ If the fitted value $w_i^\top\widetilde w_j+b_i+\widetilde b_j$ exceeds its targ
 
 Training is a single pass to build the co-occurrence matrix, followed by an iterative optimisation of `J` over the non-zero entries. Because only pairs with `X_ij > 0` contribute, the optimisation cost depends on the number of observed pairs rather than on the full vocabulary.
 
+### Count sweep: log target versus loss weight
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="A shared moving count cursor tracks an increasing log target and a residual weight that saturates at one when the count reaches 100.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/glove-count-weighting-still.svg" data-motion-src="../../../assets/concept-animations/glove-count-weighting-motion.svg" data-still-src="../../../assets/concept-animations/glove-count-weighting-still.svg" alt="A shared moving count cursor tracks an increasing log target and a residual weight that saturates at one when the count reaches 100." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/glove-count-weighting-still.svg) and [full SVG animation](../../../assets/concept-animations/glove-count-weighting-motion.svg).
+
+The blue curve shows the log target and the green curve shows the residual weight. Both use the same logarithmic count axis. For a residual of magnitude one, the green value is also the pair's loss contribution. The cursor sweeps positive counts from 0.5 to 400 and back: at 1 the target is zero but the weight is positive; at and above 100 the weight stays at one while the target continues to grow. This is a sensitivity sweep over the analytic objective, not an optimisation trajectory or a measured corpus. The moving curves are sampled and linearly interpolated for display.
+
 ## Using the learned vectors
 
 Training maintains two vector tables and two bias tables. For downstream word representations, the paper adds the word and context vectors for the same vocabulary item.[^vectors]

@@ -52,6 +52,18 @@ $$
 
 先掃描語料建立共現矩陣，再對非零項迭代最佳化；因此每輪成本依賴實際觀察到的詞對數，而非必須遍歷完整矩陣。
 
+### 共現計數掃描：對數目標與損失權重
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="共用的計數游標同步追蹤持續上升的對數目標，以及在計數達到 100 時封頂為一的殘差權重。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/glove-count-weighting-still.svg" data-motion-src="../../../assets/concept-animations/glove-count-weighting-motion.svg" data-still-src="../../../assets/concept-animations/glove-count-weighting-still.svg" alt="共用的計數游標同步追蹤持續上升的對數目標，以及在計數達到 100 時封頂為一的殘差權重。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/glove-count-weighting-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/glove-count-weighting-motion.svg)。
+
+藍線為對數目標，綠線為殘差權重，兩者共用對數計數橫軸。當殘差絕對值為一時，綠線數值亦為該詞對的損失貢獻。游標在正計數 0.5 至 400 間往返：計數為 1 時目標為零，但權重仍為正；達到 100 後權重維持為一，對數目標卻繼續上升。這是解析目標函數的敏感度分析，不是最佳化軌跡或語料實測。動畫採離散取樣後線性插值顯示。
+
 ## 使用學得的向量
 
 訓練維護兩組向量表與兩組偏置表。用作下游詞表示時，論文將同一詞彙項目的詞向量與上下文向量相加。[^vectors]

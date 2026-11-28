@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "glove-count-weighting": {
+      "origins": [
+        {
+          "origin_blob": "6ac7b3e16e8a5fe523a7b13c54661b746b2fc9f2",
+          "origin_commit": "41b41758467eeafdfeaf30a3a18406a6c56ca325",
+          "path": "docs/assets/concept-animations/glove-count-weighting-motion.svg"
+        },
+        {
+          "origin_blob": "c8f9b3e5816ceca24b7cb7ebec2fc23a2eaf7cd0",
+          "origin_commit": "41b41758467eeafdfeaf30a3a18406a6c56ca325",
+          "path": "docs/assets/concept-animations/glove-count-weighting-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "facenet-triplet-margin": {
+      "origins": [
+        {
+          "origin_blob": "bae6aec1e357a382d79ed0635fa2e376ffe4f5c8",
+          "origin_commit": "41b41758467eeafdfeaf30a3a18406a6c56ca325",
+          "path": "docs/assets/concept-animations/facenet-triplet-margin-motion.svg"
+        },
+        {
+          "origin_blob": "84471f01d1c2a09e38ecb683f67080a53f6bd2de",
+          "origin_commit": "41b41758467eeafdfeaf30a3a18406a6c56ca325",
+          "path": "docs/assets/concept-animations/facenet-triplet-margin-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
