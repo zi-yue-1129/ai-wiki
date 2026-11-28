@@ -17,6 +17,8 @@ NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
     'ctc-collapse-scan': 'theory/models/speech/index',
     'ctc-path-mass': 'theory/models/speech/index',
+    'ctc-forward-lattice': 'theory/models/speech/index',
+    'ctc-repeat-skip': 'theory/models/speech/index',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
     'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
@@ -499,6 +501,8 @@ TOPICS = {
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
 CANONICAL_VIEWBOXES = {'ctc-collapse-scan': '0 0 640 360',
  'ctc-path-mass': '0 0 640 360',
+ 'ctc-forward-lattice': '0 0 640 360',
+ 'ctc-repeat-skip': '0 0 640 360',
  'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
  'kfc-patch-second-moment': '0 0 640 360',
@@ -1383,7 +1387,7 @@ def main() -> int:
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in {"ctc-collapse-scan", "ctc-path-mass"}:
+            if stem in {"ctc-collapse-scan", "ctc-path-mass", "ctc-forward-lattice", "ctc-repeat-skip"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 images = [img for img in MotionImages(text).images if stem in (img.get("src") or "")]
                 if not images or any(not (img.get("alt") or "").strip() for img in images):

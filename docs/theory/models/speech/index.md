@@ -51,6 +51,34 @@ For two frames, let each frame give blank probability 0.6 and label A probabilit
 
 Both are constructed teaching examples, **not recognizer measurements**. On MkDocs, use the existing Play/Pause control and focus the diagram to scroll horizontally on narrow screens. GitHub and reduced-motion users have a static fallback. Original CC BY-SA 4.0 artwork.
 
+### Forward recursion: sum compatible alignments without enumeration
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/ctc-forward-lattice-still.svg" data-motion-src="../../../assets/concept-animations/ctc-forward-lattice-motion.svg" data-still-src="../../../assets/concept-animations/ctc-forward-lattice-still.svg" alt="Three forward-lattice columns propagate mass over the leading blank, A and trailing blank states. The terminal A and trailing blank masses sum to 0.688." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/ctc-forward-lattice-still.svg)
+
+For target A, expand the state sequence to (blank, A, blank). With each frame assigning probabilities 0.6 to blank and 0.4 to A, initialize the forward masses to (0.6, 0.4, 0). In this example a transition can stay in its state or advance by one. With zero-based state indices, each new mass is[^ctc]
+
+$
+\alpha_t(s)=p_t(l'_s)\big(\alpha_{t-1}(s)+\alpha_{t-1}(s-1)\big).
+$
+
+Out-of-range states contribute zero. For example, at frame three the A state receives $(0.36+0.4)0.4=0.304$; the trailing blank receives $(0.4+0.24)0.6=0.384$. The leading blank represents an unfinished alignment, so it does not contribute to the final target probability: $P(A\mid x)=0.304+0.384=0.688$. The moving dots indicate predecessor contributions, not equally weighted paths; numerical cells update after the contributions arrive. These unpruned prefix masses need not sum to one because paths incompatible with the target are excluded.
+
+### Repeated labels and the skip transition
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/ctc-repeat-skip-still.svg" data-motion-src="../../../assets/concept-animations/ctc-repeat-skip-motion.svg" data-still-src="../../../assets/concept-animations/ctc-repeat-skip-still.svg" alt="The AB target allows a direct transition from A to B across the intervening blank. The AA target blocks that skip, so a third frame is needed to emit the second A." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/ctc-repeat-skip-still.svg)
+
+For longer targets, the forward recursion also permits advancing by two states when the destination is nonblank and differs from the label two states earlier. The additional predecessor term is then $\alpha_{t-1}(s-2)$.[^ctc] The diagram isolates this local transition, omitting self-loops and the leading and trailing blanks. AB can be aligned in two frames, but AA needs at least three (A, blank, A); skipping the blank would merge both A labels. For a nonempty target of length $U$, the minimum feasible frame count is $U$ plus the number of adjacent equal label pairs. This is a feasibility condition, not a decoding heuristic.
+
+Both animations use constructed examples rather than model measurements. Use the site's Play/Pause control and focus the diagram to scroll on narrow screens. Static previews preserve the final states. Original CC BY-SA 4.0 artwork.
+
 [^ctc]: Graves, A., Fernández, S., Gomez, F. & Schmidhuber, J. (2006). Connectionist temporal classification. ICML, section 3.1 and 4.1. https://doi.org/10.1145/1143844.1143891
 
 ## Low-resource and code-switched speech
