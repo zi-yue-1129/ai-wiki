@@ -67,6 +67,18 @@ Applying the preceding formulas gives the following values, rounded to four deci
 
 The averaged loss is $L\approx0.2987$, using natural logarithms. These are constructed values to demonstrate the calculation, not measurements from a trained CLIP model.
 
+### Two normalisation directions in motion
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="An orange outline selects each row and then each column of the fixed logit matrix. The two probability matrices fill independently before the diagonal losses are averaged.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-bidirectional-softmax-still.svg" data-motion-src="../../../assets/concept-animations/clip-bidirectional-softmax-motion.svg" data-still-src="../../../assets/concept-animations/clip-bidirectional-softmax-still.svg" alt="An orange outline selects each row and then each column of the fixed logit matrix. The two probability matrices fill independently before the diagonal losses are averaged." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/clip-bidirectional-softmax-still.svg) and [full SVG animation](../../../assets/concept-animations/clip-bidirectional-softmax-motion.svg).
+
+The orange outline first selects the two rows of the logit matrix, then the two columns. Each selected row or column is normalised over its own two entries. Green cells mark the paired batch positions, not a probability threshold. The resulting matrices use the same image-row and text-column layout; each row of the middle matrix sums to one, whereas each column of the right matrix sums to one. For example, the first paired position has probability 0.8808 in the image-to-text direction but 0.6900 in the reverse direction. After all four normalisations, the mean losses from the preceding table appear. Values are rounded for display. The sequential order is instructional, not an assertion that the implementation must compute the directions serially. This is the constructed example above, not a model measurement.
+
 ### Zero-shot classification and prompt ensembles
 
 For a chosen candidate class set $C$, encode a prompt for each class and normalise its embedding to obtain $v_c$. Let $u$ be the unit image embedding. The zero-shot classifier uses[^transfer]
@@ -81,6 +93,18 @@ The predicted class maximises this score. For fixed embeddings and a shared posi
 Prompt wording changes $v_c$ and can therefore change the ranking. In Section 3.1.4, the default template "A photo of a {label}." improves ImageNet accuracy by about 1.3 percentage points over bare class names. Ensembling 80 context prompts adds about 3.5 further points.[^transfer] The official example normalises each prompt embedding, averages the embeddings for each class, then normalises that average to form one class vector.[^ensemble]
 
 The denominator also depends on the candidate list. As a separate constructed example, logits $(2,0)$ give the first class probability $0.8808$. Adding a third candidate with logit $2$ lowers it to $0.4683$, while leaving both original logits unchanged. Doubling the original two logits to $(4,0)$ instead raises it to $0.9820$. With only one candidate, softmax always returns $1$. Thus a large softmax score alone establishes neither that the correct class was offered nor that confidence is calibrated for the intended task. The model card reports sensitivity to class design and calls for testing with a specific class taxonomy.[^taxonomy]
+
+### Adding a candidate changes the denominator
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Class C enters with logit two. The logits of A and B stay fixed, while the three probability bars renormalise; dashed markers show the two-candidate probabilities.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-candidate-set-still.svg" data-motion-src="../../../assets/concept-animations/clip-candidate-set-motion.svg" data-still-src="../../../assets/concept-animations/clip-candidate-set-still.svg" alt="Class C enters with logit two. The logits of A and B stay fixed, while the three probability bars renormalise; dashed markers show the two-candidate probabilities." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/clip-candidate-set-still.svg) and [full SVG animation](../../../assets/concept-animations/clip-candidate-set-motion.svg).
+
+Start with two classes A and B with logits 2 and 0. The moving green marker announces a new candidate C with logit 2. On arrival, all probabilities update together: A drops from about 0.8808 to 0.4683, B from 0.1192 to 0.0634, and C receives 0.4683. The dashed markers retain the original probabilities of A and B. The original logit difference remains two, so the probability ratio of A to B is unchanged even though their individual probabilities decrease. The bars change discretely when the candidate set changes; the moving marker is not a continuous probability trajectory. A and C now tie. These are rounded analytic values from the constructed example, not CLIP confidence measurements or evidence that a new class is correct.
 
 ## Results
 
