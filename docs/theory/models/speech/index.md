@@ -181,6 +181,32 @@ The original method samples distinct start indices without replacement and masks
 
 Both are schematic teaching examples, not model measurements. Use Play/Pause on MkDocs and focus the diagram for horizontal scrolling; the static fallback shows the completed state. Original CC BY-SA 4.0 artwork.
 
+## Whisper: timestamp-conditioned transcription
+
+### Interleaving timestamps and text
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/whisper-timestamp-interleave-still.svg" data-motion-src="../../../assets/concept-animations/whisper-timestamp-interleave-motion.svg" data-still-src="../../../assets/concept-animations/whisper-timestamp-interleave-still.svg" alt="Two captions occupy 0.80–4.20 and 6.00–9.60 seconds relative to the current audio window. The decoder emits each start timestamp, caption text and end timestamp in order." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/whisper-timestamp-interleave-still.svg)
+
+Unlike CTC frame collapse, Whisper uses an encoder–decoder Transformer to generate output tokens autoregressively, conditioned on the encoded audio and preceding decoder tokens. In timestamp mode, the vocabulary includes time tokens on a 20 ms grid relative to the current audio window; each complete caption has a start token, text tokens, and an end token.[^whisper-timing] The orange cells represent timestamps, blue cells represent caption text (A and B stand for arbitrary token subsequences). For example, the 0.80 s and 4.20 s boundaries correspond to grid indices 40 and 210, not absolute vocabulary IDs. The moving markers show output order, not measured attention alignments or the time at which the model hears or emits speech. The language/task prefix and end-of-transcript token are omitted.
+
+### Timestamp-guided window shift in long audio
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/whisper-window-seek-still.svg" data-motion-src="../../../assets/concept-animations/whisper-window-seek-motion.svg" data-still-src="../../../assets/concept-animations/whisper-window-seek-still.svg" alt="A 30-second window starting at 0 ends inside caption B, which spans recording seconds 24 to 34. The next window starts at 24 and ends at 54; B occupies relative seconds 0 to 10." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/whisper-window-seek-still.svg)
+
+For long audio, the original method uses timestamp predictions to determine where to place the next 30-second window. Its training format represents a caption that extends beyond a window with its start timestamp alone (no partial caption text), in timestamp mode.[^whisper-timing] In the constructed example, caption A ends at recording time 24 s and B spans 24–34 s. The first window is [0,30), so B is incomplete. Shifting the window start by 24 s gives [24,54), overlapping the first window by 6 s. B is now complete: its relative times 0 and 10 s are converted to absolute times by adding the new window origin, 24 s. The moving outline illustrates repositioning, not continuous model inference. Real decoding can produce inaccurate timestamps and uses additional heuristics; the shift need not be 24 s or always overlap.
+
+Both are constructed teaching examples, not recognizer measurements. Use Play/Pause on MkDocs and focus the diagram to scroll on narrow screens. Static fallbacks show the completed state. Original CC BY-SA 4.0 artwork.
+
+[^whisper-timing]: Radford, A. et al. (2022). *Robust Speech Recognition via Large-Scale Weak Supervision*. https://arxiv.org/abs/2212.04356 — Sections 2.2–2.3 and Appendix A of the published version.
+
 ## Low-resource and code-switched speech
 
 Most languages and dialects lack large transcribed corpora. Code-switching (mixing languages within a sentence) and regional languages (e.g. Taiwanese Hokkien, Hakka and Indigenous languages in Taiwan) are active research areas; Whisper-style models often need fine-tuning and post-processing for them.

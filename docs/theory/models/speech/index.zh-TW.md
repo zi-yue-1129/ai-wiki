@@ -175,6 +175,32 @@ $
 
 兩圖皆為教學示意，非模型實測。MkDocs 可使用播放／暫停控制，聚焦圖形可水平捲動；靜態回退呈現完成狀態。原創圖形採 CC BY-SA 4.0 授權。
 
+## Whisper：時間戳記條件式轉錄
+
+### 交錯產生時間戳記與文字
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/whisper-timestamp-interleave-still.svg" data-motion-src="../../../assets/concept-animations/whisper-timestamp-interleave-motion.svg" data-still-src="../../../assets/concept-animations/whisper-timestamp-interleave-still.svg" alt="兩段字幕相對於當前音訊視窗的時間分別為 0.80–4.20 秒與 6.00–9.60 秒；解碼器依序產生各段的開始時間、文字與結束時間。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/whisper-timestamp-interleave-still.svg)
+
+不同於 CTC 的影格折疊，Whisper 採用編碼器－解碼器 Transformer，根據編碼後的音訊與先前解碼 token 自回歸產生輸出。時間戳記模式的詞彙表包含以當前音訊視窗為基準、間隔 20 ms 的時間 token；每段完整字幕依序包含開始時間、文字 token 與結束時間。[^whisper-timing] 橘色為時間戳記，藍色為字幕文字（A、B 代表任意 token 子序列）。例如 0.80 秒與 4.20 秒對應時間網格索引 40、210，而非絕對詞彙表 ID。移動圓點呈現輸出順序，並非實測注意力對齊、聽到語音的時刻或實際輸出延遲。圖中省略語言／任務前綴與轉錄結束 token。
+
+### 長音訊：依時間戳記移動視窗
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/whisper-window-seek-still.svg" data-motion-src="../../../assets/concept-animations/whisper-window-seek-motion.svg" data-still-src="../../../assets/concept-animations/whisper-window-seek-still.svg" alt="從第 0 秒開始的 30 秒視窗在字幕 B 中途結束；B 涵蓋錄音第 24 至 34 秒。下一個視窗為第 24 至 54 秒，B 的相對時間為 0 至 10 秒。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/whisper-window-seek-still.svg)
+
+原始方法處理長音訊時，以預測的時間戳記決定下一個 30 秒視窗的位置。在時間戳記模式的訓練格式中，跨出視窗的字幕僅標示開始時間，不包含部分字幕文字。[^whisper-timing] 人工算例中，字幕 A 於錄音第 24 秒結束，B 涵蓋第 24–34 秒。第一個視窗為 [0,30)，無法完整涵蓋 B。將視窗起點向後移動 24 秒，得到 [24,54)，與第一個視窗重疊 6 秒。此時 B 已完整涵蓋；其相對時間 0、10 秒加上新視窗起點 24 秒，即得到絕對時間 24、34 秒。移動框呈現視窗重新定位，而非連續執行模型推論。實際解碼的時間戳記可能有誤，並會使用其他啟發式策略；移動量不固定為 24 秒，也不一定總有重疊。
+
+兩圖皆為教學算例，非辨識模型實測值。MkDocs 可使用播放／暫停控制；窄螢幕可聚焦圖示後水平捲動。靜態回退呈現完成狀態。原創圖示採 CC BY-SA 4.0 授權。
+
+[^whisper-timing]: Radford, A. et al. (2022). *Robust Speech Recognition via Large-Scale Weak Supervision*. https://arxiv.org/abs/2212.04356 — 正式出版版本第 2.2–2.3 節與附錄 A。
+
 ## 台灣與華語語音
 
 - 台語、客語、原住民族語辨識與合成：教育部、中研院、台大等計畫，以及「台灣媠聲」、意傳科技等
