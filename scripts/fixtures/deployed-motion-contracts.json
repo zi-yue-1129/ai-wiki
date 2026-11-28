@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "embedding-norm-ranking": {
+      "origins": [
+        {
+          "origin_blob": "a7aea223cb6d7f6843aa393adcd837390b4b5ee9",
+          "origin_commit": "90493537d21add858876a76e402ca0e0d89014f8",
+          "path": "docs/assets/concept-animations/embedding-norm-ranking-motion.svg"
+        },
+        {
+          "origin_blob": "990ce4063bc28438fcdc71e8243db4af73c4b95f",
+          "origin_commit": "90493537d21add858876a76e402ca0e0d89014f8",
+          "path": "docs/assets/concept-animations/embedding-norm-ranking-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "embedding-lookup-accumulation": {
+      "origins": [
+        {
+          "origin_blob": "99dd085004178fe7e15f1169a86235d6fba78277",
+          "origin_commit": "90493537d21add858876a76e402ca0e0d89014f8",
+          "path": "docs/assets/concept-animations/embedding-lookup-accumulation-motion.svg"
+        },
+        {
+          "origin_blob": "8c4a2408512949af53853323189adf1429524a86",
+          "origin_commit": "90493537d21add858876a76e402ca0e0d89014f8",
+          "path": "docs/assets/concept-animations/embedding-lookup-accumulation-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "glove-simultaneous-gradient": {
       "origins": [
         {

@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'embedding-norm-ranking': 'theory/models/embeddings/index',
+    'embedding-lookup-accumulation': 'theory/models/embeddings/index',
     'glove-simultaneous-gradient': 'theory/models/embeddings/glove',
     'facenet-semi-hard-screening': 'theory/models/embeddings/facenet',
     'clip-temperature-scale': 'theory/models/embeddings/clip',
@@ -505,7 +507,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'glove-simultaneous-gradient': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'embedding-norm-ranking': '0 0 640 360',
+ 'embedding-lookup-accumulation': '0 0 640 360',
+ 'glove-simultaneous-gradient': '0 0 640 360',
  'facenet-semi-hard-screening': '0 0 640 360',
  'clip-temperature-scale': '0 0 640 360',
  'clip-prompt-ensemble': '0 0 640 360',
@@ -1383,7 +1387,7 @@ def main() -> int:
                 errors.append(f"{page}: missing translation")
                 continue
             text = page.read_text(encoding="utf-8")
-            if stem in {"glove-simultaneous-gradient", "facenet-semi-hard-screening", "glove-count-weighting", "facenet-triplet-margin", "glove-window-accumulation", "facenet-verification-sweep", "clip-bidirectional-softmax", "clip-candidate-set", "clip-temperature-scale", "clip-prompt-ensemble"}:
+            if stem in {"embedding-norm-ranking", "embedding-lookup-accumulation", "glove-simultaneous-gradient", "facenet-semi-hard-screening", "glove-count-weighting", "facenet-triplet-margin", "glove-window-accumulation", "facenet-verification-sweep", "clip-bidirectional-softmax", "clip-candidate-set", "clip-temperature-scale", "clip-prompt-ensemble"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 previews = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if not {static_path.resolve(), animated_path.resolve()} <= {(page.parent / link).resolve() for link in previews}:

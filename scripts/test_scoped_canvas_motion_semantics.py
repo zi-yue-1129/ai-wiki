@@ -14,6 +14,7 @@ from test_embedding_followup_motion import EmbeddingFollowup
 from test_clip_motion import CLIPMotion
 from test_clip_extra_motion import CLIPExtraMotion
 from test_embedding_gradient_screening import EmbeddingGradientScreening
+from test_embedding_overview_motion import EmbeddingOverviewMotion
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'docs/assets/concept-animations'
@@ -35,7 +36,7 @@ CONTRACTS = json.loads(
 EXPECTED_CANVASES = {stem: entry['viewBox'] for stem, entry in CONTRACTS['canonical'].items()}
 EXPECTED_EXTRAS = {name: entry['viewBox'] for name, entry in CONTRACTS['extra'].items()}
 EXPECTED_PREFIXES = {name: entry['viewBox'] for name, entry in CONTRACTS['prefix'].items()}
-assert len(EXPECTED_CANVASES) == 481 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
+assert len(EXPECTED_CANVASES) == 483 and len(EXPECTED_EXTRAS) == 13 and len(EXPECTED_PREFIXES) == 28
 
 EXPECTED_EXCLUSIONS = {name: tuple(entry['excluded_prefixes']) for name, entry in CONTRACTS['prefix'].items() if entry.get('excluded_prefixes')}
 
