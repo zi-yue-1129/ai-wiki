@@ -25,6 +25,26 @@ A forecast is a function from a history of observations to a prediction for one 
 
 Evaluation must respect time. A model is trained on the past and tested on a later period, and the test window is usually rolled forward over many origins, so that the result does not depend on one lucky split. Shuffling the data, as is standard in many machine-learning tasks, leaks future information into training and can overstate accuracy.
 
+### Rolling-origin evaluation without future leakage
+
+For an illustrative series $(2,4,3,5,6,4,7,8)$, use an expanding history, horizon $H=2$, and a last-value baseline $\hat y_{T+h|T}=y_T$ for both horizons. At origin $T$, only values up to $T$ may be used to issue the prediction; the next two observations are revealed only to score that fixed prediction. Repeat retrospectively at origins 4, 5 and 6.
+
+| Origin | Forecast | Held-out values | MAE |
+| ---: | --- | --- | ---: |
+| 4 | (5, 5) | (6, 4) | 1 |
+| 5 | (6, 6) | (4, 7) | 1.5 |
+| 6 | (4, 4) | (7, 8) | 3.5 |
+
+The mean across these equal-horizon folds is 2. The blue line and shaded region show the available history; the orange squares and dashed line are the fixed forecasts, and the moving orange dot illustrates their issuance, not elapsed physical time. Green points and vertical error segments appear only during scoring. The lower strip reveals each fold's MAE only after scoring. Folds overlap (an observation can be a target at different origins); this is a retrospective replay, not a single real-time process or six independent errors. Any model fitting, scaling or tuning for an origin must use only information available at that origin; later evaluation results must not influence earlier forecasts. All values are schematic, not measured model performance.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="An expanding observed history issues two fixed forecasts at each origin; held-out points and errors are revealed only when scoring, with MAEs 1, 1.5 and 3.5.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg" data-motion-src="../../../assets/concept-animations/rolling-origin-forecast-evaluation-motion.svg" data-still-src="../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg" alt="An expanding observed history issues two fixed forecasts at each origin; held-out points and errors are revealed only when scoring, with MAEs 1, 1.5 and 3.5." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg) and [full SVG animation](../../../assets/concept-animations/rolling-origin-forecast-evaluation-motion.svg).
+
 ### Comparing errors across series
 
 MASE scales forecast errors by a seasonal naïve error from the training range, not by a denominator estimated on the test set. For training length $T$, seasonal period $m$ and forecast horizon $H$:

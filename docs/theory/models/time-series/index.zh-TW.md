@@ -14,6 +14,26 @@ related:
 
 評估必須尊重時間順序。模型在過去的資料上訓練，並在之後的期間上測試，測試視窗通常會在許多起點上向前滾動，使結果不依賴某一次幸運的切分。許多機器學習任務慣用的打亂資料順序，會把未來資訊洩漏到訓練中，可能使準確率被高估。
 
+### 不洩漏未來資訊的滾動起點評估
+
+考慮示意序列 $(2,4,3,5,6,4,7,8)$，採用逐步擴大的歷史視窗、預測期 $H=2$，以及末值天真預測 $\hat y_{T+h|T}=y_T$，兩個預測步皆使用相同末值。在起點 $T$，只能使用截至 $T$ 的觀測值發出預測；之後才揭露接下來兩筆觀測，用來評估已固定的預測。分別在起點 4、5、6 回溯評估。
+
+| 起點 | 預測 | 保留觀測值 | MAE |
+| ---: | --- | --- | ---: |
+| 4 | (5, 5) | (6, 4) | 1 |
+| 5 | (6, 6) | (4, 7) | 1.5 |
+| 6 | (4, 4) | (7, 8) | 3.5 |
+
+三個預測期相同的切分，其平均 MAE 為 2。藍線與淺色區域代表當時可用的歷史，橘色方點與虛線是固定預測，移動的橘色圓點用於示意預測的發出，不代表實際經過時間。綠色觀測點與垂直誤差線只在評分階段出現，下方各切分的 MAE 也只在評分後揭露。切分間可重疊（同一觀測可在不同起點成為預測目標）；動畫是回溯重播，不是單次即時流程，也不是六個獨立誤差。各起點的模型擬合、尺度轉換或調參均只能使用當時可得資訊；較晚的評估結果不得影響較早的預測。所有數值皆為示意，非模型實測結果。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="歷史視窗隨預測起點擴大，每次發出兩步固定預測，評分時才揭露保留觀測與誤差，三次 MAE 為 1、1.5、3.5。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg" data-motion-src="../../../assets/concept-animations/rolling-origin-forecast-evaluation-motion.svg" data-still-src="../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg" alt="歷史視窗隨預測起點擴大，每次發出兩步固定預測，評分時才揭露保留觀測與誤差，三次 MAE 為 1、1.5、3.5。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/rolling-origin-forecast-evaluation-motion.svg)。
+
 ### 可跨序列比較的誤差尺度
 
 MASE 以訓練區間內的季節性天真預測誤差作尺度，而不是使用測試資料估計分母。設訓練長度為 $T$、季節週期為 $m$、預測期為 $H$：

@@ -48,6 +48,25 @@ M4 與 M3 的模型也曾以 MAPE 與 MASE 訓練，論文報告的結果來自�
 
 TOURISM 的選模只使用 MAPE 損失（論文附錄 D.1）；不能把 M4/M3 的三損失集成描述直接套用到 TOURISM。
 
+### 算例：扣除回溯估計、累加預測
+
+令示意回看向量為 $x_1=(3,1,5,3)$，使用兩個區塊及長度為 2 的預測期。假設第一個區塊輸出回溯估計 $(2,2,4,4)$ 與局部預測 $(6,6)$。其殘差 $x_2=(1,-1,1,-1)$ 才是第二個區塊的輸入，而非原始歷史或局部預測。假設第二個區塊輸出回溯估計 $(1,-1,1,-1)$ 與局部預測 $(1,-1)$。
+
+| 區塊 | 輸入 | 回溯估計 | 殘差 | 局部預測 | 累積預測 |
+| ---: | --- | --- | --- | --- | --- |
+| 1 | (3,1,5,3) | (2,2,4,4) | (1,-1,1,-1) | (6,6) | (6,6) |
+| 2 | (1,-1,1,-1) | (1,-1,1,-1) | (0,0,0,0) | (1,-1) | (7,5) |
+
+藍色連線將第一個殘差傳至下一區塊，綠色連線傳遞累積預測，並加上下個局部預測完成更新。長條共用有正負號的零基準線，在區塊運算完成時出現；移動的藍色圓點示意殘差傳遞。最終預測為 $(6,6)+(1,-1)=(7,5)$，不是殘差，也不是最後一個局部預測。回溯估計殘差為零不代表未來預測必然正確。這些向量為指定的區塊教學輸出，並非訓練模型實測結果，也不保證能精確分解。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="兩個 N-BEATS 區塊扣除各自回溯估計，將殘差傳給下一區塊，並累加局部預測得到 7 與 5。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/nbeats-double-residual-still.svg" data-motion-src="../../../assets/concept-animations/nbeats-double-residual-motion.svg" data-still-src="../../../assets/concept-animations/nbeats-double-residual-still.svg" alt="兩個 N-BEATS 區塊扣除各自回溯估計，將殘差傳給下一區塊，並累加局部預測得到 7 與 5。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/nbeats-double-residual-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/nbeats-double-residual-motion.svg)。
+
 ## 結果
 
 在 M4 競賽資料上，結合通用與可解釋組態的集成（N-BEATS-I+G）達到平均 sMAPE 11.135，M4 冠軍（指數平滑與循環網路的混合方法）為 11.374。摘要報告了 11% 與 3% 的提升，但不應把它們解讀為上述 sMAPE 數值的降幅。表 1 中，N-BEATS-I+G 的 OWA 為 0.795，M4 冠軍為 0.821，降幅約 3.2%；sMAPE 的降幅則約為 2.1%。通用與可解釋組態的準確度相近。論文也在 M3 與旅遊資料集上報告結果，同一架構未作修改。
