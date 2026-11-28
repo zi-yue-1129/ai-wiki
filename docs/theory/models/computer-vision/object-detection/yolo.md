@@ -1,6 +1,6 @@
 ---
 status: draft
-last_reviewed: 2026-11-14
+last_reviewed: 2026-11-28
 tags:
   - computer vision
   - object detection
@@ -12,7 +12,7 @@ aliases:
 
 # YOLO (You Only Look Once)
 
-YOLO is a one-stage object detector that predicts boxes and class probabilities for the whole image in a single pass of one network. It treats detection as one regression problem rather than as a classification run over many proposals (Redmon et al., 2015).[^yolo] Its speed made real-time detection practical, and the family has continued through later versions.
+YOLO is a one-stage object detector that predicts boxes and class probabilities for the whole image in a single pass of one network. It treats detection as one regression problem rather than as a classification run over many proposals (Redmon et al., 2016).[^yolo] Its speed made real-time detection practical, and the family has continued through later versions.
 
 This page is part of [Object Detection](index.md).
 
@@ -60,7 +60,7 @@ The original YOLO paper lists its own weaknesses; these apply to the original mo
 - Several downsampling layers leave the features used for box prediction coarse.
 - The main source of error is incorrect localisation.
 
-The YOLOv3 report describes a series of smaller design changes made to the family, which improved accuracy while keeping it fast.
+The YOLOv3 report describes a series of smaller design changes made to the family, which improved accuracy while keeping it fast. YOLO9000 (Redmon and Farhadi, 2017) extends the same line with joint training on detection and classification data.[^yolo9000]
 
 ## Connections
 
@@ -70,7 +70,9 @@ YOLO is the one-stage counterpart of the two-stage line in the [Object Detection
 
 ### Seminal papers
 
-[^yolo]: Redmon, J., Divvala, S., Girshick, R. & Farhadi, A. (2015). *You Only Look Once: Unified, Real-Time Object Detection*. arXiv. https://arxiv.org/abs/1506.02640 — The original YOLO paper, with the grid design, the loss and the PASCAL VOC speed and accuracy results used above.
+[^yolo]: Redmon, J., Divvala, S., Girshick, R. & Farhadi, A. (2016). *You Only Look Once: Unified, Real-Time Object Detection*. CVPR, pp. 779–788. doi:[10.1109/CVPR.2016.91](https://doi.org/10.1109/CVPR.2016.91) (preprint: https://arxiv.org/abs/1506.02640) — The original YOLO paper, with the grid design, the loss and the PASCAL VOC speed and accuracy results used above.
+
+[^yolo9000]: Redmon, J. & Farhadi, A. (2017). *YOLO9000: Better, Faster, Stronger*. CVPR, pp. 6517–6525. doi:[10.1109/CVPR.2017.690](https://doi.org/10.1109/CVPR.2017.690) (preprint: https://arxiv.org/abs/1612.08242) — The second version, with batch normalisation, anchor boxes and joint training on detection and classification data.
 
 [^yolov3]: Redmon, J. & Farhadi, A. (2018). *YOLOv3: An Incremental Improvement*. arXiv. https://arxiv.org/abs/1804.02767 — The third version, with COCO AP, AP50, and speed comparisons against SSD and RetinaNet.
 
@@ -79,4 +81,4 @@ YOLO is the one-stage counterpart of the two-stage line in the [Object Detection
 
 ### Surveys and benchmarks
 
-- Everingham, M., Van Gool, L., Williams, C. K. I., Winn, J. & Zisserman, A. (2010). The Pascal Visual Object Classes (VOC) challenge. *International Journal of Computer Vision*, 88(2), 303–338. https://ora.ox.ac.uk/objects/uuid:8e9c1a89-e97d-4ca5-8581-a97a8cbb9f0a — The VOC benchmark and evaluation protocol on which the YOLO results are reported. The Oxford repository record confirms the title, authors, journal and volume.
+- Everingham, M., Van Gool, L., Williams, C. K. I., Winn, J. & Zisserman, A. (2010). The Pascal Visual Object Classes (VOC) challenge. *International Journal of Computer Vision*, 88, 303–338. doi:[10.1007/s11263-009-0275-4](https://doi.org/10.1007/s11263-009-0275-4) — The VOC benchmark and evaluation protocol on which the YOLO results are reported.
