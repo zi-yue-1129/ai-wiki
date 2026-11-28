@@ -137,6 +137,28 @@ Both diagrams use constructed examples, not model measurements. Use the site's P
 
 [^wav2vec]: Baevski, A., Zhou, H., Mohamed, A. & Auli, M. (2020). *wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations*. NeurIPS, sections 2 and 3. https://arxiv.org/abs/2006.11477
 
+### Contrastive loss: normalize over the candidate set
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-contrastive-normalization-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-contrastive-normalization-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-contrastive-normalization-still.svg" alt="Three candidate logits 2, 1 and 0 become exponential weights, then probabilities 66.5%, 24.5% and 9.0%. The positive negative log-probability is 0.408." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/wav2vec-contrastive-normalization-still.svg)
+
+For a masked position, the context representation is compared with its quantized positive and sampled distractors. For a toy cosine-similarity vector $(0.6,0.3,0)$ and contrastive temperature $\kappa=0.3$, the logits are $(2,1,0)$. Exponentiating and dividing by the shared sum gives $(0.6652,0.2447,0.0900)$ (rounded). The positive loss is $-\log(0.6652)\approx0.408$. The denominator includes the positive as well as both negatives. These are candidate probabilities at one masked position, not a distribution over the codebook or vocabulary. The contrastive temperature is distinct from the Gumbel-softmax temperature used in quantization.[^wav2vec]
+
+### Diversity loss: entropy of the mean, not mean entropy
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-diversity-mean-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-diversity-mean-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-diversity-mean-still.svg" alt="Two batches have equally confident per-frame selection distributions. Averaging two identical 90/10 distributions gives entropy 0.325; averaging opposite 90/10 and 10/90 distributions gives entropy 0.693." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/wav2vec-diversity-mean-still.svg)
+
+The diversity objective encourages use of each codebook's entries by maximizing the entropy of its batch-averaged selection probabilities, computed from ordinary softmax logits without Gumbel noise or temperature scaling. For one codebook with two entries, compare two frames with probabilities $(0.9,0.1)$ and $(0.9,0.1)$ against two frames with $(0.9,0.1)$ and $(0.1,0.9)$. Both batches have identical per-frame entropy, but their means are $(0.9,0.1)$ and $(0.5,0.5)$, whose entropies are 0.325 and 0.693 nats respectively. The original paper's equation (4) minimizes negative entropy of the mean; its implementation instead uses a normalized perplexity deficit (footnote 2). The two forms favor uniform usage but are not numerically identical objectives. The diagram shows soft marginal probabilities, not counts of hard Gumbel selections or joint codebook combinations.[^wav2vec]
+
+Both are constructed numerical examples, not model measurements. The moving dots represent complete row contributions, not individual sampled entries. Use Play/Pause on MkDocs; focus the diagram to scroll on narrow screens. Static fallbacks show completed computations. Original CC BY-SA 4.0 artwork.
+
 ## Low-resource and code-switched speech
 
 Most languages and dialects lack large transcribed corpora. Code-switching (mixing languages within a sentence) and regional languages (e.g. Taiwanese Hokkien, Hakka and Indigenous languages in Taiwan) are active research areas; Whisper-style models often need fine-tuning and post-processing for them.

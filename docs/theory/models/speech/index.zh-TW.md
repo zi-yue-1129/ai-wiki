@@ -131,6 +131,28 @@ $
 
 [^wav2vec]: Baevski, A., Zhou, H., Mohamed, A. & Auli, M. (2020). *wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations*. NeurIPS，第 2 與第 3 節。https://arxiv.org/abs/2006.11477
 
+### 對比損失：在候選集合內正規化
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-contrastive-normalization-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-contrastive-normalization-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-contrastive-normalization-still.svg" alt="三個候選 logit 2、1、0 經指數運算後除以共同總和，得到 66.5%、24.5%、9.0%；正例負對數機率為 0.408。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/wav2vec-contrastive-normalization-still.svg)
+
+對被遮罩的位置，將上下文表徵與量化正例及抽樣的干擾候選比較。人工算例的餘弦相似度為 $(0.6,0.3,0)$，對比溫度 $\kappa=0.3$，因此 logits 為 $(2,1,0)$。取指數後除以共同總和，得到機率 $(0.6652,0.2447,0.0900)$（四捨五入）。正例損失為 $-\log(0.6652)\approx0.408$。分母包含正例及兩個負例。這是一個被遮罩位置的候選機率，而非碼本或詞彙表的機率分布。對比溫度與量化時的 Gumbel-softmax 溫度不同。[^wav2vec]
+
+### 多樣性損失：平均分布的熵，而非熵的平均
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/wav2vec-diversity-mean-still.svg" data-motion-src="../../../assets/concept-animations/wav2vec-diversity-mean-motion.svg" data-still-src="../../../assets/concept-animations/wav2vec-diversity-mean-still.svg" alt="兩個批次的逐影格選取分布具有相同信心程度；兩筆 90/10 分布平均後的熵為 0.325，而 90/10 與 10/90 平均後的熵為 0.693。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/wav2vec-diversity-mean-still.svg)
+
+多樣性目標藉由最大化各碼本的批次平均選取機率分布的熵，鼓勵使用各個項目。這些機率由一般 softmax 計算，不加入 Gumbel 雜訊或溫度縮放。以單一碼本、兩個項目為例，比較兩個影格皆為 $(0.9,0.1)$ 的批次，以及兩個影格分別為 $(0.9,0.1)$、$(0.1,0.9)$ 的批次。兩批次的逐影格熵相同，但平均分布分別為 $(0.9,0.1)$、$(0.5,0.5)$，熵分別為 0.325、0.693 nat。原始論文式（4）最小化平均分布的負熵，實作則採正規化的困惑度缺額（註 2）。兩者皆鼓勵均勻使用，但並非數值相同的目標函數。圖中呈現軟性邊際機率，而非硬式 Gumbel 選取次數或聯合碼本組合。[^wav2vec]
+
+兩圖皆為人工數值算例，非模型實測值。移動圓點代表整列分布的運算貢獻，不是個別抽樣項目。MkDocs 可使用播放／暫停控制；窄螢幕可聚焦圖示後水平捲動。靜態回退圖保留完成運算的狀態。原創圖示，CC BY-SA 4.0。
+
 ## 台灣與華語語音
 
 - 台語、客語、原住民族語辨識與合成：教育部、中研院、台大等計畫，以及「台灣媠聲」、意傳科技等
