@@ -70,15 +70,23 @@ $$
 
 兩者在上述簡化目標的統計量匹配損失都是零，但支撐集與四階中心動差不同。例如非線性特徵 $(x-2)^4$ 在第一個分布的期望值為 1，在第二個分布則為 4。因此，即使兩個純量統計量完全一致，也不能保證後續非線性運算產生相同的反應。這是人工計算示例，並非對特定合成方法的覆蓋率或隱私保證做出實測主張。
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="機率質量由兩點參考分布移至三點分布，平均值與變異數不變，四階中心動差由 1 增至 4。">
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="機率質量改變但平均值與變異數不變；四階中心動差由 1 增至 4，中心化 ReLU 輸出期望值由二分之一降至四分之一。">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-equal-moments-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" alt="機率質量由兩點參考分布移至三點分布，平均值與變異數不變，四階中心動差由 1 增至 4。" width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-equal-moments-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" alt="機率質量改變但平均值與變異數不變；四階中心動差由 1 增至 4，中心化 ReLU 輸出期望值由二分之一降至四分之一。" width="640" height="360">
 </div>
 </div>
 
 *原創 12 秒教學動畫（CC BY-SA 4.0）。* 網站可使用播放／暫停按鈕，小螢幕可水平捲動。GitHub 可直接開啟[靜態預覽](../../../../assets/concept-animations/data-free-equal-moments-still.svg)或[完整 SVG 動畫](../../../../assets/concept-animations/data-free-equal-moments-motion.svg)。
 
-動畫將此反例推廣至整個混合分布 $P_t=(1-t)P_X+tP_Y$，其中 $0\le t\le1$。激活值 0 至 4 的機率依序為 $(t/8,(1-t)/2,3t/4,(1-t)/2,t/8)$。所有混合分布的平均值皆為 2、變異數皆為 1，簡化統計量匹配損失皆為零，而四階中心動差為 $1+3t$。虛線框標示固定參考分布 $X$，青綠色長條顯示目前的機率質量，橘色長條則顯示非線性運算的期望值。這是機率混合，不是最佳化軌跡或實測特徵分布。
+動畫將此反例推廣至整個混合分布 $P_t=(1-t)P_X+tP_Y$，其中 $0\le t\le1$。激活值 0 至 4 的機率依序為 $(t/8,(1-t)/2,3t/4,(1-t)/2,t/8)$。所有混合分布的平均值皆為 2、變異數皆為 1，簡化統計量匹配損失皆為零，而四階中心動差為 $1+3t$。虛線框標示固定參考分布 $X$，青綠色長條顯示目前的機率質量。橘色長條顯示四階中心動差，藍色長條顯示中心化後的 ReLU 激活期望值，兩者皆與混合比例同步。這是機率混合，不是最佳化軌跡或實測特徵分布。
+
+常見的神經網路非線性運算也能區分這些混合分布：令 $g(x)=\max(x-2,0)$。只有激活值 3 與 4 對其期望值有貢獻，對應輸出分別為 1 與 2。因此
+
+$
+\mathbb E_{P_t}[g(x)]=\frac{1-t}{2}+2\frac{t}{8}=\frac12-\frac{t}{4}.
+$
+
+當四階中心動差由 1 增至 4 時，ReLU 激活期望值由 0.5 降至 0.25。兩個算例顯示，即使是具有固定偏置的純量網路，匹配前兩階動差也不能決定後續非線性反應。這些數值是精確的人工算例，並非教師模型的實測激活值。
 
 ## 主要方法
 

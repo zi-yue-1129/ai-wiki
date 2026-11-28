@@ -42,6 +42,20 @@ class MixtureMotionTests(unittest.TestCase):
             self.tracks(stem,f'mass-{i}','height',h)
             self.tracks(stem,f'mass-{i}','y',[252-v for v in h])
         self.tracks(stem,'fourth-moment','width',[51*(1+3*p) for p in P])
+    def test_signed_residuals_and_relu(self):
+        w=[F(11,10),F(17,20)]
+        ds=[[v-round(v/s)*s for v in w] for s in [F(1),F(3,5)]]
+        self.assertEqual([[[a*b for a,b in zip(d,x)] for x in [(5,2),(3,2)]] for d in ds],
+                         [[[F(1,2),F(-3,10)],[F(3,10),F(-3,10)]],
+                          [[F(-1,2),F(1,2)],[F(-3,10),F(1,2)]]])
+        for i in range(2):
+            self.tracks('ptq-calibration-scale-choice',f'input-highlight-{i}','opacity',
+                        [F(5,100)+F(19,100)*(p if i==0 else 1-p) for p in P])
+        for p in [F(i,16) for i in range(17)]:
+            q=[p/8,(1-p)/2,3*p/4,(1-p)/2,p/8]
+            self.assertEqual(sum(max(i-2,0)*v for i,v in enumerate(q)),F(1,2)-p/4)
+        self.tracks('data-free-equal-moments','relu-mean','width',
+                    [408*(F(1,2)-p/4) for p in P])
     def test_assets(self):
         for stem in ['ptq-calibration-scale-choice','data-free-equal-moments']:
             for mode in ['motion','still']:

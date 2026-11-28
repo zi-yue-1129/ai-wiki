@@ -69,15 +69,23 @@ The two-value example above is deliberately constrained. To see why matching mea
 
 Both have zero moment-matching loss for the simplified objective above, but their supports and fourth central moments differ. For instance, the nonlinear feature $(x-2)^4$ has expectation 1 under the first distribution and 4 under the second. Therefore, even exact agreement on two scalar moments does not ensure identical responses to a subsequent nonlinear operation. This is an illustrative calculation, not a claim about the coverage or privacy of a particular synthesis method.
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Probability mass moves from the two-point reference to a three-point distribution; mean and variance remain fixed while the fourth central moment grows from one to four.">
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Probability mass changes with fixed mean and variance; the fourth moment grows from one to four while the expected centred ReLU output falls from one half to one quarter.">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-equal-moments-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" alt="Probability mass moves from the two-point reference to a three-point distribution; mean and variance remain fixed while the fourth central moment grows from one to four." width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" data-motion-src="../../../../assets/concept-animations/data-free-equal-moments-motion.svg" data-still-src="../../../../assets/concept-animations/data-free-equal-moments-still.svg" alt="Probability mass changes with fixed mean and variance; the fourth moment grows from one to four while the expected centred ReLU output falls from one half to one quarter." width="640" height="360">
 </div>
 </div>
 
 *Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../../assets/concept-animations/data-free-equal-moments-still.svg) and [full SVG animation](../../../../assets/concept-animations/data-free-equal-moments-motion.svg).
 
-The animation generalises this counterexample to the entire mixture $P_t=(1-t)P_X+tP_Y$ for $0\le t\le1$. The probabilities at activations 0 through 4 are $(t/8,(1-t)/2,3t/4,(1-t)/2,t/8)$. Every mixture has mean 2, variance 1 and zero simplified moment loss, while its fourth central moment is $1+3t$. Dashed outlines mark the fixed reference $X$; teal bars show the current probability mass and the orange bar shows the nonlinear expectation. This is a probability mixture, not an optimisation trajectory or an empirical feature distribution.
+The animation generalises this counterexample to the entire mixture $P_t=(1-t)P_X+tP_Y$ for $0\le t\le1$. The probabilities at activations 0 through 4 are $(t/8,(1-t)/2,3t/4,(1-t)/2,t/8)$. Every mixture has mean 2, variance 1 and zero simplified moment loss, while its fourth central moment is $1+3t$. Dashed outlines mark the fixed reference $X$; teal bars show the current probability mass. The orange bar shows the fourth central moment, and the blue bar shows the expected centred ReLU activation, both synchronised with the mixture. This is a probability mixture, not an optimisation trajectory or an empirical feature distribution.
+
+A familiar neural-network nonlinearity also distinguishes the mixtures: set $g(x)=\max(x-2,0)$. Only activation values 3 and 4 contribute to its expectation, with outputs 1 and 2 respectively. Thus
+
+$
+\mathbb E_{P_t}[g(x)]=\frac{1-t}{2}+2\frac{t}{8}=\frac12-\frac{t}{4}.
+$
+
+As the fourth central moment grows from 1 to 4, the expected ReLU activation falls from 0.5 to 0.25. The two examples demonstrate that matching the first two moments does not fix subsequent nonlinear responses, even in a scalar network with a fixed bias. These are exact schematic quantities, not measured teacher activations.
 
 ## Key methods
 

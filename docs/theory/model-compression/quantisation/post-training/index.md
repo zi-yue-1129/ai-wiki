@@ -80,15 +80,17 @@ For a separate schematic example, use $w=(1.1,0.85)$ and signed four-bit nearest
 
 If calibration consists of $x=(5,2)$ with probability $p$ and $x=(3,2)$ otherwise, the two expected output errors are $0.04p$ and $0.04(1-p)$. The preferred scale under this output objective switches at $p=1/2$, although weight SSE always prefers scale 1. Cancellation of signed residual contributions explains the zero output error on one direction. These two scales are only illustrative candidates, not the global optimum or a measured result of a PTQ method.
 
-<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="The two fixed weight errors stay constant; as the calibration mixture changes, the expected output errors cross at probability one half.">
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Signed residual products cancel on different input directions for each scale; as the calibration mixture changes, output errors cross at probability one half.">
 <div style="width:640px">
-<img data-source-asset-urls src="../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg" data-motion-src="../../../../assets/concept-animations/ptq-calibration-scale-choice-motion.svg" data-still-src="../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg" alt="The two fixed weight errors stay constant; as the calibration mixture changes, the expected output errors cross at probability one half." width="640" height="360">
+<img data-source-asset-urls src="../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg" data-motion-src="../../../../assets/concept-animations/ptq-calibration-scale-choice-motion.svg" data-still-src="../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg" alt="Signed residual products cancel on different input directions for each scale; as the calibration mixture changes, output errors cross at probability one half." width="640" height="360">
 </div>
 </div>
 
 *Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../../assets/concept-animations/ptq-calibration-scale-choice-still.svg) and [full SVG animation](../../../../assets/concept-animations/ptq-calibration-scale-choice-motion.svg).
 
-The upper bars show the fixed weight SSE, while the lower bars and two curve markers share the current calibration probability $p$. Both output bars use the same maximum, 0.04; the weight bars use their own common maximum, 0.0725. The orange cursor sweeps $p$ from zero through one half to one, where scale 0.6 has zero output error despite its larger weight error. At the crossing the two candidates tie. The return to zero is a loop reset, not a training step.
+The top numbers show the fixed weight SSE. The middle cells explicitly add the two signed products $d_1x_1+d_2x_2$ **before squaring**: for scale 1 the products cancel on $(3,2)$, whereas for scale 0.6 they cancel on $(5,2)$. The orange shading of the input columns varies with their mixture weights $p$ and $1-p$ (a visual emphasis, not an error bar). The lower output MSE bars share the same maximum, 0.04, and follow the orange curve cursor. At $p=1/2$ the candidates tie. The return to zero is a loop reset, not a training step.
+
+The residual vectors are $(0.1,-0.15)$ and $(-0.1,0.25)$ respectively. Averaging the squared signed sums across inputs yields the two output objectives; squaring each product separately would omit the cross term $2d_1d_2x_1x_2$ and lose the exact cancellation.
 
 ## Methods
 
