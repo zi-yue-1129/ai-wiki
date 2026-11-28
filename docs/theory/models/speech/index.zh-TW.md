@@ -73,6 +73,32 @@ $
 
 兩圖皆為人工算例而非模型實測值。使用網站的播放／暫停控制，窄螢幕可聚焦圖示後水平捲動；靜態預覽保留最終狀態。原創圖示，CC BY-SA 4.0。
 
+### 前向－後向對齊後驗機率
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/ctc-alignment-posterior-still.svg" data-motion-src="../../../assets/concept-animations/ctc-alignment-posterior-motion.svg" data-still-src="../../../assets/concept-animations/ctc-alignment-posterior-still.svg" alt="第二個影格的三個前向機率質量各自乘上後綴機率；兩個空白狀態合計的後驗機率為 41.86%，A 為 58.14%。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/ctc-alignment-posterior-still.svg)
+
+訓練需要與目標相容的對齊分布，而不只是逐影格的預測。令 $\beta^+_t(s)$ 為在狀態 $s$ 下第 $t$ 個影格之後的後綴機率（不含當前影格的輸出機率），則 $\alpha_t(s)\beta^+_t(s)$ 為通過該狀態的相容路徑聯合機率質量。此定義排除了原始論文後向變數中重複計入的當前影格輸出機率。[^ctc]
+
+沿用前三個影格、目標 A 的算例，第二個影格的前向機率質量為 $(0.36,0.40,0.24)$，後綴機率為 $(0.4,1,0.6)$，相乘得到 $(0.144,0.400,0.144)$，總和為 $P(A\mid x)=0.688$。以總和正規化，並加總輸出相同符號的狀態：A 的後驗佔用機率為 $0.400/0.688\approx0.5814$，空白為 $0.288/0.688\approx0.4186$。原始影格機率分別為 0.4 與 0.6。對 softmax logits，負對數概似的梯度為影格機率減去後驗佔用機率，因此此處 A 的 logit 梯度約為 −0.1814。這是軟性對齊訊號，不是固定的影格標籤。
+
+### 前綴解碼：重複輸出的兩種目的狀態
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/ctc-prefix-repeat-still.svg" data-motion-src="../../../assets/concept-animations/ctc-prefix-repeat-motion.svg" data-still-src="../../../assets/concept-animations/ctc-prefix-repeat-still.svg" alt="前綴 A 的空白結尾機率質量 0.24 在輸出 A 時向 AA 貢獻 0.096；非空白結尾的 0.40 則向不變的 A 貢獻 0.160。" style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub 可讀靜態預覽](../../../assets/concept-animations/ctc-prefix-repeat-still.svg)
+
+前綴搜尋依折疊後的前綴合併路徑，但必須區分以空白與非空白結尾的機率質量。雙影格前綴 A 的兩者分別為 0.24（A、空白）及 0.40（空白、A 或 A、A）。下一個影格以 0.4 的機率輸出 A 時，空白結尾路徑向前綴 AA 貢獻 0.096，而非空白結尾路徑向維持不變的前綴 A 貢獻 0.160。同一輸出標籤因此具有兩種目的狀態。圖示只呈現這兩項貢獻，而非完整的束搜尋更新：追加空白與延伸空前綴也會貢獻下一個影格的機率質量。未剪枝時，第三個影格的完整機率質量為空序列 0.216、A 為 0.688、AA 為 0.096。束搜尋先合併貢獻再排序與剪枝；有限的束寬不一定保留全部機率質量。[^ctc-prefix]
+
+兩圖皆為人工算例，非模型實測值。MkDocs 網站可使用播放／暫停控制；窄螢幕可聚焦圖示後水平捲動。靜態回退圖保留最終狀態。原創圖示，CC BY-SA 4.0。
+
+[^ctc-prefix]: Hannun, A. Y., Maas, A. L., Jurafsky, D. & Ng, A. Y. (2014). First-pass large vocabulary continuous speech recognition using bi-directional recurrent DNNs. https://arxiv.org/abs/1408.2873
+
 [^ctc]: Graves, A., Fernández, S., Gomez, F. & Schmidhuber, J. (2006). Connectionist temporal classification. ICML，第 3.1 與 4.1 節。https://doi.org/10.1145/1143844.1143891
 
 ## 台灣與華語語音

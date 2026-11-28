@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'ctc-alignment-posterior': 'theory/models/speech/index',
+    'ctc-prefix-repeat': 'theory/models/speech/index',
     'ctc-collapse-scan': 'theory/models/speech/index',
     'ctc-path-mass': 'theory/models/speech/index',
     'ctc-forward-lattice': 'theory/models/speech/index',
@@ -499,7 +501,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'ctc-collapse-scan': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'ctc-alignment-posterior': '0 0 640 360',
+ 'ctc-prefix-repeat': '0 0 640 360',
+ 'ctc-collapse-scan': '0 0 640 360',
  'ctc-path-mass': '0 0 640 360',
  'ctc-forward-lattice': '0 0 640 360',
  'ctc-repeat-skip': '0 0 640 360',
@@ -1387,7 +1391,7 @@ def main() -> int:
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
-            if stem in {"ctc-collapse-scan", "ctc-path-mass", "ctc-forward-lattice", "ctc-repeat-skip"}:
+            if stem in {"ctc-collapse-scan", "ctc-path-mass", "ctc-forward-lattice", "ctc-repeat-skip", "ctc-alignment-posterior", "ctc-prefix-repeat"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 images = [img for img in MotionImages(text).images if stem in (img.get("src") or "")]
                 if not images or any(not (img.get("alt") or "").strip() for img in images):

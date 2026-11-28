@@ -79,6 +79,32 @@ For longer targets, the forward recursion also permits advancing by two states w
 
 Both animations use constructed examples rather than model measurements. Use the site's Play/Pause control and focus the diagram to scroll on narrow screens. Static previews preserve the final states. Original CC BY-SA 4.0 artwork.
 
+### Forward-backward alignment posterior
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/ctc-alignment-posterior-still.svg" data-motion-src="../../../assets/concept-animations/ctc-alignment-posterior-motion.svg" data-still-src="../../../assets/concept-animations/ctc-alignment-posterior-still.svg" alt="At frame two, three forward masses multiply their suffix probabilities. The two blank state masses combine to 41.86 percent; A has posterior 58.14 percent." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/ctc-alignment-posterior-still.svg)
+
+Training needs the distribution over alignments compatible with the target, not merely the framewise prediction. Let $\beta^+_t(s)$ be the suffix probability after frame $t$ given state $s$ (excluding the current emission). Then $\alpha_t(s)\beta^+_t(s)$ is the joint mass of compatible paths passing through that state. This convention excludes the duplicated current emission in the original paper's backward variable.[^ctc]
+
+For the preceding three-frame target A example, frame two has forward masses $(0.36,0.40,0.24)$ and suffix probabilities $(0.4,1,0.6)$. Their products are $(0.144,0.400,0.144)$, summing to $P(A\mid x)=0.688$. Normalize by this total and sum over states emitting the same symbol: the posterior occupancy of A is $0.400/0.688\approx0.5814$ and blank is $0.288/0.688\approx0.4186$. The original frame probabilities were 0.4 and 0.6 respectively. For softmax logits, the gradient of the negative log-likelihood is frame probability minus posterior occupancy, so the A logit gradient here is about −0.1814. This is a soft alignment signal, not a hard frame label.
+
+### Prefix decoding: repeated emissions have two destinations
+
+<div class="concept-motion-scroll" style="overflow-x:auto;max-width:100%" tabindex="0">
+<img data-source-asset-urls src="../../../assets/concept-animations/ctc-prefix-repeat-still.svg" data-motion-src="../../../assets/concept-animations/ctc-prefix-repeat-motion.svg" data-still-src="../../../assets/concept-animations/ctc-prefix-repeat-still.svg" alt="The blank-ending mass 0.24 for prefix A sends 0.096 to AA when emitting A; the nonblank-ending mass 0.40 sends 0.160 to the unchanged A." style="width:640px;min-width:640px;max-width:none;height:auto" />
+</div>
+
+[GitHub-readable static preview](../../../assets/concept-animations/ctc-prefix-repeat-still.svg)
+
+Prefix search groups paths by collapsed prefix but must distinguish their blank-ending and nonblank-ending masses. For the two-frame prefix A, these are 0.24 (A, blank) and 0.40 (blank, A or A, A). Appending A with probability 0.4 adds 0.096 to prefix AA from the blank-ending paths, but 0.160 to unchanged prefix A from the nonblank-ending paths. The same emitted label therefore has two distinct destinations. The diagram isolates these contributions, not the complete beam update: appending blank and extending the empty prefix also contribute to the next frame. Without pruning, the full third-frame masses are empty 0.216, A 0.688 and AA 0.096. Beam search merges contributions before ranking and pruning; the finite beam need not preserve all probability mass.[^ctc-prefix]
+
+These are constructed examples, not recognizer measurements. On MkDocs use Play/Pause; focus the diagram to scroll on narrow screens. Static fallbacks show the final states. Original CC BY-SA 4.0 artwork.
+
+[^ctc-prefix]: Hannun, A. Y., Maas, A. L., Jurafsky, D. & Ng, A. Y. (2014). First-pass large vocabulary continuous speech recognition using bi-directional recurrent DNNs. https://arxiv.org/abs/1408.2873
+
 [^ctc]: Graves, A., Fernández, S., Gomez, F. & Schmidhuber, J. (2006). Connectionist temporal classification. ICML, section 3.1 and 4.1. https://doi.org/10.1145/1143844.1143891
 
 ## Low-resource and code-switched speech
@@ -99,6 +125,7 @@ Deepfake voice scams, cloning without consent, voice actors' rights. Countermeas
 
 ## References
 
+- Hannun, A. Y. et al. (2014). *First-Pass Large Vocabulary Continuous Speech Recognition using Bi-Directional Recurrent DNNs*. https://arxiv.org/abs/1408.2873 — Modified prefix-search decoding with separate blank and nonblank scores.
 - Graves, A. et al. (2006). Connectionist temporal classification: labelling unsegmented sequence data with recurrent neural networks. *Proceedings of ICML 2006*. https://doi.org/10.1145/1143844.1143891 — Trains a recurrent network to align unsegmented audio with label sequences, the basis of many end-to-end recognisers.
 - Hinton, G. et al. (2012). Deep neural networks for acoustic modeling in speech recognition: The shared views of four research groups. *IEEE Signal Processing Magazine*. https://doi.org/10.1109/MSP.2012.2205597 — Reviews how deep networks replaced Gaussian mixture models in acoustic modelling, with large error reductions.
 - Chan, W. et al. (2015). *Listen, Attend and Spell*. arXiv:1508.01211. https://arxiv.org/abs/1508.01211 — End-to-end attention model that transcribes speech directly into characters.
