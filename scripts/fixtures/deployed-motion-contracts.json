@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "forecast-horizon-error": {
+      "origins": [
+        {
+          "origin_blob": "062521fca87fb52cedb12275abcf0f4cd37f28e5",
+          "origin_commit": "2bc7061f8ddc55e83c1ba4bbb42e98f966d3224b",
+          "path": "docs/assets/concept-animations/forecast-horizon-error-motion.svg"
+        },
+        {
+          "origin_blob": "24eb1c6b6f6f1fa624584b6b0f3446ea9f7d7794",
+          "origin_commit": "2bc7061f8ddc55e83c1ba4bbb42e98f966d3224b",
+          "path": "docs/assets/concept-animations/forecast-horizon-error-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "nbeats-basis-expansion": {
+      "origins": [
+        {
+          "origin_blob": "0fda91b211628f8e09342b35013cc42271e22621",
+          "origin_commit": "2bc7061f8ddc55e83c1ba4bbb42e98f966d3224b",
+          "path": "docs/assets/concept-animations/nbeats-basis-expansion-motion.svg"
+        },
+        {
+          "origin_blob": "fcb68d29e19e2513b74407f26ab8d91ae862258c",
+          "origin_commit": "2bc7061f8ddc55e83c1ba4bbb42e98f966d3224b",
+          "path": "docs/assets/concept-animations/nbeats-basis-expansion-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "rolling-origin-forecast-evaluation": {
       "origins": [
         {

@@ -67,6 +67,31 @@ TOURISM 的選模只使用 MAPE 損失（論文附錄 D.1）；不能把 M4/M3 �
 
 *原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/nbeats-double-residual-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/nbeats-double-residual-motion.svg)。
 
+### 算例：多項式基底係數
+
+線性趨勢基底是多項式展開的一階特例。選取示意座標 $t\in[-1,1]$，將常數係數固定為 2，改變線性係數 $a$：
+
+$
+g_0(t)=1,\quad g_1(t)=t,\quad
+f(t)=2g_0(t)+ag_1(t)=2+at.
+$
+
+| 係數 a | f(-1) | f(0) | f(1) |
+| ---: | ---: | ---: | ---: |
+| -1 | 3 | 2 | 1 |
+| 0 | 2 | 2 | 2 |
+| 1 | 1 | 2 | 3 |
+
+左圖分別呈現常數項（藍色虛線）與加權線性項（綠色），右圖呈現逐點相加的結果（橘色）。改變斜率係數會使兩圖連續變化，但截距始終為 2。下方綠色圓點代表掃描中的係數，並非 SVG 內可拖曳的滑桿。此動畫為敏感度示意，不是最佳化軌跡或模型推論的時間步驟：N-BEATS 對特定區塊輸入會由其輸出頭同時產生係數，再於相應的基底網格上求值。對稱座標區間與係數是為教學而設定，並非訓練後模型的數值，也非原論文的精確網格慣例。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="固定常數項與變動線性項相加，形成斜率連續改變且截距固定為 2 的趨勢。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/nbeats-basis-expansion-still.svg" data-motion-src="../../../assets/concept-animations/nbeats-basis-expansion-motion.svg" data-still-src="../../../assets/concept-animations/nbeats-basis-expansion-still.svg" alt="固定常數項與變動線性項相加，形成斜率連續改變且截距固定為 2 的趨勢。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/nbeats-basis-expansion-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/nbeats-basis-expansion-motion.svg)。
+
 ## 結果
 
 在 M4 競賽資料上，結合通用與可解釋組態的集成（N-BEATS-I+G）達到平均 sMAPE 11.135，M4 冠軍（指數平滑與循環網路的混合方法）為 11.374。摘要報告了 11% 與 3% 的提升，但不應把它們解讀為上述 sMAPE 數值的降幅。表 1 中，N-BEATS-I+G 的 OWA 為 0.795，M4 冠軍為 0.821，降幅約 3.2%；sMAPE 的降幅則約為 2.1%。通用與可解釋組態的準確度相近。論文也在 M3 與旅遊資料集上報告結果，同一架構未作修改。

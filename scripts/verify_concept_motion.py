@@ -15,6 +15,8 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'forecast-horizon-error': 'theory/models/time-series/index',
+    'nbeats-basis-expansion': 'theory/models/time-series/n-beats',
     'rolling-origin-forecast-evaluation': 'theory/models/time-series/index',
     'nbeats-double-residual': 'theory/models/time-series/n-beats',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
@@ -497,7 +499,9 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'rolling-origin-forecast-evaluation': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'forecast-horizon-error': '0 0 640 360',
+ 'nbeats-basis-expansion': '0 0 640 360',
+ 'rolling-origin-forecast-evaluation': '0 0 640 360',
  'nbeats-double-residual': '0 0 640 360',
  'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
@@ -1367,7 +1371,7 @@ def main() -> int:
                 errors.append(f"{page}: missing translation")
                 continue
             text = page.read_text(encoding="utf-8")
-            if stem in {"rolling-origin-forecast-evaluation", "nbeats-double-residual"}:
+            if stem in {"rolling-origin-forecast-evaluation", "nbeats-double-residual", "forecast-horizon-error", "nbeats-basis-expansion"}:
                 errors.extend(verify_source_pair(page, text, stem))
                 previews = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
                 if not {static_path.resolve(), animated_path.resolve()} <= {(page.parent / link).resolve() for link in previews}:

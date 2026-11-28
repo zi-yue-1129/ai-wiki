@@ -34,17 +34,44 @@ related:
 
 *原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/rolling-origin-forecast-evaluation-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/rolling-origin-forecast-evaluation-motion.svg)。
 
+### 依預測步長檢視誤差
+
+整體 MAE 可能掩蓋不同預測步長的誤差分布差異。沿用前三個預測起點，令 $e_{T,h}=y_{T+h}-\hat y_{T+h|T}$，起點數量為 $n=3$，定義：
+
+$
+\mathrm{MAE}_h=\frac{1}{n}\sum_T |e_{T,h}|,\qquad
+\mathrm{RMSE}_h=\sqrt{\frac{1}{n}\sum_T e_{T,h}^2}.
+$
+
+| 起點 | 第 1 步絕對誤差 | 第 2 步絕對誤差 |
+| ---: | ---: | ---: |
+| 4 | 1 | 1 |
+| 5 | 2 | 1 |
+| 6 | 3 | 4 |
+| MAE | 2 | 2 |
+| RMSE | 2.16 | 2.45 |
+
+動畫逐一揭露各起點已完成評分的誤差，並以藍色（第 1 步）與綠色（第 2 步）分別累計平方誤差。兩個平方和為 14 與 18，因此 RMSE 分別為 $\sqrt{14/3}$ 與 $\sqrt{18/3}$。橘色圓點示意切分間的進展，不代表真實經過時間；空白格表示尚未評分。三次評分皆完成後才顯示彙總結果，循環重設並非額外觀測。MAE 相等不代表誤差分布相同；若特別重視大誤差，應同時報告各預測步長及整體指標。所有數值均為解析算例，非模型實測結果。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="三個起點依步長揭露絕對誤差並累計平方和；兩個 MAE 均為 2，但 RMSE 分別為 2.16 與 2.45。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/forecast-horizon-error-still.svg" data-motion-src="../../../assets/concept-animations/forecast-horizon-error-motion.svg" data-still-src="../../../assets/concept-animations/forecast-horizon-error-still.svg" alt="三個起點依步長揭露絕對誤差並累計平方和；兩個 MAE 均為 2，但 RMSE 分別為 2.16 與 2.45。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/forecast-horizon-error-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/forecast-horizon-error-motion.svg)。
+
 ### 可跨序列比較的誤差尺度
 
 MASE 以訓練區間內的季節性天真預測誤差作尺度，而不是使用測試資料估計分母。設訓練長度為 $T$、季節週期為 $m$、預測期為 $H$：
 
-\[
+$$
 \begin{gathered}
 d_m=\frac{1}{T-m}\sum_{t=m+1}^{T}|y_t-y_{t-m}|,\\
 \mathrm{MASE}=\frac{1}{H}\sum_{h=1}^{H}
 \frac{|y_{T+h}-\hat y_{T+h|T}|}{d_m}.
 \end{gathered}
-\]
+$$
 
 非季節序列取 $m=1$；若 $d_m=0$，此比值未定義，不能直接當成零誤差。M4 比較了 100,000 條序列與 61 種方法，但競賽中的優勢不是所有場景的保證。機率預測還要檢查校準與預測區間，而不只比較點誤差。參見 [Hyndman 與 Koehler (2006)](https://doi.org/10.1016/j.ijforecast.2006.03.001)、[FPP3](https://otexts.com/fpp3/toolbox.html#scaled-errors) 及 [Gneiting 與 Katzfuss (2014)](https://doi.org/10.1146/annurev-statistics-062713-085831)。
 
