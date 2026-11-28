@@ -50,4 +50,5 @@ if __name__=='__main__':
  # Import here, rather than at module scope, to avoid duplicate discovery.
  from test_forecast_motion_semantics import ForecastMotionTests
  from test_forecast_horizon_basis_motion import HorizonBasisTests
+ from test_path_query_motion import PathQueryMotionTests
  unittest.main()
