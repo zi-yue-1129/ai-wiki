@@ -84,6 +84,20 @@ The two future values have covariance 1 and marginal variances 1 and 2. Their su
 
 *Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/deepar-path-sums-still.svg) and [full SVG animation](../../../assets/concept-animations/deepar-path-sums-motion.svg).
 
+### Worked example: identical marginals, different totals
+
+Keep the same two marginal distributions as above. Compare their original joint law with the product of the two marginals. Mixing these two joint laws with independent-law weight $t$ (between zero and one) preserves both marginal distributions exactly. The probabilities of totals 3 and 9 each decrease from 1/4 to 1/8; those of totals 5 and 7 each increase from 1/4 to 3/8. The mean total stays 6, while the covariance is $1-t$ and the total variance is $5-2t$.
+
+The solid bars show the moving mixture and dashed outlines retain the original joint-law probabilities. The variance bar uses a common zero-based scale. At the independent endpoint the upper-tail probability of a total at least 9 is half its original value. The sweep illustrates hypothetical joint laws, not successive time steps, sampled paths, or a trained model's measurements. Independent marginals do not always underestimate variance: the sign of the covariance matters.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="The two marginal distributions stay fixed while the total distribution and variance change from joint to independent.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/deepar-coupling-totals-still.svg" data-motion-src="../../../assets/concept-animations/deepar-coupling-totals-motion.svg" data-still-src="../../../assets/concept-animations/deepar-coupling-totals-still.svg" alt="The two marginal distributions stay fixed while the total distribution and variance change from joint to independent." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/deepar-coupling-totals-still.svg) and [full SVG animation](../../../assets/concept-animations/deepar-coupling-totals-motion.svg).
+
 ## Results
 
 The abstract reports accuracy improvements of around 15% over state-of-the-art methods on several real-world datasets. The main metric is the normalised $\rho$-risk, which is the quantile loss summed over series and divided by the summed targets. The tables report these values relative to a baseline for each dataset, so the gains are ratios rather than absolute errors. Point forecasts on electricity and traffic are compared with a matrix-factorisation baseline, using normalised deviation and normalised RMSE. Those comparisons cover two datasets and one competitor only. The numbers quoted here come from the arXiv preprint, and the journal version may differ.

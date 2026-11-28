@@ -66,6 +66,28 @@ The unselected queries use the mean value 6 in this unmasked encoder illustratio
 
 *Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/informer-probsparse-query-still.svg) and [full SVG animation](../../../assets/concept-animations/informer-probsparse-query-motion.svg).
 
+### Worked example: a query score does not rank output errors
+
+Keep the logits and query budget from the preceding example fixed, but vary the fourth scalar value from 12 to 4, leaving the first three at (0, 4, 8). Call the fourth value $v$. The scores remain 1.648 for Q2 and 0.520 for Q3, so the fixed-budget selector always chooses Q2. If either query were skipped and replaced by the value mean, its absolute context error would be:
+
+$
+E_2(v)=v/2-2
+$
+
+$
+E_3(v)=(12+v)/20
+$
+
+These formulas hold over the illustrated range, from 4 through 12. The two error curves cross at 52/9. At 12, skipping Q2 would cause error 4, versus 1.2 for Q3; at 4, skipping Q2 would cause no error, versus 0.8 for Q3. Q1 is uniform and has zero skipped error throughout. With budget one at the latter endpoint, selecting Q3 instead would eliminate all context approximation error. The chart displays the counterfactual error **if skipped**, not the actual error of selected Q2 (which is zero). The max-mean score measures logit concentration, not value-dependent output reconstruction error. This is an exact toy counterexample, not a proposed replacement selector, a trained model measurement, or an assertion about forecast accuracy.
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Fixed query scores select Q2 while a moving value changes the counterfactual skipped-context errors of Q2 and Q3.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/informer-value-error-still.svg" data-motion-src="../../../assets/concept-animations/informer-value-error-motion.svg" data-still-src="../../../assets/concept-animations/informer-value-error-still.svg" alt="Fixed query scores select Q2 while a moving value changes the counterfactual skipped-context errors of Q2 and Q3." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/informer-value-error-still.svg) and [full SVG animation](../../../assets/concept-animations/informer-value-error-motion.svg).
+
 ## Results
 
 The paper evaluates on electricity transformer temperature datasets (ETTh1, ETTh2, ETTm1), electricity consumption (ECL) and weather data. Its univariate tables report mean squared error and mean absolute error averaged over the forecast window. At the longest univariate horizon for ETTh1, which is 720 steps, Informer reports an MSE of 0.269, against 0.658 for DeepAR on the same cell. The canonical-attention variant, labelled Informer† in the paper, reports 0.257 there, so the efficient mechanism does not win every cell. Across its univariate and multivariate tables, the authors count Informer as the best method in most settings, and they report large MSE reductions against LSTMa and against DeepAR, ARIMA and Prophet at several horizons.

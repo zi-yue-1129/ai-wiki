@@ -75,6 +75,20 @@ $$
 
 *原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態回退圖](../../../assets/concept-animations/deepar-path-sums-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/deepar-path-sums-motion.svg)。
 
+### 算例：相同邊際分布，不同總量分布
+
+沿用上方兩個邊際分布，比較原始聯合分布與兩個邊際分布的乘積。以介於零與一的獨立分布權重 $t$ 混合這兩個聯合分布，會精確保留兩個邊際分布。總量為 3 與 9 的機率各由 1/4 降至 1/8，總量為 5 與 7 的機率各由 1/4 升至 3/8。總量期望值維持為 6，共變異數為 $1-t$，總量變異數為 $5-2t$。
+
+實心長條表示變動中的混合分布，虛線輪廓保留原始聯合分布的機率。變異數長條使用從零開始的共同尺度。到了獨立分布端點，總量至少為 9 的右尾機率為原本的一半。動畫呈現假設的聯合分布變化，不是連續時間步、抽樣路徑或已訓練模型的實測值。獨立邊際抽樣並非必然低估變異數，結果取決於共變異數的符號。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="兩個邊際分布保持固定，總量分布與變異數隨聯合分布轉為獨立分布而變化。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/deepar-coupling-totals-still.svg" data-motion-src="../../../assets/concept-animations/deepar-coupling-totals-motion.svg" data-still-src="../../../assets/concept-animations/deepar-coupling-totals-still.svg" alt="兩個邊際分布保持固定，總量分布與變異數隨聯合分布轉為獨立分布而變化。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態回退圖](../../../assets/concept-animations/deepar-coupling-totals-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/deepar-coupling-totals-motion.svg)。
+
 ## 結果
 
 摘要指出，在數個真實世界資料集上，DeepAR 的準確度比當時最先進的方法提升約 15%。主要指標是正規化的 $\rho$ 風險，即所有序列的分位數損失總和除以目標值總和。表中的數值是相對於每個資料集的基準計算的，因此提升幅度是比率，而不是絕對誤差。在電力與交通資料上，點預測則與一個矩陣分解基準 MatFact 比較，使用正規化偏差與正規化 RMSE。這些比較只涵蓋兩個資料集與一個競爭方法。此頁的數字取自 arXiv 預印本，期刊版本可能有所不同。

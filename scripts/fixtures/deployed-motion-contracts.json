@@ -458,6 +458,36 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "deepar-coupling-totals": {
+      "origins": [
+        {
+          "origin_blob": "bc99d53f057cc288c6cbcaf182359e9a85740b7d",
+          "origin_commit": "0eaab6abfcaa14e19a86069856f42bd001c9d346",
+          "path": "docs/assets/concept-animations/deepar-coupling-totals-motion.svg"
+        },
+        {
+          "origin_blob": "bebbd38beff9f9bdf4ddb87778cd58b9625e4269",
+          "origin_commit": "0eaab6abfcaa14e19a86069856f42bd001c9d346",
+          "path": "docs/assets/concept-animations/deepar-coupling-totals-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "informer-value-error": {
+      "origins": [
+        {
+          "origin_blob": "0029086c085a55a27bbb912eaf138a6dd3479978",
+          "origin_commit": "0eaab6abfcaa14e19a86069856f42bd001c9d346",
+          "path": "docs/assets/concept-animations/informer-value-error-motion.svg"
+        },
+        {
+          "origin_blob": "1d698c2e13a318b06481f263bc43029a9a014e64",
+          "origin_commit": "0eaab6abfcaa14e19a86069856f42bd001c9d346",
+          "path": "docs/assets/concept-animations/informer-value-error-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "deepar-path-sums": {
       "origins": [
         {

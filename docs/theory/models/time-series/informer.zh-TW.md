@@ -56,6 +56,28 @@ $
 
 *原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態回退圖](../../../assets/concept-animations/informer-probsparse-query-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/informer-probsparse-query-motion.svg)。
 
+### 算例：查詢分數不等於輸出誤差排名
+
+固定前一個算例的 logits 與查詢預算，僅將第四個純量值由 12 改為 4，前三個值維持為 (0, 4, 8)。以 $v$ 表示第四個值。Q2 與 Q3 的分數仍分別為 1.648 與 0.520，因此固定預算的選取規則始終選擇 Q2。若任一查詢未被選取而以值的平均數替代，其上下文絕對誤差為：
+
+$
+E_2(v)=v/2-2
+$
+
+$
+E_3(v)=(12+v)/20
+$
+
+上述公式適用於圖示的 4 至 12 範圍，兩條誤差曲線在 52/9 相交。當第四個值為 12 時，略過 Q2 的誤差為 4，略過 Q3 為 1.2；當值為 4 時，略過 Q2 的誤差為零，略過 Q3 則為 0.8。Q1 為均勻注意力，略過誤差始終為零。在後一個端點，若查詢預算仍為一但改選 Q3，便可消除所有上下文近似誤差。圖表呈現**假設略過時的誤差**，不是已選取 Q2 的實際誤差（實際為零）。最大－平均分數衡量 logits 的集中程度，而非取決於值的輸出重建誤差。這是精確的人工反例，不是替代選取演算法、訓練模型實測值或對預測準確度的主張。
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="固定查詢分數使 Q2 持續被選取，而值的變化改變 Q2 與 Q3 假設略過時的上下文誤差。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/informer-value-error-still.svg" data-motion-src="../../../assets/concept-animations/informer-value-error-motion.svg" data-still-src="../../../assets/concept-animations/informer-value-error-still.svg" alt="固定查詢分數使 Q2 持續被選取，而值的變化改變 Q2 與 Q3 假設略過時的上下文誤差。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態回退圖](../../../assets/concept-animations/informer-value-error-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/informer-value-error-motion.svg)。
+
 ## 結果
 
 論文在電力變壓器溫度資料集（ETTh1、ETTh2、ETTm1）、用電量資料（ECL）與氣象資料上進行評估。其單變量表格以預測視窗上的平均平方誤差與平均絕對誤差報告結果。在 ETTh1 最長的單變量預測期（720 步）上，Informer 的 MSE 為 0.269，同一格中 DeepAR 為 0.658。論文中標示為 Informer† 的標準注意力變體在該格為 0.257，因此高效機制並非在每一格都獲勝。作者統計單變量與多變量兩組表格，認為 Informer 在多數設定中表現最佳，並報告在數個預測期上，相較於 LSTMa，以及相較於 DeepAR、ARIMA 與 Prophet，其 MSE 都有大幅下降。
