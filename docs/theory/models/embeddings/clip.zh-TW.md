@@ -57,6 +57,18 @@ $$
 
 使用自然對數，平均損失為 $L\approx0.2987$。這些是為了展示計算而建構的數值，不是已訓練 CLIP 模型的量測。
 
+### 動態展示兩個正規化方向
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="橘色外框依序選取固定 logit 矩陣的各列及各欄，兩個機率矩陣分別填入結果，最後平均對角線配對的損失。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-bidirectional-softmax-still.svg" data-motion-src="../../../assets/concept-animations/clip-bidirectional-softmax-motion.svg" data-still-src="../../../assets/concept-animations/clip-bidirectional-softmax-still.svg" alt="橘色外框依序選取固定 logit 矩陣的各列及各欄，兩個機率矩陣分別填入結果，最後平均對角線配對的損失。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/clip-bidirectional-softmax-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/clip-bidirectional-softmax-motion.svg)。
+
+橘色外框先選取 logit 矩陣的兩列，再選取兩欄。每個選取的列或欄都只在自己的兩個項目間進行正規化。綠色儲存格代表配對批次位置，不是機率門檻。兩個結果矩陣都維持影像為列、文字為欄；中間矩陣每列機率總和為一，右側矩陣每欄機率總和為一。例如第一組配對在影像找文字方向的機率為 0.8808，反向則為 0.6900。完成四次正規化後，顯示前表的平均損失。圖中數值經四捨五入。依序計算只是教學安排，不代表實作必須循序運算兩個方向。此為上述人工算例，非模型實測。
+
 ### 零樣本分類與提示集成
 
 給定候選類別集合 $C$，為每類編碼文字提示，再將嵌入正規化為 $v_c$。令 $u$ 為單位影像嵌入，零樣本分類器使用[^transfer]
@@ -71,6 +83,56 @@ $$
 提示用字會改變 $v_c$，因此也可能改變排序。論文第 3.1.4 節指出，預設提示「A photo of a {label}.」相較直接使用類別名稱，使 ImageNet 準確率增加約 1.3 個百分點。集成 80 種提示再增加約 3.5 個百分點。[^transfer] 官方範例先正規化每個提示的嵌入，對每類的嵌入取平均，再將平均向量正規化為一個類別向量。[^ensemble]
 
 分母也依賴候選清單。另取一個建構例子，logits $(2,0)$ 給第一類的機率為 $0.8808$。加入 logit 為 $2$ 的第三類後，第一類機率降為 $0.4683$，原先兩個 logits 完全不變。若改為把原本兩個 logits 加倍成 $(4,0)$，第一類機率則升為 $0.9820$。只有一個候選時，softmax 必定回傳 $1$。因此，高 softmax 分數本身不能證明候選清單包含正確類別，也不能證明信心程度已針對目標任務校準。模型卡記載了類別設計對表現的影響，並要求針對特定類別體系進行測試。[^taxonomy]
+
+### 加入候選類別會改變分母
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="類別 C 以 logit 二加入，A 與 B 的 logits 不變，三個機率長條重新正規化；虛線保留原本兩類的機率。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-candidate-set-still.svg" data-motion-src="../../../assets/concept-animations/clip-candidate-set-motion.svg" data-still-src="../../../assets/concept-animations/clip-candidate-set-still.svg" alt="類別 C 以 logit 二加入，A 與 B 的 logits 不變，三個機率長條重新正規化；虛線保留原本兩類的機率。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/clip-candidate-set-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/clip-candidate-set-motion.svg)。
+
+先以 logit 為 2、0 的兩個類別 A、B 開始。移動的綠色標記代表即將加入、logit 為 2 的新候選 C。抵達時所有機率一起更新：A 約由 0.8808 降至 0.4683，B 由 0.1192 降至 0.0634，C 得到 0.4683。虛線保留 A 與 B 的原始機率。原本兩個 logits 的差仍為二，因此 A 對 B 的機率比不變，但兩者個別機率都下降。候選集合改變時長條離散更新，移動標記並非連續機率軌跡。此時 A 與 C 並列。數值為人工算例的解析結果並經四捨五入，不是 CLIP 實測信心值，也不能證明新增類別正確。
+
+### 改變 logit 尺度而不改變排序
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="反溫度上升及下降時，游標沿兩條機率曲線移動。餘弦相似度保持固定，機率長條逐漸分離，但預測類別不變。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-temperature-scale-still.svg" data-motion-src="../../../assets/concept-animations/clip-temperature-scale-motion.svg" data-still-src="../../../assets/concept-animations/clip-temperature-scale-still.svg" alt="反溫度上升及下降時，游標沿兩條機率曲線移動。餘弦相似度保持固定，機率長條逐漸分離，但預測類別不變。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/clip-temperature-scale-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/clip-temperature-scale-motion.svg)。
+
+固定兩個單位向量的餘弦相似度為 0.8 與 0.4，令共用的正反溫度為 $s=1/\tau$。第一個類別的機率為
+
+$
+p_A(s)=\frac{1}{1+\exp(-0.4s)}.
+$
+
+當 $s$ 從 1 增加至 10 時，兩個機率逐漸分離，A 仍保持第一名。$s$ 分別為 1、2、5、10 時，A 的機率約為 0.5987、0.6900、0.8808、0.9820。曲線與長條使用相同的取樣值，取樣點之間採線性插值；動畫反向掃描以循環播放。這是固定嵌入的敏感度分析，不是可學習溫度的訓練軌跡、實測信心值，或校準改善的證據。
+
+### 由多個提示建立類別向量
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="綠色類別向量由第一個提示移至兩個單位提示的中點，再延伸至單位圓。正規化後，A 對影像的餘弦相似度超過固定的 B。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-prompt-ensemble-still.svg" data-motion-src="../../../assets/concept-animations/clip-prompt-ensemble-motion.svg" data-still-src="../../../assets/concept-animations/clip-prompt-ensemble-still.svg" alt="綠色類別向量由第一個提示移至兩個單位提示的中點，再延伸至單位圓。正規化後，A 對影像的餘弦相似度超過固定的 B。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/clip-prompt-ensemble-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/clip-prompt-ensemble-motion.svg)。
+
+官方提示集成流程先正規化各提示的嵌入，計算每個類別的平均向量，再將平均向量正規化。[^ensemble] 在人工二維算例中，令影像向量為 $(0,1)$，類別 A 的兩個單位提示向量為 $(1,0)$、$(0,1)$，類別 B 的固定單位向量為 $(0.8,0.6)$。
+
+僅使用第一個提示時，A 的餘弦相似度為 0，B 為 0.6。A 的平均向量為 $(0.5,0.5)$，正規化後的方向為
+
+$
+v_A=(1/\sqrt{2},1/\sqrt{2}).
+$
+
+此時 A 對影像的餘弦相似度約為 0.7071，因此類別排序改變。虛線連接兩個提示向量的端點，其中點即為平均向量。綠色端點先移至平均向量，再沿其方向延伸至單位圓。示意轉換期間不顯示 A 的分數及預測類別，因為中間平均向量尚非最終正規化的分類向量。若平均向量為零，正規化未定義；此算例假設平均向量非零。此圖展示嵌入空間的集成，而非平均類別機率，也不是 CLIP 的實測改善幅度。
 
 ## 結果
 

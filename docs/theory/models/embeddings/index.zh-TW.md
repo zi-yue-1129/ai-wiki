@@ -23,6 +23,38 @@ Bengio、Courville 與 Vincent（2012）把問題表述為*表徵學習*：找�
 - **三元組損失（triplet loss）**：針對一個錨點、一個正例與一個負例的損失，要求錨點與正例的距離比與負例近至少一個邊界值。
 - **維度**：向量的長度。維度越高能容納的資訊越多，但儲存與搜尋的成本也越高。
 
+### 相似度排名：向量範數與方向
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="綠色候選 A 沿固定射線伸縮，內積長條跨越 B，但兩個餘弦相似度長條保持不變。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/embedding-norm-ranking-still.svg" data-motion-src="../../../assets/concept-animations/embedding-norm-ranking-motion.svg" data-still-src="../../../assets/concept-animations/embedding-norm-ranking-still.svg" alt="綠色候選 A 沿固定射線伸縮，內積長條跨越 B，但兩個餘弦相似度長條保持不變。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/embedding-norm-ranking-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/embedding-norm-ranking-motion.svg)。
+
+在人工算例中，令查詢 $q=(1,0)$、候選 $A=r(0.8,0.6)$，其中範數 $r$ 為正值，並固定候選 $B=(0.6,0.8)$。A 的範數從 0.5 變到 1.5 時，其內積由 0.4 增至 1.2，B 的內積則維持 0.6。內積排名在 $r=0.75$ 處交會並反轉。餘弦相似度始終為 0.8 與 0.6，因此按餘弦相似度排序時 A 始終在 B 前方。兩組長條共用相同分數刻度，虛線表示 A 的固定方向。
+
+對非零嵌入而言，將兩個向量正規化後，內積就等於餘弦相似度。選擇何種分數須考慮學得的向量範數是否包含任務所需的資訊；正規化不一定改善效果。這些向量及分數是人工算例，不是已訓練嵌入模型的實測結果。
+
+### 嵌入查表中的重複索引
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="索引為 2、0、2 的三個位置梯度傳到對應的表格列；第 2 列累加兩筆貢獻，第 1 列維持零。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/embedding-lookup-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/embedding-lookup-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/embedding-lookup-accumulation-still.svg" alt="索引為 2、0、2 的三個位置梯度傳到對應的表格列；第 2 列累加兩筆貢獻，第 1 列維持零。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站的播放／暫停按鈕；窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/embedding-lookup-accumulation-still.svg)與[完整 SVG 動畫](../../../assets/concept-animations/embedding-lookup-accumulation-motion.svg)。
+
+對基本嵌入表 $E$ 而言，位置 $t$ 取出索引 $i_t$ 的列，因此 $h_t=E_{i_t}$。若上游梯度為 $g_t$，鏈鎖律給出
+
+$
+\nabla_{E_j} L=\sum_{t:i_t=j}g_t.
+$
+
+這是依索引累加（scatter-add），而非覆寫該列。在人工算例中，索引 2、0、2 分別對應梯度 (1, 2)、(3, -1)、(-2, 1)。跟著藍色訊號移動：第 2 列先收到 (1, 2)，第 0 列收到 (3, -1)，接著第 2 列再加上 (-2, 1) 而得到 (-1, 3)。第 1 列在這次查表中沒有梯度貢獻。逐一掃描是教學示意，平行累加也能計算相同的總和。這裡只討論查表本身的梯度，不含頻率縮放、填補索引規則、正規化懲罰或最佳化器狀態，並非模型實測。
+
 ## 運作方式
 
 四種訓練訊號涵蓋了目前使用中的大多數嵌入。

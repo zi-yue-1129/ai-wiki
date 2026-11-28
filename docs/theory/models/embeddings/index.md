@@ -35,6 +35,38 @@ The same idea appears in every modality. A word embedding places words with rela
 - **Triplet loss**: a loss over an anchor, a positive and a negative example, requiring the anchor to be closer to the positive by a margin.
 - **Dimensionality**: the length of the vector. Higher dimensions hold more information, at a larger cost in storage and search.
 
+### Norm versus direction in similarity ranking
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="The green candidate A lengthens and shortens along a fixed ray, crossing B's dot-product bar while both cosine bars remain fixed.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/embedding-norm-ranking-still.svg" data-motion-src="../../../assets/concept-animations/embedding-norm-ranking-motion.svg" data-still-src="../../../assets/concept-animations/embedding-norm-ranking-still.svg" alt="The green candidate A lengthens and shortens along a fixed ray, crossing B's dot-product bar while both cosine bars remain fixed." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/embedding-norm-ranking-still.svg) and [full SVG animation](../../../assets/concept-animations/embedding-norm-ranking-motion.svg).
+
+For a constructed example, take query $q=(1,0)$, candidate $A=r(0.8,0.6)$ with positive norm $r$, and candidate $B=(0.6,0.8)$. As A's norm sweeps from 0.5 to 1.5, its dot product changes from 0.4 to 1.2, while B's stays at 0.6. The dot-product ranking reverses at $r=0.75$. The cosine scores stay 0.8 and 0.6, so A always ranks above B by cosine. Both panels use the same score scale. The dotted ray indicates A's fixed direction.
+
+For nonzero embeddings, normalising both vectors makes the dot product equal to cosine similarity. Which score to use depends on whether the learned norms contain useful task information; normalisation is not always an improvement. These vectors and their scores are illustrative, not measurements from a trained embedding model.
+
+### Repeated indices in embedding lookup
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Three upstream gradients travel from positions with IDs 2, 0 and 2 to table rows; row 2 accumulates both of its contributions while row 1 remains zero.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/embedding-lookup-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/embedding-lookup-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/embedding-lookup-accumulation-still.svg" alt="Three upstream gradients travel from positions with IDs 2, 0 and 2 to table rows; row 2 accumulates both of its contributions while row 1 remains zero." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/embedding-lookup-accumulation-still.svg) and [full SVG animation](../../../assets/concept-animations/embedding-lookup-accumulation-motion.svg).
+
+For a plain embedding table $E$, position $t$ retrieves row $i_t$, so $h_t=E_{i_t}$. If the upstream gradient is $g_t$, the chain rule gives
+
+$
+\nabla_{E_j} L=\sum_{t:i_t=j}g_t.
+$
+
+This is a scatter-add, not assignment to a row. In the constructed example, indices 2, 0 and 2 have gradients (1, 2), (3, -1) and (-2, 1). Follow each blue marker: row 2 first receives (1, 2), row 0 receives (3, -1), then row 2 adds (-2, 1) to reach (-1, 3). Row 1 has no contribution from this lookup. The scan is instructional; parallel accumulation can implement the same sum. This is the lookup gradient alone, without frequency scaling, padding rules, regularisation or optimiser state. It is not a model measurement.
+
 ## How it works
 
 Four families of training signal cover most embeddings in use.

@@ -52,6 +52,51 @@ $$
 
 先掃描語料建立共現矩陣，再對非零項迭代最佳化；因此每輪成本依賴實際觀察到的詞對數，而非必須遍歷完整矩陣。
 
+### 共現計數掃描：對數目標與損失權重
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="共用的計數游標同步追蹤持續上升的對數目標，以及在計數達到 100 時封頂為一的殘差權重。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/glove-count-weighting-still.svg" data-motion-src="../../../assets/concept-animations/glove-count-weighting-motion.svg" data-still-src="../../../assets/concept-animations/glove-count-weighting-still.svg" alt="共用的計數游標同步追蹤持續上升的對數目標，以及在計數達到 100 時封頂為一的殘差權重。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/glove-count-weighting-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/glove-count-weighting-motion.svg)。
+
+藍線為對數目標，綠線為殘差權重，兩者共用對數計數橫軸。當殘差絕對值為一時，綠線數值亦為該詞對的損失貢獻。游標在正計數 0.5 至 400 間往返：計數為 1 時目標為零，但權重仍為正；達到 100 後權重維持為一，對數目標卻繼續上升。這是解析目標函數的敏感度分析，不是最佳化軌跡或語料實測。動畫採離散取樣後線性插值顯示。
+
+### 建立單一分數共現計數
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="兩個上下文視窗的詞元距離分別為二與三，對同一詞與上下文項目分別貢獻二分之一及三分之一；累積計數達六分之五。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/glove-window-accumulation-still.svg" data-motion-src="../../../assets/concept-animations/glove-window-accumulation-motion.svg" data-still-src="../../../assets/concept-animations/glove-window-accumulation-still.svg" alt="兩個上下文視窗的詞元距離分別為二與三，對同一詞與上下文項目分別貢獻二分之一及三分之一；累積計數達六分之五。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/glove-window-accumulation-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/glove-window-accumulation-motion.svg)。
+
+由目標詞 A 朝上下文詞 B 閱讀兩個獨立的人工視窗，假設兩者的距離都在上下文視窗內。對有方向性的項目 X(A,B)，第一次貢獻 1/2，第二次貢獻 1/3，合計 5/6。每次貢獻抵達後才更新長條，省略視窗內其他詞對。這是追蹤單一矩陣項目的示意，並非語料實測或完整的共現計數流程。長條刻度上限一只是本例設定，不代表共現計數不能超過一。彙整後，該正計數項目在上述加權迴歸目標中出現一次，其對數目標約為 -0.1823。反距離貢獻不是迴歸殘差的權重。
+
+### 單次同步梯度更新
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="四個參數梯度皆由更新前的詞向量與上下文向量計算；同步 SGD 更新使人工損失由 1 降至 0.04。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/glove-simultaneous-gradient-still.svg" data-motion-src="../../../assets/concept-animations/glove-simultaneous-gradient-motion.svg" data-still-src="../../../assets/concept-animations/glove-simultaneous-gradient-still.svg" alt="四個參數梯度皆由更新前的詞向量與上下文向量計算；同步 SGD 更新使人工損失由 1 降至 0.04。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/glove-simultaneous-gradient-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/glove-simultaneous-gradient-motion.svg)。
+
+對單一正計數項，令 $r=w_i^\top\widetilde w_j+b_i+\widetilde b_j-\log X_{ij}$，以及 $g=2f(X_{ij})r$。由上述目標函數微分可得
+
+$
+\nabla_{w_i}J_{ij}=g\widetilde w_j,\qquad
+\nabla_{\widetilde w_j}J_{ij}=gw_i.
+$
+
+兩個偏置的偏微分皆為 $g$。兩個向量梯度皆採用更新前的狀態。取共現計數 100（權重為一）、詞向量 (1, 0)、上下文向量 (0, 1)、第一個偏置 $\log(100)+1$、第二個偏置為零，殘差即為一。以步長 0.1 執行一次同步的基本 SGD 更新，兩個向量變成 (1, −0.2) 與 (−0.2, 1)，兩個偏置均減少 0.2。更新後內積為 −0.4，殘差為 0.2，該詞對的損失為 0.04。
+
+橘色標記追蹤同步更新：梯度先出現，參數才同時更新。這是單一詞對的人工微分算例，並非 GloVe 原始最佳化器的精確更新規則、全語料損失或訓練實測資料。若先更新其中一個向量，再使用新向量計算另一個梯度，就不是相同的同步 SGD 更新。
+
 ## 使用學得的向量
 
 訓練維護兩組向量表與兩組偏置表。用作下游詞表示時，論文將同一詞彙項目的詞向量與上下文向量相加。[^vectors]

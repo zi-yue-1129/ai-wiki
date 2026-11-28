@@ -67,6 +67,18 @@ Applying the preceding formulas gives the following values, rounded to four deci
 
 The averaged loss is $L\approx0.2987$, using natural logarithms. These are constructed values to demonstrate the calculation, not measurements from a trained CLIP model.
 
+### Two normalisation directions in motion
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="An orange outline selects each row and then each column of the fixed logit matrix. The two probability matrices fill independently before the diagonal losses are averaged.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-bidirectional-softmax-still.svg" data-motion-src="../../../assets/concept-animations/clip-bidirectional-softmax-motion.svg" data-still-src="../../../assets/concept-animations/clip-bidirectional-softmax-still.svg" alt="An orange outline selects each row and then each column of the fixed logit matrix. The two probability matrices fill independently before the diagonal losses are averaged." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/clip-bidirectional-softmax-still.svg) and [full SVG animation](../../../assets/concept-animations/clip-bidirectional-softmax-motion.svg).
+
+The orange outline first selects the two rows of the logit matrix, then the two columns. Each selected row or column is normalised over its own two entries. Green cells mark the paired batch positions, not a probability threshold. The resulting matrices use the same image-row and text-column layout; each row of the middle matrix sums to one, whereas each column of the right matrix sums to one. For example, the first paired position has probability 0.8808 in the image-to-text direction but 0.6900 in the reverse direction. After all four normalisations, the mean losses from the preceding table appear. Values are rounded for display. The sequential order is instructional, not an assertion that the implementation must compute the directions serially. This is the constructed example above, not a model measurement.
+
 ### Zero-shot classification and prompt ensembles
 
 For a chosen candidate class set $C$, encode a prompt for each class and normalise its embedding to obtain $v_c$. Let $u$ be the unit image embedding. The zero-shot classifier uses[^transfer]
@@ -81,6 +93,56 @@ The predicted class maximises this score. For fixed embeddings and a shared posi
 Prompt wording changes $v_c$ and can therefore change the ranking. In Section 3.1.4, the default template "A photo of a {label}." improves ImageNet accuracy by about 1.3 percentage points over bare class names. Ensembling 80 context prompts adds about 3.5 further points.[^transfer] The official example normalises each prompt embedding, averages the embeddings for each class, then normalises that average to form one class vector.[^ensemble]
 
 The denominator also depends on the candidate list. As a separate constructed example, logits $(2,0)$ give the first class probability $0.8808$. Adding a third candidate with logit $2$ lowers it to $0.4683$, while leaving both original logits unchanged. Doubling the original two logits to $(4,0)$ instead raises it to $0.9820$. With only one candidate, softmax always returns $1$. Thus a large softmax score alone establishes neither that the correct class was offered nor that confidence is calibrated for the intended task. The model card reports sensitivity to class design and calls for testing with a specific class taxonomy.[^taxonomy]
+
+### Adding a candidate changes the denominator
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="Class C enters with logit two. The logits of A and B stay fixed, while the three probability bars renormalise; dashed markers show the two-candidate probabilities.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-candidate-set-still.svg" data-motion-src="../../../assets/concept-animations/clip-candidate-set-motion.svg" data-still-src="../../../assets/concept-animations/clip-candidate-set-still.svg" alt="Class C enters with logit two. The logits of A and B stay fixed, while the three probability bars renormalise; dashed markers show the two-candidate probabilities." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/clip-candidate-set-still.svg) and [full SVG animation](../../../assets/concept-animations/clip-candidate-set-motion.svg).
+
+Start with two classes A and B with logits 2 and 0. The moving green marker announces a new candidate C with logit 2. On arrival, all probabilities update together: A drops from about 0.8808 to 0.4683, B from 0.1192 to 0.0634, and C receives 0.4683. The dashed markers retain the original probabilities of A and B. The original logit difference remains two, so the probability ratio of A to B is unchanged even though their individual probabilities decrease. The bars change discretely when the candidate set changes; the moving marker is not a continuous probability trajectory. A and C now tie. These are rounded analytic values from the constructed example, not CLIP confidence measurements or evidence that a new class is correct.
+
+### Changing logit scale without changing the ranking
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="A cursor traverses two probability curves as inverse temperature rises and falls. The cosine scores stay fixed, and the probability bars separate without changing the winning class.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-temperature-scale-still.svg" data-motion-src="../../../assets/concept-animations/clip-temperature-scale-motion.svg" data-still-src="../../../assets/concept-animations/clip-temperature-scale-still.svg" alt="A cursor traverses two probability curves as inverse temperature rises and falls. The cosine scores stay fixed, and the probability bars separate without changing the winning class." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/clip-temperature-scale-still.svg) and [full SVG animation](../../../assets/concept-animations/clip-temperature-scale-motion.svg).
+
+For two fixed unit-vector cosine scores of 0.8 and 0.4, write the shared positive inverse temperature as $s=1/\tau$. The first class probability is
+
+$
+p_A(s)=\frac{1}{1+\exp(-0.4s)}.
+$
+
+As $s$ rises from 1 to 10, the probabilities separate, while A remains ranked first. For $s=1,2,5,10$, its probability is approximately 0.5987, 0.6900, 0.8808 and 0.9820 respectively. The plot and bars share the same sampled curve, linearly interpolated between samples. The animation reverses the sweep to repeat. This is a sensitivity analysis with fixed embeddings, not a trajectory of learned temperature, an empirical confidence measurement or evidence of better calibration.
+
+### Building a class vector from multiple prompts
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="The green class vector moves from the first prompt to the midpoint of two unit prompts, then extends to the unit circle. After normalisation, class A overtakes the fixed class B in cosine similarity to the image.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/clip-prompt-ensemble-still.svg" data-motion-src="../../../assets/concept-animations/clip-prompt-ensemble-motion.svg" data-still-src="../../../assets/concept-animations/clip-prompt-ensemble-still.svg" alt="The green class vector moves from the first prompt to the midpoint of two unit prompts, then extends to the unit circle. After normalisation, class A overtakes the fixed class B in cosine similarity to the image." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/clip-prompt-ensemble-still.svg) and [full SVG animation](../../../assets/concept-animations/clip-prompt-ensemble-motion.svg).
+
+The official prompt-ensemble procedure normalises each prompt embedding, takes the class-wise mean and normalises that mean.[^ensemble] In a constructed two-dimensional example, let the image be $(0,1)$ and the two unit prompt vectors for class A be $(1,0)$ and $(0,1)$. Class B has fixed unit vector $(0.8,0.6)$.
+
+With only the first prompt, A has cosine score 0 and B has score 0.6. The mean for A is $(0.5,0.5)$. Its normalised direction is
+
+$
+v_A=(1/\sqrt{2},1/\sqrt{2}).
+$
+
+The cosine of A with the image is now approximately 0.7071, so the ranking changes. The dashed segment connects the two prompt endpoints; its midpoint is the mean. The green endpoint moves to the mean and extends along its direction to the unit circle. The score and winning class are withheld during these illustrative transitions, because the intermediate mean is not the final normalised classifier vector. For a zero mean, normalisation is undefined; the example assumes a nonzero mean. This illustrates embedding-space ensembling, not averaging class probabilities or a measured improvement from CLIP.
 
 ## Results
 

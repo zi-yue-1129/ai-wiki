@@ -63,6 +63,32 @@ $$
 
 這些二維向量可補零延伸至 128 維。數值用來展示幾何與挖掘條件，不是實測表現。半困難那列已將正例排在較近的位置，但仍因未達到所需差距而產生損失。
 
+### 負樣本穿越間隔邊界
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="橘色負樣本沿單位圓移動，錨點與正樣本固定；同步的鉸鏈損失游標依序跨越困難、半困難與零損失區域。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-triplet-margin-still.svg" data-motion-src="../../../assets/concept-animations/facenet-triplet-margin-motion.svg" data-still-src="../../../assets/concept-animations/facenet-triplet-margin-still.svg" alt="橘色負樣本沿單位圓移動，錨點與正樣本固定；同步的鉸鏈損失游標依序跨越困難、半困難與零損失區域。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/facenet-triplet-margin-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/facenet-triplet-margin-motion.svg)。
+
+固定上述算例的錨點及正樣本，平方距離為 0.4、間隔為 0.2。負樣本與錨點的平方距離從 0.1 增至 0.9 再返回。距離為 0.4 時與正樣本並列；介於 0.4 與 0.6 時為半困難負樣本，仍有正的鉸鏈損失；從 0.6 起損失為零。即使來源身分不同，示意嵌入仍可能重合。為便於閱讀，右圖只顯示平方距離零至一，完整可行範圍為零至四。靜態圖顯示距離 0.5、損失 0.1。這是人工單位圓幾何算例，不是學得的嵌入或最佳化軌跡；中間座標經取樣與插值顯示。
+
+### 篩選批次中的候選負例
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="距離游標依序檢查四個候選負例；只有第二與第三個比正例遠且仍落在訓練間隔內。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-semi-hard-screening-still.svg" data-motion-src="../../../assets/concept-animations/facenet-semi-hard-screening-motion.svg" data-still-src="../../../assets/concept-animations/facenet-semi-hard-screening-still.svg" alt="距離游標依序檢查四個候選負例；只有第二與第三個比正例遠且仍落在訓練間隔內。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/facenet-semi-hard-screening-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/facenet-semi-hard-screening-motion.svg)。
+
+固定錨點與正例的平方距離為 0.4，間隔為 0.2。四個不同身分的候選負例具有人工設定的平方距離 0.2、0.45、0.55 與 0.8。移動游標逐一檢查是否位於嚴格的半困難區間 (0.4, 0.6)。N2 與 N3 符合條件，鉸鏈損失分別為 0.15 與 0.05；N1 雖有較大的 0.4 損失，卻是困難負例；N4 的損失為零。符合條件的集合不等於所有具有正損失的三元組集合。
+
+掃描順序只是說明篩選條件，並非規定必須循序執行、指定並列處理策略或批次實測資料。批次內也可能沒有符合條件的負例，本圖不指定此時的回退策略。篩選條件來自前述半困難挖掘定義。[^mining]
+
 ## 驗證門檻
 
 驗證將單一配對與決策門檻 $\delta$ 比較。採用論文在等號成立時也接受的方式，單位嵌入的判斷規則為[^verification]
@@ -76,6 +102,27 @@ $$
 當 $0\le\delta\le4$ 時，等價的未平方歐氏距離門檻為 $\sqrt{\delta}$。訓練間隔 $\alpha$ 比較的是三元組內的兩個距離，並不決定單一配對的驗證門檻。
 
 論文的 LFW 評估用九個分割選擇門檻，再於剩下一個分割測試。[^verification] 報告結果時應交代門檻選擇流程與距離定義。第 4 節另外定義同身分配對中的真接受率，以及不同身分配對中的誤接受率。在指定門檻下報告這些比率，呈現的面向與單一總體準確率不同。門檻取捨可參閱 [ROC-AUC](../../evaluation/metrics/classification/roc-auc.md)。
+
+### 掃描驗證門檻
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="距離門檻掃過四組同身分配對與四組不同身分配對；每跨越一個觀察距離，真接受率或誤接受率便更新。">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-verification-sweep-still.svg" data-motion-src="../../../assets/concept-animations/facenet-verification-sweep-motion.svg" data-still-src="../../../assets/concept-animations/facenet-verification-sweep-still.svg" alt="距離門檻掃過四組同身分配對與四組不同身分配對；每跨越一個觀察距離，真接受率或誤接受率便更新。" width="640" height="360">
+</div>
+</div>
+
+*原創 12 秒教學動畫（CC BY-SA 4.0）。* 使用網站播放／暫停按鈕，窄螢幕可水平捲動。GitHub 提供[靜態預覽](../../../assets/concept-animations/facenet-verification-sweep-still.svg)及[完整 SVG 動畫](../../../assets/concept-animations/facenet-verification-sweep-motion.svg)。
+
+藍色圓點代表同身分配對的平方距離 0.1、0.3、0.5、0.7；橘色方塊代表不同身分配對的平方距離 0.4、0.6、0.8、0.9。平方距離不大於綠色門檻時接受配對。兩個比率分別計算各組被接受的數量並除以四。門檻連續移動，但經驗比率呈離散階梯變化。
+
+| 門檻 | 真接受率（TAR） | 誤接受率（FAR） |
+|---:|---:|---:|
+| 0.35 | 50% | 0% |
+| 0.55 | 75% | 25% |
+| 0.65 | 75% | 50% |
+| 0.75 | 100% | 50% |
+
+靜態預覽採門檻 0.65。圖中距離區間為零至一，是單位向量可行平方距離範圍的子集。八個距離為展示門檻取捨而建構，並非 FaceNet 實測結果或建議的實際使用門檻。實際決策門檻須依所需的誤接受限制於保留的驗證資料上選擇，不由三元組訓練間隔直接決定。
 
 ## 結果
 

@@ -73,6 +73,32 @@ For a constructed example, take $a=(1,0)$ and $p=(0.8,0.6)$, so $D_{ap}=0.4$. Fo
 
 These two-dimensional vectors can be extended to 128 dimensions by appending zeros. The values illustrate the geometry and mining conditions, not measured performance. The semi-hard row already ranks the positive closer, yet still incurs a loss because it misses the required gap.
 
+### Moving a negative across the margin
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="An orange negative moves along a unit circle while anchor and positive remain fixed; a synchronized hinge cursor crosses the hard, semi-hard and zero-loss regions.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-triplet-margin-still.svg" data-motion-src="../../../assets/concept-animations/facenet-triplet-margin-motion.svg" data-still-src="../../../assets/concept-animations/facenet-triplet-margin-still.svg" alt="An orange negative moves along a unit circle while anchor and positive remain fixed; a synchronized hinge cursor crosses the hard, semi-hard and zero-loss regions." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/facenet-triplet-margin-still.svg) and [full SVG animation](../../../assets/concept-animations/facenet-triplet-margin-motion.svg).
+
+The anchor and positive from the example stay fixed, with squared distance 0.4 and margin 0.2. As the negative moves, its squared distance from the anchor sweeps from 0.1 to 0.9 and back. At 0.4 it ties the positive; between 0.4 and 0.6 it is semi-hard with nonzero hinge loss; from 0.6 onward the loss is zero. The two points can coincide in the illustration even if their source identities differ. The right plot is restricted to squared distances from zero to one for readability; the full feasible range is zero to four. The static view shows distance 0.5 and loss 0.1. This is toy unit-circle geometry, not a learned embedding or an optimisation trajectory. Intermediate coordinates are sampled and interpolated.
+
+### Screening candidates in a batch
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="A distance cursor visits four negative candidates. Only the second and third are farther than the positive and still within the training margin.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-semi-hard-screening-still.svg" data-motion-src="../../../assets/concept-animations/facenet-semi-hard-screening-motion.svg" data-still-src="../../../assets/concept-animations/facenet-semi-hard-screening-still.svg" alt="A distance cursor visits four negative candidates. Only the second and third are farther than the positive and still within the training margin." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/facenet-semi-hard-screening-still.svg) and [full SVG animation](../../../assets/concept-animations/facenet-semi-hard-screening-motion.svg).
+
+Hold the anchor–positive squared distance at 0.4 and the margin at 0.2. Four different-identity candidates have constructed squared distances of 0.2, 0.45, 0.55 and 0.8. The moving cursor tests each candidate against the strict semi-hard interval (0.4, 0.6). Candidates N2 and N3 are eligible, with respective hinge losses 0.15 and 0.05. N1 is hard despite a larger loss of 0.4; N4 has zero loss. The eligible set is not the same as the set of all positive-loss triplets.
+
+The scan order only explains the predicate, not a prescribed sequential implementation, tie-breaking policy, or measured batch. A batch may contain no eligible negatives; this illustration does not prescribe a fallback. The selection condition follows the semi-hard mining definition above.[^mining]
+
 ## Verification thresholds
 
 Verification compares a single pair against a decision threshold $\delta$. Using the paper's convention of accepting a pair at the threshold, the rule for unit embeddings is[^verification]
@@ -86,6 +112,27 @@ $$
 For $0\le\delta\le4$, the equivalent unsquared Euclidean threshold is $\sqrt{\delta}$. The training margin $\alpha$ compares two distances within a triplet. It does not set the verification threshold for a single pair.
 
 The paper's LFW evaluation selects a threshold on nine splits and tests it on the remaining split.[^verification] Report the threshold-selection protocol and distance convention with the result. Section 4 separately defines the true-acceptance rate among same-identity pairs and the false-acceptance rate among different-identity pairs. These rates at a chosen threshold describe a different aspect of performance from a single overall accuracy. See [ROC-AUC](../../evaluation/metrics/classification/roc-auc.md) for threshold trade-offs.
+
+### Sweeping a verification threshold
+
+<div style="max-width:100%;overflow-x:auto" role="group" tabindex="0" aria-label="A distance threshold sweeps over four same-identity pairs and four different-identity pairs; true and false acceptance rates update at each observed distance.">
+<div style="width:640px">
+<img data-source-asset-urls src="../../../assets/concept-animations/facenet-verification-sweep-still.svg" data-motion-src="../../../assets/concept-animations/facenet-verification-sweep-motion.svg" data-still-src="../../../assets/concept-animations/facenet-verification-sweep-still.svg" alt="A distance threshold sweeps over four same-identity pairs and four different-identity pairs; true and false acceptance rates update at each observed distance." width="640" height="360">
+</div>
+</div>
+
+*Original 12-second teaching animation (CC BY-SA 4.0).* Use the site's Play/Pause button; scroll horizontally on narrow screens. GitHub provides the [static fallback](../../../assets/concept-animations/facenet-verification-sweep-still.svg) and [full SVG animation](../../../assets/concept-animations/facenet-verification-sweep-motion.svg).
+
+The blue circles represent same-identity squared distances 0.1, 0.3, 0.5 and 0.7. The orange squares represent different-identity distances 0.4, 0.6, 0.8 and 0.9. A pair is accepted when its squared distance is no greater than the green threshold. The two rates count accepted pairs within their respective groups and divide by four. The moving boundary is continuous, but the empirical rates change in discrete steps.
+
+| Threshold | True acceptance rate (TAR) | False acceptance rate (FAR) |
+|---:|---:|---:|
+| 0.35 | 50% | 0% |
+| 0.55 | 75% | 25% |
+| 0.65 | 75% | 50% |
+| 0.75 | 100% | 50% |
+
+The static preview uses threshold 0.65. The plotted distance interval is zero to one, a subset of the feasible squared-distance range for unit vectors. These eight distances are constructed solely to demonstrate threshold trade-offs; they are not FaceNet measurements or a recommended operational threshold. A real decision threshold must be selected on held-out validation data according to the desired false-acceptance constraint, independently of the triplet training margin.
 
 ## Results
 

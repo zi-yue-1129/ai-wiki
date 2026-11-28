@@ -15,6 +15,18 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'embedding-norm-ranking': 'theory/models/embeddings/index',
+    'embedding-lookup-accumulation': 'theory/models/embeddings/index',
+    'glove-simultaneous-gradient': 'theory/models/embeddings/glove',
+    'facenet-semi-hard-screening': 'theory/models/embeddings/facenet',
+    'clip-temperature-scale': 'theory/models/embeddings/clip',
+    'clip-prompt-ensemble': 'theory/models/embeddings/clip',
+    'clip-bidirectional-softmax': 'theory/models/embeddings/clip',
+    'clip-candidate-set': 'theory/models/embeddings/clip',
+    'glove-window-accumulation': 'theory/models/embeddings/glove',
+    'facenet-verification-sweep': 'theory/models/embeddings/facenet',
+    'glove-count-weighting': 'theory/models/embeddings/glove',
+    'facenet-triplet-margin': 'theory/models/embeddings/facenet',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
     'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
@@ -495,7 +507,19 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'embedding-norm-ranking': '0 0 640 360',
+ 'embedding-lookup-accumulation': '0 0 640 360',
+ 'glove-simultaneous-gradient': '0 0 640 360',
+ 'facenet-semi-hard-screening': '0 0 640 360',
+ 'clip-temperature-scale': '0 0 640 360',
+ 'clip-prompt-ensemble': '0 0 640 360',
+ 'clip-bidirectional-softmax': '0 0 640 360',
+ 'clip-candidate-set': '0 0 640 360',
+ 'glove-window-accumulation': '0 0 640 360',
+ 'facenet-verification-sweep': '0 0 640 360',
+ 'glove-count-weighting': '0 0 640 360',
+ 'facenet-triplet-margin': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
  'kfc-patch-second-moment': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
@@ -1363,6 +1387,11 @@ def main() -> int:
                 errors.append(f"{page}: missing translation")
                 continue
             text = page.read_text(encoding="utf-8")
+            if stem in {"embedding-norm-ranking", "embedding-lookup-accumulation", "glove-simultaneous-gradient", "facenet-semi-hard-screening", "glove-count-weighting", "facenet-triplet-margin", "glove-window-accumulation", "facenet-verification-sweep", "clip-bidirectional-softmax", "clip-candidate-set", "clip-temperature-scale", "clip-prompt-ensemble"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                previews = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if not {static_path.resolve(), animated_path.resolve()} <= {(page.parent / link).resolve() for link in previews}:
+                    errors.append(f"{page}: missing independently clickable motion or static preview for {stem}")
             if stem in SOURCE_ALT_CONTRACT_STEMS:
                 images = [img for img in MotionImages(text).images
                           if stem in (img.get("src") or "")]

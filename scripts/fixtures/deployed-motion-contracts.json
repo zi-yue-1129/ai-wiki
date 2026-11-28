@@ -458,6 +458,186 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "embedding-norm-ranking": {
+      "origins": [
+        {
+          "origin_blob": "a7aea223cb6d7f6843aa393adcd837390b4b5ee9",
+          "origin_commit": "90493537d21add858876a76e402ca0e0d89014f8",
+          "path": "docs/assets/concept-animations/embedding-norm-ranking-motion.svg"
+        },
+        {
+          "origin_blob": "990ce4063bc28438fcdc71e8243db4af73c4b95f",
+          "origin_commit": "90493537d21add858876a76e402ca0e0d89014f8",
+          "path": "docs/assets/concept-animations/embedding-norm-ranking-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "embedding-lookup-accumulation": {
+      "origins": [
+        {
+          "origin_blob": "99dd085004178fe7e15f1169a86235d6fba78277",
+          "origin_commit": "90493537d21add858876a76e402ca0e0d89014f8",
+          "path": "docs/assets/concept-animations/embedding-lookup-accumulation-motion.svg"
+        },
+        {
+          "origin_blob": "8c4a2408512949af53853323189adf1429524a86",
+          "origin_commit": "90493537d21add858876a76e402ca0e0d89014f8",
+          "path": "docs/assets/concept-animations/embedding-lookup-accumulation-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "glove-simultaneous-gradient": {
+      "origins": [
+        {
+          "origin_blob": "0185ac77375aa555c2f6334ee24c33c103f593cb",
+          "origin_commit": "8c8b70dd0c64b733330d4011eddacb2bd73219bf",
+          "path": "docs/assets/concept-animations/glove-simultaneous-gradient-motion.svg"
+        },
+        {
+          "origin_blob": "1c29e34cdca09c000cdd657e983f37a2711ea8ac",
+          "origin_commit": "8c8b70dd0c64b733330d4011eddacb2bd73219bf",
+          "path": "docs/assets/concept-animations/glove-simultaneous-gradient-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "facenet-semi-hard-screening": {
+      "origins": [
+        {
+          "origin_blob": "f74c5d358dfd4899d105fe9ae1a9db5d2ab69ca3",
+          "origin_commit": "8c8b70dd0c64b733330d4011eddacb2bd73219bf",
+          "path": "docs/assets/concept-animations/facenet-semi-hard-screening-motion.svg"
+        },
+        {
+          "origin_blob": "99bb9229182702f11a6e7c16e890aaa60419e376",
+          "origin_commit": "8c8b70dd0c64b733330d4011eddacb2bd73219bf",
+          "path": "docs/assets/concept-animations/facenet-semi-hard-screening-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "clip-temperature-scale": {
+      "origins": [
+        {
+          "origin_blob": "085b2bee4be852452ed9f69c0cea20948ada08fe",
+          "origin_commit": "51ed8170edfb253fdc619aa9daafc70bedc4acae",
+          "path": "docs/assets/concept-animations/clip-temperature-scale-motion.svg"
+        },
+        {
+          "origin_blob": "f551d78cf31d1aa7b955cab26093fc9182944c3c",
+          "origin_commit": "51ed8170edfb253fdc619aa9daafc70bedc4acae",
+          "path": "docs/assets/concept-animations/clip-temperature-scale-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "clip-prompt-ensemble": {
+      "origins": [
+        {
+          "origin_blob": "62458d463db6a60af1ededf460b77e8343ab9651",
+          "origin_commit": "51ed8170edfb253fdc619aa9daafc70bedc4acae",
+          "path": "docs/assets/concept-animations/clip-prompt-ensemble-motion.svg"
+        },
+        {
+          "origin_blob": "58664163b0e4704787d58a9e4e4e4a9887bfabbe",
+          "origin_commit": "51ed8170edfb253fdc619aa9daafc70bedc4acae",
+          "path": "docs/assets/concept-animations/clip-prompt-ensemble-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "clip-bidirectional-softmax": {
+      "origins": [
+        {
+          "origin_blob": "0377ac7d24fa25e9867f9adf90249736015f119b",
+          "origin_commit": "7d609bc9084f1bb116ad8196a25c4ff54ff9ba5d",
+          "path": "docs/assets/concept-animations/clip-bidirectional-softmax-motion.svg"
+        },
+        {
+          "origin_blob": "cde666151617b2ece615e3cbe06261810fd11b51",
+          "origin_commit": "7d609bc9084f1bb116ad8196a25c4ff54ff9ba5d",
+          "path": "docs/assets/concept-animations/clip-bidirectional-softmax-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "clip-candidate-set": {
+      "origins": [
+        {
+          "origin_blob": "0c50f116355f6131b88ce968fc7778a9437d76f2",
+          "origin_commit": "7d609bc9084f1bb116ad8196a25c4ff54ff9ba5d",
+          "path": "docs/assets/concept-animations/clip-candidate-set-motion.svg"
+        },
+        {
+          "origin_blob": "6aaf17790c4905d59573e6ea37c58d91fddedbab",
+          "origin_commit": "7d609bc9084f1bb116ad8196a25c4ff54ff9ba5d",
+          "path": "docs/assets/concept-animations/clip-candidate-set-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "glove-window-accumulation": {
+      "origins": [
+        {
+          "origin_blob": "e28ff404686f7c04644f6c10446449ae2903774d",
+          "origin_commit": "ba867b1339b26830f557495b7bc0875bb9c46ac9",
+          "path": "docs/assets/concept-animations/glove-window-accumulation-motion.svg"
+        },
+        {
+          "origin_blob": "8dbedfd09dc39b48f072ee573c87888e323f18f2",
+          "origin_commit": "ba867b1339b26830f557495b7bc0875bb9c46ac9",
+          "path": "docs/assets/concept-animations/glove-window-accumulation-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "facenet-verification-sweep": {
+      "origins": [
+        {
+          "origin_blob": "405456cd26eed9ab730ba0e3a222ad7e8349df97",
+          "origin_commit": "ba867b1339b26830f557495b7bc0875bb9c46ac9",
+          "path": "docs/assets/concept-animations/facenet-verification-sweep-motion.svg"
+        },
+        {
+          "origin_blob": "789aac72d1e30edd7e8bfbba4d14388b04345484",
+          "origin_commit": "ba867b1339b26830f557495b7bc0875bb9c46ac9",
+          "path": "docs/assets/concept-animations/facenet-verification-sweep-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "glove-count-weighting": {
+      "origins": [
+        {
+          "origin_blob": "6ac7b3e16e8a5fe523a7b13c54661b746b2fc9f2",
+          "origin_commit": "41b41758467eeafdfeaf30a3a18406a6c56ca325",
+          "path": "docs/assets/concept-animations/glove-count-weighting-motion.svg"
+        },
+        {
+          "origin_blob": "c8f9b3e5816ceca24b7cb7ebec2fc23a2eaf7cd0",
+          "origin_commit": "41b41758467eeafdfeaf30a3a18406a6c56ca325",
+          "path": "docs/assets/concept-animations/glove-count-weighting-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "facenet-triplet-margin": {
+      "origins": [
+        {
+          "origin_blob": "bae6aec1e357a382d79ed0635fa2e376ffe4f5c8",
+          "origin_commit": "41b41758467eeafdfeaf30a3a18406a6c56ca325",
+          "path": "docs/assets/concept-animations/facenet-triplet-margin-motion.svg"
+        },
+        {
+          "origin_blob": "84471f01d1c2a09e38ecb683f67080a53f6bd2de",
+          "origin_commit": "41b41758467eeafdfeaf30a3a18406a6c56ca325",
+          "path": "docs/assets/concept-animations/facenet-triplet-margin-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {
