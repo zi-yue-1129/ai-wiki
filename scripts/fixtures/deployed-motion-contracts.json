@@ -458,6 +458,216 @@
   },
   "basis": "Independently audited original-source contracts against deployed 5b89; CLR original anchors restored in 15711. This committed review fixture is not computed from validator sets or current SVG contents. Intentional new scope requires explicit source review and fixture update.",
   "canonical": {
+    "whisper-timestamp-interleave": {
+      "origins": [
+        {
+          "origin_blob": "f3679c56bd403dff97445387aa23bc26bd53000a",
+          "origin_commit": "8a2dc17e3faeb44613589691c299ecc828a998f9",
+          "path": "docs/assets/concept-animations/whisper-timestamp-interleave-motion.svg"
+        },
+        {
+          "origin_blob": "d8d88ed3728f8838c0e6aebb18488a5272fdfe7b",
+          "origin_commit": "8a2dc17e3faeb44613589691c299ecc828a998f9",
+          "path": "docs/assets/concept-animations/whisper-timestamp-interleave-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "whisper-window-seek": {
+      "origins": [
+        {
+          "origin_blob": "5bd54848c65a35a56c823d1728148e20ab490cae",
+          "origin_commit": "8a2dc17e3faeb44613589691c299ecc828a998f9",
+          "path": "docs/assets/concept-animations/whisper-window-seek-motion.svg"
+        },
+        {
+          "origin_blob": "e94cce9a1d006c645cd9b4a41975bb66b1509d2c",
+          "origin_commit": "8a2dc17e3faeb44613589691c299ecc828a998f9",
+          "path": "docs/assets/concept-animations/whisper-window-seek-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "wav2vec-window-hop": {
+      "origins": [
+        {
+          "origin_blob": "79f98e0b479f0cffa96c90982f4e7772c968a3d7",
+          "origin_commit": "f6dd3a8b11e11525b0f2e74dc9e8866a7a4a6658",
+          "path": "docs/assets/concept-animations/wav2vec-window-hop-motion.svg"
+        },
+        {
+          "origin_blob": "2287c84632e5b9ea463cb68709961ee2ba36cc41",
+          "origin_commit": "f6dd3a8b11e11525b0f2e74dc9e8866a7a4a6658",
+          "path": "docs/assets/concept-animations/wav2vec-window-hop-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "wav2vec-mask-overlap": {
+      "origins": [
+        {
+          "origin_blob": "1762725ee38dcede8e03c703f9760f87d01f9f19",
+          "origin_commit": "f6dd3a8b11e11525b0f2e74dc9e8866a7a4a6658",
+          "path": "docs/assets/concept-animations/wav2vec-mask-overlap-motion.svg"
+        },
+        {
+          "origin_blob": "4af38782e7ba49d0eba4a4836049eacb74f72b3d",
+          "origin_commit": "f6dd3a8b11e11525b0f2e74dc9e8866a7a4a6658",
+          "path": "docs/assets/concept-animations/wav2vec-mask-overlap-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "wav2vec-contrastive-normalization": {
+      "origins": [
+        {
+          "origin_blob": "427ec36d5aae4e5a70693996b1caafbd4467ee57",
+          "origin_commit": "02e04e6d232f3de18203589dc1c519edde0d2765",
+          "path": "docs/assets/concept-animations/wav2vec-contrastive-normalization-motion.svg"
+        },
+        {
+          "origin_blob": "271aba10c11f7dbfc1e3891bf4936a659dcf5204",
+          "origin_commit": "02e04e6d232f3de18203589dc1c519edde0d2765",
+          "path": "docs/assets/concept-animations/wav2vec-contrastive-normalization-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "wav2vec-diversity-mean": {
+      "origins": [
+        {
+          "origin_blob": "c4f534038751c36e5e196459a8ce65451b5f74b3",
+          "origin_commit": "02e04e6d232f3de18203589dc1c519edde0d2765",
+          "path": "docs/assets/concept-animations/wav2vec-diversity-mean-motion.svg"
+        },
+        {
+          "origin_blob": "67095889ec9e085e135fa0fcd1771b567e83efcf",
+          "origin_commit": "02e04e6d232f3de18203589dc1c519edde0d2765",
+          "path": "docs/assets/concept-animations/wav2vec-diversity-mean-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "wav2vec-mask-target": {
+      "origins": [
+        {
+          "origin_blob": "807d913414b2fc9c5de27110aa2dc29c48295b82",
+          "origin_commit": "2227c6011e9e1ba9a3c57e1be5440266ea211ce9",
+          "path": "docs/assets/concept-animations/wav2vec-mask-target-motion.svg"
+        },
+        {
+          "origin_blob": "7f0c0fdbcd0cc921711de5ddab7b1054cc822de6",
+          "origin_commit": "2227c6011e9e1ba9a3c57e1be5440266ea211ce9",
+          "path": "docs/assets/concept-animations/wav2vec-mask-target-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "wav2vec-product-quantization": {
+      "origins": [
+        {
+          "origin_blob": "bb4726e52a01660bacf119239aa058fd1a4fd42b",
+          "origin_commit": "2227c6011e9e1ba9a3c57e1be5440266ea211ce9",
+          "path": "docs/assets/concept-animations/wav2vec-product-quantization-motion.svg"
+        },
+        {
+          "origin_blob": "18aaa8ddf610bee730c1977838d55576935277be",
+          "origin_commit": "2227c6011e9e1ba9a3c57e1be5440266ea211ce9",
+          "path": "docs/assets/concept-animations/wav2vec-product-quantization-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "ctc-alignment-posterior": {
+      "origins": [
+        {
+          "origin_blob": "835161d109f40006b1e8a4aad04a2c76d112155c",
+          "origin_commit": "298224511354d5294b065c0b398473cd9d9827dc",
+          "path": "docs/assets/concept-animations/ctc-alignment-posterior-motion.svg"
+        },
+        {
+          "origin_blob": "658f3eb04afbfaa3d253bd88f412fdc515c31d52",
+          "origin_commit": "298224511354d5294b065c0b398473cd9d9827dc",
+          "path": "docs/assets/concept-animations/ctc-alignment-posterior-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "ctc-prefix-repeat": {
+      "origins": [
+        {
+          "origin_blob": "4769bd19f30d44a51f5a84c2b58432f6702c143e",
+          "origin_commit": "298224511354d5294b065c0b398473cd9d9827dc",
+          "path": "docs/assets/concept-animations/ctc-prefix-repeat-motion.svg"
+        },
+        {
+          "origin_blob": "8d9522d86a4f6ebaae57a53e53839c3b74db5bed",
+          "origin_commit": "298224511354d5294b065c0b398473cd9d9827dc",
+          "path": "docs/assets/concept-animations/ctc-prefix-repeat-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "ctc-forward-lattice": {
+      "origins": [
+        {
+          "origin_blob": "d2670135baa6077c7a7ff8ad5a2390dce0ae8a6a",
+          "origin_commit": "17d5936bc26a6e6db7340b6353335272abbba82e",
+          "path": "docs/assets/concept-animations/ctc-forward-lattice-motion.svg"
+        },
+        {
+          "origin_blob": "42c45a19c0c96e24fafee6644d959b30ae770d9f",
+          "origin_commit": "17d5936bc26a6e6db7340b6353335272abbba82e",
+          "path": "docs/assets/concept-animations/ctc-forward-lattice-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "ctc-repeat-skip": {
+      "origins": [
+        {
+          "origin_blob": "24382d5fe5a77f72fff97740466039a71e46ea4b",
+          "origin_commit": "17d5936bc26a6e6db7340b6353335272abbba82e",
+          "path": "docs/assets/concept-animations/ctc-repeat-skip-motion.svg"
+        },
+        {
+          "origin_blob": "7f9fed91eaf7a197f3acfb44120b1133fc394071",
+          "origin_commit": "17d5936bc26a6e6db7340b6353335272abbba82e",
+          "path": "docs/assets/concept-animations/ctc-repeat-skip-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "ctc-collapse-scan": {
+      "origins": [
+        {
+          "origin_blob": "6ab80c519480f280271d3ce9bad1a6eae8a79441",
+          "origin_commit": "71f51c876f2653962fe0b80e69f2864dbff792a4",
+          "path": "docs/assets/concept-animations/ctc-collapse-scan-motion.svg"
+        },
+        {
+          "origin_blob": "90ded63592ca2aca4e31dfc8f84a2445c5805829",
+          "origin_commit": "71f51c876f2653962fe0b80e69f2864dbff792a4",
+          "path": "docs/assets/concept-animations/ctc-collapse-scan-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
+    "ctc-path-mass": {
+      "origins": [
+        {
+          "origin_blob": "31927aebf11097b962e2241d4815405165eea969",
+          "origin_commit": "71f51c876f2653962fe0b80e69f2864dbff792a4",
+          "path": "docs/assets/concept-animations/ctc-path-mass-motion.svg"
+        },
+        {
+          "origin_blob": "37cf6dce99267c31495f6662b70b0d57724e992d",
+          "origin_commit": "71f51c876f2653962fe0b80e69f2864dbff792a4",
+          "path": "docs/assets/concept-animations/ctc-path-mass-still.svg"
+        }
+      ],
+      "viewBox": "0 0 640 360"
+    },
     "gpipe-1f1b-schedule": {
       "origins": [
         {

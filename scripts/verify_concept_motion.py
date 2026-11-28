@@ -15,6 +15,20 @@ DOCS = Path("docs")
 ASSETS = DOCS / "assets" / "concept-animations"
 NS = "{http://www.w3.org/2000/svg}"
 TOPICS = {
+    'whisper-timestamp-interleave': 'theory/models/speech/index',
+    'whisper-window-seek': 'theory/models/speech/index',
+    'wav2vec-window-hop': 'theory/models/speech/index',
+    'wav2vec-mask-overlap': 'theory/models/speech/index',
+    'wav2vec-contrastive-normalization': 'theory/models/speech/index',
+    'wav2vec-diversity-mean': 'theory/models/speech/index',
+    'wav2vec-mask-target': 'theory/models/speech/index',
+    'wav2vec-product-quantization': 'theory/models/speech/index',
+    'ctc-alignment-posterior': 'theory/models/speech/index',
+    'ctc-prefix-repeat': 'theory/models/speech/index',
+    'ctc-collapse-scan': 'theory/models/speech/index',
+    'ctc-path-mass': 'theory/models/speech/index',
+    'ctc-forward-lattice': 'theory/models/speech/index',
+    'ctc-repeat-skip': 'theory/models/speech/index',
     'gpipe-1f1b-schedule': 'engineering/distributed-training/gpipe',
     'gpipe-activation-liveness': 'engineering/distributed-training/gpipe',
     'dynamo-shape-guard-cache': 'engineering/frameworks/compilers-and-kernels/torch-compile',
@@ -495,7 +509,21 @@ TOPICS = {
 }
 # Canvas contracts are review-time literals, never inferred from the SVG under test.
 # Every new TOPICS entry must explicitly declare its reviewed geometry here.
-CANONICAL_VIEWBOXES = {'kernel-fusion-intermediate-traffic': '0 0 640 360',
+CANONICAL_VIEWBOXES = {'whisper-timestamp-interleave': '0 0 640 360',
+ 'whisper-window-seek': '0 0 640 360',
+ 'wav2vec-window-hop': '0 0 640 360',
+ 'wav2vec-mask-overlap': '0 0 640 360',
+ 'wav2vec-contrastive-normalization': '0 0 640 360',
+ 'wav2vec-diversity-mean': '0 0 640 360',
+ 'wav2vec-mask-target': '0 0 640 360',
+ 'wav2vec-product-quantization': '0 0 640 360',
+ 'ctc-alignment-posterior': '0 0 640 360',
+ 'ctc-prefix-repeat': '0 0 640 360',
+ 'ctc-collapse-scan': '0 0 640 360',
+ 'ctc-path-mass': '0 0 640 360',
+ 'ctc-forward-lattice': '0 0 640 360',
+ 'ctc-repeat-skip': '0 0 640 360',
+ 'kernel-fusion-intermediate-traffic': '0 0 640 360',
  'ekfac-eigenvalue-correction': '0 0 640 360',
  'kfc-patch-second-moment': '0 0 640 360',
  'brier-murphy-decomposition': '0 0 640 360',
@@ -1379,7 +1407,15 @@ def main() -> int:
             # The site enhances GitHub-readable <img> fallbacks via data-motion-src.
             links.extend(re.findall(r'data-motion-src="([^"]+\.svg)"', text))
             linked_images = {(page.parent / link).resolve() for link in links}
-            if ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
+            if stem in {"ctc-collapse-scan", "ctc-path-mass", "ctc-forward-lattice", "ctc-repeat-skip", "ctc-alignment-posterior", "ctc-prefix-repeat", "wav2vec-mask-target", "wav2vec-product-quantization", "wav2vec-contrastive-normalization", "wav2vec-diversity-mean", "wav2vec-window-hop", "wav2vec-mask-overlap", "whisper-timestamp-interleave", "whisper-window-seek"}:
+                errors.extend(verify_source_pair(page, text, stem))
+                images = [img for img in MotionImages(text).images if stem in (img.get("src") or "")]
+                if not images or any(not (img.get("alt") or "").strip() for img in images):
+                    errors.append(f"{page}: missing localized alt text for {stem}")
+                preview_links = re.findall(r"(?<!!)\[[^]]+\]\(([^)]+\.svg)\)", text)
+                if static_path.resolve() not in {(page.parent / link).resolve() for link in preview_links}:
+                    errors.append(f"{page}: missing independent static preview for {stem}")
+            elif ((stem in NAS_STEMS | {"ddim-eta-coefficients", "ddim-strided-sampling", "ddpm-progressive-noising", "gqa-head-sharing", "gqa-uptraining-pooling"}) or (stem.startswith("ddpg-"))) or (stem in NAS_STEMS or stem.startswith("rainbow-")) or stem.startswith(("rnd-", "icm-")):
                 errors.extend(verify_source_pair(page, text, stem))
             elif stem in {"tpu-systolic-wavefront", "analog-crossbar-current-sum"}:
                 errors.extend(verify_source_pair(page, text, stem))
