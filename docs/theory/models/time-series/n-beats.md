@@ -80,10 +80,15 @@ The blue connector carries the first residual to the next block; the green conne
 
 A linear trend basis is the degree-one special case of polynomial expansion. For an illustrative coordinate $t\in[-1,1]$, fix the constant coefficient at 2 and vary the linear coefficient $a$:
 
-$$
-g_0(t)=1,\quad g_1(t)=t,\quad
-f(t)=2g_0(t)+ag_1(t)=2+at.
-$$
+$
+g_0(t)=1,\quad g_1(t)=t
+$
+
+The weighted sum is:
+
+$
+f(t)=2g_0(t)+ag_1(t)=2+at
+$
 
 | Coefficient a | f(-1) | f(0) | f(1) |
 | ---: | ---: | ---: | ---: |
